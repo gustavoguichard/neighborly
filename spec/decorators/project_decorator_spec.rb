@@ -41,7 +41,7 @@ describe ProjectDecorator do
 
   describe "#about_html" do
     subject{ project.about_html }
-    it{ should == '<p>Foo Bar <a href="http://www.foo.bar" target="_blank">http://www.foo.bar</a> &lt;javascript&gt;xss()&lt;/javascript&gt;<a target="_blank" href="http://click.here">Click here</a></p>' }
+    it{ should == '<p>Foo Bar <a href="http://www.foo.bar" target="_blank">http://www.foo.bar</a> <javascript>xss()</javascript><a target="_blank" href="http://click.here">Click here</a></p>' }
   end
 
   describe "#display_progress" do
