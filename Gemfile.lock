@@ -35,6 +35,17 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/devton/auto_html.git
+  revision: 7912f22446b80b9c999cc4fbdd934de429e08adf
+  branch: v1.4.2
+  specs:
+    auto_html (1.4.2)
+      RedCloth
+      redcarpet
+      rinku
+      tag_helper
+
+GIT
   remote: git://github.com/josemarluedke/postgres-copy.git
   revision: 41afec70f5c6b2431f045388b14a80d194329a20
   branch: rails4
@@ -103,11 +114,6 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.13)
-    auto_html (1.4.2)
-      RedCloth
-      redcarpet
-      rinku
-      tag_helper
     bcrypt-ruby (3.1.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
@@ -470,7 +476,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  auto_html (= 1.4.2)
+  auto_html (= 1.4.2)!
   best_in_place!
   better_errors
   binding_of_caller

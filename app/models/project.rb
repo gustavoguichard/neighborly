@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
   has_one :project_total
   accepts_nested_attributes_for :rewards
 
-  catarse_auto_html_for field: :about, video_width: 600, video_height: 403
+  catarse_auto_html_for field: :about, video_width: 600, video_height: 403, not_escape_html: true
 
   pg_search_scope :pg_search, against: [
       [:name, 'A'],

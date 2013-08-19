@@ -8,11 +8,16 @@ module CatarseAutoHtml
 
   def catarse_auto_html_for options={}
     self.auto_html_for options[:field] do
-      html_escape map: {
-        '&' => '&amp;',
-        '>' => '&gt;',
-        '<' => '&lt;',
-        '"' => '"' }
+      unless options[:not_escape_html]
+        html_escape map: {
+          '&' => '&amp;',
+          '>' => '&gt;',
+          '<' => '&lt;',
+          '"' => '"' }
+      end
+
+      tweets align: "center"
+      iframe width: 640
       image
       youtube width: options[:video_width], height: options[:video_height], wmode: "opaque"
       vimeo width: options[:video_width], height: options[:video_height]

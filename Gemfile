@@ -55,7 +55,7 @@ gem 'catarse_mailchimp', github: 'catarse/catarse_mailchimp', ref: '45dc426'
 
 # HTML manipulation and formatting
 gem 'formtastic',   '~> 2.2.1'
-gem "auto_html",    '= 1.4.2'
+gem 'auto_html', '= 1.4.2', github: 'devton/auto_html', branch: 'v1.4.2'
 gem 'kaminari'
 
 # Uploads
