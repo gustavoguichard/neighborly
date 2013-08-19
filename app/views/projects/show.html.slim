@@ -51,11 +51,12 @@
         = link_to '#', 'id' => 'backers_link', 'data-target' => '#project_backers' do
           = t('.menu.backers')
           span.count=" (#{@project.total_backers})"
-        = link_to '#', 'id' => 'comments_link', 'data-target' => '#project_comments' do
+        = link_to '#', 'id' => 'comments_link', 'data-target' => '#project_comments.content' do
           = t('.menu.comments')
-          | &nbsp; (
-          fb:comments-count href="#{request.url}"
-          | )
+          span.commentsCount style="display: none;"
+            | &nbsp;(
+            span#countNumber
+            | )
         - if can? :update, @project
           = link_to '#', 'id' => 'edit_link', 'data-target' => '#project_edit' do
             = t('.menu.edit')
@@ -82,7 +83,7 @@
           .results &nbsp;
           .clearfix
           #backers-loading.loading= image_tag "loading.gif"
-        #project_comments.content.hide
+        #project_comments.content.hide= render 'comments'
         #project_about.content= render 'project_about'
         #project_budget.content.hide= raw(@project.budget_html)
       .clearfix
