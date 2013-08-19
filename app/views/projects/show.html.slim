@@ -60,6 +60,9 @@
         - if @project.budget.present?
           = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
             = 'Budget'
+        - if @project.project_faqs.present? || can?(:update, @project)
+          = link_to '#', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
+            = 'FAQ'
         - if can? :update, @project
           = link_to '#', 'id' => 'edit_link', 'data-target' => '#project_edit' do
             = t('.menu.edit')
@@ -72,6 +75,12 @@
             = render partial: 'project_reports'
           #project_edit.content.hide
             = render partial: 'project_edit'
+
+        #project_faqs.content.hide
+          - if can? :update, @project
+            = render template: 'projects/project_faqs/new'
+            .results
+              = render template: 'projects/project_faqs/index'
 
         #project_updates.content.hide[data-path=project_updates_path(project_id: @project.id)]
           - if can? :update, @project

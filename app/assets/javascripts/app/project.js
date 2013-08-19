@@ -17,6 +17,7 @@ App.addChild('Project', _.extend({
     this.makeRoute('edit');
     this.makeRoute('reports');
     this.makeRoute('budget');
+    this.makeRoute('project_faqs');
   },
 
   toggleWarning: function(){
