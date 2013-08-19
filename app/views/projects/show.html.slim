@@ -57,14 +57,14 @@
             | &nbsp;(
             span#countNumber
             | )
+        - if @project.budget.present?
+          = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
+            = 'Budget'
         - if can? :update, @project
           = link_to '#', 'id' => 'edit_link', 'data-target' => '#project_edit' do
             = t('.menu.edit')
           = link_to '#', 'id' => 'reports_link', 'data-target' => '#project_reports' do
             = t('.menu.reports')
-        - if @project.budget.present?
-          = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
-            = 'Budget'
     .main
       #project_content
         - if can? :update, @project
