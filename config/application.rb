@@ -53,5 +53,6 @@ module Catarse
     # TODO: remove
     config.active_record.whitelist_attributes = false
 
+    config.middleware.use "WwwDitcher"
   end
 end
