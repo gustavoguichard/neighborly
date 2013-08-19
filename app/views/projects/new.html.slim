@@ -42,6 +42,10 @@
               p.inline-hints= t('formtastic.hints.project.about')
 
             .input
+              = form.label :budget, t('formtastic.labels.project.budget')
+              = form.text_area :budget, class: "#{'error' if @project.errors[:budget].present?}"
+
+            .input
               .bootstrap-alert
                 span
                 .alert

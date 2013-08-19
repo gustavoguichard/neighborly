@@ -18,7 +18,7 @@ class Ability
     # NOTE: Project authorizations
     can :create, :projects if current_user.persisted?
 
-    can :update, :projects, [:about, :video_url, :uploaded_image, :headline ] do |project|
+    can :update, :projects, [:about, :video_url, :uploaded_image, :headline, :budget ] do |project|
       project.user == current_user && ( project.online? || project.waiting_funds? || project.successful? || project.failed? )
     end
 

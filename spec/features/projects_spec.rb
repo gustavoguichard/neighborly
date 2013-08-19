@@ -89,4 +89,17 @@ describe "Projects" do
       page.should have_selector('a#edit_link')
     end
   end
+
+  describe "budget" do
+    let(:project) { create(:project, online_days: 10, state: 'online', user: current_user, budget: 'some budget') }
+
+    before do
+      login
+      visit project_path(project, locale: :pt)
+    end
+
+    it 'budget tab should be present' do
+      page.should have_selector('a#budget_link')
+    end
+  end
 end

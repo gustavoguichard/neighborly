@@ -61,6 +61,9 @@
             = t('.menu.edit')
           = link_to '#', 'id' => 'reports_link', 'data-target' => '#project_reports' do
             = t('.menu.reports')
+        - if @project.budget.present?
+          = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
+            = 'Budget'
     .main
       #project_content
         - if can? :update, @project
@@ -81,7 +84,7 @@
           #backers-loading.loading= image_tag "loading.gif"
         #project_comments.content.hide
         #project_about.content= render 'project_about'
-
+        #project_budget.content.hide= raw(@project.budget_html)
       .clearfix
     .sidebar
       .info

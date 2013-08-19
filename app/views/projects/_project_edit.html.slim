@@ -43,6 +43,8 @@
             |Você pode usar itálico adicionando um underline (_) antes e depois do texto que você quer formatar. Por exemplo, _meu texto em itálico_ irá aparecer como
             i meu texto em itálico
             |.
+      - if can? :update, @project, :budget
+        = form.input :budget, required: false
 
       .clearfix
       .form-actions.bootstrap-twitter
