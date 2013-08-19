@@ -126,5 +126,11 @@ FactoryGirl.define do
     acronym "RJ"
   end
 
+  factory :press_asset do
+    title 'Lorem'
+    url 'http://lorem.com'
+    image File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
+
 end
 
