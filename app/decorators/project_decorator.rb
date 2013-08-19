@@ -42,11 +42,11 @@ class ProjectDecorator < Draper::Decorator
   end
 
   def display_pledged
-    number_to_currency source.pledged
+    number_to_currency source.pledged, precision: 3
   end
 
   def display_goal
-    number_to_currency source.goal
+    number_to_currency source.goal, precision: 0
   end
 
   def progress_bar
@@ -59,11 +59,11 @@ class ProjectDecorator < Draper::Decorator
 
   def successful_flag
     return nil unless source.successful?
-    
+
     content_tag(:div, class: [:successful_flag]) do
       image_tag("channels/successful.png")
     end
-      
+
   end
 end
 
