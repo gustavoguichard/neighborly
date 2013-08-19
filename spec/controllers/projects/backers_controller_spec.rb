@@ -87,7 +87,7 @@ describe Projects::BackersController do
       let(:user){ create(:user) }
       its(:body){ should =~ /#{I18n.t('projects.backers.create.title')}/ }
       its(:body){ should =~ /#{project.name}/ }
-      its(:body){ should =~ /R\$ 20/ }
+      its(:body){ should =~ /\$20/ }
     end
 
     context "with invalid backer values" do
