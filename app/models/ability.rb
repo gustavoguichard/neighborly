@@ -15,6 +15,11 @@ class Ability
       !update.exclusive || !current_user.backs.confirmed.where(project_id: update.project.id).empty?
     end
 
+    # NOTE: Project FAQ authorizations
+    can :access, :project_faqs do |project_faq|
+      project_faq.project.user_id == current_user.id
+    end
+
     # NOTE: Project authorizations
     can :create, :projects if current_user.persisted?
 

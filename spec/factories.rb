@@ -15,6 +15,12 @@ FactoryGirl.define do
     "foo_page_#{n}"
   end
 
+  factory :project_faq do |f|
+    f.title "Foo bar"
+    f.answer "Bar foo"
+    f.association :project
+  end
+
   factory :user do |f|
     f.name "Foo bar"
     f.password "123456"
