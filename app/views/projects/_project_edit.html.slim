@@ -48,8 +48,7 @@
 
       - if can? :update, @project
         = form.input :terms, required: false
-
-      - if can? :update, @project
+        = form.input :hash_tag, required: false
         = form.input :site, required: false
 
       .clearfix

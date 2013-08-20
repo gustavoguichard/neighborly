@@ -115,6 +115,11 @@
               p.inline-hints= t('formtastic.hints.project.first_backers')
 
             .input
+              = form.label :hash_tag, t('formtastic.labels.project.hash_tag')
+              = form.text_field :hash_tag, class: "#{'error' if @project.errors[:hash_tag].present?}"
+              p.inline-hints= t('formtastic.hints.project.hash_tag')
+
+            .input
               = form.label :site, t('formtastic.labels.project.site')
               = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"
 
