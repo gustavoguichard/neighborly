@@ -1,4 +1,10 @@
 en:
+  simple_captcha:
+    label: "human authentication"
+    placeholder: "Type the code"
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
   failure_title: 'Please, fix the errors bellow:'
   uservoice_gadget:
     user:

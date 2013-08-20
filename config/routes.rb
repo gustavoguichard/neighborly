@@ -96,6 +96,7 @@ Catarse::Application.routes.draw do
       get 'check_slug'
     end
     member do
+      post :send_reward_email
       put 'pay'
       get 'embed'
       get 'video_embed'

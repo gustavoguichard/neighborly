@@ -1,5 +1,7 @@
 # coding: utf-8
 class ProjectsController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
+
   load_and_authorize_resource only: [ :new, :create, :update, :destroy ]
   inherit_resources
   has_scope :pg_search, :by_category_id, :near_of
@@ -86,6 +88,17 @@ class ProjectsController < ApplicationController
   def embed_panel
     @title = resource.name
     render layout: false
+  end
+
+  def send_reward_email
+    project = Project.find params[:id]
+    if simple_captcha_valid?
+      ProjectsMailer.contact_about_reward_email(params, project).deliver
+      flash[:notice] = 'We\'ve received your request and will be in touch shortly.'
+    else
+      flash[:error] = 'The code is not valid. Try again.'
+    end
+    redirect_to project_path(project)
   end
 
   protected
