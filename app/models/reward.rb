@@ -17,6 +17,8 @@ class Reward < ActiveRecord::Base
   validates_numericality_of :maximum_backers, only_integer: true, greater_than: 0, allow_nil: true
   scope :remaining, -> { where("maximum_backers IS NULL OR (maximum_backers IS NOT NULL AND (SELECT COUNT(*) FROM backers WHERE state = 'confirmed' AND reward_id = rewards.id) < maximum_backers)") }
   scope :sort_asc, -> { order('id ASC') }
+  scope :not_soon, -> { where('soon is not true') }
+  scope :soon, -> { where(soon: true) }
 
   def has_modification?
     versions.count > 1

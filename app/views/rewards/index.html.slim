@@ -10,7 +10,7 @@
           = image_tag 'loading.gif'
 
 
-  div[id="reward_#{reward.id}" data-new_backer_url=new_project_backer_path(parent, reward_id: reward.id) data-update_url=sort_project_reward_path(parent, reward) class="box #{(can?(:update, reward) ? 'clickable_owner sortable' : '')} #{(parent.online? && !reward.sold_out? && !can?(:update, reward)  ? 'clickable'  : '' )}"]
+  div[id="reward_#{reward.id}" data-new_backer_url=new_project_backer_path(parent, reward_id: reward.id) data-update_url=sort_project_reward_path(parent, reward) class="box #{(can?(:update, reward) ? 'clickable_owner sortable' : '')} #{(reward.soon?) ? 'soon' : ''} #{(parent.online? && !reward.sold_out? && !reward.soon? && !can?(:update, reward)  ? 'clickable'  : '' )}"]
     - if can?(:update, reward)
       .bootstrap-form.bootstrap-twitter id="reward#{reward.id}Editor"
         .bootstrap-twitter
@@ -18,7 +18,10 @@
             i.icon-pencil.icon-white
 
     h2= t('projects.rewards.reward_title', minimum: reward.display_minimum).html_safe
-    em= pluralize(reward.backers.confirmed.count, t('backer_singular'), t('backer_plural'))
+    - unless reward.soon?
+      em= pluralize(reward.backers.confirmed.count, t('backer_singular'), t('backer_plural'))
+    - else
+      em COMING SOON
     .clearfix
     p
       = reward.display_description
@@ -47,9 +50,10 @@
         .maximum_backers.in_time_to_confirm.clearfix
           .updated_reward
             span id="rewardVersioning#{reward.id}"
-              = 'Veja a versão anterior.'
+              = 'See the old version.'
     - if reward.show_contact_button
       p.bootstrap-twitter
         br/
         = link_to 'Please Contact Us', '#contactUsModal', style: 'color: white; text-decoration: none;', class: 'btn btn-info', :"data-toggle" => "modal"
 .clearfix
+
