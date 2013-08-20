@@ -78,6 +78,7 @@ Catarse::Application.routes.draw do
 
   resources :projects do
     resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
+    resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
       member do

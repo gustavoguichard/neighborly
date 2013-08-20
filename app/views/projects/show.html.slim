@@ -63,6 +63,9 @@
         - if @project.project_faqs.present? || can?(:update, @project)
           = link_to '#', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
             = 'FAQ'
+        - if @project.terms.present? || can?(:update, @project)
+          = link_to '#', 'id' => 'terms_link', 'data-target' => '#project_terms.content' do
+            = 'Terms'
         - if can? :update, @project
           = link_to '#', 'id' => 'edit_link', 'data-target' => '#project_edit' do
             = t('.menu.edit')
@@ -81,6 +84,18 @@
             = render template: 'projects/project_faqs/new'
             .results
               = render template: 'projects/project_faqs/index'
+
+        #project_terms.content.hide
+          - if can? :update, @project
+            = render template: 'projects/project_documents/new'
+          - if @project.project_documents.present?
+            .results
+              = render template: 'projects/project_documents/index'
+            hr/
+          - if @project.terms.present?
+            .text
+              h2 Terms
+              = raw(@project.terms_html)
 
         #project_updates.content.hide[data-path=project_updates_path(project_id: @project.id)]
           - if can? :update, @project

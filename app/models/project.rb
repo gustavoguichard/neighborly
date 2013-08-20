@@ -19,14 +19,17 @@ class Project < ActiveRecord::Base
   has_many :updates, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
+  has_many :project_documents, dependent: :destroy
 
   has_and_belongs_to_many :channels
 
   has_one :project_total
   accepts_nested_attributes_for :rewards
+  accepts_nested_attributes_for :project_documents
 
   catarse_auto_html_for field: :about, video_width: 600, video_height: 403, not_escape_html: true
   catarse_auto_html_for field: :budget, video_width: 600, video_height: 403
+  catarse_auto_html_for field: :terms, video_width: 600, video_height: 403
 
   pg_search_scope :pg_search, against: [
       [:name, 'A'],

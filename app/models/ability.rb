@@ -20,6 +20,11 @@ class Ability
       project_faq.project.user_id == current_user.id
     end
 
+    # NOTE: Project Document authorizations
+    can :access, :project_documents do |project_document|
+      project_document.project.user_id == current_user.id
+    end
+
     # NOTE: Project authorizations
     can :create, :projects if current_user.persisted?
 
