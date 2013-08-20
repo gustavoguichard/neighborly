@@ -48,4 +48,8 @@
           .updated_reward
             span id="rewardVersioning#{reward.id}"
               = 'Veja a versão anterior.'
+    - if reward.show_contact_button
+      p.bootstrap-twitter
+        br/
+        = link_to 'Please Contact Us', '#contactUsModal', style: 'color: white; text-decoration: none;', class: 'btn btn-info', :"data-toggle" => "modal"
 .clearfix

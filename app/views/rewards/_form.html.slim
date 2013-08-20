@@ -4,6 +4,8 @@
   = f.input :description
   = f.input :maximum_backers
   .clearfix
+  = f.input :show_contact_button, as: :boolean, label: 'Show contact button?'
+  .clearfix
   = f.submit class: 'btn', disable_with: I18n.t('sending')
   - if resource.persisted? && can?(:destroy, resource)
     br/
