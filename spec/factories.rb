@@ -21,6 +21,11 @@ FactoryGirl.define do
     f.association :project
   end
 
+  factory :project_document do |f|
+    f.document "foo.png"
+    f.association :project
+  end
+
   factory :user do |f|
     f.name "Foo bar"
     f.password "123456"

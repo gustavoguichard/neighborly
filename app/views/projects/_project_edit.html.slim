@@ -46,6 +46,9 @@
       - if can? :update, @project, :budget
         = form.input :budget, required: false
 
+      - if can? :update, @project
+        = form.input :terms, required: false
+
       .clearfix
       .form-actions.bootstrap-twitter
         = form.submit class: 'btn'

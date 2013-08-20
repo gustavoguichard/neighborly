@@ -46,6 +46,10 @@
               = form.text_area :budget, class: "#{'error' if @project.errors[:budget].present?}"
 
             .input
+              = form.label :terms, t('formtastic.labels.project.terms')
+              = form.text_area :terms, class: "#{'error' if @project.errors[:terms].present?}"
+
+            .input
               .bootstrap-alert
                 span
                 .alert

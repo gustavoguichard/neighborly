@@ -1,0 +1,12 @@
+ul
+  - @project.project_documents.each do |pd|
+    li
+      hr/
+      p= pd.document.filename
+      br/
+      = link_to 'Download document', pd.document.url, target: '__blank'
+
+      - if can? :update, @project
+        br/
+        = link_to 'delete document', [@project, pd], confirm: 'You are sure?', method: :delete
+      
