@@ -69,6 +69,8 @@ class Project < ActiveRecord::Base
   scope :recent, -> { where("(current_timestamp) - projects.online_date <= '5 days'::interval") }
   scope :successful, -> { where(state: 'successful') }
   scope :online, -> { where(state: 'online') }
+  scope :soon, -> { where(state: 'soon') }
+  scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
                                      CASE projects.state
                                      WHEN 'online' THEN 1
@@ -246,6 +248,7 @@ class Project < ActiveRecord::Base
   #NOTE: state machine things
   state_machine :state, initial: :draft do
     state :draft, value: 'draft'
+    state :soon, value: 'soon'
     state :rejected, value: 'rejected'
     state :online, value: 'online'
     state :successful, value: 'successful'
@@ -257,6 +260,10 @@ class Project < ActiveRecord::Base
       transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
     end
 
+    event :push_to_soon do
+      transition all => :soon #NOTE: when use 'all' we can't use new hash style ;(
+    end
+
     event :push_to_trash do
       transition [:draft, :rejected] => :deleted
     end
@@ -266,7 +273,7 @@ class Project < ActiveRecord::Base
     end
 
     event :approve do
-      transition draft: :online
+      transition [:draft, :soon] => :online
     end
 
     event :finish do
@@ -296,6 +303,7 @@ class Project < ActiveRecord::Base
     after_transition waiting_funds: [:successful, :failed], do: :after_transition_of_wainting_funds_to_successful_or_failed
     after_transition waiting_funds: :successful, do: :after_transition_of_wainting_funds_to_successful
     after_transition draft: :online, do: :after_transition_of_draft_to_online
+    after_transition soon: :online, do: :after_transition_of_soon_to_online
     after_transition draft: :rejected, do: :after_transition_of_draft_to_rejected
     after_transition any => [:failed, :successful], :do => :after_transition_of_any_to_failed_or_successful
     after_transition :waiting_funds => [:failed, :successful], :do => :after_transition_of_waiting_funds_to_failed_or_successful
@@ -335,6 +343,11 @@ class Project < ActiveRecord::Base
   end
 
   def after_transition_of_draft_to_online
+    update_attributes({ online_date: DateTime.now })
+    notify_observers :notify_owner_that_project_is_online
+  end
+
+  def after_transition_of_soon_to_online
     update_attributes({ online_date: DateTime.now })
     notify_observers :notify_owner_that_project_is_online
   end

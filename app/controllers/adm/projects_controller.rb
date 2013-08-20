@@ -9,7 +9,7 @@ class Adm::ProjectsController < Adm::BaseController
     @total_projects = Project.count
   end
 
-  [:approve, :reject, :push_to_draft].each do |name|
+  [:approve, :reject, :push_to_draft, :push_to_soon].each do |name|
     define_method name do
       @project = Project.find params[:id]
       @project.send("#{name.to_s}!")

@@ -14,20 +14,15 @@ class ProjectsController < ApplicationController
     index! do |format|
       format.html do
         if request.xhr?
-          @projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(6)
+          @projects = apply_scopes(Project).visible.not_soon.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(6)
           return render partial: 'project', collection: @projects, layout: false
         else
 
           @title = t("site.title")
-          @recommends = if current_user && current_user.recommended_projects.present?
-                            current_user.recommended_projects.limit(3)
-                          else
-                            ProjectsForHome.recommends
-                          end
-
-          @projects_near = Project.online.near_of(current_user.address_state).order("random()").limit(3) if current_user
-          @expiring = ProjectsForHome.expiring
-          @recent   = ProjectsForHome.recents
+          @recommends = Project.visible.not_soon.recommended
+          @projects_near = Project.online.not_soon.near_of(current_user.address_state).order('random()').limit(3) if current_user
+          @soon = Project.visible.soon
+          @succesful = Project.visible.successful
         end
       end
     end

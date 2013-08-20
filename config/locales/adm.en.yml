@@ -8,6 +8,7 @@ en:
         submit: 'Filter'
         send_to_trash: 'Delete'
         send_to_draft: 'Send to DRAFT!'
+        send_to_soon: 'Send to SOON!'
         reject: 'Reject!'
         approve: 'Approve!'
         order_asc: 'Goal asc'

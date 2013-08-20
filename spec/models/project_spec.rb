@@ -33,7 +33,7 @@ describe Project do
   end
 
   describe '.state_names' do
-    let(:states) { [:draft, :rejected, :online, :successful, :waiting_funds, :failed] }
+    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds, :failed] }
 
     subject { Project.state_names }
 
@@ -262,6 +262,24 @@ describe Project do
       create(:project, state: 'draft')
     end
     subject{ Project.online}
+    it{ should == [@p] }
+  end
+
+  describe ".soon" do
+    before do
+      @p = create(:project, state: 'soon')
+      create(:project, state: 'draft')
+    end
+    subject{ Project.soon}
+    it{ should == [@p] }
+  end
+
+  describe ".not_soon" do
+    before do
+      @p = create(:project, state: 'online')
+      create(:project, state: 'soon')
+    end
+    subject{ Project.not_soon}
     it{ should == [@p] }
   end
 

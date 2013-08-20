@@ -14,39 +14,35 @@
               == render 'project', project: item, custom_class: ((@projects_near.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
           .explore_link
             hr
-            = link_to t('main.links.near'), explore_path(anchor: :near)
       .selected_projects.list
         .list_title
           .title
             h2= t('sections.selection.title')
         .projects
           - @recommends.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@expiring.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
+            == render 'project', project: item, custom_class: ((@recommends.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
           hr
-          = link_to t('main.links.selected'), explore_path(anchor: :recommended)
 
-      .expiring_projects.list
+      .coming_soon_projects.list
         .list_title
           .title
-            h2= t('sections.expiring.title')
+            h2= t('sections.coming_soon.title')
         .projects
-          - @expiring.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@expiring.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
+          - @soon.each_with_index do |item,i|
+            == render 'project', project: item, custom_class: ((@soon.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
           hr
-          = link_to t('main.links.expiring'), explore_path(anchor: :expiring)
 
-      .recents_projects.list
+      .succesful_projects.list
         .list_title
           .title
-            h2= t('sections.recents.title')
+            h2= t('sections.succesful.title')
         .projects
-          - @recent.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@recent.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
+          - @succesful.each_with_index do |item,i|
+            == render 'project', project: item, custom_class: ((@succesful.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
           hr
-          = link_to t('main.links.recents'), explore_path(anchor: :recent)
 
     .sidebar
       .content

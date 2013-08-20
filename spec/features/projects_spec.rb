@@ -18,13 +18,18 @@ describe "Projects" do
 
   describe "home" do
     before do
-      create(:project, state: 'online', online_days: 30, online_date: Time.now)
-      create(:project, state: 'online', online_days: 30, online_date: 7.days.ago)
+      create(:project, state: 'online', recommended: true, online_days: 30, online_date: Time.now)
+      create(:project, state: 'soon', online_days: 30, online_date: 7.days.ago)
       visit root_path(locale: :pt)
     end
 
-    it "should show recent projects" do
-      recent = all(".recents_projects.list .project")
+    it "should show recommended projects" do
+      recent = all(".selected_projects.list .project")
+      recent.should have(1).items
+    end
+
+    it "should show coming soon projects" do
+      recent = all(".coming_soon_projects.list .project")
       recent.should have(1).items
     end
   end

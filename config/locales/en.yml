@@ -116,11 +116,11 @@ en:
     near:
       title: near me
     selection:
-      title: selection
-    expiring:
-      title: expiring
-    recents:
-      title: recent
+      title: Recommended
+    coming_soon:
+      title: Coming soon
+    succesful:
+      title: Funded
     partners:
       title: partners
   accept_terms_html: "I have read and accepted the %{link}."
