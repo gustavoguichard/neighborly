@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   mount_uploader :video_thumbnail, ProjectUploader
 
   delegate :display_status, :display_progress, :display_image, :display_expires_at,
-    :display_pledged, :display_goal, :remaining_days, :display_video_embed_url, :progress_bar, :successful_flag,
+    :display_pledged, :display_goal, :remaining_days, :display_video_embed_url, :progress_bar, :successful_flag, :display_address_formated,
     to: :decorator
 
   schema_associations
@@ -58,7 +58,7 @@ class Project < ActiveRecord::Base
     end
   }
 
-  scope :near_of, ->(address_state) { joins(:user).where("lower(users.address_state) = lower(?)", address_state) }
+  scope :near_of, ->(address_state) { where("lower(address_state) = lower(?)", address_state) }
   scope :visible, -> { where("projects.state NOT IN ('draft', 'rejected', 'deleted')") }
   scope :financial, -> { where("((projects.expires_at) > (current_timestamp) - '15 days'::interval) AND (state in ('online', 'successful', 'waiting_funds'))") }
   scope :recommended, -> { where(recommended: true) }

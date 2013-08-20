@@ -50,6 +50,9 @@
         = form.input :terms, required: false
         = form.input :hash_tag, required: false
         = form.input :site, required: false
+        = form.input :address_neighborhood
+        = form.input :address_city
+        = form.input :address_state, collection: State.array
 
       .clearfix
       .form-actions.bootstrap-twitter

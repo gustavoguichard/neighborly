@@ -31,6 +31,16 @@ class ProjectDecorator < Draper::Decorator
     end
   end
 
+  def display_address_formated
+    text = ""
+    if source.address_city || source.address_state
+      text += "#{source.address_neighborhood} // " unless source.address_neighborhood.blank?
+      text += source.address_city unless source.address_city.blank?
+      text += "#{source.address_city.present? ? ', ' : ''}#{source.address_state}" unless source.address_state.blank?
+    end
+    text
+  end
+
   def display_video_embed_url
     if source.video_embed_url
       "#{source.video_embed_url}?title=0&byline=0&portrait=0&autoplay=0"

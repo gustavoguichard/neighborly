@@ -39,6 +39,35 @@ describe ProjectDecorator do
     end
   end
 
+  describe "#display_address_formated" do
+    subject{ project.display_address_formated }
+
+    context "when we have all the address fields" do
+      let(:project){ create(:project, address_city: 'Kansas City', address_state: 'MO', address_neighborhood: 'Downtown') }
+      it{ should == "Downtown // Kansas City, MO" }
+    end
+
+    context "when we have just address_city" do
+      let(:project){ create(:project, address_city: 'Kansas City') }
+      it{ should == 'Kansas City' }
+    end
+
+    context "when we have just address_state" do
+      let(:project){ create(:project, address_state: 'MO') }
+      it{ should == 'MO' }
+    end
+
+    context "when we have just address_neighborhood" do
+      let(:project){ create(:project, address_neighborhood: 'Downtown') }
+      it{ should == '' }
+    end
+
+    context "when we have address_city and address_state" do
+      let(:project){ create(:project, address_city: 'Kansas City', address_state: 'MO') }
+      it{ should == 'Kansas City, MO' }
+    end
+  end
+
   describe "#about_html" do
     subject{ project.about_html }
     it{ should == '<p>Foo Bar <a href="http://www.foo.bar" target="_blank">http://www.foo.bar</a> <javascript>xss()</javascript><a target="_blank" href="http://click.here">Click here</a></p>' }

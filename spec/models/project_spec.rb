@@ -42,10 +42,8 @@ describe Project do
 
   describe '.near_of' do
     before do
-      mg_user = create(:user, address_state: 'MG')
-      sp_user = create(:user, address_state: 'SP')
-      3.times { create(:project, user: mg_user) }
-      6.times { create(:project, user: sp_user) }
+      3.times { create(:project, address_state: 'MG') }
+      6.times { create(:project, address_state: 'SP') }
     end
 
     let(:state) { 'MG' }

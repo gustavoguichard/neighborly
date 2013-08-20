@@ -124,13 +124,24 @@
               = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"
 
             .input
+              = form.label :address_neighborhood, t('formtastic.labels.project.address_neighborhood')
+              = form.text_field :address_neighborhood, class: "#{'error' if @project.errors[:address_neighborhood].present?}"
+
+            .input
+              = form.label :address_city, t('formtastic.labels.project.address_city')
+              = form.text_field :address_city, class: "#{'error' if @project.errors[:address_city].present?}"
+
+            .input
+              = form.label :address_state, t('formtastic.labels.project.address_state')
+              = form.select_tag :address_state, options_for_select(State.array), class: "#{'error' if @project.errors[:address_state].present?}"
+
+            .input
               .bootstrap-alert
                 span
                 .alert
                   .important= t('.how_know_important')
               = form.label :how_know, t('formtastic.labels.project.how_know')
               = form.text_area :how_know, class: "#{'error' if @project.errors[:how_know].present?}"
-
 
 
             .clearfix
