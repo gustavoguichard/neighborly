@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ProjectDocuments do
+describe ProjectDocument do
   describe "Validations" do
     it { validate_presence_of(:document) }
   end
