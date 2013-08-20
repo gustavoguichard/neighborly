@@ -95,6 +95,12 @@ class Project < ActiveRecord::Base
   validates_format_of :video_url, with: /https?:\/\/(www\.)?vimeo.com\/(\d+)/, message: I18n.t('project.video_regex_validation'), allow_blank: true
   validate :permalink_cant_be_route, allow_nil: true
 
+  before_validation do
+    if self.site.present?
+      self.site = "http://#{self.site}" if not self.site[0..6] == 'http://' and not self.site[0..7] == 'https://'
+    end
+  end
+
   def self.between_created_at(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)

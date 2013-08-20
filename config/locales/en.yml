@@ -303,6 +303,7 @@ en:
         online_days: 'How Many Campaign Days?'
         video_url: Video
         uploaded_image: "Project thumbnail"
+        site: 'Project Website'
       reward:
         maximum_backers: "Maximum backers (optional)"
         days_to_delivery: "Days to delivery"

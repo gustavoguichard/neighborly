@@ -49,6 +49,9 @@
       - if can? :update, @project
         = form.input :terms, required: false
 
+      - if can? :update, @project
+        = form.input :site, required: false
+
       .clearfix
       .form-actions.bootstrap-twitter
         = form.submit class: 'btn'

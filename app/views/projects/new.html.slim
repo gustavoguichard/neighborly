@@ -115,6 +115,10 @@
               p.inline-hints= t('formtastic.hints.project.first_backers')
 
             .input
+              = form.label :site, t('formtastic.labels.project.site')
+              = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"
+
+            .input
               .bootstrap-alert
                 span
                 .alert
