@@ -313,8 +313,8 @@ en:
   found_plural: Found
   found_singular: Found
   here: here
-  i_backed: "I backed the project %{name} on @catarse"
-  i_just_backed: "I just backed the project %{name} on @catarse"
+  i_backed: "I backed the project %{name} on @Neighborly"
+  i_just_backed: 'I just contributed %{value} to %{name} on @Neighborly: %{site}'
   layouts:
     login:
       login_with_facebook: "sign in with your facebook account"
@@ -593,7 +593,7 @@ en:
       subtitle: "The time to make it happen is now! We really want to know what you're up to..."
       title: "Submit your project"
     twitter:
-      take_a_look: "Check out the project %{name} on @catarse"
+      take_a_look: "Check out the project %{name} #%{hash_tag} on @Neighborly"
     video_embed:
       a_project_by_html: "A project by %{link} on"
   projects_mailer:
