@@ -32,6 +32,28 @@ describe User do
     it{ should validate_uniqueness_of(:email) }
   end
 
+  describe "profile types" do
+    let(:user) { create(:user) }
+
+    describe "#personal?" do
+      subject { user.personal? }
+
+      context "when user is new" do
+        it { should be_true }
+      end
+    end
+
+    describe "#company" do
+      let(:user) { create(:user, profile_type: 'company') }
+
+      subject { user.company? }
+
+      context "when change profile type to company" do
+        it { should be_true }
+      end
+    end
+  end
+
   describe ".has_credits" do
     subject{ User.has_credits }
 

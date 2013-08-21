@@ -1,6 +1,4 @@
 # coding: utf-8
-
-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -118,6 +116,11 @@ class User < ActiveRecord::Base
   scope :by_key, ->(key){ where('EXISTS(SELECT true FROM backers WHERE backers.user_id = users.id AND backers.key ~* ?)', key) }
   scope :has_credits, -> { joins(:user_total).where('user_totals.credits > 0') }
   scope :order_by, ->(sort_field){ order(sort_field) }
+
+  state_machine :profile_type, initial: :personal do
+    state :personal, value: 'personal'
+    state :company, value: 'company'
+  end
 
   def self.backer_totals
     connection.select_one(
