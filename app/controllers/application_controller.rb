@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :namespace, :fb_admins, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso
 
-  before_filter :set_locale
   before_filter :force_http
 
   # TODO: Change this way to get the opendata
@@ -71,20 +70,6 @@ class ApplicationController < ActionController::Base
     names = self.class.to_s.split('::')
     return "null" if names.length < 2
     names[0..(names.length-2)].map(&:downcase).join('_')
-  end
-
-  def set_locale
-    if params[:locale]
-      I18n.locale = params[:locale]
-      current_user.update_attribute :locale, params[:locale] if current_user && params[:locale] != current_user.locale
-    elsif request.method == "GET"
-      new_locale = (current_user.locale if current_user) || I18n.default_locale
-      begin
-        return redirect_to params.merge(locale: new_locale, only_path: true)
-      rescue ActionController::RoutingError
-        logger.info "Could not redirect with params #{params.inspect} in set_locale"
-      end
-    end
   end
 
   def use_catarse_boostrap

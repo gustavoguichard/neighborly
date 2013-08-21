@@ -35,6 +35,7 @@ FactoryGirl.define do
 
   factory :category do |f|
     f.name_pt { generate(:name) }
+    f.name_en { generate(:name) }
   end
 
   factory :project do |f|

@@ -1,6 +1,4 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_filter :set_locale
-
   def self.add_providers
     OauthProvider.all.each do |p|
       define_method p.name.downcase do

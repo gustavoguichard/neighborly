@@ -238,7 +238,6 @@ GEM
     heroku-deflater (0.5.1)
       rack (>= 1.4.5)
     hike (1.2.3)
-    http_accept_language (1.0.2)
     http_parser.rb (0.5.3)
     httparty (0.6.1)
       crack (= 0.1.8)
@@ -370,8 +369,6 @@ GEM
       mime-types (>= 1.16)
     rinku (1.7.3)
     rmagick (2.13.2)
-    routing-filter (0.4.0.pre)
-      actionpack
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -511,7 +508,6 @@ DEPENDENCIES
   formtastic (~> 2.2.1)
   has_scope (~> 0.6.0.rc)
   heroku-deflater (>= 0.4.1)
-  http_accept_language
   httparty (~> 0.6.1)
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
@@ -541,7 +537,6 @@ DEPENDENCIES
   rails_autolink (~> 1.1.0)
   ranked-model
   rmagick
-  routing-filter (~> 0.4.0.pre)
   rspec-rails (~> 2.14.0)
   sass-rails (~> 4.0.0)
   schema_associations (~> 1.2.0)

@@ -38,8 +38,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     ActiveRecord::Base.connection.execute "SET client_min_messages TO warning;"
     DatabaseCleaner.clean_with :truncation
-    I18n.locale = :pt
-    I18n.default_locale = :pt
+    I18n.locale = :en
+    I18n.default_locale = :en
   end
 
   config.before(:each) do
@@ -50,7 +50,6 @@ RSpec.configure do |config|
     end
     DatabaseCleaner.start
     ActionMailer::Base.deliveries.clear
-    RoutingFilter.active = false # Because this issue: https://github.com/svenfuchs/routing-filter/issues/36
   end
 
   config.after(:each) do

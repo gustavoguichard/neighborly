@@ -6,8 +6,6 @@ describe "Projects" do
   let(:project){ build(:project) }
 
   before {
-    #NOTE: Weird bug on edit project test
-    RoutingFilter.active = true
     ProjectsController.any_instance.stub(:last_tweets).and_return([])
   }
   before {
