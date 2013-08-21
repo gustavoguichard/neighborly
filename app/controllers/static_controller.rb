@@ -7,6 +7,10 @@ class StaticController < ApplicationController
     @title = t('static.terms.title')
   end
 
+  def privacy
+    @title = t('static.privacy.title')
+  end
+
   def guidelines_tips
     @title = t('static.guidelines_tips.title')
   end

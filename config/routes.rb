@@ -65,6 +65,7 @@ Catarse::Application.routes.draw do
   get "/about",                 to: "static#about",               as: :about
   get "/faq",                   to: "static#faq",                 as: :faq
   get "/terms",                 to: "static#terms",               as: :terms
+  get "/privacy",               to: "static#privacy",             as: :privacy
 
 
   get "/explore" => "explore#index", as: :explore
