@@ -8,24 +8,38 @@ describe UserDecorator do
   describe "#display_name" do
     subject{ user.display_name }
 
-    context "when we only have a full name" do
-      let(:user){ create(:user, name: nil, full_name: "Full Name") }
-      it{ should == 'Full Name' }
+    context 'when profile type is personal' do
+      context "when we only have a full name" do
+        let(:user){ create(:user, name: nil, full_name: "Full Name") }
+        it{ should == 'Full Name' }
+      end
+
+      context "when we have only a name" do
+        let(:user){ create(:user, name: nil, name: 'name') }
+        it{ should == 'name' }
+      end
+
+      context "when we have a name and a full name" do
+        let(:user){ create(:user, name: 'name', full_name: 'full name') }
+        it{ should == 'name' }
+      end
+
+      context "when we have no name" do
+        let(:user){ create(:user, name: nil, nickname: nil) }
+        it{ should == I18n.t('user.no_name') }
+      end
     end
 
-    context "when we have only a name" do
-      let(:user){ create(:user, name: nil, name: 'name') }
-      it{ should == 'name' }
-    end
+    context 'when profile type is company' do
+      context "when we the company name" do
+        let(:user){ create(:user, profile_type: 'company', company_name: 'Neighbor.ly') }
+        it{ should == 'Neighbor.ly' }
+      end
 
-    context "when we have a name and a full name" do
-      let(:user){ create(:user, name: 'name', full_name: 'full name') }
-      it{ should == 'name' }
-    end
-
-    context "when we have no name" do
-      let(:user){ create(:user, name: nil, nickname: nil) }
-      it{ should == I18n.t('user.no_name') }
+      context "when we have no company name" do
+        let(:user){ create(:user, profile_type: 'company', company_name: nil) }
+        it{ should == I18n.t('user.no_name') }
+      end
     end
   end
 

@@ -3,7 +3,11 @@ class UserDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def display_name
-    source.name || source.full_name || I18n.t('user.no_name')
+    if source.company?
+      source.company_name || I18n.t('user.no_name')
+    else
+      source.name || source.full_name || I18n.t('user.no_name')
+    end
   end
 
   def display_image
