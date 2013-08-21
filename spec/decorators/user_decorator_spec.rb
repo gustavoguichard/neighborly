@@ -88,7 +88,7 @@ describe UserDecorator do
 
       context 'when we dont have a company logo' do
         let(:user){ build(:user, profile_type: 'company', company_logo: nil )}
-        it{ should == '/assets/logo-blank.png' }
+        it{ should == '/assets/neighborly/logo-blank.png' }
       end
     end
   end

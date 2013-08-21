@@ -12,7 +12,7 @@ class UserDecorator < Draper::Decorator
 
   def display_image
     if source.company?
-      source.company_logo.thumb.url || '/assets/logo-blank.png'
+      source.company_logo.thumb.url || '/assets/neighborly/logo-blank.png'
     else
       source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || '/assets/user.png'
     end
