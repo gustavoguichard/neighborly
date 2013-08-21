@@ -105,9 +105,9 @@ en:
       near: "explore more near me projects"
   sidebar:
     titles:
-      blog: blog
-      facebook: "have you liked our facebook page yet?"
-      newsletter: "do you want to receive our news?"
+      blog: "Around the 'hood..."
+      facebook: "On Facebook..."
+      twitter: "Tweet, tweet..."
       faq: "have any doubt?"
       schedule: calendar
     buttons:

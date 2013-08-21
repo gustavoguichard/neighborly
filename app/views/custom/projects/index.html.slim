@@ -49,7 +49,7 @@
         .blog
           h3= t('sidebar.titles.blog')
           ul.posts
-            - (Blog.fetch_last_posts rescue [])[0..2].each do |post|
+            - (Blog.fetch_last_posts rescue [])[0..0].each do |post|
               li
                 h2
                   = link_to post.url, target: '__blank' do
@@ -61,13 +61,25 @@
 
         .facebook
           h3= t('sidebar.titles.facebook')
-          .fb-like data-href="#{Configuration['facebook_url']}" data-send="false" data-width="160" data-show-faces="true"
-        #twitter.twitter[data-username="@#{Configuration['twitter_username']}"]
-        .newsletter
-          h3= t('sidebar.titles.newsletter')
-          = form_tag Configuration['mailchimp_url'], id: 'mailee-form', method: 'post' do
-            = text_field_tag 'EMAIL', nil, placeholder: 'email@email.com', label: 'email'
-            = submit_tag t('sidebar.buttons.newsletter')
+          .fb-like-box data-href="#{Configuration['facebook_url']}" data-width="198" data-height="300" data-show-faces="true" data-stream="false" data-header="false" data-show-border="false"
+
+        .twitter
+          h3= t('sidebar.titles.twitter')
+          a.twitter-timeline height="330" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
+
+        .faq
+          = link_to "faq_path" do
+            = image_tag 'neighborly/faq.png'
+
+        .how_it_works
+          = link_to guidelines_path do
+            = image_tag 'neighborly/how_it_works.png'
+
+        .about_us
+          = link_to about_path do
+            = image_tag 'neighborly/about_us.png'
+
+
     .clearfix
 
 
