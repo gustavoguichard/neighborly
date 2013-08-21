@@ -456,11 +456,10 @@ en:
       rewards_title: Rewards
       submit: "Submit project"
     index_header:
-      subtitle: "Fund projects collaboratively and become part of something bigger. Promote a collective catharsis! You're the missing part in this story."
-      subtitle_html: "Fund projects collaboratively and become part of something bigger.<br/>Promote a collective catharsis! You're the missing part in this story."
-      title: "Make the projects you believe in happen"
+      subtitle_html: "Enhance cities and earn perks.<br/> Create jobs and save taxes.<br><br>Everyone wins. You're the solution you've been waiting for."
+      title: "Invest in places and civic projects <em>you</em> care about"
     recommended_header:
-      suggest_for_you: "suggested for you"
+      suggest_for_you: "Featured Project"
       highlight_project: "featured project"
       guidelines: "How it Works"
       guidelines_subtitle: "Getting to know Neighbor.ly"
@@ -500,7 +499,7 @@ en:
       user: User
       value: Value
     project:
-      backed: backed
+      backed: so far
       reached: reached
     project_backers:
       empty: "Nobody backed this project so far. How about being the first one?"

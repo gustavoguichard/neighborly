@@ -61,7 +61,7 @@ describe Project do
 
     subject { Project.featured }
 
-    it { should == @p1 }
+    it { should == [@p1] }
   end
 
   describe "by_permalink" do

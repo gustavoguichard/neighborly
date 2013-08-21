@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
         else
 
           @title = t("site.title")
+          @featured_project = Project.featured.first
           @recommends = Project.visible.not_soon.recommended
           @projects_near = Project.online.not_soon.near_of(current_user.address_state).order('random()').limit(3) if current_user
           @soon = Project.visible.soon
