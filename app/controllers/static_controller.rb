@@ -3,6 +3,10 @@ class StaticController < ApplicationController
     @title = t('static.guidelines.title')
   end
 
+  def terms
+    @title = t('static.terms.title')
+  end
+
   def guidelines_tips
     @title = t('static.guidelines_tips.title')
   end

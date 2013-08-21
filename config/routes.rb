@@ -64,6 +64,7 @@ Catarse::Application.routes.draw do
   get "/guidelines_start",      to: "static#guidelines_start",    as: :guidelines_start
   get "/about",                 to: "static#about",               as: :about
   get "/faq",                   to: "static#faq",                 as: :faq
+  get "/terms",                 to: "static#terms",               as: :terms
 
 
   get "/explore" => "explore#index", as: :explore
