@@ -53,24 +53,43 @@ describe UserDecorator do
   describe "#display_image" do
     subject{ user.display_image }
 
-    context "when we have an uploaded image" do
-      let(:user){ build(:user, uploaded_image: 'image.png' )}
-      before do
-        image = stub(url: 'image.png')
-        image.stub(:thumb_avatar).and_return(image)
-        user.stub(:uploaded_image).and_return(image)
+    context 'when profile type is personal' do
+      context "when we have an uploaded image" do
+        let(:user){ build(:user, uploaded_image: 'image.png' )}
+        before do
+          image = stub(url: 'image.png')
+          image.stub(:thumb_avatar).and_return(image)
+          user.stub(:uploaded_image).and_return(image)
+        end
+        it{ should == 'image.png' }
       end
-      it{ should == 'image.png' }
+
+      context "when we have an image url" do
+        let(:user){ build(:user, image_url: 'image.png') }
+        it{ should == 'image.png' }
+      end
+
+      context "when we have an email" do
+        let(:user){ create(:user, image_url: nil, email: 'diogob@gmail.com') }
+        it{ should == "https://gravatar.com/avatar/5e2a237dafbc45f79428fdda9c5024b1.jpg?default=#{::Configuration[:base_url]}/assets/user.png" }
+      end
     end
 
-    context "when we have an image url" do
-      let(:user){ build(:user, image_url: 'image.png') }
-      it{ should == 'image.png' }
-    end
+    context 'when profile type is company' do
+      context "when we have a company logo" do
+        let(:user){ build(:user, profile_type: 'company', company_logo: 'image.png' )}
+        before do
+          image = stub(url: 'image.png')
+          image.stub(:thumb).and_return(image)
+          user.stub(:company_logo).and_return(image)
+        end
+        it{ should == 'image.png' }
+      end
 
-    context "when we have an email" do
-      let(:user){ create(:user, image_url: nil, email: 'diogob@gmail.com') }
-      it{ should == "https://gravatar.com/avatar/5e2a237dafbc45f79428fdda9c5024b1.jpg?default=#{::Configuration[:base_url]}/assets/user.png" }
+      context 'when we dont have a company logo' do
+        let(:user){ build(:user, profile_type: 'company', company_logo: nil )}
+        it{ should == '/assets/logo-blank.png' }
+      end
     end
   end
 
