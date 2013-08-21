@@ -58,6 +58,7 @@ class Project < ActiveRecord::Base
     end
   }
 
+  scope :featured, -> { visible.where(featured: true).limit(1).first }
   scope :near_of, ->(address_state) { where("lower(address_state) = lower(?)", address_state) }
   scope :visible, -> { where("projects.state NOT IN ('draft', 'rejected', 'deleted')") }
   scope :financial, -> { where("((projects.expires_at) > (current_timestamp) - '15 days'::interval) AND (state in ('online', 'successful', 'waiting_funds'))") }

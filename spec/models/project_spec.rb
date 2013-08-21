@@ -53,6 +53,17 @@ describe Project do
     it { should have(3).itens }
   end
 
+  describe '.featured' do
+    before do
+      @p1 = create(:project, featured: true, state: 'online')
+      create(:project, featured: false, state: 'online')
+    end
+
+    subject { Project.featured }
+
+    it { should == @p1 }
+  end
+
   describe "by_permalink" do
     context "when project is deleted" do
       before do
