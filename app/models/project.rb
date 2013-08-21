@@ -124,6 +124,10 @@ class Project < ActiveRecord::Base
     end.compact!
   end
 
+  def self.campaign_type_names
+    ["flexible", "all_or_none"]
+  end
+
   def subscribed_users
     User.subscribed_to_updates.subscribed_to_project(self.id)
   end
@@ -252,6 +256,12 @@ class Project < ActiveRecord::Base
   end
 
   #NOTE: state machine things
+
+  state_machine :campaign_type, initial: :all_or_none do
+    state :all_or_none, value: 'all_or_none'
+    state :flexible, value: 'flexible'
+  end
+
   state_machine :state, initial: :draft do
     state :draft, value: 'draft'
     state :soon, value: 'soon'
@@ -284,19 +294,19 @@ class Project < ActiveRecord::Base
 
     event :finish do
       transition online: :failed,             if: ->(project) {
-        project.expired? && !project.pending_backers_reached_the_goal? && !project.can_go_to_second_chance?
+        !project.flexible? && project.expired? && !project.pending_backers_reached_the_goal? && !project.can_go_to_second_chance?
       }
 
       transition online: :waiting_funds,      if: ->(project) {
-        project.expired? && (project.pending_backers_reached_the_goal? || project.can_go_to_second_chance?)
+        project.expired? && (project.pending_backers_reached_the_goal? || project.can_go_to_second_chance? || project.flexible?)
       }
 
       transition waiting_funds: :successful,  if: ->(project) {
-        project.reached_goal? && !project.in_time_to_wait?
+        (project.reached_goal? || project.flexible?) && !project.in_time_to_wait?
       }
 
       transition waiting_funds: :failed,      if: ->(project) {
-        project.expired? && !project.reached_goal? && !project.in_time_to_wait? && !project.can_go_to_second_chance?
+        !project.flexible? && project.expired? && !project.reached_goal? && !project.in_time_to_wait? && !project.can_go_to_second_chance?
       }
 
       transition waiting_funds: :waiting_funds,      if: ->(project) {

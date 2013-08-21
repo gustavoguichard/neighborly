@@ -23,6 +23,11 @@
                   = t('.permalink_hint')
 
             / div class="input control-group #{ 'error' if @project.errors[:name].present?}"
+
+            .input
+              = form.label :campaign_type, 'Campaign Type'
+              = form.select :campaign_type, Project.campaign_type_names, html: { class: "#{'error' if @project.errors[:name].present?}" }
+
             .input
               .bootstrap-alert
                 span
