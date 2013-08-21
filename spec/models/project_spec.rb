@@ -637,6 +637,28 @@ describe Project do
     end
   end
 
+  describe "campaign types" do
+    let(:project) { create(:project) }
+
+    describe "#all_or_none?" do
+      subject { project.all_or_none? }
+
+      context "when project is new" do
+        it { should be_true }
+      end
+    end
+
+    describe "#flexible?" do
+      let(:project) { create(:project, campaign_type: 'flexible') }
+
+      subject { project.flexible? }
+
+      context "when change campaign type to flexible" do
+        it { should be_true }
+      end
+    end
+  end
+
   describe "state machine" do
     let(:project) { create(:project, state: 'draft') }
 
@@ -712,38 +734,89 @@ describe Project do
       subject { main_project }
 
       context 'when project is not approved' do
-        before do
-          main_project.update_attributes state: 'draft'
+        before { main_project.update_attributes state: 'draft' }
+
+        context 'campaign type is all_or_none' do
+          its(:finish) { should be_false }
         end
-        its(:finish) { should be_false }
+
+        context 'campaign type is flexible' do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+          end
+
+          its(:finish) { should be_false }
+        end
       end
 
       context 'when project is expired and the sum of the pending backers and confirmed backers dont reached the goal' do
         before do
           create(:backer, value: 100, project: main_project, created_at: 2.days.ago)
-          main_project.finish
         end
 
-        its(:failed?) { should be_true }
+        context "campaign type is all_or_none" do
+          before do
+            main_project.finish
+          end
+
+          its(:failed?) { should be_true }
+        end
+
+        context "campaign type is flexible" do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+            main_project.finish
+          end
+
+          its(:successful?) { should be_false }
+          its(:failed?) { should be_false }
+          its(:waiting_funds?) { should be_true }
+        end
       end
 
       context 'when project is expired and the sum of the pending backers and confirmed backers reached 30% of the goal' do
         before do
           create(:backer, value: 100, project: main_project, created_at: 2.days.ago)
           create(:backer, value: 9_000, project: main_project, state: 'waiting_confirmation')
-          main_project.finish
         end
 
-        its(:waiting_funds?) { should be_true }
+        context "when campaign type is all_or_none" do
+          before do
+            main_project.finish
+          end
+
+          its(:waiting_funds?) { should be_true }
+        end
+
+        context "when campaign type is flexible" do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+            main_project.finish
+          end
+
+          its(:waiting_funds?) { should be_true }
+        end
       end
 
       context 'when project is expired and have recent backers without confirmation' do
         before do
           create(:backer, value: 30_000, project: subject, state: 'waiting_confirmation')
-          main_project.finish
         end
 
-        its(:waiting_funds?) { should be_true }
+        context "when campaign type is all_or_none" do
+          before do
+            main_project.finish
+          end
+          its(:waiting_funds?) { should be_true }
+        end
+
+        context "when campaign type is flexible" do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+            main_project.finish
+          end
+          its(:waiting_funds?) { should be_true }
+        end
       end
 
       context 'when project already hit the goal and passed the waiting_funds time' do
@@ -753,9 +826,24 @@ describe Project do
           subject.stub(:reached_goal?).and_return(true)
           subject.online_date = 2.weeks.ago
           subject.online_days = 0
-          subject.finish
         end
-        its(:successful?) { should be_true }
+
+        context "when campaign type is all_or_none" do
+          before do
+            subject.finish
+          end
+
+          its(:successful?) { should be_true }
+        end
+
+        context "when campaign type is flexible" do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+            subject.finish
+          end
+
+          its(:successful?) { should be_true }
+        end
       end
 
       context 'when project already hit the goal and still is in the waiting_funds time' do
@@ -764,9 +852,23 @@ describe Project do
           subject.stub(:reached_goal?).and_return(true)
           create(:backer, project: main_project, user: user, value: 20, state: 'waiting_confirmation')
           main_project.update_attributes state: 'waiting_funds'
-          subject.finish
         end
-        its(:successful?) { should be_false }
+
+        context "when project is all_or_none" do
+          before do
+            subject.finish
+          end
+          its(:successful?) { should be_false }
+        end
+
+        context "when project is flexible" do
+          before do
+            main_project.update_attributes campaign_type: 'flexible'
+            subject.finish
+          end
+
+          its(:successful?) { should be_false }
+        end
       end
 
       context 'when project not hit the goal' do
@@ -777,16 +879,37 @@ describe Project do
           backer
           subject.online_date = 2.weeks.ago
           subject.online_days = 0
-          subject.finish
         end
 
-        its(:failed?) { should be_true }
+        context "when project is all_or_none" do
+          before do
+            subject.finish
+          end
 
-        it "should generate credits for users" do
-          backer.confirm!
-          user.reload
-          user.credits.should == 20
+          its(:failed?) { should be_true }
+
+          it "should generate credits for users" do
+            backer.confirm!
+            user.reload
+            user.credits.should == 20
+          end
         end
+
+        context "when project is flexible" do
+          before do
+            subject.update_attributes campaign_type: 'flexible'
+            subject.finish
+          end
+
+          its(:failed?) { should be_false }
+
+          it "should generate credits for users" do
+            backer.confirm!
+            user.reload
+            user.credits.should == 0
+          end
+        end
+
       end
     end
 
