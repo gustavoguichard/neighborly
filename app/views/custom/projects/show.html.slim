@@ -60,12 +60,13 @@
             | &nbsp;(
             span#countNumber
             | )
+
+        - if @project.project_faqs.any? || can?(:update, @project)
+          = link_to '#', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
+            = 'FAQ'
         - if @project.budget.present?
           = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
             = 'Budget'
-        - if @project.project_faqs.present? || can?(:update, @project)
-          = link_to '#', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
-            = 'FAQ'
         - if @project.terms.present? || can?(:update, @project)
           = link_to '#', 'id' => 'terms_link', 'data-target' => '#project_terms.content' do
             = 'Terms'
@@ -112,7 +113,8 @@
           #backers-loading.loading= image_tag "loading.gif"
         #project_comments.content.hide= render 'comments'
         #project_about.content= render 'project_about'
-        #project_budget.content.hide= raw(@project.budget_html)
+        #project_budget.content.hide
+          .text = raw(@project.budget_html)
       .clearfix
     .sidebar
       .info

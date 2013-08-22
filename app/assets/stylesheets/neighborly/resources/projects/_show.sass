@@ -32,6 +32,46 @@
         #creator_profile
           h3
             background: image-url("neighborly/profile_icon19x14.png") left 4px no-repeat
+    .main
+      #project_budget, #project_terms
+        @extend #project_about
+
+      #project_faqs
+        @extend #project_updates
+        .ui-state-default
+          padding-bottom: 10px
+        dl
+          dt
+            +lato-regular
+            color: $minimal_blue
+            font-size: 18px
+            cursor: pointer
+            +transition(all, 0.5s)
+            &:hover
+              color: $blue
+            a
+              font-family: Arial
+              font-size: 13px
+              color: $red
+              text-decoration: none
+              margin-left: 10px
+          dd
+            font-family: Arial
+            padding: 5px 0 15px
+            font-size: 15px
+            color: $_6f_gryn
+            line-height: 140%
+            height: auto !important
+        .bootstrap-form
+          input#project_faq_title
+            width: 98%
+        .ui-icon
+          background-color: $minimal_blue
+          float: left
+          margin-right: 10px
+          margin-top: 3px
+          +border-radius(8px)
+
 
     .use_popover_bottom
       border-bottom: 1px dashed #999

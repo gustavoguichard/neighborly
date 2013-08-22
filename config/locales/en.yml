@@ -379,6 +379,8 @@ en:
       not_reached_goal: waiting
       draf: "draft"
   projects:
+    project_faqs:
+      empty: 'No F.A.Q just yet, but keep an eye out o_0.'
     box:
       by: by
     admin_fields:
