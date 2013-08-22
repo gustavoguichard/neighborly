@@ -16,6 +16,7 @@ var App = window.App = Skull.View.extend({
     this.$flash = this.$('.flash');
     this.flash();
     this.notices();
+    this.privacyAndTermsModals();
     Backbone.history.start({pushState: false});
     this.$('input[data-mask]').each(this.maskElement);
     $('.use_popover_bottom').popover({placement: 'bottom', trigger: 'click'});
@@ -42,7 +43,37 @@ var App = window.App = Skull.View.extend({
 
   toggleMenu: function(){
     this.$dropdown.slideToggle('slow');
+  },
+
+  privacyAndTermsModals: function(){
+    loading = $('.bootstrap-twitter .loading.hide').clone().removeClass('hide');
+    $('#termsModal').on('show', function () {
+      $.ajax({
+        url: $(".termsModalLink").data('url'),
+        beforeSend: function(){},
+        success: function(txt){
+          $("#termsModal .modal-body").html(txt);
+        }
+      });
+    });
+    $('#privacyModal').on('show', function () {
+      $.ajax({
+        url: $(".privacyModalLink").data('url'),
+        beforeSend: function(){},
+        success: function(txt){
+          $("#privacyModal .modal-body").html(txt);
+        }
+      });
+    });
+
+    $('#termsModal').on('hide', function () {
+      $("#termsModal .modal-body").html(loading);
+    });
+    $('#privacyModal').on('hide', function () {
+      $("#privacyModal .modal-body").html(loading);
+    });
   }
+
 });
 
 $(function(){

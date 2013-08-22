@@ -5,10 +5,12 @@ class StaticController < ApplicationController
 
   def terms
     @title = t('static.terms.title')
+    render layout: false if request.xhr?
   end
 
   def privacy
     @title = t('static.privacy.title')
+    render layout: false if request.xhr?
   end
 
   def guidelines_tips

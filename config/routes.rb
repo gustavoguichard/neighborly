@@ -17,8 +17,6 @@ Catarse::Application.routes.draw do
 
   check_user_admin = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.admin }
 
-  filter :locale, exclude: /\/auth\//
-
   # Mountable engines
   constraints check_user_admin do
     mount Sidekiq::Web => '/sidekiq'
@@ -57,23 +55,6 @@ Catarse::Application.routes.draw do
 
   # Root path should be after channel constraints
   root to: 'projects#index'
-
-  get '/thank_you' => "static#thank_you"
-
-  check_user_admin = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.admin }
-
-  # Mountable engines
-  constraints check_user_admin do
-    mount Sidekiq::Web => '/sidekiq'
-  end
-
-  mount CatarsePaypalExpress::Engine => "/", as: :catarse_paypal_express
-  mount CatarseMoip::Engine => "/", as: :catarse_moip
-
-  # Non production routes
-  if Rails.env.development?
-    resources :emails, only: [ :index ]
-  end
 
   # Static Pages
   get '/sitemap',               to: 'static#sitemap',             as: :sitemap
