@@ -140,34 +140,7 @@
               = form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
                 fieldset
                   = submit_tag t('projects.back_project.submit'), disabled: (not @project.online?)
-        #creator_profile
-          h3= t('project_by')
-          .avatar = @project.user.display_image_html width: 80, height: 80
-          .personal_info
-            p.name
-             = link_to @project.user.display_name, user_path(@project.user)
-            #bio
-              p= @project.user.bio
-          #city
-            p.backer= t('count_backed_projects', total: @project.user.total_backed_projects)
-            p.city
-              | #{@project.user.address_city}
-        .user_social
-          ul
-            - if @project.user.facebook_link
-              li
-                = link_to "Perfil no facebook", @project.user.facebook_link, target: '_blank', class: 'facebook'
-            - if @project.user.twitter
-              li
-                = link_to "Perfil no twitter", @project.user.twitter_link, target: '_blank', class: 'twitter'
-            - if @project.user.email
-              li
-                = mail_to @project.user.email, @project.user.email, target: '_blank', class: 'email'
-            - if @project.user.other_link
-              li.other
-                = link_to @project.user.other_link, @project.user.other_link, target: '_blank'
 
-        .clearfix
         - if can?(:update, @project)
           .bootstrap-twitter.bootstrap-form
             .alert.alert-info
@@ -186,6 +159,20 @@
                 = image_tag 'loading.gif'
         #rewards[data-can_update="#{can?(:update, @project)}" data-index_path=project_rewards_path(@project)]
           .reward-loader= image_tag 'loading.gif'
+
+        #creator_profile
+          h3= t('project_by')
+          .avatar = @project.user.display_image_html width: 80, height: 80
+          .personal_info
+            p.name
+             = link_to @project.user.display_name, user_path(@project.user)
+            #bio
+              p= @project.user.bio
+          #city
+            p.city
+              | #{@project.user.address_city}
+
+        .clearfix
 
     .clearfix
     = render partial: 'projects/contact_modal'
