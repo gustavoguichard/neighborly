@@ -23,3 +23,55 @@
         &:hover
           +opacity(1)
 
+#footer
+  +box-shadow(rgba(black, 0.5) 0 -1px 2px)
+  width: 100%
+  background: $ultra_gryn url('/assets/neighborly/cartographer.png') !important
+.footer
+  border: 0px !important
+  background: none !important
+  .content
+    h3
+      font-size: 18px
+      color: $pink
+      padding-bottom: 40px
+      padding-top: 5px
+    .info
+      h3
+        background: url('/assets/neighborly/faq_icon18x18.png') left 5px no-repeat
+        text-indent: 34px
+      ul
+        li
+          margin-bottom: 32px
+
+    .opendata
+      h3
+        background: url('/assets/neighborly/lightbulb.png') left top no-repeat
+        text-indent: 34px
+      p
+        font-family: Arial !important
+        font-size: 15px !important
+        line-height: 21px !important
+        margin-bottom: 20px !important
+        color: white !important
+      a
+        font-family: Arial
+        font-size: 15px
+        display: block
+
+    .social
+      h3
+        background: url('/assets/neighborly/heart_icon17x14.png') left 6px no-repeat
+        text-indent: 32px
+        &.newsletter
+          padding-top: 30px
+          padding-bottom: 20px
+          background: url('/assets/neighborly/newsletter_icon18x15.png') left 32px no-repeat
+      form
+        input[type="text"]
+          padding: 0 0 0 10px
+        input[type="submit"]
+          font-family: "Myriad Pro"
+          padding-top: 7px
+          font-size: 15px
+
