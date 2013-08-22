@@ -1,12 +1,14 @@
-ul
-  - @project.project_documents.each do |pd|
-    li
-      hr/
-      p= pd.document.filename
-      br/
-      = link_to 'Download document', pd.document.url, target: '__blank'
+h2 Terms files to download
 
-      - if can? :update, @project
-        br/
-        = link_to 'delete document', [@project, pd], confirm: 'You are sure?', method: :delete
-      
+table.table-striped.bootstrap-twitter style="width: 100%"
+  - @project.project_documents.each do |pd|
+    tr
+      td.name style="width: 68%; padding: 1%"
+        = pd.document.filename
+      td.actions_link style="padding: 1%; width: 28%; text-align: right;"
+        = link_to  pd.document.url, class: 'btn btn-info btn-large', target: 'blank' do
+          i.icon-download.icon-white
+
+        - if can? :manage, @project
+          = link_to [@project, pd], method: :delete, class: 'btn btn-large btn-danger', confirm: 'Are you sure?' do 
+            i.icon-trash.icon-white
