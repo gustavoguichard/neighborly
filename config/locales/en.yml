@@ -267,7 +267,7 @@ en:
     hints:
       backer:
         credits: "You have <strong>%{credits}</strong> in credits and can back with up to this amount without needing to make a new payment."
-        value: "You chose the amount ;) starting with R$10, any amount is great."
+        value: "Please choose the amount you'd like to contribute. Starting with $10, any amount is appreciated and every bit counts."
       project:
         video_url_edit: 'Paste here the URL of your Vimeo video.'
         about: "Tell us about what inspired you to come up with this project . Be objective end charming, present your readers with something that moves them while being very transparent over the expectations on your project!"
@@ -292,7 +292,7 @@ en:
         anonymous: "I want my back to be anonymous."
         credits: "I want to use my credits on this back."
         reward: "Select your reward"
-        value: "How much do you want to contribute with?"
+        value: "How much would you like to contribute?"
       comment:
         comment: "Leave your comment about this project"
       project:
@@ -427,8 +427,8 @@ en:
       new:
         cannot_back: "It's not possible to back this project right now. Please, back other projects."
         header:
-          subtitle: "You're just a few steps away from making a difference and becoming a part of this project."
-          title: "Oohh yeah!"
+          subtitle: "You're just a few steps away from doing a world of good."
+          title: "Get ready..."
         no_reward: "Thanks. I just want to help the project."
         submit: "Review and proceed to checkout"
         title: "Back %{name}"

@@ -1,0 +1,50 @@
+[data-controller="backers"][data-namespace="projects"][data-action="new"]
+  fieldset
+    +grid(8)
+    &.first
+      +alpha
+    &.last
+      +omega
+    legend
+      +lato-regular
+      font-size: 13px
+  #page_content
+    .container
+      .backer_content
+        #back_options
+          #backer_form
+            .simbol
+              float: left
+            #backer_value_input
+              float: left
+              width: 400px
+            input[type='text']
+              display: block
+              margin-left: 0
+              width: 530px
+            .inline-hints
+              float: none !important
+              display: block
+              width: 520px
+          #backer_reward_input
+            legend
+              border-bottom: 0px !important
+              background: url('/assets/neighborly/recompensa24x20.png') left 4px no-repeat !important
+              label
+                padding-left: 34px
+                font-size: 24px
+            ol
+              width: 100%
+              li.choice
+                //width: 91%
+                //padding: 30px 20px 25px !important
+                padding-left: 34px
+                @include box-shadow(rgba(black, 0.3) 0 0 3px)
+                @include border-radius(5px)
+                background: rgba($minimal_white, 0.3)
+                &.selected
+                  @include box-shadow(rgba(black, 0.6) 0 0 3px)
+                .reward_minimum_value
+                  color: $green
+                  font-size: 20px
+                  padding-bottom: 10px
