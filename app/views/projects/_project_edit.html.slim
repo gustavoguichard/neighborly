@@ -25,17 +25,7 @@
         = form.input :goal, as: :number, required: false, hint: t('formtastic.hints.project.goal').html_safe
       - if can? :update, @project, :about
         = form.input :about, required: false
-      - if can? :update, @project, :budget
-        = form.input :budget, required: false
-      - if can? :update, @project
-        = form.input :terms, required: false
-        = form.input :hash_tag, required: false
-        = form.input :site, required: false
-        = form.input :address_neighborhood
-        = form.input :address_city
-        = form.input :address_state, collection: State.array
-
-      = render 'formatting_tips'
+        = render 'formatting_tips'
 
       .clearfix
       .form-actions.bootstrap-twitter
