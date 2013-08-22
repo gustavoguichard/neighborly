@@ -282,6 +282,7 @@ en:
         uploaded_image: "Upload a 512x400 image(.jpg)."
         video_url: "Paste the URL from a <a href=\"http://vimeo.com\" target=\"_blank\">Vimeo</a> video. We recommend Vimeo because it looks better and doesn't have ads. This way, your project will look better too! <strong>Produce your video the best you can and make a video specifically for your campaign</strong>. If there is a single thing that differentiates the projects that reach the goal from the others is the video. Observe ;)"
         hash_tag: 'Hash Tag'
+        foundation_widget: 'If you want to use new widget on embed, check this!'
       reward:
         description: "Describe your reward in a way that arouses people's interest to back the project. Don't be shy!"
         maximum_backers: "If your reward is limited, tell us the maximum backers."
@@ -310,6 +311,7 @@ en:
         uploaded_image: "Project thumbnail"
         site: 'Project Website'
         hash_tag: 'Short hashtag for Twitter, blog, etc.'
+        foundation_widget: 'Use new fundation widget?'
       reward:
         maximum_backers: "Maximum backers (optional)"
         days_to_delivery: "Days to delivery"
