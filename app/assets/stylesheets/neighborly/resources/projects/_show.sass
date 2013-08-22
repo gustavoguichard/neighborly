@@ -6,7 +6,34 @@
           &.soon
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50)
             opacity: 0.5
+      .info
+        #pledge, .statistics
+          background: image-url('neighborly/pledge_bg.png')
+        .statistics
+          .item
+            &.backers
+              background-image: image-url("neighborly/sidebar_backers_icon26x19.png")
+            &.goal
+              background-image: image-url("neighborly/goal_icon36x17.png")
+            &.time
+              background: image-url("neighborly/time_icon19x30.png") 10px center no-repeat
+        #condition
+          background: $_6f_gryn
+          &.successful
+            background: #c5b644
+          &.failed
+            background: $green
+          p
+            color: white
+            text-shadow: none
+            font-style: normal
+            text-transform: uppercase
+
+        #creator_profile
+          h3
+            background: image-url("neighborly/profile_icon19x14.png") left 4px no-repeat
 
     .use_popover_bottom
       border-bottom: 1px dashed #999
       cursor: help
+
