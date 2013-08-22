@@ -3,12 +3,12 @@
     meta name="description" content=@update.title
     meta property="og:title" content=@update.title
     meta property="og:description" content=@update.comment
-    meta property="og:url" content=project_by_slug_url(@project.permalink, update_id: @update.id, locale: I18n.locale)
+    meta property="og:url" content=project_by_slug_url(@project.permalink, update_id: @update.id)
   - else
     meta name="description" content=@project.headline
     meta property="og:title" content=@project.name
     meta property="og:description" content=@project.headline
-    meta property="og:url" content=project_by_slug_url(@project.permalink, locale: I18n.locale)
+    meta property="og:url" content=project_by_slug_url(@project.permalink)
   meta property="og:type" content='cause'
   meta property="og:image" content=@project.display_image('project_thumb_facebook')
   meta property="og:site_name" content=::Configuration[:company_name]
@@ -23,24 +23,27 @@
     - if @project.rejected?
       = render "rejected_warning"
 
-    - if @project.online? && can?(:update, @project)
-      = render "online_warning"
+    /- if @project.online? && can?(:update, @project)
+      /= render "online_warning"
 
-    - if @project.waiting_funds? && can?(:update, @project)
-      = render "waiting_funds_warning"
+    /- if @project.waiting_funds? && can?(:update, @project)
+      /= render "waiting_funds_warning"
 
-    - if @project.successful? && can?(:update, @project)
-      = render "successful_warning"
+    /- if @project.successful? && can?(:update, @project)
+      /= render "successful_warning"
 
-    - if @project.failed? && can?(:update, @project)
-      = render "failed_warning"
+    /- if @project.failed? && can?(:update, @project)
+      /= render "failed_warning"
 
     #project_description
     .project_image
       = image_tag @project.display_image('project_thumb_small')
     .section_header
       h1= @project.name
-      h4= t('projects.project_header.without_city', category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+      - if @project.display_address_formated.present?
+        h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+      -else
+        h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
     .tab_container
       nav#project_menu
         = link_to '#', 'id' => 'about_link', 'class' => 'selected', 'data-target' => '#project_about.content' do
@@ -51,11 +54,21 @@
         = link_to '#', 'id' => 'backers_link', 'data-target' => '#project_backers' do
           = t('.menu.backers')
           span.count=" (#{@project.total_backers})"
-        = link_to '#', 'id' => 'comments_link', 'data-target' => '#project_comments' do
+        = link_to '#', 'id' => 'comments_link', 'data-target' => '#project_comments.content' do
           = t('.menu.comments')
-          | &nbsp; (
-          fb:comments-count href="#{request.url}"
-          | )
+          span.commentsCount style="display: none;"
+            | &nbsp;(
+            span#countNumber
+            | )
+        - if @project.budget.present?
+          = link_to '#', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
+            = 'Budget'
+        - if @project.project_faqs.present? || can?(:update, @project)
+          = link_to '#', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
+            = 'FAQ'
+        - if @project.terms.present? || can?(:update, @project)
+          = link_to '#', 'id' => 'terms_link', 'data-target' => '#project_terms.content' do
+            = 'Terms'
         - if can? :update, @project
           = link_to '#', 'id' => 'edit_link', 'data-target' => '#project_edit' do
             = t('.menu.edit')
@@ -69,6 +82,24 @@
           #project_edit.content.hide
             = render partial: 'project_edit'
 
+        #project_faqs.content.hide
+          - if can? :update, @project
+            = render template: 'projects/project_faqs/new'
+            .results
+              = render template: 'projects/project_faqs/index'
+
+        #project_terms.content.hide
+          - if can? :update, @project
+            = render template: 'projects/project_documents/new'
+          - if @project.project_documents.present?
+            .results
+              = render template: 'projects/project_documents/index'
+            hr/
+          - if @project.terms.present?
+            .text
+              h2 Terms
+              = raw(@project.terms_html)
+
         #project_updates.content.hide[data-path=project_updates_path(project_id: @project.id)]
           - if can? :update, @project
             = render template: 'projects/updates/new'
@@ -79,9 +110,9 @@
           .results &nbsp;
           .clearfix
           #backers-loading.loading= image_tag "loading.gif"
-        #project_comments.content.hide
+        #project_comments.content.hide= render 'comments'
         #project_about.content= render 'project_about'
-
+        #project_budget.content.hide= raw(@project.budget_html)
       .clearfix
     .sidebar
       .info
@@ -103,7 +134,7 @@
 
           #condition[class="#{@project.display_status}"]
             p
-              = t("projects.back_project.display_status.#{@project.display_status}", goal: @project.display_goal, date: @project.display_expires_at)
+              = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: @project.display_expires_at)
           - if @project.online? && @project.in_time?
             #pledge
               = form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
@@ -157,3 +188,4 @@
           .reward-loader= image_tag 'loading.gif'
 
     .clearfix
+    = render partial: 'projects/contact_modal'

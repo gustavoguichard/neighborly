@@ -385,12 +385,20 @@ en:
       title: "Admin fields"
     back_project:
       display_status:
-        reached_goal: "This project will be successful and funded on %{date}"
-        not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
-        failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
-        successful: "This project was successful and was funded on %{date}"
-        waiting_funds: "Waiting confirmation from payments to know if this project will be funded."
-        draft: "This project is in draft mode and is not open to backers yet."
+        all_or_none:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
+          failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "Waiting confirmation from payments to know if this project will be funded."
+          draft: "This project is in draft mode and is not open to backers yet."
+        flexible:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will be funded on %{date}"
+          failed: "This project was funded on %{date}"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "This project will be funded. Waiting confirmation from payments to know if this project will be successful."
+          draft: "This project is in draft mode and is not open to backers yet."
       reached_of: "Reached of"
       submit: "Back this project"
     backers:
@@ -505,8 +513,12 @@ en:
       empty: "Nobody backed this project so far. How about being the first one?"
     project_header:
       subtitle_html: "A project by %{link}"
-      without_city: "A project in %{category_name}, by %{author}"
-      with_city: "A project in %{category_name}, in %{city}, by %{author}"
+      all_or_none:
+        without_city: "A project in %{category_name}, by %{author}"
+        with_city: "A project in %{category_name}, in %{city}, by %{author}"
+      flexible:
+        without_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in city"
+        with_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
     project_updates:
       empty: "This project didn't have updates yet. But wait and see =D"
       submit: "Send update"

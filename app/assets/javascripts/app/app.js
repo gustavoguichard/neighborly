@@ -18,6 +18,7 @@ var App = window.App = Skull.View.extend({
     this.notices();
     Backbone.history.start({pushState: false});
     this.$('input[data-mask]').each(this.maskElement);
+    $('.use_popover_bottom').popover({placement: 'bottom', trigger: 'click'});
   },
 
   flash: function() {
