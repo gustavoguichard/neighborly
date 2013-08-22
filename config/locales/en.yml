@@ -517,8 +517,8 @@ en:
         without_city: "A project in %{category_name}, by %{author}"
         with_city: "A project in %{category_name}, in %{city}, by %{author}"
       flexible:
-        without_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached. <a href=\"/faq\">More info</a>'>flexible</span> %{category_name} project by %{author} in city"
-        with_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached. <a href=\"/faq\">More info</a>'>flexible</span> %{category_name} project by %{author} in %{city}"
+        without_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in city"
+        with_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
     project_updates:
       empty: "This project didn't have updates yet. But wait and see =D"
       submit: "Send update"
