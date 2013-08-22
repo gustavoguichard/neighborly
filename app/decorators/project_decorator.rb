@@ -52,7 +52,7 @@ class ProjectDecorator < Draper::Decorator
   end
 
   def display_pledged
-    number_to_currency source.pledged, precision: 3
+    number_to_currency source.pledged, precision: 0
   end
 
   def display_goal

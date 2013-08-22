@@ -2,7 +2,7 @@
 #page_content
   .container
     .main
-      - if current_user && @projects_near.present?
+      /- if current_user && @projects_near.present?
         .near_projects.list
           .list_title
             .title
@@ -32,7 +32,7 @@
         .explore_link
           hr
 
-      .succesful_projects.list
+      .successful_projects.list
         .list_title
           .title
             h2= t('sections.succesful.title')
