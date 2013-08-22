@@ -1,4 +1,5 @@
 en:
+  have_an_idea_text: 'Have a civic project in need of funding? A streetcar, for example, or bike share, or perhaps a ball park? If you know of a civic project that could use a creative down payment...'
   simple_captcha:
     label: "human authentication"
     placeholder: "Type the code"
@@ -17,6 +18,8 @@ en:
     meta_title:  "%{title} · %{company_name}"
     description: "Crowdfunding for civic projects. Invest in places and civic projects you care about."
     keywords: "Neighbor.ly, crowdfunding, project, community, open source, civic"
+    email:
+      contact: 'howdy@neighbor.ly'
 
   login:
     forgot_passord:
@@ -58,7 +61,7 @@ en:
   newsletter_ok_body: "Your email is now in our newsletter list, thanks for subscribing!"
   newsletter_error_header: "Woops! There was an error."
   newsletter_error_body: "Your email could not be added to our newsletter list, please try again later!"
-  newsletter_subscribe: "subscribe"
+  newsletter_subscribe: "Join"
   views:
     pagination:
       next: next
@@ -77,10 +80,11 @@ en:
   count_backed_projects: "backed %{total} projects"
   footer:
     titles:
-      info: "Useful Information"
+      info: "Good to know..."
       opendata: "nice statistics"
-      social: "do you like Neighbor.ly?"
-      newsletter: "receive our newsletter"
+      social: "Won't you be our neighbor?"
+      newsletter: "Join the newsletter"
+      accept_idea: "Now accepting proposals!"
     stats:
       backers: Backers
       backs: Backs
