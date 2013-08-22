@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
         user.email = omniauth_email
         user.nickname = auth["info"]["nickname"]
         user.bio = (auth["info"]["description"][0..139] rescue nil)
-        user.locale = I18n.locale.to_s
+        user.locale = 'en'
         user.image_url = "https://graph.facebook.com/#{auth['uid']}/picture?type=large" if auth["provider"] == "facebook"
       end
     end
