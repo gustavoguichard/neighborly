@@ -19,6 +19,7 @@ App.addChild('Project', _.extend({
     this.makeRoute('budget');
     this.makeRoute('project_faqs');
     this.makeRoute('terms');
+    $('#accordion').accordion();
   },
 
   toggleWarning: function(){
