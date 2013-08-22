@@ -4,6 +4,9 @@
       - if current_user.admin
         = form.input :user_id
         = form.input :permalink, as: :string
+
+      - if can? :update, @project, :campaign_type
+        = form.input :campaign_type, as: :select, collection: [['All or None', 'all_or_none'], ['Flexible', 'flexible']], required: true
       - if can? :update, @project, :foundation_widget
         = form.input :foundation_widget, as: :boolean, hint: t('formtastic.hints.project.foundation_widget'), wrapper_html: { class: 'checkbox-inline' }
       - if can? :update, @project, :name
@@ -21,17 +24,22 @@
         = form.input :online_days, as: :number, required: false
       - if can? :update, @project, :goal
         = form.input :goal, as: :number, required: false, hint: t('formtastic.hints.project.goal').html_safe
+      - if can? :update, @project, :address_neighborhood
+        = form.input :address_neighborhood
+      - if can? :update, @project, :address_city
+        = form.input :address_city
+      - if can? :update, @project, :address_state
+        = form.input :address_state, collection: State.array
       - if can? :update, @project, :about
         = form.input :about, required: false
       - if can? :update, @project, :budget
         = form.input :budget, required: false
-      - if can? :update, @project
+      - if can? :update, @project, :terms
         = form.input :terms, required: false
+      - if can? :update, @project, :hash_tag
         = form.input :hash_tag, required: false
+      - if can? :update, @project, :site
         = form.input :site, required: false
-        = form.input :address_neighborhood
-        = form.input :address_city
-        = form.input :address_state, collection: State.array
 
       = render 'formatting_tips'
 

@@ -25,8 +25,9 @@
             / div class="input control-group #{ 'error' if @project.errors[:name].present?}"
 
             .input
-              = form.label :campaign_type, 'Campaign Type'
-              = form.select :campaign_type, Project.campaign_type_names, html: { class: "#{'error' if @project.errors[:name].present?}" }
+              = form.label :campaign_type
+              = form.select :campaign_type, [['All or None', 'all_or_none'],['Flexible', 'flexible']], html: { class: "#{'error' if @project.errors[:name].present?}" }
+              p.inline-hints= t('formtastic.hints.project.campaign_type')
 
             .input
               .bootstrap-alert
@@ -82,10 +83,6 @@
               p.inline-hints= t('formtastic.hints.project.goal').html_safe
 
             .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.online_days_important')
               = form.label :online_days, t('formtastic.labels.project.expires_at')
               .input-append
                 = form.text_field :online_days, class: "#{'error' if @project.errors[:online_days].present?}"
