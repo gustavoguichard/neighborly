@@ -93,14 +93,14 @@ en:
       funded_projects: "Successful projects"
       active_projects: "Projects on air now"
     links:
-      about: "Who are we"
+      about: "About Us"
       how_works: "How It works"
       faq: F.A.Q./Help
       terms: "Terms of use"
       policy: "Privacy Policy"
       terms_link: 'http://neighbor.ly/terms'
       policy_link: 'http://neighbor.ly/privacy'
-      contact: Contact
+      contact: 'Contact Us'
   main:
     links:
       selected: "explore more projects selected"
