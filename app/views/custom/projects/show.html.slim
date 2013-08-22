@@ -23,17 +23,17 @@
     - if @project.rejected?
       = render "rejected_warning"
 
-    - if @project.online? && can?(:update, @project)
-      = render "online_warning"
+    /- if @project.online? && can?(:update, @project)
+      /= render "online_warning"
 
-    - if @project.waiting_funds? && can?(:update, @project)
-      = render "waiting_funds_warning"
+    /- if @project.waiting_funds? && can?(:update, @project)
+      /= render "waiting_funds_warning"
 
-    - if @project.successful? && can?(:update, @project)
-      = render "successful_warning"
+    /- if @project.successful? && can?(:update, @project)
+      /= render "successful_warning"
 
-    - if @project.failed? && can?(:update, @project)
-      = render "failed_warning"
+    /- if @project.failed? && can?(:update, @project)
+      /= render "failed_warning"
 
     #project_description
     .project_image
@@ -41,9 +41,9 @@
     .section_header
       h1= @project.name
       - if @project.display_address_formated.present?
-        h4= t('projects.project_header.with_city', category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+        h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
       -else
-        h4= t('projects.project_header.without_city', category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+        h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
     .tab_container
       nav#project_menu
         = link_to '#', 'id' => 'about_link', 'class' => 'selected', 'data-target' => '#project_about.content' do
@@ -134,7 +134,7 @@
 
           #condition[class="#{@project.display_status}"]
             p
-              = t("projects.back_project.display_status.#{@project.display_status}", goal: @project.display_goal, date: @project.display_expires_at)
+              = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: @project.display_expires_at)
           - if @project.online? && @project.in_time?
             #pledge
               = form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
