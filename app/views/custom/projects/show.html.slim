@@ -165,7 +165,12 @@
 
         #creator_profile
           h3= t('project_by')
-          .avatar = @project.user.display_image_html width: 80, height: 80
+
+          - if @project.user.company?
+            .avatar.company = @project.user.display_image_html width: 100, height: 47
+          - else
+            .avatar = @project.user.display_image_html width: 80, height: 80
+
           .personal_info
             p.name
              = link_to @project.user.display_name, user_path(@project.user)
@@ -178,4 +183,4 @@
         .clearfix
 
     .clearfix
-    = render partial: 'projects/contact_modal'
+    = render partial: 'projects/contact_modal'  
