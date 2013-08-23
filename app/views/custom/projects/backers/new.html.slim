@@ -21,6 +21,11 @@
               .bootstrap-alert
                 .alert
                   = render 'anonymous_warning'
+            .clearfix
+            li
+              br/
+              br/
+              = form.input :short_note, label: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
           = form.actions do
             .bootstrap-twitter
               = form.submit t('.submit'), class: 'btn btn-primary btn-large', id: "backer_submit"
