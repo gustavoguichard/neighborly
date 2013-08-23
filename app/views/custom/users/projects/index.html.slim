@@ -1,7 +1,5 @@
-#my_projects
-  - if collection.empty?
-    = t('.no_projects')
-  - else
+- if collection.any?
+  #my_projects
     .bootstrap-twitter
       table.table.table-striped
         thead
