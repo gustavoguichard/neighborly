@@ -19,13 +19,31 @@
         span.current_user_name= t('layouts.header.account')
         = image_tag('dropdown.png', :class => 'dropdown_arrow')
       ul.dropdown.user
-        li= link_to t('layouts.header.profile'), current_user
+
         li
-          = link_to t('layouts.user.my_credits'), user_path(current_user, anchor: 'credits')
-          .small
-            | (#{current_user.display_credits})
-        li.divider
+          = link_to current_user do
+            i.icon-user
+            = t('layouts.header.profile') 
+        li
+          = link_to user_path(current_user, anchor: 'backs') do
+            i.icon-ok-circle
+            = t('layouts.header.backed_projects')
+        li
+          = link_to user_path(current_user, anchor: 'unsubscribes') do
+            i.icon-bell-alt
+            = 'notifications settings'
+        /li
+          = link_to user_path(current_user, anchor: 'credits') do
+            i.icon-refresh
+            = t('layouts.user.my_credits')
+        - if current_user.projects.length > 0
+          li
+            = link_to user_path(current_user, anchor: 'projects') do
+              i.icon-th
+              = 'my projects'
+
         - if current_user.admin?
+          li.divider
           - for menu, path in Adm::BaseController.menu do
             li= link_to menu, path
         - if current_user.trustee?

@@ -337,6 +337,7 @@ en:
       signin: login
       explore: explore
       submit_project: submit
+      backed_projects: "Projects I've backed"
       profile: "my profile"
       account: "account"
     user:
@@ -816,11 +817,11 @@ en:
     show:
       attention: Attention
       tabs:
-        backed_projects: "Backed projects"
-        created_projects: "Created projects"
+        backed_projects: "Project's I've Backed"
+        created_projects: "My projects"
         comments: Comments
         credits: Credits
-        settings: Settings
+        settings: 'My profile'
         unsubscribes: Notifications
       user_social:
         email: "Send me an email"

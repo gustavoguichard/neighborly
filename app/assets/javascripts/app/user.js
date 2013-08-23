@@ -7,10 +7,10 @@ App.addChild('User', _.extend({
 
   //@TODO: Refactor this ugly code into a generic routing generation inside the Skull.Tabs extension
   activate: function(){
+    this.makeRoute('settings');
     this.makeRoute('backs');
     this.makeRoute('projects');
     this.makeRoute('credits');
-    this.makeRoute('settings');
     this.makeRoute('unsubscribes');
   },
 

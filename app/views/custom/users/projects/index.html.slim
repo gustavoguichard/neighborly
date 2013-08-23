@@ -1,0 +1,33 @@
+#my_projects
+  - if collection.empty?
+    = t('.no_projects')
+  - else
+    .bootstrap-twitter
+      table.table.table-striped
+        thead
+          tr
+            th= t('.id')
+            th= 'cover'
+            th= 'project'
+            th= 'pleged'
+            th= 'deadline'
+            th= 'total of backers'
+            th= 'actions'
+            /th= t('.rejected')
+        tbody
+          - collection.each do |project|
+            tr class=cycle("even", "odd")
+              td= link_to project.id, project_path(project)
+              td title=project.name
+                = link_to project_path(project, anchor: 'edit') do
+                  = image_tag project.display_image, class: 'project_img'
+              td= project.name
+              td
+                = "#{project.display_pledged} / #{project.display_goal}"
+              td= project.display_expires_at
+              td= project.total_backers
+              td
+                = link_to project_path(project, anchor: 'edit'), :class => 'btn' do
+                  i.icon-pencil
+
+
