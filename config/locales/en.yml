@@ -413,7 +413,7 @@ en:
           waiting_funds: "This project will be funded. Waiting confirmation from payments to know if this project will be successful."
           draft: "This project is in draft mode and is not open to backers yet."
       reached_of: "Reached of"
-      submit: "Back this project"
+      submit: "Help Greenlight It!"
     backers:
       backer:
         anonymous_backer: "Anonymous backer"
@@ -431,10 +431,10 @@ en:
         text_title_html: "You are now part of the group that does everything to make %{link} happen."
         title: "Thank you"
       checkout:
-        no_credits: "You don't have enough credits to back this project."
+        no_credits: "You don't have enough credits to help greenlight this project."
         success: "Your back was successfully made. Thanks a lot!"
       new:
-        cannot_back: "It's not possible to back this project right now. Please, back other projects."
+        cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
         header:
           subtitle: "You're just a few steps away from doing a world of good."
           title: "Get ready..."
