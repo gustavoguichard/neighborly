@@ -1,5 +1,6 @@
 en:
   adm: &admin
+    menu: ''
     confirm_dialog: 'You are sure?'
     projects:
       index:
@@ -19,7 +20,7 @@ en:
         pledged: 'Pledged'
         recommended: 'Recommended?'
         state: 'State'
-        menu: 'Adm. Projects'
+        menu: 'Manage Projects'
         title: 'Projects management'
         total_projects: 'projects'
         submit: 'filter'
@@ -33,13 +34,15 @@ en:
         featured: 'Featured?'
     financials:
       index:
+        menu: 'Financial reports'
+        title: 'Finalcial reports'
         submit: 'Filter'
         by_state: 'By state'
         by_progress: By progress %
     users:
       index:
-        title: "Management backers"
-        menu: Backers
+        title: "Users management"
+        menu: 'Manage users'
         credits: Credits
         credits_view: "Calculated credits"
         id: ID
@@ -79,7 +82,7 @@ en:
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
         title: "Backers management"
-        menu: Backs
+        menu: 'Manage backs'
         anonymous: Anonymous?
         confirmed: Confirmed?
         credits: "Used credits?"
