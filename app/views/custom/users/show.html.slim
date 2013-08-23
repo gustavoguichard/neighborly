@@ -45,7 +45,16 @@
                     = image_tag 'neighborly/internet_32.png', width: '28px', heigt: '28px'
         .clearfix
           h2.ivebacked= "I've backed #{@user.backs.confirmed.not_anonymous.length} so far..."
-
+        #user_profile_content
+          #user_backed_projects.content[data-path=user_backers_path(@user)]
+            - if !can? :manage, @user
+              p.empty.hide= t('users.backs.no_backs', name: @user.display_name)
+            - else
+              p.empty.hide= t('users.backs.no_backs_current_user_html', link: ::Configuration[:base_url])
+            .results
+            .clearfix
+            .loading= image_tag "loading.gif"
+            .clearfix
 
       // Private profile
       - else
