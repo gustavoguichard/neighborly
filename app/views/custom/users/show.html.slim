@@ -90,6 +90,28 @@
             .clearfix
             .loading= image_tag "loading.gif"
             .clearfix
+
+            .bootstrap-twitter
+              #badgesModal.modal.hide.fade
+                .modal-header
+                  button.close data-dismiss="modal" type="button" x
+                  h3= ::Configuration[:company_name]
+                .modal-body
+                  .loading= image_tag "loading.gif"
+                  .modal-content.hide
+                    p Copy the code that is next to the image and paste in your site.
+                    div
+                      .image
+                        = image_tag "badges/default.jpg", size: "100x100"
+                      .textarea
+                        form.html= text_area_tag 'badge_embed_html', "<a></a>", readonly: true
+                      .clearfix
+                      .base_code.hide
+                        = link_to root_url, target: "_blank" do
+                          = image_tag "#{root_url}assets/badges/default.jpg", alt: "I HELPED MAKE IT HAPPEN - #{::Configuration[:company_name]}", width: 100, height: 100
+                .modal-footer
+                  a.btn data-dismiss="modal" href="#" OK
+
           #user_created_projects.content.hide[data-path=user_projects_path(@user)]
             p.empty.hide= t('users.projects.no_projects', name: @user.display_name)
             .results
