@@ -59,9 +59,6 @@ Catarse::Application.routes.draw do
   # Static Pages
   get '/sitemap',               to: 'static#sitemap',             as: :sitemap
   get '/guidelines',            to: 'static#guidelines',          as: :guidelines
-  get "/guidelines_tips",       to: "static#guidelines_tips",     as: :guidelines_tips
-  get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
-  get "/guidelines_start",      to: "static#guidelines_start",    as: :guidelines_start
   get "/about",                 to: "static#about",               as: :about
   get "/faq",                   to: "static#faq",                 as: :faq
   get "/terms",                 to: "static#terms",               as: :terms
