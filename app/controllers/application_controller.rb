@@ -3,6 +3,7 @@ require 'uservoice_sso'
 class ApplicationController < ActionController::Base
   layout :use_catarse_boostrap
   protect_from_forgery
+  before_filter :require_basic_auth
 
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
 
@@ -101,4 +102,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_basic_auth
+    if request.url.match(/neighborly-staging.herokuapp.com/) or request.url.match(/neighborly-knight.herokuapp.com/)
+      authenticate_or_request_with_http_basic do |username, password|
+        username == 'admin' && password == 'Streetcar4321'
+      end
+    end
+  end
 end
