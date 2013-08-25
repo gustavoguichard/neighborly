@@ -339,6 +339,7 @@ en:
       submit_project: submit
       backed_projects: "Projects I've backed"
       profile: "my profile"
+      settings: "settings"
       account: "account"
     user:
       logout: Logout
@@ -821,7 +822,8 @@ en:
         created_projects: "My projects"
         comments: Comments
         credits: Credits
-        settings: 'My profile'
+        settings: 'Settings'
+        my_profile: 'My profile'
         unsubscribes: Notifications
       user_social:
         email: "Send me an email"

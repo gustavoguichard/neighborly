@@ -64,9 +64,9 @@
 
         .tab_container
           nav#user_profile_menu
-            = link_to '#settings', id: 'settings_link', class: 'selected', data: { target: '#user_settings' } do
+            = link_to '#my_profile', id: 'my_profile_link', class: 'selected', data: { target: '#user_my_profile' } do
               i.icon-user
-              = t('.tabs.settings')
+              = t('.tabs.my_profile')
             = link_to '#backs', id: 'backed_projects_link', data: { target: '#user_backed_projects' } do
               i.icon-ok-circle
               = t('.tabs.backed_projects')
@@ -76,6 +76,9 @@
             = link_to '#credits', id: 'credits_link', data: { target: '#user_credits' } do
               i.icon-refresh
               = t('.tabs.credits')
+            = link_to '#settings', id: 'settings_link', data: { target: '#user_settings' } do
+              i.icon-wrench
+              = t('.tabs.settings')
             = link_to '#unsubscribes', id: 'unsubscribes_link', data: { target: '#user_unsubscribes' } do
               i.icon-bell-alt
               = t('.tabs.unsubscribes')
@@ -119,10 +122,12 @@
             .loading= image_tag "loading.gif"
             .clearfix
           - if can? :manage, @user
+            #user_my_profile.content
+              = render 'current_user_fields'
             #user_unsubscribes.content.hide
               = render 'unsubscribes'
-            #user_settings.content
-              = render 'current_user_fields'
+            #user_settings.content.hide
+              = render 'change_password'
             #user_credits.content.hide
               = render 'credits'
       .clearfix

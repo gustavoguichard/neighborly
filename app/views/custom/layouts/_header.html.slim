@@ -32,6 +32,10 @@
           = link_to user_path(current_user, anchor: 'unsubscribes') do
             i.icon-bell-alt
             = 'notifications settings'
+        li
+          = link_to user_path(current_user, anchor: 'settings') do
+            i.icon-wrench
+            = t('layouts.header.settings') 
         /li
           = link_to user_path(current_user, anchor: 'credits') do
             i.icon-refresh
