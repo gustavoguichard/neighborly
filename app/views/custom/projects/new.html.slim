@@ -4,7 +4,10 @@
       .title
         h1= t('.title')
         h2= t('.subtitle')
-        p= t('.legend_html')
+      .clearfix
+      .bootstrap-twitter
+        .alert.alert-block.alert-info
+          p= t('.legend_html')
       .bootstrap-form
         .clearfix
         = semantic_form_for @project, html: { id: 'project_form' } do |form|
@@ -157,8 +160,7 @@
               fieldset
                 .bootstrap-twitter
                   .send
-                    = submit_tag t('.submit'), id: 'project_submit', class: 'btn_send'
-                    span = t('.send_project')
+                    = submit_tag t('.submit'), id: 'project_submit', class: 'btn btn-success btn-large'
                   /= form.submit t('.submit'), disabled: true, class: 'btn-large btn-block btn btn-warning', id: 'project_submit', style: 'width: 100%;'
 
     .clearfix

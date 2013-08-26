@@ -27,7 +27,7 @@
             font-size: 24px
             padding: 0 0 5px 50px
             margin-top: 20px
-            background: url($images_path+'icon_new.png') left top no-repeat
+            background: image-url('/assets/neighborly/icon_new.png') left top no-repeat
           h2
             color: #333333
             font-family: "Lato"
@@ -46,7 +46,7 @@
             margin: 0 auto
             width: 800px
             a
-              color: #F28D0B
+              color: $pink
               text-decoration: none
             b
               float: left
@@ -60,7 +60,7 @@
           float: right
           position: relative
           span
-            background: url($images_path+'box_alert.png') left top no-repeat
+            background: image-url('/assets/neighborly/box_alert.png') left top no-repeat
             width: 33px
             height: 38px
             position: absolute
@@ -79,7 +79,7 @@
             color: #666666
             padding: 10px 10px 10px 40px
             a
-              color: #F28D0B
+              color: $pink
               text-decoration: none
       #project_warning
         .alert
@@ -125,38 +125,17 @@
               margin-right: 20px
               text-align: center
               font-size: 18px
-              color: #F28D0B
+              color: $pink
               line-height: 21px
           .submit
-            .bootstrap-twitter
-              width: 100%
-              .send
-                position: relative
-                margin: 0 auto
-                width: 240px
-                .btn_send
-                  width: 240px
-                  background: #F28E0B url($images_path+'button_send.png') 15px 12px no-repeat
-                  border: solid 1px #C8760A
-                  height: 62px
-                  padding: 0px 0px 11px 0px
-                  text-transform: uppercase
-                  color: white
-                  text-shadow: 1px 1px #C8760A
-                  font-family: "Lato"
-                  font-weight: 700
-                  font-size: 15px
-                  text-indent: 36px
-                  +border-radius(15px)
-                span
-                  color: white
-                  text-shadow: 1px 1px #C8760A
-                  font-family: "Lato"
-                  font-style: italic
-                  font-size: 14px
-                  position: absolute
-                  top: 34px
-                  left: 68px
+            margin-left: 180px
+            .accept
+              text-align: left
+              label
+                margin-left: 5px
+            .btn
+              width: 280px
+              padding: 10px 0
           .accept
             padding-top: 20px
             padding-bottom: 20px
@@ -166,7 +145,7 @@
             label
               display: inline
               a
-                color: #F28D0B
+                color: $pink
                 text-decoration: none
           label
             font-family: 'Lato'
@@ -187,5 +166,6 @@
             &.much
               margin-left: 0px
             a
-              color: #F28D0B
+              color: $pink
               text-decoration: none
+
