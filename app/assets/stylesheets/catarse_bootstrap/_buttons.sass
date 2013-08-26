@@ -12,6 +12,11 @@
   &.medium
     padding: 0.7em 0.8em
 
+  &.negative
+    background: $default_button_negative_background_color
+    color: $default_button_negative_font_color !important
+    &:hover
+      background: lighten($default_button_negative_background_color, 5%)
   &.success
     background: $default_button_success_background_color
     color: $default_button_success_font_color !important
