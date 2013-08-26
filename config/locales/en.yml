@@ -336,7 +336,7 @@ en:
       signup: "sign up"
       signin: login
       explore: explore
-      submit_project: submit
+      submit_project: 'Submit Project Idea'
       backed_projects: "Projects I've backed"
       profile: "my profile"
       settings: "settings"
