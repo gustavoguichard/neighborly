@@ -42,6 +42,8 @@ gem 'jquery-rails'
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.4.0'
 gem 'devise', '~> 3.0.2'
 gem 'ezcrypto'
