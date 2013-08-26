@@ -1,0 +1,17 @@
+.large-14.columns.large-centered
+  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :facebook, 'small-16', 'columns'] do
+    i.icon-facebook
+    | &nbsp;
+    | &nbsp;
+    = t('pages.login.form.inputs.facebook')
+  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :twitter, 'small-4', 'columns'] do
+    i.icon-twitter
+  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :google, 'small-4', 'columns'] do
+    i.icon-google-plus
+  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :linkedin, 'small-4', 'columns'] do
+    i.icon-linkedin
+  .clearfix
+  .separator
+    p
+      = t('or')
+
