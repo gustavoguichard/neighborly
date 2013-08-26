@@ -94,9 +94,9 @@ en:
       active_projects: "Projects on air now"
     links:
       about: "About Us"
-      how_works: "How It works"
-      faq: F.A.Q./Help
-      terms: "Terms of use"
+      how_works: "How It Works"
+      faq: 'FAQ / Help'
+      terms: "Terms of Use"
       policy: "Privacy Policy"
       terms_link: 'http://neighbor.ly/terms'
       policy_link: 'http://neighbor.ly/privacy'

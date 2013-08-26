@@ -17,7 +17,7 @@ describe UserUploader do
 
   describe '#thumb' do
     subject{ @uploader.thumb }
-    it{ should have_dimensions(180, 80) }
+    it{ should have_dimensions(170, 60) }
   end
 
 end
