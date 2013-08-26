@@ -848,8 +848,6 @@ en:
       twitter: "twitter ( username )"
       facebook_link: "facebook profile (full link)"
       other_link: "another internet page"
-      change_password: "Change my password"
-      current_password_hint: "<i>We need your current password to confirm your changes.</i>"
       email_hint: "Your email will only be used for communications from Neighbor.ly and from the projects you back. It won't be visible in your profile. When you back a project, we will give your email to the project owner so he can provide your rewards."
       email_tooltip: "Click here to fill your email..."
       gravatar_hint_html: "Want to change your picture? Use %{link} with your email. It's as simple as uploading an image and works for other sites as well ;)"
@@ -857,8 +855,13 @@ en:
       submit_text: "Choose your picture"
       submit: "Submit"
       my_data: "My profile"
-      newsletter: "I want to receive news from Neighbor.ly via email"
       password_hint: "<i>Leave blank if you don't want to change it.</i>"
+    change_password:
+      communication_settings: 'Communication Preferences'
+      change_password: "Change my password"
+      current_password_hint: "<i>We need your current password to confirm your changes.</i>"
+      newsletter: "Receive occasional e-mail newsletters from Neighbor.ly"
+      submit: 'Update Communication Preferences'
     header:
       bio_tooltip: "Click here to write about you..."
       name_tooltip: "Click here to fill your name..."

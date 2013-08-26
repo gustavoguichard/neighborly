@@ -22,7 +22,7 @@ describe UsersController do
       user.reload
       user.twitter.should ==  'test'
     end
-    it{ should redirect_to user_path(user, anchor: 'settings') }
+    it{ should redirect_to user_path(user, anchor: 'my_profile') }
   end
 
   describe "GET set_email" do
