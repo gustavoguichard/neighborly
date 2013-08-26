@@ -44,6 +44,14 @@
 
     .sidebar
       .content
+        .twitter
+          h3= t('sidebar.titles.twitter')
+          a.twitter-timeline height="330" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
+
+        .facebook
+          h3= t('sidebar.titles.facebook')
+          .fb-like-box data-href="#{Configuration['facebook_url']}" data-width="198" data-height="300" data-show-faces="true" data-stream="false" data-header="false" data-show-border="false"
+
         .blog
           h3= t('sidebar.titles.blog')
           ul.posts
@@ -55,15 +63,7 @@
                     = truncate(post.title, length: 80)
                 p.author= "#{t('projects.box.by')} #{post.author}"
                 = link_to post.url, target: '__blank', class: 'resume' do
-                  = truncate(post.summary, length: 130).html_safe
-
-        .facebook
-          h3= t('sidebar.titles.facebook')
-          .fb-like-box data-href="#{Configuration['facebook_url']}" data-width="198" data-height="300" data-show-faces="true" data-stream="false" data-header="false" data-show-border="false"
-
-        .twitter
-          h3= t('sidebar.titles.twitter')
-          a.twitter-timeline height="330" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
+                  = post.summary.html_safe
 
         .faq
           = link_to faq_path do
