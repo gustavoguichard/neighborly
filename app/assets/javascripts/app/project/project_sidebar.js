@@ -8,6 +8,9 @@ App.views.Project.addChild('ProjectSidebar', _.extend({
   },
 
   selectReward: function(event){
+    if($(event.target).is('a')) {
+      return true;
+    }
     var url = this.$(event.currentTarget).data('new_backer_url');
     this.navigate(url);
     return false;
