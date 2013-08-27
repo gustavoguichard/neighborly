@@ -2,6 +2,21 @@ en:
   adm: &admin
     menu: ''
     confirm_dialog: 'You are sure?'
+    press_assets:
+      index:
+        menu: 'Manage Press Assets'
+        page_title: 'Press assets management'
+        no_press_assets: 'No press assets'
+        title: 'Title'
+        url: 'URL'
+        image: 'Image'
+        edit: 'Edit'
+        destroy: 'Destroy'
+        new: 'Add new press asset'
+      new:
+        title: 'Add new press asset'
+      edit:
+        title: 'Edit press asset'
     projects:
       index:
         by_state: 'By state'

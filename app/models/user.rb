@@ -2,10 +2,10 @@
 require 'state_machine'
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :omniauthable
+    :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
   begin
     # NOTE: Sync normal users on mailchimp
     sync_with_mailchimp subscribe_data: ->(user) {
@@ -26,32 +26,32 @@ class User < ActiveRecord::Base
     to: :decorator
   # Setup accessible (or protected) attributes for your model
   # TODO:
-  #attr_accessible :email,
-    #:password,
-    #:password_confirmation,
-    #:remember_me,
-    #:name,
-    #:nickname,
-    #:image_url,
-    #:uploaded_image,
-    #:bio,
-    #:newsletter,
-    #:full_name,
-    #:address_street,
-    #:address_number,
-    #:address_complement,
-    #:address_neighbourhood,
-    #:address_city,
-    #:address_state,
-    #:address_zip_code,
-    #:phone_number,
-    #:cpf,
-    #:state_inscription,
-    #:locale,
-    #:twitter,
-    #:facebook_link,
-    #:other_link,
-    #:moip_login
+  attr_accessible :email,
+    :password,
+    :password_confirmation,
+    :remember_me,
+    :name,
+    :nickname,
+    :image_url,
+    :uploaded_image,
+    :bio,
+    :newsletter,
+    :full_name,
+    :address_street,
+    :address_number,
+    :address_complement,
+    :address_neighbourhood,
+    :address_city,
+    :address_state,
+    :address_zip_code,
+    :phone_number,
+    :cpf,
+    :state_inscription,
+    :locale,
+    :twitter,
+    :facebook_link,
+    :other_link,
+    :moip_login
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader
