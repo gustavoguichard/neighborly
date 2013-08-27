@@ -91,6 +91,24 @@ OauthProvider.find_or_create_by!(name: 'facebook') do |o|
   o.path = 'facebook'
 end
 
+OauthProvider.find_or_create_by!(name: 'twitter') do |o|
+  o.key = 'your_twitter_app_key'
+  o.secret = 'your_twitter_app_secret'
+  o.path = 'twitter'
+end
+
+OauthProvider.find_or_create_by!(name: 'google_oauth2') do |o|
+  o.key = 'your_google_oauth2_app_key'
+  o.secret = 'your_google_oauth2_app_secret'
+  o.path = 'google_oauth2'
+end
+
+OauthProvider.find_or_create_by!(name: 'linkedin') do |o|
+  o.key = 'your_linkedin_app_key'
+  o.secret = 'your_linkedin_app_secret'
+  o.path = 'linkedin'
+end
+
 puts
 puts '============================================='
 puts ' Showing all Authentication Providers'
