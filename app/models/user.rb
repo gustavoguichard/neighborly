@@ -2,10 +2,10 @@
 require 'state_machine'
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :omniauthable
+    :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
   begin
     # NOTE: Sync normal users on mailchimp
     sync_with_mailchimp subscribe_data: ->(user) {
