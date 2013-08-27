@@ -140,6 +140,7 @@ Catarse::Application.routes.draw do
       end
     end
 
+    resources :press_assets
     resources :statistics, only: [ :index ]
     resources :financials, only: [ :index ]
 

@@ -1,4 +1,5 @@
 en:
+  sending: 'Sending...'
   have_an_idea_text: 'Have a civic project in need of funding? A streetcar, for example, or bike share, or perhaps a ball park? If you know of a civic project that could use a creative down payment...'
   simple_captcha:
     label: "human authentication"
@@ -265,6 +266,8 @@ en:
       empty: "Hey, we didn't find any project with the text you searched. Wanna try some new words? =D"
   formtastic:
     hints:
+      press_asset:
+        image: 'Upload a 170x60 image(.jpg or .png).'
       backer:
         credits: "You have <strong>%{credits}</strong> in credits and can back with up to this amount without needing to make a new payment."
         value: "Please choose the amount you'd like to contribute. Starting with $10, any amount is appreciated and every bit counts."
