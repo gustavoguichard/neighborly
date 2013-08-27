@@ -27,6 +27,9 @@ describe Project do
     it{ should ensure_length_of(:headline).is_at_most(140) }
     it{ should allow_value('http://vimeo.com/12111').for(:video_url) }
     it{ should allow_value('https://vimeo.com/12111').for(:video_url) }
+    it{ should allow_value('http://www.youtube.com/watch?v=123').for(:video_url) }
+    it{ should allow_value('http://youtube.com/watch?v=123').for(:video_url) }
+    it{ should allow_value('http://youtu.be/123').for(:video_url) }
     it{ should_not allow_value('http://www.foo.bar').for(:video_url) }
     it{ should allow_value('testproject').for(:permalink) }
     it{ should_not allow_value('users').for(:permalink) }
