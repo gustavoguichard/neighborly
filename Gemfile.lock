@@ -79,6 +79,12 @@ GIT
   specs:
     cancan (2.0.0.alpha)
 
+PATH
+  remote: lib/gems/catarse_echeck_net
+  specs:
+    catarse_echeck_net (0.0.1)
+      rails (~> 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -137,9 +143,6 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    catarse_moip (2.0.0)
-      libxml-ruby (~> 2.6.0)
-      rails (~> 4.0)
     catarse_paypal_express (2.0.0)
       activemerchant (>= 1.34.0)
       rails (~> 4.0)
@@ -268,7 +271,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.1.2)
       launchy (~> 2.2)
-    libxml-ruby (2.6.0)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.3)
@@ -493,8 +495,8 @@ DEPENDENCIES
   cancan!
   capybara (~> 2.1.0)
   carrierwave (~> 0.8.0)
+  catarse_echeck_net!
   catarse_mailchimp!
-  catarse_moip (~> 2.0.0)
   catarse_paypal_express (~> 2.0.0)
   chartkick
   coffee-rails (~> 4.0.0)
