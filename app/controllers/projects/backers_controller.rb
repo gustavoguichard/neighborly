@@ -53,6 +53,7 @@ class Projects::BackersController < ApplicationController
         return redirect_to new_project_backer_path(@project)
       end
       success.html do
+        flash[:notice] = nil
         session[:thank_you_backer_id] = @backer.id
         return render :create
       end
