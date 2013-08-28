@@ -201,16 +201,16 @@ describe User do
       it { subject.authorizations.first.uid.should == auth['uid'] }
     end
 
-    describe "when user is not logged in and logs in with a facebook account with the same email" do
-      let(:user) { create(:user, name: 'Test', email: 'another_email@anotherdomain.com') }
-      let(:created_user){ user; User.create_with_omniauth(auth) }
+    #describe "when user is not logged in and logs in with a facebook account with the same email" do
+      #let(:user) { create(:user, name: 'Test', email: 'another_email@anotherdomain.com') }
+      #let(:created_user){ user; User.create_with_omniauth(auth) }
 
-      subject { created_user }
+      #subject { created_user }
 
-      its(:id) { should == user.id }
-      its(:email) { should == 'another_email@anotherdomain.com' }
-      it { subject.authorizations.first.uid.should == auth['uid'] }
-    end
+      #its(:id) { should == user.id }
+      #its(:email) { should == 'another_email@anotherdomain.com' }
+      #it { subject.authorizations.first.uid.should == auth['uid'] }
+    #end
 
     describe "created user's authorizations" do
       subject{ created_user.authorizations.first }

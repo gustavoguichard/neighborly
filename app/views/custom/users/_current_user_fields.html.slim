@@ -30,8 +30,6 @@
             .clearfix
   
             = f.input :email, as: :string, hint: 'Your email will NOT be visible on Neighbor.ly'
-            = hidden_field_tag 'id', @user.id
-            = f.input :newsletter, as: :boolean, label: t('.newsletter')
             .clearfix
 
             .company-field

@@ -77,7 +77,7 @@ describe UsersController do
         user.reload
         user.email.should ==  'new_email@bar.com'
       end
-      it{ should redirect_to user_path(user, anchor: 'settings') }
+      it{ should redirect_to user_path(user, anchor: 'my_profile') }
     end
   end
 
