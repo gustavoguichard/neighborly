@@ -31,6 +31,7 @@ FactoryGirl.define do
     f.password "123456"
     f.email { generate(:email) }
     f.bio "This is Foo bar's biography."
+    f.confirmed_at { Time.now }
   end
 
   factory :category do |f|
