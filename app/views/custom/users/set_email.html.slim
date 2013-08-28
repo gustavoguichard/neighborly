@@ -1,0 +1,32 @@
+= content_for :title, t('.site_title')
+
+= render 'devise/shared/header'
+
+.row
+  .large-7.large-centered.columns
+    .login-box.animated.fadeIn
+      h2.text-center= t('.site_title')
+      .separator
+      .clearfix
+
+      .large-14.large-centered.columns
+
+        .bootstrap-form
+          - if @user
+            - url = update_email_user_path(@user)
+            - method = 'put'
+            - submit_text = t('.submit')
+          - else
+            - @user = User.new
+            - url = sign_up_path
+            - method = 'post'
+            - submit_text = t('pages.sign_up.form.inputs.submit')
+
+          = form_for @user, url: url, html: { method: method } do |f|
+            p
+              = f.label :email
+              = f.text_field :email, required: true
+
+            .large-13.columns.large-centered
+              = f.submit submit_text, class: [:button, :success, 'large-16', 'columns']
+      .clearfix

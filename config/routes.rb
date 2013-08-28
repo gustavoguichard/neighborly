@@ -162,7 +162,7 @@ Catarse::Application.routes.draw do
     end
   end
 
-  get "/mudancadelogin" => "users#set_email", as: :set_email_users
+  get "/set_email" => "users#set_email", as: :set_email_users
   get "/:permalink" => "projects#show", as: :project_by_slug
 
 end
