@@ -50,6 +50,7 @@ class UsersController < ApplicationController
         flash[:error] = @user.errors.full_messages.to_sentence
       end
     end
+    return redirect_to user_path(@user, anchor: 'settings') if params[:settings_communication]
     return redirect_to user_path(@user, anchor: 'my_profile')
   end
 

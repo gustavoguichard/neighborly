@@ -21,8 +21,15 @@
     li
       .bootstrap-form
         = semantic_form_for @user, html: {method: :put, id: 'user_form'}  do |f|
-          = hidden_field_tag 'id', @user.id
-          = f.check_box :newsletter
-          = f.label :newsletter, t('.newsletter')
+          = hidden_field_tag 'settings_communication', true
+          ul
+            li
+              = hidden_field_tag 'id', @user.id
+              = f.check_box :newsletter
+              = f.label :newsletter, t('.newsletter')
+            li
+              = f.check_box :new_project
+              = f.label :new_project, t('.new_project')
+
           .bootstrap-twitter
             p= f.submit t('.submit'), class: 'btn', id: "user_submit_communication_settings"

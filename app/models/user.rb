@@ -51,7 +51,8 @@ class User < ActiveRecord::Base
     :twitter,
     :facebook_link,
     :other_link,
-    :moip_login
+    :moip_login,
+    :new_project
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader

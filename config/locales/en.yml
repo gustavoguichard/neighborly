@@ -859,11 +859,12 @@ en:
       submit: "Submit"
       my_data: "My profile"
       password_hint: "<i>Leave blank if you don't want to change it.</i>"
-    change_password:
+    settings:
       communication_settings: 'Communication Preferences'
-      change_password: "Change my password"
+      change_password: "Change Password"
       current_password_hint: "<i>We need your current password to confirm your changes.</i>"
       newsletter: "Receive occasional e-mail newsletters from Neighbor.ly"
+      new_project: 'Email me when new projects are added to Neighbor.ly'
       submit: 'Update Communication Preferences'
     header:
       bio_tooltip: "Click here to write about you..."
