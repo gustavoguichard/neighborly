@@ -362,11 +362,13 @@ class Project < ActiveRecord::Base
   def after_transition_of_draft_to_online
     update_attributes({ online_date: DateTime.now })
     notify_observers :notify_owner_that_project_is_online
+    notify_observers :notify_users_that_a_new_project_is_online
   end
 
   def after_transition_of_soon_to_online
     update_attributes({ online_date: DateTime.now })
     notify_observers :notify_owner_that_project_is_online
+    notify_observers :notify_users_that_a_new_project_is_online
   end
 
   def new_draft_recipient

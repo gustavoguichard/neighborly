@@ -62,6 +62,16 @@ class ProjectObserver < ActiveRecord::Observer
       project: project)
   end
 
+  def notify_users_that_a_new_project_is_online(project)
+    User.where(new_project: true).each do |user|
+      puts "..................... #{user.email}"
+      Notification.create_notification_once(:new_project_visible,
+        user,
+        {project_id: project.id, user_id: user.id},
+        project: project)
+    end
+  end
+
   def notify_users(project)
     project.backers.confirmed.each do |backer|
       unless backer.notified_finish

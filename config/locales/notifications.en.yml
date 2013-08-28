@@ -51,6 +51,9 @@ en:
     project_visible:
       subject: "Your project is now online at Neighbor.ly"
       header: "Now it's for real"
+    new_project_visible:
+      subject: 'A new project is now online at Neighbor.ly'
+      header: 'A new project is now online at Neighbor.ly'
     project_rejected:
       subject: "Your project does not fit Neighbor.ly's focus"
       header: "Your project was not accepted ;("

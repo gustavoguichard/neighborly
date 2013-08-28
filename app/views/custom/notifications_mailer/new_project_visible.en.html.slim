@@ -1,0 +1,17 @@
+- project = @notification.project
+- user = @notification.user
+|Hello, #{user.display_name}.
+br
+br
+|A new project just went to the Neighbor.ly
+br
+br
+= link_to(project.name, project_by_slug_url(project.permalink))
+br
+br
+
+br
+|Best,
+br
+= Configuration[:company_name]
+
