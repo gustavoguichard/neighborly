@@ -1,2 +1,35 @@
+= javascript_include_tag 'catarse_echeck_net'
+
 #catarse_echeck_net_form
-  = "Hello"
+  .bootstrap-twitter
+    .alert.alert-error.checkError
+      h4.alert-heading= "Sorry, something must've gone wrong. Please reload this page and try again."
+      p.errorName
+
+  = form_tag pay_echeck_net_path(params[:id]), id: 'echeck_form' do
+    - unless current_user.email
+      .input style="margin-bottom: 30px;"
+        = label_tag :user_email_on_check, 'Email'
+        = text_field_tag :user_email_on_check, nil
+        p.hint= "Please tell us where to email the receipt"
+
+    .input
+      = label_tag :account_holder_name
+      = text_field_tag :account_holder_name
+
+    .input
+      = label_tag :routing_number
+      = text_field_tag :routing_number, nil
+
+    .input
+      = label_tag :bank_name
+      = text_field_tag :bank_name, nil, disabled: true
+
+    .input
+      = label_tag :account_number
+      = text_field_tag :account_number, nil
+
+    .clearfix
+    .submit
+      .bootstrap-twitter
+        = submit_tag 'Confirm', class: 'btn btn-success btn-large disabled'
