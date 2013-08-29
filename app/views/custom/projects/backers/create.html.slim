@@ -31,7 +31,7 @@
           = hidden_field_tag 'payment_method_url', nil
           - unless @backer.credits
             = form.inputs do
-              fieldset.live_in_brazil
+              /fieldset.live_in_brazil
                 = check_box_tag 'live_in_brazil', 'live', params[:locale] == 'pt'
                 = label_tag 'live_in_brazil', t('.live_in_brazil'), class: 'inline'
               = form.input :full_name, required: true, as: :string

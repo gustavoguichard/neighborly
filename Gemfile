@@ -30,7 +30,9 @@ gem 'chartkick'
 
 # Payment engines
 gem 'catarse_paypal_express', '~> 2.0.0'
-gem 'catarse_moip', '~> 2.0.0'
+gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
+gem "authorize-net", "~> 1.5.2"
+#gem 'catarse_moip', '~> 2.0.0'
 #
 # Decorators
 gem 'draper'

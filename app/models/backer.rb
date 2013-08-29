@@ -93,6 +93,18 @@ class Backer < ActiveRecord::Base
     end
   end
 
+  def price_with_tax
+    if self.payment_method == 'PayPal'
+      (self.value * 1.029)+0.30
+    elsif self.payment_method == 'AuthorizeNet'
+      (self.value * 1.029)+0.30
+    elsif self.payment_method == 'eCheckNet'
+      (self.value * 1.010)+0.30
+    else
+      self.value
+    end
+  end
+
   def refund_deadline
     created_at + 180.days
   end
