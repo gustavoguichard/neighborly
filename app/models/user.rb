@@ -5,17 +5,23 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
+    :recoverable, :rememberable, :trackable, :omniauthable#, :confirmable TODO: ADD BACK - REMOVED FOR MIGRATION
   begin
+
+
+
+    # TODO: ADD BACK ---- REMOVED FOR MIGRATION
+
+
     # NOTE: Sync normal users on mailchimp
-    sync_with_mailchimp subscribe_data: ->(user) {
-                          { EMAIL: user.email, FNAME: user.name,
-                          CITY: (user.address_city||'outro / other'), STATE: (user.address_state||'outro / other') }
-                        },
-                        list_id: Configuration[:mailchimp_list_id],
-                        subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },
-                        unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
-                        unsubscribe_email: ->(user) { user.email }
+    #sync_with_mailchimp subscribe_data: ->(user) {
+                          #{ EMAIL: user.email, FNAME: user.name,
+                          #CITY: (user.address_city||'outro / other'), STATE: (user.address_state||'outro / other') }
+                        #},
+                        #list_id: Configuration[:mailchimp_list_id],
+                        #subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },
+                        #unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
+                        #unsubscribe_email: ->(user) { user.email }
 
   rescue Exception => e
     Rails.logger.info "-----> #{e.inspect}"
