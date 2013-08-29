@@ -478,7 +478,7 @@ en:
       project_warning:
         content_html: "Want to have your project selected? Don't forget to read %{link}."
         help_link: "our guide"
-      rewards_description: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon traveling!). Spend some time devising creative rewards and people will be interested."
+      rewards_description: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon travelling!). Spend some time devising creative rewards and people will be interested."
       rewards_title: Rewards
       submit: "Submit project"
     index_header:
@@ -617,7 +617,7 @@ en:
         content_html: "Want to have your project selected? Don't forget to read %{link}."
         help_link: "our guide"
       rewards: "What rewards do you want to offer?"
-      rewards_hint: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon traveling!). Spend some time devising creative rewards and people will be interested."
+      rewards_hint: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon travelling!). Spend some time devising creative rewards and people will be interested."
       submit: "Submit the project"
       subtitle: "The time to make it happen is now! We really want to know what you're up to..."
       title: "Submit your project"
