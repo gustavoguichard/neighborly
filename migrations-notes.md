@@ -1,40 +1,63 @@
+# TODO
+
 Need configurate the s3 access for legacy dragonfly
 
+Change uploaders to save files on Amazon S3
 
-rake db:migrate:configurations
-
-rake db:migrate:categories
-
-rake db:migrate:states
-
-rake db:migrate:press_assets
-
-rake db:migrate:users
-
-rake db:migrate:oauth_providers
-
-rake db:migrate:authorizations
-
-rake db:migrate:projects
-
-rake db:migrate:rewards
-
-rake db:migrate:backers
-
-rake db:migrate:updates
-
-rake db:migrate:project_faqs
-
-rake db:migrate:project_documents
+See about the catarse_fee
 
 
+## Migration
+
+This will migrate the data from older database to the new
+	
+	rake db:migrate:configurations
+	
+	rake db:migrate:categories
+	
+	rake db:migrate:states
+	
+	rake db:migrate:press_assets
+	
+	rake db:migrate:oauth_providers
+		
+	rake db:migrate:users
+	
+	rake db:migrate:authorizations
+	
+	rake db:migrate:projects
+	
+	rake db:migrate:rewards
+	
+	rake db:migrate:backers
+	
+	rake db:migrate:updates
+	
+	rake db:migrate:project_faqs
+	
+	rake db:migrate:project_documents
 
 
+## Reset sequences on postgres
 
-rake db:reset_sequences
+As the migration insert the same id that was on old database, postgres don't update the id sequence, so we need todo this manualy.
+
+	rake db:reset_sequences
+
+## Insert the new configurations for Neighbor.ly
+
+	rake db:seed:neighborly
 
 
+## To populate the routing number table
 
-rake update_routing_numbers
 
-ActiveRecord::Base.connection.reset_pk_sequence!('oauth_providers')
+	rake update_routing_numbers
+
+# After migration
+
+In order to prevent some problems on migrations, I commented some codes and they need put back..
+
+Find by `ADD BACK - REMOVED FOR MIGRATION` in the project and uncomment the code.
+
+
