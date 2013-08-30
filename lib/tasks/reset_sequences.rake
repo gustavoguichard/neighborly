@@ -11,6 +11,7 @@ namespace :db do
         classes << klass
       end
     end
+    #classes = [Authorization]
     classes.each do |klass|
       puts "reseting sequence on #{klass.table_name}"
       ActiveRecord::Base.connection.reset_pk_sequence!(klass.table_name) rescue puts("#{klass.table_name} --- THIS TABLE HAS AN ERROR --- Check if necessary")

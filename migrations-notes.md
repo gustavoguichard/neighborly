@@ -15,6 +15,15 @@ rake db:migrate:oauth_providers
 
 rake db:migrate:authorizations
 
+rake db:migrate:projects
+
+rake db:migrate:rewards
+
+rake db:migrate:backers
+
+
+
+
 
 
 rake db:reset_sequences
