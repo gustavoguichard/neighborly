@@ -9,19 +9,18 @@ class ProjectObserver < ActiveRecord::Observer
   end
 
   def after_create(project)
-    # TODO: ADD BACK - REMOVED FOR MIGRATION
-    #if (user = project.new_draft_recipient)
-      #Notification.create_notification_once(project.new_draft_project_notification_type,
-                                            #user,
-                                            #{project_id: project.id},
-                                            #{project: project, project_name: project.name, from: project.user.email, display_name: project.user.display_name}
-                                           #)
-    #end
+    if (user = project.new_draft_recipient)
+      Notification.create_notification_once(project.new_draft_project_notification_type,
+                                            user,
+                                            {project_id: project.id},
+                                            {project: project, project_name: project.name, from: project.user.email, display_name: project.user.display_name}
+                                           )
+    end
 
-    #Notification.create_notification_once(project.new_project_received_notification_type,
-                                          #project.user,
-                                          #{project_id: project.id},
-                                          #{project: project, project_name: project.name})
+    Notification.create_notification_once(project.new_project_received_notification_type,
+                                          project.user,
+                                          {project_id: project.id},
+                                          {project: project, project_name: project.name})
   end
 
   def notify_owner_that_project_is_waiting_funds(project)
