@@ -86,8 +86,8 @@
         #project_faqs.content.hide
           - if can? :update, @project
             = render template: 'projects/project_faqs/new'
-            .results
-              = render template: 'projects/project_faqs/index'
+          .results
+            = render template: 'projects/project_faqs/index'
 
         #project_terms.content.hide
           - if can? :update, @project
