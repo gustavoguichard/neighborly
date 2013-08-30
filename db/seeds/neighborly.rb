@@ -21,7 +21,10 @@ puts "Adding new configurations..."
     project_finish_time: '02:59:59',
     mandrill_user_name: 'luminopolis',
     secret_token: '8f3af8dc08112fa30556493dffc1e8ce971209c8e40f41499ba5c7b8fc62fd1a40418451cffba9a18fdfb19e04b891fc671d183934bcafbd314553462524e71f',
-    secret_key_base: '2981daa58d834ae67e95752a9d67094b6cf585c3a329c621350ee5d5a6b970a7ab51a7720932d0c7de07c6c8eb417df8da936ad291e1daae190d820d05fcd007'
+    secret_key_base: '2981daa58d834ae67e95752a9d67094b6cf585c3a329c621350ee5d5a6b970a7ab51a7720932d0c7de07c6c8eb417df8da936ad291e1daae190d820d05fcd007',
+    aws_access_key: 'AKIAJYKDLX3AUNWY2D3A',
+    aws_secret_key: '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',
+    aws_bucket: 'neighborly_production'
   }.each do |name, value|
      conf = Configuration.find_or_initialize_by(name: name)
      conf.update_attributes({
