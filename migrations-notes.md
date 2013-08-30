@@ -25,11 +25,16 @@ rake db:migrate:updates
 
 rake db:migrate:project_faqs
 
+rake db:migrate:project_documents
 
 
 
 
 
 rake db:reset_sequences
+
+
+
+rake update_routing_numbers
 
 ActiveRecord::Base.connection.reset_pk_sequence!('oauth_providers')
