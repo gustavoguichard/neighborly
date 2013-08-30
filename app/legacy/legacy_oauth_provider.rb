@@ -19,11 +19,18 @@ class LegacyOauthProvider < ActiveRecord::Base
       name: self.name.downcase,
       key: self.key,
       secret: self.secret,
-      scope: self.scope,
+      scope: get_scope,
       order: self.order,
       strategy: self.strategy,
       path: self.path
     }
+  end
+
+  def get_scope
+    if self.name.downcase == 'linkedin'
+      return 'r_fullprofile r_emailaddress'
+    end
+    self.scope
   end
 
   def associate
