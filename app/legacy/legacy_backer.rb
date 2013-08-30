@@ -55,12 +55,17 @@ class LegacyBacker < ActiveRecord::Base
 
   def associate
     {
-      # association: records.to.associate
+      payment_notifications: build_payment_notifications
     }
   end
 
 
   protected
+
+  def build_payment_notifications
+    return [ PaymentNotification.new(backer_id: self.id, extra_data: self.legacy_payment_detail.response_data)] if self.legacy_payment_detail and self.legacy_payment_detail.response_data.present?
+    []
+  end
 
   def address_street
     "#{self.legacy_payment_detail.street} #{self.legacy_payment_detail.street2}" if self.legacy_payment_detail
