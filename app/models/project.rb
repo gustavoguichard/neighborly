@@ -332,43 +332,52 @@ class Project < ActiveRecord::Base
   end
 
   def after_transition_of_online_to_waiting_funds
-    notify_observers :notify_owner_that_project_is_waiting_funds
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_owner_that_project_is_waiting_funds
   end
 
   def after_transition_of_waiting_funds_to_failed_or_successful
-    notify_observers :notify_admin_that_project_reached_deadline
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_admin_that_project_reached_deadline
   end
 
   def after_transition_of_any_to_failed_or_successful
-    notify_observers :sync_with_mailchimp
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :sync_with_mailchimp
   end
 
   def after_transition_of_online_to_failed
-    notify_observers :notify_users
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_users
   end
 
   def after_transition_of_wainting_funds_to_successful
-    notify_observers :notify_owner_that_project_is_successful
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_owner_that_project_is_successful
   end
 
   def after_transition_of_draft_to_rejected
-    notify_observers :notify_owner_that_project_is_rejected
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_owner_that_project_is_rejected
   end
 
   def after_transition_of_wainting_funds_to_successful_or_failed
-    notify_observers :notify_users
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_users
   end
 
   def after_transition_of_draft_to_online
     update_attributes({ online_date: DateTime.now })
-    notify_observers :notify_owner_that_project_is_online
-    notify_observers :notify_users_that_a_new_project_is_online
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_owner_that_project_is_online
+    #notify_observers :notify_users_that_a_new_project_is_online
   end
 
   def after_transition_of_soon_to_online
     update_attributes({ online_date: DateTime.now })
-    notify_observers :notify_owner_that_project_is_online
-    notify_observers :notify_users_that_a_new_project_is_online
+    # TODO: ADD BACK - REMOVED FOR MIGRATION
+    #notify_observers :notify_owner_that_project_is_online
+    #notify_observers :notify_users_that_a_new_project_is_online
   end
 
   def new_draft_recipient
