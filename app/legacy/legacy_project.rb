@@ -32,7 +32,7 @@ class LegacyProject < ActiveRecord::Base
       about_html: self.about_html,
       recommended: self.recommended,
       home_page_comment: self.home_page_comment,
-      permalink: self.permalink,
+      permalink: self.permalink.gsub!(/\s+/, ''),
       online_days: get_online_days,
       online_date: get_online_date,
       #how_know: text,
