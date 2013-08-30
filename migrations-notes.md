@@ -21,6 +21,10 @@ rake db:migrate:rewards
 
 rake db:migrate:backers
 
+rake db:migrate:updates
+
+rake db:migrate:project_faqs
+
 
 
 
