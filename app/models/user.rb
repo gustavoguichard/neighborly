@@ -182,49 +182,48 @@ class User < ActiveRecord::Base
     "#{self.id}-#{self.display_name.parameterize}"
   end
 
-  def self.create_with_omniauth(auth, current_user = nil, auto_safe = true)
+  def self.create_with_omniauth(auth, current_user = nil, auto_safe = true, user = new)
     omniauth_email = (auth["info"]["email"] rescue nil)
     omniauth_email = (auth["extra"]["user_hash"]["email"] rescue nil) unless omniauth_email
 
-
     if current_user
-      u = current_user
+      user = current_user
     else
-      u = new do |user|
-        user.name = auth['info']['name']
-        user.email = omniauth_email
-        user.nickname = auth['info']['nickname']
-        user.bio = (auth['info']['description'][0..139] rescue nil)
-        user.locale = 'en'
+      user.name = auth['info']['name']
+      user.email = omniauth_email
+      user.nickname = auth['info']['nickname']
+      user.bio = (auth['info']['description'][0..139] rescue nil)
+      user.locale = 'en'
 
-        if auth['provider'] == 'twitter'
-          user.twitter = auth['info']['nickname']
-          user.image_url = auth['info']['image'] if auth['info']['image'].present?
-        end
+      if auth['provider'] == 'twitter'
+        user.twitter = auth['info']['nickname']
+        user.image_url = auth['info']['image'] if auth['info']['image'].present?
+      end
 
-        if auth['provider'] == 'linkedin'
-          user.linkedin_url = auth['info']['urls']['public_profile'] if auth['info']['urls'].present?
-          user.image_url = auth['info']['image'] if auth['info']['image'].present?
-        end
+      if auth['provider'] == 'linkedin'
+        user.linkedin_url = auth['info']['urls']['public_profile'] if auth['info']['urls'].present?
+        user.image_url = auth['info']['image'] if auth['info']['image'].present?
+      end
 
-        if auth['provider'] == 'facebook'
-          user.facebook_link = "http://facebook.com/#{auth['info']['nickname']}"
-          user.image_url = "https://graph.facebook.com/#{auth['uid']}/picture?type=large"
-        end
+      if auth['provider'] == 'facebook'
+        user.facebook_link = "http://facebook.com/#{auth['info']['nickname']}"
+        user.image_url = "https://graph.facebook.com/#{auth['uid']}/picture?type=large"
       end
     end
     provider = OauthProvider.where(name: auth['provider']).first
-    u.authorizations.build(uid: auth['uid'], oauth_provider_id: provider.id) if provider
-    u.save! if auto_safe
-    u
+    user.authorizations.build(uid: auth['uid'], oauth_provider_id: provider.id) if provider
+    user.save! if auto_safe
+    user
   end
 
   def self.new_with_session(params, session)
-    if auth = session[:omniauth]
-      auth["info"]["email"] = params[:email] if auth["info"]["email"].nil?
-      user = self.create_with_omniauth(auth, nil, false)
+    super.tap do |user|
+      if auth = session[:omniauth]
+        auth["info"]["email"] = params[:email] if auth["info"]["email"].nil? || params[:email]
+        user = self.create_with_omniauth(auth, nil, false, user)
+      end
+      user
     end
-    user
   end
 
   def total_backs
