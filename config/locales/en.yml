@@ -252,13 +252,13 @@ en:
   error: "Ooops! There was an error. Please try again."
   explore:
     index:
-      near: 'Near me'
+      near: 'Near Me'
       categories: Categories
-      expiring: "Final countdown"
-      quick_explore: "Quick search"
+      expiring: "Ending Soon"
+      quick_explore: "Quick Search"
       recent: Recent
       recommended: Recommended
-      subtitle: "Explore the projects, find the ones that touch you, and make them happen!"
+      subtitle: "Explore projects, find ones that speak to you, and help make them happen!"
       successful: Successful
       title: "Discover amazing projects"
     title: "Explore the projects"
@@ -408,7 +408,7 @@ en:
           not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
           failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
           successful: "This project was successful and was funded on %{date}"
-          waiting_funds: "Waiting confirmation from payments to know if this project will be funded."
+          waiting_funds: "Awaiting confirmation from payments to know if this project will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
         flexible:
           reached_goal: "This project will be successful and funded on %{date}"
