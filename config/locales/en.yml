@@ -108,6 +108,7 @@ en:
       successful: "explore more funded projects"
       expiring: "explore more expiring projects"
       recents: "explore more recent projects"
+      soon: "explore more coming soon projects"
       near: "explore more near me projects"
   sidebar:
     titles:
@@ -258,6 +259,7 @@ en:
       expiring: "Final countdown"
       quick_explore: "Quick search"
       recent: Recent
+      soon: 'Coming soon'
       recommended: Recommended
       subtitle: "Explore the projects, find the ones that touch you, and make them happen!"
       successful: Successful

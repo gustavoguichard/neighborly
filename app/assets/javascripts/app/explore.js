@@ -16,6 +16,7 @@ App.addChild('Explore', _.extend({
     this.makeRoute('successful');
     this.makeRoute('expiring');
     this.makeRoute('recent');
+    this.makeRoute('soon');
   },
 
   //@TODO: Remove this as soon as we migrate to turbolinks

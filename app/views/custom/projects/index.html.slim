@@ -30,7 +30,8 @@
           - @soon.each_with_index do |item,i|
             == render 'project', project: item, custom_class: ((@soon.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
-          hr
+          hr.soon
+          = link_to t('main.links.soon'), explore_path(anchor: :soon)
 
       .successful_projects.list
         .list_title
