@@ -63,6 +63,7 @@
                 th= t('.total_backs')
                 th= t('.recommended')
                 th= t('.featured')
+                th= t('.home_page')
                 th= t('.online_date')
                 th= t('.expires_at')
                 th= t('.state')
@@ -78,6 +79,7 @@
                   td= project.total_backers
                   td.checkbox= best_in_place [:adm, project], :recommended, method: :put, type: :checkbox, collection: [t('no'), t('yes')]
                   td.checkbox= best_in_place [:adm, project], :featured, method: :put, type: :checkbox, collection: [t('no'), t('yes')]
+                  td.checkbox= best_in_place [:adm, project], :home_page, method: :put, type: :checkbox, collection: [t('no'), t('yes')]
                   td= project.online_date.strftime('%d/%m/%Y') if project.online_date
                   td= project.display_expires_at
                   td
