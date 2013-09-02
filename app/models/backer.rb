@@ -87,8 +87,7 @@ class Backer < ActiveRecord::Base
           backer.user,
           {backer_id: backer.id},
           backer: backer,
-          amount: backer.user.credits
-                                             )
+          amount: backer.user.credits)
       end
     end
   end
@@ -103,6 +102,14 @@ class Backer < ActiveRecord::Base
     else
       self.value
     end
+  end
+
+  def price_in_cents_with_tax
+    (self.price_with_tax * 100).round
+  end
+
+  def price_in_cents
+    (self.value * 100).round
   end
 
   def refund_deadline
