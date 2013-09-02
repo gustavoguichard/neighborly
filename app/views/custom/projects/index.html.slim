@@ -15,13 +15,13 @@
       .selected_projects.list
         .list_title
           .title
-            h2= t('sections.selection.title')
+            h2= link_to t('sections.selection.title'), explore_path(anchor: :recommended)
         .projects
           - @recommends.each_with_index do |item,i|
             == render 'project', project: item, custom_class: ((@recommends.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
           hr
-
+          = link_to t('main.links.selected'), explore_path(anchor: :recommended)
       .coming_soon_projects.list
         .list_title
           .title
@@ -35,12 +35,13 @@
       .successful_projects.list
         .list_title
           .title
-            h2= t('sections.succesful.title')
+            h2= link_to t('sections.succesful.title'), explore_path(anchor: :successful)
         .projects
           - @succesful.each_with_index do |item,i|
             == render 'project', project: item, custom_class: ((@succesful.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
         .explore_link
           hr
+          = link_to t('main.links.successful'), explore_path(anchor: :successful)
 
     .sidebar
       .content

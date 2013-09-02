@@ -105,6 +105,7 @@ en:
   main:
     links:
       selected: "explore more projects selected"
+      successful: "explore more funded projects"
       expiring: "explore more expiring projects"
       recents: "explore more recent projects"
       near: "explore more near me projects"

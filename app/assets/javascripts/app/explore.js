@@ -13,6 +13,7 @@ App.addChild('Explore', _.extend({
     this.setInitialFilter();
     this.setupScroll();
     this.makeRoute('recommended');
+    this.makeRoute('successful');
     this.makeRoute('expiring');
     this.makeRoute('recent');
   },
@@ -36,6 +37,7 @@ App.addChild('Explore', _.extend({
     else{
       this.filter = {
         recommended: true,
+        successful: true,
         not_expired: true
       };
     }
