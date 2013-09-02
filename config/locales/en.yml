@@ -341,8 +341,8 @@ en:
       help: help
       signup: "sign up"
       signin: login
-      explore: explore
-      submit_project: 'Submit Project Idea'
+      explore: "Explore Projects"
+      submit_project: 'Start a Project'
       backed_projects: "Projects I've backed"
       profile: "my profile"
       settings: "settings"
