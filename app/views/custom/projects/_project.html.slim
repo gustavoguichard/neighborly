@@ -4,13 +4,14 @@
     .status_image
       = link_to project_by_slug_path(permalink: project.permalink), target: ( defined?(embed_link) ? '__blank' : '' ) do
         - if project.successful? && project.reached_goal?
-          = image_tag "successful.#{I18n.locale}.png"
+          = image_tag "neighborly/successful.#{I18n.locale}.png"
         - elsif project.successful? && !project.reached_goal?
-          = image_tag "successful_flex.#{I18n.locale}.png"
+          = image_tag "neighborly/successful_flex.#{I18n.locale}.png"
         - elsif project.failed?
-          = image_tag "not_successful.#{I18n.locale}.png"
-        - else
-          = image_tag "waiting_confirmation.#{I18n.locale}.png"
+          = image_tag "neighborly/not_successful.#{I18n.locale}.png"
+  - elsif project.soon?
+    .status_image
+      = image_tag "neighborly/coming_soon.#{I18n.locale}.png"
   .box
     p.black_box= project.category
     .cover
