@@ -60,7 +60,7 @@ class LegacyProject < ActiveRecord::Base
   end
 
   def get_online_days
-    ((self.expires_at - self.created_at).abs/60/60/24).round
+    ((self.expires_at - self.created_at).abs/60/60/24).round if not self.soon and self.visible
   end
 
   def get_image_url
