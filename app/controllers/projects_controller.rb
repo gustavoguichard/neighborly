@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource only: [ :new, :create, :update, :destroy ]
   inherit_resources
   has_scope :pg_search, :by_category_id, :near_of
-  has_scope :recent, :expiring, :successful, :recommended, :not_expired, type: :boolean
+  has_scope :recent, :expiring, :successful, :recommended, :not_expired, :not_soon, :soon, type: :boolean
 
   respond_to :html
   respond_to :json, only: [:index, :show, :update]
@@ -14,16 +14,16 @@ class ProjectsController < ApplicationController
     index! do |format|
       format.html do
         if request.xhr?
-          @projects = apply_scopes(Project).visible.not_soon.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(6)
+          @projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(6)
           return render partial: 'project', collection: @projects, layout: false
         else
 
           @title = t("site.title")
           @featured_project = Project.online.featured.first
-          @recommends = Project.visible.online.recommended
-          @projects_near = Project.online.near_of(current_user.address_state).order('random()').limit(3) if current_user
-          @soon = Project.soon
-          @succesful = Project.successful
+          @recommends = Project.visible.online.recommended.home_page.limit(3)
+          #@projects_near = Project.online.near_of(current_user.address_state).order('random()').limit(3) if current_user
+          @soon = Project.soon.home_page.limit(3)
+          @succesful = Project.successful.home_page.limit(3)
         end
       end
     end

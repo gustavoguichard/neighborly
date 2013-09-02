@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     # NOTE: Sync normal users on mailchimp
     sync_with_mailchimp subscribe_data: ->(user) {
                           { EMAIL: user.email, FNAME: user.name,
-                          CITY: (user.address_city||'outro / other'), STATE: (user.address_state||'outro / other') }
+                          CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
                         },
                         list_id: Configuration[:mailchimp_list_id],
                         subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },

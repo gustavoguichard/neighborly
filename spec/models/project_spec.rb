@@ -277,6 +277,15 @@ describe Project do
     it{ should == [@p] }
   end
 
+  describe ".home_page" do
+    before do
+      @p = create(:project, home_page: true)
+      create(:project, home_page: false)
+    end
+    subject{ Project.home_page}
+    it{ should == [@p] }
+  end
+
   describe ".soon" do
     before do
       @p = create(:project, state: 'soon')

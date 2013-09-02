@@ -13,8 +13,10 @@ App.addChild('Explore', _.extend({
     this.setInitialFilter();
     this.setupScroll();
     this.makeRoute('recommended');
+    this.makeRoute('successful');
     this.makeRoute('expiring');
     this.makeRoute('recent');
+    this.makeRoute('soon');
   },
 
   //@TODO: Remove this as soon as we migrate to turbolinks
@@ -35,8 +37,6 @@ App.addChild('Explore', _.extend({
     }
     else{
       this.filter = {
-        recommended: true,
-        not_expired: true
       };
     }
   },
