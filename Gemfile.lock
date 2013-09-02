@@ -80,6 +80,12 @@ GIT
     cancan (2.0.0.alpha)
 
 PATH
+  remote: lib/gems/catarse_credit_card_net
+  specs:
+    catarse_credit_card_net (0.0.1)
+      rails (~> 4.0.0)
+
+PATH
   remote: lib/gems/catarse_echeck_net
   specs:
     catarse_echeck_net (0.0.1)
@@ -499,6 +505,7 @@ DEPENDENCIES
   cancan!
   capybara (~> 2.1.0)
   carrierwave (~> 0.8.0)
+  catarse_credit_card_net!
   catarse_echeck_net!
   catarse_mailchimp!
   catarse_paypal_express (~> 2.0.0)

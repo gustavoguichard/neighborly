@@ -15,7 +15,7 @@ class  CatarseEcheckNet::EcheckNetController < ApplicationController
   end
 
   def pay
-    #begin
+    begin
       backer.update_attributes payment_method: 'eCheckNet'
 
       #NOTE: AuthorizeNet AIM Transacation needs to a new instance every time
@@ -52,12 +52,12 @@ class  CatarseEcheckNet::EcheckNetController < ApplicationController
         redirect_to pay_echeck_net_path(backer)
       end
 
-    #rescue Exception => e
-    #  Rails.logger.info "-----> #{e.inspect}"
-    #  flash[:failure] = 'OPS, occour some error when tryed make you payment.'
-    #  return render :json => { process_status: 'error', message: 'OPS, occour some error when tryed make you payment.'} if request.xhr?
-    #  return redirect_to main_app.new_project_backer_path(backer.project)
-    #end
+    rescue Exception => e
+      Rails.logger.info "-----> #{e.inspect}"
+      flash[:failure] = 'OPS, occour some error when tryed make you payment.'
+      return render :json => { process_status: 'error', message: 'OPS, occour some error when tryed make you payment.'} if request.xhr?
+      return redirect_to main_app.new_project_backer_path(backer.project)
+    end
   end
 
   protected

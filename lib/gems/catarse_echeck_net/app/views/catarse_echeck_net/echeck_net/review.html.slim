@@ -7,12 +7,6 @@
       p.errorName
 
   = form_tag pay_echeck_net_path(params[:id]), id: 'echeck_form' do
-    - unless current_user.email
-      .input style="margin-bottom: 30px;"
-        = label_tag :user_email_on_check, 'Email'
-        = text_field_tag :user_email_on_check, nil
-        p.hint= "Please tell us where to email the receipt"
-
     .input
       = label_tag :account_holder_name
       = text_field_tag :account_holder_name

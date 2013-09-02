@@ -428,6 +428,7 @@ en:
         error: "Ooops. There was an error while registering your back. Please try again."
         paypal: 'PayPal'
         echeck_net: 'eCheck'
+        credit_card_net: 'Credit Card'
       show:
         error: "Ooops. You can only access this page after backing a project."
         moip_message: "Your transaction is “Authorized” and you Moip code is “%{code}″.<br>If you have any questions about this transaction, contact Moip directly."
@@ -438,6 +439,7 @@ en:
         text_title_html: "You are now part of the group that does everything to make %{link} happen."
         title: "Thank you"
       checkout:
+        credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
         no_credits: "You don't have enough credits to help greenlight this project."
         success: "Your back was successfully made. Thanks a lot!"
       new:
