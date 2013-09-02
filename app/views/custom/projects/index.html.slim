@@ -25,7 +25,7 @@
       .coming_soon_projects.list
         .list_title
           .title
-            h2= t('sections.coming_soon.title')
+            h2= link_to t('sections.coming_soon.title'), explore_path(anchor: :soon)
         .projects
           - @soon.each_with_index do |item,i|
             == render 'project', project: item, custom_class: ((@soon.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
