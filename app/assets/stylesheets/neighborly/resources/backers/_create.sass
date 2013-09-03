@@ -153,9 +153,11 @@
             font-size: 14px
             padding-bottom: 15px
         .project_info
+          background: rgba($pink, 0.1)
           float: left
-          //padding-bottom: 40px
+          padding: 10px
           #project_image
+            @include box-shadow(rgba(black, 0.5) 1px 1px 3px)
             float: left
             margin-right: 20px
           h1
@@ -166,36 +168,23 @@
             font-weight: 700
             font-size: 24px
             line-height: 120%
-            padding-bottom: 30px
+            padding-bottom: 20px
             padding-top: 10px
             a
               color: $pink
               text-decoration: none
           #review_text
+            font-family: "Lato"
             padding-right: 20px
             float: left
-            width: 640px
-            .review_content
-              font-family: "Lato"
+            width: 630px
+            strong
               font-size: 18px
-              line-height: 24px
-              width: 265px
-              float: left
-              margin-top: 20px
-              strong
-                font-size: 18px
-                color: black
-                font-weight: bold
-            .reward
-              float: right
-              font-family: "Lato"
-              font-style: italic
-              font-size: 16px
-              line-height: 21px
-              padding: 20px 20px 40px 60px
-              width: 280px
-              color: #333
-              background: url($images_path+'gift-reward.png') left top no-repeat #F0F0F0
+              color: black
+              font-weight: bold
+
+            p
+              padding: 10px 0
         #credits_notice
           font-family: 'Lato'
           font-size: 16px

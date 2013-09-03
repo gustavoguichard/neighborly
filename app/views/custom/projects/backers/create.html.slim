@@ -5,24 +5,14 @@
         = image_tag @project.display_image, id: 'project_image', alt: @project.name, width: '250px'
         h1= t('.you_are_about_html', link: link_to(@project.name, project_by_slug_path(permalink: @project.permalink)))
         #review_text
+          p= raw("<strong>Amount:</strong> #{@backer.display_value}")
           - if @backer.reward
-            .review_content
-              = t('.review_with_reward_html', value: @backer.display_value)
-            .reward
-              = @backer.reward.description
-          - else
-            .review_content
-              = t('.review_without_reward_html', value: @backer.display_value)
+            p= raw("<strong>Perk:</strong> #{@backer.reward.description}")
+
       .clearfix
       #payment
         .title
           h1= t('.choose_payment')
-
-        /.tab_container
-          nav#payment_menu
-            - PaymentEngines.engines.each do |engine|
-              = link_to "##{engine[:name]}_payment", id: engine[:name], class: 'selected enabled' , data: {target: "##{engine[:name]}_payment"} do
-                = t("projects.backers.review.#{engine[:name]}")
 
         .payment_menu
           - PaymentEngines.engines.each do |engine|
