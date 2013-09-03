@@ -24,7 +24,8 @@ puts "Adding new configurations..."
     secret_key_base: '2981daa58d834ae67e95752a9d67094b6cf585c3a329c621350ee5d5a6b970a7ab51a7720932d0c7de07c6c8eb417df8da936ad291e1daae190d820d05fcd007',
     aws_access_key: 'AKIAJYKDLX3AUNWY2D3A',
     aws_secret_key: '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',
-    aws_bucket: 'neighborly_production'
+    aws_bucket: 'neighborly_production',
+    currency_charge: :USD
   }.each do |name, value|
      conf = Configuration.find_or_initialize_by(name: name)
      conf.update_attributes({
