@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :namespace, :fb_admins, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso
+  helper_method :namespace, :fb_admins, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso, :total_with_fee
 
   before_filter :force_http
 
@@ -29,6 +29,21 @@ class ApplicationController < ActionController::Base
   before_filter do
     @press_assets = PressAsset.order('created_at DESC').limit(5)
     @fb_admins = [100000428222603, 547955110]
+  end
+
+  # TODO: REFACTOR
+  include ActionView::Helpers::NumberHelper
+  def total_with_fee(backer, payment_method)
+    if payment_method == 'paypal'
+      value = (backer.value * 1.029)+0.30
+    elsif payment_method == 'credit_card_net'
+      value = (backer.value * 1.029)+0.30
+    elsif payment_method == 'echeck_net'
+      value = (backer.value * 1.010)+0.30
+    else
+      value = backer.value
+    end
+    number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
   end
 
   # We use this method only to make stubing easier

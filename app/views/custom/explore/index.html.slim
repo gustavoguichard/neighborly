@@ -54,4 +54,17 @@
                   a[data-filter={by_category_id: category.id}.to_json href='#']
                     = category
 
+
+        .faq
+          = link_to faq_path do
+            = image_tag 'neighborly/faq.png'
+
+        .how_it_works
+          = link_to guidelines_path do
+            = image_tag 'neighborly/how_it_works.png'
+
+        .about_us
+          = link_to about_path do
+            = image_tag 'neighborly/about_us.png'
+
     .clearfix
