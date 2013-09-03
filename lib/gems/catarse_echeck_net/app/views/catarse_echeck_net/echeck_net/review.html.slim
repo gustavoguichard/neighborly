@@ -1,6 +1,8 @@
 = javascript_include_tag 'catarse_echeck_net'
 
 #catarse_echeck_net_form
+  .title
+    h1 Checkout using eCheck
   .bootstrap-twitter
     .alert.alert-error.checkError
       h4.alert-heading= "Sorry, something must've gone wrong. Please reload this page and try again."
@@ -22,8 +24,11 @@
     .input
       = label_tag :account_number
       = text_field_tag :account_number, nil
-
+    .input.accept
+      = label_tag :terms_paypal, raw("I understand and agree with the  #{link_to 'Terms of Service', '#termsModal', :class => 'termsModalLink', :'data-toggle'=>'modal', :'data-url' => '/terms' }")
+      = check_box_tag :terms_paypal
     .clearfix
     .submit
       .bootstrap-twitter
         = submit_tag 'Confirm', class: 'btn btn-success btn-large disabled'
+    div class="AuthorizeNetSeal" style="float: right;"

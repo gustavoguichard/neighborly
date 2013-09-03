@@ -1,0 +1,18 @@
+= javascript_include_tag 'catarse_paypal_express'
+
+#catarse_paypal_express_form
+  .title
+    h1 Checkout using Paypal
+    h2 You will be taken to Paypal's checkout screen in the next step.
+  a.seal-paypal[href="https://www.paypal.com/us/verified/pal=books%40neighbor%2ely" target="_blank"]
+    img[src="https://www.paypal.com/en_US/i/icon/verification_seal.gif" border="0" alt="Official PayPal Seal"]
+  = form_tag pay_paypal_express_path(params[:id]) do
+    .clearfix
+    .bootstrap-twitter
+      .input.accept
+        = label_tag :terms, raw("I understand and agree with the  #{link_to 'Terms of Service', '#termsModal', :class => 'termsModalLink', :'data-toggle'=>'modal', :'data-url' => '/terms' }")
+        = check_box_tag :terms
+      .clearfix
+      .loader.hide= image_tag 'loading.gif'
+      .submit
+        = submit_tag t('projects.backers.review.international.button'), class: 'btn btn-success btn-large disabled'

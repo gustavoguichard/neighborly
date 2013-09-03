@@ -1,29 +1,35 @@
 = javascript_include_tag 'catarse_credit_card_net'
 
 #catarse_credit_card_net_form
+  .title
+    h1 Billing Information
+    h2 Your card information will be sent securely to our payment processor.
   .bootstrap-twitter
     .alert.alert-error.checkError
       h4.alert-heading= "Sorry, something must've gone wrong. Please reload this page and try again."
       p.errorName
 
-  .bootstrap-form
-    = form_tag pay_credit_card_net_path(params[:id]), id: 'credit_card_form' do
-      .input
-        = label_tag :billing_name, 'Billing name'
-        = text_field_tag :billing_name
-      .input
-        = label_tag :card_number, 'Credit card number'
-        = text_field_tag :card_number
-      .input.half
-        = label_tag 'Expiration date'
-        .date_selects
-          = select_month Date.today.month+1, { use_month_numbers: true }, { name: 'expiration_card_month', id: 'card_month' }
-          = raw("&nbsp; / &nbsp;")
-          = select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: 'card_year', id: 'card_year' }
-      .input.half.sec_code
-        = label_tag :card_code, 'Security code'
-        = text_field_tag :card_code
-      .clearfix
-      .submit
-        .bootstrap-twitter
-          = submit_tag 'Confirm', class: 'btn btn-success btn-large disabled'
+  = form_tag pay_credit_card_net_path(params[:id]), id: 'credit_card_form' do
+    .input
+      = label_tag :billing_name, 'Billing name'
+      = text_field_tag :billing_name
+    .input
+      = label_tag :card_number, 'Credit card number'
+      = text_field_tag :card_number
+    .input.half
+      = label_tag 'Expiration date'
+      .date_selects
+        = select_month Date.today.month+1, { use_month_numbers: true }, { name: 'expiration_card_month', id: 'card_month' }
+        = raw("&nbsp; / &nbsp;")
+        = select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: 'card_year', id: 'card_year' }
+    .input.half.sec_code
+      = label_tag :card_code, 'Security code'
+      = text_field_tag :card_code
+    .input.accept
+      = label_tag :terms_paypal, raw("I understand and agree with the  #{link_to 'Terms of Service', '#termsModal', :class => 'termsModalLink', :'data-toggle'=>'modal', :'data-url' => '/terms' }")
+      = check_box_tag :terms_paypal
+    .clearfix
+    .submit
+      .bootstrap-twitter
+        = submit_tag 'Confirm', class: 'btn btn-success btn-large disabled'
+    div class="AuthorizeNetSeal" style="float: right;"

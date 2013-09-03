@@ -14,60 +14,65 @@
             .review_content
               = t('.review_without_reward_html', value: @backer.display_value)
       .clearfix
-      .title
-        h1= t('.title')
-        h2= t('.subtitle')
-      .clearfix
-      - if @backer.credits
-        #back_with_credits
-          .bootstrap-alert
-            .alert
-              #credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @backer.value), unit: 'R$', precision: 0, delimiter: '.'))
-      .bootstrap-form
-        = semantic_form_for current_user, url: credits_checkout_project_backer_path(@backer.project, @backer), html: { data: { update_info_path: update_info_project_backer_path(project_id: @backer.project.id, id: @backer.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @backer.credits)}" } do |form|
-          = hidden_field_tag 'project_id', @backer.project.id
-          = hidden_field_tag 'backer_id', @backer.id
-          = hidden_field_tag 'backer_credits', @backer.credits
-          = hidden_field_tag 'payment_method_url', nil
-          - unless @backer.credits
-            = form.inputs do
-              /fieldset.live_in_brazil
-                = check_box_tag 'live_in_brazil', 'live', params[:locale] == 'pt'
-                = label_tag 'live_in_brazil', t('.live_in_brazil'), class: 'inline'
-              = form.input :full_name, required: true, as: :string
-              /= form.input :cpf, as: :string, input_html: {autocomplete: 'off'}
-              = form.input :email, required: true, as: :string
-              fieldset.address_data
-                .title
-                  h2
-                = form.input :address_street, as: :string, required: true
-                = form.input :address_number, as: :string, required: true
-                = form.input :address_complement, required: false, as: :string
-                = form.input :address_neighbourhood, as: :string, required: true
-                = form.input :address_zip_code, as: :string, input_html: {autocomplete: 'off', data: {mask: '99999-999'}}, required: true
-                = form.input :address_city, as: :string, required: true
-                = form.input :address_state, as: :select, collection: State.array, required: true
-                = form.input :phone_number, as: :string, input_html: {autocomplete: 'off', data: {mask: '(99)9999-9999?9'}}, required: true
-          .submit
-            fieldset.accept_terms
-              = check_box_tag 'accept'
-              = label_tag 'accept', t('accept_terms_html', link: link_to(t('terms'), '#termsModal', class: 'termsModalLink', :"data-toggle" => 'modal', :"data-url" => terms_path)), class: 'inline'
-            - if @backer.credits
-              = form.actions do
-                .bootstrap-twitter
-                  = form.submit (@backer.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
+      #payment
+        .title
+          h1= t('.choose_payment')
 
-        #payment.hide
-          .title
-            h1= t('.choose_payment')
-            h2= t('.choose_payment_subtitle')
-
-          .tab_container
-            nav#payment_menu
-              - PaymentEngines.engines.each do |engine|
-                = link_to "##{engine[:name]}_payment", id: engine[:name], class: 'selected enabled' , data: {target: "##{engine[:name]}_payment"} do
-                  = t("projects.backers.review.#{engine[:name]}")
-          .tab_content_container
+        /.tab_container
+          nav#payment_menu
             - PaymentEngines.engines.each do |engine|
-              div[id="#{engine[:name]}_payment" class="payments_type hide" data-path=engine[:review_path].call(@backer) ]
+              = link_to "##{engine[:name]}_payment", id: engine[:name], class: 'selected enabled' , data: {target: "##{engine[:name]}_payment"} do
+                = t("projects.backers.review.#{engine[:name]}")
+
+        .payment_menu
+          - PaymentEngines.engines.each do |engine|
+            .input
+              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxs' => total_with_fee(@backer, engine[:name])
+              label
+                = image_tag("neighborly/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}_img")
+
+        .payment_content_container
+          - PaymentEngines.engines.each do |engine|
+            div[id="#{engine[:name]}_payment" class="payments_type hide" data-path=engine[:review_path].call(@backer) ]
+      #info_box
+        .bootstrap-twitter
+          .alert.alert-info
+            p
+              = raw("Your total charge will be <strong class='total_value'></strong> ")
+              i class='icon-info-sign'
     .clearfix
+
+
+
+
+    .seal-original.hide
+      / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
+      div class="AuthorizeNetSeal"
+        javascript:
+          var ANS_customer_id="dbe7fb76-0492-4501-aac8-8bb3f2da5039"
+        script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js"
+        a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank" Merchant Services
+
+
+
+
+/= check_box_tag 'accept'
+/= label_tag 'accept', t('accept_terms_html', link: link_to(t('terms'), '#termsModal', class: 'termsModalLink', :"data-toggle" => 'modal', :"data-url" => terms_path)), class: 'inline'
+
+/- unless @backer.credits
+/- if @backer.credits
+    /= form.submit (@backer.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
+
+/- if @backer.credits
+  /#back_with_credits
+    /.bootstrap-alert
+      /.alert
+        /#credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @backer.value), unit: 'R$', precision: 0, delimiter: '.'))
+/.bootstrap-form
+  /= semantic_form_for current_user, url: credits_checkout_project_backer_path(@backer.project, @backer), html: { data: { update_info_path: update_info_project_backer_path(project_id: @backer.project.id, id: @backer.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @backer.credits)}" } do |form|
+    /= hidden_field_tag 'project_id', @backer.project.id
+    /= hidden_field_tag 'backer_id', @backer.id
+    /= hidden_field_tag 'backer_credits', @backer.credits
+    /= hidden_field_tag 'payment_method_url', nil
+
+
