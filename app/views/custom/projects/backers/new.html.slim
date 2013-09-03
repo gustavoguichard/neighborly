@@ -28,7 +28,7 @@
               = form.input :short_note, label: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
           = form.actions do
             .bootstrap-twitter
-              = form.submit t('.submit'), class: 'btn btn-primary btn-large', id: "backer_submit"
+              = form.submit t('.submit'), class: 'btn btn-success btn-large', id: "backer_submit"
       #back_info
         #project_info
           .project_name= link_to @project.name, project_by_slug_path(permalink: @project.permalink)
