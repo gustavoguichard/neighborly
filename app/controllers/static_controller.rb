@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
-  def guidelines
-    @title = t('static.guidelines.title')
+  def how_it_works
+    @title = t('static.how_it_works.title')
   end
 
   def terms
