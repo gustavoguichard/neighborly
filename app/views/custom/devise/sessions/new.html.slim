@@ -31,7 +31,8 @@
             = f.submit t('pages.login.form.inputs.submit'), class: [:button, :success, 'large-16', 'columns']
 
           .clearfix
-          .new_user_confirmation
-            = link_to "Didn't receive confirmation instructions?", new_user_confirmation_path
-          .clearfix
+          - if devise_mapping.confirmable?
+            .new_user_confirmation
+              = link_to "Didn't receive confirmation instructions?", new_user_confirmation_path
+            .clearfix
 
