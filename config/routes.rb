@@ -66,6 +66,10 @@ Catarse::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
 
+  # TEMP
+  get "/guidelines_tips",       to: "static#guidelines_tips",     as: :guidelines_tips
+  get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
+  get "/guidelines_start",      to: "static#guidelines_start",    as: :guidelines_start
 
   get "/explore" => "explore#index", as: :explore
   get "/explore#:quick" => "explore#index", as: :explore_quick
