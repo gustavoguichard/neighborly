@@ -14,7 +14,7 @@ puts "Adding new configurations..."
     facebook_app_id: '255971384512404',
     twitter_username: "Neighborly",
     mailchimp_url: "http://neighbor.us1.list-manage2.com/subscribe/post?u=21981001cfe713f8988f30c47&amp;id=40b2f2e36d",
-    catarse_fee: '0.13', # TODO
+    catarse_fee: '0.05', # TODO
     support_forum: 'http://neighborly.uservoice.com/',
     base_domain: 'neighbor.ly',
     uservoice_key: 'Diz5MR8dh3fxawPFOcrw',
