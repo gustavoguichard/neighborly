@@ -141,9 +141,8 @@ class Backer < ActiveRecord::Base
   end
 
   def project_should_be_online
-    # TODO: ADD BACK - REMOVED FOR MIGRATION
-    #return if project && project.online?
-    #errors.add(:project, I18n.t('backer.project_should_be_online'))
+    return if project && project.online?
+    errors.add(:project, I18n.t('backer.project_should_be_online'))
   end
 
   def display_value

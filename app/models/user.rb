@@ -5,23 +5,17 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :omniauthable#, :confirmable TODO: ADD BACK - REMOVED FOR MIGRATION
+    :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
+
   begin
-
-
-
-    # TODO: ADD BACK ---- REMOVED FOR MIGRATION
-
-
-    # NOTE: Sync normal users on mailchimp
-    #sync_with_mailchimp subscribe_data: ->(user) {
-                          #{ EMAIL: user.email, FNAME: user.name,
-                          #CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
-                        #},
-                        #list_id: Configuration[:mailchimp_list_id],
-                        #subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },
-                        #unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
-                        #unsubscribe_email: ->(user) { user.email }
+    sync_with_mailchimp subscribe_data: ->(user) {
+                          { EMAIL: user.email, FNAME: user.name,
+                          CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
+                        },
+                        list_id: Configuration[:mailchimp_list_id],
+                        subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },
+                        unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
+                        unsubscribe_email: ->(user) { user.email }
 
 
   rescue Exception => e
@@ -31,8 +25,7 @@ class User < ActiveRecord::Base
   delegate  :display_name, :display_image, :short_name, :display_image_html,
     :medium_name, :display_credits, :display_total_of_backs,
     to: :decorator
-  # Setup accessible (or protected) attributes for your model
-  # TODO:
+
   attr_accessible :email,
     :password,
     :password_confirmation,

@@ -74,8 +74,7 @@ class BackerObserver < ActiveRecord::Observer
   end
 
   def notify_backoffice(backer)
-    # TODO: ADD BACK - REMOVED FOR MIGRATION
-    #CreditsMailer.request_refund_from(backer).deliver
+    CreditsMailer.request_refund_from(backer).deliver
   end
 
   def notify_backoffice_about_canceled(backer)

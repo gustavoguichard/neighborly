@@ -14,31 +14,31 @@ See about the catarse_fee
 ## Migration
 
 This will migrate the data from older database to the new
-	
+
 	rake db:migrate:configurations
-	
+
 	rake db:migrate:categories
-	
+
 	rake db:migrate:states
-	
+
 	rake db:migrate:press_assets
-	
+
 	rake db:migrate:oauth_providers
-		
+
 	rake db:migrate:users
-	
+
 	rake db:migrate:authorizations
-	
+
 	rake db:migrate:projects
-	
+
 	rake db:migrate:rewards
-	
+
 	rake db:migrate:backers
-	
+
 	rake db:migrate:updates
-	
+
 	rake db:migrate:project_faqs
-	
+
 	rake db:migrate:project_documents
 
 
