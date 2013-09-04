@@ -283,4 +283,8 @@ class User < ActiveRecord::Base
     !new_record?
   end
 
+  def confirmation_required?
+    !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
+  end
+
 end
