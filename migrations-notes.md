@@ -1,5 +1,9 @@
 # TODO
 
+# IMPORTANT
+
+# USE migration branch
+
 Need configurate the s3 access for legacy dragonfly
 
 Change uploaders to save files on Amazon S3
