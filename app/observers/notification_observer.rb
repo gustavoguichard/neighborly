@@ -3,6 +3,7 @@ class NotificationObserver < ActiveRecord::Observer
 
   def after_create(notification)
     # TODO: ADD BACK - REMOVED FOR MIGRATION
-    #notification.send_email
+    # TODO: REMOVE FOR MIGRATION
+    notification.send_email
   end
 end
