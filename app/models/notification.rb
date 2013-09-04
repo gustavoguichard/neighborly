@@ -25,7 +25,7 @@ class Notification < ActiveRecord::Base
     unless dismissed
       begin
         # TODO: ADD BACK - REMOVED FOR MIGRATION
-        NotificationsMailer.notify(self).deliver
+        #NotificationsMailer.notify(self).deliver
         self.update_attributes dismissed: true
       rescue Exception => e
         Rails.logger.error "Error while delivering email (#{e}).\n
