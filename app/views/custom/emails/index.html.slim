@@ -1,0 +1,26 @@
+#page_content
+  .container
+    .title
+      h1 Notifications
+
+    .data-table
+      .bootstrap-twitter
+        table.table.table-striped
+          thead
+            tr
+              th style="width: 500px;" Subject
+              th Notification type
+              th
+          tbody
+            - @notifications.each do |notification|
+              tr id=notification.id class=cycle("even", "odd")
+                td = I18n.t("notifications.#{notification.notification_type.name}.subject", notification.mail_params)
+                td = notification.notification_type.name
+                td
+                  .pull-right
+                    = link_to 'Show', email_path(notification), class: 'btn'
+
+  .clearfix
+
+
+    

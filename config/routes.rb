@@ -29,7 +29,7 @@ Catarse::Application.routes.draw do
 
   # Non production routes
   if Rails.env.development?
-    resources :emails, only: [ :index ]
+    resources :emails, only: [ :index, :show ]
   end
 
   # Channels
