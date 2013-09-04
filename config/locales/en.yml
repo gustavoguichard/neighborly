@@ -278,18 +278,20 @@ en:
         video_url_edit: 'Paste here the URL of your Vimeo video.'
         about: "Tell us about what inspired you to come up with this project . Be objective end charming, present your readers with something that moves them while being very transparent over the expectations on your project!"
         more_links: "Which channels will be used to spread the word about your project? List here your facebook/twitter/blog/site/ and what ever more links you have to help you"
-        category: "Before you format your project explore other (successful) projects to inspire yourself!"
-        expires_at: "Finally, choose how long you want your campaign to last. Again, this is a strategic choice: if you put a lot of time, people will lose interest along the way; if put too little, you may not reach the minimum in time."
+        category: "Which category best describes your project?"
+        expires_at: "Choose how long your campaign will run. Start at a minimum of 30 days up to 3 months."
         online_days: "Finally, choose how long you want your campaign to last. Again, this is a strategic choice: if you put a lot of time, people will lose interest along the way; if put too little, you may not reach the minimum in time."
-        goal: "Amount Sought"
-        first_backers: "To reach your financial goal it’s indispensable to engaje the people who are close to you and the project. So if you can list here who will be your first 20 backers that would be a great sign ;) "
-        headline: "Summarize your project in 140 characters. This sentence will be the first contact people will have with your project, before even seeing the video. Be creative, clear and direct :)"
+        goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
+        first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or pledges you can count on to come in on day 1 of your project."
+        headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
         name: "Be as objective as you can. Leave explanations for the About section."
         uploaded_image: "Upload a 512x400 image(.jpg)."
-        video_url: "Paste the URL from a <a href=\"http://vimeo.com\" target=\"_blank\">Vimeo</a> video. We recommend Vimeo because it looks better and doesn't have ads. This way, your project will look better too! <strong>Produce your video the best you can and make a video specifically for your campaign</strong>. If there is a single thing that differentiates the projects that reach the goal from the others is the video. Observe ;)"
-        hash_tag: 'Hash Tag'
+        video_url: "Paste the link from Youtube or Vimeo. Your vid should be short enough to retain viewers, but descriptive enough that viewers can understand the project quickly."
+        hash_tag: 'Create a short hashtag that can be appended to tweets and Facebook updates.'
+        site: 'Paste a link here from your website so users can follow up and find out more about your mission.'
         foundation_widget: 'If you want to use new widget on embed, check this!'
         campaign_type: 'Flexible: fund no matter what. All or None: fund if goal is met.'
+        budget: 'Contributors feel most comfortable when you have a clear plan for how the proceeds will be spent. Briefly explain how the money will be used.'
       reward:
         description: "Describe your reward in a way that arouses people's interest to back the project. Don't be shy!"
         maximum_backers: "If your reward is limited, tell us the maximum backers."
@@ -304,25 +306,26 @@ en:
       comment:
         comment: "Leave your comment about this project"
       project:
-        more_links: "List project related links *"
-        how_know: "How did you get to know Neighbor.ly?"
-        headline: "Punch Line"
+        #more_links: "List project related links *"
+        how_know: "How did you hear about Neighbor.ly?"
+        headline: "Tagline"
         category: 'Category'
-        first_backers: "List your first backers *"
+        first_backers: "List existing contributors *"
         about: "About your project. How will you spend this money?"
-        expires_at: "What's the deadline to reach your goal?"
-        goal: "How much do you intend to raise? (use only numbers)"
+        expires_at: "Deadline"
+        goal: "Project Budget"
         name: "Project's Name"
         online_days: 'How Many Campaign Days?'
         video_url: Video
         uploaded_image: "Project thumbnail"
-        site: 'Project Website'
-        hash_tag: 'Short hashtag for Twitter, blog, etc.'
+        site: 'Your Website'
+        hash_tag: 'Hashtag'
         foundation_widget: 'Use new fundation widget?'
         campaign_type: 'Campaign Type'
         address_neighborhood: 'Neighborhood'
         address_city: 'City'
         address_state: 'State'
+        budget: 'Project Budget Detail'
       reward:
         maximum_backers: "Maximum backers (optional)"
         days_to_delivery: "Days to delivery"
@@ -596,18 +599,18 @@ en:
       permalink_hint: 'Go simple. Your backers should be able to remember the URL to your project ;)'
       name_important: "Do not exceed  50 characters"
       about_important: "Don't make it too long! Indicate links so people can know more about your work"
-      important_html: 'Keep in mind the 13% fee charged by Neighbor.ly in case you reach your financial goal. Just divide your final budget by 0.87 to find the discounted amount.'
+      #important_html: 'Keep in mind the 13% fee charged by Neighbor.ly in case you reach your financial goal. Just divide your final budget by 0.87 to find the discounted amount.'
       send_project: "I want to submit my project."
-      video_important: "The video must be hosted by Vimeo. Paste here the URL!"
-      more_links_important: "It's very important to use social medias to spread the word about your project and engage your network into making it a success"
-      first_backers_important: "These people are fundamental to the success of your project."
-      how_know_important: "Yay! We reached  the final question."
-      headline_important: "It's a summary of  your project . 140 characteres tops!:D"
-      tags_important: "Check ou other projects in your category  <a href='%{href}' target='_blank'>here!</a>!."
+      #video_important: "The video must be hosted by Vimeo. Paste here the URL!"
+      #more_links_important: "It's very important to use social medias to spread the word about your project and engage your network into making it a success"
+      first_backers_important: "If you don't know who is going to contribute on day 1, you are not ready to launch."
+      how_know_important: "This helps us understand how great community builders like yourself are finding out about Neighbor.ly"
+      #headline_important: "It's a summary of  your project . 140 characteres tops!:D"
+      #tags_important: "Check ou other projects in your category  <a href='%{href}' target='_blank'>here!</a>!."
       subtitle: "The time to make it happen is now! We really want to know what you're up to..."
       title: "Submit your project"
       about: "Describe your project and how much do you need"
-      category: "Project category"
+      category: "Category"
       how_much_you_need: "How much do you want to raise?"
       about_hint: "Tell us a little about what you want to do, how much you need and what for. Be brief and punctual, but don't forget to give the readers something that moves them. After all, it's your creation and they need to see your passion taking place!"
       contact: "Leave us your email address so we can contact you"

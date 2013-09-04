@@ -13,6 +13,8 @@
         = semantic_form_for @project, html: { id: 'project_form' } do |form|
           = form.inputs do
             .input.control-group.error
+
+            .section-header Project Overview
             .input
               .bootstrap-alert
                 span
@@ -53,36 +55,24 @@
             .input
               = form.label :budget, t('formtastic.labels.project.budget')
               = form.text_area :budget, class: "#{'error' if @project.errors[:budget].present?}"
+              p.inline-hints= t('formtastic.hints.project.budget')
 
             .input
-              = form.label :terms, t('formtastic.labels.project.terms')
-              = form.text_area :terms, class: "#{'error' if @project.errors[:terms].present?}"
-
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.headline_important')
               = form.label :headline, t('formtastic.labels.project.headline')
-              = form.text_field :headline, { maxlength: 140, class: "#{'error' if @project.errors[:headline].present?}" }
+              = form.text_field :headline, { maxlength: 130, class: "#{'error' if @project.errors[:headline].present?}" }
               p.inline-hints= t('formtastic.hints.project.headline')
 
             .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.tags_important', href: "http://www.catarse.me/explore").html_safe
               = form.label :category, t('.category')
               = form.select :category_id, Category.array, class: "#{'error' if @project.errors[:category].present?}"
               p.inline-hints= t('formtastic.hints.project.category')
 
             .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.important_html', link: link_to("MoIP", "http://www.moip.com.br/", target: :_blank))
               = form.label :goal, t('formtastic.labels.project.goal')
-              = form.text_field :goal, class: "#{'error' if @project.errors[:goal].present?}"
+              .input-prepend.input-append
+                span.add-on $
+                = form.text_field :goal, class: "#{'error' if @project.errors[:goal].present?}"
+                span.add-on .00
               p.inline-hints= t('formtastic.hints.project.goal').html_safe
 
             .input
@@ -93,22 +83,9 @@
               p.inline-hints= t('formtastic.hints.project.online_days')
 
             .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.video_important')
               = form.label :video_url, t('formtastic.labels.project.video_url')
               = form.text_field :video_url, class: "#{'error' if @project.errors[:video_url].present?}", data: { path: video_projects_path }
               p.inline-hints= t('formtastic.hints.project.video_url').html_safe
-
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('.more_links_important')
-              = form.label :more_links, t('formtastic.labels.project.more_links')
-              = form.text_area :more_links, class: "#{'error' if @project.errors[:more_links].present?}"
-              p.inline-hints= t('formtastic.hints.project.more_links')
 
             .input
               .bootstrap-alert
@@ -119,6 +96,7 @@
               = form.text_area :first_backers, class: "#{'error' if @project.errors[:first_backers].present?}"
               p.inline-hints= t('formtastic.hints.project.first_backers')
 
+            .section-header Project Details
             .input
               = form.label :hash_tag, t('formtastic.labels.project.hash_tag')
               = form.text_field :hash_tag, class: "#{'error' if @project.errors[:hash_tag].present?}"
@@ -127,7 +105,9 @@
             .input
               = form.label :site, t('formtastic.labels.project.site')
               = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"
+              p.inline-hints= t('formtastic.hints.project.site')
 
+            .section-header Project Location
             .input
               = form.label :address_neighborhood, t('formtastic.labels.project.address_neighborhood')
               = form.text_field :address_neighborhood, class: "#{'error' if @project.errors[:address_neighborhood].present?}"
@@ -139,6 +119,8 @@
             .input
               = form.label :address_state, t('formtastic.labels.project.address_state')
               = form.select_tag :address_state, options_for_select(State.array), class: "#{'error' if @project.errors[:address_state].present?}"
+
+            .section-header Miscellaneous
 
             .input
               .bootstrap-alert
