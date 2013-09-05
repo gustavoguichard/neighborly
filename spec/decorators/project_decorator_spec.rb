@@ -88,7 +88,9 @@ describe ProjectDecorator do
       it{ should == 70 }
     end
     context "when progress is above 100" do
-      before{ project.stub(:progress).and_return(101) }
+      before do
+        project.stub(:progress).and_return(101)
+      end
       it{ should == 100 }
     end
   end

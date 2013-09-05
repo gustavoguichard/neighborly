@@ -16,7 +16,7 @@ class ProjectDecorator < Draper::Decorator
 
   # Method for width of progress bars only
   def display_progress
-    return 100 if source.successful? and source.reached_goal? || source.progress > 100
+    return 100 if (source.successful? and source.reached_goal?) || source.progress > 100
     return 8 if source.progress > 0 and source.progress < 8
     source.progress
   end

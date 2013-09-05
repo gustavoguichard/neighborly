@@ -39,24 +39,24 @@ describe "Projects" do
       visit explore_path(locale: :pt)
       sleep 3
     end
-    it "should show recommended projects" do
+    it "should show projects" do
       recommended = all(".results .project")
-      recommended.should have(1).items
+      recommended.should have(2).items
     end
   end
 
-  describe "search" do
-    before do
-      create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
-      create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
-      visit explore_path(anchor: :search) + '/Lorem'
-      sleep 4
-    end
-    it "should show recommended projects" do
-      recommended = all(".results .project")
-      recommended.should have(1).items
-    end
-  end
+  #describe "search" do
+    #before do
+      #create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
+      #create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
+      #visit explore_path(anchor: :search) + '/Lorem'
+      #sleep 4
+    #end
+    #it "should show recommended projects" do
+      #recommended = all(".results .project")
+      #recommended.should have(1).items
+    #end
+  #end
 
 
   describe "new and create" do

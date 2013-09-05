@@ -54,6 +54,7 @@ FactoryGirl.define do
     f.first_backers 'Foo bar'
     f.video_url 'http://vimeo.com/17298435'
     f.state 'online'
+    f.home_page true
   end
 
   factory :notification_type do |f|
