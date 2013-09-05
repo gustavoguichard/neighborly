@@ -1,0 +1,2 @@
+#!/bin/sh
+HEROKU_APP=neighborly exec heroku "$@"
