@@ -6,7 +6,14 @@ class DocumentUploader < CarrierWave::Uploader::Base
     "uploads/project_documents/#{mounted_as}/#{model.id}"
   end
 
+  def self.choose_storage
+    (Configuration[:aws_access_key]) ? :fog : :file
+  end
+
+  storage choose_storage
+
   def filename
     File.basename(self.file.file)
   end
 end
+
