@@ -32,7 +32,7 @@ class LegacyProject < ActiveRecord::Base
       about_html: self.about_html,
       recommended: self.recommended,
       home_page_comment: self.home_page_comment,
-      permalink: self.permalink.gsub!(/\s+/, ''),
+      permalink: self.permalink.gsub(/\s+/, ''),
       online_days: get_online_days,
       online_date: get_online_date,
       #how_know: text,
@@ -60,7 +60,8 @@ class LegacyProject < ActiveRecord::Base
   end
 
   def get_online_days
-    ((self.expires_at - self.created_at).abs/60/60/24).round if not self.soon and self.visible
+    return ((self.expires_at - self.created_at).abs/60/60/24).round if not self.soon and self.visible
+    0
   end
 
   def get_image_url

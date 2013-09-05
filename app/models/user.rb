@@ -276,7 +276,9 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    !persisted? || !password.nil? || !password_confirmation.nil?
+    #TODO: ADD BACK - REMOVED FOR MIGRATION
+    #!persisted? || !password.nil? || !password_confirmation.nil?
+    false
   end
 
   def password_confirmation_required?

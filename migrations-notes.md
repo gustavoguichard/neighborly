@@ -10,6 +10,19 @@ Change uploaders to save files on Amazon S3
 
 See about the catarse_fee
 
+## Before
+
+On old neighbor.ly, use migration branch and run rake db:migrate, after get an updated database from heroku.
+
+On new neighbor.ly, run `rake db:create`, `rake db:migrate` and on `rails console`: 
+	
+	Category.destroy_all
+	
+
+## After migrate configurations
+
+Reset sequesces and create configuration for aws and notifications types
+
 
 ## Migration
 
