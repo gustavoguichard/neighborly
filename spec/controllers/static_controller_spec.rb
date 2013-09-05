@@ -7,7 +7,7 @@ describe StaticController do
   subject{ response }
 
   describe 'GET guidelines' do
-    before{ get :guidelines, {locale: :pt} }
+    before{ get :how_it_works, {locale: :pt} }
     it{ should be_success }
     #its(:body){ should =~ /#{I18n.t('static.guidelines.title')}/ }
     #its(:body){ should =~ /#{I18n.t('static.guidelines.subtitle')}/ }
