@@ -78,3 +78,6 @@ In order to prevent some problems on migrations, I commented some codes and they
 Find by `ADD BACK - REMOVED FOR MIGRATION` in the project and uncomment the code.
 
 
+# Import the database to heroku
+
+https://devcenter.heroku.com/articles/heroku-postgres-import-export
