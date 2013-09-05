@@ -28,16 +28,6 @@ gem 'schema_plus', '~> 1.2.0'
 gem 'schema_associations', '~> 1.2.0'
 gem 'chartkick'
 
-# Database migration
-gem 'bogie'
-gem 'dragonfly',  '~>0.9.12'
-gem 'rack-cache', require: 'rack/cache'
-gem 'aws-s3',     '~> 0.6.2'
-
-
-
-
-
 # Payment engines
 gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
 gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
