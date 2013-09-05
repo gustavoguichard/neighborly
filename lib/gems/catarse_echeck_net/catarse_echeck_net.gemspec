@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.version     = CatarseEcheckNet::VERSION
   s.authors     = ["Antônio Roberto Silva"]
   s.email       = ["forevertonny@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "Catarse eCheck.net"
-  s.description = "eCheck payments"
+  s.homepage    = "http://github.com/luminopolis/catarse_echeck_net"
+  s.summary     = "Authorize.Net eCheck integration with Catarse"
+  s.description = "Authorize.Net eCheck integration with Catarse crowdfunding platform"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

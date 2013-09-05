@@ -92,6 +92,7 @@ PATH
   remote: lib/gems/catarse_credit_card_net
   specs:
     catarse_credit_card_net (0.0.1)
+      authorize-net (~> 1.5.2)
       rails (~> 4.0.0)
 
 PATH
