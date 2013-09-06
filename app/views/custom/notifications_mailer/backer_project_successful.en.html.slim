@@ -3,7 +3,7 @@ br
 |Howdy, #{backer.user.name}!
 br
 br
-  |Thanks to you and #{backer.project.total_backers - 1} other supporters, #{link_to(backer.project.name, "#{Configuration[:base_url]}/projects/#{backer.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{backer.project.display_pledged}, totalling #{backer.project.progress}% of the goal!
+|Thanks to you and #{backer.project.total_backers - 1} other supporters, #{link_to(backer.project.name, "#{Configuration[:base_url]}/projects/#{backer.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{backer.project.display_pledged}, totalling #{backer.project.progress}% of the goal!
 br
 |Hang tight - you don't need to do anything for now. #{backer.project.user.display_name} will follow up with you soon. If you chose a reward that requires additional information, the project owner will follow up with you directly.
 br
@@ -14,32 +14,37 @@ br
 - fb_img = "<img src=\"#{Configuration[:base_url]}/assets/auth/facebook_64.png\" title='Facebook' class='social' />".html_safe
 == raw link_to(fb_img, "http://www.facebook.com/share.php?u=#{Configuration[:base_url]}/projects/#{backer.project.to_param}" , :target => :_blank)
 - twitter_img = "<img src='#{Configuration[:base_url]}/assets/auth/twitter_64.png' title='Twitter' class='social' />".html_safe
-== raw link_to(twitter_img,"http://twitter.com/?status=#{"Uhuu! The project '#{backer.project.name}', that I backed, was successful on @#{Configuration[:twitter_username]}! #{project_by_slug_url(permalink: backer.project.permalink)}"}", :target => :_blank)
+== raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight '#{backer.project.name}', on @#{Configuration[:twitter_username]}! #{project_by_slug_url(permalink: backer.project.permalink)}"}", :target => :_blank)
 br
 br
-strong
-  |Important information about your pledge (that will help to clear any doubts):
+br
+|Important information about your contribution:
+br
+br
+|Contribution Amount: 
+strong #{number_to_currency backer.value, precision: 0}
+br
+br
+- if backer.reward
+  |Reward Selected: 
+  strong #{number_to_currency backer.reward.minimum_value, precision: 0}
+  |  &mdash; #{backer.reward.description}
   br
   br
-  |Pledged amount: #{backer.value}
-  br
-  - if backer.reward
-    |Choosen reward value: #{backer.reward.minimum_value}
-    br
-    |Choosen reward: #{backer.reward.description}
-    br
-  |Pledge date: #{backer.created_at.strftime("%d/%m/%Y")}
-  br
-  |Key: #{backer.key}
-  br
-  br
-|If you want to talk to #{backer.project.user.name}, send an email to #{mail_to backer.project.user.email}
+|Contribution Date: 
+strong #{l backer.created_at.to_date, format: :long}
 br
 br
-|If you have any other questions, access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")} or send an email to #{mail_to Configuration[:email_contact]}
+|Contribution Key: 
+strong #{backer.key}
 br
 br
-|A big hug,
+|If you wish to contact #{backer.project.user.name}, please email #{mail_to backer.project.user.email}
 br
 br
-|#{Configuration[:company_name]} team
+|If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.
+br
+br
+|High fives all around,
+br
+|The #{Configuration[:company_name]} Team
