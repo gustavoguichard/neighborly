@@ -18,8 +18,8 @@ en:
       subject: "Status do apoio para %{project_name}: boleto impresso"
       header: "Informações sobre pagamentos por boleto no Neighbor.ly"
     processing_payment:
-      subject: "Seu apoio para %{project_name} foi recebido e está aguardando confirmação do %{payment_method}"
-      header: "Apoio Em Análise - o que é isso?"
+      subject: "Your contribution to %{project_name} is being processed by %{payment_method}."
+      header: "Your payment is being processed."
     updates:
       subject: "Project UPDATE#%{update_id} - %{project_name}"
       header: "Project UPDATE#%{update_id} - %{project_name}"

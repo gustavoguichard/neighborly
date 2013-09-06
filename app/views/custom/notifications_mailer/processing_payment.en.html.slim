@@ -1,24 +1,22 @@
 -backer = @notification.backer
-|Hi, <strong>#{backer.user.display_name}</strong>!
+|Howdy, <strong>#{backer.user.display_name}</strong>!
 br
 br
-|Your pledge to #{backer.project.name} is being <strong>analysed</strong> on <strong>#{backer.payment_method}</strong>.
+|Your contribution to #{backer.project.name} is being <strong>processed</strong> on <strong>#{backer.payment_method}</strong>.
 br
 br
-|This is a security measure in order to prevent fraud and, for some payments, they will need to contact the person, which is why it has not been approved yet.
+|This is a security measure in order to prevent fraud and no further action is currently required. However, for some payments, the processor will need to contact you directly in order to approve the payment.
 br
 br
-|#{backer.payment_method}, in some cases, may call you to confirm the transaction, ok?
+|If the pledge is greater than $10.00, additional documentation may be required to confirm the transaction, in which case they will contact you for further details.
 br
 br
-|If the pledge is greater than R$10.000, additional documentation may be required to confirm the transaction, in which case they will contact you for further details.
+|We will notify you once your payment has been confirmed.
+br
+|Contribution Key: 
+strong #{backer.key}
 br
 br
-|When you pledge is confirmed, we will send you another email.
+|High fives,
 br
-|Back key: #{backer.key}
-br
-br
-|A big hug,
-br
-|#{Configuration[:company_name]} Team
+|The #{Configuration[:company_name]} Team
