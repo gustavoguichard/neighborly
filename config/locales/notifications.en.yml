@@ -1,17 +1,19 @@
+# This file contains the email message subjects and headers.
+
 en:
   notifications:
     new_user_registration:
       subject: 'Welcome to Neighbor.ly!'
       header: 'Welcome to Neighbor.ly!'
     backer_canceled_after_confirmed:
-      subject: "Backer canceled after confirmed"
-      header: "Backer canceled after confirmed"
+      subject: "Neighbor.ly Admin: A confirmed contribution was cancelled"
+      header: "A confirmed contribution has been cancelled"
     project_owner_backer_confirmed:
       subject: "Hooray! Another new supporter backed your project"
       header: "A new back has just been confirmed for your project"
     confirm_backer:
-      subject: "Thank you! Your back for %{project_name} was confirmed!"
-      header: "Back confirmed"
+      subject: "Thank you for your contribution to %{project_name}"
+      header: "Thank you, Neighbor."
     payment_slip:
       subject: "Status do apoio para %{project_name}: boleto impresso"
       header: "Informações sobre pagamentos por boleto no Neighbor.ly"
@@ -31,8 +33,8 @@ en:
       subject: "Your project was not funded on Neighbor.ly, but we would like your feedback x)"
       header: "Project was not successfully funded ;)"
     backer_project_successful:
-      subject: "Hooray! The project %{project_name} has succeeded on Neighbor.ly"
-      header: "Hooray! The project you backed has succeeded on Neighbor.ly"
+      subject: "You helped greenlight %{project_name} on Neighbor.ly!"
+      header: "High five! You helped %{project_name} succeed on Neighbor.ly"
     backer_project_unsuccessful:
       subject: "The project %{project_name} was not funded - some useful information"
       header: "Information on credits and refunds ;)"
@@ -64,14 +66,14 @@ en:
       subject: "Ajuda para tese de doutorado sobre crowdfunding"
       header: "Ajuda para tese de doutorado sobre crowdfunding"
     adm_project_deadline:
-      subject: "The project %{project_name} has reached its deadline"
-      header: "The project reached its deadline"
+      subject: "Neighbor.ly admin: The project %{project_name} has reached its deadline"
+      header: "Project Complete!"
     credits_warning:
       subject: "You have $%{amount} in credits on Neighbor.ly"
       header: "Why not back another project?"
     backer_confirmed_after_project_was_closed:
-      subject: "New backer confirmed on finished project '%{project_name}' "
-      header: "New backer confirmed."
+      subject: "Neighbor.ly admin: Contribution confirmed on closed project '%{project_name}' "
+      header: "Contribution confirmed"
     temporary_password:
       subject: "Temporary password for Neighbor.ly"
       header: "Log on to change your password"

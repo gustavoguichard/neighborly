@@ -7,7 +7,7 @@ en:
     message:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
-  failure_title: 'Please, fix the errors bellow:'
+  failure_title: 'Please, fix the errors below:'
   uservoice_gadget:
     user:
       name: 'User'
@@ -48,7 +48,7 @@ en:
     address_street: 'Street'
     address_complement: 'Complement'
     address_number: 'Number'
-    address_neighbourhood: 'Neighbourhood'
+    address_neighbourhood: 'Neighborhood'
     address_city: 'City'
     address_state: 'State'
     address_zip_code: 'Zip code'
