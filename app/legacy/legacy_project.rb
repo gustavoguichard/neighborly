@@ -56,7 +56,7 @@ class LegacyProject < ActiveRecord::Base
   end
 
   def get_online_date
-    self.created_at if self.visible?
+    self.created_at if not self.soon and self.visible?
   end
 
   def get_online_days
