@@ -24,24 +24,21 @@ br
 |Contribution Key: 
 strong #{backer.key}
 br
-
-br
-|If the project is successfully funded by <strong>#{l backer.project.expires_at.to_date, format: :long}</strong>, #{backer.project.user.display_name} will contact you about rewards and followup. This contact will come, usually, a week later, which is the time it takes for us to forward all the backers information to the project owner.
-br
-br
-|If the project doesn't reach it's goal, you will receive another email with instructions to:
-br
-|1) back another project with the generated credits; OR
-br
-|2) ask for a refund.
+- if backer.project.flexible?
+  br
+  | This project will be funded on <strong>#{l backer.project.expires_at.to_date, format: :long}</strong>. Shortly after, #{backer.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
+- else
+  br
+  |If the project is successfully funded by <strong>#{l backer.project.expires_at.to_date, format: :long}</strong>, #{backer.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
+  |  If the project doesn't reach it's goal, you will receive another email with instructions regarding a refund.
 br
 br
-|If you want to contact #{backer.project.user.name}, send an email to #{mail_to backer.project.user.email}
+|If you want to contact #{backer.project.user.name}, send an email to #{mail_to backer.project.user.email}.
 br
 br
-|If you have any other questions, access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")} or send an email to #{mail_to Configuration[:email_contact]}
+|If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.
 br
 br
-|A big hug,
+|High fives,
 br
-|#{Configuration[:company_name]} Team
+|The #{Configuration[:company_name]} Team

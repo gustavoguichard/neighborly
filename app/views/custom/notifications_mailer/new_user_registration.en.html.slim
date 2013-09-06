@@ -7,18 +7,14 @@
 
 br/
 br/
-| Welcome to Neighbor.ly. The fundraising toolkit for communities.
-br/
-br/
-| Keep in mind that your email to log in is: #{user.email}
-br/
-br/
+| Thanks for joining Neighbor.ly, the fundraising toolkit for communities.
+br
+br
 
 - if recommended.any?
-  | For starters, it is worth knowing three projects that are recommended:
-  br/
-  br/
-  br/
+  | To get started, check out some of these recommended projects:
+  br
+  br
   table border="0" cellpadding="3" cellspacing="0" width="520" align="center"
     tr
       - recommended.each do |project| 
@@ -28,13 +24,12 @@ br/
             br/
             p style='font-size: 13px; padding: 5px'= project.name
 
-br/
+br
 center
  = link_to 'Explore more projects', explore_url, target: 'blank', class: 'button'
-
 br
 br
-| Best,
+| High fives,
 br
-= Configuration[:company_name]
+| The #{Configuration[:company_name]} Team
 

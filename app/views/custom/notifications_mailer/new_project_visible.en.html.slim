@@ -1,17 +1,21 @@
 - project = @notification.project
 - user = @notification.user
-|Hello, #{user.display_name}.
+|Howdy, #{user.display_name}.
 br
 br
-|A new project just went to the Neighbor.ly
-br
-br
-= link_to(project.name, project_by_slug_url(project.permalink))
+| #{project.user.display_name} just started a new project on #{Configuration[:company_name]} and we thought you'd like to know! Check out the awesome work they're doing.
 br
 br
 
-br
-|Best,
-br
-= Configuration[:company_name]
+table border="0" cellpadding="3" cellspacing="0" width="220" align="center"
+  tr
+    td width="220" valign="top"
+      = link_to project_by_slug_url(project.permalink), style: 'text-decoration: none; color: #333;' do
+        = image_tag(project.display_image, size: '220x172')
+        br/
+        p style='font-size: 13px; padding: 5px; text-align: center'= link_to(project.name, project_by_slug_url(project.permalink))
 
+br
+|High fives,
+br
+| The #{Configuration[:company_name]} Team
