@@ -10,8 +10,8 @@ en:
       subject: "Hooray! Another new supporter backed your project"
       header: "A new back has just been confirmed for your project"
     confirm_backer:
-      subject: "Thank you! Your back for %{project_name} was confirmed!"
-      header: "Back confirmed"
+      subject: "Thank you for your contribution to %{project_name}!"
+      header: "Thank you, Neighbor."
     payment_slip:
       subject: "Status do apoio para %{project_name}: boleto impresso"
       header: "Informações sobre pagamentos por boleto no Neighbor.ly"
@@ -37,8 +37,8 @@ en:
       subject: "The project %{project_name} was not funded - some useful information"
       header: "Information on credits and refunds ;)"
     pending_backer_project_unsuccessful:
-      subject: "You started to back the project %{project_name}, which was not funded - some useful information"
-      header: "Information about confirmation of support, credits and refunds ;)"
+      subject: "%{project_name} did not reach its goal - some useful information"
+      header: "Information regarding credits and refunds."
     project_received:
       subject: "Your project was received by Neighbor.ly"
       header: "Your project was received by the Neighbor.ly team"
@@ -52,14 +52,14 @@ en:
       subject: "Your project is now online at Neighbor.ly"
       header: "Now it's for real"
     new_project_visible:
-      subject: 'A new project is now online at Neighbor.ly'
-      header: 'A new project is now online at Neighbor.ly'
+      subject: 'A new project just went live on Neighbor.ly'
+      header: 'A new project just went live Neighbor.ly!'
     project_rejected:
       subject: "Your project does not fit Neighbor.ly's focus"
       header: "Your project was not accepted ;("
     new_draft_project:
       subject: "New project created - %{project_name}"
-      header: "New project created"
+      header: "New Project Created"
     new_features:
       subject: "Ajuda para tese de doutorado sobre crowdfunding"
       header: "Ajuda para tese de doutorado sobre crowdfunding"
