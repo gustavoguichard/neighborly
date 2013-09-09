@@ -42,8 +42,8 @@ en:
       subject: "%{project_name} did not reach its goal - some useful information"
       header: "Information regarding credits and refunds."
     project_received:
-      subject: "Your project was received by Neighbor.ly"
-      header: "Your project was received by the Neighbor.ly team"
+      subject: "Thank you for your submission to Neighbor.ly"
+      header: "Well done, Neighbor."
     project_received_channel:
       subject: "Your project was received by the Wings Channel"
       header: "Your project was welcomed by the staff of the Wings Channel"
