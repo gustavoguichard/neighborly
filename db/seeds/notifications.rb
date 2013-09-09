@@ -116,7 +116,7 @@ Notification.create_notification_once(:project_success,
 Notification.create_notification_once(:project_unsuccessful,
   project.user,
   {project_id: project.id, user_id: project.user.id},
-  project: project) unless project.successful?
+  project: project)
 
 Notification.create_notification_once(:project_visible,
   project.user,
