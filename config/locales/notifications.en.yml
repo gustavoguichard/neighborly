@@ -27,8 +27,8 @@ en:
       subject: "O prazo do seu projeto acabou, saiba quais são os próximos passos"
       header: "Acabou o prazo!"
     project_success:
-      subject: "Project successful: some necessary information"
-      header: "Project successful"
+      subject: "Project successful: next steps"
+      header: "Well done, Neighbor!"
     project_unsuccessful:
       subject: "Your project was not funded on Neighbor.ly, but we would like your feedback x)"
       header: "Project was not successfully funded ;)"
@@ -42,8 +42,8 @@ en:
       subject: "%{project_name} did not reach its goal - some useful information"
       header: "Information regarding credits and refunds."
     project_received:
-      subject: "Your project was received by Neighbor.ly"
-      header: "Your project was received by the Neighbor.ly team"
+      subject: "Thank you for your submission to Neighbor.ly"
+      header: "Well done, Neighbor."
     project_received_channel:
       subject: "Your project was received by the Wings Channel"
       header: "Your project was welcomed by the staff of the Wings Channel"
@@ -57,8 +57,8 @@ en:
       subject: 'A new project just went live on Neighbor.ly'
       header: 'A new project just went live Neighbor.ly!'
     project_rejected:
-      subject: "Your project does not fit Neighbor.ly's focus"
-      header: "Your project was not accepted ;("
+      subject: "Your project submission to Neighbor.ly"
+      header: "Thank you, but your project was not accepted."
     new_draft_project:
       subject: "New project created - %{project_name}"
       header: "New Project Created"
