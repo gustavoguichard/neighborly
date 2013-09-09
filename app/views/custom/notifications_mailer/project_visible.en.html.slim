@@ -1,60 +1,50 @@
 - project = @notification.project
-|Olá, #{project.user.display_name}.
+|Great news, #{project.user.display_name}.
 br
 br
-|Seu projeto acabou de entrar no ar e já está apto a começar a receber os apoios, agora é a hora! Agora é começar a fazer a barrinha verde subir :D
+|Your project is now live on Neighbor.ly. Now the fun begins! 
+br
+|Here's the link to begin sharing with your networks:
 br
 br
 = link_to(project.name, project_by_slug_url(project.permalink))
 br
 br
-|Antes de mais nada, Preencha as informações do link a seguir para receber a comunicação do #{Configuration[:company_name]} exclusiva para realizadores: #{link_to 'http://eepurl.com/pDZ6r', 'http://eepurl.com/pDZ6r'}
-strong  (preenchimento obrigatório)
-br
-br
-strong Agora vai um bando de informacões úteis:
+strong Here are some tips for you, to make the most of your campaign:
 ol
-  li Para promover o seu projeto, #{link_to('Aqui','https://docs.google.com/document/d/1Uwg8aRj9LyOE-MU1HOL02HxsVYNXyZcR11dbLRE8Y3c/edit')} temos algumas dicas. O documento é aberto, então sinta-se a vontade para incluir novas observações =)
+  li 
+    |Engage early, engage often. There are three main ways to do so:
+    br
+    br
+    strong Updates
+    br
+    | Use the Updates tab on your project to notify all contributors of of your project. Research shows that projects that make frequent (up to once per week) updates tend to meet the goal faster and more often than projects that do not make regular updates.
+    br
+    br
+    strong Comments
+    br
+    | Follow along with the comments regularly, and engage with commentators. Expect questions, ideas, advice, and links to other web pages in this section.
+    br
+    br
   li
-    |Para interagir com seus apoiadores, você tem três abas:
-    br
-    br
-    strong Apoiadores
-    br
-    | Na aba de apoiadores você terá acesso ao e-mail de todos os seus contribuintes, o valor da colaboração e a recompensa selecionada.
-    br
-    br
-    strong Novidades
-    br
-    | Tudo que você publicar nessa aba, será enviado diretamente no EMAIL dos seus apoaidores. Utilize essa ferramenta para se comunicar com eles e fazer chamados especiais durante os momentos chaves da campanha.  Agora, cuidado para não virar um SPAMMER e encher a caixa de entrada de seus apoiadores :(
-    br
-    br
-    strong Comentários
-    br
-    | Acompanhe os comentários, fique ligado no que seus colaboradores estão achado do projeto, participe das conversas. Comunicação é fundamental a todo momento e passa segurança.
-  li
-    |Além disso, você poderá editar o seu projeto, seguindo algumas regras:
+    |You can also edit your project, within some guidelines:
     ul
-      li Não poderá alterar prazo e valor a ser arrecadado
-      li Não poderá alterar conteúdo e valor de recompensas que já possui algum apoio iniciado.
-    |E Poderá:
-    ul
-      li Trocar o vídeo principal
-      li Editar a descrição do seu projeto
-      li Criar novas recompensas
-      li Encerrar recompensas (limitando-as)
-      li Alterar conteúdo e valor de recompensas não adquiridas
-      li Trocar o Thumbnail e a Frase de Efeito
-    |Para saber todos os detalhes sobre a edição de projeto online, entre #{link_to 'aqui', 'https://docs.google.com/document/d/186yNtCvVb4Z0nwy63VusIhKFsiLApcV8zu2_RG_AM3M/edit'}.
-    br
-    br
-    strong IMPORTANTE:
-    |Para realizar todas essas ações, você precisa estar logado com o perfil “dono” do projeto no #{Configuration[:company_name]}, ok?
-  li
-    |Qualquer dúvida referente às <strong>transações financeiras</strong>, seja durante a captação do projeto, seja sobre transferência dos valores que foram captados ou sobre reembolsos (tomara que não!), dê uma lida nesse #{link_to 'guia', 'https://docs.google.com/document/d/1LzN01c6r_yZXcjnGGwp9NELw5lNcKDj38QTXI7Rl-BY/edit'} e consulte os artigos da nossa #{ link_to 'Base de Conhecimento', 'http://suporte.neighbor.ly/knowledgebase'}.
-    |Se o guia não resolver, entre em #{link_to 'suporte.neighbor.ly', 'http://suporte.neighbor.ly/'} e envie sua dúvida.
-  li
-    |Para envio de materiais de divulgação em nossas mídias sociais, envie uma mensagem através do 
+      li You may not change the length of the campaign
+      li You may not change the total goal of the campaign
+      li You may not edit a reward once a contributor has selected it
+      li 
+        |You may:
+        ul
+          li Update the campaign video
+          li Edit the primary description
+          li Create new rewards
+          li Set or modify the limit on existing rewards
+          li Edit rewards not yet chosen by contributors
+          li Edit the project thumbnail, tagline, and other related contextual information
+    strong IMPORTANT:
+    |To perform any of these actions, you must be logged into the Neighbor.ly account you used to create the project.
+    li
+    |We love to help you represent your project through social media. If you would like assistance, please email   
     = link_to 'suporte.neighbor.ly', 'http://suporte.neighbor.ly/'
     |. Lá você pode bater uma bola sobre estratégias de comunicação com nossa equipe e receber sugestões sobre como agir na sua campanha. Use com moderação! Lembre-se que a responsabilidade de levar a campanha e divulgar ainda é sua, pois é da sua rede que virão os principais resultados da campanha e este auxílio deve ser usado apenas como apoio. ;)
 br

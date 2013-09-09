@@ -9,8 +9,8 @@ en:
       subject: "Neighbor.ly Admin: A confirmed contribution was cancelled"
       header: "A confirmed contribution has been cancelled"
     project_owner_backer_confirmed:
-      subject: "Hooray! Another new supporter backed your project"
-      header: "A new back has just been confirmed for your project"
+      subject: "Hooray! Another new contributor to %{project_name}! on Neighbor.ly"
+      header: "A new contribution was just confirmed."
     confirm_backer:
       subject: "Thank you for your contribution to %{project_name}!"
       header: "Thank you, Neighbor."
@@ -30,8 +30,8 @@ en:
       subject: "Project successful: next steps"
       header: "Well done, Neighbor!"
     project_unsuccessful:
-      subject: "Your project was not funded on Neighbor.ly, but we would like your feedback x)"
-      header: "Project was not successfully funded ;)"
+      subject: "Your project on Neighbor.ly"
+      header: "Sorry, Neighbor."
     backer_project_successful:
       subject: "You helped greenlight %{project_name} on Neighbor.ly!"
       header: "High five! You helped %{project_name} succeed on Neighbor.ly"
@@ -51,8 +51,8 @@ en:
       subject: "The project %{project_name} has just been created"
       header:  "A new project is awaiting review"
     project_visible:
-      subject: "Your project is now online at Neighbor.ly"
-      header: "Now it's for real"
+      subject: "Congrats! %{project_name} is now online at Neighbor.ly"
+      header: "It just got real, Neighbor."
     new_project_visible:
       subject: 'A new project just went live on Neighbor.ly'
       header: 'A new project just went live Neighbor.ly!'
