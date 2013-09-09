@@ -13,8 +13,12 @@ class StaticController < ApplicationController
     render layout: false if request.xhr?
   end
 
-  def guidelines_tips
-    @title = t('static.guidelines_tips.title')
+  def start_terms
+    @title = t('static.start_terms.title')
+  end
+
+  def start
+    @title = t('static.start.title')
   end
 
   def faq

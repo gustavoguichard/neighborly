@@ -1,4 +1,3 @@
-= content_for :title, t('.title')
 #page_content
   .container
     .static_default
@@ -78,13 +77,13 @@
               label 3
               p= t('.why_three')
       .bootstrap-form.center_form
-        = form_tag(guidelines_tips_path, :method => :get, :id => 'guidelines_form') do
+        = form_tag(start_terms_path, :method => :get, :id => 'guidelines_form') do
           fieldset
             .bootstrap-twitter
               .curious
                 = link_to t('.explore_curious'), explore_path, :class=>'btn_explore'
                 span = t('.explore_projects')
               .send
-                = link_to t('.submit'), guidelines_tips_path, :class=>'btn_send'
+                = link_to t('.submit'), start_terms_path, :class=>'btn_send'
                 span = t('.send_project')
     .clearfix

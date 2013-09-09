@@ -33,7 +33,7 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
-  constraints subdomain: 'asas' do
+  constraints subdomain: 'test' do
     namespace :channels, path: '' do
       namespace :adm do
         resources :projects, only: [ :index, :update] do
@@ -66,10 +66,9 @@ Catarse::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
 
-  # TEMP
-  get "/guidelines_tips",       to: "static#guidelines_tips",     as: :guidelines_tips
   get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
-  get "/guidelines_start",      to: "static#guidelines_start",    as: :guidelines_start
+  get "/start",                 to: "static#start",               as: :start
+  get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
   get "/explore" => "explore#index", as: :explore
   get "/explore#:quick" => "explore#index", as: :explore_quick
