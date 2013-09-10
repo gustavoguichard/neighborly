@@ -71,9 +71,7 @@ Catarse::Application.routes.draw do
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
   get "/explore" => "explore#index", as: :explore
-  get "/explore#:quick" => "explore#index", as: :explore_quick
 
-  get "/reward/:id" => "rewards#show", as: :reward
   resources :posts, only: [:index, :create]
 
   namespace :reports do
@@ -120,18 +118,9 @@ Catarse::Application.routes.draw do
     resources :unsubscribes, only: [:create]
     member do
       get 'projects'
-      get 'credits'
       put 'unsubscribe_update'
       put 'update_email'
       put 'update_password'
-    end
-  end
-  # match "/users/:id/request_refund/:back_id" => 'users#request_refund'
-
-  resources :credits, only: [:index] do
-    collection do
-      get 'buy'
-      post 'refund'
     end
   end
 

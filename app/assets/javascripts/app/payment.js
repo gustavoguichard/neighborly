@@ -21,6 +21,15 @@ App.addChild('Payment', _.extend({
   activate: function(){
     this.$('.payment_menu input:first').attr('checked', true);
     this.showPaymentContent({target: '#payment_method_credit_card_net'});
+  },
+
+  updatePaymentMethod: function() {
+    var $selected_tab = this.$('#payment_menu a.selected');
+    $.post(this.$el.data('update-info-path'), {
+      backer: {
+        payment_method: $selected_tab.prop('id')
+      }
+    })
   }
 }));
 

@@ -13,7 +13,6 @@ App.views.User.addChild('UserBackers', _.extend({
     this.path = this.$el.data('path');
     this.filter = {};
     this.setupScroll();
-
     this.parent.on('selectTab', function(){
       if(that.$el.is(':visible')){
         that.fetchPage();

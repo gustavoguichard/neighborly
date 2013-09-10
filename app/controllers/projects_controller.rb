@@ -14,10 +14,11 @@ class ProjectsController < ApplicationController
     index! do |format|
       format.html do
         if request.xhr?
+          params[:not_soon] = 'true' unless params.include?(:soon)
+          params[:not_expired] = 'true' if params.include?(:recommended)
           @projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(6)
           return render partial: 'project', collection: @projects, layout: false
         else
-
           @title = t("site.title")
           @featured_project = Project.online.featured.first
           @recommends = Project.visible.online.recommended.home_page.limit(3)

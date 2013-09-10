@@ -7,6 +7,7 @@ gem 'mail',     '2.5.3'
 
 gem 'protected_attributes', '~> 1.0.3' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
+gem 'activerecord-session_store', '~> 0.0.1'
 
 gem 'sidekiq',  '~> 2.13.0'
 gem 'sinatra', require: false # required by sidekiq web interface mounted on /sidekiq
@@ -33,7 +34,6 @@ gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
 gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
 gem 'catarse_paypal_express', '~> 2.0.0', github: 'catarse/catarse_paypal_express'
 gem "authorize-net", "~> 1.5.2"
-#gem 'catarse_moip', '~> 2.0.0'
 #
 # Decorators
 gem 'draper'
@@ -100,7 +100,7 @@ group :production do
   gem 'rails_12factor'
 
   # Monitoring with the new new relic
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', '3.6.5.130'
 
   # Using dalli and memcachier have not presented significative performance gains
   # Probably this is due to our pattern of cache usage

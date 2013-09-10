@@ -41,13 +41,10 @@ describe PaymentEngines do
   describe ".engines" do
     subject{ PaymentEngines.engines }
     before do
-      PaymentEngines.register engine 
+      PaymentEngines.register engine
       PaymentEngines.register engine_pt
     end
     context "when locale is pt" do
-      before do
-        I18n.locale = :pt
-      end
       it{ should == [engine_pt, engine] }
     end
 
