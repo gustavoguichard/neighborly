@@ -36,8 +36,8 @@ en:
       subject: "You helped greenlight %{project_name} on Neighbor.ly!"
       header: "High five! You helped %{project_name} succeed on Neighbor.ly"
     backer_project_unsuccessful:
-      subject: "The project %{project_name} was not funded - some useful information"
-      header: "Information on credits and refunds ;)"
+      subject: "%{project_name} wasn't funded on Neighbor.ly"
+      header: "What now?"
     pending_backer_project_unsuccessful:
       subject: "%{project_name} did not reach its goal - some useful information"
       header: "Information regarding credits and refunds."
