@@ -24,8 +24,8 @@ en:
       subject: "Project UPDATE#%{update_id} - %{project_name}"
       header: "Project UPDATE#%{update_id} - %{project_name}"
     project_in_wainting_funds:
-      subject: "O prazo do seu projeto acabou, saiba quais são os próximos passos"
-      header: "Acabou o prazo!"
+      subject: "Your project on Neighbor.ly"
+      header: "We just need to verify last minute payments"
     project_success:
       subject: "Project successful: next steps"
       header: "Well done, Neighbor!"
