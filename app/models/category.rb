@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
   end
 
   def self.array
-    order('name_'+ I18n.locale.to_s + ' ASC').collect { |c| [c.send('name_' + I18n.locale.to_s), c.id] }
+    [['Select an option', '']].concat order('name_'+ I18n.locale.to_s + ' ASC').collect { |c| [c.send('name_' + I18n.locale.to_s), c.id] }
   end
 
   def to_s

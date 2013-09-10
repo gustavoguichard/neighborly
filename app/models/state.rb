@@ -5,7 +5,7 @@ class State < ActiveRecord::Base
 
   def self.array
     return @array if @array
-    @array = []
+    @array = [['Select an option', '']]
     self.order(:name).each do |state|
       @array << ["#{state.name} - #{state.acronym}", state.acronym]
     end
