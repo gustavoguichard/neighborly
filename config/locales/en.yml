@@ -158,7 +158,7 @@ en:
         name: Name
         user_id: "User ID"
         video_url: "Video Link"
-        permalink: 'Project Link'
+        permalink: 'Link'
         how_know: "How did you hear about Neighbor.ly?"
         more_links: 'Where can we find more about you and your project?'
       reward:
@@ -282,27 +282,27 @@ en:
         value: "Please choose the amount you'd like to contribute. Starting with $10, any amount is appreciated and every bit counts."
       project:
         video_url_edit: 'Paste here the URL of your Vimeo video.'
-        about: "Tell us about what inspired you to come up with this project . Be objective end charming, present your readers with something that moves them while being very transparent over the expectations on your project!"
+        about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
         more_links: "Which channels will be used to spread the word about your project? List here your facebook/twitter/blog/site/ and what ever more links you have to help you"
         category: "Which category best describes your project?"
-        expires_at: "Finally, choose how long you want your campaign to last. Again, this is a strategic choice: if you put a lot of time, people will lose interest along the way; if put too little, you may not reach the minimum in time."
+        expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days." 
         goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
-        first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or pledges you can count on to come in on day 1 of your project."
+        first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
         headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
-        name: "Be as objective as you can. Leave explanations for the About section."
+        name: "Be concise and objective. 8 words or less."
         uploaded_image: "Upload a 512x400 image(.jpg)."
-        video_url: "Paste the link from Youtube or Vimeo. Your vid should be short enough to retain viewers, but descriptive enough that viewers can understand the project quickly."
-        hash_tag: 'Create a short hashtag that can be appended to tweets and Facebook updates.'
-        site: 'Paste a link here from your website so users can follow up and find out more about your mission.'
+        video_url: "Paste the link from a Youtube or Vimeo video about your project. Your video should be short enough to retain viewers, but descriptive enough that viewers can understand the project clearly."
+        hash_tag: 'A short hashtag that can be added to tweets and Facebook updates.'
+        site: "Paste the full link to your project's website, if it has one."
         foundation_widget: 'If you want to use new widget on embed, check this!'
-        campaign_type: 'Flexible: fund no matter what. All or None: fund if goal is met.'
+        campaign_type: 'All or None: Fund only if the goal is met by the deadline. <br> Every Dollar Counts: Keep the funds whether or not goal is met.'
         budget: 'Contributors feel most comfortable when you have a clear plan for how the proceeds will be spent. Briefly explain how the money will be used.'
-        permalink: 'Simplify the URL of your project. Think that your sponsor need to remember the address to share your project.'
+        permalink: 'Automatically generated. You can edit this later.'
         headlinet: 'headlinet hint'
-        address_neighborhood: 'address_neighborhood hint'
-        address_city: 'address_city hint'
-        address_state: 'address_state hint'
-        how_know: 'how_know hint'
+        address_neighborhood: 'If in a specific neighborhood, please specify.'
+        address_city: 'The primary city or region where your project is located.'
+        address_state: 'Please select the state where your project is located.'
+        how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
       reward:
         description: "Describe your reward in a way that arouses people's interest to back the project. Don't be shy!"
         maximum_backers: "If your reward is limited, tell us the maximum backers."
@@ -321,22 +321,22 @@ en:
         how_know: "How did you hear about Neighbor.ly?"
         headline: "Tagline"
         category: 'Category'
-        first_backers: "List existing contributors *"
-        about: "About your project. How will you spend this money?"
+        first_backers: "Contributors"
+        about: "The Story"
         expires_at: "Deadline"
         goal: "Funding Goal"
         name: "Project Title"
         online_days: 'How Many Campaign Days?'
         video_url: Video
         uploaded_image: "Project thumbnail"
-        site: 'Your Website'
+        site: 'Website'
         hash_tag: 'Hashtag'
         foundation_widget: 'Use new fundation widget?'
         campaign_type: 'Campaign Type'
         address_neighborhood: 'Neighborhood'
         address_city: 'City'
         address_state: 'State'
-        budget: 'Project Budget Detail'
+        budget: 'Budget Detail'
       reward:
         maximum_backers: "Maximum backers (optional)"
         days_to_delivery: "Days to delivery"
@@ -604,7 +604,7 @@ en:
         take_a_look: "Check out the project"
         title: "Be part of it and share this project"
     new:
-      legend_html: "Please begin your project submission by filling out the project application form below to the fullest extent you're able to. Once submitted, you will be directed to a draft project page, but please note that your project application will need to be reviewed by the Neighbor.ly team before it will be accepted to the site. We use the information you provide here to evaluate your appliction."
+      legend_html: "Please begin your project submission by filling out the project application form below to the fullest extent you're able to. Once submitted, you will be directed to a draft project page, but please note that your project application will need to be reviewed by the Neighbor.ly team before it will be accepted to the site. We use the information you provide here to evaluate your application."
       send_project: "I want to submit my project."
       subtitle: "Tell us as much as you can about your project"
       title: "Submit your project"

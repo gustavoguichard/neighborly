@@ -19,7 +19,7 @@
             .section-header #1. Project Overview
             
 
-            .input
+            .input.required
               .bootstrap-alert
                 span
                 .alert
@@ -32,72 +32,69 @@
                 span
                 .alert
                   .important= t('formtastic.hints.project.permalink')
-              = form.label :permalink, "#{t('activerecord.attributes.project.permalink')} *"
+              = form.label :permalink, "#{t('activerecord.attributes.project.permalink')}"
               .input-prepend.permalink
                 span.add-on= "neighbor.ly/projects/"
                 = form.text_field :permalink, pattern: '^(\w|-)+$', class: "permalink #{'error' if @project.errors[:permalink].present?}"
 
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.campaign_type')
-              = form.label :campaign_type, t('formtastic.labels.project.campaign_type')
-              = form.select :campaign_type, [['All or None', 'all_or_none'],['Flexible', 'flexible']], html: { class: "#{'error' if @project.errors[:name].present?}" }
 
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.about')
-              = form.label :about, t('formtastic.labels.project.about')
-              = form.text_area :about, class: "#{'error' if @project.errors[:about].present?}"
-
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.budget')
-              = form.label :budget, t('formtastic.labels.project.budget')
-              = form.text_area :budget, class: "#{'error' if @project.errors[:budget].present?}"
-
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.headlinet')
-              = form.label :headline, t('formtastic.labels.project.headline')
-              = form.text_field :headline, { maxlength: 130, class: "#{'error' if @project.errors[:headline].present?}" }
-
-            .input
+            .input.required
               .bootstrap-alert
                 span
                 .alert
                   .important= t('formtastic.hints.project.category')
               = form.label :category, t('.category')
               = form.select :category_id, Category.array, class: "#{'error' if @project.errors[:category].present?}"
+              
+
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.headline')
+              = form.label :headline, t('formtastic.labels.project.headline')
+              = form.text_field :headline, { maxlength: 130, class: "#{'error' if @project.errors[:headline].present?}" }
+              
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.about')
+              = form.label :about, t('formtastic.labels.project.about')
+              = form.text_area :about, class: "#{'error' if @project.errors[:about].present?}"
+                            
+              
+            .section-header #2. Project Location
+            
 
             .input
               .bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.goal')
-              = form.label :goal, t('formtastic.labels.project.goal')
-              .input-prepend.input-append
-                span.add-on $
-                = form.text_field :goal, class: "#{'error' if @project.errors[:goal].present?}"
-                span.add-on .00
+                  .important= t('formtastic.hints.project.address_state')
+              = form.label :address_state, t('formtastic.labels.project.address_state')
+              = form.select_tag :address_state, options_for_select(State.array), class: "#{'error' if @project.errors[:address_state].present?}"
 
+
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.address_city')
+              = form.label :address_city, t('formtastic.labels.project.address_city')
+              = form.text_field :address_city, class: "#{'error' if @project.errors[:address_city].present?}"
+              
             .input
               .bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.expires_at')
-              = form.label :online_days, t('formtastic.labels.project.expires_at')
-              .input-append
-                = form.text_field :online_days, class: "#{'error' if @project.errors[:online_days].present?}"
-                span.add-on= t('days')
-
+                  .important= t('formtastic.hints.project.address_neighborhood')
+              = form.label :address_neighborhood, t('formtastic.labels.project.address_neighborhood')
+              = form.text_field :address_neighborhood, class: "#{'error' if @project.errors[:address_neighborhood].present?}"
+              
+              
+            .section-header #3. Supporting Media             
+              
             .input
               .bootstrap-alert
                 span
@@ -110,13 +107,11 @@
               .bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.first_backers')
-              = form.label :first_backers, t('formtastic.labels.project.first_backers')
-              = form.text_area :first_backers, class: "#{'error' if @project.errors[:first_backers].present?}"
+                  .important= t('formtastic.hints.project.site')
+              = form.label :site, t('formtastic.labels.project.site')
+              = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"              
 
 
-
-            .section-header Project Details
             
             .input
               .bootstrap-alert
@@ -124,45 +119,74 @@
                 .alert
                   .important= t('formtastic.hints.project.hash_tag')
               = form.label :hash_tag, t('formtastic.labels.project.hash_tag')
-              = form.text_field :hash_tag, class: "#{'error' if @project.errors[:hash_tag].present?}"
+              .input-prepend
+                span.add-on #
+                = form.text_field :hash_tag, class: "#{'error' if @project.errors[:hash_tag].present?}"
+              
+
+
+            .section-header #4. Budget & Timeline
+            
+ 
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.goal')
+              = form.label :goal, t('formtastic.labels.project.goal')
+              .input-prepend.input-append
+                span.add-on $
+                = form.text_field :goal, class: "#{'error' if @project.errors[:goal].present?}"
+                span.add-on .00
+                 
+
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.campaign_type').html_safe
+              = form.label :campaign_type, t('formtastic.labels.project.campaign_type')
+              = form.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']], html: { class: "#{'error' if @project.errors[:name].present?}" }
+
+
+
+            .input.required
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.expires_at')
+              = form.label :online_days, t('formtastic.labels.project.expires_at')
+              .input-append
+                = form.text_field :online_days, class: "#{'error' if @project.errors[:online_days].present?}"
+                span.add-on= t('days')
+
 
             .input
               .bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.site')
-              = form.label :site, t('formtastic.labels.project.site')
-              = form.text_field :site, class: "#{'error' if @project.errors[:site].present?}"
+                  .important= t('formtastic.hints.project.budget')
+              = form.label :budget, t('formtastic.labels.project.budget')
+              = form.text_area :budget, class: "#{'error' if @project.errors[:budget].present?}"
 
-            .section-header Project Location
-            .input
+
+
+
+
+            
+
+
+            .section-header #5. Engagement
+            
+            .input.required
               .bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.address_neighborhood')
-              = form.label :address_neighborhood, t('formtastic.labels.project.address_neighborhood')
-              = form.text_field :address_neighborhood, class: "#{'error' if @project.errors[:address_neighborhood].present?}"
+                  .important= t('formtastic.hints.project.first_backers')
+              = form.label :first_backers, t('formtastic.labels.project.first_backers')
+              = form.text_area :first_backers, class: "#{'error' if @project.errors[:first_backers].present?}"
 
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.address_city')
-              = form.label :address_city, t('formtastic.labels.project.address_city')
-              = form.text_field :address_city, class: "#{'error' if @project.errors[:address_city].present?}"
-
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.address_state')
-              = form.label :address_state, t('formtastic.labels.project.address_state')
-              = form.select_tag :address_state, options_for_select(State.array), class: "#{'error' if @project.errors[:address_state].present?}"
-
-
-            .section-header Engagement
-
-
+            
             .input
               .bootstrap-alert
                 span
