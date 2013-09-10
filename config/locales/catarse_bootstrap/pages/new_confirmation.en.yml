@@ -4,11 +4,11 @@ en:
       no_account_html: "Need an account? <strong>%{link}</strong>"
       titles:
         site: 'Resend confirmation instructions'
-        header: 'Resend confirmation instructions'
+        header: 'Resend Instructions'
       links:
         register: "Sign up"
       form:
         labels:
           email: 'Enter your email address'
         inputs:
-          submit: 'Resend confirmation instructions'
+          submit: 'Resend the instructions'

@@ -1,4 +1,20 @@
-- update = @notification.mail_params[:update]
-br/
-strong=update.title
-== @notification.mail_params[:update_comment]
+- update = Update.find @notification.update_id
+br
+br
+|Check it out - #{update.user.display_name} just posted an update to #{update.project.name} on #{Configuration[:company_name]}!
+br
+br
+| View the update #{link_to "here", project_by_slug_path(update.project.permalink, anchor: "updates")}, and help spread the word!
+br
+br
+hr
+br
+h2 #{link_to update.title, project_by_slug_path(update.project.permalink, anchor: "updates")}
+= update.comment_html
+br
+br
+hr
+br
+| Keep on truckin',
+br
+|The #{Configuration[:company_name]} Team
