@@ -28,13 +28,16 @@
               = form.label :name, t('formtastic.labels.project.name')
               = form.text_field :name, class: "#{'error' if @project.errors[:name].present?}"
 
-            .input.required
+            .input.required.category
               .bootstrap-alert
                 span
                 .alert
                   .important= t('formtastic.hints.project.category')
               = form.label :category, t('.category')
               = form.select :category_id, Category.array, class: "#{'error' if @project.errors[:category].present?}"
+              - if @project.errors[:category].present?
+                .bootstrap-twitter
+                  p.text-error= @project.errors[:category].to_sentence
               
 
             .input.required
