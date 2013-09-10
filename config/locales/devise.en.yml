@@ -50,7 +50,7 @@ en:
         submit: 'Send instructions to reset my password'
       edit:
         site_title: 'Reset password'
-        label_new_password: 'Type your new password bellow'
+        label_new_password: 'Type your new password below'
         title: 'Reset password'
         subtitle: 'Reset password to use your email and password in your Catarse login'
         submit: 'Reset password'
