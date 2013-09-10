@@ -16,23 +16,12 @@ class RewardsController < ApplicationController
     render layout: false
   end
 
-  def show
-    @reward = Reward.find params[:id]
-    render json: @reward.to_json
-  end
-
   def update
-    update! do |success, failure|
-      success.html { render nothing: true, status: 200 }
-      failure.html { render :edit, layout: nil }
-    end
+    update! { project_by_slug_path(permalink: parent.permalink) }
   end
 
   def create
-    create! do |success, failure|
-      success.html { render nothing: true, status: 200 }
-      failure.html { render :new, layout: nil }
-    end
+    create! { project_by_slug_path(permalink: parent.permalink) }
   end
 
   def destroy

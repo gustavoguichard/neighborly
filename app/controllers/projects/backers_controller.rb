@@ -8,6 +8,7 @@ class Projects::BackersController < ApplicationController
 
   def update_info
     resource.update_attributes(params[:backer])
+    resource.update_user_billing_info
     render json: {message: 'updated'}
   end
 

@@ -1,8 +1,11 @@
 App.addChild('Explore', _.extend({
   el: '#main_content[data-action="index"][data-controller-name="explore"]',
 
-  events: {
-    'click a[data-filter]' : 'applyFilter'
+  routeFilters: {
+    recent: { recent: true },
+    expiring: { expiring: true },
+    recommended: { recommended: true },
+    successful: { successful: true }
   },
 
   activate: function(){
@@ -10,24 +13,42 @@ App.addChild('Explore', _.extend({
     this.$loaderDiv = this.$("#loading");
     this.$results = this.$(".results");
     this.path = this.$("#explore_results").data('projects-path');
+
+    this.route('recommended');
+    this.route('expiring');
+    this.route('recent');
+    this.route('successful');
+    this.route('by_category_id/:id');
+    this.route('near_of/:state');
+    this.route('soon');
+
     this.setInitialFilter();
     this.setupScroll();
-    this.makeRoute('recommended');
-    this.makeRoute('successful');
-    this.makeRoute('expiring');
-    this.makeRoute('recent');
-    this.makeRoute('soon');
+
+    if(window.location.hash == ''){
+      this.fetchPage();
+    }
   },
 
-  //@TODO: Remove this as soon as we migrate to turbolinks
-  makeRoute: function(name){
-    var that = this;
-    this.parent.router.route(name, name, function(){
-      var $link = that.$('a#' + name);
-      if($link.length > 0){
-        that.applyFilter({ target: $link });
-      }
-    });
+  selectLink: function(){
+    this.$('a.selected').removeClass('selected');
+    this.$('a[href="' + window.location.hash + '"]').addClass('selected');
+  },
+
+  followRoute: function(route, name, params){
+    this.filter = {};
+    if(params.length > 0){
+      this.filter[name] = params[0];
+    }
+    else{
+      this.filter[name] = true;
+    }
+    this.firstPage();
+    this.fetchPage();
+    if(this.parent && this.parent.$search.length > 0){
+      this.parent.$search.val('');
+    }
+    this.selectLink();
   },
 
   setInitialFilter: function(){
@@ -39,17 +60,5 @@ App.addChild('Explore', _.extend({
       this.filter = {
       };
     }
-  },
-
-  applyFilter: function(e){
-    var $target = $(e.target);
-    this.filter = $target.data('filter');
-    this.firstPage();
-    this.$('[data-filter]').removeClass('selected');
-    $target.addClass('selected');
-    if(this.parent && this.parent.$search.length > 0){
-      this.parent.$search.val('');
-    }
-    return false;
   }
 }, Skull.InfiniteScroll));

@@ -101,6 +101,70 @@ describe Backer do
     end
   end
 
+  describe "#update_current_billing_info" do
+    let(:backer) { build(:backer, user: user) }
+    let(:user) {
+      build(:user, {
+        address_street: 'test stret',
+        address_number: '123',
+        address_neighbourhood: 'test area',
+        address_zip_code: 'test zipcode',
+        address_city: 'test city',
+        address_state: 'test state',
+        phone_number: 'test phone',
+        cpf: 'test doc number'
+      })
+    }
+    subject{ backer }
+    before do
+      backer.update_current_billing_info
+    end
+    its(:address_street){ should eq(user.address_street) }
+    its(:address_number){ should eq(user.address_number) }
+    its(:address_neighbourhood){ should eq(user.address_neighbourhood) }
+    its(:address_zip_code){ should eq(user.address_zip_code) }
+    its(:address_city){ should eq(user.address_city) }
+    its(:address_state){ should eq(user.address_state) }
+    its(:address_phone_number){ should eq(user.phone_number) }
+    its(:payer_document){ should eq(user.cpf) }
+  end
+
+  describe "#update_user_billing_info" do
+    let(:backer) { create(:backer) }
+    let(:user) { backer.user }
+    let(:backer_attributes) {
+      {
+        address_street: backer.address_street,
+        address_number: backer.address_number,
+        address_neighbourhood: backer.address_neighbourhood,
+        address_zip_code: backer.address_zip_code,
+        address_city: backer.address_city,
+        address_state: backer.address_state,
+        phone_number: backer.address_phone_number,
+        cpf: backer.payer_document
+      }
+    }
+
+    before do
+      user.should_receive(:update_attributes).with(backer_attributes)
+    end
+
+    it("should update user billing info attributes") { backer.update_user_billing_info}
+  end
+
+  describe '#recommended_projects' do
+    let(:backer){ create(:backer) }
+    before do
+      backer.user.recommended_projects.should_receive(:where).with("projects.id <> ?", backer.project_id).and_call_original
+      backer.user.should_receive(:recommended_projects).and_call_original
+    end
+
+    it "should call user recommended projects and remove the project of the back" do
+      backer.recommended_projects
+    end
+  end
+
+
   describe "#project_should_be_online" do
     subject{ backer }
     context "when project is draft" do
@@ -129,9 +193,16 @@ describe Backer do
     let(:reward){ create(:reward, maximum_backers: 1) }
     let(:backer){ build(:backer, reward: reward, project: reward.project) }
     subject{ backer }
+
     context "when backers count is lower than maximum_backers" do
       it{ should be_valid }
     end
+
+    context "when pending backers count is equal than maximum_backers" do
+      before{ create(:backer, reward: reward, project: reward.project, state: 'waiting_confirmation') }
+      it{ should_not be_valid }
+    end
+
     context "when backers count is equal than maximum_backers" do
       before{ create(:backer, reward: reward, project: reward.project, state: 'confirmed') }
       it{ should_not be_valid }
@@ -215,24 +286,33 @@ describe Backer do
     describe '#request_refund' do
       let(:credits){ backer.value }
       let(:initial_state){ 'confirmed' }
+      let(:backer_is_credits) { false }
       before do
         BackerObserver.any_instance.stub(:notify_backoffice)
+        backer.update_attributes({ credits: backer_is_credits })
         backer.user.stub(:credits).and_return(credits)
         backer.request_refund
       end
 
+      subject { backer.requested_refund? }
+
       context 'when backer is confirmed' do
-        it('should switch to requested_refund state') { backer.requested_refund?.should be_true }
+        it('should switch to requested_refund state') { should be_true }
+      end
+
+      context 'when backer is credits' do
+        let(:backer_is_credits) { true }
+        it('should not switch to requested_refund state') { should be_false }
       end
 
       context 'when backer is not confirmed' do
         let(:initial_state){ 'pending' }
-        it('should not switch to requested_refund state') { backer.requested_refund?.should be_false }
+        it('should not switch to requested_refund state') { should be_false }
       end
 
       context 'when backer value is above user credits' do
         let(:credits){ backer.value - 1 }
-        it('should not switch to requested_refund state') { backer.requested_refund?.should be_false }
+        it('should not switch to requested_refund state') { should be_false }
       end
     end
 
@@ -289,6 +369,7 @@ describe Backer do
   describe ".can_refund" do
     subject{ Backer.can_refund.load }
     before do
+      create(:backer, state: 'confirmed', credits: true, project: failed_project)
       valid_refund
       sucessful_project_backer
       unfinished_project

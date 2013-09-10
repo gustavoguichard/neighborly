@@ -8,6 +8,11 @@ en:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
   failure_title: 'Please, fix the errors below:'
+  controllers:
+    updates:
+      create:
+        notice: 'Update was successfully created!'
+  failure_title: 'Please, fix the errors bellow:'
   uservoice_gadget:
     user:
       name: 'User'
@@ -104,6 +109,7 @@ en:
       contact: 'Contact Us'
   main:
     links:
+      channels: "explore the Asas Institute's Channel"
       selected: "explore more projects selected"
       successful: "explore more funded projects"
       expiring: "explore more expiring projects"
@@ -128,8 +134,8 @@ en:
       title: 'Coming Soon'
     succesful:
       title: Funded
-    partners:
-      title: partners
+    channels:
+      title: channels
   accept_terms_html: "I have read and accepted the %{link}."
   activerecord:
     errors:
@@ -177,7 +183,7 @@ en:
         email: Email
         full_name: "Full name / Company Name"
         bio: 'Mini Bio'
-        name: Name
+        name: 'Full name'
         password: Password
         password_confirmation: "Password Confirmation"
         phone_number: "Mobile phone number"
@@ -724,6 +730,11 @@ en:
     no_name: Unnamed
     google_account: "Google Account"
   users:
+    project:
+      confirmed: "Confirmed"
+      refunded: "Refunded"
+      requested_refund: "Refund requested"
+      waiting_confirmation: "Waiting confirmation"
     set_email:
       site_title: 'Define your email address'
       title: 'Define your email address'

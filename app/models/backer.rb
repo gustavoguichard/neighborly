@@ -13,7 +13,8 @@ class Backer < ActiveRecord::Base
   validate :should_not_back_if_maximum_backers_been_reached, on: :create
   validate :project_should_be_online, on: :create
 
-  scope :not_deleted, -> { where("backers.state <> 'deleted'") }
+  scope :not_deleted, ->() { where("backers.state <> 'deleted'") }
+  scope :not_canceled, ->() { where("backers.state <> 'canceled'") }
   scope :by_id, ->(id) { where(id: id) }
   scope :by_state, ->(state) { where(state: state) }
   scope :by_key, ->(key) { where(key: key) }
@@ -29,8 +30,8 @@ class Backer < ActiveRecord::Base
   scope :not_confirmed, -> { where("backers.state <> 'confirmed'") } # used in payment engines
   scope :in_time_to_confirm, -> { where(state: 'waiting_confirmation') }
   scope :pending_to_refund, -> { where(state: 'requested_refund') }
-
   scope :available_to_count, -> { where("state in ('confirmed', 'requested_refund', 'refunded')") }
+  scope :available_to_display, ->() { where("state in ('confirmed', 'requested_refund', 'refunded', 'waiting_confirmation')") }
 
   scope :can_cancel, -> {
     where(%Q{
@@ -58,6 +59,7 @@ class Backer < ActiveRecord::Base
   scope :can_refund, ->{
     where(%Q{
       backers.state IN('confirmed', 'requested_refund', 'refunded') AND
+      NOT backers.credits AND
       EXISTS(
         SELECT true
           FROM projects p
@@ -112,6 +114,10 @@ class Backer < ActiveRecord::Base
     (self.value * 100).round
   end
 
+  def recommended_projects
+    user.recommended_projects.where("projects.id <> ?", project.id)
+  end
+
   def refund_deadline
     created_at + 180.days
   end
@@ -136,8 +142,8 @@ class Backer < ActiveRecord::Base
   end
 
   def should_not_back_if_maximum_backers_been_reached
-    return unless reward and reward.maximum_backers and reward.maximum_backers > 0
-    errors.add(:reward, I18n.t('backer.should_not_back_if_maximum_backers_been_reached')) unless reward.backers.confirmed.count < reward.maximum_backers
+    return unless reward && reward.maximum_backers && reward.maximum_backers > 0
+    errors.add(:reward, I18n.t('backer.should_not_back_if_maximum_backers_been_reached')) if reward.sold_out?
   end
 
   def project_should_be_online
@@ -157,31 +163,28 @@ class Backer < ActiveRecord::Base
     I18n.l(confirmed_at.to_date) if confirmed_at
   end
 
-  def as_json(options={})
-    json_attributes = {
-      id: id,
-      anonymous: anonymous,
-      confirmed: confirmed?,
-      confirmed_at: display_confirmed_at,
-      user: user.as_json(options.merge(anonymous: anonymous)),
-      value: nil,
-      display_value: nil,
-      reward: nil
-    }
-    if options and options[:can_manage]
-      json_attributes.merge!({
-        value: display_value,
-        display_value: display_value,
-        reward: reward
-      })
-    end
-    if options and options[:include_project]
-      json_attributes.merge!({project: project})
-    end
-    if options and options[:include_reward]
-      json_attributes.merge!({reward: reward})
-    end
-    json_attributes
+  def update_current_billing_info
+    self.address_street = user.address_street
+    self.address_number = user.address_number
+    self.address_neighbourhood = user.address_neighbourhood
+    self.address_zip_code = user.address_zip_code
+    self.address_city = user.address_city
+    self.address_state = user.address_state
+    self.address_phone_number = user.phone_number
+    self.payer_document = user.cpf
+  end
+
+  def update_user_billing_info
+    user.update_attributes({
+      address_street: address_street,
+      address_number: address_number,
+      address_neighbourhood: address_neighbourhood,
+      address_zip_code: address_zip_code,
+      address_city: address_city,
+      address_state: address_state,
+      phone_number: address_phone_number,
+      cpf: payer_document
+    })
   end
 
   state_machine :state, initial: :pending do
@@ -216,7 +219,7 @@ class Backer < ActiveRecord::Base
 
     event :request_refund do
       transition confirmed: :requested_refund, if: ->(backer){
-        backer.user.credits >= backer.value
+        backer.user.credits >= backer.value && !backer.credits
       }
     end
 
