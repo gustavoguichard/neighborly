@@ -15,5 +15,5 @@
               .curious
                 = link_to t('.explore_curious'), explore_path, class: 'btn'
               .send
-                = link_to t('.submit'), '#', data: { url: new_project_path }, class: 'btn disabled'
+                = link_to t('.submit'), '#', data: { url: new_project_path(accepted_terms: true) }, class: 'btn disabled'
     .clearfix
