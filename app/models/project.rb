@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
 
   mount_uploader :uploaded_image, ProjectUploader
   mount_uploader :video_thumbnail, ProjectUploader
-  has_permalink :name, auto_fix_duplication: true
+  has_permalink :name, true
 
   delegate :display_status, :display_progress, :display_image, :display_expires_at,
     :display_pledged, :display_goal, :remaining_days, :display_video_embed_url, :progress_bar, :successful_flag, :display_address_formated,
