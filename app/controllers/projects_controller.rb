@@ -32,7 +32,6 @@ class ProjectsController < ApplicationController
 
   def new
     new! do
-      @title = t('projects.new.title')
       @project.rewards.build
     end
   end
