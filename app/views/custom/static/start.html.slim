@@ -80,9 +80,6 @@
         = form_tag(start_terms_path, :method => :get, :id => 'guidelines_form') do
           fieldset
             .bootstrap-twitter
-              .curious
-                = link_to t('.explore_curious'), explore_path, :class=>'btn_explore'
-                span = t('.explore_projects')
               .send
                 = link_to t('.submit'), start_terms_path, :class=>'btn_send'
                 span = t('.send_project')
