@@ -27,17 +27,6 @@
               = form.label :name, t('formtastic.labels.project.name')
               = form.text_field :name, class: "#{'error' if @project.errors[:name].present?}"
 
-            .input
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.permalink')
-              = form.label :permalink, "#{t('activerecord.attributes.project.permalink')}"
-              .input-prepend.permalink
-                span.add-on= "neighbor.ly/projects/"
-                = form.text_field :permalink, pattern: '^(\w|-)+$', class: "permalink #{'error' if @project.errors[:permalink].present?}"
-
-
             .input.required
               .bootstrap-alert
                 span

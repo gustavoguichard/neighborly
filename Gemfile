@@ -68,6 +68,7 @@ gem 'carrierwave', '~> 0.8.0'
 gem 'rmagick'
 
 # Other Tools
+gem 'has_permalink'
 gem 'ranked-model'
 gem 'feedzirra'
 gem 'inherited_resources',        '~> 1.4.1'
