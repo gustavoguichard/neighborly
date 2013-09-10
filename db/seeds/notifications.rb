@@ -122,3 +122,23 @@ Notification.create_notification_once(:project_visible,
   project.user,
   {project_id: project.id},
   project: project)
+
+
+user = User.first
+update = Update.first
+project = Project.first
+
+
+Notification.create_notification_once :updates, user,
+  {update_id: update.id, user_id: user.id},
+  update_number: project.updates.count,
+  project_name: project.name,
+  project_owner: project.user.display_name,
+  project_owner_email: project.user.email,
+  from: project.user.email,
+  display_name: project.user.display_name,
+  update_title: update.title,
+  update: update,
+  from: project.user.email,
+  display_name: project.user.display_name,
+  update_comment: update.email_comment_html

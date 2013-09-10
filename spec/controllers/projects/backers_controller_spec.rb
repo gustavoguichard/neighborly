@@ -96,7 +96,6 @@ describe Projects::BackersController do
     end
 
     context "when user is logged in" do
-      let(:set_expectations) { Backer.any_instance.should_receive(:update_current_billing_info) }
       let(:user){ create(:user) }
       its(:body){ should =~ /#{I18n.t('projects.backers.create.title')}/ }
       its(:body){ should =~ /#{project.name}/ }

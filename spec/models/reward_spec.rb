@@ -129,9 +129,9 @@ describe Reward do
 
   it "should have a HTML-safe name that is a HTML composition from minimum_value, description and sold_out" do
     r = FactoryGirl.build(:reward, minimum_value: 0, description: "Description", maximum_backers: 0)
-    r.name.should == "<div class='reward_minimum_value'>I don't want a reward</div><div class='reward_description'>Description</div><div class=\"sold_out\">Sold out</div><div class='clear'></div>"
+    r.name.should == "<div class='reward_minimum_value'>Just donating, I don't want a perk.</div><div class='reward_description'>Description</div><div class=\"sold_out\">Sold out</div><div class='clear'></div>"
     r.maximum_backers = 1
-    r.name.should == "<div class='reward_minimum_value'>I don't want a reward</div><div class='reward_description'>Description</div><div class='clear'></div>"
+    r.name.should == "<div class='reward_minimum_value'>Just donating, I don't want a perk.</div><div class='reward_description'>Description</div><div class='clear'></div>"
     r.minimum_value = 10
     r.name.should == "<div class='reward_minimum_value'>$10.00+</div><div class='reward_description'>Description</div><div class='clear'></div>"
     r.description = "Description<javascript>XSS()</javascript>"
