@@ -331,7 +331,7 @@ en:
         uploaded_image: "Project thumbnail"
         site: 'Website'
         hash_tag: 'Hashtag'
-        foundation_widget: 'Use new fundation widget?'
+        foundation_widget: 'Use new foundation widget?'
         campaign_type: 'Campaign Type'
         address_neighborhood: 'Neighborhood'
         address_city: 'City'
