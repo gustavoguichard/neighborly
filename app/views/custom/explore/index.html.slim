@@ -45,7 +45,7 @@
             ul#explore_categories
               - @categories.each_with_index do |category, index|
                 li class="#{(index%2==1 ? 'no_margin':'')}"
-                  a[data-filter={by_category_id: category.id}.to_json href='#']
+                  a[href="#by_category_id/#{category.id}"]
                     = category
 
 
