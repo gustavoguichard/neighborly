@@ -16,14 +16,18 @@ en:
       title: "Neighbor.ly is a collaborative way to build the civic projects you care about."
       subtitle: "Use this guide to start building a better community!"
       submit: "Get Started"
-      title_one: "Submit"
-      step_one: "When your idea is ready, we want to hear about it! Initially, you'll provide details about your project to help us understand what it is you'd like to build and to ensure that it fits into our guidelines and scope of work."
-      title_two: "Review"
-      step_two: "After we receive your project, it will be reviewed by our team. This process acts as a filter to ensure that only quality, shovel-ready projects make it onto the platform. Remember, we want your project to be as successful as much as you do."
-      title_three: "Plan"
-      step_three: "Marketing 101. Once your project has been approved, you'll begin to build your campaign strategy. The foundation of a successful project is in a successful marketing plan. So begin to gather your contacts and ready your Tweets <strong>before</strong> you launch!"
-      title_four: "Launch"
-      step_four: "Your project has been approved and your campaign has been planned, now you're ready to go live! Utilize the tools at hand to reach a broad audience and be sure to keep your supporters engaged and updated. 3... 2... 1... blast off!"
+      one:
+        title: "Submit"
+        text: "When your idea is ready, we want to hear about it! Initially, you'll provide details about your project to help us understand what it is you'd like to build and to ensure that it fits into our guidelines and scope of work."
+      two:
+        title: "Review"
+        text: "After we receive your project, it will be reviewed by our team. This process acts as a filter to ensure that only quality, shovel-ready projects make it onto the platform. Remember, we want your project to be as successful as much as you do."
+      three:
+        title: "Plan"
+        text: "Marketing 101. Once your project has been approved, you'll begin to build your campaign strategy. The foundation of a successful project is in a successful marketing plan. So begin to gather your contacts and ready your Tweets <strong>before</strong> you launch!"
+      four:
+        title: "Launch"
+        text: "Your project has been approved and your campaign has been planned, now you're ready to go live! Utilize the tools at hand to reach a broad audience and be sure to keep your supporters engaged and updated. 3... 2... 1... blast off!"
       need: "You'll need:"
       team: "A Strong Team"
       copy: "Detailed Copy"

@@ -8,23 +8,23 @@
         li
           = image_tag('neighborly/start/bg_submit.png')
           .ico.one
-          h3= t('.title_one')
-          p= t('.step_one')
+          h3= t('.one.title')
+          p= t('.one.text')
         li
           = image_tag('neighborly/start/bg_review.png')
           .ico.two
-          h3= t('.title_two')
-          p= t('.step_two').html_safe
+          h3= t('.two.title')
+          p= t('.two.text')
         li
           = image_tag('neighborly/start/bg_plan.png')
           .ico.three
-          h3= t('.title_three')
-          p= t('.step_three').html_safe
+          h3= t('.three.title')
+          p= t('.three.text').html_safe
         li
           = image_tag('neighborly/start/bg_launch.png')
           .ico.four
-          h3= t('.title_four')
-          p= t('.step_four')
+          h3= t('.four.title')
+          p= t('.four.text')
 
       .requirements
         = link_to t('.submit'), new_project_path, class: 'button get-starget'
