@@ -81,3 +81,8 @@ Find by `ADD BACK - REMOVED FOR MIGRATION` in the project and uncomment the code
 # Import the database to heroku
 
 https://devcenter.heroku.com/articles/heroku-postgres-import-export
+
+# TODO after migration
+
+- Add worker
+- Add cron tasks
