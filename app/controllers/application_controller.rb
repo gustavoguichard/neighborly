@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_basic_auth
-    if request.url.match(/neighborly-staging.herokuapp.com/) or request.url.match(/neighborly-knight.herokuapp.com/) or request.url.match(/neighborly.herokuapp.com/) or request.url.match(/secure.neighbor.ly/)
+    if request.url.match(/neighborly-staging.herokuapp.com/) or request.url.match(/neighborly-knight.herokuapp.com/)
       authenticate_or_request_with_http_basic do |username, password|
         username == 'admin' && password == 'Streetcar4321'
       end
