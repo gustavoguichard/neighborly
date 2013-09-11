@@ -168,7 +168,7 @@ en:
       user:
         address_city: City
         address_complement: Complement
-        address_neighbourhood: Neighbourhood
+        address_neighbourhood: Neighborhood
         address_number: Number
         address_state: State
         address_street: Street
@@ -285,7 +285,7 @@ en:
         about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
         more_links: "Which channels will be used to spread the word about your project? List here your facebook/twitter/blog/site/ and what ever more links you have to help you"
         category: "Which category best describes your project?"
-        expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days." 
+        expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days."
         goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
         first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
         headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
