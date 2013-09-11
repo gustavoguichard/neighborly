@@ -23,7 +23,8 @@ puts "Adding new configurations..."
     secret_token: '8f3af8dc08112fa30556493dffc1e8ce971209c8e40f41499ba5c7b8fc62fd1a40418451cffba9a18fdfb19e04b891fc671d183934bcafbd314553462524e71f',
     secret_key_base: '2981daa58d834ae67e95752a9d67094b6cf585c3a329c621350ee5d5a6b970a7ab51a7720932d0c7de07c6c8eb417df8da936ad291e1daae190d820d05fcd007',
     currency_charge: :USD,
-    secure_review_host: 'secure.neighbor.ly'
+    secure_review_host: 'secure.neighbor.ly',
+    google_analytics_id: 'UA-32455807-1'
   }.each do |name, value|
      conf = Configuration.find_or_initialize_by(name: name)
      conf.update_attributes({
