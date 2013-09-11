@@ -66,7 +66,7 @@ Catarse::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
 
-  get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
+  #get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
