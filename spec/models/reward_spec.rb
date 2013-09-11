@@ -38,7 +38,7 @@ describe Reward do
 
   describe "#display_minimum" do
     subject{ reward.display_minimum }
-    it{ should == reward.number_to_currency(reward.minimum_value) }
+    it{ should == reward.number_to_currency(reward.minimum_value, precision: 0) }
   end
 
   it "should have a greater than 10.00 minimum value" do
@@ -133,8 +133,8 @@ describe Reward do
     r.maximum_backers = 1
     r.name.should == "<div class='reward_minimum_value'>Just donating, I don't want a perk.</div><div class='reward_description'>Description</div><div class='clear'></div>"
     r.minimum_value = 10
-    r.name.should == "<div class='reward_minimum_value'>$10.00+</div><div class='reward_description'>Description</div><div class='clear'></div>"
+    r.name.should == "<div class='reward_minimum_value'>$10 or more</div><div class='reward_description'>Description</div><div class='clear'></div>"
     r.description = "Description<javascript>XSS()</javascript>"
-    r.name.should == "<div class='reward_minimum_value'>$10.00+</div><div class='reward_description'>Description&lt;javascript&gt;XSS()&lt;/javascript&gt;</div><div class='clear'></div>"
+    r.name.should == "<div class='reward_minimum_value'>$10 or more</div><div class='reward_description'>Description&lt;javascript&gt;XSS()&lt;/javascript&gt;</div><div class='clear'></div>"
   end
 end
