@@ -14,7 +14,7 @@
       - if can? :update, @project, :headline
         = form.input :headline, as: :string, required: false
       - if can? :update, @project, :category
-        = form.input :category, as: :select, required: false
+        = form.input :category, as: :select, required: false, include_blank: false
       - if can? :update, @project, :video_url
         = form.input :video_url, as: :string, hint: t('formtastic.hints.project.video_url_edit'), required: false
       - if can? :update, @project, :uploaded_image
@@ -29,7 +29,7 @@
       - if can? :update, @project, :address_city
         = form.input :address_city
       - if can? :update, @project, :address_state
-        = form.input :address_state, collection: State.array
+        = form.input :address_state, collection: State.array, include_blank: false
       - if can? :update, @project, :about
         = form.input :about, required: false
       - if can? :update, @project, :budget
