@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
     :facebook_link,
     :other_link,
     :moip_login,
-    :new_project
+    :new_project,
+    :profile_type,
+    :company_name,
+    :company_logo,
+    :linkedin_url
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader
