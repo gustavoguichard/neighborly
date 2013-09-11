@@ -281,7 +281,7 @@ en:
         credits: "You have <strong>%{credits}</strong> in credits and can back with up to this amount without needing to make a new payment."
         value: "Please choose the amount you'd like to contribute. Starting with $10, any amount is appreciated and every bit counts."
       project:
-        video_url_edit: 'Paste here the URL of your Vimeo video.'
+        video_url_edit: 'Paste here the URL of your Vimeo or Youtube video.'
         about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
         more_links: "Which channels will be used to spread the word about your project? List here your facebook/twitter/blog/site/ and what ever more links you have to help you"
         category: "Which category best describes your project?"
@@ -402,7 +402,7 @@ en:
         email_text: 'Unfortunately the project %{project_link}, that you have backed, did not reached its goal and was not funded at Neighbor.ly.<br><br>So, you have received <strong>%{value}</strong> in credits to back other projects. You can meet others %{project_category} projects in %{explore_category_link}.<br><br>You also can ask for your refund by clicking in %{credits_link}. Remember that you signed up in Neighbor.ly using %{user_provider}. If you have some difficulty in this process, do not be shame to send an email to howdy@neighbor.ly with the subject "Refund - login issue".<br><br>If, for any reason, you want to contact %{project_owner_name}, send an email to %{project_owner_email}.<br><br>If you have any other doubt, acess our FAQ or send an email to <a href="mail_to:howdy@neighbor.ly" style="color: #008800;">howdy@neighbor.ly</a>.<br>'
         notification_text: "You received %{value} in credits to back other projects. If you prefer, you can request a refund %{link}."
         unsuccessful_text: "The project %{link} that you backed wasn't funded. Maybe next time!"
-    video_regex_validation: "only Vimeo URLs are allowed"
+    video_regex_validation: "only Vimeo or Youtube URLs are allowed"
     display_status:
       expired: expired
       failed: "not funded"
@@ -616,7 +616,7 @@ en:
       links: "Where can we find more about you and your project?"
       links_hint: "Leave us as many links as you have, so we can get to know your work and your project better. Doesn't have to be something formal or fancy, just a few useful links."
       video: "Your project already have a video?"
-      video_hint: "A Vimeo link"
+      video_hint: "A Vimeo or Youtube link"
       twitter: "Have twitter account?"
       facebook: "Have facebook account?"
       blog: "Have a blog about the project?"
