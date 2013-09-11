@@ -2,7 +2,7 @@
   .content
 #header
   /= render 'layouts/announcement'
-  = link_to "Home", root_url(host: Configuration[:base_domain] || request.domain), :class => 'logo', :title => Configuration[:company_name]
+  = link_to "Home", root_url, class: 'logo', title: Configuration[:company_name]
   nav.actions
     = link_to t('layouts.header.submit_project'), start_path, :class =>  'submit_project'
     = link_to t('layouts.header.explore'), explore_path, :class => 'explore'
