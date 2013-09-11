@@ -1,218 +1,168 @@
-[data-controller="static"][data-action="start"],[data-controller="static"][data-action="start_terms"],[data-controller="static"][data-action="guidelines_backers"]
-  #page_content
-    .container
-      .static_default
-        +grid(16)
-        padding-top: 15px
-        .title
-          +grid(16)
-          +alpha
-          padding-bottom: 40px
-          h1
-            color: #333333
-            font-family: "Lato"
-            font-size: 24px
-            padding: 0 0 5px 50px
-            margin-top: 20px
-            background: image-url('neighborly/icon_new.png') left top no-repeat
+// Local variables
+$title-color: #333333
+$primary-button-background: #00D4A2
+$border-color: #DFDFDF
+$lighten-background: #F7F7F7
 
-          h2
-            color: #333333
-            font-family: "Lato"
-            font-size: 14px
-            padding-left: 50px
-            &.backer
-              margin-top: -3px
-            &.start
-              margin-top: -17px
+.start-page
+  margin:
+    left: 10px
+    right: 10px
+  .title
+    padding:
+      top: 15px
+      bottom: 40px
+    h1
+      color: $title-color
+      font-family: "Lato"
+      font-size: 24px
+    h2
+      color: $title-color
+      font-family: "Lato"
+      font-size: 14px
+      padding-top: 5px
 
-        ul.steps
+  ul.steps
+    background: image-url('neighborly/start/bg_steps.png') left -20px no-repeat
+    li
+      width: 220px
+      float: left
+      margin-right: 20px
+      position: relative
+      &:last-child
+        margin-right: 0px
+      .ico
+        position: absolute
+        top: 148px
+        left: 84px
+        width: 53px
+        height: 31px
+        background: left top no-repeat
+        &.one
+          background-image: image-url('neighborly/start/icon_step1.png')
+        &.two
+          background-image: image-url('neighborly/start/icon_step2.png')
+        &.three
+          background-image: image-url('neighborly/start/icon_step3.png')
+        &.four
+          background-image: image-url('neighborly/start/icon_step4.png')
+      h3
+        color: lighten($title-color, 20%)
+        font-family: "Lato"
+        font-weight: bold
+        font-size: 16px
+        padding-bottom: 10px
+        margin-top: 20px
+      p
+        font-family: Arial
+        color: lighten($title-color, 20%)
+        font-size: 12px
+        line-height: 18px
+
+  .requirements
+    background: $lighten-background
+    float: left
+    margin-bottom: 30px
+    margin-left: -20px
+    margin-top: 30px
+    width: 980px
+    border: 1px solid $border-color
+    border-left: none
+    border-right: none
+    padding: 40px 0
+    a.button.get-starget
+      background: $primary-button-background
+      float: left
+      font-size: 1.1em
+      padding: 1.49em 4em
+      margin-left: 50px
+      border-radius: 4px
+      text-align: center
+      font-weight: bold
+      text-decoration: none
+      transition: .2s background
+      color: white
+      letter-spacing: 0.1em
+      &:hover
+        background: darken($pink, 5%)
+      &:active
+        position: relative
+        top: 1px
+    ul.list
+      float: left
+      margin-left: 50px
+      li
+        float: left
+        font-family: "Lato"
+        font-style: italic
+        color: lighten($title-color, 25%)
+        font-size: 15px
+        text-shadow: 1px 1px white
+        padding-top: 40px
+        margin: 0 17px
+        text-align: center
+        background: center top no-repeat
+        &.need
+          padding-top: 28px
+          color: $pink
+          font-size: 18px
+          font-style: normal
+          font-weight: bold
+          margin-left: 0
+        &.team
+          background-image: image-url('neighborly/start/icon_team.png')
+          width: 55px
+        &.copy
+          background-image: image-url('neighborly/start/icon_copy.png')
+          width: 60px
+        &.picture
+          background-image: image-url('neighborly/start/icon_picture.png')
+          width: 60px
+        &.reward
+          width: 75px
+          background-image: image-url('neighborly/start/icon_reward.png')
+        &.video
+          background-image: image-url('neighborly/start/icon_video.png')
+          width: 70px
+          margin-right: 0
+  .more_questions
+    color: lighten($title-color, 20%)
+    margin-top: 10px
+    float: left
+    width: 100%
+    font-size: 21px
+    font-family: "Lato"
+    font-style: italic
+    line-height: 24px
+    margin-bottom: 40px
+    ul.questions
+      float: left
+      margin-top: 40px
+      li
+        width: 285px
+        float: left
+        img
           float: left
-          width: 100%
-          background: url($images_path+'bg_steps.png') left -20px no-repeat
-          li
-            width: 220px
-            float: left
-            margin-right: 20px
-            position: relative
-            .ico
-              position: absolute
-              top: 148px
-              left: 84px
-              width: 53px
-              height: 31px
-              &.one
-                background: image-url('neighborly/start/icon_step1.png') left top no-repeat
-              &.two
-                background: image-url('neighborly/start/icon_step2.png') left top no-repeat
-              &.three
-                background: image-url('neighborly/start/icon_step3.png') left top no-repeat
-              &.four
-                background: image-url('neighborly/start/icon_step4.png') left top no-repeat
-            span
-              color: #666666
-              font-family: "Lato"
-              font-weight: bold
-              font-size: 16px
-              padding-bottom: 10px
-              display: block
-              margin-top: 20px
-            p
-              font-family: Arial
-              color: #666666
-              font-size: 12px
-              line-height: 18px
-          li.last
-            margin-right: 0px
-
-        .requirements
-          background: #F7F7F7
-          float: left
-          margin-bottom: 30px
-          margin-left: -20px
-          margin-top: 30px
-          width: 980px
-          border: 1px solid #dfdfdf
-          border-left: none
-          border-right: none
-          padding: 40px 0
-          .left
-            float: left
-            margin-left: 50px
-          a.btn.get-starget
-            background: #00D4A2
-            display: inline-block
-            padding: 1.49em 4em
-            text-align: center
-            border: none
-            border-radius: 4px
-            font-weight: bold
-            font-size: 1.1em
-            text-decoration: none
-            transition: .2s background
-            color: white
-            letter-spacing: 0.1em
-            &:hover
-              background: darken($pink, 5%)
-          span
-            color: $pink
-            font-size: 18px
-            font-family: "Lato"
-            font-weight: bold
-            line-height: 24px
-            margin-top: 16px
-            margin-left: 50px
-            margin-right: 30px
-            text-shadow: 1px 1px white
-            &.backer
-              color: #6BB344
-              width: 200px
-              font-size: 18px
-              margin-top: 35px
-          ul.list
-            float: left
-            margin-left: 10px
-            &.backer
-              width: 680px
-              margin-top: 13px
-              height: auto
-            li
-              float: left
-              font-family: "Lato"
-              font-style: italic
-              color: #5D5D5D
-              font-size: 15px
-              text-shadow: 1px 1px white
-              padding-top: 40px
-              margin: 0 13px
-              text-align: center
-              &.team
-                background: image-url('neighborly/start/icon_team.png') center top no-repeat
-                width: 55px
-              &.copy
-                background: image-url('neighborly/start/icon_copy.png') center top no-repeat
-                width: 60px
-              &.picture
-                background: image-url('neighborly/start/icon_picture.png') center top no-repeat
-                width: 60px
-              &.reward
-                width: 75px
-                background: image-url('neighborly/start/icon_reward.png') center top no-repeat
-              &.video
-                background: image-url('neighborly/start/icon_video.png') center top no-repeat
-                width: 85px
-              &.sucessfull, &.not_funded
-                background: url($images_path+'icon_projectsuccess.png') left top no-repeat
-                width: 250px
-                padding-top: 0px
-                height: auto
-                padding-left: 45px
-                span
-                  font-family: Lato
-                  font-style: italic
-                  font-size: 14px
-                  color: #333333
-                  margin: 0px
-                  width: 250px
-                  line-height: 16px
-                p
-                  width: 233px
-                  font-family: Lato
-                  font-style: italic
-                  margin-top: 10px
-                  float: left
-                  text-shadow: none
-                  line-height: 16px
-                  font-size: 13px
-              &.not_funded
-                background: url($images_path+'icon_projectnotfunded.png') left 10px no-repeat
-                p
-                  width: 280px
-                a
-                  color: #6BB344
-                  text-decoration: none
-        .more_questions
-          color: #666666
-          margin-top: 10px
-          float: left
-          width: 100%
-          font-size: 21px
-          font-family: "Lato"
-          font-style: italic
-          line-height: 24px
-          margin-bottom: 40px
-          ul.questions
-            float: left
-            margin-top: 40px
-            li
-              width: 285px
-              float: left
-              img
-                float: left
-                margin-left: -45px
-              strong
-                font-family: Arial
-                color: #666666
-                font-size: 14px
-                display: block
-                line-height: 18px
-                font-weight: bold
-                margin-bottom: 10px
-              p
-                font-family: Arial
-                color: #666666
-                line-height: 21px
-                font-size: 13px
-              &.lines
-                width: 280px
-                padding:
-                  left: 20px
-                  right: 20px
-                border: 1px solid $pink
-                border:
-                  top: none
-                  bottom: none
-            li + li
-              margin-left: 20px
-
-
+          margin-left: -45px
+        strong
+          font-family: Arial
+          font-size: 14px
+          display: block
+          line-height: 18px
+          font-weight: bold
+          margin-bottom: 10px
+        p
+          font-family: Arial
+          line-height: 21px
+          font-size: 13px
+        &.lines
+          width: 280px
+          padding:
+            left: 20px
+            right: 20px
+          border: 1px solid $pink
+          border:
+            top: none
+            bottom: none
+      li + li
+        margin-left: 20px
