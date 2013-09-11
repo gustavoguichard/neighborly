@@ -75,14 +75,11 @@
             h2 My address
             = f.input :address_street, as: :string
             .clearfix
-            = f.input :address_number, as: :string
-            = f.input :address_complement, required: false, as: :string
-            .clearfix
             = f.input :address_neighbourhood, as: :string
             = f.input :address_zip_code, as: :string, input_html: {autocomplete: 'off'}
             .clearfix
             = f.input :address_city, as: :string
-            = f.input :address_state, as: :select, collection: State.array
+            = f.input :address_state, as: :select, collection: State.array, include_blank: false
             .clearfix
 
 
