@@ -565,7 +565,7 @@ en:
       title: "Title of the update"
       destroy: "Remove update"
       destroy_confirmation: "Do you want to remove the update?"
-      warning: 'Remembering that every new post goes directly to the email of his supporters. Therefore, review your text well before sending it.'
+      warning: "Remember, the text you write here will automatically be sent out in an email to your supporters. Be sure to review what you've written before submitting."
     rewards:
       reward_title: "For %{minimum} or more"
       reward_deliver_time: "Estimated delivery: %{prevision}"
