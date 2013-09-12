@@ -183,9 +183,13 @@ class User < ActiveRecord::Base
   def self.create_with_omniauth(auth, current_user = nil, auto_safe = true, user = new)
     omniauth_email = (auth["info"]["email"] rescue nil)
     omniauth_email = (auth["extra"]["user_hash"]["email"] rescue nil) unless omniauth_email
+    found_user = User.where(email: omniauth_email).first if auth['provider'] == 'facebook' && omniauth_email.present?
 
     if current_user
       user = current_user
+    elsif auth['provider'] == 'facebook' && omniauth_email.present? && found_user.present?
+      user = found_user
+      auto_safe = false
     else
       user.name = auth['info']['name']
       user.email = omniauth_email
