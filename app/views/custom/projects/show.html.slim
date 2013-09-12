@@ -41,9 +41,9 @@
     .section_header
       h1= @project.name
       - if @project.display_address_formated.present?
-        h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+        h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id})), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
       -else
-        h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: @project.category.to_s.parameterize)), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+        h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id})), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
     .tab_container
       nav#project_menu
         = link_to '#about', 'id' => 'about_link', 'class' => 'selected', 'data-target' => '#project_about.content' do
