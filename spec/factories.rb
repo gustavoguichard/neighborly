@@ -55,6 +55,8 @@ FactoryGirl.define do
     f.video_url 'http://vimeo.com/17298435'
     f.state 'online'
     f.home_page true
+    f.address_city 'Kansas City'
+    f.address_state 'MO'
   end
 
   factory :notification_type do |f|

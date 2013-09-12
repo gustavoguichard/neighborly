@@ -127,6 +127,24 @@
             background: #F3F3F3
 
       #project_edit
+        .input.required
+          label
+            &:after
+              content: " * "
+              color: #ff6600
+        .admin-fields
+          .input.required
+            label
+              &:after
+                content: ''
+        .section-header
+          background: #E5E5E5
+          color: #4C4C4C
+          text-transform: uppercase
+          clear: both
+          padding: 18px
+          margin-bottom: 30px
+          font-size: 36px
         .bootstrap-form
           .checkbox-inline
             &.input
@@ -141,6 +159,13 @@
             p.inline-hints
               @extend .clearfix
               float: left
+        .about-input
+          li.input
+            border-bottom: none !important
+            margin-bottom: 0
+          border-bottom: dotted 1px #cccccc
+          margin-bottom: 20px
+          padding-bottom: 20px
     .use_popover_bottom
       border-bottom: 1px dashed #999
       cursor: help

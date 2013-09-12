@@ -304,7 +304,7 @@ en:
         address_state: 'Please select the state where your project is located.'
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
       reward:
-        description: "Describe your reward in a way that arouses people's interest to back the project. Don't be shy!"
+        description: "Describe your reward in a way that will grab a contributor's attention."
         maximum_backers: "If your reward is limited, tell us the maximum backers."
         minimum_value: "This is the minimum amount to choose this reward."
         days_to_delivery: "Total of days to deliver the reward."
@@ -580,8 +580,8 @@ en:
       waiting: "This project is waiting for approval and soon we'll know if it will go online on Neighbor.ly ;)"
       waiting_owner: "To edit the project info, click on 'Edit project' tab. The rewards you can edit on reward column."
       about_title: "About this project"
-      no_rewards_warning_title: 'Create here your rewards'
-      no_rewards_warning: "Don't go nuts! Think about how you're going to deliver them and include those costs in your budget. People are putting their trust in you, don't kid around with that!"
+      no_rewards_warning_title: 'Create New Rewards Here'
+      no_rewards_warning: "Create the rewards you'll be giving your supporters in return for their contribution. They should be fun and unique to your campaign."
       reports:
         no_backs: "This project don't have any back yet."
         link_reports: 'Download report of '

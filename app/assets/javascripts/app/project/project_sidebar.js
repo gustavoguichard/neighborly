@@ -3,7 +3,8 @@ App.views.Project.addChild('ProjectSidebar', {
 
   events:{
     "click .show_reward_form": "showRewardForm",
-    "click #rewards .box.clickable" : "selectReward"
+    "click #rewards .box.clickable" : "selectReward",
+    "click form a.cancel": "closeRewardForm"
   },
 
   selectReward: function(event){
@@ -65,13 +66,18 @@ App.views.Project.addChild('ProjectSidebar', {
   showRewardForm: function(event) {
     event.preventDefault();
     var $target = this.$(event.currentTarget);
-    $target.fadeOut('fast');
+    $target.hide();
 
     $.get($target.data('path')).success(function(data){
       $($target.data('target')).html(data);
     });
 
     this.$($target.data('target')).fadeIn('fast');
+  },
+  closeRewardForm: function(event){
+    $(event.target).parents('.hide').fadeOut('fast')
+    $('.show_reward_form').show()
+    return false;
   }
 });
 
