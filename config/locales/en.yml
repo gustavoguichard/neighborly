@@ -326,7 +326,7 @@ en:
         expires_at: "Deadline"
         goal: "Funding Goal"
         name: "Project Title"
-        online_days: 'How Many Campaign Days?'
+        online_days: 'Deadline'
         video_url: Video
         uploaded_image: "Project thumbnail"
         site: 'Website'
