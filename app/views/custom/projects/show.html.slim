@@ -136,7 +136,7 @@
 
           #condition[class="#{@project.display_status}"]
             p
-              = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: l(@project.display_expires_at.to_date, format: :long))
+              = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
           - if @project.online? && @project.in_time?
             #pledge
               = form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
