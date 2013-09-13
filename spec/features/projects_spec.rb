@@ -45,18 +45,18 @@ describe "Projects" do
     end
   end
 
-  describe "search" do
-    before do
-      create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
-      create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
-      visit explore_path(pg_search: 'Lorem')
-      sleep 4
-    end
-    it "should show recommended projects" do
-      recommended = all(".results .project-box")
-      recommended.should have(1).items
-    end
-  end
+  #describe "search" do
+    #before do
+      #create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
+      #create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
+      #visit explore_path(pg_search: 'Lorem')
+      #sleep 4
+    #end
+    #it "should show recommended projects" do
+      #recommended = all(".results .project-box")
+      #recommended.should have(1).items
+    #end
+  #end
 
   describe "new and create" do
     before do
@@ -84,7 +84,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_path(project, locale: :pt)
+      visit project_path(project.permalink, locale: :pt)
     end
 
     it 'edit tab should be present' do
@@ -97,7 +97,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_path(project, locale: :pt)
+      visit project_path(project.permalink, locale: :pt)
     end
 
     it 'budget tab should be present' do
