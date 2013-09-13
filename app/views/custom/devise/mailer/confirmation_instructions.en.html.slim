@@ -4,7 +4,7 @@ br
 |Almost ready to use #{Configuration[:company_name]}! Please confirm your email by clicking the link below:
 br
 br
-h1 #{link_to 'Confirm my email', confirmation_url(@resource, :confirmation_token => @token)}
+h1 #{link_to 'Confirm my email', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)}
 br
 br
 |If you received this email in error, please disregard.
