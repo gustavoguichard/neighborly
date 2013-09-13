@@ -163,8 +163,8 @@ en:
         more_links: 'Where can we find more about you and your project?'
       reward:
         description: Description
-        maximum_backers: "Maximum backers"
-        minimum_value: "Minimum value"
+        maximum_backers: "Limit Reward"
+        minimum_value: "Minimum Value"
       user:
         address_city: City
         address_complement: Complement
@@ -305,9 +305,9 @@ en:
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
       reward:
         description: "Describe your reward in a way that will grab a contributor's attention."
-        maximum_backers: "If your reward is limited, tell us the maximum backers."
-        minimum_value: "This is the minimum amount to choose this reward."
-        days_to_delivery: "Total of days to deliver the reward."
+        maximum_backers: "Limit the number of rewards at this level."
+        minimum_value: "The minimum amount contributors must give to select this reward."
+        days_to_delivery: "An estimate of the total number of days it will take for a contributor to receive their reward after the campaign has ended."
     labels:
       backer:
         anonymous: "I want my back to be anonymous."
@@ -338,8 +338,8 @@ en:
         address_state: 'State'
         budget: 'Budget Detail'
       reward:
-        maximum_backers: "Maximum backers (optional)"
-        days_to_delivery: "Days to delivery"
+        maximum_backers: "Limit Reward"
+        days_to_delivery: "Reward Fulfillment"
     optional: " (optional)"
   found_plural: Found
   found_singular: Found
