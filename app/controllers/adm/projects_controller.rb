@@ -17,6 +17,38 @@ class Adm::ProjectsController < Adm::BaseController
     end
   end
 
+  def populate
+    unless params[:user][:id].present?
+      password = Devise.friendly_token
+
+      @user = User.new(params[:user])
+      @user.email = "#{Devise.friendly_token}@populate.user"
+      @user.password = password
+      @user.password_confirmation = password
+      @user.profile_type = 'personal'
+    else
+      @user = User.find(params[:user][:id])
+    end
+
+    @backer = Backer.new(params[:backer])
+    @backer.payment_method = 'PrePopulate'
+    @backer.state = 'confirmed'
+    @backer.project = resource
+    @backer.user = @user
+
+    if @user.valid? and @backer.valid?
+      @user.save!
+      @backer.save!
+      flash[:notice] = 'Success!'
+      redirect_to populate_backer_adm_project_path(resource)
+    else
+      flash[:alert] = ""
+      flash[:alert] += @user.errors.full_messages.to_sentence unless @user.valid?
+      flash[:alert] += @backer.errors.full_messages.to_sentence unless @backer.valid?
+      render :populate_backer
+    end
+  end
+
   def destroy
     @project = Project.find params[:id]
     if @project.can_push_to_trash?

@@ -23,6 +23,7 @@ en:
         between_created_at: 'Created at between'
         id: ID
         name: 'Name'
+        populate_backer: 'Prepopulate backer'
         send_to_trash: "Send to TRASH"
         send_to_draft: 'Send to DRAFT!'
         send_to_soon: 'Send to SOON!'

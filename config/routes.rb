@@ -132,6 +132,8 @@ Catarse::Application.routes.draw do
         put 'reject'
         put 'push_to_draft'
         put 'push_to_soon'
+        get 'populate_backer'
+        post 'populate'
       end
     end
 
