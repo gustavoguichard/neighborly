@@ -5,7 +5,13 @@ App.addChild('Backer', _.extend({
     'change #backer_value' : 'resetReward',
     'click input[type=radio]' : 'clickReward',
     'click #backer_anonymous' : 'clickAnonymous',
-    'change #backer_credits' : 'checkCredits'
+    'change #backer_credits' : 'checkCredits',
+    'click .procceed-button': 'clickProcceed'
+  },
+
+  clickProcceed: function(){
+    $.scrollTo($('a#procceed'), 350);
+    return false;
   },
 
   checkCredits: function(event){
@@ -52,7 +58,7 @@ App.addChild('Backer', _.extend({
     this.value = this.$('#backer_value');
     this.rewards = this.value.data('rewards');
     this.choices = this.$('li.choice');
-    this.credits = this.$('#credits'); 
+    this.credits = this.$('#credits');
     this.selectReward(this.$('input[type=radio]:checked'));
     this.setupForm();
   }

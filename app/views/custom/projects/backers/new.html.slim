@@ -4,12 +4,12 @@
       .title
         h1= t('.header.title')
         h2= t('.header.subtitle')
-      = link_to '#procceed', class: 'procceed-button' do
-        | Procceed
-        br/
-        i.icon-chevron-down
       #back_options.bootstrap-form
         = semantic_form_for @backer, url: @create_url, html: { id: 'backer_form' } do |form|
+          = link_to '#procceed', class: 'procceed-button' do
+            | Procceed
+            br/
+            i.icon-chevron-down
           = form.inputs do
             = hidden_field_tag 'credits', current_user.credits.to_i
             = form.label :value, t('formtastic.labels.backer.value')
@@ -32,7 +32,7 @@
               = form.input :short_note, label: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
           = form.actions do
             .bootstrap-twitter
-              a[name='procceed']
+              a#procceed[name='procceed']
               = form.submit t('.submit'), class: 'btn btn-success btn-large', id: "backer_submit"
       #back_info
         #project_info
