@@ -32,7 +32,7 @@ gem 'chartkick'
 # Payment engines
 gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
 gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
-gem 'catarse_paypal_express', '~> 2.0.0', github: 'catarse/catarse_paypal_express'
+gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express'
 gem "authorize-net", "~> 1.5.2"
 #
 # Decorators
