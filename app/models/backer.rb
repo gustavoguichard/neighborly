@@ -95,13 +95,17 @@ class Backer < ActiveRecord::Base
   end
 
   def price_with_tax
-    if self.payment_method == 'PayPal'
-      (self.value * 1.029)+0.30
-    elsif self.payment_method == 'AuthorizeNet'
-      (self.value * 1.029)+0.30
-    elsif self.payment_method == 'eCheckNet'
-      (self.value * 1.010)+0.30
-    else
+    begin
+      if self.payment_method.downcase == 'paypal'
+        (self.value * 1.029)+0.30
+      elsif self.payment_method.downcase == 'authorizenet'
+        (self.value * 1.029)+0.30
+      elsif self.payment_method.downcase == 'echecknet'
+        (self.value * 1.010)+0.30
+      else
+        self.value
+      end
+    rescue
       self.value
     end
   end
@@ -153,6 +157,10 @@ class Backer < ActiveRecord::Base
 
   def display_value
     number_to_currency value
+  end
+
+  def display_value_with_tax
+    number_to_currency price_with_tax
   end
 
   def available_rewards
