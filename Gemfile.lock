@@ -26,15 +26,6 @@ GIT
       supermodel
 
 GIT
-  remote: git://github.com/catarse/catarse_paypal_express.git
-  revision: e6c1dd2a912bd73c9512653efc0d69854e511e58
-  specs:
-    catarse_paypal_express (2.0.0)
-      activemerchant (>= 1.34.0)
-      rails (~> 4.0)
-      slim-rails
-
-GIT
   remote: git://github.com/catarse/moip-ruby.git
   revision: 39f9dab38fc33fe9bf614deb8e90ca166ab2d6bf
   specs:
@@ -53,6 +44,15 @@ GIT
       redcarpet
       rinku
       tag_helper
+
+GIT
+  remote: git://github.com/luminopolis/catarse_paypal_express.git
+  revision: 982118605aa261107631e5c2e2e4b8d5b089db95
+  specs:
+    catarse_paypal_express (2.0.0)
+      activemerchant (>= 1.34.0)
+      rails (~> 4.0)
+      slim-rails
 
 GIT
   remote: git://github.com/milgner/compass-rails.git
@@ -107,14 +107,14 @@ GEM
     active_utils (2.0.0)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.37.0)
-      active_utils (>= 1.0.2)
-      activesupport (>= 2.3.14)
-      builder (>= 2.0.0)
-      i18n
-      json (>= 1.5.1)
-      money
-      nokogiri (< 1.6.0)
+    activemerchant (1.38.1)
+      active_utils (~> 2.0)
+      activesupport (>= 2.3.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (~> 0.5)
+      json (~> 1.7)
+      money (< 6.0.0)
+      nokogiri (~> 1.4)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -514,7 +514,7 @@ DEPENDENCIES
   catarse_credit_card_net!
   catarse_echeck_net!
   catarse_mailchimp!
-  catarse_paypal_express (~> 2.0.0)!
+  catarse_paypal_express!
   chartkick
   coffee-rails (~> 4.0.0)
   compass-960-plugin
