@@ -72,7 +72,10 @@
             .clearfix
 
           .address
-            h2 My address
+            h2
+              | My address
+              small
+                |  - This information is not public and helps project owners get rewards out in a timely manner.
             = f.input :address_street, as: :string
             .clearfix
             = f.input :address_neighbourhood, as: :string

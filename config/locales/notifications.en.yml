@@ -21,8 +21,8 @@ en:
       subject: "Your contribution to %{project_name} is being processed by %{payment_method}."
       header: "Your payment is being processed."
     updates:
-      subject: "%{project_name} Update #%{update_id}"
-      header: "%{project_name} Update #%{update_id}"
+      subject: "%{project_name} Update #%{update_number}"
+      header: "%{project_name} Update #%{update_number}"
     project_in_wainting_funds:
       subject: "Your project on Neighbor.ly"
       header: "We just need to verify last minute payments"

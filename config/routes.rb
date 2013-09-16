@@ -78,7 +78,6 @@ Catarse::Application.routes.draw do
     resources :backer_reports_for_project_owners, only: [:index]
   end
 
-  get "/projects/:permalink" => "projects#show", as: :project_by_slug
   resources :projects do
     resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
     resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
@@ -160,6 +159,6 @@ Catarse::Application.routes.draw do
   end
 
   get "/set_email" => "users#set_email", as: :set_email_users
-  get "/:permalink" => "projects#show", as: :project_by_permalink
+  get "/:permalink" => "projects#show", as: :project_by_slug
 
 end
