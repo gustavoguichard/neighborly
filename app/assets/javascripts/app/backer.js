@@ -61,6 +61,9 @@ App.addChild('Backer', _.extend({
     this.credits = this.$('#credits');
     this.selectReward(this.$('input[type=radio]:checked'));
     this.setupForm();
+    $('.procceed-button').affix({offset: {
+        bottom: 800
+    }})
   }
 }, Skull.Form));
 
