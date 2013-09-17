@@ -727,9 +727,9 @@ en:
       requested_refund: "Refund requested"
       waiting_confirmation: "Waiting confirmation"
     set_email:
-      site_title: 'Define your email address'
-      title: 'Define your email address'
-      submit: 'Save my email and proceed'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
     show:
       attention: Attention
       tabs:
