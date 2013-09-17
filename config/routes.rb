@@ -125,6 +125,7 @@ Catarse::Application.routes.draw do
   end
 
   namespace :adm do
+    resources :tags
     resources :projects, only: [ :index, :update, :destroy ] do
       member do
         put 'approve'
