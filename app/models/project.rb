@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
   schema_associations
   belongs_to :user
   has_many :backers, dependent: :destroy
+  has_many :taggings, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
   has_many :notifications, dependent: :destroy

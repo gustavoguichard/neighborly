@@ -17,6 +17,7 @@ describe Project do
     it{ should have_many :notifications }
     it{ should have_many :project_faqs }
     it{ should have_many :project_documents }
+    it{ should have_many :taggings }
     it{ should have_and_belong_to_many :channels }
   end
 
