@@ -14,8 +14,6 @@
       p#text
         a href=user_path(backer.user)
          = backer.user.short_name
-      p#confirmed
-        = l backer.confirmed_at, format: :short
       p#backed
         = backer.user.backs_text
   - if current_user and (current_user == @project.user or current_user.admin)
