@@ -18,7 +18,12 @@
                 .alert.alert-info
                   = form.input :credits, hint: t('formtastic.hints.backer.credits', credits: current_user.display_credits).html_safe
               .clearfix
-            = form.input :value, required: true, as: :string, label: false,  input_html: { autocomplete: 'off', data: { mask: '99?9999999', rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json } }
+            li#backer_value_input.string.input.required.stringish
+              .input-prepend
+                  span.add-on $
+              = form.text_field :value, required: true, as: :string, label: false, autocomplete: 'off', data: { mask: '99?9999999', rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }
+              .input-append
+                  span.add-on .00
             = form.input :reward, as: :radio, collection: @rewards
             = form.input :anonymous
             li#anonymous_warning.important.hide
