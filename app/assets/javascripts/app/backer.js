@@ -2,7 +2,7 @@ App.addChild('Backer', _.extend({
   el: 'form#backer_form',
 
   events: {
-    'change #backer_value' : 'resetReward',
+    'change #backer_value' : 'changeBackerValue',
     'click input[type=radio]' : 'clickReward',
     'click #backer_anonymous' : 'clickAnonymous',
     'change #backer_credits' : 'checkCredits',
@@ -29,6 +29,7 @@ App.addChild('Backer', _.extend({
     var option = this.$(event.currentTarget);
     this.selectReward(option);
     this.value.val(this.reward().minimum_value);
+    this.procceedBottom();
   },
 
   reward: function(){
@@ -39,9 +40,15 @@ App.addChild('Backer', _.extend({
   },
 
   selectReward: function(reward){
+    this.procceedBottom();
     this.choices.removeClass('selected');
     reward.prop('checked', true);
     reward.parents('.choice:first').addClass('selected')
+  },
+
+  changeBackerValue: function(event){
+    this.resetReward(event);
+    this.procceedBottom();
   },
 
   resetReward: function(event){
@@ -54,6 +61,14 @@ App.addChild('Backer', _.extend({
     }
   },
 
+  procceedBottom: function(){
+    if($('#backer_value')[0].checkValidity()){
+      $('.procceed-button').show()
+    } else {
+      $('.procceed-button').hide()
+    }
+  },
+
   activate: function(){
     this.value = this.$('#backer_value');
     this.rewards = this.value.data('rewards');
@@ -61,9 +76,17 @@ App.addChild('Backer', _.extend({
     this.credits = this.$('#credits');
     this.selectReward(this.$('input[type=radio]:checked'));
     this.setupForm();
-    $('.procceed-button').affix({offset: {
-        bottom: 800
-    }})
+    $(window).scroll(function(){
+      if($('#backer_value')[0].checkValidity()){
+        if($(document).scrollTop() > ($('a#procceed').offset().top - 670)){
+          $('.procceed-button').hide()
+        } else {
+          $('.procceed-button').show()
+        }
+      } else {
+        $('.procceed-button').hide()
+      }
+    });
   }
 }, Skull.Form));
 
