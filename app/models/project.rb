@@ -3,6 +3,7 @@ require 'state_machine'
 class Project < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include PgSearch
+  include Taggable
   extend CatarseAutoHtml
 
   mount_uploader :uploaded_image, ProjectUploader
@@ -16,7 +17,6 @@ class Project < ActiveRecord::Base
   schema_associations
   belongs_to :user
   has_many :backers, dependent: :destroy
-  has_many :taggings, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
   has_many :notifications, dependent: :destroy
