@@ -20,6 +20,8 @@
           = form.input :about, required: false, wrapper_html: { class: 'required' }
           = render 'formatting_tips'
           .clearfix
+      - if can? :update, @project, :tag_list
+        = form.input :tag_list, as: :string, required: false
 
       .section-header #2. Project Location
       - if can? :update, @project, :address_state
