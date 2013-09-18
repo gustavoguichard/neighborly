@@ -58,3 +58,15 @@ App.views.ProjectForm.addChild('Permalink', _.extend({
   }
 }, Skull.TimedInput));
 
+App.addChild('ProjectFormEdit', {
+  el: '#project_edit',
+
+  activate: function(){
+    $('#project_tag_list').tagsInput({
+        autocomplete_url: $('.tags_path').data('url'),
+        width:'446px',
+        height: '65px'
+      });
+  }
+
+});

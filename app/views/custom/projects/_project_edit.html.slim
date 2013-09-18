@@ -21,6 +21,7 @@
           = render 'formatting_tips'
           .clearfix
       - if can? :update, @project, :tag_list
+        .tags_path[data-url=tags_path]
         = form.input :tag_list, as: :string, required: false
 
       .section-header #2. Project Location
