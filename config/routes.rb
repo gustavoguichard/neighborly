@@ -73,6 +73,7 @@ Catarse::Application.routes.draw do
   get "/explore" => "explore#index", as: :explore
 
   resources :posts, only: [:index, :create]
+  resources :tags, only: [:index]
 
   namespace :reports do
     resources :backer_reports_for_project_owners, only: [:index]
