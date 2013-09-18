@@ -22,7 +22,7 @@ module Taggable
     after_save :save_tags
 
     def tag_list
-      tags.map(&:name)
+      TagList.new tags.map(&:name)
     end
 
     def tag_list=(list)
