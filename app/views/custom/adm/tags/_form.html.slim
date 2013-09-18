@@ -1,0 +1,9 @@
+.bootstrap-form
+  = semantic_form_for resource, url: (resource.persisted? ? adm_tag_path(resource) : adm_tags_path) do |f|
+    = f.inputs do 
+      = f.input :name
+      .clearfix
+      .bootstrap-twitter
+        = f.submit class: 'btn', disable_with: I18n.t('sending')
+    .clearfix
+
