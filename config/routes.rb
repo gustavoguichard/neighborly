@@ -33,25 +33,30 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
-  constraints subdomain: 'test' do
-    namespace :channels, path: '' do
-      namespace :adm do
-        resources :projects, only: [ :index, :update] do
-          member do
-            put 'approve'
-            put 'reject'
-            put 'push_to_draft'
+  Channel.all.each do |channel|
+    constraints subdomain: channel.permalink do
+      namespace :channels, path: '' do
+        get '/', to: 'profiles#show', as: :profile
+        get '/how-it-works', to: 'profiles#how_it_works', as: :about
+        resources :channels_subscribers, only: [:index, :create, :destroy]
+
+        resources :projects, only: [:new, :create, :show] do
+          collection do
+            get 'video'
+          end
+        end
+
+        namespace :adm do
+          resources :projects, only: [ :index, :update] do
+            member do
+              put 'approve'
+              put 'reject'
+              put 'push_to_draft'
+              put 'push_to_soon'
+            end
           end
         end
       end
-      get '/', to: 'profiles#show', as: :profile
-      get '/how-it-works', to: 'profiles#how_it_works', as: :about
-      resources :projects, only: [:new, :create, :show] do
-        collection do
-          get 'video'
-        end
-      end
-      resources :channels_subscribers, only: [:index, :create, :destroy]
     end
   end
 
@@ -83,20 +88,11 @@ Catarse::Application.routes.draw do
     resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
     resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
-    resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
-      member do
-        post 'sort'
-      end
-    end
-    resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
-      member do
-        get 'credits_checkout'
-        post 'update_info'
-      end
-    end
+
     collection do
       get 'video'
     end
+
     member do
       post :send_reward_email
       put 'pay'
@@ -104,7 +100,21 @@ Catarse::Application.routes.draw do
       get 'video_embed'
       get 'embed_panel'
     end
+
+    resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
+      member do
+        post 'sort'
+      end
+    end
+
+    resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
+      member do
+        get 'credits_checkout'
+        post 'update_info'
+      end
+    end
   end
+
   resources :users do
     resources :projects, controller: 'users/projects', only: [ :index ]
     collection do
@@ -127,6 +137,11 @@ Catarse::Application.routes.draw do
 
   namespace :adm do
     resources :tags, except: [:show]
+    resources :press_assets, except: [:show]
+    resources :statistics, only: [ :index ]
+    resources :financials, only: [ :index ]
+    resources :users, only: [ :index ]
+
     resources :projects, only: [ :index, :update, :destroy ] do
       member do
         put 'approve'
@@ -137,10 +152,6 @@ Catarse::Application.routes.draw do
         post 'populate'
       end
     end
-
-    resources :press_assets
-    resources :statistics, only: [ :index ]
-    resources :financials, only: [ :index ]
 
     resources :backers, only: [ :index, :update ] do
       member do
@@ -153,7 +164,6 @@ Catarse::Application.routes.draw do
         put 'push_to_trash'
       end
     end
-    resources :users, only: [ :index ]
 
     namespace :reports do
       resources :backer_reports, only: [ :index ]
