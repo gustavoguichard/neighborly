@@ -33,6 +33,10 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
+  if Rails.env.test?
+    FactoryGirl.create(:channel)
+  end
+
   Channel.all.each do |channel|
     constraints subdomain: channel.permalink do
       namespace :channels, path: '' do
@@ -47,6 +51,12 @@ Catarse::Application.routes.draw do
         end
 
         namespace :adm do
+          resources :statistics, only: [ :index ]
+
+          namespace :reports do
+            resources :subscriber_reports, only: [ :index ]
+          end
+
           resources :projects, only: [ :index, :update] do
             member do
               put 'approve'
