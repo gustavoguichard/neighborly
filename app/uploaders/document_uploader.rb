@@ -13,6 +13,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
   storage choose_storage
 
   def filename
-    File.basename(self.file.file)
+    File.basename(self.file.file) if self.file.present?
   end
 end
