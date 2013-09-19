@@ -1,0 +1,36 @@
+#page_content
+  .container
+    .title
+      h1= @title = t('.title')
+
+    .bootstrap-twitter
+      = link_to t('.new'), new_adm_tag_path, class: 'btn pull-right'
+      .clearifx
+    .data-table
+      = paginate @tags
+      - if @tags.empty?
+        = t('.no_tags')
+      - else
+        .bootstrap-twitter
+          table.table.table-striped
+            thead
+              tr
+                th style="width: 200px;"
+                  = t('.name')
+                th
+                  = t('.total_projects_using')
+                th
+            tbody
+              - @tags.each do |tag|
+                tr id=tag.id class=cycle("even", "odd")
+                  td = tag.display_name
+                  td = tag.taggings.count
+                  td
+                    .pull-right
+                      = link_to t('.edit'), edit_adm_tag_path(tag), class: 'btn'
+                      | &nbsp;
+                      = link_to t('.destroy'), adm_tag_path(tag), method: :delete, confirm: t('adm.confirm_dialog'), class: 'btn btn-danger'
+
+
+      = paginate @tags
+  .clearfix

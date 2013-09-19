@@ -883,4 +883,63 @@ describe Project do
       Project.permalink_on_routes?('projects').should be_true
     end
   end
+
+  describe 'Taggable' do
+    describe 'associations' do
+      it{ should have_many(:tags).through(:taggings) }
+      it{ should have_many :taggings }
+    end
+
+    describe 'TagList' do
+      context 'should split the list' do
+        subject { Taggable::TagList.new 'Tag 1, Tag 2, Tag 3' }
+
+        context '#initializer' do
+          it { should == ['tag 1', 'tag 2', 'tag 3'] }
+        end
+
+        context '#to_s' do
+          it { expect(subject.to_s).to eq 'tag 1, tag 2, tag 3' }
+        end
+      end
+    end
+
+    describe '#tag_list' do
+      before do
+        project.tags = ['Tag 1', 'Tag 2', 'Tag 3'].map {|tag_name| Tag.find_or_create_by(name: tag_name.downcase) }
+      end
+
+      it { expect(project.tag_list).to have(3).tags }
+    end
+
+    describe '#tag_list=' do
+      context 'as method' do
+        before do
+          project.tag_list = 'Tag 1, Tag 2, Tag 3, Tag 4'
+          project.save
+        end
+
+        it { expect(project.tags).to have(4).tags }
+      end
+
+      context 'as attribute' do
+        let(:project_with_tags) { create(:project, tag_list: 'Tag 1, Tag 2') }
+
+        it { expect(project_with_tags.tags).to have(2).tags }
+      end
+
+      context 'unassign tags' do
+        before do
+          project.tag_list = 'Tag 1, Tag 2, Tag 3, Tag 4'
+          project.save
+
+          project.tag_list = 'Tag 1, Tag 2, Tag 3'
+          project.save
+          project.reload
+        end
+
+        it { expect(project.tags).to have(3).tags }
+      end
+    end
+  end
 end

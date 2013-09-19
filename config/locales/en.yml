@@ -305,6 +305,7 @@ en:
         address_city: 'The primary city or region where your project is located.'
         address_state: 'Please select the state where your project is located.'
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
+        tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
       reward:
         description: "Describe your reward in a way that will grab a contributor's attention."
         maximum_backers: "Limit the number of rewards at this level."
@@ -339,6 +340,7 @@ en:
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
+        tag_list: 'Keywords'
       reward:
         maximum_backers: "Limit Reward"
         days_to_delivery: "Reward Fulfillment"
@@ -435,7 +437,7 @@ en:
           not_reached_goal: "This project will be funded on %{date}"
           failed: "This project was funded on %{date}"
           successful: "This project was successful and was funded on %{date}"
-          waiting_funds: "This project will be funded. Waiting confirmation from payments to know if this project will be successful."
+          waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
       reached_of: "Reached of"
       submit: "Help Greenlight It!"
@@ -732,9 +734,9 @@ en:
       requested_refund: "Refund requested"
       waiting_confirmation: "Waiting confirmation"
     set_email:
-      site_title: 'Define your email address'
-      title: 'Define your email address'
-      submit: 'Save my email and proceed'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
     show:
       attention: Attention
       tabs:

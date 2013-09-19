@@ -6,6 +6,10 @@
         h2= t('.header.subtitle')
       #back_options.bootstrap-form
         = semantic_form_for @backer, url: @create_url, html: { id: 'backer_form' } do |form|
+          = link_to '#procceed', class: 'procceed-button' do
+            | Procceed
+            br/
+            i.icon-chevron-down
           = form.inputs do
             = hidden_field_tag 'credits', current_user.credits.to_i
             = form.label :value, t('formtastic.labels.backer.value')
@@ -14,7 +18,12 @@
                 .alert.alert-info
                   = form.input :credits, hint: t('formtastic.hints.backer.credits', credits: current_user.display_credits).html_safe
               .clearfix
-            = form.input :value, required: true, as: :string, label: false,  input_html: { autocomplete: 'off', data: { mask: '99?9999999', rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json } }
+            li#backer_value_input.string.input.required.stringish
+              .input-prepend
+                  span.add-on $
+              = form.text_field :value, required: true, as: :string, label: false, autocomplete: 'off', data: { mask: '99?9999999', rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }
+              .input-append
+                  span.add-on .00
             = form.input :reward, as: :radio, collection: @rewards
             = form.input :anonymous
             li#anonymous_warning.important.hide
@@ -28,6 +37,7 @@
               = form.input :short_note, label: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
           = form.actions do
             .bootstrap-twitter
+              a#procceed[name='procceed']
               = form.submit t('.submit'), class: 'btn btn-success btn-large', id: "backer_submit"
       #back_info
         #project_info

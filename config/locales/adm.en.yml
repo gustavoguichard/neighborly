@@ -2,6 +2,21 @@ en:
   adm: &admin
     menu: ''
     confirm_dialog: 'You are sure?'
+    tags:
+      index:
+        menu: 'Manage Tags'
+        title: 'Tags management'
+        name: 'Name'
+        total_projects_using: 'Total projects using'
+        no_tags: 'No tags yet'
+        edit: 'Edit'
+        destroy: 'Destroy'
+        new: 'Add new tag'
+      new:
+        title:
+          'Add new tag'
+      edit:
+        title: 'Edit tag'
     press_assets:
       index:
         menu: 'Manage Press Assets'

@@ -3,6 +3,7 @@ require 'state_machine'
 class Project < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include PgSearch
+  include Taggable
   extend CatarseAutoHtml
 
   mount_uploader :uploaded_image, ProjectUploader

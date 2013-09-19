@@ -126,17 +126,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_basic_auth
-    if request.url.match(/neighborly-staging.herokuapp.com/) or request.url.match(/neighborly-knight.herokuapp.com/)
-      authenticate_or_request_with_http_basic do |username, password|
-        username == 'admin' && password == 'Streetcar4321'
-      end
-    end
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name,
                                                             :email,
                                                             :password) }
+  end
+
+  def require_basic_auth
+    black_list = ['neighborly-staging.herokuapp.com', 'staging.neighbor.ly', 'channel.staging.neighbor.ly']
+
+    if request.url.match Regexp.new(black_list.join("|"))
+      authenticate_or_request_with_http_basic do |username, password|
+        username == 'admin' && password == 'Streetcar4321'
+      end
+    end
   end
 end
