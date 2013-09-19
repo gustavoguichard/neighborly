@@ -33,38 +33,31 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
-  if Rails.env.test?
-    FactoryGirl.create(:channel)
-  end
+  constraints subdomain: /^(?!www|secure|test|local|staging)(\w+)/ do
+    namespace :channels, path: '' do
+      get '/', to: 'profiles#show', as: :profile
+      get '/how-it-works', to: 'profiles#how_it_works', as: :about
+      resources :channels_subscribers, only: [:index, :create, :destroy]
 
-  # /^(?!www|secure|test|local)(\w+)/
-  Channel.all.each do |channel|
-    constraints subdomain: channel.permalink do
-      namespace :channels, path: '' do
-        get '/', to: 'profiles#show', as: :profile
-        get '/how-it-works', to: 'profiles#how_it_works', as: :about
-        resources :channels_subscribers, only: [:index, :create, :destroy]
+      resources :projects, only: [:new, :create, :show] do
+        collection do
+          get 'video'
+        end
+      end
 
-        resources :projects, only: [:new, :create, :show] do
-          collection do
-            get 'video'
-          end
+      namespace :adm do
+        resources :statistics, only: [ :index ]
+
+        namespace :reports do
+          resources :subscriber_reports, only: [ :index ]
         end
 
-        namespace :adm do
-          resources :statistics, only: [ :index ]
-
-          namespace :reports do
-            resources :subscriber_reports, only: [ :index ]
-          end
-
-          resources :projects, only: [ :index, :update] do
-            member do
-              put 'approve'
-              put 'reject'
-              put 'push_to_draft'
-              put 'push_to_soon'
-            end
+        resources :projects, only: [ :index, :update] do
+          member do
+            put 'approve'
+            put 'reject'
+            put 'push_to_draft'
+            put 'push_to_soon'
           end
         end
       end
