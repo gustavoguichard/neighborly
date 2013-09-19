@@ -303,6 +303,7 @@ en:
         address_city: 'The primary city or region where your project is located.'
         address_state: 'Please select the state where your project is located.'
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
+        tag_list: 'Tag list hint'
       reward:
         description: "Describe your reward in a way that will grab a contributor's attention."
         maximum_backers: "Limit the number of rewards at this level."
@@ -337,6 +338,7 @@ en:
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
+        tag_list: 'Tags'
       reward:
         maximum_backers: "Limit Reward"
         days_to_delivery: "Reward Fulfillment"
