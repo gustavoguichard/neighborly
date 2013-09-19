@@ -7,6 +7,6 @@ class ExploreController < ApplicationController
     #@recent = Project.not_soon.visible.recent.not_expired.limit(1).order('created_at DESC')
     #@successful = Project.not_soon.visible.successful.limit(1)
     #@soon = Project.soon.visible.limit(1)
-    @categories = Category.with_projects.order(:name_pt).all
+    @categories = Category.with_projects.order(:name_pt)
   end
 end
