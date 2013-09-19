@@ -68,7 +68,7 @@ describe "Projects" do
     it "should present the form and save the data" do
       all("form#project_form").should have(1).items
       [
-        'permalink', 'name', 'video_url',
+        'name', 'video_url',
         'headline', 'goal', 'online_days',
         'about', 'first_backers', 'how_know'
       ].each do |a|
@@ -84,7 +84,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_path(project.permalink, locale: :pt)
+      visit project_by_slug_path(project.permalink, locale: :pt)
     end
 
     it 'edit tab should be present' do
@@ -97,7 +97,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_path(project.permalink, locale: :pt)
+      visit project_by_slug_path(project.permalink, locale: :pt)
     end
 
     it 'budget tab should be present' do
