@@ -303,7 +303,7 @@ en:
         address_city: 'The primary city or region where your project is located.'
         address_state: 'Please select the state where your project is located.'
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
-        tag_list: 'Tag list hint'
+        tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
       reward:
         description: "Describe your reward in a way that will grab a contributor's attention."
         maximum_backers: "Limit the number of rewards at this level."
@@ -338,7 +338,7 @@ en:
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
-        tag_list: 'Tags'
+        tag_list: 'Keywords'
       reward:
         maximum_backers: "Limit Reward"
         days_to_delivery: "Reward Fulfillment"
