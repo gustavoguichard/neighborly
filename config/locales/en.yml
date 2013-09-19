@@ -432,7 +432,7 @@ en:
           not_reached_goal: "This project will be funded on %{date}"
           failed: "This project was funded on %{date}"
           successful: "This project was successful and was funded on %{date}"
-          waiting_funds: "This project will be funded. Waiting confirmation from payments to know if this project will be successful."
+          waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
       reached_of: "Reached of"
       submit: "Help Greenlight It!"
@@ -727,9 +727,9 @@ en:
       requested_refund: "Refund requested"
       waiting_confirmation: "Waiting confirmation"
     set_email:
-      site_title: 'Define your email address'
-      title: 'Define your email address'
-      submit: 'Save my email and proceed'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
     show:
       attention: Attention
       tabs:
