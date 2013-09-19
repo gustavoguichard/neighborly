@@ -1,14 +1,14 @@
-.large-14.columns.large-centered
-  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :facebook, 'small-16', 'columns'] do
+.large-10.columns.large-centered
+  = link_to user_omniauth_authorize_path(provider: :facebook, locale: nil), class: [:button, :facebook, 'small-12', 'columns'] do
     i.icon-facebook
     | &nbsp;
     | &nbsp;
     = t('pages.login.form.inputs.facebook')
-  = link_to user_omniauth_authorize_path(provider: :twitter, locale: nil), class: [:button, :twitter, 'small-4', 'columns'] do
+  = link_to user_omniauth_authorize_path(provider: :twitter, locale: nil), class: [:button, :twitter, 'small-3', 'columns'] do
     i.icon-twitter
-  = link_to user_omniauth_authorize_path(provider: :google_oauth2, locale: nil), class: [:button, :google, 'small-4', 'columns'] do
+  = link_to user_omniauth_authorize_path(provider: :google_oauth2, locale: nil), class: [:button, :google, 'small-3', 'columns'] do
     i.icon-google-plus
-  = link_to user_omniauth_authorize_path(provider: :linkedin, locale: nil), class: [:button, :linkedin, 'small-4', 'columns'] do
+  = link_to user_omniauth_authorize_path(provider: :linkedin, locale: nil), class: [:button, :linkedin, 'small-3', 'columns'] do
     i.icon-linkedin
   .clearfix
   .separator
