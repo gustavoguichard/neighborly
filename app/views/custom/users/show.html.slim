@@ -25,24 +25,24 @@
                 = @user.display_name
             h4.bio
                 = @user.bio
-          .user_social
-            ul
-              - if @user.facebook_link
-                li
-                  = link_to @user.facebook_link, target: 'blank' do
-                    = image_tag 'neighborly/facebook_32.png'
-              - if @user.twitter
-                li
-                  = link_to @user.twitter_link, target: 'blank' do
-                    = image_tag 'neighborly/twitter_32.png'
-              - if @user.linkedin_url
-                li
-                  = link_to @user.linkedin_url, target: 'blank' do
-                    = image_tag 'neighborly/linkedin_32.png'
-              - if @user.other_link
-                li.other
-                  = link_to @user.other_link, target: 'blank' do
-                    = image_tag 'neighborly/internet_32.png', width: '28px', heigt: '28px'
+            .user_social
+              ul
+                - if @user.facebook_link
+                  li
+                    = link_to @user.facebook_link, target: 'blank' do
+                      = image_tag 'neighborly/facebook_32.png'
+                - if @user.twitter
+                  li
+                    = link_to @user.twitter_link, target: 'blank' do
+                      = image_tag 'neighborly/twitter_32.png'
+                - if @user.linkedin_url
+                  li
+                    = link_to @user.linkedin_url, target: 'blank' do
+                      = image_tag 'neighborly/linkedin_32.png'
+                - if @user.other_link
+                  li.other
+                    = link_to @user.other_link, target: 'blank' do
+                      = image_tag 'neighborly/internet_32.png', width: '28px', heigt: '28px'
         .clearfix
           h2.ivebacked= "I've backed #{@user.backs.confirmed.not_anonymous.length} so far..."
         #user_profile_content
