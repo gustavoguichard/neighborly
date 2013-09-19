@@ -1,2 +1,2 @@
 #!/bin/sh
-HEROKU_APP=neighborly-knight exec heroku "$@"
+HEROKU_APP=neighborly-staging exec heroku "$@"
