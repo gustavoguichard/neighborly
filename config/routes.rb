@@ -37,6 +37,7 @@ Catarse::Application.routes.draw do
     FactoryGirl.create(:channel)
   end
 
+  # /^(?!www|secure|test|local)(\w+)/
   Channel.all.each do |channel|
     constraints subdomain: channel.permalink do
       namespace :channels, path: '' do
@@ -87,7 +88,6 @@ Catarse::Application.routes.draw do
 
   get "/explore" => "explore#index", as: :explore
 
-  resources :posts, only: [:index, :create]
   resources :tags, only: [:index]
 
   namespace :reports do
@@ -182,5 +182,4 @@ Catarse::Application.routes.draw do
 
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:permalink" => "projects#show", as: :project_by_slug
-
 end
