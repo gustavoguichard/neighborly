@@ -26,6 +26,8 @@ en:
     keywords: "Neighbor.ly, crowdfunding, project, community, open source, civic"
     email:
       contact: 'howdy@neighbor.ly'
+    ograph:
+      description: "Neighbor.ly is the best way for people, companies, and foundations to invest in the places and civic projects they care about."
 
   login:
     forgot_passord:
