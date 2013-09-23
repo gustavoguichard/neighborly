@@ -1,0 +1,17 @@
+| Hi, #{@user.display_name},
+br/
+br/
+
+| #{@asker.display_name} has a question for you regarding your project on Neighbor.ly. Simply reply to this email to contact #{@asker.display_name} directly.
+br/
+br/
+strong Question:
+= simple_format(@question)
+br/
+br/
+| Tip: To answer general questions, be sure to check out the #{link_to 'FAQ tool', project_by_slug_url(permalink: @project.permalink, anchor: 'project_faqs')}. Answering common questions here will help users understand your project better and will lessen the need to contact you directly.
+br/
+br/
+| High Fives,
+br/
+| The #{::Configuration[:company_name]} Team
