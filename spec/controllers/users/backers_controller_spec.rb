@@ -29,7 +29,7 @@ describe Users::BackersController do
 
     its(:status){ should == 200 }
   end
-  
+
   describe "POST request_refund" do
     before do
       BackerObserver.any_instance.stub(:notify_backoffice)
@@ -43,33 +43,33 @@ describe Users::BackersController do
         failed_backer.reload
         failed_backer.requested_refund?.should be_false
       end
-      it{ should redirect_to new_user_registration_path }
+      it{ should redirect_to new_user_session_path }
     end
-    
+
     context "when current_user have a confirmed backer" do
-      let(:current_user) { user }      
+      let(:current_user) { user }
       before { post :request_refund, { user_id: user.id, id: failed_backer.id } }
-      
+
       it do
         failed_backer.reload
-        failed_backer.requested_refund?.should be_true 
+        failed_backer.requested_refund?.should be_true
       end
-      
+
       it { should redirect_to user_path(current_user, anchor: 'credits') }
     end
-    
+
     context "when current_user have a unconfirmed backer" do
       let(:current_user) { user }
       before { post :request_refund, { user_id: user.id, id: unconfirmed_backer.id } }
 
       it do
         unconfirmed_backer.reload
-        unconfirmed_backer.requested_refund?.should be_false 
+        unconfirmed_backer.requested_refund?.should be_false
       end
 
-      it { should redirect_to user_path(current_user, anchor: 'credits') }      
+      it { should redirect_to user_path(current_user, anchor: 'credits') }
     end
-    
+
     context "when current_user is not owner of the backer" do
       let(:current_user) { create(:user) }
       let(:user) { other_back.user }
@@ -77,10 +77,10 @@ describe Users::BackersController do
 
       it do
         other_back.reload
-        other_back.requested_refund?.should be_false 
+        other_back.requested_refund?.should be_false
       end
 
       it { should redirect_to root_path }
     end
-  end  
+  end
 end
