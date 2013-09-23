@@ -37,7 +37,10 @@ class UsersController < ApplicationController
         session[:return_to] = nil
         return
       end
-      failure.html{ return render :set_email, layout: 'catarse_bootstrap' }
+      failure.html do
+        flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
+        return render :set_email, layout: 'catarse_bootstrap'
+      end
     end
   end
 

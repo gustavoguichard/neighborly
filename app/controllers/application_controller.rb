@@ -103,6 +103,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
+    if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
+      return set_email_users_path
+    end
+
     return_to = session[:return_to]
     session[:return_to] = nil
     (return_to || root_path)
