@@ -19,6 +19,20 @@ App.addChild('Project', _.extend({
     this.route('project_faqs');
     this.route('terms');
     $('#accordion').accordion();
+
+    $('#new-user-question-modal').on('show', function () {
+      $.ajax({
+        url: $(".new-user-question-modal-link").data('url'),
+        beforeSend: function(){},
+        success: function(txt){
+          $("#new-user-question-modal .content").html(txt);
+        }
+      });
+    });
+
+    if(window.location.hash == '#open-new-user-question-modal'){
+      $('#new-user-question-modal').modal('show')
+    }
   },
 
   toggleWarning: function(){
