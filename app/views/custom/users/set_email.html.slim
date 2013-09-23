@@ -1,11 +1,27 @@
-= content_for :title, t('.site_title')
+- if @user
+  - @title = t('.update_email_title')
+  - if @user.email == "change-your-email+#{@user.id}@neighbor.ly"
+    - @user.email = nil
+- else
+  - @title = t('.site_title')
+
+= content_for :title, @title
 
 = render 'devise/shared/header'
 
 .row
   .large-7.large-centered.columns
     .login-box.animated.fadeIn
-      h2.text-center= t('.site_title')
+      h2.text-center
+        - if @user
+          | Howdy, #{@user.display_name}.
+          br/
+          br/
+          |We need some info - please 
+          i add your email address
+          |.
+        - else
+          = @title
       .separator
       .clearfix
 
@@ -23,6 +39,7 @@
             - submit_text = t('pages.sign_up.form.inputs.submit')
 
           = form_for @user, url: url, html: { method: method } do |f|
+            = render 'devise/shared/alert' if @user.persisted?
             p
               = f.label :email
               = f.text_field :email, required: true
