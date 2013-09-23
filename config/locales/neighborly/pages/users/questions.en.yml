@@ -1,0 +1,6 @@
+en:
+  users:
+    questions:
+      new:
+        to: 'To:'
+        send: 'Ask question'
