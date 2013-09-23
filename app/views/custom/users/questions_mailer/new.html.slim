@@ -2,7 +2,7 @@
 br/
 br/
 
-| #{@asker.display_name} has a question for you regarding your project on Neighbor.ly. Simply reply to this email to contact #{@asker.display_name} directly.
+| #{@asker.display_name} has a question for you regarding your project on Neighbor.ly. Simply reply to this email to contact #{mail_to @asker.email, @asker.display_name} directly.
 br/
 br/
 strong Question:
