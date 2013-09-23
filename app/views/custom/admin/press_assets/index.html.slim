@@ -1,10 +1,10 @@
 #page_content
   .container
     .title
-      h1= t('.page_title')
+      h1= @title = t('.page_title')
 
     .bootstrap-twitter
-      = link_to t('.new'), new_adm_press_asset_path, class: 'btn pull-right'
+      = link_to t('.new'), new_admin_press_asset_path, class: 'btn pull-right'
       .clearifx
     .data-table
       = paginate @press_assets
@@ -28,9 +28,9 @@
                   td = image_tag(press_asset.image.thumb.url, width: 100)
                   td
                     .pull-right
-                      = link_to t('.edit'), edit_adm_press_asset_path(press_asset), class: 'btn'
+                      = link_to t('.edit'), edit_admin_press_asset_path(press_asset), class: 'btn'
                       | &nbsp;
-                      = link_to t('.destroy'), adm_press_asset_path(press_asset), method: :delete, confirm: t('adm.confirm_dialog'), class: 'btn btn-danger'
+                      = link_to t('.destroy'), admin_press_asset_path(press_asset), method: :delete, confirm: t('admin.confirm_dialog'), class: 'btn btn-danger'
 
 
       = paginate @press_assets

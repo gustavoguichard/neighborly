@@ -1,5 +1,5 @@
 .bootstrap-form
-  = semantic_form_for resource, url: (resource.persisted? ? adm_press_asset_path(resource) : adm_press_assets_path) do |f|
+  = semantic_form_for resource, url: (resource.persisted? ? admin_press_asset_path(resource) : admin_press_assets_path) do |f|
     = f.inputs do 
       = f.input :title
       = f.input :url

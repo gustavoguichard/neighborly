@@ -45,7 +45,7 @@ Catarse::Application.routes.draw do
         end
       end
 
-      namespace :adm do
+      namespace :admin do
         resources :statistics, only: [ :index ]
 
         namespace :reports do
@@ -138,7 +138,7 @@ Catarse::Application.routes.draw do
     end
   end
 
-  namespace :adm do
+  namespace :admin do
     resources :tags, except: [:show]
     resources :press_assets, except: [:show]
     resources :statistics, only: [ :index ]

@@ -105,7 +105,7 @@
                         b.caret
                       ul.dropdown-menu
                         li
-                          = link_to populate_backer_adm_project_path(project) do
+                          = link_to populate_backer_admin_project_path(project) do
                             = t('.populate_backer')
                         - if project.can_push_to_trash?
                           li
@@ -131,7 +131,7 @@
                               = t('.send_to_draft')
                         - if project.can_push_to_soon?
                           li
-                            = link_to  push_to_soon_adm_project_path(project), method: :put  do
+                            = link_to  push_to_soon_admin_project_path(project), method: :put  do
                               i.icon-trash
                               = t('.send_to_soon')
       = paginate @projects
