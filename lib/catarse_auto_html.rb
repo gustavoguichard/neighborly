@@ -16,13 +16,14 @@ module CatarseAutoHtml
           '"' => '"' }
       end
 
-      tweets align: "center"
+      twitter align: "center"
       iframe width: 640
-      image
+      #image
       youtube width: options[:video_width], height: options[:video_height], wmode: "opaque"
       vimeo width: options[:video_width], height: options[:video_height]
-      redcloth target: :_blank
-      link target: :_blank
+      #redcloth target: :_blank
+      #link target: :_blank
+      redcarpet markdown_options: { filter_html: true }
     end
   end
 end
