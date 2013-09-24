@@ -2,6 +2,9 @@ en:
   admin: &admin
     menu: ''
     confirm_dialog: 'You are sure?'
+    dashboard:
+      index:
+        title: 'Dashboard'
     tags:
       index:
         menu: 'Manage Tags'
