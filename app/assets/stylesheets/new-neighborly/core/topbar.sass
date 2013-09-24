@@ -1,0 +1,29 @@
+.top-bar
+  ul li > a
+    font-weight: 300
+  .row
+    +grid-row()
+
+  .name h1 a
+    text-indent: -99999em
+    width: 176px
+    height: 90px
+    background: image-url('neighborly/logo.png') center no-repeat
+    background-size: 176px
+    padding-left: 0
+
+  .user-actions
+    &.un-signed-in
+      li
+        & a:hover
+          background: $topbar-bg
+        &.hover a.button
+          background: $primary-color
+        a.button
+          top: 23px
+          font-size: emCalc(16px)
+          &:hover
+            background: darken($primary-color, 5%)
+    li
+      img
+        border-radius: 50%
