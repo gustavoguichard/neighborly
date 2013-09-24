@@ -1,6 +1,5 @@
 en:
   admin: &admin
-    menu: ''
     confirm_dialog: 'You are sure?'
     tags:
       index:
