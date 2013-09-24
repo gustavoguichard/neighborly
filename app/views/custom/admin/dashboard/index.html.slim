@@ -1,0 +1,26 @@
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+- @statistics = collection.first
+#page_content
+  .container
+    .title
+      h1= @title = t('.title')
+    .clearfix
+
+    .box= @statistics.total_users
+    .box= @statistics.total_company_users
+    .box= @statistics.total_personal_users
+    .box= @statistics.total_communities
+    .box= @statistics.total_projects_draft
+    .box= @statistics.total_backs
+    .box= @statistics.total_backers
+    .box= number_to_currency(@statistics.total_backed)
+    .box= @statistics.total_projects
+    .box= @statistics.total_projects_success
+    .box= @statistics.total_projects_online
+
+    .charts
+      h1= t('admin.statistics.projects_by_week.title')
+      = line_chart ProjectsByPeriod.chart
+      h1= t('admin.statistics.backers_by_week.title')
+      = line_chart BackersByPeriod.chart
+  .clearfix

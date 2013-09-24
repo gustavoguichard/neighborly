@@ -139,6 +139,7 @@ Catarse::Application.routes.draw do
   end
 
   namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
     resources :tags, except: [:show]
     resources :press_assets, except: [:show]
     resources :statistics, only: [ :index ]
