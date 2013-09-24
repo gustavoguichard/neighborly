@@ -143,6 +143,9 @@ gem 'uglifier'
 gem 'compass-960-plugin'
 gem 'font-awesome-rails'
 
+# New design
+gem 'zurb-foundation'
+
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
 gem 'weekdays'
