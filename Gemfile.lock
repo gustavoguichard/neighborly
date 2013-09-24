@@ -46,6 +46,13 @@ GIT
       tag_helper
 
 GIT
+  remote: git://github.com/josemarluedke/html2markdown.git
+  revision: 83195325a14c6adf5e844e7588ff4444f62aca39
+  specs:
+    html2markdown (0.0.3)
+      nokogiri
+
+GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
   revision: 2770e465b92e49df3d4f05607e3f66a10dea4671
   specs:
@@ -535,6 +542,7 @@ DEPENDENCIES
   has_permalink
   has_scope (~> 0.6.0.rc)
   heroku-deflater (>= 0.4.1)
+  html2markdown!
   httparty (~> 0.6.1)
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
