@@ -22,13 +22,13 @@ namespace :markdown do
       end
 
 
-      p = HTMLPage.new contents: convert_to_html(project.about)
+      p = HTMLPage.new contents: convert_to_html(project.about_textile)
       project.about = p.markdown!
 
-      p = HTMLPage.new contents: convert_to_html(project.budget)
+      p = HTMLPage.new contents: convert_to_html(project.budget_textile)
       project.budget = p.markdown!
 
-      p = HTMLPage.new contents: convert_to_html(project.terms)
+      p = HTMLPage.new contents: convert_to_html(project.terms_textile)
       project.terms = p.markdown!
 
       project.save
@@ -36,7 +36,7 @@ namespace :markdown do
   end
 
   desc "This task will migrate updates textile to markdown"
-  task :migrate_update => :environment do
+  task :migrate_updates => :environment do
     Update.all.each do |update|
       puts "Migrating update ##{update.id}"
 
@@ -45,7 +45,7 @@ namespace :markdown do
         update.comment_textile = update.comment
       end
 
-      p = HTMLPage.new contents: convert_to_html(update.comment)
+      p = HTMLPage.new contents: convert_to_html(update.comment_textile)
       update.comment = p.markdown!
 
       update.save
