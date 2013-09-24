@@ -1,14 +1,11 @@
 namespace :markdown do
-  desc "This task will migrate the textile to markdown"
-  task :migrate => :environment do
+  desc "This task will migrate projects textile to markdown"
+  task :migrate_projects => :environment do
 
     # Project => about, budget, terms
     # Update => comment
-    #
 
-    ignore = [9]
-
-    Project.where('id not IN (?)', ignore).limit(1).each do |project|
+    Project.all.each do |project|
       puts "Migrating project ##{project.id}"
 
       # copy textile to new field
@@ -36,8 +33,23 @@ namespace :markdown do
 
       project.save
     end
+  end
 
+  desc "This task will migrate updates textile to markdown"
+  task :migrate_update => :environment do
+    Update.all.each do |update|
+      puts "Migrating update ##{update.id}"
 
+      # copy textile to new field
+      if update.comment.nil?
+        update.comment_textile = update.comment
+      end
+
+      p = HTMLPage.new contents: convert_to_html(update.comment)
+      update.comment = p.markdown!
+
+      update.save
+    end
   end
 
   include AutoHtml
