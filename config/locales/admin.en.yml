@@ -6,6 +6,7 @@ en:
       index:
         title: 'Dashboard'
         menu: 'Dashboard'
+        download_statistics_report: Download Statistics Report
         total_users:
           title: 'Total Users'
           hint: 'Number of People Engaged on Platform'
@@ -33,8 +34,6 @@ en:
         total_backed:
           title: 'Total Backed'
           hint: 'Funding Raised'
-
-
     tags:
       index:
         menu: 'Manage Tags'
