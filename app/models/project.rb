@@ -116,7 +116,7 @@ class Project < ActiveRecord::Base
   end
 
   def address
-    [address_city, address_state, 'USA'].reject { |a| a.empty? }.compact.join(', ')
+    [address_city, address_state, 'US'].select { |a| a.present? }.compact.join(', ')
   end
 
   def self.between_created_at(start_at, ends_at)

@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
     Rails.logger.info "-----> #{e.inspect}"
   end
 
+  geocoded_by :address
+  after_validation :geocode # auto-fetch coordinates
+
   delegate  :display_name, :display_image, :short_name, :display_image_html,
     :medium_name, :display_credits, :display_total_of_backs,
     to: :decorator
@@ -140,6 +143,11 @@ class User < ActiveRecord::Base
         sum(user_totals.credits) as credits').
       to_sql
     ).reduce({}){|memo,el| memo.merge({ el[0].to_sym => BigDecimal.new(el[1] || '0') }) }
+  end
+
+
+  def address
+    [address_city, address_state, 'US'].select { |a| a.present? }.compact.join(', ')
   end
 
   def has_facebook_authentication?
