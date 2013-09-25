@@ -6,7 +6,8 @@ en:
       index:
         title: 'Dashboard'
         menu: 'Dashboard'
-        download_statistics_report: Download Statistics Report
+        download_statistics_report: 'Download Statistics Report'
+        download_funding_raised_per_project_report: 'Download Funding Raised Per Project Report'
         total_users:
           title: 'Total Users'
           hint: 'Number of People Engaged on Platform'

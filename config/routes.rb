@@ -170,6 +170,7 @@ Catarse::Application.routes.draw do
 
     namespace :reports do
       resources :backer_reports, only: [ :index ]
+      resources :funding_raised_per_project_reports, only: [ :index ]
       resources :statistics, only: [ :index ]
     end
   end

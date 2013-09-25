@@ -7,6 +7,7 @@
         h1= @title = t('.title')
       .clearfix
       .download-statistics-report.bootstrap-twitter
+        = link_to t('.download_funding_raised_per_project_report'), admin_reports_funding_raised_per_project_reports_path(format: :csv), class: 'btn pull-right'
         = link_to t('.download_statistics_report'), admin_reports_statistics_path(format: :csv), class: 'btn pull-right'
       .clearfix
 
