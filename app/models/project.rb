@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
   mount_uploader :uploaded_image, ProjectUploader
   mount_uploader :video_thumbnail, ProjectUploader
   has_permalink :name, true
+  geocoded_by :address
+  after_validation :geocode # auto-fetch coordinates
 
   delegate :display_status, :display_progress, :display_image, :display_expires_at,
     :display_pledged, :display_goal, :remaining_days, :display_video_embed_url, :progress_bar, :successful_flag, :display_address_formated,
@@ -111,6 +113,10 @@ class Project < ActiveRecord::Base
     if self.site.present?
       self.site = "http://#{self.site}" if not self.site[0..6] == 'http://' and not self.site[0..7] == 'https://'
     end
+  end
+
+  def address
+    [address_city, address_state, 'USA'].reject { |a| a.empty? }.compact.join(', ')
   end
 
   def self.between_created_at(start_at, ends_at)
