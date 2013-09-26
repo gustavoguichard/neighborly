@@ -44,7 +44,7 @@
                     = link_to @user.other_link, target: 'blank' do
                       = image_tag 'neighborly/internet_32.png', width: '28px', heigt: '28px'
         .clearfix
-          h2.ivebacked= "I've backed #{@user.backs.confirmed.not_anonymous.length} so far..."
+          h2.ivebacked= "I've backed #{@user.backs.with_state('confirmed').not_anonymous.length} so far..."
         #user_profile_content
           #user_backed_projects.content[data-path=user_backers_path(@user)]
             - if !can? :manage, @user
