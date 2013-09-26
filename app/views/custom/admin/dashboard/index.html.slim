@@ -1,0 +1,67 @@
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+- @statistics = collection.first
+#page_content
+  .container
+    #admin-dashboard
+      .title
+        h1= @title = t('.title')
+      .clearfix
+      .download-statistics-report.bootstrap-twitter
+        = link_to t('.download_funding_raised_per_project_report'), admin_reports_funding_raised_per_project_reports_path(format: :csv), class: 'btn pull-right'
+        = link_to t('.download_statistics_report'), admin_reports_statistics_path(format: :csv), class: 'btn pull-right'
+      .clearfix
+
+      .box
+        .title = t('.total_backs.title')
+        p = @statistics.total_backs
+        .hint = t('.total_backs.hint')
+
+      .box
+        .title = t('.total_backers.title')
+        p = @statistics.total_backers
+        .hint = t('.total_backers.hint')
+
+      .box
+        .title = t('.total_backed.title')
+        p = number_to_currency @statistics.total_backed
+        .hint = t('.total_backed.hint')
+
+      .box
+        .title = t('.total_users.title')
+        p = @statistics.total_users
+        .hint = t('.total_users.hint')
+
+      .box
+        .title = t('.total_company_users.title')
+        p = @statistics.total_company_users
+        .hint = t('.total_company_users.hint')
+
+      .box
+        .title = t('.total_communities.title')
+        p = @statistics.total_communities
+        .hint = t('.total_communities.hint')
+
+      .box
+        .title = t('.total_projects.title')
+        p = @statistics.total_projects
+        .hint = t('.total_projects.hint')
+
+      .box
+        .title = t('.total_projects_draft.title')
+        p = @statistics.total_projects_draft
+        .hint = t('.total_projects_draft.hint')
+
+      .box
+        .title = t('.total_projects_online.title')
+        p = @statistics.total_projects_online
+        .hint = t('.total_projects_online.hint')
+
+      .clearfix
+      .charts
+        .box.large
+          .title = t('admin.statistics.backers_by_week.title')
+          p = line_chart BackersByPeriod.chart
+        .box.large
+          .title = t('admin.statistics.projects_by_week.title')
+          p = line_chart ProjectsByPeriod.chart
+    .clearfix
