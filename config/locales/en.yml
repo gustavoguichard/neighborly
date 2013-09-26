@@ -125,8 +125,10 @@ en:
       twitter: "Tweet, tweet..."
       faq: "have any doubt?"
       schedule: calendar
+    placeholders:
+      email: "Enter your email"
     buttons:
-      newsletter: submit
+      newsletter: Submit
   sections:
     near:
       title: near me
@@ -156,7 +158,7 @@ en:
         value: Value
       project:
         category: Category
-        expires_at: Deadline
+        expires_at: Duration
         online_days: Days of the air campaign
         headline: Headline
         image_url: "Image URL"
@@ -308,6 +310,7 @@ en:
         address_city: 'The primary city or region where your project is located.'
         address_state: 'Please select the state where your project is located.'
         how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
+        tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
       reward:
         description: "Describe your reward in a way that will grab a contributor's attention."
         maximum_backers: "Limit the number of rewards at this level."
@@ -328,10 +331,10 @@ en:
         category: 'Category'
         first_backers: "Contributors"
         about: "The Story"
-        expires_at: "Deadline"
+        expires_at: "Duration"
         goal: "Funding Goal"
         name: "Project Title"
-        online_days: 'Deadline'
+        online_days: 'Duration'
         video_url: Video
         uploaded_image: "Project thumbnail"
         site: 'Website'
@@ -342,6 +345,7 @@ en:
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
+        tag_list: 'Keywords'
       reward:
         maximum_backers: "Limit Reward"
         days_to_delivery: "Reward Fulfillment"
@@ -421,6 +425,7 @@ en:
       empty: 'No F.A.Q just yet, but keep an eye out o_0.'
     box:
       by: by
+      when: in
     admin_fields:
       title: "Admin fields"
     back_project:
@@ -437,7 +442,7 @@ en:
           not_reached_goal: "This project will be funded on %{date}"
           failed: "This project was funded on %{date}"
           successful: "This project was successful and was funded on %{date}"
-          waiting_funds: "This project will be funded. Waiting confirmation from payments to know if this project will be successful."
+          waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
       reached_of: "Reached of"
       submit: "Help Greenlight It!"
@@ -554,6 +559,8 @@ en:
       reached: reached
     project_backers:
       empty: "Nobody backed this project so far. How about being the first one?"
+      confirmed: "Confirmed"
+      pending: "Pending"
     project_header:
       subtitle_html: "A project by %{link}"
       all_or_none:
@@ -707,7 +714,7 @@ en:
       send_project: "I want to submit my project "
       explore_curious: "I’M ON BOARD!"
       explore_projects: "I want to back a project"
-    guidelines:
+    how_it_works:
       title: "How it works"
       subtitle: "Get to know Neighbor.ly better."
       introduction_html: "Neighbor.ly is a space of exchange among individuals who together <br >enable the realization of creative projects."
@@ -732,9 +739,10 @@ en:
       requested_refund: "Refund requested"
       waiting_confirmation: "Waiting confirmation"
     set_email:
-      site_title: 'Define your email address'
-      title: 'Define your email address'
-      submit: 'Save my email and proceed'
+      update_email_title: 'Add your email address'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
     show:
       attention: Attention
       tabs:

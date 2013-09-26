@@ -4,6 +4,9 @@ html lang="#{I18n.locale}" xmlns:fb="http://ogp.me/ns/fb#"
     meta charset='utf-8'
     title= "#{@title}#{' · ' if @title}#{::Configuration[:company_name]}"
     = stylesheet_link_tag 'application', :media => 'screen, projection'
+    = stylesheet_link_tag :application_2, :media => 'screen, projection'
+    = stylesheet_link_tag :application_3, :media => 'screen, projection'
+    = stylesheet_link_tag :application_4, :media => 'screen, projection'
     /[if lt IE 9]
       = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
     = csrf_meta_tag

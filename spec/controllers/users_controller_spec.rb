@@ -25,13 +25,6 @@ describe UsersController do
     it{ should redirect_to user_path(user, anchor: 'my_profile') }
   end
 
-  describe "GET set_email" do
-    before do
-      get :set_email, locale: 'pt'
-    end
-    it{ should render_template('set_email') }
-  end
-
   describe "PUT update_password" do
     let(:current_password){ 'current_password' }
     let(:password){ 'newpassword123' }

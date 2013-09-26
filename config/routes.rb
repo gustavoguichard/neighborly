@@ -33,25 +33,34 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
-  constraints subdomain: 'test' do
+  constraints subdomain: /^(?!www|secure|test|local|staging)(\w+)/ do
     namespace :channels, path: '' do
-      namespace :adm do
-        resources :projects, only: [ :index, :update] do
-          member do
-            put 'approve'
-            put 'reject'
-            put 'push_to_draft'
-          end
-        end
-      end
       get '/', to: 'profiles#show', as: :profile
       get '/how-it-works', to: 'profiles#how_it_works', as: :about
+      resources :channels_subscribers, only: [:index, :create, :destroy]
+
       resources :projects, only: [:new, :create, :show] do
         collection do
           get 'video'
         end
       end
-      resources :channels_subscribers, only: [:index, :create, :destroy]
+
+      namespace :admin do
+        resources :statistics, only: [ :index ]
+
+        namespace :reports do
+          resources :subscriber_reports, only: [ :index ]
+        end
+
+        resources :projects, only: [ :index, :update] do
+          member do
+            put 'approve'
+            put 'reject'
+            put 'push_to_draft'
+            put 'push_to_soon'
+          end
+        end
+      end
     end
   end
 
@@ -72,7 +81,7 @@ Catarse::Application.routes.draw do
 
   get "/explore" => "explore#index", as: :explore
 
-  resources :posts, only: [:index, :create]
+  resources :tags, only: [:index]
 
   namespace :reports do
     resources :backer_reports_for_project_owners, only: [:index]
@@ -82,20 +91,11 @@ Catarse::Application.routes.draw do
     resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
     resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
-    resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
-      member do
-        post 'sort'
-      end
-    end
-    resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
-      member do
-        get 'credits_checkout'
-        post 'update_info'
-      end
-    end
+
     collection do
       get 'video'
     end
+
     member do
       post :send_reward_email
       put 'pay'
@@ -103,9 +103,25 @@ Catarse::Application.routes.draw do
       get 'video_embed'
       get 'embed_panel'
     end
+
+    resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
+      member do
+        post 'sort'
+      end
+    end
+
+    resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
+      member do
+        get 'credits_checkout'
+        post 'update_info'
+      end
+    end
   end
+
   resources :users do
+    resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
+
     collection do
       get :uservoice_gadget
     end
@@ -124,7 +140,13 @@ Catarse::Application.routes.draw do
     end
   end
 
-  namespace :adm do
+  namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
+    resources :tags, except: [:show]
+    resources :press_assets, except: [:show]
+    resources :financials, only: [ :index ]
+    resources :users, only: [ :index ]
+
     resources :projects, only: [ :index, :update, :destroy ] do
       member do
         put 'approve'
@@ -135,10 +157,6 @@ Catarse::Application.routes.draw do
         post 'populate'
       end
     end
-
-    resources :press_assets
-    resources :statistics, only: [ :index ]
-    resources :financials, only: [ :index ]
 
     resources :backers, only: [ :index, :update ] do
       member do
@@ -151,14 +169,14 @@ Catarse::Application.routes.draw do
         put 'push_to_trash'
       end
     end
-    resources :users, only: [ :index ]
 
     namespace :reports do
       resources :backer_reports, only: [ :index ]
+      resources :funding_raised_per_project_reports, only: [ :index ]
+      resources :statistics, only: [ :index ]
     end
   end
 
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:permalink" => "projects#show", as: :project_by_slug
-
 end

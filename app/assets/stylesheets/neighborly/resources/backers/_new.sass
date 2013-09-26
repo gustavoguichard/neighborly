@@ -1,4 +1,5 @@
 [data-controller="backers"][data-namespace="projects"][data-action="new"]
+
   fieldset
     +grid(8)
     width: 555px
@@ -12,13 +13,57 @@
   #page_content
     .container
       .backer_content
+        .procceed-button
+          position: fixed
+          left: 50%
+          margin-left: -599px
+          top: 366px
+          background: #00D4A2
+          padding: 20px
+          padding-bottom: 15px
+          border-radius: 4px
+          text-align: center
+          transition: .2s background
+          color: white
+          font-weight: bold
+          text-decoration: none
+          i
+            font-size: 28px
+          &.affix
+            position: fixed
+            left: 50%
+            margin-left: -599px
+            top: 366px
+          &.affix-bottom
+            position: absolute
+            top: auto
+            bottom: 800px
+            left: 0
         #back_options
           #backer_form
             .simbol
               float: left
+            textarea
+              width: 550px
             #backer_value_input
               float: left
-              width: 400px
+              width: 540px
+              input
+                @extend input[type="text"]
+                height: 55px
+                width: 350px
+                font-size: 40px
+                float: left
+                border-radius: 0
+                margin-left: 0
+              .input-prepend, .input-append
+                float: left
+                span
+                  font-family: "Lato"
+                  font-weight: 700
+                  font-size: 28px
+                  padding: 22px
+                  height: 19px
             input[type='text']
               display: block
               margin-left: 0

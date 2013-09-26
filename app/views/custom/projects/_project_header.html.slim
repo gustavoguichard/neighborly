@@ -12,7 +12,7 @@
   .author
     p= project.display_address_formated
   .description
-    p= link_to truncate(project.headline, length: 85), project_by_slug_path(permalink: project.permalink)
+    p= link_to truncate(project.headline, length: 85, separator: ' '), project_by_slug_path(permalink: project.permalink)
   .bootstrap-twitter
     = link_to 'view project', project_by_slug_path(permalink: project.permalink), class: 'btn view_project_link'
   .statistics

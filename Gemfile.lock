@@ -46,19 +46,8 @@ GIT
       tag_helper
 
 GIT
-  remote: git://github.com/josemarluedke/postgres-copy.git
-  revision: 41afec70f5c6b2431f045388b14a80d194329a20
-  branch: rails4
-  specs:
-    postgres-copy (0.6.0)
-      activerecord (>= 3.0.0)
-      pg
-      rails (>= 3.0.0)
-      responders
-
-GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
-  revision: 2770e465b92e49df3d4f05607e3f66a10dea4671
+  revision: 967d7060f201b32515dc36ce8fbd60933909b7fc
   specs:
     catarse_paypal_express (2.0.0)
       activemerchant (>= 1.34.0)
@@ -349,6 +338,11 @@ GEM
       faye-websocket (>= 0.4.4, < 0.5.0)
       http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
+    postgres-copy (0.8.0)
+      activerecord (~> 4.0)
+      pg
+      rails (~> 4.0)
+      responders
     protected_attributes (1.0.3)
       activemodel (>= 4.0.0, < 5.0)
     pry (0.9.12.2)
@@ -427,10 +421,10 @@ GEM
     schema_plus (1.2.0)
       rails (>= 3.2)
       valuable
-    selenium-webdriver (2.34.0)
+    selenium-webdriver (2.35.1)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
-      rubyzip
+      rubyzip (< 1.0.0)
       websocket (~> 1.0.4)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
@@ -564,7 +558,7 @@ DEPENDENCIES
   pg_search
   pludoni-simple_captcha!
   poltergeist
-  postgres-copy!
+  postgres-copy
   protected_attributes (~> 1.0.3)
   pry
   rack-timeout
@@ -576,9 +570,9 @@ DEPENDENCIES
   rmagick
   rspec-rails (~> 2.14.0)
   sass-rails (~> 4.0.0)
-  schema_associations (~> 1.2.0)
-  schema_plus (~> 1.2.0)
-  selenium-webdriver (~> 2.34.0)
+  schema_associations
+  schema_plus
+  selenium-webdriver (~> 2.35.1)
   shoulda
   sidekiq (~> 2.13.0)
   sinatra

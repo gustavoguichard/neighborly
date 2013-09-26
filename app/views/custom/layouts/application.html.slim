@@ -10,6 +10,9 @@ html lang="#{I18n.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http:/
 
     -# Stylesheets & Favicon
     = stylesheet_link_tag :application
+    = stylesheet_link_tag :application_2
+    = stylesheet_link_tag :application_3
+    = stylesheet_link_tag :application_4
     = favicon_link_tag 'favicon.ico'
 
     -# CSRF protection
@@ -82,5 +85,5 @@ html lang="#{I18n.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http:/
               = text_field_tag 'EMAIL', nil, placeholder: 'email@email.com', label: 'email'
               = submit_tag "#{t('newsletter_subscribe')}"
           .clearfix
-    = render '/layouts/uservoice'
+    = render 'layouts/uservoice'
     = render 'layouts/privacy_term_modal'

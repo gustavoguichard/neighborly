@@ -32,12 +32,15 @@ class UsersController < ApplicationController
     update! do |success,failure|
       success.html do
         flash[:notice] = t('users.current_user_fields.updated')
-        session[:return_to] = nil if session[:return_to] == update_email_user_path(@user)
+        session[:return_to] = nil if session[:return_to] == update_email_user_url(@user)
         redirect_to (session[:return_to] || user_path(@user, anchor: 'my_profile'))
         session[:return_to] = nil
         return
       end
-      failure.html{ return render :set_email, layout: 'catarse_bootstrap' }
+      failure.html do
+        flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
+        return render :set_email, layout: 'catarse_bootstrap'
+      end
     end
   end
 

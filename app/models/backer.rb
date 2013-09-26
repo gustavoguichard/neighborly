@@ -1,10 +1,9 @@
 require 'state_machine'
 # coding: utf-8
 class Backer < ActiveRecord::Base
-  include ActionView::Helpers::NumberHelper
-  include ActionView::Helpers::DateHelper
-
   schema_associations
+
+  delegate :display_value, :display_confirmed_at, to: :decorator
 
   validates_presence_of :project, :user, :value
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
@@ -13,25 +12,16 @@ class Backer < ActiveRecord::Base
   validate :should_not_back_if_maximum_backers_been_reached, on: :create
   validate :project_should_be_online, on: :create
 
-  scope :not_deleted, ->() { where("backers.state <> 'deleted'") }
-  scope :not_canceled, ->() { where("backers.state <> 'canceled'") }
+  scope :available_to_count, ->{ with_states(['confirmed', 'requested_refund', 'refunded']) }
+  scope :available_to_display, ->{ with_states(['confirmed', 'requested_refund', 'refunded', 'waiting_confirmation']) }
   scope :by_id, ->(id) { where(id: id) }
-  scope :by_state, ->(state) { where(state: state) }
   scope :by_key, ->(key) { where(key: key) }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :project_name_contains, ->(term) { joins(:project).where("unaccent(upper(projects.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :anonymous, -> { where(anonymous: true) }
   scope :credits, -> { where(credits: true) }
-  scope :requested_refund, -> { where(state: 'requested_refund') }
-  scope :refunded, -> { where(state: 'refunded') }
   scope :not_anonymous, -> { where(anonymous: false) }
-  scope :confirmed, -> { where(state: 'confirmed') }
-  scope :not_confirmed, -> { where("backers.state <> 'confirmed'") } # used in payment engines
-  scope :in_time_to_confirm, -> { where(state: 'waiting_confirmation') }
-  scope :pending_to_refund, -> { where(state: 'requested_refund') }
-  scope :available_to_count, -> { where("state in ('confirmed', 'requested_refund', 'refunded')") }
-  scope :available_to_display, ->() { where("state in ('confirmed', 'requested_refund', 'refunded', 'waiting_confirmation')") }
 
   scope :can_cancel, -> {
     where(%Q{
@@ -82,16 +72,8 @@ class Backer < ActiveRecord::Base
     end.compact!
   end
 
-  def self.send_credits_notification
-    confirmed.joins(:project).joins(:user).find_each do |backer|
-      if backer.project.state == 'failed' && ((backer.project.expires_at + 1.month) < Time.now) && backer.user.credits >= backer.value
-        Notification.create_notification_once(:credits_warning,
-          backer.user,
-          {backer_id: backer.id},
-          backer: backer,
-          amount: backer.user.credits)
-      end
-    end
+  def decorator
+    @decorator ||= BackerDecorator.new(self)
   end
 
   def price_with_tax
@@ -142,7 +124,7 @@ class Backer < ActiveRecord::Base
 
   def value_must_be_at_least_rewards_value
     return unless reward
-    errors.add(:value, I18n.t('backer.value_must_be_at_least_rewards_value', minimum_value: reward.display_minimum)) unless value >= reward.minimum_value
+    errors.add(:value, I18n.t('backer.value_must_be_at_least_rewards_value', minimum_value: reward.display_minimum)) unless value.to_f >= reward.minimum_value
   end
 
   def should_not_back_if_maximum_backers_been_reached
@@ -155,20 +137,8 @@ class Backer < ActiveRecord::Base
     errors.add(:project, I18n.t('backer.project_should_be_online'))
   end
 
-  def display_value
-    number_to_currency value
-  end
-
-  def display_value_with_tax
-    number_to_currency price_with_tax
-  end
-
   def available_rewards
     Reward.where(project_id: self.project_id).where('minimum_value <= ?', self.value).order(:minimum_value)
-  end
-
-  def display_confirmed_at
-    I18n.l(confirmed_at.to_date) if confirmed_at
   end
 
   def update_current_billing_info

@@ -1,0 +1,21 @@
+= content_for :title, t('pages.new_confirmation.titles.site')
+
+= render 'devise/shared/header'
+
+.row
+  .large-5.large-centered.columns
+    .login-box.animated.fadeIn
+      h2.text-center= t 'pages.new_confirmation.titles.header'
+      p.text-center.register_link
+        = t 'pages.new_confirmation.no_account_html', link: link_to(t('pages.new_confirmation.links.register'), new_user_registration_path)
+      hr
+
+      .large-10.large-centered.columns
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post}) do |f|
+          = render 'devise/shared/alert'
+          p
+            = f.label :email, t('pages.new_confirmation.form.labels.email')
+            = f.text_field :email, class: [:login, :email], required: true
+
+          = f.submit t('pages.new_confirmation.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
+

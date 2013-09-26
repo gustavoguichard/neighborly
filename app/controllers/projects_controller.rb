@@ -20,11 +20,11 @@ class ProjectsController < ApplicationController
           return render partial: 'project', collection: @projects, layout: false
         else
           @title = t("site.title")
-          @featured_project = Project.online.featured.first
-          @recommends = Project.visible.online.recommended.home_page.limit(3)
+          @featured_project = Project.with_state('online').featured.first
+          @recommends = Project.visible.with_state('online').recommended.home_page.limit(3)
           #@projects_near = Project.online.near_of(current_user.address_state).order('random()').limit(3) if current_user
           @soon = Project.soon.home_page.limit(3)
-          @succesful = Project.successful.home_page.limit(3)
+          @succesful = Project.with_state('successful').home_page.limit(3)
         end
       end
     end
@@ -56,8 +56,6 @@ class ProjectsController < ApplicationController
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
     @updates_count = resource.updates.count
     @update = resource.updates.where(id: params[:update_id]).first if params[:update_id].present?
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   def video

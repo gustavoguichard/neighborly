@@ -6,7 +6,7 @@ class ProjectsMailer < ActionMailer::Base
     @project = project
 
     mail(
-      from: "#{I18n.t('site.name')} <#{I18n.t('site.email.system')}>",
+      from: "#{::Configuration[:company_name]} <#{::Configuration[:email_system]}>",
       to: 'howdy@neighbor.ly',
       subject: "Contact about reward of project #{@project.name}."
     )

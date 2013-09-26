@@ -8,6 +8,14 @@ App.addChild('ProjectForm', _.extend({
   activate: function(){
     App.SearchCities();
     this.setupForm();
+
+    $('#project_about, #project_budget').markItUp(myMarkdownSettings);
+
+    $('#project_tag_list').tagsInput({
+      autocomplete_url: $('.tags_path').data('url'),
+      width:'410px',
+      height: '65px'
+    });
   }
 
 }, Skull.Form));
@@ -59,3 +67,17 @@ App.views.ProjectForm.addChild('Permalink', _.extend({
   }
 }, Skull.TimedInput));
 
+App.addChild('ProjectFormEdit', {
+  el: '#project_edit',
+
+  activate: function(){
+    this.$('#project_about, #project_budget, #project_terms').markItUp(myMarkdownSettings);
+
+    $('#project_tag_list').tagsInput({
+      autocomplete_url: $('.tags_path').data('url'),
+      width:'446px',
+      height: '65px'
+    });
+  }
+
+});

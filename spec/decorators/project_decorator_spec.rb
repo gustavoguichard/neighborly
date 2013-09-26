@@ -48,17 +48,17 @@ describe ProjectDecorator do
     end
 
     context "when we have just address_city" do
-      let(:project){ create(:project, address_city: 'Kansas City') }
+      let(:project){ create(:project, address_city: 'Kansas City', address_state: '') }
       it{ should == 'Kansas City' }
     end
 
     context "when we have just address_state" do
-      let(:project){ create(:project, address_state: 'MO') }
+      let(:project){ create(:project,address_city: '', address_state: 'MO') }
       it{ should == 'MO' }
     end
 
     context "when we have just address_neighborhood" do
-      let(:project){ create(:project, address_neighborhood: 'Downtown') }
+      let(:project){ create(:project, address_neighborhood: 'Downtown', address_city: nil, address_state: nil) }
       it{ should == '' }
     end
 

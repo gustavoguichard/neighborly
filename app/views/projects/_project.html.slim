@@ -1,7 +1,7 @@
-.project[itemscope itemtype="http://schema.org/CreativeWork" class=(custom_class if defined?(custom_class))]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=(custom_class if defined?(custom_class))]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.expired?
-    .status_image
+    .status-flag
       = link_to project_by_slug_path(permalink: project.permalink), target: ( defined?(embed_link) ? '__blank' : '' ) do
         - if project.successful?
           = image_tag "successful.#{I18n.locale}.png"
