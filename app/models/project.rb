@@ -92,13 +92,15 @@ class Project < ActiveRecord::Base
     where("EXISTS (SELECT true FROM channels_projects cp WHERE cp.project_id = projects.id)")
   }
 
-  attr_accessor :accepted_terms
+  attr_accessor :accepted_terms, :address
 
   def to_param
     self.id
   end
 
   validates_acceptance_of :accepted_terms, on: :create
+
+  validates :address, city_and_state: true
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink
@@ -115,8 +117,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def address=(address)
+    array = address.split(',')
+    self.address_city = array[0].lstrip.titleize if array[0]
+    self.address_state = array[1].lstrip.upcase if array[1]
+  end
+
   def address
-    [address_city, address_state, 'US'].select { |a| a.present? }.compact.join(', ')
+    [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
   def self.between_created_at(start_at, ends_at)

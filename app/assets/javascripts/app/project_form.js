@@ -6,6 +6,7 @@ App.addChild('ProjectForm', _.extend({
   },
 
   activate: function(){
+    App.SearchCities();
     this.setupForm();
   }
 

@@ -140,6 +140,9 @@ en:
       title: channels
   accept_terms_html: "I have read and accepted the %{link}."
   activerecord:
+    validators:
+      city_and_state:
+        invalid: 'Invalid City/State'
     errors:
       models:
         project:

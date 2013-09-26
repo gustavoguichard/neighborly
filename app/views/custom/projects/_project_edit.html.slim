@@ -22,9 +22,15 @@
           .clearfix
 
       .section-header #2. Project Location
-      - if can? :update, @project, :address_state
-        = form.input :address_state, collection: State.array, include_blank: false, required: false, wrapper_html: { class: 'required' }
+        
       - if can? :update, @project, :address_city
+        .address-coordinates[data-longitude=@project.longitude data-latitude=@project.latitude]
+        = form.input :address, required: false, wrapper_html: { class: 'required search-cities-with-google' }, autocomplete: :off
+        .map-canvas
+        
+      /- if can? :update, @project, :address_state
+        = form.input :address_state, collection: State.array, include_blank: false, required: false, wrapper_html: { class: 'required' }
+      /- if can? :update, @project, :address_city
         = form.input :address_city, required: false, wrapper_html: { class: 'required' }
       - if can? :update, @project, :address_neighborhood
         = form.input :address_neighborhood
