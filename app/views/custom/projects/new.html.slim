@@ -34,7 +34,7 @@
               - if @project.errors[:category].present?
                 .bootstrap-twitter
                   p.text-error= @project.errors[:category].to_sentence
-              
+
 
             .input.required
               .bootstrap-alert
@@ -43,7 +43,7 @@
                   .important= t('formtastic.hints.project.headline')
               = form.label :headline, t('formtastic.labels.project.headline')
               = form.text_field :headline, { maxlength: 130, class: "#{'error' if @project.errors[:headline].present?}" }
-              
+
             .input.required
               .bootstrap-alert
                 span
@@ -51,10 +51,18 @@
                   .important= t('formtastic.hints.project.about')
               = form.label :about, t('formtastic.labels.project.about')
               = form.text_area :about, class: "#{'error' if @project.errors[:about].present?}"
-                            
-              
+
+            .input
+              .bootstrap-alert
+                span
+                .alert
+                  .important= t('formtastic.hints.project.tag_list')
+              .tags_path[data-url=tags_path]
+              = form.label :tag_list, t('formtastic.labels.project.tag_list')
+              = form.text_area :tag_list, class: "#{'error' if @project.errors[:tag_list].present?}"
+
+
             .section-header #2. Project Location
-            
 
             .input
               .bootstrap-alert
@@ -80,10 +88,10 @@
                   .important= t('formtastic.hints.project.address_neighborhood')
               = form.label :address_neighborhood, t('formtastic.labels.project.address_neighborhood')
               = form.text_field :address_neighborhood, class: "#{'error' if @project.errors[:address_neighborhood].present?}"
-              
-              
+
+
             .section-header #3. Supporting Media
-              
+
             .input
               .bootstrap-alert
                 span

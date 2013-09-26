@@ -21,7 +21,7 @@
 
     h2= t('projects.rewards.reward_title', minimum: reward.display_minimum).html_safe
     - unless reward.soon?
-      em= pluralize(reward.backers.confirmed.count, t('backer_singular'), t('backer_plural'))
+      em= pluralize(reward.backers.with_state('confirmed').count, t('backer_singular'), t('backer_plural'))
     - else
       em COMING SOON
     .clearfix
@@ -35,7 +35,7 @@
           .limited= t('reward.limited')
           .remaining
             = reward.display_remaining
-      - in_time_to_confirm = reward.backers.in_time_to_confirm.count
+      - in_time_to_confirm = reward.backers.with_state('waiting_confirmation').count
       - if in_time_to_confirm > 0
         .maximum_backers.in_time_to_confirm.clearfix
           .pending= t('projects.rewards.backs_to_confirm', count: in_time_to_confirm)
@@ -49,7 +49,7 @@
       /- if reward.has_modification?
         div class="description_version rewardVersioning#{reward.id}"
           p= reward.last_description
-        .maximum_backers.in_time_to_confirm.clearfix
+        .maximum_backers.with_state('waiting_confirmation').clearfix
           .updated_reward
             span id="rewardVersioning#{reward.id}"
               = 'See the old version.'

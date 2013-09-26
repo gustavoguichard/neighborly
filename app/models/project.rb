@@ -3,6 +3,7 @@ require 'state_machine'
 class Project < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include PgSearch
+  include Taggable
   extend CatarseAutoHtml
 
   mount_uploader :uploaded_image, ProjectUploader
@@ -41,11 +42,13 @@ class Project < ActiveRecord::Base
     using: {tsearch: {dictionary: "portuguese"}},
     ignoring: :accents
 
-  scope :not_deleted_projects, ->() { where("projects.state <> 'deleted'") }
+  # Used to simplify a has_scope
+  scope :successful, ->{ with_state('successful') }
+  scope :soon, -> { with_state('soon') }
+
   scope :by_progress, ->(progress) { joins(:project_total).where("project_totals.pledged >= projects.goal*?", progress.to_i/100.to_f) }
-  scope :by_state, ->(state) { where(state: state) }
   scope :by_id, ->(id) { where(id: id) }
-  scope :by_permalink, ->(p) { not_deleted_projects.where("lower(permalink) = lower(?)", p) }
+  scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
   scope :by_category_id, ->(id) { where(category_id: id) }
   scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
@@ -61,18 +64,16 @@ class Project < ActiveRecord::Base
 
   scope :featured, -> { not_soon.visible.where(featured: true).limit(1) }
   scope :near_of, ->(address_state) { where("lower(address_state) = lower(?)", address_state) }
-  scope :visible, -> { where("projects.state NOT IN ('draft', 'rejected', 'deleted')") }
-  scope :financial, -> { where("((projects.expires_at) > (current_timestamp) - '15 days'::interval) AND (state in ('online', 'successful', 'waiting_funds'))") }
+  scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
+  scope :visible, -> { without_states(['draft', 'rejected', 'deleted']) }
+  scope :financial, -> { with_states(['online', 'successful', 'waiting_funds']).where("projects.expires_at > (current_timestamp - '15 days'::interval)") }
   scope :recommended, -> { where(recommended: true) }
   scope :home_page, -> { where(home_page: true) }
-  scope :expired, -> { where("(projects.expires_at) < (current_timestamp)") }
-  scope :not_expired, -> { where("(projects.expires_at) >= (current_timestamp)") }
-  scope :expiring, -> { not_expired.where("(projects.expires_at) <= ((current_timestamp) + interval '2 weeks')") }
-  scope :not_expiring, -> { not_expired.where("NOT ((projects.expires_at) <= ((current_timestamp) + interval '2 weeks'))") }
-  scope :recent, -> { where("(current_timestamp) - projects.online_date <= '5 days'::interval") }
-  scope :successful, -> { where(state: 'successful') }
-  scope :online, -> { where(state: 'online') }
-  scope :soon, -> { where(state: 'soon') }
+  scope :expired, -> { where("projects.expires_at < current_timestamp") }
+  scope :not_expired, -> { where("projects.expires_at >= current_timestamp") }
+  scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
+  scope :not_expiring, -> { not_expired.where("NOT (projects.expires_at <= (current_timestamp + interval '2 weeks'))") }
+  scope :recent, -> { where("(current_timestamp - projects.online_date) <= '5 days'::interval") }
   scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
                                      CASE projects.state
@@ -85,7 +86,6 @@ class Project < ActiveRecord::Base
     where("id IN (SELECT project_id FROM backers b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
   }
 
-  scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
   scope :from_channels, ->{
     where("EXISTS (SELECT true FROM channels_projects cp WHERE cp.project_id = projects.id)")
   }
@@ -102,8 +102,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
-  validates_uniqueness_of :permalink, allow_blank: true, allow_nil: true, case_sensitive: false
-  validates_format_of :permalink, with: /\A(\w|-)*\z/, allow_blank: true, allow_nil: true
+  validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false
+  validates_format_of :permalink, with: /\A(\w|-)*\z/, allow_blank: true
   validates_format_of :video_url, with: Regexp.union(/https?:\/\/(www\.)?vimeo.com\/(\d+)/, /youtube\.com\/.*v=([A-Za-z0-9._%-]*)?|youtu\.be\/([A-Za-z0-9._%-]*)?|youtube\.com\/embed\/([A-Za-z0-9._%-]*)?/), message: I18n.t('project.video_regex_validation'), allow_blank: true
   validate :permalink_cant_be_route, allow_nil: true
 
@@ -169,7 +169,7 @@ class Project < ActiveRecord::Base
   end
 
   def selected_rewards
-    rewards.sort_asc.where(id: backers.confirmed.map(&:reward_id))
+    rewards.sort_asc.where(id: backers.with_state('confirmed').map(&:reward_id))
   end
 
   def reached_goal?
@@ -185,7 +185,7 @@ class Project < ActiveRecord::Base
   end
 
   def in_time_to_wait?
-    backers.in_time_to_confirm.count > 0
+    backers.with_state('waiting_confirmation').count > 0
   end
 
   def in_time?
@@ -193,8 +193,7 @@ class Project < ActiveRecord::Base
   end
 
   def progress
-    return 0 if goal == 0.0 && pledged == 0.0
-    return 100 if goal == 0.0 && pledged > 0.0
+    return 0 if goal == 0.0
     ((pledged / goal * 100).abs).round(pledged.to_i.size).to_i
   end
 
@@ -225,11 +224,15 @@ class Project < ActiveRecord::Base
   end
 
   def pending_backers_reached_the_goal?
-    (pledged + backers.in_time_to_confirm.to_a.sum(&:value)) >= goal
+    pledged_and_waiting >= goal
   end
 
   def can_go_to_second_chance?
-    ((pledged + backers.in_time_to_confirm.to_a.sum(&:value)) >= (goal*0.3.to_f)) && (4.weekdays_from(expires_at) >= DateTime.now)
+    (pledged_and_waiting >= (goal*0.3.to_f)) && (4.weekdays_from(expires_at) >= DateTime.now)
+  end
+
+  def pledged_and_waiting
+    backers.with_states(['confirmed', 'waiting_confirmation']).sum(:value)
   end
 
   def permalink_cant_be_route

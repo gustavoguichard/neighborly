@@ -3,7 +3,7 @@
 = render 'devise/shared/header'
 
 .row
-  .large-7.large-centered.columns
+  .large-5.large-centered.columns
     .login-box.animated.fadeIn
       h2.text-center= t 'pages.login.titles.header'
       p.text-center.register_link
@@ -12,7 +12,7 @@
       = render 'devise/shared/omniauth'
       .clearfix
 
-      .large-14.large-centered.columns
+      .large-10.large-centered.columns
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render 'devise/shared/alert'
           p
@@ -28,7 +28,7 @@
             = f.label :remember_me, t('pages.login.form.labels.remember_me')
 
           .large-10.columns.large-centered
-            = f.submit t('pages.login.form.inputs.submit'), class: [:button, :success, 'large-16', 'columns']
+            = f.submit t('pages.login.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
 
           .clearfix
           - if devise_mapping.confirmable?

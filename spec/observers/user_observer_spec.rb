@@ -8,10 +8,14 @@ describe UserObserver do
       Notification.unstub(:create_notification_once)
     end
 
-    let(:user) { create(:user) }
+    let(:user) { create(:user, newsletter: false) }
 
     it "send new user registration notification" do
       Notification.should_receive(:create_notification_once).with(:new_user_registration, user, {user_id: user.id}, {user: user})
+    end
+
+    it 'should set the newsletter to true' do
+      expect(user.newsletter).to be_true
     end
   end
 

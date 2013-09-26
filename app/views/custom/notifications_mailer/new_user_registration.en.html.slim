@@ -1,5 +1,5 @@
 - user = @notification.user
-- recommended = Project.visible.online.recommended.limit(3)
+- recommended = Project.visible.with_state('online').recommended.limit(3)
 
 | Hey
 - if user.name

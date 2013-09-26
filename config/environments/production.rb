@@ -47,6 +47,7 @@ Catarse::Application.configure do
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
+  config.assets.precompile << ['catarse.css', 'application_2.css', 'application_3.css', 'application_4.css']
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
@@ -83,7 +84,6 @@ Catarse::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  # Enable embed from other sites
   config.action_dispatch.default_headers = {
     'X-Frame-Options' => 'ALLOWALL'
   }

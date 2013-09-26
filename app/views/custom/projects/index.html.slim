@@ -48,7 +48,7 @@
       .content
         .twitter
           h3= t('sidebar.titles.twitter')
-          a.twitter-timeline height="330" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
+          a.twitter-timeline height="230" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
 
         .facebook
           h3= t('sidebar.titles.facebook')
@@ -61,8 +61,7 @@
               li
                 h2
                   = link_to post.url, target: '__blank' do
-                    /= image_tag("catarse/post_title_image.png")
-                    = truncate(post.title, length: 80)
+                    = truncate(post.title, length: 80, separator: ' ')
                 p.author= "#{t('projects.box.by')} #{post.author}"
                 = link_to post.url, target: '__blank', class: 'resume' do
                   = post.summary.html_safe
@@ -79,6 +78,9 @@
           = link_to about_path do
             = image_tag 'neighborly/about_us.png'
 
+        .start
+          = link_to start_path do
+            = image_tag 'neighborly/start.png'
 
     .clearfix
 

@@ -44,14 +44,8 @@ describe PaymentEngines do
       PaymentEngines.register engine
       PaymentEngines.register engine_pt
     end
-    context "when locale is pt" do
-      it{ should == [engine_pt, engine] }
-    end
 
     context "when locale is en" do
-      before do
-        I18n.locale = :en
-      end
       it{ should == [engine, engine_pt] }
     end
   end

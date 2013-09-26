@@ -23,10 +23,11 @@ gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
 
 # Database and data related
 gem 'pg'
-gem 'postgres-copy', github: 'josemarluedke/postgres-copy', branch: 'rails4'
+gem 'postgres-copy'
 gem 'pg_search'
-gem 'schema_plus', '~> 1.2.0'
-gem 'schema_associations', '~> 1.2.0'
+
+gem 'schema_plus'
+gem 'schema_associations'
 gem 'chartkick'
 
 # Payment engines
@@ -34,7 +35,7 @@ gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
 gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
 gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express'
 gem "authorize-net", "~> 1.5.2"
-#
+
 # Decorators
 gem 'draper'
 
@@ -132,7 +133,7 @@ group :test do
   gem 'capybara',   '~> 2.1.0'
   gem 'jasmine'
   gem 'coveralls', require: false
-  gem "selenium-webdriver", "~> 2.34.0"
+  gem 'selenium-webdriver', '~> 2.35.1'
 end
 
 gem 'sass-rails', '~> 4.0.0'

@@ -86,44 +86,6 @@ describe Project do
     end
   end
 
-  describe '.not_deleted_projects' do
-    before do
-      create(:project,  state: 'online')
-      create(:project,  state: 'draft')
-      create(:project,  state: 'deleted')
-    end
-
-    subject { Project.not_deleted_projects }
-
-    it { should have(2).itens }
-  end
-
-  describe '.by_state' do
-    before do
-      @project_01 = create(:project, state: 'online')
-      @project_02 = create(:project, state: 'failed')
-      @project_03 = create(:project, state: 'successful')
-    end
-
-    context 'get all projects that is online' do
-      subject { Project.by_state('online') }
-
-      it { should == [@project_01] }
-    end
-
-    context 'get all projects that is failed' do
-      subject { Project.by_state('failed') }
-
-      it { should == [@project_02] }
-    end
-
-    context 'get all projects that is successful' do
-      subject { Project.by_state('successful') }
-
-      it { should == [@project_03] }
-    end
-  end
-
   describe '.by_progress' do
     subject { Project.by_progress(20) }
 
@@ -256,15 +218,6 @@ describe Project do
     it{ should == [@p] }
   end
 
-  describe ".online" do
-    before do
-      @p = create(:project, state: 'online')
-      create(:project, state: 'draft')
-    end
-    subject{ Project.online}
-    it{ should == [@p] }
-  end
-
   describe ".home_page" do
     before do
       @p = create(:project, home_page: true)
@@ -382,12 +335,23 @@ describe Project do
 
     context "when goal is 0.0 and pledged > 0.0" do
       let(:pledged){ 10.0 }
-      it{ should == 100 }
+      it{ should == 0 }
     end
 
     context "when goal is 0.0 and pledged is 0.0" do
       it{ should == 0 }
     end
+  end
+
+  describe "#pledged_and_waiting" do
+    subject{ project.pledged_and_waiting }
+    before do
+      @confirmed = create(:backer, value: 10, state: 'confirmed', project: project)
+      @waiting = create(:backer, value: 10, state: 'waiting_confirmation', project: project)
+      create(:backer, value: 100, state: 'refunded', project: project)
+      create(:backer, value: 1000, state: 'pending', project: project)
+    end
+    it{ should == @confirmed.value + @waiting.value }
   end
 
   describe "#pledged" do
@@ -928,6 +892,65 @@ describe Project do
 
     it 'should not allow a permalink to be one of catarse\'s routes' do
       Project.permalink_on_routes?('projects').should be_true
+    end
+  end
+
+  describe 'Taggable' do
+    describe 'associations' do
+      it{ should have_many(:tags).through(:taggings) }
+      it{ should have_many :taggings }
+    end
+
+    describe 'TagList' do
+      context 'should split the list' do
+        subject { Taggable::TagList.new 'Tag 1, Tag 2, Tag 3' }
+
+        context '#initializer' do
+          it { should == ['tag 1', 'tag 2', 'tag 3'] }
+        end
+
+        context '#to_s' do
+          it { expect(subject.to_s).to eq 'tag 1, tag 2, tag 3' }
+        end
+      end
+    end
+
+    describe '#tag_list' do
+      before do
+        project.tags = ['Tag 1', 'Tag 2', 'Tag 3'].map {|tag_name| Tag.find_or_create_by(name: tag_name.downcase) }
+      end
+
+      it { expect(project.tag_list).to have(3).tags }
+    end
+
+    describe '#tag_list=' do
+      context 'as method' do
+        before do
+          project.tag_list = 'Tag 1, Tag 2, Tag 3, Tag 4'
+          project.save
+        end
+
+        it { expect(project.tags).to have(4).tags }
+      end
+
+      context 'as attribute' do
+        let(:project_with_tags) { create(:project, tag_list: 'Tag 1, Tag 2') }
+
+        it { expect(project_with_tags.tags).to have(2).tags }
+      end
+
+      context 'unassign tags' do
+        before do
+          project.tag_list = 'Tag 1, Tag 2, Tag 3, Tag 4'
+          project.save
+
+          project.tag_list = 'Tag 1, Tag 2, Tag 3'
+          project.save
+          project.reload
+        end
+
+        it { expect(project.tags).to have(3).tags }
+      end
     end
   end
 end

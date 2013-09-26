@@ -12,7 +12,7 @@ class Ability
       update.project.user_id == current_user.id
     end
     can :see, :updates do |update|
-      !update.exclusive || !current_user.backs.confirmed.where(project_id: update.project.id).empty?
+      !update.exclusive || !current_user.backs.with_state('confirmed').where(project_id: update.project.id).empty?
     end
 
     # NOTE: Project FAQ authorizations
@@ -28,7 +28,7 @@ class Ability
     # NOTE: Project authorizations
     can :create, :projects if current_user.persisted?
 
-    can :update, :projects, [:about, :video_url, :uploaded_image, :headline, :budget, :terms, :address_neighborhood, :address_city, :address_state, :hash_tag, :site] do |project|
+    can :update, :projects, [:about, :video_url, :uploaded_image, :headline, :budget, :terms, :address_neighborhood, :address_city, :address_state, :hash_tag, :site, :tag_list] do |project|
       project.user == current_user && ( project.online? || project.waiting_funds? || project.successful? || project.failed? )
     end
 
@@ -43,7 +43,7 @@ class Ability
     end
 
     can [:update, :destroy], :rewards do |reward|
-      reward.backers.in_time_to_confirm.empty? && reward.backers.confirmed.empty? && reward.project.user == current_user
+      reward.backers.with_state('waiting_confirmation').empty? && reward.backers.with_state('confirmed').empty? && reward.project.user == current_user
     end
 
     can [:update, :sort], :rewards, [:description, :maximum_backers] do |reward|
