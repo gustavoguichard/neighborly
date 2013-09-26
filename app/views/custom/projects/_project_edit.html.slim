@@ -16,8 +16,7 @@
       - if can? :update, @project, :headline
         = form.input :headline, as: :string, required: false, wrapper_html: { class: 'required' }
       - if can? :update, @project, :about
-        .about-input
-          = form.input :about, required: false, wrapper_html: { class: 'required' }
+        = form.input :about, required: false, wrapper_html: { class: 'required' }
       - if can? :update, @project, :tag_list
         .tags_path[data-url=tags_path]
         = form.input :tag_list, as: :string, required: false
@@ -25,9 +24,10 @@
       .section-header #2. Project Location
         
       - if can? :update, @project, :address_city
-        .address-coordinates[data-longitude=@project.longitude data-latitude=@project.latitude]
-        = form.input :address, required: false, wrapper_html: { class: 'required search-cities-with-google' }, autocomplete: :off
-        .map-canvas
+        .address-input
+          .address-coordinates[data-longitude=@project.longitude data-latitude=@project.latitude]
+          = form.input :address, required: false, input_html: { class: 'search-cities-with-google' }, wrapper_html: { class: 'required' }, autocomplete: :off
+          .map-canvas
         
       /- if can? :update, @project, :address_state
         = form.input :address_state, collection: State.array, include_blank: false, required: false, wrapper_html: { class: 'required' }

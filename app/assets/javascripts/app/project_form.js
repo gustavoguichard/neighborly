@@ -78,6 +78,8 @@ App.addChild('ProjectFormEdit', {
       width:'446px',
       height: '65px'
     });
+
+    App.SearchCities();
   }
 
 });

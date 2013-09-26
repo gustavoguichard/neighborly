@@ -342,6 +342,7 @@ en:
         foundation_widget: 'Use new foundation widget?'
         campaign_type: 'Campaign Type'
         address_neighborhood: 'Neighborhood'
+        address: 'City/State'
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
