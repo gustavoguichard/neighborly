@@ -70,7 +70,7 @@ App.addChild('ProjectFormEdit', {
   el: '#project_edit',
 
   activate: function(){
-    $('#project_about, #project_budget, #project_terms').markItUp(myMarkdownSettings);
+    this.$('#project_about, #project_budget, #project_terms').markItUp(myMarkdownSettings);
 
     $('#project_tag_list').tagsInput({
       autocomplete_url: $('.tags_path').data('url'),
