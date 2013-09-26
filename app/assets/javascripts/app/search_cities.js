@@ -46,7 +46,7 @@ window.App.SearchCities = function(searchInputSelctor, mapCanvasSelector){
       map.setZoom(17);  // Why 17? Because it looks good.
     }
     marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
+      url: $('.pin-img').data('url'),
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
@@ -74,7 +74,7 @@ window.App.SearchCities = function(searchInputSelctor, mapCanvasSelector){
       map.setCenter(lat_lng);
       map.setZoom(12);
       marker.setIcon(({
-        url: 'http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png',
+        url: $('.pin-img').data('url'),
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),

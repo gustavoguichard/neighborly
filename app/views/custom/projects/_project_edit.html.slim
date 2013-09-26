@@ -22,10 +22,10 @@
         = form.input :tag_list, as: :string, required: false
 
       .section-header #2. Project Location
-        
       - if can? :update, @project, :address_city
         .address-input
           .address-coordinates[data-longitude=@project.longitude data-latitude=@project.latitude]
+          .pin-img[data-url=image_url('neighborly/pin.png')]
           = form.input :address, required: false, input_html: { class: 'search-cities-with-google' }, wrapper_html: { class: 'required' }, autocomplete: :off
           .map-canvas
         
