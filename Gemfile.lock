@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
-  revision: 2770e465b92e49df3d4f05607e3f66a10dea4671
+  revision: 967d7060f201b32515dc36ce8fbd60933909b7fc
   specs:
     catarse_paypal_express (2.0.0)
       activemerchant (>= 1.34.0)
