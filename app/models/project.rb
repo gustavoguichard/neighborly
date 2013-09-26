@@ -121,6 +121,10 @@ class Project < ActiveRecord::Base
     array = address.split(',')
     self.address_city = array[0].lstrip.titleize if array[0]
     self.address_state = array[1].lstrip.upcase if array[1]
+
+    if not address.present?
+      self.address_city = self.address_state = nil
+    end
   end
 
   def address

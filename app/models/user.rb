@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   mount_uploader :company_logo, CompanyLogoUploader
 
   validates_length_of :bio, maximum: 140
+  validates :address, city_and_state: { allow_blank: true }
 
   validates_presence_of :email
   validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :message => I18n.t('activerecord.errors.models.user.attributes.email.taken')
@@ -166,6 +167,10 @@ class User < ActiveRecord::Base
     array = address.split(',')
     self.address_city = array[0].lstrip.titleize if array[0]
     self.address_state = array[1].lstrip.upcase if array[1]
+
+    if not address.present?
+      self.address_city = self.address_state = self.longitude = self.latitude = nil
+    end
   end
 
   def address
