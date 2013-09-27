@@ -1,79 +1,234 @@
-= content_for :title, t('.title')
-#page_content
-  .container
-    .static_default
-      .title
-        h1= t('.title')
-        h2= t('.subtitle')
-        h3= t('.introduction')
-      ul.team
-        li.first
-          ul
-            li
-              = image_tag('catarse/team_luis.jpg')
-              .flagCity.sp SP
-              .flagname.sp
-              .namesp= t('.name_one')
-              span= t('.title_one')
-              p= t('.text_one')
-            li
-              = image_tag('catarse/team_diego.jpg')
-              .flagCity.sp SP
-              .flagname.sp
-              .namesp= t('.name_two')
-              span= t('.title_two')
-              p= t('.text_two')
-            li
-              = image_tag('catarse/team_luciana.jpg')
-              .flagCity.sp SP
-              .flagname.sp
-              .namesp= t('.name_three')
-              span= t('.title_three')
-              p= t('.text_three')
-            li.last
-              = image_tag('catarse/team_renato.jpg')
-              .flagCity.sp SP
-              .flagname.sp
-              .namesp= t('.name_four')
-              span= t('.title_four')
-              p= t('.text_four')
-        li.second
-          ul
-            li
-              = image_tag('catarse/team_rodrigo.jpg')
-              .flagCity.rj RJ
-              .flagname.rj
-              .namerj= t('.name_five')
-              span= t('.title_five')
-              p= t('.text_five')
-            li
-              = image_tag('catarse/team_diogo.jpg')
-              .flagCity.rj RJ
-              .flagname.rj
-              .namerj= t('.name_six')
-              span= t('.title_six')
-              p= t('.text_six')
-            li
-              = image_tag('catarse/team_evelise.jpg')
-              .flagCity.rs RS
-              .flagname.rs
-              .namers= t('.name_seven')
-              span= t('.title_seven')
-              p= t('.text_seven')
-            li.last
-              = image_tag('catarse/team_adriano.jpg')
-              .flagCity.rs RS
-              .flagname.rs
-              .namers= t('.name_eight')
-              span= t('.title_eight')
-              p= t('.text_eight')
-        li.first
-          ul
-            li
-              = image_tag('catarse/team_ton.jpg')
-              .flagCity.mg MG
-              .flagname.mg
-              .namemg= t('.name_nine')
-              span= t('.title_nine')
-              p= t('.text_nine')       
-    .clearfix
+= content_for :title, "About Us"
+- content_for :meta_tags do
+  link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css"
+
+#about-page
+  .row
+    h2.page-headline
+      | Neighbor.ly Connects Civic Projects with Funding
+      ul.features.list-inline
+        li.large-4.columns
+          = image_tag 'neighborly/about/knight.png', title: '2013 Knight Foundation Grantee'
+          h3 @KnightFdn Backed
+          p We stand on the shoulders of a very friendly giant...
+        li.large-4.columns
+          = image_tag 'neighborly/about/civicx.png', title: 'CivicX'
+          h3 #CivicX Accelerated
+          p ...And get by with a little help from an amazing global network...
+        li.large-4.columns
+          = image_tag 'neighborly/about/madeinkc.png', title: 'Made in KC'
+          h3 Made in @KCMO
+          p But we’re built with Love &amp; BBQ Sauce in Downtown Kansas City, Missouri.
+      .clearfix
+      hr
+
+      h3.page-headline
+        | Meet the Neighbors
+      .center
+        p
+          | We’re a passionate team of civic geeks, fundraisers, planners, finance folks, techies &amp; entrepreneurs.
+          |  Our mission is to help communities help themselves. We love our country and the thousands of communities that make it.
+
+  /! Team
+  .team
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/jase.jpg', class: 'img-circle', title: 'Jase Wilson'
+        h4 Jase Wilson
+        h5
+          em Founder
+        p MIT grad from KC. Blessed with ADHD. Obsessed with cities and the people who shape / are shaped by them. Building Neighbor.ly to help communities prosper.
+        ul
+          li.social
+            a href="http://linkedin.com/in/luminopolis" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/luminopolis" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/sean.jpg', class: 'pull-left img-circle', title: 'Sean Connolly'
+        h4 Sean Connolly
+        h5
+          em Engagement Director, Cofounder
+        p Small town born &amp; raised, now proud to call Kansas City home. City Planning. Building Neighbor.ly to make cities accessible and vibrant.
+        ul
+          li.social
+            a href="http://linkedin.com/pub/sean-connolly/29/7b3/3b7" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/snconnolly" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/sarah.jpg', class: 'pull-left img-circle', title: 'Sarah Shipley'
+        h4 Sarah Shipley
+        h5
+          em Development Director, Cofounder
+        p Decorated communications consultant with a love for all things civic. Spearheaded the launch of BikeWalkKC and Kansas City B-cycle. Building Neighbor.ly to increase mobility choices.
+        ul
+          li.social
+            a href="http://linkedin.com/pub/sarah-shipley/41/148/329" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/shipleycom" target="_blank"
+              i.icon-twitter
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/briston.jpg', class: 'img-circle', title: 'Briston Davidge'
+        h4 Briston Davidge
+        h5
+          em Product Director, Cofounder
+        p Seasoned web developer. Makes beautiful, functional, forward thinking things for the community. Building Neighbor.ly to enable children to live life to the fullest.
+        ul
+          li.social
+            a href="http://linkedin.com/in/bristondavidge" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/BristonDavidge" target="_blank"
+              i.icon-twitter
+
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/luke.jpg', class: 'img-circle', title: 'Luke Norris'
+        h4 Luke Norris
+        h5
+          em Advisor
+        p Director of business development for Code for America. Deep experience executing growth strategies for startups, nonprofits &amp; Fortune 500 companies. Building Neighbor.ly to enhance quality of life.
+        ul
+          li.social
+            a href="http://linkedin.com/in/lukednorris" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/norrisluke" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/jason.jpg', class: 'img-circle', title: 'Jason Grill'
+        h4 Jason Grill
+        h5
+          em Advisor
+        p Attorney, entrepreneur, and owner of public relations firm JGrill Media. Building Neighbor.ly to enable entrepreneurial community spirit.
+        ul
+          li.social
+            a href="http://linkedin.com/in/jasongrill2" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/jasongrill" target="_blank"
+              i.icon-twitter
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/christine.jpg', class: 'img-circle', title: 'Christine Outram'
+        h4 Christine Outram
+        h5
+          em Advisor
+        p Design-driven, award winning tech geek with an eye for innovation &amp; a knack for project management.  Building Neighbor.ly to connect brands with communities.
+        ul
+          li.social
+            a href="http://linkedin.com/in/christineoutram" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/CityInnovation" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/david.jpg', class: 'img-circle', title: 'David Johnso'
+        h4 David Johnson
+        h5
+          em Advisor
+        p Rural Kansas native, Crossroads KC since ‘92.  Deep QA experience. Building Neighbor.ly to transform cities through transit.
+        ul
+          li.social
+            a href="http://linkedin.com/in/davekcmo" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/kclightrail" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/chris.jpg', class: 'img-circle', title: 'Chris Parrott'
+        h4 Chris Parrott
+        h5
+          em CFO, Cofounder
+        p CPA with deep local gov experience. Brings innovative financial modeling to the table. Building Neighbor.ly to help solve the local gov funding crisis.
+        ul
+          li.social
+            a href="http://linkedin.com/pub/christopher-parrott/b/23/780" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/cm_parrott" target="_blank"
+              i.icon-twitter
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/josemar.jpg', class: 'img-circle', title: 'Josemar Luedke'
+        h4 Josemar Luedke
+        h5
+          em Developer
+        p Programmer with a passion for helping people. Building Neighbor.ly to bring joy to all communities.
+        ul
+          li.social
+            a href="http://br.linkedin.com/in/josemarluedke" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/JosemarLuedke" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/marcos.jpg', class: 'img-circle', title: 'Marcos Chaddad'
+        h4 Marcos Chaddad
+        h5
+          em Urban Studies Intern, Cofounder
+        p Born & raised in Piracicaba, Brazil. Building Neighbor.ly to support international communities.
+        ul
+          li.social
+            a href="http://linkedin.com/pub/marcos-chaddad/54/b62/1bb" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/marcoschad" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/antonio.jpg', class: 'img-circle', title: 'Antonio Silva'
+        h4 Antonio Roberto Silva
+        h5
+          em Developer
+        p Programmer with a passion for helping people. Building Neighbor.ly for communities to get things they want most.
+        ul
+          li.social
+            a href="http://br.linkedin.com/in/devton" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/dev_ton" target="_blank"
+              i.icon-twitter
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/jabbar.jpg', class: 'img-circle', title: 'Jabbar Wesley'
+        h4 Jabbar Wesley
+        h5
+          em Advisor
+        p Community builder and corporate relations. Connector of industry experts and startups. Building Neighbor.ly to empower communities.
+        ul
+          li.social
+            a href="http://linkedin.com/pub/jabbar-wesley/a/824/35a" target="_blank"
+              i.icon-linkedin-sign
+            a href="" target="_blank"
+              i.icon-twitter
+
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/patrick.jpg', class: 'img-circle', title: 'Patrick Hosty'
+        h4 Patrick Hosty
+        h5
+          em Advisor, Cofounder
+        p Philanthropist with deep experience in public finance. Building Neighbor.ly to provide choices for cities.
+        ul
+          li.social
+            a href="http://linkedin.com/in/hosty" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/hosty" target="_blank"
+              i.icon-twitter
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/shaul.jpg', class: 'img-circle', title: 'Shaul Jolles'
+        h4 Shaul Jolles
+        h5
+          em Advisor, Cofounder
+        p Tireless innovator, serial entrepreneur, real estate developer. Building Neighbor.ly to enrich communities.
+        ul
+          li.social
+            a href="http://linkedin.com/in/jolles" target="_blank"
+              i.icon-linkedin-sign
+            a href="" target="_blank"
+              i.icon-twitter
+    .row
+      .large-4.columns
+        = image_tag 'neighborly/about/heads/willis.jpg', class: 'img-circle', title: 'Willis Jackson'
+        h4 Willis Jackson III
+        h5
+          em Advisor
+        p Serial entrepreneur. Believes deeply in the potential of cities and urbanism.  Building Neighbor.ly to make US cities great again.
+        ul
+          li.social
+            a href="http://linkedin.com/in/wfjackson3" target="_blank"
+              i.icon-linkedin-sign
+            a href="http://twitter.com/wfjackson3" target="_blank"
+              i.icon-twitter
+
