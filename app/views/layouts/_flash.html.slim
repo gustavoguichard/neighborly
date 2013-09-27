@@ -1,0 +1,5 @@
+.flash
+  - for key, message in flash
+    div class="alert-box #{key}" data-alert="true"
+      = message
+      a.close &times;
