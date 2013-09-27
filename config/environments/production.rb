@@ -47,7 +47,7 @@ Catarse::Application.configure do
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
-  config.assets.precompile << ['catarse.css', 'application_2.css', 'application_3.css', 'application_4.css']
+  config.assets.precompile << ['normalize.css']
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)

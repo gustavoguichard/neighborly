@@ -12,6 +12,7 @@
 //
 //= require ./lib/jquery.js
 //= require jquery_ujs
+//= require foundation
 //= require ./lib/jquery-ui.js
 //= require best_in_place
 //= require ./lib/underscore.js
@@ -20,4 +21,4 @@
 //= require ./app/app.js
 //= require_tree ./lib
 //= require_tree ./app
-
+$(document).ready(function(){ $(document).foundation(); });
