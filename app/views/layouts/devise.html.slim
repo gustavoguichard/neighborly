@@ -9,6 +9,7 @@ html
 
     -# Stylesheets & Favicon
     = stylesheet_link_tag :normalize
+    = stylesheet_link_tag :animate
     = stylesheet_link_tag :application
     = favicon_link_tag 'favicon.ico'
 
@@ -19,7 +20,7 @@ html
     = render 'layouts/analytics'
   body#devise
     = render 'layouts/uservoice'
-    = render 'layouts/catarse_bootstrap_notices' if notice
+    = render 'layouts/flash', flash: flash if flash.present? && notice
 
     .content= yield
 
