@@ -1,0 +1,98 @@
+#devise
+  .button
+    padding: 1.35em 1.1em
+    &.facebook
+      background: #3b5998
+      color: white !important
+      &:hover
+        background: lighten(#3b5998, 5%)
+
+    &.twitter, &.google
+      margin-right:  2.4em
+
+    &.facebook, &.twitter, &.google, &.linkedin
+      i
+        font-size: 1.5em
+      //padding: 0.8em 0.3em
+
+    &.twitter
+      background: #00ABF1
+      color: white !important
+      &:hover
+        background: lighten(#00ABF1, 5%)
+
+    &.google
+      background: #E14929
+      color: white !important
+      &:hover
+        background: lighten(#E14929, 5%)
+
+    &.linkedin
+      background: #0B84BE
+      color: white !important
+      &:hover
+        background: lighten(#0B84BE, 5%)
+  .login-box
+    background: white
+    padding: .5em 0 1.7em 0
+    margin-top: 1em
+    overflow: hidden
+    border: 1px solid $border-color
+    border-radius: 4px
+
+    h2
+      margin-top: 1.0em
+      font-size: 2.6em
+      line-height: 1em
+      padding: 0 5px
+    hr
+      margin: 2em 0
+      display: block
+    p
+      font-size: 1.1em
+
+    p.hide-label label
+      display: none
+
+    .right, .inline-hint
+      font-size: .9em
+      color: $primary-color !important
+
+    .separator
+      border-top: 1px solid $border-color
+      height: 1px
+      margin: 2.1em 0
+      text-align: center
+      clear: both
+      position: relative
+      p
+        text-align: center
+        background: white
+        color: $primary-color
+        width: 30px
+        display: block
+        margin: 0 auto
+        position: relative
+        top: -11px
+    .text-right, .text-left
+      //color: $grafiti
+      display: inline-block
+    .button.success
+      margin-top: 1.5em
+    .button.facebook
+      margin-bottom: 2.4em
+    .register_link
+      color: $secondary-font-color
+      font-size: 1.1em
+    .field_with_errors
+      display: inline
+
+  .login-logo
+    margin: 1em 0 .1em 0
+    transition: 0.4s all
+    &:hover
+      opacity: 0.5
+
+  .new_user_confirmation
+    text-align: center
+    padding-top: 1em
