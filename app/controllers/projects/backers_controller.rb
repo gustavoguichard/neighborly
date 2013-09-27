@@ -1,9 +1,10 @@
 class Projects::BackersController < ApplicationController
   inherit_resources
-  actions :index, :show, :new, :update_info, :review, :create
+  actions :index, :show, :new, :update_info, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :update_info]
   skip_before_filter :verify_authenticity_token, only: [:moip]
-  has_scope :available_to_count, :waiting_confirmation, type: :boolean
+  has_scope :available_to_count, type: :boolean
+  has_scope :with_state
   has_scope :page, default: 1
   load_and_authorize_resource except: [:index]
   belongs_to :project

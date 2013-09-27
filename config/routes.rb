@@ -112,7 +112,7 @@ Catarse::Application.routes.draw do
 
     resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
       member do
-        get 'credits_checkout'
+        put 'credits_checkout'
         post 'update_info'
       end
     end
