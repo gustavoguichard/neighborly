@@ -135,7 +135,6 @@ GEM
     chartkick (1.1.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    chunky_png (1.2.8)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -145,14 +144,6 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colorize (0.5.8)
-    compass (0.12.2)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-    compass-960-plugin (0.10.4)
-      compass (>= 0.10.0)
-    compass-rails (2.0.alpha.0)
-      compass (>= 0.12.2, < 0.14)
     connection_pool (1.1.0)
     coveralls (0.6.7)
       colorize
@@ -218,7 +209,6 @@ GEM
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
-    fssm (0.2.10)
     geocoder (1.1.8)
     google-analytics-rails (0.0.4)
     has_permalink (0.1.6)
@@ -497,8 +487,6 @@ DEPENDENCIES
   catarse_paypal_express!
   chartkick (= 1.1.0)
   coffee-rails (~> 4.0.0)
-  compass-960-plugin
-  compass-rails (~> 2.0.alpha.0)
   coveralls
   database_cleaner
   devise (~> 3.0.2)
