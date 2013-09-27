@@ -1,7 +1,39 @@
 en:
   admin: &admin
-    menu: ''
     confirm_dialog: 'You are sure?'
+    dashboard:
+      index:
+        title: 'Dashboard'
+        menu: 'Dashboard'
+        download_statistics_report: 'Download Statistics Report'
+        download_funding_raised_per_project_report: 'Download Funding Raised Per Project Report'
+        total_users:
+          title: 'Total Users'
+          hint: 'Number of People Engaged on Platform'
+        total_company_users:
+          title: 'Total Companies/Organizations'
+          hint: 'Number of Companies/Organizations Engaged on Platform'
+        total_communities:
+          title: 'Total Communities'
+          hint: 'Number of Communities Served'
+        total_projects:
+          title: 'Total Projects'
+          hint: 'Number of Projects on Plataform'
+        total_projects_draft:
+          title: 'Total Projects on Draft'
+          hint: 'Number of Projects on Draft Mode'
+        total_projects_online:
+          title: 'Total Projects Online'
+          hint: 'Number of Projects Online Now'
+        total_backs:
+          title: 'Total Backs'
+          hint: 'Number of Backs'
+        total_backers:
+          title: 'Total Backers'
+          hint: 'Number of Backers'
+        total_backed:
+          title: 'Total Backed'
+          hint: 'Funding Raised'
     tags:
       index:
         menu: 'Manage Tags'

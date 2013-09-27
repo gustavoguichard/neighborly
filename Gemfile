@@ -79,6 +79,7 @@ gem 'video_info', '>= 1.1.1'
 gem 'enumerate_it'
 gem 'httparty', '~> 0.6.1' # this version is required by moip gem, otherwise payment confirmation will break
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
+gem 'geocoder'
 
 # Payment
 gem 'moip', github: 'catarse/moip-ruby'

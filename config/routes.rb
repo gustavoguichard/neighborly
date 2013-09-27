@@ -119,7 +119,9 @@ Catarse::Application.routes.draw do
   end
 
   resources :users do
+    resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
+
     collection do
       get :uservoice_gadget
     end
@@ -139,9 +141,9 @@ Catarse::Application.routes.draw do
   end
 
   namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
     resources :tags, except: [:show]
     resources :press_assets, except: [:show]
-    resources :statistics, only: [ :index ]
     resources :financials, only: [ :index ]
     resources :users, only: [ :index ]
 
@@ -170,6 +172,8 @@ Catarse::Application.routes.draw do
 
     namespace :reports do
       resources :backer_reports, only: [ :index ]
+      resources :funding_raised_per_project_reports, only: [ :index ]
+      resources :statistics, only: [ :index ]
     end
   end
 

@@ -21,6 +21,8 @@ App.views.Project.addChild('Updates', _.extend({
     this.setupScroll();
     this.parent.on('selectTab', this.fetchPage);
     this.on('scroll:success', this.parseXFBML);
+
+    $('#update_comment').markItUp(myMarkdownSettings);
   },
 
   parseXFBML: function(){

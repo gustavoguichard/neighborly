@@ -81,8 +81,15 @@
             = f.input :address_neighbourhood, as: :string
             = f.input :address_zip_code, as: :string, input_html: {autocomplete: 'off'}
             .clearfix
-            = f.input :address_city, as: :string
-            = f.input :address_state, as: :select, collection: State.array, include_blank: false
+            /= f.input :address_city, as: :string
+            /= f.input :address_state, as: :select, collection: State.array, include_blank: false
+
+            .address-input
+              .address-coordinates[data-longitude=current_user.longitude data-latitude=current_user.latitude]
+              .pin-img[data-url=image_url('neighborly/pin.png')]
+              = f.input :address, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
+              .map-canvas
+
             .clearfix
 
 

@@ -9,6 +9,8 @@ class Project < ActiveRecord::Base
   mount_uploader :uploaded_image, ProjectUploader
   mount_uploader :video_thumbnail, ProjectUploader
   has_permalink :name, true
+  geocoded_by :address
+  after_validation :geocode # auto-fetch coordinates
 
   delegate :display_status, :display_progress, :display_image, :display_expires_at,
     :display_pledged, :display_goal, :remaining_days, :display_video_embed_url, :progress_bar, :successful_flag, :display_address_formated,
@@ -90,13 +92,15 @@ class Project < ActiveRecord::Base
     where("EXISTS (SELECT true FROM channels_projects cp WHERE cp.project_id = projects.id)")
   }
 
-  attr_accessor :accepted_terms
+  attr_accessor :accepted_terms, :address
 
   def to_param
     self.id
   end
 
   validates_acceptance_of :accepted_terms, on: :create
+
+  validates :address, city_and_state: true
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink
@@ -111,6 +115,20 @@ class Project < ActiveRecord::Base
     if self.site.present?
       self.site = "http://#{self.site}" if not self.site[0..6] == 'http://' and not self.site[0..7] == 'https://'
     end
+  end
+
+  def address=(address)
+    array = address.split(',')
+    self.address_city = array[0].lstrip.titleize if array[0]
+    self.address_state = array[1].lstrip.upcase if array[1]
+
+    if not address.present?
+      self.address_city = self.address_state = nil
+    end
+  end
+
+  def address
+    [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
   def self.between_created_at(start_at, ends_at)

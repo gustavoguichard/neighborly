@@ -1,0 +1,150 @@
+.markItUp
+  *
+    margin: 0px
+    padding: 0px
+    outline: none
+  a
+    &:link, &:visited
+      color: #000
+      text-decoration: none
+  width: 700px
+  margin: 5px 0 5px 0
+
+.markItUpContainer
+  font: 11px Verdana, Arial, Helvetica, sans-serif
+
+.markItUpEditor
+  font: 12px 'Courier New', Courier, monospace
+  padding: 5px
+  width: 690px
+  height: 320px
+  clear: both
+  line-height: 18px
+  overflow: auto
+
+.markItUpPreviewFrame
+  overflow: auto
+  background-color: #FFF
+  width: 99.9%
+  height: 300px
+  margin: 5px 0
+
+.markItUpFooter
+  width: 100%
+
+//.markItUpResizeHandle
+  //overflow: hidden
+  //width: 22px
+  //height: 5px
+  //margin-left: auto
+  //margin-right: auto
+  //background-image: image-url('neighborly/markitup/handle.png')
+  //cursor: n-resize
+
+.markItUpHeader ul
+  li
+    list-style: none
+    float: left
+    position: relative
+    &:hover > ul
+      display: block
+  .markItUpDropMenu
+    background: transparent image-url('neighborly/markitup/menu.png') no-repeat 115% 50%
+    margin-right: 5px
+    li
+      margin-right: 0px
+  ul
+    display: none
+    position: absolute
+    top: 18px
+    left: 0px
+    background: #FFF
+    border: 1px solid #000
+    li
+      float: none
+      border-bottom: 1px solid #000
+    .markItUpDropMenu
+      background: white image-url('neighborly/markitup/submenu.png') no-repeat 100% 50%
+  .markItUpSeparator
+    margin: 0 10px
+    width: 1px
+    height: 22px
+    overflow: hidden
+    background-color: #CCC
+  ul
+    .markItUpSeparator
+      width: auto
+      height: 1px
+      margin: 0px
+    ul
+      position: absolute
+      top: -1px
+      left: 150px
+      li
+        float: none
+  a
+    display: block
+    width: 16px
+    height: 16px
+    text-indent: -10000px
+    background-repeat: no-repeat
+    padding: 3px
+    margin: 0px
+  ul a
+    display: block
+    padding-left: 0px
+    text-indent: 0
+    width: 120px
+    padding: 5px 5px 5px 25px
+    background-position: 2px 50%
+    &:hover
+      color: #FFF
+      background-color: #000
+
+
+
+.markdown .markItUpButton1 a
+  background-image: image-url('neighborly/markitup/h1.png')
+
+.markdown .markItUpButton2 a
+  background-image: image-url('neighborly/markitup/h2.png')
+
+.markdown .markItUpButton3 a
+  background-image: image-url('neighborly/markitup/h3.png')
+
+.markdown .markItUpButton4 a
+  background-image: image-url('neighborly/markitup/h4.png')
+
+//.markdown .markItUpButton5 a
+  //background-image: image-url('neighborly/markitup/h5.png')
+
+//.markdown .markItUpButton6 a
+  //background-image: image-url('neighborly/markitup/h6.png')
+
+.markdown .markItUpButton5 a
+  background-image: image-url('neighborly/markitup/bold.png')
+
+.markdown .markItUpButton6 a
+  background-image: image-url('neighborly/markitup/italic.png')
+
+.markdown .markItUpButton7 a
+  background-image: image-url('neighborly/markitup/list-bullet.png')
+
+.markdown .markItUpButton8 a
+  background-image: image-url('neighborly/markitup/list-numeric.png')
+
+.markdown .markItUpButton9 a
+  background-image: image-url('neighborly/markitup/picture.png')
+
+.markdown .markItUpButton10 a
+  background-image: image-url('neighborly/markitup/link.png')
+
+.markdown .markItUpButton11 a
+  background-image: image-url('neighborly/markitup/quotes.png')
+
+//.markdown .markItUpButton14 a
+  //background-image: image-url('neighborly/markitup/code.png')
+
+.markdown .preview a
+  background-image: image-url('neighborly/markitup/preview.png')
+

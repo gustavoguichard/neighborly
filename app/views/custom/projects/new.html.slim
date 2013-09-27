@@ -64,22 +64,37 @@
 
             .section-header #2. Project Location
 
-            .input
-              .bootstrap-alert
+            .input.required.address
+              .address-coordinates[data-longitude=@project.longitude data-latitude=@project.latitude]
+              .pin-img[data-url=image_url('neighborly/pin.png')]
+              /.bootstrap-alert
                 span
                 .alert
-                  .important= t('formtastic.hints.project.address_state')
-              = form.label :address_state, t('formtastic.labels.project.address_state')
-              = form.select :address_state, State.array, class: "#{'error' if @project.errors[:address_state].present?}"
+                  .important= t('formtastic.hints.project.address')
+              = form.label :address, t('formtastic.labels.project.address')
+              = form.text_field :address, class: "search-cities-with-google #{'error' if @project.errors[:address].present?}", autocomplete: :off
+              - if @project.errors[:address].present?
+                .bootstrap-twitter
+                  p.text-error= @project.errors[:address].to_sentence
+              .clearfix
+              .map-canvas
+
+            /.input
+              /.bootstrap-alert
+                /span
+                /.alert
+                  /.important= t('formtastic.hints.project.address_state')
+              /= form.label :address_state, t('formtastic.labels.project.address_state')
+              /= form.select :address_state, State.array, class: "#{'error' if @project.errors[:address_state].present?}"
 
 
-            .input.required
-              .bootstrap-alert
-                span
-                .alert
-                  .important= t('formtastic.hints.project.address_city')
-              = form.label :address_city, t('formtastic.labels.project.address_city')
-              = form.text_field :address_city, class: "#{'error' if @project.errors[:address_city].present?}"
+            /.input.required
+              /.bootstrap-alert
+                /span
+                /.alert
+                  /.important= t('formtastic.hints.project.address_city')
+              /= form.label :address_city, t('formtastic.labels.project.address_city')
+              /= form.text_field :address_city, class: "#{'error' if @project.errors[:address_city].present?}"
               
             .input
               .bootstrap-alert

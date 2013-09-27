@@ -45,6 +45,7 @@ module Taggable
     end
 
     def unassign_tags
+      return unless @new_tag_list.present?
       tags.each { |t| taggings.where(tag: t).first.delete unless @new_tag_list.include?(t.name.downcase) }
     end
 
