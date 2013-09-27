@@ -1,4 +1,9 @@
 # tell the I18n library where to find your translations
+# New locales location
+I18n.load_path += Dir[Rails.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
+I18n.load_path += Dir[Rails.root.join('app', 'locales', '*.{rb,yml}').to_s]
+
+# Old locales location
 I18n.load_path += Dir[Rails.root.join('lib', 'locales', '*.{rb,yml}')]
 I18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
