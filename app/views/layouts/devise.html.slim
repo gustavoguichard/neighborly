@@ -1,0 +1,26 @@
+doctype 5
+html
+  head
+    title= t('site.meta_title', title: (@title || yield(:title)), company_name: ::Configuration[:company_name])
+    meta[charset="utf-8"]
+    meta name="robots" content="index, follow"
+    meta name="author" content="Engage"
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+
+    -# Stylesheets & Favicon
+    = stylesheet_link_tag :normalize
+    = stylesheet_link_tag :application
+    = favicon_link_tag 'favicon.ico'
+
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
+    = javascript_include_tag 'vendor/custom.modernizr'
+    = javascript_include_tag :application
+    = render 'layouts/analytics'
+  body#devise
+    = render 'layouts/uservoice'
+    = render 'layouts/catarse_bootstrap_notices' if notice
+
+    .content= yield
+
+  = render 'layouts/analytics'

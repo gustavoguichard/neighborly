@@ -1,7 +1,7 @@
 # coding: utf-8
 require 'uservoice_sso'
 class ApplicationController < ActionController::Base
-  layout :use_catarse_boostrap
+  layout :which_layout_to_use?
   protect_from_forgery
   before_filter :require_basic_auth
 
@@ -100,8 +100,8 @@ class ApplicationController < ActionController::Base
     names[0..(names.length-2)].map(&:downcase).join('_')
   end
 
-  def use_catarse_boostrap
-    devise_controller? ? 'catarse_bootstrap' : 'application'
+  def which_layout_to_use?
+    devise_controller? ? 'devise' : 'application'
   end
 
   def redirect_back_or_default(default)
