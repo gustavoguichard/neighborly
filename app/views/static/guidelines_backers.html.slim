@@ -60,11 +60,11 @@
             strong= t('.title_money')
             p= t('.money')
           .bootstrap-form.center_form.backer
-            = form_tag(guidelines_tips_path, :method => :get, :id => 'guidelines_form') do
+            = form_tag(start_terms_path, :method => :get, :id => 'guidelines_form') do
               fieldset
                 .bootstrap-twitter
                   .send
-                    = link_to t('.submit'), guidelines_tips_path, :class=>'btn_send backer'
+                    = link_to t('.submit'), start_terms_path, :class=>'btn_send backer'
                     span = t('.send_project')
                   .curious
                     = link_to t('.explore_curious'), explore_path, :class=>'btn_explore backer'
