@@ -56,14 +56,6 @@ GIT
       slim-rails
 
 GIT
-  remote: git://github.com/milgner/compass-rails.git
-  revision: 1749c06f15dc4b058427e7969810457213647fb8
-  ref: 1749c06f15dc4b058427e7969810457213647fb8
-  specs:
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
-
-GIT
   remote: git://github.com/pludoni/simple-captcha.git
   revision: cd38d1b5342d7ac62511d8520331ff9d84c462f7
   branch: rails-4
@@ -161,7 +153,6 @@ GEM
     chartkick (1.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    chunky_png (1.2.8)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -171,12 +162,6 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colorize (0.5.8)
-    compass (0.12.2)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-    compass-960-plugin (0.10.4)
-      compass (>= 0.10.0)
     connection_pool (1.1.0)
     coveralls (0.6.7)
       colorize
@@ -242,7 +227,6 @@ GEM
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
-    fssm (0.2.10)
     geocoder (1.1.8)
     google-analytics-rails (0.0.4)
     has_permalink (0.1.6)
@@ -521,8 +505,6 @@ DEPENDENCIES
   catarse_paypal_express!
   chartkick
   coffee-rails (~> 4.0.0)
-  compass-960-plugin
-  compass-rails!
   coveralls
   database_cleaner
   devise (~> 3.0.2)

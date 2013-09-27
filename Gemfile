@@ -139,12 +139,8 @@ end
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem "compass-rails", github: "milgner/compass-rails", ref: "1749c06f15dc4b058427e7969810457213647fb8"
 gem 'uglifier'
-gem 'compass-960-plugin'
 gem 'font-awesome-rails'
-
-# New design
 gem 'zurb-foundation'
 
 # FIXME: Not-anymore-on-development
