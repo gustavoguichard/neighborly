@@ -143,6 +143,7 @@ gem 'uglifier'
 gem 'font-awesome-rails'
 gem 'zurb-foundation'
 gem 'turbolinks'
+gem 'initjs'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
