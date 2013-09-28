@@ -1,10 +1,9 @@
 .button
-  text-transform: uppercase
-  border-radius: 0.2em
-  font-size: 15px
-  font-weight: 500
-  padding: 10px 20px
-  border: 0
+  @extend .radius
+  //text-transform: uppercase
+  //border-width: 0px
+  //border-bottom: 2px $button-border-style
+  border: none
   &:hover
     @color darken(red, 20%)
 
