@@ -12,4 +12,5 @@ html lang="#{I18n.locale}" xmlns:fb="http://ogp.me/ns/fb#"
     link rel='shortcut icon' href="/images/favicon.ico"
     = render '/layouts/analytics'
   body#platform.body_embed
+    = initjs_tag app_name: 'Neighborly'
     = yield
