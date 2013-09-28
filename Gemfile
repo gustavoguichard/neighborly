@@ -41,7 +41,7 @@ gem 'draper'
 
 # Frontend stuff
 gem 'slim-rails', '~> 1.1.1'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.0.4'
 
 # Authentication and Authorization
 gem 'omniauth'
@@ -142,6 +142,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier'
 gem 'font-awesome-rails'
 gem 'zurb-foundation'
+gem 'turbolinks'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
