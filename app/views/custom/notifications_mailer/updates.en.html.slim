@@ -4,7 +4,7 @@ br
 |Howdy, #{@notification.user.display_name}, an update was just posted to #{update.project.name} on #{Configuration[:company_name]}!
 br
 br
-| View the update #{link_to "here", project_by_slug_path(update.project.permalink, anchor: "updates")}, and help spread the word!
+| View the update #{link_to "here", project_by_slug_url(update.project.permalink, anchor: "updates")}, and help spread the word!
 br
 br
 hr
