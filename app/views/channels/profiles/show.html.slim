@@ -1,5 +1,5 @@
 = content_for :title, @profile.name
-
+br/
 #page_content.presentation
   .container
     .video
@@ -42,6 +42,6 @@
 
     ol.projects_list
       = content_tag_for(:li, @profile.projects.visible) do |project|
-        = render partial: 'channels/projects/project', locals: { project: project }
+        = render partial: 'projects/project', locals: { project: project }
 
 = render 'footer'
