@@ -5,33 +5,33 @@ namespace :markdown do
     # Project => about, budget, terms
     # Update => comment
 
-    Project.all.each do |project|
+    Project.where(id: [46, 55, 54, 53]).each do |project|
       puts "Migrating project ##{project.id}"
 
       # copy textile to new field
-      if project.about_textile.nil?
+      unless project.about_textile.present?
         project.about_textile = project.about
+
+        p = HTMLPage.new contents: convert_to_html(project.about_textile)
+        project.about = p.markdown!
       end
 
-      if project.budget_textile.nil?
+      unless project.budget_textile.present?
         project.budget_textile = project.budget
+
+        p = HTMLPage.new contents: convert_to_html(project.budget_textile)
+        project.budget = p.markdown!
       end
 
-      if project.terms_textile.nil?
+      unless project.terms_textile.present?
         project.terms_textile = project.terms
+
+        p = HTMLPage.new contents: convert_to_html(project.terms_textile)
+        project.terms = p.markdown!
       end
 
-
-      p = HTMLPage.new contents: convert_to_html(project.about_textile)
-      project.about = p.markdown!
-
-      p = HTMLPage.new contents: convert_to_html(project.budget_textile)
-      project.budget = p.markdown!
-
-      p = HTMLPage.new contents: convert_to_html(project.terms_textile)
-      project.terms = p.markdown!
-
-      project.save
+      puts "RESULT: #{project.save}"
+      puts "--- ERRORS: #{project.errors.inspect}"
     end
   end
 
@@ -41,14 +41,14 @@ namespace :markdown do
       puts "Migrating update ##{update.id}"
 
       # copy textile to new field
-      if update.comment.nil?
+      unless update.comment_textile.present?
         update.comment_textile = update.comment
+
+        p = HTMLPage.new contents: convert_to_html(update.comment_textile)
+        update.comment = p.markdown!
+
+        update.save
       end
-
-      p = HTMLPage.new contents: convert_to_html(update.comment_textile)
-      update.comment = p.markdown!
-
-      update.save
     end
   end
 
