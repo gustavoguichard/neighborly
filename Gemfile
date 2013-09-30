@@ -154,3 +154,5 @@ gem 'rails_autolink', '~> 1.1.0'
 
 # TODO: Take a look on dependencies
 gem "RedCloth"
+
+gem 'html2markdown', github: 'josemarluedke/html2markdown'
