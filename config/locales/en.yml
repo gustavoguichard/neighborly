@@ -112,25 +112,6 @@ en:
       terms_link: 'http://neighbor.ly/terms'
       policy_link: 'http://neighbor.ly/privacy'
       contact: 'Contact Us'
-      about: "Who are we"
-      faq: "Help"
-      feedback: "Feedback"
-      support: "Support"
-      terms: "Terms"
-      privacy: "Privacy"
-      press: "Press"
-      twitter: "Twitter"
-      facebook: "Facebook"
-      instagram: "Instagram"
-      github: "Github"
-      blog: "Blog"
-      contato: "Contact"
-      quick_explore: "Selected"
-      near: "Near me"
-      expiring: "Final countdown"
-      recents: "Recent"
-      submit: "Envie um projeto"
-      discover: "Descubra"
     texts:
       copyleft: "Made with love."
 
