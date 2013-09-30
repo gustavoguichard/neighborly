@@ -1,11 +1,11 @@
-h2 I want to back, what’s next?
+h2 Helpful Info
 h3 How do I contribute?
-p Select or enter the amount you wish to contribute. Choose a reward if you want one. Then proceed to checkout.
-h3 When is the payment made and confirmed?
-p Shortly after your transaction is processed. Usually you will receive confirmation in less than five minutes.
+p  Easy! Just select or enter the amount you wish to contribute. Then choose a reward if you want one. You can also enter a special message to display with your contribution if you want, or choose to remain anonymous. Then proceed to checkout.
+h3 When is the payment processed?
+p Shortly after you complete checkout. Usually you will receive confirmation in less than five minutes. If you use eCheck, please allow up to 5 business days for your payment to be confirmed.
 h3 Am I refunded if the project doesn't get the greenlight?
-p Yes. You can choose to receive 100% back as credits to apply towards other projects on #{Configuration[:company_name]}.
+p Yes. Your account will automatically receive 100% credits to apply towards other projects on #{Configuration[:company_name]}.
 h3 What if I don't want credits on #{Configuration[:company_name]}?
-p No problem. Please visit #{link_to t('credits.title'), user_path(current_user, anchor: :credits), :target => :_blank}, up until 180 days after your payment, and request a refund. Note that 5% is withheld.
+p No problem. Please visit #{link_to t('credits.title'), user_path(current_user, anchor: :credits), :target => :_blank} within seven days after the project ends, and request a refund. Note that applicable platform and payment processor fees are withheld.
 h3 How and when do I get my reward?
 p Shortly after the project is greenlit, #{link_to @project.user.display_name, user_path(@project.user)} will contact you to arrange delivery.
