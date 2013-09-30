@@ -40,7 +40,7 @@ class Admin::ProjectsController < Admin::BaseController
       @user.save!
       @backer.save!
       flash[:notice] = 'Success!'
-      redirect_to populate_backer_adm_project_path(resource)
+      redirect_to populate_backer_admin_project_path(resource)
     else
       flash[:alert] = ""
       flash[:alert] += @user.errors.full_messages.to_sentence unless @user.valid?
