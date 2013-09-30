@@ -249,7 +249,7 @@ en:
       no_credits: "You don't have enough credits to request this refund."
       refunded: "This payment has already been refunded."
       requested_refund: "You already requested a refund for this payment."
-    title: "My credits"
+    title: "My Credits"
   credits_mailer:
     request_refund_from:
       subject: "Refund request from project %{name}"
