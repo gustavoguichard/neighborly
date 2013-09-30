@@ -47,22 +47,22 @@ en:
       password: "Password"
 
   backer_report_to_project_owner:
-    reward_description: 'Reward description'
-    confirmed_at: 'Payment confirmed at'
-    value: 'Back value'
-    service_fee: 'Neighbor.ly fee'
-    user_name: 'Backer name'
-    user_email: 'Neighbor.ly user profile e-mail'
-    payer_email: 'Payment gateway user e-mail'
-    payment_method: 'Payment method'
+    user_name: 'Contributor'
+    value: 'Contribution Amount'
+    minimum_value: 'Reward Level'
+    reward_description: 'Reward Description'
+    created_at: 'Contribution Made'
+    confirmed_at: 'Contribution Confirmed'
+    service_fee: 'Neighbor.ly Fee'
+    user_email: 'Email'
+    payment_method: 'Payment Method'
     address_street: 'Street'
-    address_complement: 'Complement'
-    address_number: 'Number'
     address_neighbourhood: 'Neighborhood'
     address_city: 'City'
     address_state: 'State'
-    address_zip_code: 'Zip code'
+    address_zip_code: 'Zip Code'
     anonymous: 'Anonymous'
+    short_note: 'Message'
   edit_project: 'Edit this project'
   facebook_locale: 'en_US'
   or: or
@@ -104,7 +104,7 @@ en:
       funded_projects: "Successful projects"
       active_projects: "Projects on air now"
     links:
-      about: "About Us"
+      about: "Meet the Neighbors"
       how_works: "How It Works"
       faq: 'FAQ / Help'
       terms: "Terms of Use"
@@ -249,7 +249,7 @@ en:
       no_credits: "You don't have enough credits to request this refund."
       refunded: "This payment has already been refunded."
       requested_refund: "You already requested a refund for this payment."
-    title: "My credits"
+    title: "My Credits"
   credits_mailer:
     request_refund_from:
       subject: "Refund request from project %{name}"
@@ -457,21 +457,21 @@ en:
     backers:
       backer:
         anonymous_backer: "Anonymous backer"
-        anonymous_description: "Opted to remain incognito"
+        anonymous_description: "Opted to remain anonymous"
         no_reward: "This backer has not picked a reward"
       review:
-        error: "Ooops. There was an error while registering your back. Please try again."
+        error: "Oh noez! There was an error processing your contribution. Please try again."
         paypal: 'PayPal'
         echeck_net: 'eCheck'
         credit_card_net: 'Credit Card'
       show:
         error: "Ooops. You can only access this page after backing a project."
         moip_message: "Your transaction is “Authorized” and you Moip code is “%{code}″.<br>If you have any questions about this transaction, contact Moip directly."
-        header_subtitle: "Without you maybe this project wouldn't stand a chance. Welcome to the team!"
-        header_title: "Thank you! :D"
+        header_subtitle: "This project is only possible with the support of people like you."
+        header_title: "Thank You, Neighbor!"
         text_subtitle: "Tell everyone what you just did"
         recommended_projects: "You may like these other projects:"
-        text_title_html: "You are now part of the group that does everything to make %{link} happen."
+        text_title_html: "You've just joined a team of passionate community builders making %{link} a reality!"
         title: "Thank you"
       checkout:
         credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
