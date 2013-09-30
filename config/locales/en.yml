@@ -8,6 +8,9 @@ en:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
   failure_title: 'Please, fix the errors below:'
+  not_found:
+    title: "Sorry, we couldn't find this address :("
+    text: "You may have mistyped the address or the page may have moved."
   controllers:
     updates:
       create:
@@ -109,6 +112,27 @@ en:
       terms_link: 'http://neighbor.ly/terms'
       policy_link: 'http://neighbor.ly/privacy'
       contact: 'Contact Us'
+      about: "Who are we"
+      faq: "Help"
+      feedback: "Feedback"
+      support: "Support"
+      terms: "Terms"
+      privacy: "Privacy"
+      press: "Press"
+      twitter: "Twitter"
+      facebook: "Facebook"
+      instagram: "Instagram"
+      github: "Github"
+      blog: "Blog"
+      contato: "Contact"
+      quick_explore: "Selected"
+      near: "Near me"
+      expiring: "Final countdown"
+      recents: "Recent"
+      submit: "Envie um projeto"
+      discover: "Descubra"
+    texts:
+      copyleft: "Made with love."
   main:
     links:
       channels: "explore the Asas Institute's Channel"
@@ -142,6 +166,9 @@ en:
       title: channels
   accept_terms_html: "I have read and accepted the %{link}."
   activerecord:
+    validators:
+      city_and_state:
+        invalid: 'Invalid City/State'
     errors:
       models:
         project:
@@ -171,6 +198,7 @@ en:
         minimum_value: "Minimum Value"
       user:
         address_city: City
+        address: 'City/State'
         address_complement: Complement
         address_neighbourhood: Neighborhood
         address_number: Number
@@ -224,7 +252,7 @@ en:
       current_credits_html: "Your current balance is <span id=\"current_credits\">%{credits}</span> in credits."
       important_html: "If you ask for a refund, the value of your payment will be deducted from your credits."
       project: Project
-      refund_expration_date: "Refund deadline"
+      refund_expration_date_html: "Deadline to request refund (<a target='__blank' href='http://suporte.catarse.me/knowledgebase/articles/164746-regras-e-funcionamento-dos-reembolsos-estornos'>?</a>)"
       refunded: "Refund request successfully done. Our team will contact you within two business days."
       insufficient_credits: "You don't have enough credits to request this refund."
       refunds_title: "Payments that can be refunded"
@@ -339,6 +367,7 @@ en:
         foundation_widget: 'Use new foundation widget?'
         campaign_type: 'Campaign Type'
         address_neighborhood: 'Neighborhood'
+        address: 'City/State'
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
@@ -487,7 +516,7 @@ en:
         review_with_reward_html: "You will back with <strong>%{value}</strong> and receive the following reward:"
         review_without_reward_html: "You will back with <strong>%{value}</strong> but you don't want any reward for that."
         submit:
-          credits: "Confirm backing with credits"
+          credits: "Confirm"
           moip: "Proceed to MoIP's checkout"
         subtitle: "This is the last step to make the difference and become part of this project."
         title: "Fill in and review your data"
@@ -736,6 +765,7 @@ en:
       requested_refund: "Refund requested"
       waiting_confirmation: "Waiting confirmation"
     set_email:
+      update_email_title: 'Add your email address'
       site_title: 'Create your Neighbor.ly Account'
       title: 'Please enter your email address'
       submit: 'Proceed'

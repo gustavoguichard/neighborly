@@ -9,6 +9,9 @@ App.addChild('User', _.extend({
     this.route('credits');
     this.route('settings');
     this.route('unsubscribes');
+    if($('.map-canvas')[0] != undefined){
+      App.SearchCities();
+    }
   },
 
   followRoute: function(){

@@ -1,0 +1,11 @@
+#new-user-question
+  = form_for :question, url: user_questions_path(@user, project_id: params[:project_id]) do |f|
+    .modal-header
+      button.close data-dismiss="modal" type="button" x
+      h3= "Ask a question about #{@project.name}"
+    .modal-body
+      h3 = "#{t('.to')} #{@user.display_name}"
+      = f.text_area :body, required: true
+    .modal-footer
+      = f.button t('.send'), class: 'btn btn-success', disable_with: t('sending')
+      a.btn data-dismiss="modal" href="#" Cancel

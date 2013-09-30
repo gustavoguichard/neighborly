@@ -183,8 +183,24 @@
           #city
             p.city
               | #{@project.user.address_city}
+        .ask-question.bootstrap-twitter
+          - if current_user
+            = link_to 'Ask a question', '#new-user-question-modal', class: 'ask-question-button btn btn-success new-user-question-modal-link', :"data-toggle" => 'modal', data: { url: new_user_question_path(@project.user, project_id: @project.id) }
+          - else
+            = link_to 'Ask a question', new_user_question_path(@project.user, project_id: @project.id), class: 'ask-question-button btn btn-success new-user-question-modal-link'
+
 
         .clearfix
 
     .clearfix
     = render partial: 'projects/contact_modal'
+
+  - if current_user
+    .bootstrap-twitter
+      #new-user-question-modal.modal.hide.fade
+        .content
+          .modal-header
+            button.close data-dismiss="modal" type="button" x
+            h3= "Ask a question about #{@project.name}"
+          .modal-body
+            .loading= image_tag "loading.gif"

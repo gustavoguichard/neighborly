@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
     Rails.logger.info "-----> #{e.inspect}"
   end
 
+  geocoded_by :address
+  after_validation :geocode # auto-fetch coordinates
+
   delegate  :display_name, :display_image, :short_name, :display_image_html,
     :medium_name, :display_credits, :display_total_of_backs,
     to: :decorator
@@ -56,12 +59,16 @@ class User < ActiveRecord::Base
     :profile_type,
     :company_name,
     :company_logo,
-    :linkedin_url
+    :linkedin_url,
+    :address
+
+  attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader
 
   validates_length_of :bio, maximum: 140
+  validates :address, city_and_state: { allow_blank: true }
 
   validates_presence_of :email
   validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :message => I18n.t('activerecord.errors.models.user.attributes.email.taken')
@@ -154,6 +161,20 @@ class User < ActiveRecord::Base
         sum(user_totals.credits) as credits').
       to_sql
     ).reduce({}){|memo,el| memo.merge({ el[0].to_sym => BigDecimal.new(el[1] || '0') }) }
+  end
+
+  def address=(address)
+    array = address.split(',')
+    self.address_city = array[0].lstrip.titleize if array[0]
+    self.address_state = array[1].lstrip.upcase if array[1]
+
+    if not address.present?
+      self.address_city = self.address_state = self.longitude = self.latitude = nil
+    end
+  end
+
+  def address
+    [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
   def has_facebook_authentication?

@@ -45,7 +45,7 @@ Catarse::Application.routes.draw do
         end
       end
 
-      namespace :adm do
+      namespace :admin do
         resources :statistics, only: [ :index ]
 
         namespace :reports do
@@ -112,14 +112,16 @@ Catarse::Application.routes.draw do
 
     resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
       member do
-        get 'credits_checkout'
+        put 'credits_checkout'
         post 'update_info'
       end
     end
   end
 
   resources :users do
+    resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
+
     collection do
       get :uservoice_gadget
     end
@@ -138,10 +140,10 @@ Catarse::Application.routes.draw do
     end
   end
 
-  namespace :adm do
+  namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
     resources :tags, except: [:show]
     resources :press_assets, except: [:show]
-    resources :statistics, only: [ :index ]
     resources :financials, only: [ :index ]
     resources :users, only: [ :index ]
 
@@ -170,6 +172,8 @@ Catarse::Application.routes.draw do
 
     namespace :reports do
       resources :backer_reports, only: [ :index ]
+      resources :funding_raised_per_project_reports, only: [ :index ]
+      resources :statistics, only: [ :index ]
     end
   end
 

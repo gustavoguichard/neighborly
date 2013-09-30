@@ -32,9 +32,19 @@ module Catarse
     config.filter_parameters += [:password, :password_confirmation]
     config.time_zone = 'Brasilia'
     config.active_record.default_timezone = :local
+
+    # Do not generate specs for views and requests. Also, do not generate assets.
     config.generators do |g|
-      g.test_framework :rspec, fixture: false, views: false
+      g.javascripts false
+      g.stylesheets false
+      g.helper false
+      g.template_engine :slim
+      g.test_framework :rspec,
+        view_specs: false,
+        helper_specs: false,
+        fixture: false
     end
+
     config.active_record.observers = [
       :backer_observer, :user_observer, :notification_observer,
       :update_observer, :project_observer, :payment_notification_observer

@@ -18,7 +18,6 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ActionView::Helpers::TextHelper
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -40,6 +39,21 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with :truncation
     I18n.locale = :en
     I18n.default_locale = :en
+
+    Geocoder.configure(lookup: :test)
+    Geocoder::Lookup::Test.set_default_stub(
+      [
+        {
+          'latitude'     => 40.7143528,
+          'longitude'    => -74.0059731,
+          'address'      => 'New York, NY, USA',
+          'state'        => 'New York',
+          'state_code'   => 'NY',
+          'country'      => 'United States',
+          'country_code' => 'US'
+        }
+      ]
+    )
   end
 
   config.before(:each) do
@@ -67,6 +81,14 @@ RSpec.configure do |config|
 
   # Stubs and configuration
   config.before(:each) do
+    result = OpenStruct.new 'latitude'     => 40.7143528,
+                            'longitude'    => -74.0059731,
+                            'address'      => 'New York, NY, USA',
+                            'state'        => 'New York',
+                            'state_code'   => 'NY',
+                            'country'      => 'United States',
+                            'country_code' => 'US'
+    Geocoder.stub :search => [Geocoder::Result::Base.stub(:new).and_return(result)]
     CatarseMailchimp::API.stub(:subscribe).and_return(true)
     CatarseMailchimp::API.stub(:unsubscribe).and_return(true)
     PaperTrail.controller_info = {}

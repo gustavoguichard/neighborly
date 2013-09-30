@@ -33,7 +33,7 @@ gem 'chartkick'
 # Payment engines
 gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
 gem 'catarse_echeck_net', path: 'lib/gems/catarse_echeck_net'
-gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express'
+gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: '967d706'
 gem "authorize-net", "~> 1.5.2"
 
 # Decorators
@@ -79,6 +79,7 @@ gem 'video_info', '>= 1.1.1'
 gem 'enumerate_it'
 gem 'httparty', '~> 0.6.1' # this version is required by moip gem, otherwise payment confirmation will break
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
+gem 'geocoder'
 
 # Payment
 gem 'moip', github: 'catarse/moip-ruby'
@@ -153,3 +154,5 @@ gem 'rails_autolink', '~> 1.1.0'
 
 # TODO: Take a look on dependencies
 gem "RedCloth"
+
+gem 'html2markdown', github: 'josemarluedke/html2markdown'

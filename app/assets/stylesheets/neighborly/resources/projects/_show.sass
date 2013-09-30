@@ -127,6 +127,16 @@
             background: #F3F3F3
 
       #project_edit
+        .map-canvas
+          display: block
+          width: 458px
+          height: 250px
+          margin-left: 170px
+        .markdown
+          float: left
+          width: 460px
+          textarea
+            width: 458px
         .input.required
           label
             &:after
@@ -159,10 +169,12 @@
             p.inline-hints
               @extend .clearfix
               float: left
-        .about-input
+        .address-input
           li.input
+            float: none
             border-bottom: none !important
             margin-bottom: 0
+            padding-bottom: 0
           border-bottom: dotted 1px #cccccc
           margin-bottom: 20px
           padding-bottom: 20px

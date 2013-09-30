@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_http
 
+
+  before_filter do
+    if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
+      redirect_to set_email_users_path unless controller_name == 'users'
+    end
+  end
+
   # TODO: Change this way to get the opendata
   before_filter do
     @press_assets = PressAsset.order('created_at DESC').limit(5)
@@ -103,6 +110,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
+    if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
+      return set_email_users_path
+    end
+
     return_to = session[:return_to]
     session[:return_to] = nil
     (return_to || root_path)
