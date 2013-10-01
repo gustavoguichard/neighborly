@@ -1,5 +1,6 @@
 - user = @notification.user
 - project = @notification.project
+- channel = project.channels.first
 |Olá, #{user.name}!
 br
 br
@@ -34,7 +35,7 @@ ul
   li Aqui tem outro #{link_to 'GUIA', 'https://docs.google.com/document/d/169gO3htuy9NyZHdmtnJsOod3TwvImRLVzgRbU5VelKs/edit'} de como editar o seu projeto em RASCUNHO.
 br
 br
-|Você tem o #{link_to 'link do rascunho do seu projeto', project_by_slug_url(subdomain: 'asas', project.permalink)} em mãos. Com isso, aproveite para compartilhá-lo com algumas pessoas, a fim de colher sugestões e melhorar a sua abordagem quando esse estiver no ar.
+|Você tem o #{link_to 'link do rascunho do seu projeto', project_by_slug_url(project.permalink, subdomain: 'asas')} em mãos. Com isso, aproveite para compartilhá-lo com algumas pessoas, a fim de colher sugestões e melhorar a sua abordagem quando esse estiver no ar.
 br
 br
 |Aproveite, também, para #{link_to 'conhecer alguns projetos que estão no ar', explore_url} e - se gostar de algum - apoiar. Essa é a melhor maneira de mostrar que acredita na cultura do financiamento coletivo no Brasil e fomentar o ecossistema que está se formando ao redor do #{Configuration[:company_name]}. E se apoiar um projeto, provavelmente receberá essa flor de volta - quando seu projeto estiver no ar.
