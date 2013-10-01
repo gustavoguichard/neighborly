@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_basic_auth
-    black_list = ['neighborly-staging.herokuapp.com', 'staging.neighbor.ly', 'channel.staging.neighbor.ly']
+    black_list = ['neighborly-staging.herokuapp.com', 'staging.neighbor.ly', 'channel.staging.neighbor.ly', 'kaboom.neighbor.ly', 'cfg.neighbor.ly', 'makeitright.neighbor.ly']
 
     if request.url.match Regexp.new(black_list.join("|"))
       authenticate_or_request_with_http_basic do |username, password|
