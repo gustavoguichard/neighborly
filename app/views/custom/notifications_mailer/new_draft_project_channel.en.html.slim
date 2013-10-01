@@ -1,35 +1,32 @@
 - project = @notification.project
 - channel = project.channels.first
-| Hey!
+
+br
+| A new project has been created on #{channel.name} channel by #{link_to project.user.name, user_url(project.user)}.
+br
+| Project Owner Email: #{mail_to project.user.email}
 br
 br
-| Mais um projeto foi criado no Canal Asas!
-== " por #{link_to project.user.name, user_url(project.user)}"
-br
-== "Email do realizador: #{mail_to project.user.email}"
+| Project Details:
 br
 br
-| Detalhes do projeto abaixo:
-br
-br
-b Nome:
+b Title:
 = " #{project.name}"
 br
-b Meta:
+b Goal:
 = " #{project.display_goal}"
 br
-b Lista de Links relacionados:
 br
-= simple_format(project.more_links)
-br
-b Primeiros apoiadores:
+b Existing Backers:
 br
 = simple_format(project.first_backers)
 br
-b Como conheceu o Canal Asas:
+b How did you hear about #{channel.name}?
 br
 = simple_format(project.how_know)
 br
 br
-= link_to 'Veja mais sobre o projeto', project_by_slug_url(permalink: project.permalink, subdomain: 'asas')
-
+= link_to "View the Project", project_by_slug_url(permalink: project.permalink, subdomain: channel.permalink)
+br
+br
+| The #{channel.name} Team
