@@ -24,6 +24,10 @@ class UserDecorator < Draper::Decorator
       %{</div>}).html_safe
   end
 
+  def first_name
+    display_name.split(' ').first
+  end
+
   def short_name
     truncate display_name, length: 20
   end
