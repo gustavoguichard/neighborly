@@ -11,7 +11,7 @@ App.addChild('Payment', _.extend({
     payment = '.payments_type#' + $(e.target).val() + '_payment'
     $(payment).fadeIn();
 
-    if($.trim($(payment).html()) == '' && $(payment).data('path')){
+    if($(payment).data('path')){
       $.get($(payment).data('path')).success(function(data){
         $(payment).html(data);
       });
