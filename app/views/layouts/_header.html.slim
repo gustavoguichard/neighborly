@@ -16,22 +16,38 @@ header
         ul.left
           li#new_idea
           li
-            = link_to t('.launch_campaign'), start_path
+            = link_to start_path do
+              i.icon-rocket
+              = t('.start_campaign')
           li
-            = link_to t('.discover'), explore_path
+            = link_to explore_path do
+              i.icon-globe
+              = t('.discover')
           li
-            = link_to t('.about'), about_path
+            = link_to about_path do
+              i.icon-info-sign
+              = t('.about')
 
         / Right Nav Section
-        ul.right.user-actions[class="#{'un-signed-in' unless user_signed_in?}"]
-          - if user_signed_in?
-            li
-              = link_to current_user do
-                = image_tag current_user.display_image, size: "40x40", class: 'profile-picture'
-                |  &nbsp;
-                = current_user.name
-            li = link_to t('.sign-out'), destroy_user_session_path, method: :delete
-          - else
-            li = link_to t('.sign-in'), new_user_session_path
-            li = link_to t('.sign-up'), new_user_registration_path, class: 'button'
+        ul.right
+          li
+            span.user-actions[class="#{'un-signed-in' unless user_signed_in?}"]
+              - if user_signed_in?
+                = link_to current_user, class: 'user-profile' do
+                  = image_tag current_user.display_image, size: "18x18", class: 'profile-picture'
+                  |  Hey, #{ current_user.first_name }!
+                span.divider |
+                = link_to t('.sign-out'), destroy_user_session_path, method: :delete, class: 'sign-out'
+              - else
+                = link_to t('.sign-up'), new_user_registration_path, class: 'sign-up'
+                span.divider |
+                = link_to t('.sign-in'), new_user_session_path, class: 'sign-in'
+          li.search
+            span.search-box
+              = form_tag explore_path, method: 'GET', class: 'discover-form' do
+                = text_field_tag :pg_search, nil, autocomplete: "off", value: params[:pg_search], class: "discover-form-input #{'show' if params[:pg_search].present?}", placeholder: 'Search...'
+                = submit_tag
 
+              = link_to '#search', class: 'search-button' do
+                i.icon-search
+                | &nbsp;

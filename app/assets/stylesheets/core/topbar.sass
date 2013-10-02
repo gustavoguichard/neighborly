@@ -1,6 +1,21 @@
 .top-bar
-  ul li > a
-    font-weight: 300
+  ul
+    li > a
+      font-weight: 400
+      text-transform: uppercase
+      &:not(.button)
+        padding: 0 20px
+      i
+        color: $topbar-icon-color
+        padding-right: 8px
+        font-size: 120%
+    li:not(.name):not(.toggle-topbar)
+      &:hover
+        a
+          background: lighten($topbar-bg, $topbar-link-hover-lightness)
+    li.name
+      margin-right: 15px
+
   .row
     +grid-row()
 
@@ -12,18 +27,62 @@
     background-size: 176px
     padding-left: 0
 
-  .user-actions
-    &.un-signed-in
-      li
-        & a:hover
-          background: $topbar-bg
-        &.hover a.button
-          background: $primary-color
-        a.button
-          top: 23px
-          font-size: emCalc(16px)
-          &:hover
-            background: darken($primary-color, 5%)
+  ul
     li
-      img
-        border-radius: 50%
+      .user-actions, .search-box
+        font-size: 90%
+        background: $topbar-bg-highlight
+        padding: 5px 10px
+        border-radius: +emCalc(20px)
+        margin: 0 0 20px 20px
+        float: left
+        &.un-signed-in
+          padding: 5px 15px
+        a
+          padding: 0
+          background: none
+          &.user-profile, &.sign-in
+            color: white
+            &:hover
+              color: darken(white, 10%)
+
+        .divider
+          border-top: none
+          color: white
+          margin: 0 5px
+          font-size: 85%
+
+        img.profile-picture
+          border-radius: 50%
+      @media #{$topbar-media-query}
+        .user-actions, .search-box
+          display: inline
+          float: none
+          margin-left: 0px
+      &:hover:not(.name)
+        .user-actions, .search-box
+          a
+            background: none
+      .search-box
+        margin-left: 10px
+        padding-right: 7px
+        form
+          display: inline
+          input
+            width: 100px
+            display: none
+            top: -1px
+            padding: 0
+            border: none
+            background: none
+            color: white
+            box-shadow: none
+            height: auto
+            font-size: 90%
+            &.show
+              display: inline
+            &:focus
+              box-shadow: none
+
+
+
