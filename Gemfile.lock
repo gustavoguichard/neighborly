@@ -70,6 +70,13 @@ GIT
   specs:
     cancan (2.0.0.alpha)
 
+GIT
+  remote: git://github.com/shorelabs/font-icons-rails.git
+  revision: 19da71315862d54f766645444accd4e9f5dab6e7
+  specs:
+    font-icons-rails (0.0.5)
+      sass-rails (>= 3.1.1)
+
 PATH
   remote: lib/gems/catarse_credit_card_net
   specs:
@@ -219,7 +226,7 @@ GEM
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5)
       ruby-hmac
-    font-awesome-rails (3.2.1.1)
+    font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
     foreman (0.63.0)
       dotenv (>= 0.7)
@@ -520,6 +527,7 @@ DEPENDENCIES
   feedzirra
   fog (>= 1.3.1)
   font-awesome-rails
+  font-icons-rails!
   foreman
   formtastic (~> 2.2.1)
   geocoder
