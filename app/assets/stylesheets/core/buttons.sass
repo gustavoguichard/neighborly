@@ -1,9 +1,17 @@
 .button
   @extend .radius
   //text-transform: uppercase
-  //border-width: 0px
-  //border-bottom: 2px $button-border-style
-  border: none
+  border-width: 0px
+  border-bottom: 2px $button-border-style
+  box-shadow: none
+  border-bottom-color: darken($primary-color, $button-border-color-darken)
+  &.success
+    border-bottom-color: darken($success-color, $button-border-color-darken)
+  &.alert
+    border-bottom-color: darken($alert-color, $button-border-color-darken)
+  &.secondary
+    border-bottom-color: darken($secondary-color, $button-border-color-darken)
+
   &:hover
     @color darken(red, 20%)
 
