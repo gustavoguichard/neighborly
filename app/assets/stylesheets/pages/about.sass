@@ -39,7 +39,7 @@
       text-align: left
 
       i
-        color: #3a9ac4
+        color: $primary-color
         font-size: 32px
         padding-top: 30px
 
@@ -51,7 +51,6 @@
 
     .social i
       padding-top: 10px
-      color: #333
 
     h4
       font-size: 21px
@@ -89,15 +88,12 @@
 
   .social
     i
-      -webkit-transition: color 0.6s
-      -moz-transition: color 0.6s
-      -o-transition: color 0.6s
-      transition: color 0.6s
+      +single-transition(color, 0.6s)
       font-size: 38px
       padding: 2px
       margin: 2px
-      color: #F1F1F1
+      color: $primary-color
 
       &:hover
-        color: #3a9ac4
+        color: darken($primary-color, 20%)
         text-decoration: none
