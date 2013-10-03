@@ -1,0 +1,40 @@
+footer
+  .row
+    .large-4.columns.quick-links
+      h6
+        i.icon-info-sign
+        = t('.quick_links')
+
+      ul
+        li = link_to t('.about'), about_path
+        li = link_to t('.discover'), explore_path
+        li = link_to t('.start_campaign'), start_path
+        li = link_to t('.how_it_works'), how_it_works_path
+        li = link_to t('.blog'), Configuration[:blog_url], target: :blank
+        li = mail_to Configuration[:email_contact], t('.contact')
+        li = link_to t('.faq'), faq_path
+        li = link_to t('.legal'), privacy_path
+
+    .large-4.columns.lets-get-social
+      h6
+        i.icon-et-heart
+        = t('.lets_get_social')
+
+      .twitter-box
+        = link_to "Follow @#{::Configuration[:twitter_username]}", "http://twitter.com/#{::Configuration[:twitter_username]}", class: 'twitter-follow-button', data: { button: 'blue', :'text-color' => '#ffffff', :'link-color' => '#ffffff', width: '224px' }
+      .facebook-box
+        .fb-like data-href="#{Configuration['facebook_url']}" data-width="224" data-height="40" data-header="false" data-show-border="false" data-colorscheme="dark" data-layout="standard" data-action="like" data-show-faces="false" data-send="false"
+
+    .large-4.columns.stay-in-touch
+      h6
+        i.icon-et-infinity
+        = t('.stay_in_touch')
+
+      p = t('.stay_in_touch_text', email: mail_to(Configuration[:email_contact])).html_safe
+      = render 'layouts/newsletter'
+  .row.subfooter
+    .large-3.columns
+      = link_to Configuration[:company_name], root_url, title: Configuration[:company_name], class: 'logo'
+    .large-4.columns.pull-right
+      p = t('.all_rights_reserved', year: Date.today.year).html_safe
+
