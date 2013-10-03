@@ -79,7 +79,11 @@ App.addChild('ProjectFormEdit', {
       height: '65px'
     });
 
-    App.SearchCities();
+    if(window.location.hash == '#edit'){
+      App.SearchCities();
+    }
+
+    $('#project_menu a#edit_link').click(function(){ App.SearchCities(); } );
   }
 
 });

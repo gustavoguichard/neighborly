@@ -61,7 +61,7 @@ gem 'catarse_mailchimp', git: 'git://github.com/catarse/catarse_mailchimp', ref:
 
 # HTML manipulation and formatting
 gem 'formtastic',   '~> 2.2.1'
-gem 'auto_html', '= 1.4.2', github: 'devton/auto_html', branch: 'v1.4.2'
+gem 'auto_html', '~> 1.6.0'
 gem 'kaminari'
 
 # Uploads
@@ -151,6 +151,3 @@ gem "rack-timeout"
 
 # TODO: Take a look on dependencies. Why not auto_html?
 gem 'rails_autolink', '~> 1.1.0'
-
-# TODO: Take a look on dependencies
-gem "RedCloth"
