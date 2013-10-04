@@ -45,12 +45,13 @@
           .clearfix
           .socialmidia
             h2 My social links
-            .input
+            .input.row.collapse
               = f.label :twitter, 'Twitter Handle'
-              .input-prepend
-                span.add-on
+              .large-1.columns
+                span.prefix
                   i.icon-twitter
-                = f.text_field :twitter, placeholder: 'twitterhandle'
+              .large-11.columns
+                = f.text_field :twitter, placeholder: 'twitterhandle', class: 'with-prefix'
             .input
               = f.label :facebook_link, 'Facebook Profile'
               .input-prepend
