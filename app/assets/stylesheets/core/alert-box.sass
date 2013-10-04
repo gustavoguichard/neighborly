@@ -1,0 +1,17 @@
+.alert-box
+  padding: 15px
+  background: $alert-success-color
+  &.error, &.alert, &.failure
+    background: $alert-color
+  &.success, &.notice
+    background: $alert-success-color
+
+.flash
+  .alert-box
+    margin-top: -30px
+    +radius(0)
+
+#devise
+  .flash
+    .alert-box
+      margin-top: 0
