@@ -163,7 +163,7 @@ describe ProjectDecorator do
       it "should return a successful image flag when the project is successful" do
         project.stub(:successful?).and_return(true)
 
-        expect(project.successful_flag).to eq('<div class="successful_flag"><img alt="Successful" src="/assets/channels/successful.png" /></div>')
+        expect(project.successful_flag).to eq('<div class="successful_flag"><img alt="Successful.en" src="/assets/successful.en.png" /></div>')
       end
     end
 
