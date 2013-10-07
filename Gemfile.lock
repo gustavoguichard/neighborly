@@ -35,6 +35,16 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/luminopolis/catarse_paypal_express
+  revision: 967d7060f201b32515dc36ce8fbd60933909b7fc
+  ref: 967d7060f201b32515dc36ce8fbd60933909b7fc
+  specs:
+    catarse_paypal_express (2.0.0)
+      activemerchant (>= 1.34.0)
+      rails (~> 4.0)
+      slim-rails
+
+GIT
   remote: git://github.com/milgner/compass-rails.git
   revision: 1749c06f15dc4b058427e7969810457213647fb8
   ref: 1749c06f15dc4b058427e7969810457213647fb8
@@ -56,16 +66,6 @@ GIT
   branch: 2.0
   specs:
     cancan (2.0.0.alpha)
-
-GIT
-  remote: git@github.com:luminopolis/catarse_paypal_express.git
-  revision: 967d7060f201b32515dc36ce8fbd60933909b7fc
-  ref: 967d7060f201b32515dc36ce8fbd60933909b7fc
-  specs:
-    catarse_paypal_express (2.0.0)
-      activemerchant (>= 1.34.0)
-      rails (~> 4.0)
-      slim-rails
 
 PATH
   remote: lib/gems/catarse_credit_card_net
