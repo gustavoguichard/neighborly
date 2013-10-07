@@ -56,7 +56,7 @@ describe Update do
 
   describe ".create" do
     subject{ create(:update, comment: "this is a comment\n") }
-    its(:comment_html){ should == "<p>this is a comment</p>" }
+    its(:comment_html){ should == "<p>this is a comment</p>\n" }
   end
 
   describe "#email_comment_html" do
