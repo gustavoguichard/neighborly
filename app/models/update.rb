@@ -29,7 +29,7 @@ class Update < ActiveRecord::Base
         '<' => '&lt;',
         '"' => '"'
       }
-      redcarpet markdown_options: { autolink: true, filter_html: true, link_attributes: { target: :blank } }
+      redcarpet markdown_options: { autolink: true, filter_html: true, link_attributes: { target: :blank }, hard_wrap: true }
     end
   end
 

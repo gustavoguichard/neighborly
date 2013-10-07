@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectDecorator do
-  let(:project){ create(:project, about: 'Foo Bar http://www.foo.bar <javascript>xss()</javascript>"Click here":http://click.here') }
+  let(:project){ create(:project, about: 'Foo Bar http://www.foo.bar <javascript>xss()</javascript>[Click here](http://click.here)') }
 
   describe "#display_expires_at" do
     subject{ project.display_expires_at }
@@ -70,7 +70,7 @@ describe ProjectDecorator do
 
   describe "#about_html" do
     subject{ project.about_html }
-    it{ should == '<p>Foo Bar <a href="http://www.foo.bar" target="_blank">http://www.foo.bar</a> <javascript>xss()</javascript><a target="_blank" href="http://click.here">Click here</a></p>' }
+    it{ should == "<p>Foo Bar <a href=\"http://www.foo.bar\">http://www.foo.bar</a> &lt;javascript&gt;xss()&lt;/javascript&gt;<a href=\"http://click.here\">Click here</a></p>\n" }
   end
 
   describe "#display_progress" do

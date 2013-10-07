@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Statistics do
   before do
     create(:project, state: 'successful')
-    create(:project, state: 'draft') 
+    create(:project, state: 'draft')
     project = create(:project, state: 'online')
     create(:backer, state: 'confirmed', project: project )
     create(:backer, project: project)
@@ -31,7 +31,7 @@ describe Statistics do
 
   describe "#total_projects" do
     subject{ Statistics.first.total_projects }
-    it{ should == Project.visible.count }
+    it{ should == Project.all.count }
   end
 
   describe "#total_projects_success" do
