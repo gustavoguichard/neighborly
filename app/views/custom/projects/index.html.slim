@@ -1,87 +1,28 @@
-= render partial: 'recommended_header'
-#page_content
-  .container
-    .main
-      /- if current_user && @projects_near.present?
-        .near_projects.list
-          .list_title
-            .title
-              h2= t('sections.near.title')
-          .projects
-            - @projects_near.each_with_index do |item,i|
-              == render 'project', project: item, custom_class: ((@projects_near.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-          .explore_link
-            hr
-      .selected_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.selection.title'), explore_path(anchor: :recommended)
-        .projects
-          - @recommends.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@recommends.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr
-          = link_to t('main.links.selected'), explore_path(anchor: :recommended)
-      .coming_soon_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.coming_soon.title'), explore_path(anchor: :soon)
-        .projects
-          - @soon.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@soon.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr.soon
-          = link_to t('main.links.soon'), explore_path(anchor: :soon)
+.home-page
+  header.hero-header
+    .row
+      .large-8.columns.large-centered
+        h2 = t('.hero.title')
+        h3 = t('.hero.subtitle')
 
-      .successful_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.succesful.title'), explore_path(anchor: :successful)
-        .projects
-          - @succesful.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@succesful.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr
-          = link_to t('main.links.successful'), explore_path(anchor: :successful)
-
-    .sidebar
-      .content
-        .twitter
-          h3= t('sidebar.titles.twitter')
-          a.twitter-timeline height="230" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
-
-        .facebook
-          h3= t('sidebar.titles.facebook')
-          .fb-like-box data-href="#{Configuration['facebook_url']}" data-width="198" data-height="300" data-show-faces="true" data-stream="false" data-header="false" data-show-border="false"
-
-        .blog
-          h3= t('sidebar.titles.blog')
-          ul.posts
-            - (Blog.fetch_last_posts rescue [])[0..0].each do |post|
-              li
-                h2
-                  = link_to post.url, target: '__blank' do
-                    = truncate(post.title, length: 80, separator: ' ')
-                p.author= "#{t('projects.box.by')} #{post.author}"
-                = link_to post.url, target: '__blank', class: 'resume' do
-                  = post.summary.html_safe
-
-        .faq
-          = link_to faq_path do
-            = image_tag 'neighborly/faq.png'
-
-        .how_it_works
-          = link_to how_it_works_path do
-            = image_tag 'neighborly/how_it_works.png'
-
-        .about_us
-          = link_to about_path do
-            = image_tag 'neighborly/about_us.png'
-
-        .start
-          = link_to start_path do
-            = image_tag 'neighborly/start.png'
-
-    .clearfix
+  section.how-it-works.white
+    .row
+      - for number in ['one', 'two', 'three']
+        .large-4.columns[class=number]
+          h4 =t(".how-it-works.#{number}.headline")
+          p =t(".how-it-works.#{number}.text")
 
 
+  - unless current_user.present?
+    section.join.white
+      .row
+        h3 = link_to sign_up_path do
+          = t('.join.join_the_neighborhood')
+          i.icon-et-right-circled
+        p = t('.join.already_joined', link: link_to(t('.join.sign_in'), new_user_session_path)).html_safe
+
+
+
+  section.projects
+    .row
+      h2 Recommented
