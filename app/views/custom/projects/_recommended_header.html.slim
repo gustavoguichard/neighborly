@@ -1,9 +1,0 @@
-#recommended_header
-  .resume_about
-    h1= raw(t('projects.index_header.title'))
-    h4= t('projects.index_header.subtitle_html')
-  .project_info
-    - if @featured_project.present?
-      = render partial: "project_header", locals: {title: t('projects.recommended_header.suggest_for_you'), project: @featured_project}
-  .clearfix
-
