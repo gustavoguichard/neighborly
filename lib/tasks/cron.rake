@@ -119,3 +119,23 @@ task :update_routing_numbers => :environment do
   tmp_file.unlink
 end
 
+desc "Fix the payment method from old backers"
+task :fix_payment_method_from_old_backers => :environment do
+  confirmed_backers = Backer.with_state('confirmed')
+
+  confirmed_backers.where("
+    backers.payment_token ~* '^EC.*' and lower(backers.payment_method) = lower('MoIP')
+  ").update_all(payment_method: 'PayPal')
+
+  confirmed_backers.where("
+    lower(backers.payment_method) = lower('MoIP')
+    and backers.created_at + interval '2 hours' < backers.confirmed_at
+  ").update_all(payment_method: 'eCheckNet')
+
+  confirmed_backers.where("
+    lower(backers.payment_method) = lower('MoIP')
+    and backers.created_at + interval '2 hours' > backers.confirmed_at
+  ").update_all(payment_method: 'AuthorizeNet')
+
+end
+

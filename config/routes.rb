@@ -36,14 +36,8 @@ Catarse::Application.routes.draw do
   constraints subdomain: /^(?!www|secure|test|local|staging)(\w+)/ do
     namespace :channels, path: '' do
       get '/', to: 'profiles#show', as: :profile
-      get '/how-it-works', to: 'profiles#how_it_works', as: :about
+      get '/about', to: 'profiles#about', as: :about
       resources :channels_subscribers, only: [:index, :create, :destroy]
-
-      resources :projects, only: [:new, :create, :show] do
-        collection do
-          get 'video'
-        end
-      end
 
       namespace :admin do
         resources :statistics, only: [ :index ]

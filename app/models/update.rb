@@ -29,9 +29,7 @@ class Update < ActiveRecord::Base
         '<' => '&lt;',
         '"' => '"'
       }
-      email_image width: 513
-      redcloth target: :_blank
-      link target: :_blank
+      redcarpet markdown_options: { autolink: true, filter_html: true, link_attributes: { target: :blank }, hard_wrap: true }
     end
   end
 

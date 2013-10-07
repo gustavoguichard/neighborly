@@ -8,24 +8,24 @@ class Reports::BackerReportsForProjectOwnersController < Reports::BaseController
 
     super.
       select(%Q{
-        reward_description as "#{I18n.t('backer_report_to_project_owner.reward_description')}",
-        confirmed_at as "#{I18n.t('backer_report_to_project_owner.confirmed_at')}",
-        back_value as "#{I18n.t('backer_report_to_project_owner.value')}",
-        service_fee as "#{I18n.t('backer_report_to_project_owner.service_fee')}",
         user_name as "#{I18n.t('backer_report_to_project_owner.user_name')}",
+        back_value as "#{I18n.t('backer_report_to_project_owner.value')}",
+        reward_minimum_value as "#{I18n.t('backer_report_to_project_owner.minimum_value')}",
+        reward_description as "#{I18n.t('backer_report_to_project_owner.reward_description')}",
+        created_at as "#{I18n.t('backer_report_to_project_owner.created_at')}",
+        confirmed_at as "#{I18n.t('backer_report_to_project_owner.confirmed_at')}",
+        service_fee as "#{I18n.t('backer_report_to_project_owner.service_fee')}",
         user_email as "#{I18n.t('backer_report_to_project_owner.user_email')}",
-        payer_email as "#{I18n.t('backer_report_to_project_owner.payer_email')}",
         payment_method as "#{I18n.t('backer_report_to_project_owner.payment_method')}",
         street as "#{I18n.t('backer_report_to_project_owner.address_street')}",
-        complement as "#{I18n.t('backer_report_to_project_owner.address_complement')}",
-        address_number as "#{I18n.t('backer_report_to_project_owner.address_number')}",
         neighbourhood as "#{I18n.t('backer_report_to_project_owner.address_neighbourhood')}",
         city as "#{I18n.t('backer_report_to_project_owner.address_city')}",
         state as "#{I18n.t('backer_report_to_project_owner.address_state')}",
         zip_code as "#{I18n.t('backer_report_to_project_owner.address_zip_code')}",
         CASE WHEN anonymous='t' THEN '#{I18n.t('yes')}'
             WHEN anonymous='f' THEN '#{I18n.t('no')}'
-        END as "#{I18n.t('backer_report_to_project_owner.anonymous')}"
+        END as "#{I18n.t('backer_report_to_project_owner.anonymous')}",
+        short_note as "#{I18n.t('backer_report_to_project_owner.short_note')}"
       }).
       where(conditions)
   end

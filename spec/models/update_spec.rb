@@ -60,8 +60,8 @@ describe Update do
   end
 
   describe "#email_comment_html" do
-    subject{ create(:update, comment: "this is a comment\nhttp://vimeo.com/6944344\nhttp://catarse.me/assets/catarse/logo164x54.png").email_comment_html }
-    it{ should == "<p>this is a comment<br />\n<a href=\"http://vimeo.com/6944344\" target=\"_blank\">http://vimeo.com/6944344</a><br />\n<img src=\"http://catarse.me/assets/catarse/logo164x54.png\" alt=\"\" style=\"max-width:513px\" /></p>" }
+    subject{ create(:update, comment: "this is a comment\nhttp://vimeo.com/6944344\n![](http://catarse.me/assets/catarse/logo164x54.png)").email_comment_html }
+    it{ should == "<p>this is a comment\n<a href=\"http://vimeo.com/6944344\">http://vimeo.com/6944344</a>\n<img src=\"http://catarse.me/assets/catarse/logo164x54.png\" alt=\"\"></p>\n" }
   end
 
   describe "#notify_backers" do
@@ -74,7 +74,7 @@ describe Update do
       create(:backer, state: 'confirmed', project: @project, user: backer.user)
       @project.reload
       ActionMailer::Base.deliveries = []
-      @update = Update.create!(user: @project.user, project: @project, title: "title", comment: "this is a comment\nhttp://vimeo.com/6944344\nhttp://catarse.me/assets/catarse/logo164x54.png")
+      @update = Update.create!(user: @project.user, project: @project, title: "title", comment: "this is a comment\nhttp://vimeo.com/6944344\n![](http://catarse.me/assets/catarse/logo164x54.png)")
       Notification.should_receive(:create_notification_once).with(:updates, backer.user,
         {update_id: @update.id, user_id: backer.user.id},
         update_number: @update.project.updates.count,
