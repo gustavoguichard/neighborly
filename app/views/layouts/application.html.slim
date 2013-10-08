@@ -1,52 +1,60 @@
-doctype 5
-html lang="#{I18n.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"
-  head
-    title= t('site.meta_title', title: (@title || yield(:title)), company_name: ::Configuration[:company_name])
-    meta[charset="utf-8"]
-    meta name="robots" content="index, follow"
-    meta name="author" content="Engage"
-    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+doctype html
+/ http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+/[if lte IE 8 ]
+  |<html class="lt-ie9" lang="en">
+/[if IE 9 ]
+  |<html class="ie9" lang="en">
+/[if (gt IE 9)|!(IE)]
+  |<html lang="en">
 
-    -# Stylesheets & Favicon
-    = stylesheet_link_tag :normalize
-    = stylesheet_link_tag :animate
-    = stylesheet_link_tag "//fonts.googleapis.com/css?family=Open+Sans:300,400,600"
-    = stylesheet_link_tag :application
-    = favicon_link_tag 'favicon.ico'
+head
+  title= t('site.meta_title', title: (@title || yield(:title)), company_name: ::Configuration[:company_name])
+  meta[charset="utf-8"]
+  meta name="robots" content="index, follow"
+  meta name="author" content="Engage"
+  meta[name="viewport" content="width=device-width, initial-scale=1.0"]
 
-    -# CSRF protection
-    = csrf_meta_tag
+  -# Stylesheets & Favicon
+  = stylesheet_link_tag :normalize
+  = stylesheet_link_tag :animate
+  = stylesheet_link_tag "//fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+  = stylesheet_link_tag :application
+  = favicon_link_tag 'favicon.ico'
 
-    - if content_for? :meta_tags
-      /project specific meta tags
-      = yield :meta_tags
-    - else
-      /meta tags for the whole site
-      meta name="description"         content=t('site.description')
-      meta name="keywords"            content=t('site.keywords')
-      meta property="og:title"        content=t('site.title')
-      meta property="og:type"         content=:cause
-      meta property="og:url"          content=url_for(only_path: false)
-      meta property="og:image"        content=image_url('neighborly/neighborly_ograph_logo.jpg')
-      meta property="og:site_name"    content=::Configuration[:company_name]
-      meta property="fb:app_id"       content=::Configuration[:facebook_app_id]
-      meta property="og:description"  content=t('site.ograph.description')
+  -# CSRF protection
+  = csrf_meta_tag
 
-    /[if lt IE 9]
-      = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
-    = javascript_include_tag 'vendor/custom.modernizr'
-    = javascript_include_tag :application
-    = render 'layouts/analytics'
-  body
-    = initjs_tag app_name: 'Neighborly'
-    = render_facebook_sdk
-    = render 'layouts/header'
-    = render 'layouts/flash', flash: flash if flash.present?
-    /.row.content
-    = yield
-    = render 'layouts/footer'
-    #loading
-      #back-overlay
-      #front-overlay
-        = image_tag 'heart-loading.gif'
-    = yield :modals
+  - if content_for? :meta_tags
+    /project specific meta tags
+    = yield :meta_tags
+  - else
+    /meta tags for the whole site
+    meta name="description"         content=t('site.description')
+    meta name="keywords"            content=t('site.keywords')
+    meta property="og:title"        content=t('site.title')
+    meta property="og:type"         content=:cause
+    meta property="og:url"          content=url_for(only_path: false)
+    meta property="og:image"        content=image_url('neighborly/neighborly_ograph_logo.jpg')
+    meta property="og:site_name"    content=::Configuration[:company_name]
+    meta property="fb:app_id"       content=::Configuration[:facebook_app_id]
+    meta property="og:description"  content=t('site.ograph.description')
+
+  /[if lt IE 9]
+    = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
+  = javascript_include_tag 'vendor/custom.modernizr'
+  = javascript_include_tag :application
+  = render 'layouts/analytics'
+body
+  = initjs_tag app_name: 'Neighborly'
+  = render_facebook_sdk
+  = render 'layouts/header'
+  = render 'layouts/flash', flash: flash if flash.present?
+  /.row.content
+  = yield
+  = render 'layouts/footer'
+  #loading
+    #back-overlay
+    #front-overlay
+      = image_tag 'heart-loading.gif'
+  = yield :modals
+|</html>
