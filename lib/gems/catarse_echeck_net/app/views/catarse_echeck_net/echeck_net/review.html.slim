@@ -9,6 +9,9 @@
       p.errorName
 
   = form_tag pay_echeck_net_path(params[:id]), id: 'echeck_form' do
+    = image_tag('neighborly/check-numbers.png', style: 'display: block; width: 528px; height: 254px; margin: 0 auto;')
+    br/
+    br/
     .input
       = label_tag :account_holder_name
       = text_field_tag :account_holder_name
