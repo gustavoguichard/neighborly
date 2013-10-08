@@ -1,0 +1,142 @@
+.project-box
+  a
+    color: $body-font-color
+
+  &:not(.soon)
+    height: +emCalc(270px)
+
+  &:not(.large):not(.soon)
+    &:hover
+      .description *
+        +single-transition(opacity, 1s)
+        opacity: 1
+      .content
+        -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        height: +emCalc(243px)
+        margin-top: +emCalc(-95px)
+
+
+  &.large
+    height: +emCalc(270px)
+    .cover
+      +grid-column(8)
+      padding-right: 0
+      img
+        width: +emCalc(500px)
+        height: +emCalc(270px)
+
+    .content
+      +grid-column(4)
+      padding-left: 0
+      padding-right: 0
+      height: +emCalc(270px)
+
+    .name
+      padding-top: +emCalc(50px)
+      padding-bottom: +emCalc(50px)
+
+    .description *
+      opacity: 1
+
+  .cover
+    img
+      width: +emCalc(258px)
+      height: +emCalc(122px)
+
+  .content
+    height: +emCalc(148px)
+    @extend .white
+    position: relative
+
+  .name
+    margin: 0
+    padding: +emCalc(20px)
+    padding-top: 0
+    font-size: 90%
+    text-transform: uppercase
+    font-weight: 500
+    max-height: +emCalc(120px)
+
+  .category
+    text-align: center
+    i
+      margin-top: +emCalc(-20px)
+      padding: +emCalc(10px)
+      display: inline-block
+      width: +emCalc(50px)
+      height: +emCalc(45px)
+      @extend .white
+      +radius(50%)
+    i:before
+      font-family: EntypoRemapped
+      font-weight: normal
+      font-style: normal
+      display: inline-block
+      text-decoration: inherit
+      content: "\f02e"
+      font-size: 180%
+    span
+      display: none
+
+  .description
+    padding: +emCalc(20px)
+    padding-top: 0
+    padding-bottom: 0
+    margin-bottom: 0
+    font-size: 90%
+    line-height: 1.2
+    *
+      opacity: 0
+    span
+      display: block
+      font-size: 85%
+      padding-bottom: +emCalc(10px)
+    .button
+      display: block
+      color: white
+      width: 70%
+      margin-left: auto
+      margin-right: auto
+
+  .status
+    @extend .white
+    position: absolute
+    width: 100%
+    bottom: 0
+    padding: +emCalc(20px)
+    padding-top: 0
+    font-size: 90%
+    .row
+      padding-top: +emCalc(10px)
+      border-top: 1px solid lighten($border-color, 5%)
+    .pledged, .time
+      font-size: 75%
+      i
+        padding-right: +emCalc(5px)
+    .time
+      text-align: right
+    .progress
+      margin-top: +emCalc(10px)
+      background: #CACACA
+      +radius(4px)
+      height: +emCalc(10px)
+      span
+        display: block
+        background: darken(#CACACA, 10%)
+        height: +emCalc(10px)
+        +radius(4px)
+
+
+  &.recreation
+    .category i
+      color: #BF0049
+      &:before
+        content: "\f0c5"
+    &.large .name
+      background: #BF0049
+      color: white
+    .progress
+      span
+        background: #BF0049

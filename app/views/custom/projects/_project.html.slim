@@ -1,54 +1,48 @@
-.project[itemscope itemtype="http://schema.org/CreativeWork" class=(custom_class if defined?(custom_class))]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 columns' if defined?(large)} #{'large-3 columns' unless defined?(large)} #{project.category.to_s.parameterize if project.category}"]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
-  - if project.expired?
-    .status_image
-      = link_to project_by_slug_path(permalink: project.permalink), target: ( defined?(embed_link) ? '__blank' : '' ) do
-        - if project.successful? && project.reached_goal?
-          = image_tag "neighborly/successful.#{I18n.locale}.png"
-        - elsif project.successful? && !project.reached_goal?
-          = image_tag "neighborly/successful_flex.#{I18n.locale}.png"
-        - elsif project.failed?
-          = image_tag "neighborly/not_successful.#{I18n.locale}.png"
-  - elsif project.soon?
-    .status_image
-      = image_tag "neighborly/coming_soon.#{I18n.locale}.png"
-  .box
-    p.black_box= project.category
-    .cover
-      - if project.soon?
-        = image_tag project.display_image, itemprop: 'image'
-      - else
-        = link_to project_by_slug_path(project.permalink), target: ( defined?(embed_link) ? '__blank' : '' ) do
-          = image_tag project.display_image, itemprop: 'image'
-    .project_content
-      h4= link_to (project.soon? ? '#' : project_by_slug_path(project.permalink)), target: ( defined?(embed_link) ? '__blank' : '' ), itemprop: 'url' do
-        span[itemprop="name"]= project.name
-      p.where[itemprop="contentLocation"]
-        = project.display_address_formated
-      p.author
-        - if project.soon?
-          | [Coming Soon...]
-      p.description[itemprop="description"]= truncate(project.headline, length: 140)
-    - unless project.soon?
-      .bootstrap-twitter
-        .progress.progress-success
-          .bar[style="width: #{project.display_progress}%"]
-      .info_bar
-        /.status_bar
-          .progress style="width: #{project.display_progress}%;"
-        ul
-          li
-            h6
-              = "#{project.display_pledged}"
-              | &nbsp; &nbsp;
-              span
-                = "( #{project.progress}% )"
-            p= "#{t('projects.project.backed')}"
+  = link_to project_by_slug_path(project.permalink) do
+    /- if project.expired?
+      .status-image
+        = link_to project_path(project), target: ( defined?(embed_link) ? :blank : '' ) do
+          - if project.successful? && project.reached_goal?
+            = image_tag "successful.#{I18n.locale}.png"
+          - elsif project.successful? && !project.reached_goal?
+            = image_tag "successful_flex.#{I18n.locale}.png"
+          - elsif project.failed?
+            = image_tag "not_successful.#{I18n.locale}.png"
+    /- elsif project.soon?
+      .status-image
+        = image_tag "coming_soon.#{I18n.locale}.png"
 
-          li style='float: right;'
-            - if project.in_time?
-              h6= "#{project.time_to_go[:time]} #{project.time_to_go[:unit]}"
-              p= "#{project.remaining_text}"
-            - else
-              h6= I18n.t("project.display_status.#{project.display_status}").capitalize
-              p= project.display_expires_at
+    .cover
+      = image_tag project.display_image, itemprop: 'image'
+
+    .content
+      - if defined?(large)
+        h4.name = project.name
+
+      .category
+        i[title=project.category.to_s]
+        span = project.category.to_s
+
+      - unless defined?(large)
+        h4.name = project.name
+
+      - unless project.soon?
+        .description[itemprop="description"]
+          span = truncate(project.headline, length: 140, separator: ' ')
+          - unless defined?(large)
+            = link_to t('.get_involved'), project_by_slug_path(project.permalink), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
+
+        .status
+          .row.collapse
+            .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"
+            .time.project.large-6.columns
+              i.icon-et-clock
+              - if project.in_time?
+                = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
+              - else
+                span[title=t("project.display_status.#{project.display_status}").capitalize]
+                  = project.display_expires_at
+          .progress.round
+            span.meter[style="width: #{project.display_progress}%"]

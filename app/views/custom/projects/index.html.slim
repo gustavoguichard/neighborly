@@ -1,3 +1,5 @@
+- content_for :title, t('.title')
+
 .home-page
   header.hero-header
     .row
@@ -25,4 +27,34 @@
 
   section.projects
     .row
-      h2 Recommented
+      section.recommended
+        h3
+          i.icon-et-thumbs-up
+          = t('.recommended')
+
+        .row
+          = render 'project', project: @featured, large: true if @featured
+          = render 'project', project: @recommended if @recommended
+
+      section.near
+        h3
+          i.icon-et-location
+          = t('.near')
+          |  TODOOOOO
+        .row
+          - for project in Project.visible.not_soon.limit(4)
+            = render 'project', project: project
+
+      - if @ending_soon.any?
+        section.ending-soon
+          h3
+            i.icon-et-clock
+            = t('.ending_soon')
+
+          .row
+            - for project in @ending_soon
+              = render 'project', project: project
+
+      section.coming-soon
+        h3 = t('.coming_soon')
+
