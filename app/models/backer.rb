@@ -81,9 +81,9 @@ class Backer < ActiveRecord::Base
     if self.payment_method.to_s.downcase == 'authorizenet'
       (self.value * 1.029)+0.30
     elsif self.payment_method.to_s.downcase == 'echecknet'
-      (self.value * 1.010)+0.30
+      (self.value * 1.010)+0.35
     else
-      (self.value * 1.029)+0.30
+      self.value + 1.029 * (0.029 * self.value + 0.30)
     end
   end
 
