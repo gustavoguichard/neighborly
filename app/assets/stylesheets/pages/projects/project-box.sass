@@ -16,7 +16,9 @@
         transition: height 0.4s ease-out, margin-top 0.4s ease-out
         height: +emCalc(243px)
         margin-top: +emCalc(-95px)
-
+  &.soon
+    a
+      cursor: default
 
   &.large
     height: +emCalc(270px)
@@ -34,8 +36,9 @@
       height: +emCalc(270px)
 
     .name
-      padding-top: +emCalc(50px)
+      padding-top: +emCalc(30px)
       padding-bottom: +emCalc(50px)
+      color: white
 
     .description *
       opacity: 1
@@ -53,6 +56,7 @@
   .name
     margin: 0
     padding: +emCalc(20px)
+    padding-bottom: +emCalc(7px)
     padding-top: 0
     font-size: 90%
     text-transform: uppercase
@@ -69,14 +73,15 @@
       height: +emCalc(45px)
       @extend .white
       +radius(50%)
-    i:before
-      font-family: EntypoRemapped
-      font-weight: normal
-      font-style: normal
-      display: inline-block
-      text-decoration: inherit
-      content: "\f02e"
-      font-size: 180%
+      &:before
+        color: $primary-color
+        font-family: EntypoRemapped
+        font-weight: normal
+        font-style: normal
+        display: inline-block
+        text-decoration: inherit
+        content: "\f02e"
+        font-size: 180%
     span
       display: none
 
@@ -124,19 +129,55 @@
       height: +emCalc(10px)
       span
         display: block
-        background: darken(#CACACA, 10%)
+        background: $primary-color
         height: +emCalc(10px)
         +radius(4px)
 
 
   &.recreation
-    .category i
-      color: #BF0049
-      &:before
-        content: "\f0c5"
-    &.large .name
-      background: #BF0049
-      color: white
-    .progress
-      span
-        background: #BF0049
+    $recreation-color: #CB4042
+    .category i:before
+      color: $recreation-color
+      content: "\f0e4"
+    &.large .name, .progress span
+      background: $recreation-color
+
+  &.entertainment
+    $entertainment-color: #246b5b
+    .category i:before
+      color: $entertainment-color
+      content: "\f0c5"
+    &.large .name, .progress span
+      background: $entertainment-color
+
+  &.event
+    $event-color: #dec423
+    .category i:before
+      color: $event-color
+      content: "\f062"
+    &.large .name, .progress span
+      background: $event-color
+
+  &.mobility
+    $mobility-color: #d3663a
+    .category i:before
+      color: $mobility-color
+      content: "\f0ec"
+    &.large .name, .progress span
+      background: $mobility-color
+
+  &.restoration
+    $restoration-color: #256483
+    .category i:before
+      color: $restoration-color
+      content: "\f09b"
+    &.large .name, .progress span
+      background: $restoration-color
+
+  &.technology
+    $technology-color: #744689
+    .category i:before
+      color: $technology-color
+      content: "\f0b3"
+    &.large .name, .progress span
+      background: $technology-color
