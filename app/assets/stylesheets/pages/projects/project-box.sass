@@ -45,16 +45,15 @@
         text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.8)
 
   &.large
-    height: +emCalc(270px)
+    overflow: visible
+    height: auto
     .cover
-      +grid-column(8)
-      padding-right: 0
+      padding: 0
       img
         width: +emCalc(500px)
         height: +emCalc(270px)
 
     .content
-      +grid-column(4)
       padding-left: 0
       padding-right: 0
       height: +emCalc(270px)
