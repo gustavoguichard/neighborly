@@ -38,7 +38,6 @@ class ApplicationController < ActionController::Base
 
   # TODO: Change this way to get the opendata
   before_filter do
-    @press_assets = PressAsset.order('created_at DESC').limit(5)
     @fb_admins = [100000428222603, 547955110]
   end
 
