@@ -1,6 +1,11 @@
 .project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 columns' if defined?(large)} #{'large-3 columns' unless defined?(large)} #{project.category.to_s.parameterize if project.category}"]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
-  = link_to project_by_slug_path(project.permalink) do
+  - if project.soon?
+    - project_link = 'javascript:void(0)'
+  - else
+    - project_link = project_by_slug_path(project.permalink)
+
+  = link_to project_link do
     /- if project.expired?
       .status-image
         = link_to project_path(project), target: ( defined?(embed_link) ? :blank : '' ) do
