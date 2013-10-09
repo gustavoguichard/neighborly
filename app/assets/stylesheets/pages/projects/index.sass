@@ -58,6 +58,9 @@
     section
       margin-bottom: +emCalc(20px)
 
+    [class*="column"]:last-child
+      float: left
+
     h3
       text-transform: uppercase
       color: $secondary-font-color
@@ -66,3 +69,20 @@
       margin-bottom: +emCalc(10px)
       i
         padding-right: +emCalc(5px)
+
+  section.press
+    @extend .white
+    padding: +emCalc(45px) 0
+    border-top: 1px solid $border-color
+    a
+      float: left
+      margin-right: +emCalc(35px)
+      opacity: 0.4
+      background: white
+      +single-transition(all, 0.5s)
+      &:hover
+        opacity: 1
+
+      &:last-child
+        float: right
+        margin-right: 0
