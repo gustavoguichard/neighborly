@@ -14,7 +14,6 @@
           h4 =t(".how-it-works.#{number}.headline")
           p =t(".how-it-works.#{number}.text")
 
-
   - unless current_user.present?
     section.join.white
       .row
@@ -22,8 +21,6 @@
           = t('.join.join_the_neighborhood')
           i.icon-et-right-circled
         p = t('.join.already_joined', link: link_to(t('.join.sign_in'), new_user_session_path)).html_safe
-
-
 
   section.projects
     .row
@@ -37,13 +34,19 @@
           = render 'project', project: @recommended if @recommended
 
       section.near
-        h3
-          i.icon-et-location
-          = t('.near')
-          |  TODOOOOO
+        header
+          h3
+            i.icon-et-location
+            = t('.near')
+          form.custom
+            = select_tag :city, options_for_select(Project.locations), class: 'change-city', id: 'customDropdown'
+
         .row
-          - for project in Project.visible.not_soon.limit(4)
-            = render 'project', project: project
+          - if @near_projects.any?
+            - for project in @near_projects
+              = render 'project', project: project
+          - else
+            .large-12.columns = t('.no_projects_near', city: @city)
 
       - if @ending_soon.any?
         section.ending-soon
@@ -64,8 +67,6 @@
           .row
             - for project in @coming_soon
               = render 'project', project: project
-
-
 
   section.press
     .row
