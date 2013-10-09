@@ -1,4 +1,5 @@
 .project-box
+  position: relative
   overflow: hidden
   margin-bottom: +emCalc(30px)
   a
@@ -19,8 +20,29 @@
         height: +emCalc(243px)
         margin-top: +emCalc(-95px)
   &.soon
+    height: +emCalc(122px)
     a
       cursor: default
+    .content
+      position: absolute
+      bottom: 0
+      height: auto
+      background: transparent
+      .category
+        float: left
+        padding-left: +emCalc(5px)
+        padding-right: +emCalc(8px)
+        i
+          background: $primary-color
+          margin-top: 0
+          font-size: 70%
+          &:before
+            color: white
+
+      .name
+        padding-right: +emCalc(5px)
+        color: white
+        text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.8)
 
   &.large
     height: +emCalc(270px)
@@ -71,8 +93,8 @@
       margin-top: +emCalc(-20px)
       padding: +emCalc(10px)
       display: inline-block
-      width: +emCalc(50px)
-      height: +emCalc(45px)
+      width: +emCalc(48px)
+      height: +emCalc(48px)
       @extend .white
       +radius(50%)
       &:before
@@ -143,6 +165,12 @@
       content: "\f0e4"
     &.large .name, .progress span
       background: $recreation-color
+    &.soon
+      .category
+        i
+          background: $recreation-color
+          &:before
+            color: white
 
   &.entertainment
     $entertainment-color: #246b5b
@@ -151,6 +179,12 @@
       content: "\f0c5"
     &.large .name, .progress span
       background: $entertainment-color
+    &.soon
+      .category
+        i
+          background: $entertainment-color
+          &:before
+            color: white
 
   &.event
     $event-color: #dec423
@@ -159,6 +193,12 @@
       content: "\f062"
     &.large .name, .progress span
       background: $event-color
+    &.soon
+      .category
+        i
+          background: $event-color
+          &:before
+            color: white
 
   &.mobility
     $mobility-color: #d3663a
@@ -167,6 +207,12 @@
       content: "\f0ec"
     &.large .name, .progress span
       background: $mobility-color
+    &.soon
+      .category
+        i
+          background: $mobility-color
+          &:before
+            color: white
 
   &.restoration
     $restoration-color: #256483
@@ -175,6 +221,12 @@
       content: "\f09b"
     &.large .name, .progress span
       background: $restoration-color
+    &.soon
+      .category
+        i
+          background: $restoration-color
+          &:before
+            color: white
 
   &.technology
     $technology-color: #744689
@@ -183,3 +235,9 @@
       content: "\f0b3"
     &.large .name, .progress span
       background: $technology-color
+    &.soon
+      .category
+        i
+          background: $technology-color
+          &:before
+            color: white
