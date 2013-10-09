@@ -389,6 +389,10 @@ class Project < ActiveRecord::Base
     channels.first ? :project_received_channel : :project_received
   end
 
+  def self.locations
+    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map { |p| [p.address, p.address] }
+  end
+
   private
   def self.get_routes
     routes = Rails.application.routes.routes.map do |r|

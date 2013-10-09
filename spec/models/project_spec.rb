@@ -43,6 +43,16 @@ describe Project do
     it { should == states }
   end
 
+  describe '.locations' do
+    before do
+      create(:project, address: 'San Francisco, CA')
+      create(:project, address: 'Kansas City, MO')
+      create(:project, address: 'Kansas City, MO')
+    end
+    subject { Project.locations }
+    it { should have(2).items }
+  end
+
   describe '.near_of' do
     before do
       3.times { create(:project, address_state: 'MG') }
