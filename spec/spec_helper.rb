@@ -89,6 +89,8 @@ RSpec.configure do |config|
                             'country'      => 'United States',
                             'country_code' => 'US'
     Geocoder.stub :search => [Geocoder::Result::Base.stub(:new).and_return(result)]
+    Geocoder.stub :coordinates => [result.latitude, result.longitude]
+
     CatarseMailchimp::API.stub(:subscribe).and_return(true)
     CatarseMailchimp::API.stub(:unsubscribe).and_return(true)
     PaperTrail.controller_info = {}
