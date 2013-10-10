@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
   load_and_authorize_resource only: [ :new, :create, :update, :destroy ]
   inherit_resources
-  has_scope :pg_search, :by_category_id, :near_of
+  has_scope :pg_search, :by_category_id
   has_scope :recent, :expiring, :successful, :recommended, :not_expired, :not_soon, :soon, type: :boolean
 
   respond_to :html
@@ -14,8 +14,8 @@ class ProjectsController < ApplicationController
     if request.xhr?
       params[:not_soon] = 'true' unless params.include?(:soon)
       params[:not_expired] = 'true' if params.include?(:recommended)
-      @projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(4)
-      return render partial: 'project', collection: @projects, layout: false
+      projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(4)
+      return render partial: 'project', collection: projects, layout: false
     else
       if current_user && current_user.address.present?
         @city = current_user.address
@@ -24,6 +24,8 @@ class ProjectsController < ApplicationController
       else
         @city = 'Kansas City, MO'
       end
+      @project_locations = Project.locations
+      @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
 
       @press_assets = PressAsset.order('created_at DESC').limit(5)
       @featured = Project.with_state('online').featured.limit(1).first
@@ -31,6 +33,15 @@ class ProjectsController < ApplicationController
       @near_projects = Project.with_state('online').near(@city, 50).order('distance').limit(4)
       @ending_soon = Project.expiring.home_page.limit(4)
       @coming_soon = Project.soon.home_page.limit(8)
+    end
+  end
+
+  def near
+    if request.xhr?
+      projects = apply_scopes(Project).with_state('online').near(params[:location], 30).visible.order('distance').page(params[:page]).per(4)
+      return render partial: 'project', collection: projects, layout: false
+    else
+      raise ActionController::UnknownController
     end
   end
 
