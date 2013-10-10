@@ -48,6 +48,7 @@ describe Project do
       create(:project, address: 'San Francisco, CA')
       create(:project, address: 'Kansas City, MO')
       create(:project, address: 'Kansas City, MO')
+      create(:project, address: 'Kansas City, KS', state: 'draft')
     end
     subject { Project.locations }
     it { should have(2).items }
