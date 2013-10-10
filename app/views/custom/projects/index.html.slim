@@ -39,9 +39,9 @@
             i.icon-et-location
             = t('.near')
           form.custom
-            = select_tag :city, options_for_select(Project.locations), class: 'change-city', id: 'customDropdown'
+            = select_tag :city, options_for_select(@project_locations, @city), class: 'change-city', id: 'customDropdown', data: { 'projects-path' => projects_path }
 
-        .row
+        .row.content
           - if @near_projects.any?
             - for project in @near_projects
               = render 'project', project: project
