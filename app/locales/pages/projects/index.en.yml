@@ -7,6 +7,7 @@ en:
       ending_soon: 'Ending Soon'
       coming_soon: 'Coming Soon'
       no_projects_near: 'No projects near %{city}.'
+      discover: 'Explore more campaigns'
       join:
         join_the_neighborhood: 'Join the Neighborhood'
         already_joined: 'Already joined? %{link}.'
