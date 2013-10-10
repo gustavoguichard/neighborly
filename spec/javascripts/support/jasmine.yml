@@ -3,29 +3,12 @@
 # Return an array of filepaths relative to src_dir to include before jasmine specs.
 # Default: []
 #
-# EXAMPLE:
-#
-# src_files:
-#   - lib/source1.js
-#   - lib/source2.js
-#   - dist/**/*.js
-#
+src_dir: "app/assets/javascripts"
+
+# list of file expressions to include as source files
+# relative path from src_dir
 src_files:
-  - application.js
-  - app/assets/javascripts/lib/jquery.js
-  - assets/jquery_ujs.js
-  - app/assets/javascripts/lib/underscore.js
-  - app/assets/javascripts/lib/backbone.js
-  - app/assets/javascripts/lib/skull.js
-  - app/assets/javascripts/lib/infinite_scroll.js
-  - assets/best_in_place.js
-  - app/assets/javascripts/lib/*.js
-  - app/assets/javascripts/app/app.js
-  - app/assets/javascripts/app/project.js
-  - app/assets/javascripts/app/review.js
-  - app/assets/javascripts/app/registration.js
-  - app/assets/javascripts/app/updates.js
-  - app/assets/javascripts/**/*.js
+ - "application.{js,coffee}"
 
 asset_paths:
   - app/assets/javascripts
@@ -68,7 +51,7 @@ helpers:
 #   - '**/*[sS]pec.js'
 #
 spec_files:
-  - '**/*[sS]pec.js'
+  - "**/*[Ss]pec.{js,coffee}"
 
 # src_dir
 #
