@@ -20,7 +20,7 @@
         = image_tag "coming_soon.#{I18n.locale}.png"
 
     .cover[class="#{'large-8 columns' if defined?(large)}"]
-      = image_tag project.display_image, itemprop: 'image'
+      = image_tag project.display_image(defined?(large) ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
     .content[class="#{'large-4 columns' if defined?(large)}"]
       - if defined?(large)
