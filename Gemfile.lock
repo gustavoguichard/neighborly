@@ -35,6 +35,14 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/josemarluedke/initjs.git
+  revision: 2549e5b94db23d2da1fc1ba241fec79f5f380577
+  specs:
+    initjs (1.0.1)
+      jquery-rails
+      rails (>= 3.1)
+
+GIT
   remote: git://github.com/luminopolis/catarse_paypal_express
   revision: 967d7060f201b32515dc36ce8fbd60933909b7fc
   ref: 967d7060f201b32515dc36ce8fbd60933909b7fc
@@ -244,9 +252,6 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    initjs (1.0.0)
-      jquery-rails
-      rails (>= 3.1)
     jasmine-core (1.3.1)
     jasmine-rails (0.4.6)
       jasmine-core (~> 1.3)
@@ -522,8 +527,8 @@ DEPENDENCIES
   httparty (~> 0.6.1)
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
-  initjs
-  jasmine-rails
+  initjs!
+  jasmine-rails (~> 0.4.6)
   jquery-rails (~> 3.0.4)
   kaminari
   launchy
