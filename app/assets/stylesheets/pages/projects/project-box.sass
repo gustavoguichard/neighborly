@@ -100,12 +100,8 @@
       +radius(50%)
       &:before
         color: $primary-color
-        font-family: EntypoRemapped
-        font-weight: normal
-        font-style: normal
-        display: inline-block
-        text-decoration: inherit
-        content: "\f02e"
+        @extend [class^="icon-et-"]:before
+        @extend .icon-et-thumbs-up:before
         font-size: 180%
     span
       display: none
@@ -158,87 +154,24 @@
         height: +emCalc(10px)
         +radius(4px)
 
+  $categories-names: recreation, entertainment, event, mobility, restoration, technology
+  $categories-colors: #CB4042, #246b5b, #dec423, #d3663a, #256483, #744689
+  $categories-icons: bucket, leaf, calendar, rocket, arrows-ccw, signal
 
-  &.recreation
-    $recreation-color: #CB4042
+  =category-style-for($name)
     .category i:before
-      color: $recreation-color
-      content: "\f0e4"
+      color: nth($categories-colors, index($categories-names, $name))
+      @extend .icon-et-#{nth($categories-icons, index($categories-names, $name))}:before
     &.large .name, .progress span
-      background: $recreation-color
+      background: nth($categories-colors, index($categories-names, $name))
     &.soon
       .category
         i
-          background: $recreation-color
+          background: nth($categories-colors, index($categories-names, $name))
           &:before
             color: white
 
-  &.entertainment
-    $entertainment-color: #246b5b
-    .category i:before
-      color: $entertainment-color
-      content: "\f0c5"
-    &.large .name, .progress span
-      background: $entertainment-color
-    &.soon
-      .category
-        i
-          background: $entertainment-color
-          &:before
-            color: white
+  @each $name in $categories-names
+    &.#{$name}
+      +category-style-for($name)
 
-  &.event
-    $event-color: #dec423
-    .category i:before
-      color: $event-color
-      content: "\f062"
-    &.large .name, .progress span
-      background: $event-color
-    &.soon
-      .category
-        i
-          background: $event-color
-          &:before
-            color: white
-
-  &.mobility
-    $mobility-color: #d3663a
-    .category i:before
-      color: $mobility-color
-      content: "\f0ec"
-    &.large .name, .progress span
-      background: $mobility-color
-    &.soon
-      .category
-        i
-          background: $mobility-color
-          &:before
-            color: white
-
-  &.restoration
-    $restoration-color: #256483
-    .category i:before
-      color: $restoration-color
-      content: "\f09b"
-    &.large .name, .progress span
-      background: $restoration-color
-    &.soon
-      .category
-        i
-          background: $restoration-color
-          &:before
-            color: white
-
-  &.technology
-    $technology-color: #744689
-    .category i:before
-      color: $technology-color
-      content: "\f0b3"
-    &.large .name, .progress span
-      background: $technology-color
-    &.soon
-      .category
-        i
-          background: $technology-color
-          &:before
-            color: white
