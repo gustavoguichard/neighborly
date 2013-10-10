@@ -122,7 +122,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.0'
-  gem 'jasmine-rails'
+  gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
 end
 
@@ -144,7 +144,7 @@ gem 'font-awesome-rails'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails'
 gem 'zurb-foundation'
 gem 'turbolinks'
-gem 'initjs'
+gem 'initjs', github: 'josemarluedke/initjs'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
