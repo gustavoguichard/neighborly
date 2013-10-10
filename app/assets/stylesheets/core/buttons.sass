@@ -14,3 +14,38 @@
   &:active
     position: relative
     top: 2px
+
+  &.custom
+    border: 2px solid $primary-color
+    background: transparent
+    color: $primary-color
+
+    &:hover
+      position: relative
+      top: 1px
+
+    &:active
+      position: relative
+      top: 3px
+
+    &.with-icon
+      padding-right: +emCalc(70px)
+      &:after
+        position: absolute
+        display: inline-block
+        top: 0
+        right: 0
+        border-left: 2px solid $primary-color
+        font-size: 180%
+        width: +emCalc(40px)
+        height: 100%
+        padding-top: +emCalc(3px)
+        @extend [class^="icon-et-"]:before
+        @extend .icon-et-right-circled:before
+
+
+    &.large
+      font-size: 150%
+      &.with-icon:after
+        padding-top: +emCalc(6px)
+

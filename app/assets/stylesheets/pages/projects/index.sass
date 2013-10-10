@@ -110,7 +110,7 @@
           text-transform: uppercase
           &:after
             @extend [class^="icon-et-"]:before
-            content: "\f080"
+            @extend .icon-et-down-open-mini:before
             margin-left: +emCalc(5px)
             text-decoration: none
 
@@ -118,3 +118,6 @@
           display: none
         ul
           font-size: 110%
+
+  section.discover
+    margin-top: +emCalc(20px)
