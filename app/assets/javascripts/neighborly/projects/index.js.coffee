@@ -11,7 +11,7 @@ Neighborly.Projects.Index = Backbone.View.extend
 
   changeCity: ->
     city = this.$('.change-city').val()
-    url = "#{this.$('.change-city').data('projects-path')}?near=#{city}"
+    url = "#{this.$('.change-city').data('projects-path')}?location=#{city}"
 
     $.ajax(
       url: url
