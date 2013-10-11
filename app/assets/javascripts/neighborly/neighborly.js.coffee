@@ -37,4 +37,4 @@ window.Neighborly =
       show: ->
         $('#loading #back-overlay, #loading #front-overlay').fadeIn(2)
       hide: ->
-        $('#loading #back-overlay, #loading #front-overlay').fadeOut(2)
+        $('#loading #back-overlay, #loading #front-overlay').hide()
