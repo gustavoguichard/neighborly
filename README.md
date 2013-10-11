@@ -8,22 +8,16 @@ Welcome to Catarse's source code repository. Our goal with opening the source co
 
 You can see the software in action at http://neighbor.ly.
 
-## Getting started
+# Getting started
 
 ## Internationalization
 
-This software was first created as Brazil's first crowdfunding platform. 
-Thus, it was first made in Portuguese and with a brazilian payment gateway. 
-We are now internationalizing it, and already have a good support for the english language and for paypal express checkout.
-See below the Payment gateways section for more information about integrating Catarse with a payment system of your choice.
-If you want to join us in this effort, please feel free to fork the repository and send us a pull request with your changes. If you have *any* doubt, please join our Google Group at http://groups.google.com/group/catarse-dev and we will help you.
+This software was originally created as [Catarse](https://github.com/catarse/catarse), Brazil's first crowdfunding platform. 
+It was first made in Portuguese then later English support added by [Daniel Walmsley](http://purpose.com). Neighbor.ly focused on making all aspects of the interface in US English. There are still some patches of both languages throughout the software, but overall there is good infrastructure in place to internationalize to the language of your choice. 
 
 ### Translations
 
-We hope to support a lot of languages in the future. So we are willing to accept pull requests with translations to other languages. Here's a small guide to translate Catarse to your language in a way that we can integrate your translation in the main repository:
-* TODO 
-
-Thanks a lot to Daniel Walmsley, from http://purpose.com, for starting the internationalization and beginning the english translation.
+We hope to offer many languages in the future. So if you decide to implement Neighbor.ly in your own language, please let us know so we can include your language here. 
 
 ## Payment gateways
 
@@ -73,6 +67,6 @@ Contributors: You know who you are ;) The commit history can help, but the list 
 
 ## License
 
-Copyright (c) 2011 Softa
+Copyright (c) 2013 Neighbor.ly
 
-Licensed under the MIT license (see MIT-LICENSE file)
+Licensed under the [MIT License](MIT-LICENSE)
