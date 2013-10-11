@@ -1,19 +1,12 @@
 # Neighbor.ly [![Build Status](https://secure.travis-ci.org/catarse/catarse.png?branch=master)](https://travis-ci.org/catarse/catarse) [![Coverage Status](https://coveralls.io/repos/catarse/catarse/badge.png?branch=channels)](https://coveralls.io/r/catarse/catarse) [![Dependency Status](https://gemnasium.com/catarse/catarse.png)](https://gemnasium.com/catarse/catarse)
 
+Welcome to the first open source fundraising toolkit for community projects. Neighbor.ly began in April 2012 as a fork of the wildly successful Brazillian crowdfunding platform [Catarse](https://github.com/catarse/catarse). Working closely with the developers of that project, Neighbor.ly is building towards a full spectrum fundraising toolkit for civic projects. 
 
-
-The first open source fundraising toolkit for community projects.
-
-
-## Official repository changed!
-
-Our new address is https://github.com/catarse/catarse
-
-## An open source crowdfunding platform for creative projects
+## An open source fundraising toolkit for civic projects
 
 Welcome to Catarse's source code repository. Our goal with opening the source code is to stimulate the creation of a community of developers around a high-quality crowdfunding platform.
 
-You can see the software in action in http://catarse.me.
+You can see the software in action at http://neighbor.ly.
 
 ## Getting started
 
@@ -34,16 +27,16 @@ Thanks a lot to Daniel Walmsley, from http://purpose.com, for starting the inter
 
 ## Payment gateways
 
-Currently, we support MoIP and PayPal through our payment engines. Payment engines are extensions to Catarse that implement a specific payment gateway logic. 
-The two current working engines are:
-* MoIP
+Neighbor.ly supports payment gateways through payment engines. Payment engines are extensions to Neighbor.ly that implement a specific payment gateway logic. 
+The two current supported payment gateways are:
+* Authorize.net for credit cards and e-checks
 * PayPal
 
-If you have created a different payment engine to Catarse please contact us so we can link your engine here.
-If you want to create a payment engine please join our mailing list at http://groups.google.com/group/catarse-dev
+We have plans to implement Dwolla in the future.
+
+If you have created another payment engine, please contact us so we can link your engine here.
 
 
-Here are some tips to get things started:
 
 ## How to contribute with code
 
