@@ -1,12 +1,13 @@
 # Neighbor.ly [![Build Status](https://secure.travis-ci.org/catarse/catarse.png?branch=master)](https://travis-ci.org/catarse/catarse) [![Coverage Status](https://coveralls.io/repos/catarse/catarse/badge.png?branch=channels)](https://coveralls.io/r/catarse/catarse) [![Dependency Status](https://gemnasium.com/catarse/catarse.png)](https://gemnasium.com/catarse/catarse)
 
-Welcome to the first open source fundraising toolkit for community projects. Neighbor.ly began in April 2012 as a fork of the wildly successful Brazillian crowdfunding platform [Catarse](https://github.com/catarse/catarse). Working closely with the developers of that project, Neighbor.ly is building towards a full spectrum fundraising toolkit for civic projects. 
+Welcome to the first open source fundraising toolkit for civic projects. Neighbor.ly began in February 2012 as a fork of the wildly successful Brazillian crowdfunding platform [Catarse](https://github.com/catarse/catarse). Working closely with the developers of that project, Neighbor.ly is building towards a full spectrum fundraising toolkit for civic projects. 
 
 ## An open source fundraising toolkit for civic projects
 
-Welcome to Catarse's source code repository. Our goal with opening the source code is to stimulate the creation of a community of developers around a high-quality crowdfunding platform.
+This is the source code repository running [Neighbor.ly](http://neighbor.ly). We've decided to open source the code for our platform in the hopes that communities will find it useful as they embrace new funding sources for projects once covered by taxes and bonds. 
 
-You can see the software in action at http://neighbor.ly.
+Communities are always welcome and encouraged to list their projects on [Neighbor.ly](http://neighbor.ly). This codebase is intended for communities who would rather own and operate their own platforms. We also offer consultancy in setting the platform up as a "white label" extension to your exisitng website, and offer a variety of paid licensed versions built specifically for your needs (often easier and almost always cheaper than implementing this yourself)
+
 
 # Getting started
 
@@ -26,34 +27,25 @@ The two current supported payment gateways are:
 * Authorize.net for credit cards and e-checks
 * PayPal
 
-We have plans to implement Dwolla in the future.
+We're actively planning to implement [Dwolla](http://dwolla.com) in the future.
 
 If you have created another payment engine, please contact us so we can link your engine here.
 
 
 
-## How to contribute with code
+## How to contribute
 
-Before contributing, take a look at our Roadmap (https://www.pivotaltracker.com/projects/427075) and discuss your plans in our mailing list (http://groups.google.com/group/catarse-dev).
-
-Our pivotal is concerned with user visible features using user stories. But we do have some features not visible to users that are planned such as:
-* Turn Catarse into a Rails Engine with customizable views.
-* Turn Backer model into a finite state machine using the state_machine gem as we did with the Project model.
-* Improve the payments engine isolation providing a clear API to integrate new payment engines in the backer review page.
-* Make a installer script to guide users through initial Catarse configuration.
-
-Currently, a lot of functionality is not tested. If you don't know how to start contributing, please help us regaining control over the code and write a few tests for us! *Any* doubt, please join our Google Group at http://groups.google.com/group/catarse-dev and we will help you out.
-
-After that, just fork the project, change what you want, and send us a pull request.
+Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to submit pull requests and contact us if you have ideas or questions. 
 
 ### Coding style
-* We prefer the `{foo: 'bar'}` over `{:foo => 'bar'}`
-* We prefer the `->(foo){ bar(foo) }` over `lambda{|foo| bar(foo) }`
+
+* We prefer `{foo: 'bar'}` over `{:foo => 'bar'}`
+* We prefer `->(foo){ bar(foo) }` over `lambda{|foo| bar(foo) }`
 
 ### Best practices (or how to get your pull request accepted faster)
 
 We use RSpec and Steak for the tests, and the best practices are:
-* Create one acceptance tests for each scenario of the feature you are trying to implement.
+* Create one acceptance test for each scenario of the feature you are trying to implement.
 * Create model and controller tests to keep 100% of code coverage at least in the new parts that you are writing.
 * Feel free to add specs to the code that is already in the repository without the proper coverage ;)
 * Try to isolate models from controllers as best as you can.
@@ -61,12 +53,9 @@ We use RSpec and Steak for the tests, and the best practices are:
 
 ## Credits
 
-Author: Daniel Weinmann
-
-Contributors: You know who you are ;) The commit history can help, but the list was getting bigger and pointless to keep in the README.
+Originally forked from [Catarse](https://github.com/catarse/catarse).
+Adapted by [devton](https://github.com/devton), [josemarluedke](https://github.com/josemarluedke), and [luminopolis](https://github.com/luminopolis). Made possible by support from hundreds of code contributors, [financial support](http://www.knightfoundation.org/press-room/press-release/neighborly-expands-crowdfunding-service-civic-proj/) from the Knight Foundation, and lots of love & bbq sauce in downtown Kansas City, Missouri. 
 
 ## License
 
-Copyright (c) 2013 Neighbor.ly
-
-Licensed under the [MIT License](MIT-LICENSE)
+Copyright (c) 2013 Neighbor.ly. Licensed as free and open source under the [MIT License](MIT-LICENSE)
