@@ -44,7 +44,7 @@ Thank you for your interest in helping to advance this project. We are actively 
 
 ### Best practices (or how to get your pull request accepted faster)
 
-We use RSpec and Steak for the tests, and the best practices are:
+We use RSpec for the tests, and the best practices are:
 * Create one acceptance test for each scenario of the feature you are trying to implement.
 * Create model and controller tests to keep 100% of code coverage at least in the new parts that you are writing.
 * Feel free to add specs to the code that is already in the repository without the proper coverage ;)
