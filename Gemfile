@@ -10,7 +10,7 @@ gem 'rails-observers', '~> 0.1.2'
 gem 'activerecord-session_store', '~> 0.0.1'
 
 gem 'sidekiq',  '~> 2.13.0'
-gem 'sinatra', require: false # required by sidekiq web interface mounted on /sidekiq
+gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # Turns every field on a editable one
 gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
@@ -28,7 +28,7 @@ gem 'pg_search'
 
 gem 'schema_plus'
 gem 'schema_associations'
-gem 'chartkick'
+gem 'chartkick', '1.1.0'
 
 # Payment engines
 gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
