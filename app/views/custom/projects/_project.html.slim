@@ -33,11 +33,12 @@
       - unless defined?(large)
         h4.name = project.name
 
-      - unless project.soon?
-        .description[itemprop="description"]
-          span = truncate(project.headline, length: 140, separator: ' ')
-          - unless defined?(large)
-            = link_to t('.get_involved'), project_by_slug_path(project.permalink), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
+      - if not project.soon?
+        - if (defined?(large) || !browser.ie8?)
+          .description[itemprop="description"]
+            span = truncate(project.headline, length: 140, separator: ' ')
+            - unless defined?(large)
+              = link_to t('.get_involved'), project_by_slug_path(project.permalink), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
 
         .status
           .row.collapse
