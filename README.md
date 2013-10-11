@@ -6,7 +6,7 @@ Welcome to the first open source fundraising toolkit for civic projects. Neighbo
 
 This is the source code repository running [Neighbor.ly](http://neighbor.ly). We've decided to open source the code for our platform in the hopes that communities will find it useful as they embrace new funding sources for projects once covered by taxes and bonds. 
 
-Communities are always welcome and encouraged to list their projects on [Neighbor.ly](http://neighbor.ly). This codebase is intended for communities who would rather own and operate their own platforms. We also offer consultancy in setting the platform up as a "white label" extension to your exisitng website, and offer a variety of paid licensed versions built specifically for your needs (often easier and almost always cheaper than implementing this yourself)
+Communities are always welcome and encouraged to list their projects on [Neighbor.ly](http://neighbor.ly). This codebase is intended for communities who would rather own and operate their own platforms. We also offer consultancy in setting the platform up as a "white label" extension to your exisitng website, and offer a variety of paid licensed versions built specifically for your needs (often easier and almost always cheaper than implementing this yourself). If you are interested in ways we can help you make the most of civic fundraising please [contact us](http://neighbor.ly).
 
 
 # Getting started
