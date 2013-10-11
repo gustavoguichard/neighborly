@@ -42,6 +42,7 @@ gem 'draper'
 # Frontend stuff
 gem 'slim-rails', '~> 1.1.1'
 gem 'jquery-rails', '~> 3.0.4'
+gem 'browser'
 
 # Authentication and Authorization
 gem 'omniauth'
