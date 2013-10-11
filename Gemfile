@@ -19,7 +19,7 @@ gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
 gem 'state_machine', require: 'state_machine/core'
 
 # paranoid stuff
-gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
+gem 'paper_trail', '~> 3.0.0.beta1'
 
 # Database and data related
 gem 'pg'
@@ -139,7 +139,7 @@ end
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem "compass-rails", github: "milgner/compass-rails", ref: "1749c06f15dc4b058427e7969810457213647fb8"
+gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'uglifier'
 gem 'compass-960-plugin'
 gem 'font-awesome-rails'
