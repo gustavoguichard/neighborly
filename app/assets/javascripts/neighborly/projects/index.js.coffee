@@ -3,15 +3,12 @@ Neighborly.Projects = {} if Neighborly.Projects is undefined
 Neighborly.Projects.Index = Backbone.View.extend
   el: '.home-page'
 
-  events:
-    'change .change-city': 'changeCity'
-
   initialize: ->
-
+    $('.change-city').change(this.changeCity)
 
   changeCity: ->
-    city = this.$('.change-city').val()
-    url = "#{this.$('.change-city').data('projects-path')}?location=#{city}"
+    city = $('.change-city').val()
+    url = "#{$('.change-city').data('projects-path')}?location=#{city}"
 
     $.ajax(
       url: url

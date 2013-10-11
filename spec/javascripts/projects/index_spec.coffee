@@ -6,7 +6,13 @@ describe "Projects.Index", ->
     @view = new Neighborly.Projects.Index()
 
   describe "#ChangeCity", ->
-    it "should call near projects url", ->
+    it 'should delegate change event', ->
+      spyOn(@view, 'changeCity')
+      @view.initialize()
+      $('.change-city').change()
+      expect(@view.changeCity).toHaveBeenCalled()
+
+    it 'should call near projects url', ->
       spyOn($, 'ajax')
       @view.changeCity()
       expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("/projects/near?location=test")
