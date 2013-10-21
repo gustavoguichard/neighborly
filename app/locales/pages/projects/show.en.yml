@@ -10,3 +10,13 @@ en:
         see_all_backers: 'See all neighbors behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
+      tabs:
+        about: 'About'
+        updates: 'Updates'
+        faqs: 'FAQs'
+        comments: 'Comments'
+        backers: 'Backers'
+        budget: 'Budget'
+        terms: 'Terms'
+        edit: 'Edit'
+        reports: 'Reports'
