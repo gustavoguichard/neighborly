@@ -30,6 +30,9 @@
             p
               = raw("Your total charge will be <strong class='total_value'></strong> ")
               i class='icon-info-sign'
+              .info_more[style='display:none']
+                br/
+                p= raw("Your support of <strong>#{@backer.project.name}</strong> makes a world of difference. In order to make the most of your contribution we ask that you please cover costs associated with the electronic transaction. Thank you for understanding and we are actively working on payment methods with lower fees.")
     .clearfix
 
 
