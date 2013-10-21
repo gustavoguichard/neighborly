@@ -226,7 +226,7 @@ class Project < ActiveRecord::Base
   end
 
   def remaining_text
-    pluralize_without_number(time_to_go[:time], I18n.t('remaining_singular'), I18n.t('remaining_plural'))
+    pluralize_without_number(time_to_go[:time], I18n.t('words.remaining_singular'), I18n.t('words.remaining_plural'))
   end
 
   def update_video_embed_url

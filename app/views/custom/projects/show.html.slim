@@ -15,192 +15,251 @@
   meta property="og:site_name" content=::Configuration[:company_name]
   meta property="fb:admins" content="#{fb_admins}"
 
-#page_content
-  .container
+.project-page
+  header
+    .row
+      .large-6.columns
+        iframe src="#{@project.display_video_embed_url}" width="460" height="305" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
+      .large-6.columns
+        .name
+          h3 = @project.name
+        .subtitle
+          h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(anchor: "by_category_id/#{@project.category_id}")), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+        hr
+        .headline
+          p = @project.headline
+        .status
+          .progress.round
+            span.meter[style="width: #{@project.display_progress}%"]
+          .row.collapse
+            .pledged.large-6.columns = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
 
-    - if @project.draft?
-      = render "draft_warning"
+  section.status-bar
+    .row
+      .large-5.columns.name
+        p = link_to '#' do
+          i.icon-et-home
+          = @project.name
 
-    - if @project.rejected?
-      = render "rejected_warning"
-
-    /- if @project.online? && can?(:update, @project)
-      /= render "online_warning"
-
-    /- if @project.waiting_funds? && can?(:update, @project)
-      /= render "waiting_funds_warning"
-
-    /- if @project.successful? && can?(:update, @project)
-      /= render "successful_warning"
-
-    /- if @project.failed? && can?(:update, @project)
-      /= render "failed_warning"
-
-    #project_description
-    .project_image
-      = image_tag @project.display_image('project_thumb_small')
-    .section_header
-      h1= @project.name
-      - if @project.display_address_formated.present?
-        h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id}")), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
-      -else
-        h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id}")), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
-    .tab_container
-      nav#project_menu
-        = link_to '#about', 'id' => 'about_link', 'class' => 'selected', 'data-target' => '#project_about.content' do
-          = t('.menu.about')
-        = link_to '#updates', 'id' => 'updates_link', 'data-target' => '#project_updates' do
-          = t('.menu.updates')
-          span.count=" (#{@updates_count})"
-        = link_to '#backers', 'id' => 'backers_link', 'data-target' => '#project_backers' do
-          = t('.menu.backers')
-          span.count=" (#{@project.total_backers})"
-        = link_to '#comments', 'id' => 'comments_link', 'data-target' => '#project_comments.content' do
-          = t('.menu.comments')
-          span.commentsCount style="display: none;"
-            | &nbsp;(
-            span#countNumber
-            | )
-
-        - if @project.project_faqs.any? || can?(:update, @project)
-          = link_to '#project_faqs', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
-            = 'FAQ'
-        - if @project.budget.present?
-          = link_to '#budget', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
-            = 'Budget'
-        - if @project.terms.present? || can?(:update, @project)
-          = link_to '#terms', 'id' => 'terms_link', 'data-target' => '#project_terms.content' do
-            = 'Terms'
-        - if can? :update, @project
-          = link_to '#edit', 'id' => 'edit_link', 'data-target' => '#project_edit' do
-            = t('.menu.edit')
-          = link_to '#reports', 'id' => 'reports_link', 'data-target' => '#project_reports' do
-            = t('.menu.reports')
-    .main
-      #project_content
-        - if can? :update, @project
-          #project_reports.content.hide
-            = render partial: 'project_reports'
-          #project_edit.content.hide
-            = render partial: 'project_edit'
-
-        #project_faqs.content.hide
-          - if can? :update, @project
-            = render template: 'projects/project_faqs/new'
-          .results
-            = render template: 'projects/project_faqs/index'
-
-        #project_terms.content.hide
-          - if can? :update, @project
-            = render template: 'projects/project_documents/new'
-          - if @project.project_documents.present?
-            .results
-              = render template: 'projects/project_documents/index'
-            hr/
-          - if @project.terms.present?
-            .text
-              h2 Terms
-              = raw(@project.terms_html)
-
-        #project_updates.content.hide[data-path=project_updates_path(project_id: @project.id)]
-          - if can? :update, @project
-            = render template: 'projects/updates/new'
-          .results &nbsp;
-          .clearfix
-          #updates-loading.loading= image_tag "loading.gif"
-        #project_backers.content.hide[data-path=project_backers_path(project_id: @project.id)]
-          .results &nbsp;
-          .clearfix
-          #backers-loading.loading= image_tag "loading.gif"
-        #project_comments.content.hide= render 'comments'
-        #project_about.content= render 'project_about'
-        #project_budget.content.hide
-          .text = raw(@project.budget_html)
-      .clearfix
-    .sidebar
-      .info
-        #statistics
-          .statistics
-            .item.backers
-              p= @project.total_backers
-              em= t('statistics.backers.subtitle')
-            .item.goal
-              p= @project.display_pledged
-              em= t('statistics.goal.subtitle', total: @project.display_goal).html_safe
-            .item.time
-              - if @project.draft? || @project.rejected?
-                p= @project.online_days
-                em #{@project.online_days} #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('remaining_singular'), t('remaining_plural'))}
-              - else
-                p= @project.remaining_days
-                em #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('remaining_singular'), t('remaining_plural'))}
-
-          #condition[class="#{@project.display_status}"]
+      .large-7.columns.status
+        .row
+          .large-3.columns.pledged
+            p = "#{@project.display_pledged} (#{@project.progress}%)"
+            small = t('.status-bar.goal', value: @project.display_goal)
+          .large-3.columns.backers
             p
-              = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
-          - if @project.online? && @project.in_time?
-            #pledge
-              = form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
-                fieldset
-                  = submit_tag t('projects.back_project.submit'), disabled: (not @project.online?)
-        .clearfix
-          br/
-        - if can?(:update, @project)
-          .bootstrap-twitter.bootstrap-form
-            .alert.alert-info
-              h4.alert-header= t('.no_rewards_warning_title')
-              p style="margin:0; padding:0;"
-                = t('.no_rewards_warning')
-              br/
-            .clearfix
-            = link_to t('.menu.add_reward'), 'javascript:void(0);', data: {target: '.new_reward_content', path: new_project_reward_path(@project)}, class: 'btn btn-primary pull-right show_reward_form'
-            .clearfix
-            .new_reward_content.hide
-              = image_tag 'loading.gif'
-            br/
-            /.skull-modal.new_reward_content.hide
-              .skull-modal-header
-                h3= t('projects.rewards.new_reward')
-                a class='skull-modal-close' href='javascript:void(0);' &times;
-              .skull-modal-body
-                = image_tag 'loading.gif'
-        #rewards[data-can_update="#{can?(:update, @project)}" data-index_path=project_rewards_path(@project)]
-          .reward-loader= image_tag 'loading.gif'
+              i.icon-et-user
+              = t('.status-bar.total_backers', value: @project.total_backers)
+            - if @project.total_backers > 0
+              small
+                = link_to t('.status-bar.see_all_backers'), '#'
+          .large-3.columns.time-remaining
+            p
+              i.icon-et-clock
+              - if @project.draft? || @project.rejected?
+                = "#{@project.online_days} #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('words.remaining_singular'), t('words.remaining_plural'))}"
+              - else
+                = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
+            small = t('.status-bar.expires_at', date: l(@project.expires_at.to_date, format: :long)) if @project.expires_at.present?
+          .large-3.columns.get-involved
+            = link_to t('.status-bar.get_involved'), new_project_backer_url(@project), class: 'button'
 
-        #creator_profile
-          h3= t('project_by')
+  .row
+    section.large-9.columns.main
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-          - if @project.user.company?
-            .avatar.company = @project.user.display_image_html width: 100, height: 47
-          - else
-            .avatar = @project.user.display_image_html width: 80, height: 80
-
-          .personal_info
-            p.name
-             = link_to @project.user.display_name, user_path(@project.user)
-            #bio
-              p= @project.user.bio
-          #city
-            p.city
-              | #{@project.user.address_city}
-        .ask-question.bootstrap-twitter
-          - if current_user
-            = link_to 'Ask a question', '#new-user-question-modal', class: 'ask-question-button btn btn-success new-user-question-modal-link', :"data-toggle" => 'modal', data: { url: new_user_question_path(@project.user, project_id: @project.id) }
-          - else
-            = link_to 'Ask a question', new_user_question_path(@project.user, project_id: @project.id), class: 'ask-question-button btn btn-success new-user-question-modal-link'
+    aside.large-3.columns.sidebar
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    
 
 
-        .clearfix
 
-    .clearfix
-    = render partial: 'projects/contact_modal'
+/#page_content
+  /.container
 
-  - if current_user
-    .bootstrap-twitter
-      #new-user-question-modal.modal.hide.fade
-        .content
-          .modal-header
-            button.close data-dismiss="modal" type="button" x
-            h3= "Ask a question about #{@project.name}"
-          .modal-body
-            .loading= image_tag "loading.gif"
+    /- if @project.draft?
+      /= render "draft_warning"
+
+    /- if @project.rejected?
+      /= render "rejected_warning"
+
+    //- if @project.online? && can?(:update, @project)
+      //= render "online_warning"
+
+    //- if @project.waiting_funds? && can?(:update, @project)
+      //= render "waiting_funds_warning"
+
+    //- if @project.successful? && can?(:update, @project)
+      //= render "successful_warning"
+
+    //- if @project.failed? && can?(:update, @project)
+      //= render "failed_warning"
+
+    /#project_description
+    /.project_image
+      /= image_tag @project.display_image('project_thumb_small')
+    /.section_header
+      /h1= @project.name
+      /- if @project.display_address_formated.present?
+        /h4= t("projects.project_header.#{@project.campaign_type}.with_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id}")), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+      /-else
+        /h4= t("projects.project_header.#{@project.campaign_type}.without_city", category_name: link_to(@project.category, explore_path(anchor: "by_category_id/#{@project.category_id}")), author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+    /.tab_container
+      /nav#project_menu
+        /= link_to '#about', 'id' => 'about_link', 'class' => 'selected', 'data-target' => '#project_about.content' do
+          /= t('.menu.about')
+        /= link_to '#updates', 'id' => 'updates_link', 'data-target' => '#project_updates' do
+          /= t('.menu.updates')
+          /span.count=" (#{@updates_count})"
+        /= link_to '#backers', 'id' => 'backers_link', 'data-target' => '#project_backers' do
+          /= t('.menu.backers')
+          /span.count=" (#{@project.total_backers})"
+        /= link_to '#comments', 'id' => 'comments_link', 'data-target' => '#project_comments.content' do
+          /= t('.menu.comments')
+          /span.commentsCount style="display: none;"
+            /| &nbsp;(
+            /span#countNumber
+            /| )
+
+        /- if @project.project_faqs.any? || can?(:update, @project)
+          /= link_to '#project_faqs', 'id' => 'project_faqs_link', 'data-target' => '#project_faqs.content' do
+            /= 'FAQ'
+        /- if @project.budget.present?
+          /= link_to '#budget', 'id' => 'budget_link', 'data-target' => '#project_budget.content' do
+            /= 'Budget'
+        /- if @project.terms.present? || can?(:update, @project)
+          /= link_to '#terms', 'id' => 'terms_link', 'data-target' => '#project_terms.content' do
+            /= 'Terms'
+        /- if can? :update, @project
+          /= link_to '#edit', 'id' => 'edit_link', 'data-target' => '#project_edit' do
+            /= t('.menu.edit')
+          /= link_to '#reports', 'id' => 'reports_link', 'data-target' => '#project_reports' do
+            /= t('.menu.reports')
+    /.main
+      /#project_content
+        /- if can? :update, @project
+          /#project_reports.content.hide
+            /= render partial: 'project_reports'
+          /#project_edit.content.hide
+            /= render partial: 'project_edit'
+
+        /#project_faqs.content.hide
+          /- if can? :update, @project
+            /= render template: 'projects/project_faqs/new'
+          /.results
+            /= render template: 'projects/project_faqs/index'
+
+        /#project_terms.content.hide
+          /- if can? :update, @project
+            /= render template: 'projects/project_documents/new'
+          /- if @project.project_documents.present?
+            /.results
+              /= render template: 'projects/project_documents/index'
+            /hr/
+          /- if @project.terms.present?
+            /.text
+              /h2 Terms
+              /= raw(@project.terms_html)
+
+        /#project_updates.content.hide[data-path=project_updates_path(project_id: @project.id)]
+          /- if can? :update, @project
+            /= render template: 'projects/updates/new'
+          /.results &nbsp;
+          /.clearfix
+          /#updates-loading.loading= image_tag "loading.gif"
+        /#project_backers.content.hide[data-path=project_backers_path(project_id: @project.id)]
+          /.results &nbsp;
+          /.clearfix
+          /#backers-loading.loading= image_tag "loading.gif"
+        /#project_comments.content.hide= render 'comments'
+        /#project_about.content= render 'project_about'
+        /#project_budget.content.hide
+          /.text = raw(@project.budget_html)
+      /.clearfix
+    /.sidebar
+      /.info
+        /#statistics
+          /.statistics
+            /.item.backers
+              /p= @project.total_backers
+              /em= t('statistics.backers.subtitle')
+            /.item.goal
+              /p= @project.display_pledged
+              /em= t('statistics.goal.subtitle', total: @project.display_goal).html_safe
+            /.item.time
+              /- if @project.draft? || @project.rejected?
+                /p= @project.online_days
+                /em #{@project.online_days} #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('remaining_singular'), t('remaining_plural'))}
+              /- else
+                /p= @project.remaining_days
+                /em #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('remaining_singular'), t('remaining_plural'))}
+
+          /#condition[class="#{@project.display_status}"]
+            /p
+              /= t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
+          /- if @project.online? && @project.in_time?
+            /#pledge
+              /= form_tag(new_project_backer_path(@project), method: :get, id: 'back_project_form') do
+                /fieldset
+                  /= submit_tag t('projects.back_project.submit'), disabled: (not @project.online?)
+        /.clearfix
+          /br/
+        /- if can?(:update, @project)
+          /.bootstrap-twitter.bootstrap-form
+            /.alert.alert-info
+              /h4.alert-header= t('.no_rewards_warning_title')
+              /p style="margin:0; padding:0;"
+                /= t('.no_rewards_warning')
+              /br/
+            /.clearfix
+            /= link_to t('.menu.add_reward'), 'javascript:void(0);', data: {target: '.new_reward_content', path: new_project_reward_path(@project)}, class: 'btn btn-primary pull-right show_reward_form'
+            /.clearfix
+            /.new_reward_content.hide
+              /= image_tag 'loading.gif'
+            /br/
+            //.skull-modal.new_reward_content.hide
+              /.skull-modal-header
+                /h3= t('projects.rewards.new_reward')
+                /a class='skull-modal-close' href='javascript:void(0);' &times;
+              /.skull-modal-body
+                /= image_tag 'loading.gif'
+        /#rewards[data-can_update="#{can?(:update, @project)}" data-index_path=project_rewards_path(@project)]
+          /.reward-loader= image_tag 'loading.gif'
+
+        /#creator_profile
+          /h3= t('project_by')
+
+          /- if @project.user.company?
+            /.avatar.company = @project.user.display_image_html width: 100, height: 47
+          /- else
+            /.avatar = @project.user.display_image_html width: 80, height: 80
+
+          /.personal_info
+            /p.name
+             /= link_to @project.user.display_name, user_path(@project.user)
+            /#bio
+              /p= @project.user.bio
+          /#city
+            /p.city
+              /| #{@project.user.address_city}
+        /.ask-question.bootstrap-twitter
+          /- if current_user
+            /= link_to 'Ask a question', '#new-user-question-modal', class: 'ask-question-button btn btn-success new-user-question-modal-link', :"data-toggle" => 'modal', data: { url: new_user_question_path(@project.user, project_id: @project.id) }
+          /- else
+            /= link_to 'Ask a question', new_user_question_path(@project.user, project_id: @project.id), class: 'ask-question-button btn btn-success new-user-question-modal-link'
+
+
+        /.clearfix
+
+    /.clearfix
+    /= render partial: 'projects/contact_modal'
+
+  /- if current_user
+    /.bootstrap-twitter
+      /#new-user-question-modal.modal.hide.fade
+        /.content
+          /.modal-header
+            /button.close data-dismiss="modal" type="button" x
+            /h3= "Ask a question about #{@project.name}"
+          /.modal-body
+            /.loading= image_tag "loading.gif"

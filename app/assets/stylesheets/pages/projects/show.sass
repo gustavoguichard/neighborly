@@ -1,0 +1,77 @@
+.project-page
+  header
+    color: white
+    background-color: $secondary-color
+    padding: +emCalc(60px) 0
+    min-height: +emCalc(330px)
+    background-size: cover
+    background-position: center
+    -ms-behavior: asset-url('backgroundsize.htc')\8
+    h3, h5, .has-tip
+      color: white
+    .has-tip
+      font-weight: normal
+    h3
+      text-transform: uppercase
+      font-weight: bold
+
+  section.status-bar
+    @extend .white
+    padding: +emCalc(30px) 0
+    color: $secondary-color
+    border-bottom: 1px solid $border-color
+    margin-bottom: +emCalc(30px)
+    p
+      font-weight: 200
+      font-size: 180%
+      text-transform: lowercase
+      margin-bottom: 0
+      i
+        padding-right: +emCalc(5px)
+        opacity: .5
+    small
+      margin-top: +emCalc(-5px)
+    .time-remaining
+      small
+        padding-left: +emCalc(65px)
+    .pledged
+      small
+        padding-left: +emCalc(30px)
+    .backers
+      small
+        padding-left: +emCalc(70px)
+    .columns:not(:last-child)
+      border-right: 1px solid $border-color
+    .button
+      width: 100%
+      margin-bottom: 0
+      margin-top: +emCalc(10px)
+
+    &:not(.fixed)
+      .name
+        display: none
+      .status
+        width: 100%
+    .name
+      a
+        color: $secondary-color
+        text-transform: uppercase
+        i
+          margin-right: +emCalc(5px)
+          color: $topbar-bg
+
+    &.fixed
+      top: +emCalc(90px)
+      padding: +emCalc(20px) 0
+      small
+        display: none
+      .button
+        margin-top: 0
+        @extend .small
+        font-size: 70%
+      p
+        font-size: 100%
+
+
+  .main
+    @extend .white
