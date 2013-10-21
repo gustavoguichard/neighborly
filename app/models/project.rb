@@ -50,7 +50,7 @@ class Project < ActiveRecord::Base
 
   scope :by_progress, ->(progress) { joins(:project_total).where("project_totals.pledged >= projects.goal*?", progress.to_i/100.to_f) }
   scope :by_id, ->(id) { where(id: id) }
-  scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
+  scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
   scope :by_category_id, ->(id) { where(category_id: id) }
   scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
@@ -94,9 +94,9 @@ class Project < ActiveRecord::Base
 
   attr_accessor :accepted_terms, :address
 
-  def to_param
-    self.id
-  end
+  #def to_param
+    #self.id
+  #end
 
   validates_acceptance_of :accepted_terms, on: :create
 

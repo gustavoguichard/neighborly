@@ -3,7 +3,7 @@
   - if project.soon?
     - project_link = 'javascript:void(0)'
   - else
-    - project_link = project_by_slug_path(project.permalink)
+    - project_link = project_path(project)
 
   = link_to project_link do
     /- if project.expired?
@@ -38,7 +38,7 @@
           .description[itemprop="description"]
             span = truncate(project.headline, length: 140, separator: ' ')
             - unless defined?(large)
-              = link_to t('.get_involved'), project_by_slug_path(project.permalink), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
+              = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
 
         .status
           .row.collapse

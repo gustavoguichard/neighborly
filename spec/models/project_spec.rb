@@ -78,22 +78,21 @@ describe Project do
     it { should == [@p1] }
   end
 
-  describe "by_permalink" do
+  describe ".find_by_permalink!" do
     context "when project is deleted" do
       before do
         @p = create(:project, permalink: 'foo', state: 'deleted')
         create(:project, permalink: 'bar')
       end
-      subject{ Project.by_permalink('foo') }
-      it{ should == [] }
+      it{ expect {Project.find_by_permalink!('foo')}.to raise_error(ActiveRecord::RecordNotFound) }
     end
     context "when project is not deleted" do
       before do
         @p = create(:project, permalink: 'foo')
         create(:project, permalink: 'bar')
       end
-      subject{ Project.by_permalink('foo') }
-      it{ should == [@p] }
+      subject{ Project.find_by_permalink!('foo') }
+      it{ should == @p }
     end
   end
 

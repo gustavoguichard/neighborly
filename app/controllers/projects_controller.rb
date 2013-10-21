@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 
   load_and_authorize_resource only: [ :new, :create, :update, :destroy ]
   inherit_resources
+  defaults finder: :find_by_permalink!
   has_scope :pg_search, :by_category_id
   has_scope :recent, :expiring, :successful, :recommended, :not_expired, :not_soon, :soon, type: :boolean
 
@@ -99,11 +100,5 @@ class ProjectsController < ApplicationController
       flash[:error] = 'The code is not valid. Try again.'
     end
     redirect_to project_path(project)
-  end
-
-  protected
-
-  def resource
-    @project ||= (params[:permalink].present? ? Project.by_permalink(params[:permalink]).first! : Project.find(params[:id]))
   end
 end
