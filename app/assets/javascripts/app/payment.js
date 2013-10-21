@@ -21,6 +21,10 @@ App.addChild('Payment', _.extend({
   activate: function(){
     this.$('.payment_menu input:first').attr('checked', true);
     this.showPaymentContent({target: '#payment_method_credit_card_net'});
+
+    $('.icon-info-sign').on('click', function(){
+      $('.info_more').slideToggle();
+    });
   },
 
   updatePaymentMethod: function() {
