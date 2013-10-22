@@ -5,6 +5,9 @@
     @extend .white
     margin-bottom: +emCalc(20px)
 
+    &.soon:not(.editing)
+      opacity: .4
+
     .sold-out
       position: absolute
       width: 100%
@@ -20,6 +23,10 @@
           i
             font-size: 250%
           color: white
+
+    &.editing
+      .sold-out
+        display: none
 
     .title
       font-size: 95%
