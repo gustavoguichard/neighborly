@@ -19,7 +19,8 @@
   header.hero
     .row
       .large-6.columns
-        iframe src="#{@project.display_video_embed_url}" width="460" height="305" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
+        .flex-video
+          iframe src="#{@project.display_video_embed_url}" width="480" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
       .large-6.columns
         .name
           h3 = @project.name
