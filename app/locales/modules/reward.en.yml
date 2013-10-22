@@ -1,0 +1,3 @@
+en:
+  reward:
+    display_remaining: "%{remaining}/%{maximum} available"

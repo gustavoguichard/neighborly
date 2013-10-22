@@ -668,7 +668,6 @@ en:
   require_login: "You must be logged in to perform this action."
   require_permission: "You don't have permission to perform this action."
   reward:
-    display_remaining: "%{remaining} of %{maximum} available"
     dont_want: "Just donating, I don't want a perk."
     limited: Limited
     sold_out: "Sold out"

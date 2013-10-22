@@ -1,0 +1,5 @@
+en:
+  rewards:
+    index:
+      sold_out: 'Sorry, this perk is SOLD OUT!'
+      add: 'Add a perk'
