@@ -1,13 +1,10 @@
 - collection.rank(:row_order).each do |reward|
-
-
   div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) class="reward #{ 'sortable' if can?(:update, reward) } #{ 'soon' if reward.soon? }"]
     .title
-      = t('projects.rewards.reward_title', minimum: reward.display_minimum).html_safe
+      = t('.reward_title', minimum: reward.display_minimum).html_safe
       - if can?(:update, reward)
         = link_to "javascript:void(0);", data: { target: "#reward-#{reward.id}-editor", path: edit_project_reward_path(@project, reward) }, class: 'edit' do
           i.icon-pencil
-
 
     - if reward.maximum_backers
       - if reward.sold_out?
@@ -18,14 +15,12 @@
               br/
               = t('.sold_out')
       .maximum-backers
-        .remaining
-          = reward.display_remaining
+        i.icon-et-alert
+        = reward.display_remaining
 
-      /- in_time_to_confirm = reward.backers.with_state('waiting_confirmation').count
-      /- if in_time_to_confirm > 0
-        /.maximum_backers.in_time_to_confirm.clearfix
-          /.pending= t('projects.rewards.backs_to_confirm', count: in_time_to_confirm)
-
+        - in_time_to_confirm = reward.backers.with_state('waiting_confirmation').count
+        - if in_time_to_confirm > 0
+          .pending = t('.backs_to_confirm', count: in_time_to_confirm)
 
     .description = reward.display_description
 
@@ -33,17 +28,12 @@
       .contribute
         = link_to t('.contribute'), new_project_backer_path(parent, reward_id: reward.id), class: 'button'
 
-
-
-
-
 - if can?(:update, parent)
   .reward.add-reward
     = link_to '#' do
       i.icon-et-plus
       br/
       = t('.add')
-
 
 
   /- if can?(:update, reward)
