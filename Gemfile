@@ -10,7 +10,7 @@ gem 'rails-observers', '~> 0.1.2'
 gem 'activerecord-session_store', '~> 0.0.1'
 
 gem 'sidekiq',  '~> 2.13.0'
-gem 'sinatra', require: false # required by sidekiq web interface mounted on /sidekiq
+gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # Turns every field on a editable one
 gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
@@ -19,7 +19,7 @@ gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
 gem 'state_machine', require: 'state_machine/core'
 
 # paranoid stuff
-gem 'paper_trail', github: 'airblade/paper_trail', branch: 'rails4'
+gem 'paper_trail', '~> 3.0.0.beta1'
 
 # Database and data related
 gem 'pg'
@@ -28,7 +28,7 @@ gem 'pg_search'
 
 gem 'schema_plus'
 gem 'schema_associations'
-gem 'chartkick'
+gem 'chartkick', '1.1.0'
 
 # Payment engines
 gem 'catarse_credit_card_net', path: 'lib/gems/catarse_credit_card_net'
@@ -61,7 +61,7 @@ gem 'catarse_mailchimp', git: 'git://github.com/catarse/catarse_mailchimp', ref:
 
 # HTML manipulation and formatting
 gem 'formtastic',   '~> 2.2.1'
-gem 'auto_html', '~> 1.6.0'
+gem 'auto_html', github: 'dejan/auto_html'
 gem 'kaminari'
 
 # Uploads
@@ -139,7 +139,7 @@ end
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem "compass-rails", github: "milgner/compass-rails", ref: "1749c06f15dc4b058427e7969810457213647fb8"
+gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'uglifier'
 gem 'compass-960-plugin'
 gem 'font-awesome-rails'

@@ -1,4 +1,4 @@
-# Neighbor.ly [![Build Status](https://secure.travis-ci.org/catarse/catarse.png?branch=master)](https://travis-ci.org/catarse/catarse) [![Coverage Status](https://coveralls.io/repos/catarse/catarse/badge.png?branch=channels)](https://coveralls.io/r/catarse/catarse) [![Dependency Status](https://gemnasium.com/catarse/catarse.png)](https://gemnasium.com/catarse/catarse)
+# Neighbor.ly [![Build Status](https://secure.travis-ci.org/luminopolis/neighborly.png?branch=master)](https://travis-ci.org/luminopolis/neighborly) [![Coverage Status](https://coveralls.io/repos/luminopolis/neighborly/badge.png?branch=channels)](https://coveralls.io/r/luminopolis/neighborly) [![Dependency Status](https://gemnasium.com/luminopolis/neighborly.png)](https://gemnasium.com/luminopolis/neighborly)
 
 Welcome to the first open source fundraising toolkit for civic projects. Neighbor.ly began in February 2012 as a fork of the wildly successful Brazillian crowdfunding platform [Catarse](https://github.com/catarse/catarse). Working closely with the developers of that project, Neighbor.ly is building towards a full spectrum fundraising toolkit for civic projects. 
 
@@ -11,7 +11,7 @@ Communities are always welcome and encouraged to list their projects on [Neighbo
 
 # Getting started
 
-## Internationalization
+### Internationalization
 
 This software was originally created as [Catarse](https://github.com/catarse/catarse), Brazil's first crowdfunding platform. 
 It was first made in Portuguese then later English support added by [Daniel Walmsley](http://purpose.com). Neighbor.ly focused on making all aspects of the interface in US English. There are still some patches of both languages throughout the software, but overall there is good infrastructure in place to internationalize to the language of your choice. 
@@ -20,7 +20,7 @@ It was first made in Portuguese then later English support added by [Daniel Walm
 
 We hope to offer many languages in the future. So if you decide to implement Neighbor.ly in your own language, please let us know so we can include your language here. 
 
-## Payment gateways
+### Payment gateways
 
 Neighbor.ly supports payment gateways through payment engines. Payment engines are extensions to Neighbor.ly that implement a specific payment gateway logic. 
 The two current supported payment gateways are:
@@ -44,12 +44,13 @@ Thank you for your interest in helping to advance this project. We are actively 
 
 ### Best practices (or how to get your pull request accepted faster)
 
-We use RSpec for the tests, and the best practices are:
+We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
 * Create one acceptance test for each scenario of the feature you are trying to implement.
 * Create model and controller tests to keep 100% of code coverage at least in the new parts that you are writing.
 * Feel free to add specs to the code that is already in the repository without the proper coverage ;)
 * Try to isolate models from controllers as best as you can.
 * Regard the existing tests for a style guide, we try to use implicit spec subjects and lazy evaluation as often as we can. 
+
 
 ## Credits
 
