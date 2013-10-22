@@ -62,8 +62,13 @@
               - else
                 = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
             small = t('.status-bar.expires_at', date: l(@project.expires_at.to_date, format: :long)) if @project.expires_at.present?
-          .large-3.columns.get-involved
-            = link_to t('.status-bar.get_involved'), new_project_backer_url(@project), class: 'button'
+
+          - unless @project.online?
+            .large-3.columns.status-description
+              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
+          - else
+            .large-3.columns.get-involved
+              = link_to t('.status-bar.get_involved'), new_project_backer_url(@project), class: 'button'
 
   .row
     section.large-9.columns.main
@@ -99,7 +104,6 @@
       section.about.user-content = @project.about_html
 
 
-  
 
 
 
