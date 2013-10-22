@@ -23,6 +23,10 @@ window.Neighborly =
     init: ->
       $(document).foundation('reveal', {animation: 'fadeIn', animationSpeed: 100})
       $(document).foundation()
+
+      $('.button.disabled').click ->
+        return false
+
       $('.search-button').click ->
         if $('.discover-form-input').val() != ''
           $('form.discover-form').submit()
