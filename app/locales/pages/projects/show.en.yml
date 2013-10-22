@@ -20,5 +20,20 @@ en:
         terms: 'Terms'
         edit: 'Edit'
         reports: 'Reports'
+      display_status:
+        all_or_none:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
+          failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "Awaiting confirmation from payments to know if this project will be funded."
+          draft: "This project is in draft mode and is not open to backers yet."
+        flexible:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will be funded on %{date}"
+          failed: "This project was funded on %{date}"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "This project recently closed and will be funded."
+          draft: "This project is in draft mode and is not open to backers yet."
       make_contribution: 'Make a contribution'
       spread_the_word: 'Spred the word'
