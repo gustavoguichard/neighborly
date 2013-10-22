@@ -31,9 +31,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
 
-  catarse_auto_html_for field: :about, video_width: 600, video_height: 403
-  catarse_auto_html_for field: :budget, video_width: 600, video_height: 403
-  catarse_auto_html_for field: :terms, video_width: 600, video_height: 403
+  catarse_auto_html_for field: :about, video_width: 720, video_height: 405
+  catarse_auto_html_for field: :budget, video_width: 720, video_height: 405
+  catarse_auto_html_for field: :terms, video_width: 720, video_height: 405
 
   pg_search_scope :pg_search, against: [
       [:name, 'A'],
