@@ -18,7 +18,7 @@ describe Projects::BackersController do
 
     before do
       set_expectations
-      post :update_info, { locale: :pt, project_id: project.id, id: backer.id, backer: backer_info }
+      post :update_info, { locale: :pt, project_id: project, id: backer.id, backer: backer_info }
     end
 
     context "when no user is logged in" do
@@ -47,7 +47,7 @@ describe Projects::BackersController do
   describe "PUT credits_checkout" do
     let(:failed_project) { create(:project, state: 'online') }
     before do
-      put :credits_checkout, { locale: :pt, project_id: project.id, id: backer.id }
+      put :credits_checkout, { locale: :pt, project_id: project, id: backer.id }
     end
 
     context "without user" do
@@ -77,7 +77,7 @@ describe Projects::BackersController do
 
       it('should confirm backer'){ backer.reload.confirmed?.should be_true }
       it('should set flash success'){ request.flash[:success].should == I18n.t('projects.backers.checkout.success') }
-      it{ should redirect_to(project_backer_path(project_id: project.id, id: backer.id)) }
+      it{ should redirect_to(project_backer_path(project_id: project, id: backer.id)) }
     end
   end
 
@@ -87,7 +87,7 @@ describe Projects::BackersController do
     before do
       request.env['REQUEST_URI'] = "/test_path"
       set_expectations
-      post :create, {locale: :pt, project_id: project.id, backer: { value: value, reward_id: nil, anonymous: '0' }}
+      post :create, {locale: :pt, project_id: project, backer: { value: value, reward_id: nil, anonymous: '0' }}
     end
 
     context "when no user is logged" do
@@ -106,7 +106,7 @@ describe Projects::BackersController do
       let(:user){ create(:user) }
       let(:value){ '' }
 
-      it{ should redirect_to new_project_backer_path(project_id: project.id) }
+      it{ should redirect_to new_project_backer_path(project_id: project) }
     end
 
     context "with invalid backer values" do
@@ -124,7 +124,7 @@ describe Projects::BackersController do
     before do
       ::Configuration[:secure_review_host] = secure_review_host
       Project.any_instance.stub(:online?).and_return(online)
-      get :new, {locale: :pt, project_id: project.id}
+      get :new, {locale: :pt, project_id: project}
     end
 
     context "when no user is logged" do
@@ -185,7 +185,7 @@ describe Projects::BackersController do
               reward: create(:reward, project: project, description: 'Test Reward'),
               project: project,
               user: create(:user, name: 'Foo Bar'))
-      get :index, { locale: :pt, project_id: project.id }
+      get :index, { locale: :pt, project_id: project }
     end
     its(:status){ should eq 200 }
   end

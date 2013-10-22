@@ -7,7 +7,7 @@ class Projects::BackersController < ApplicationController
   has_scope :with_state
   has_scope :page, default: 1
   load_and_authorize_resource except: [:index]
-  belongs_to :project
+  belongs_to :project, finder: :find_by_permalink!
 
   def update_info
     resource.update_attributes(params[:backer])

@@ -6,22 +6,22 @@ describe RewardsController do
   let(:reward) { FactoryGirl.create(:reward, project: project) }
 
   shared_examples_for "GET rewards index" do
-    before { get :index, project_id: project.id, locale: :pt }
+    before { get :index, project_id: project, locale: :pt }
     it { should be_success }
   end
 
   shared_examples_for "POST rewards create" do
-    before { post :create, project_id: project.id, reward: { description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
+    before { post :create, project_id: project, reward: { description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
     it { project.rewards.should_not be_empty}
   end
 
   shared_examples_for "POST rewards create without permission" do
-    before { post :create, project_id: project.id, reward: { description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
+    before { post :create, project_id: project, reward: { description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
     it { project.rewards.should be_empty}
   end
 
   shared_examples_for "PUT rewards update" do
-    before { put :update, project_id: project.id, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
+    before { put :update, project_id: project, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
     it {
       reward.reload
       reward.description.should == 'Amenori ipsum'
@@ -29,7 +29,7 @@ describe RewardsController do
   end
 
   shared_examples_for "PUT rewards update without permission" do
-    before { put :update, project_id: project.id, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
+    before { put :update, project_id: project, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
     it {
       reward.reload
       reward.description.should == 'Foo bar'
@@ -37,12 +37,12 @@ describe RewardsController do
   end
 
   shared_examples_for "DELETE rewards destroy" do
-    before { delete :destroy, project_id: project.id, id: reward.id, locale: :pt }
+    before { delete :destroy, project_id: project, id: reward.id, locale: :pt }
     it { project.rewards.should be_empty}
   end
 
   shared_examples_for "DELETE rewards destroy without permission" do
-    before { delete :destroy, project_id: project.id, id: reward.id, locale: :pt }
+    before { delete :destroy, project_id: project, id: reward.id, locale: :pt }
     it { project.rewards.should_not be_empty}
   end
 
@@ -67,7 +67,7 @@ describe RewardsController do
       before { FactoryGirl.create(:backer, state: 'confirmed', project: project, reward: reward) }
 
       context "can't update the minimum value" do
-        before { put :update, project_id: project.id, id: reward.id, reward: { minimum_value: 15, description: 'Amenori ipsum' }, locale: :pt }
+        before { put :update, project_id: project, id: reward.id, reward: { minimum_value: 15, description: 'Amenori ipsum' }, locale: :pt }
         it {
           reward.reload
           reward.minimum_value.should_not eq(15.0)
@@ -76,7 +76,7 @@ describe RewardsController do
 
       context "can update the description and maximum backers" do
         before do
-          put :update, project_id: project.id, id: reward.id, reward: { maximum_backers: 99, description: 'lorem ipsum'}, locale: :pt
+          put :update, project_id: project, id: reward.id, reward: { maximum_backers: 99, description: 'lorem ipsum'}, locale: :pt
           reward.reload
         end
 
