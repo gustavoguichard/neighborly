@@ -5,15 +5,15 @@ class RewardsController < ApplicationController
   respond_to :html, :json
 
   def index
-    render layout: false
+    render layout: !request.xhr?
   end
 
   def new
-    render layout: false
+    render layout: !request.xhr?
   end
 
   def edit
-    render layout: false
+    render layout: !request.xhr?
   end
 
   def update
