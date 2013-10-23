@@ -15,3 +15,22 @@ describe "Rewards.Index", ->
       @view.load()
       expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("/projects/X/rewards")
 
+  describe "#sortable", ->
+    beforeEach ->
+      spyOn @view.$rewards, "sortable"
+
+    describe "when I can update rewards", ->
+      beforeEach ->
+        spyOn(@view.$rewards, "data").andReturn true
+        @view.sortable()
+
+      it "should test can_update", ->
+        expect(@view.$rewards.data).wasCalledWith "can-update"
+
+      it "should call sortable", ->
+        expect(@view.$rewards.sortable).wasCalledWith
+          axis: "y"
+          placeholder: "sortable-highlight"
+          start: jasmine.any(Function)
+          stop: jasmine.any(Function)
+          update: jasmine.any(Function)
