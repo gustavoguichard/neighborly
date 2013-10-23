@@ -31,7 +31,7 @@ Neighborly.Rewards.Index = Backbone.View.extend
         update: (e, ui) ->
           csrfToken = undefined
           position = undefined
-          position = that.$rewards.childrend('.sortable').index(ui.item)
+          position = that.$rewards.find('.sortable').index(ui.item)
           csrfToken = $("meta[name='csrf-token']").attr("content")
           $.ajax
             type: "POST"
