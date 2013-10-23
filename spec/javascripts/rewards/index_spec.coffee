@@ -31,6 +31,53 @@ describe "Rewards.Index", ->
         expect(@view.$rewards.sortable).wasCalledWith
           axis: "y"
           placeholder: "sortable-highlight"
+          items: ".sortable"
           start: jasmine.any(Function)
           stop: jasmine.any(Function)
           update: jasmine.any(Function)
+
+  describe "#loadForm", ->
+    event =
+      preventDefault: ->
+      currentTarget: '.reward a.edit'
+
+    beforeEach ->
+      $('.rewards').html($('<div>').addClass('reward').html($('<a class="edit" data-element=".edit-reward-form" data-path="/edit">')))
+
+      spyOn event, 'preventDefault'
+      spyOn $, 'ajax'
+      spyOn($.fn, 'addClass')
+      spyOn($.fn, 'html')
+      @view.loadForm event
+
+    it "should call edit reward url", ->
+      expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("/edit")
+
+    it "should add editing class", ->
+      expect($.fn.addClass).wasCalledWith('editing')
+
+    it "should remove old html", ->
+      expect($.fn.html).wasCalledWith('')
+
+    it "should call preventDefault", ->
+      expect(event.preventDefault).wasCalled()
+
+  describe "#cancel", ->
+    event =
+      preventDefault: ->
+      currentTarget: '.reward a.cancel'
+
+    beforeEach ->
+      spyOn event, 'preventDefault'
+      spyOn($.fn, 'removeClass')
+      spyOn($.fn, 'fadeOut').andReturn($.fn)
+      @view.cancel event
+
+    it "should call fadeOut", ->
+      expect($.fn.fadeOut).wasCalled()
+
+    it "should remove editing class", ->
+      expect($.fn.removeClass).wasCalledWith('editing')
+
+    it "should call preventDefault", ->
+      expect(event.preventDefault).wasCalled()

@@ -3,6 +3,11 @@ Neighborly.Rewards = {} if Neighborly.Rewards is undefined
 Neighborly.Rewards.Index = Backbone.View.extend
   el: '.rewards'
 
+  events:
+    'click .add-reward a': 'loadForm'
+    'click .reward a.edit': 'loadForm'
+    'click .reward a.cancel': 'cancel'
+
   initialize: ->
     this.$rewards = $(this.el)
     this.load()
@@ -22,6 +27,7 @@ Neighborly.Rewards.Index = Backbone.View.extend
       this.$rewards.sortable
         axis: "y"
         placeholder: "sortable-highlight"
+        items: '.sortable'
         start: (e, ui) ->
           ui.placeholder.height ui.item.height()
 
@@ -44,3 +50,28 @@ Neighborly.Rewards.Index = Backbone.View.extend
               reward:
                 row_order_position: position
 
+  loadForm: (event) ->
+    event.preventDefault()
+    $target = this.$(event.currentTarget)
+    $element = this.$($target.data('element'))
+    $element.parents('.reward').addClass('editing')
+    this.$rewards.find('.form-content').html('')
+
+    $.ajax(
+      url: $target.data('path')
+
+      beforeSend: ->
+        $element.find('.loading').show()
+
+      success: (data) ->
+        $element.find('.form-content').html(data).fadeIn('fast')
+        $element.find('.loading').hide()
+
+      error: ->
+        $element.find('.loading').hide()
+        $element.find('.form-content').hide()
+    )
+
+  cancel: (event)->
+    event.preventDefault()
+    $(event.currentTarget).parents('.hide').fadeOut('fast').parents('.editing').removeClass('editing')

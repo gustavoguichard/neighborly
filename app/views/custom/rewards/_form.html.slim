@@ -1,28 +1,26 @@
-div[class="#{'alert alert-info' unless resource.persisted?}"]
-  = semantic_form_for [parent, resource], html: { class: 'remote-form' } do |f|
-    a.cancel.btn.btn-primary.pull-right href="#" Cancel
-    .clearfix
+= simple_form_for [parent, resource], html: { class: 'remote-form' } do |f|
+  .pull-right
+    a.cancel.button.secondary href="#" = t('words.cancel')
+  .clearfix
 
-    - if resource.new_record? || can?(:update, resource, :minimum_value)
-      = f.input :minimum_value, required: true, as: :number, input_html: {pattern: "^[\\d+.]+"}
+  - if resource.new_record? || can?(:update, resource, :minimum_value)
+    = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
 
-    - if resource.new_record? || can?(:update, resource, :days_to_delivery)
-      = f.input :days_to_delivery
+  - if resource.new_record? || can?(:update, resource, :days_to_delivery)
+    = f.input :days_to_delivery
 
-    - if resource.new_record? || can?(:update, resource, :description)
-      = f.input :description, required: true
+  - if resource.new_record? || can?(:update, resource, :description)
+    = f.input :description
 
-    - if resource.new_record? || can?(:update, resource, :maximum_backers)
-      = f.input :maximum_backers
+  - if resource.new_record? || can?(:update, resource, :maximum_backers)
+    = f.input :maximum_backers
 
-    .clearfix
-    = f.input :soon, as: :boolean, label: 'Coming soon reward?'
-    = f.input :show_contact_button, as: :boolean, label: 'Show contact button?'
-    .clearfix
-    .actions
-      = f.submit class: 'btn btn-success send', disable_with: I18n.t('sending')
-      - if resource.persisted? && can?(:destroy, resource)
-        | or
-        = link_to [parent, resource], class: 'btn btn-danger', method: :delete, confirm: 'Are you sure?' do
-          i.icon-trash.icon-white
-          |  Delete
+  = f.input :soon, as: :boolean
+  = f.input :show_contact_button, as: :boolean
+
+  = f.button :submit, disable_with: I18n.t('words.sending')
+  - if resource.persisted? && can?(:destroy, resource)
+    span.or = t('words.or')
+    = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do
+      i.icon-trash.icon-white
+      = t('words.delete')

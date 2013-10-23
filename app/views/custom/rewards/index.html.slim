@@ -3,8 +3,15 @@
     .title
       = t('.reward_title', minimum: reward.display_minimum).html_safe
       - if can?(:update, reward)
-        = link_to "javascript:void(0);", data: { target: "#reward-#{reward.id}-editor", path: edit_project_reward_path(@project, reward) }, class: 'edit' do
+        = link_to edit_project_reward_path(@project, reward), data: { element: ".edit-#{reward.id}-reward-form", path: edit_project_reward_path(@project, reward) }, class: 'edit' do
           i.icon-pencil
+
+
+    div[class="edit-#{reward.id}-reward-form"]
+      .loading.hide
+        = image_tag 'loading.gif'
+      .form-content.hide
+
 
     - if reward.maximum_backers
       - if reward.sold_out?
@@ -29,12 +36,17 @@
         = link_to t('.contribute'), new_project_backer_path(parent, reward_id: reward.id), class: 'button'
 
 - if can?(:update, parent)
+
+  .reward.new-reward-form
+    .loading.hide
+      = image_tag 'loading.gif'
+    .form-content.hide
+
   .reward.add-reward
-    = link_to '#' do
+    = link_to new_project_reward_path(parent), data: { element: '.new-reward-form', path: new_project_reward_path(parent) } do
       i.icon-et-plus
       br/
       = t('.add')
-
 
   /- if can?(:update, reward)
     .bootstrap-twitter.bootstrap-form
@@ -94,4 +106,6 @@
         /br/
         /= link_to 'Please Contact Us', '#contactUsModal', style: 'color: white; text-decoration: none;', class: 'btn btn-info', :"data-toggle" => "modal"
 /.clearfix
+
+
 
