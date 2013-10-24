@@ -146,6 +146,7 @@ gem 'font-awesome-rails'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails'
 gem 'zurb-foundation'
 gem 'turbolinks'
+gem 'pjax_rails'
 gem 'initjs', github: 'josemarluedke/initjs'
 
 # FIXME: Not-anymore-on-development
