@@ -63,6 +63,6 @@ module Catarse
     # TODO: remove
     config.active_record.whitelist_attributes = false
 
-    config.middleware.use "WwwDitcher"
+    config.middleware.use "WwwDitcher" if Rails.env.production?
   end
 end
