@@ -83,8 +83,8 @@ Catarse::Application.routes.draw do
   end
 
   resources :projects do
-    resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
-    resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
+    resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
+    resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
 
     collection do
@@ -98,6 +98,9 @@ Catarse::Application.routes.draw do
       get 'embed'
       get 'video_embed'
       get 'embed_panel'
+      get 'comments'
+      get 'reports'
+      get 'budget'
     end
 
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do

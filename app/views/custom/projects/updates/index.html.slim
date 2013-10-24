@@ -1,0 +1,8 @@
+- content_for :page_content do
+  = render @updates
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show' 
+

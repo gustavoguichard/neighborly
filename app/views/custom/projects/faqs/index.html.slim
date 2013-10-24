@@ -1,0 +1,14 @@
+- content_for :page_content do
+
+  .media_content_update
+    - if @project.project_faqs.empty?
+      em = raw(t('projects.project_faqs.empty'))
+    - else
+        dl#accordion.collection_list.collapse
+          - for faq in @project.project_faqs.order('created_at DESC')
+            = render 'projects/faqs/faq', resource: faq
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'

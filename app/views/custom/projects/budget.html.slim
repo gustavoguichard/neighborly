@@ -1,0 +1,8 @@
+- content_for :page_content do
+  .user-content = @project.budget_html
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'
+

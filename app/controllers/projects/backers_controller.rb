@@ -15,10 +15,6 @@ class Projects::BackersController < ApplicationController
     render json: {message: 'updated'}
   end
 
-  def index
-    render collection
-  end
-
   def show
     @title = t('projects.backers.show.title')
   end

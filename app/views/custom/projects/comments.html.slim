@@ -1,0 +1,18 @@
+- content_for :page_content do
+  a#disqusCount href="#{request.url}#disqus_thread" style="display:none;" 0
+
+  #disqus_thread
+  script type="text/javascript" src="http://disqus.com/forums/neighbordotly/embed.js"
+  noscript
+    Please enable JavaScript to view the 
+    a href="http://disqus.com/?ref_noscript=neighbordotly"
+      comments powered by Disqus.
+  a href="http://disqus.com" class="dsq-brlink"
+    blog comments powered by 
+    span class="logo-disqus" Disqus
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'
+

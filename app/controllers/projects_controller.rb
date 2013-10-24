@@ -56,22 +56,31 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.new(params[:project])
 
     create!(notice: t('projects.create.success')) do |success, failure|
-      success.html{ return redirect_to project_by_slug_path(@project.permalink) }
+      success.html{ return redirect_to project_path(@project.permalink) }
     end
   end
 
   def update
     update! do |success, failure|
-      success.html{ return redirect_to project_by_slug_path(@project.permalink, anchor: 'edit') }
-      failure.html{ return redirect_to project_by_slug_path(@project.permalink, anchor: 'edit') }
+      success.html{ return redirect_to edit_project_path(@project.permalink) }
+      failure.html{ return redirect_to edit_project_path(@project.permalink) }
     end
   end
 
   def show
-    @title = resource.name
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
-    @updates_count = resource.updates.count
-    @update = resource.updates.where(id: params[:update_id]).first if params[:update_id].present?
+  end
+
+  def comments
+    @project = resource
+  end
+
+  def reports
+    @project = resource
+  end
+
+  def budget
+    @project = resource
   end
 
   def video
