@@ -69,6 +69,7 @@ class ProjectsController < ApplicationController
 
   def show
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
+    render :about if request.xhr?
   end
 
   def comments

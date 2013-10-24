@@ -73,7 +73,7 @@
 
   .row
     section.large-9.columns.main
-      nav.tabs
+      nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
         = tab_link_to project_updates_path(@project) do
@@ -100,7 +100,7 @@
         - if content_for? :page_content
           = yield :page_content
         - else
-          .user-content = @project.about_html
+          = render template: 'projects/about', locals: { partial: true }
 
     aside.large-3.columns.sidebar
       .call-to-action
