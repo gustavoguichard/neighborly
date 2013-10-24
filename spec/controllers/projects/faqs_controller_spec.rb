@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-describe Projects::ProjectDocumentsController do
-  let(:document) { create(:project_document) }
-  let(:file) { File.open("#{Rails.root}/spec/fixtures/image.png") }
+describe Projects::FaqsController do
+  let(:faq) { create(:project_faq) }
   let(:current_user) { nil }
 
   before do
@@ -12,9 +11,9 @@ describe Projects::ProjectDocumentsController do
   subject { response }
 
   describe "POST create" do
-    before{ post :create, project_id: document.project.id, locale: 'en', project_document: { document: file } }
+    before{ post :create, project_id: faq.project, locale: 'en', project_faq: {title: 'title', answer: 'answer'} }
 
-    subject { ProjectDocument.where(project_id: document.project.id) }
+    subject { ProjectFaq.where(project_id: faq.project) }
 
     context 'When user is a guest' do
       it{ should have(1).item }
@@ -31,36 +30,36 @@ describe Projects::ProjectDocumentsController do
     end
 
     context 'When user is project_owner' do
-      let(:current_user) { document.project.user }
+      let(:current_user) { faq.project.user }
       it{ should have(2).itens }
     end
   end
 
   describe "DELETE destroy" do
-    before { delete :destroy, project_id: document.project.id, id: document.id, locale: 'en' }
-    let(:total_documents) { ProjectDocument.where(project_id: document.project.id) }
+    before { delete :destroy, project_id: faq.project, id: faq.id, locale: 'en' }
+    let(:total_faqs) { ProjectFaq.where(project_id: faq.project) }
 
     context 'When user is a guest' do
       its(:status) { should == 302 }
-      it { total_documents.should have(1).item }
+      it { total_faqs.should have(1).item }
     end
 
     context "When user is a registered user but don't the project owner" do
       let(:current_user){ create(:user) }
       its(:status) { should == 302 }
-      it { total_documents.should have(1).item }
+      it { total_faqs.should have(1).item }
     end
 
     context 'When user is admin' do
       let(:current_user) { create(:user, admin: true) }
       its(:status) { should == 302 }
-      it { total_documents.should have(0).item }
+      it { total_faqs.should have(0).item }
     end
 
     context 'When user is project_owner' do
-      let(:current_user) { document.project.user }
+      let(:current_user) { faq.project.user }
       its(:status) { should == 302 }
-      it { total_documents.should have(0).item }
+      it { total_faqs.should have(0).item }
     end
   end
 
