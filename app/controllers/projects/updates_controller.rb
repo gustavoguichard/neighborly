@@ -15,7 +15,7 @@ class Projects::UpdatesController < ApplicationController
   end
 
   def destroy
-    destroy!{|format| return index }
+    destroy! { project_updates_path(parent) }
   end
 
   def collection
