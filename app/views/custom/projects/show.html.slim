@@ -33,8 +33,7 @@
         .status
           .progress.round
             span.meter[style="width: #{@project.display_progress}%"]
-          .row.collapse
-            .pledged.large-6.columns = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
+          .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
 
   section.status-bar
     .row
