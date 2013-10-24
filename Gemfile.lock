@@ -26,6 +26,14 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/dejan/auto_html.git
+  revision: d30199ad4df40a02aab32ce4a69b5ab877eed6d9
+  specs:
+    auto_html (1.6.0)
+      redcarpet (~> 2.0)
+      rinku (~> 1.5.0)
+
+GIT
   remote: git://github.com/josemarluedke/initjs.git
   revision: 2549e5b94db23d2da1fc1ba241fec79f5f380577
   specs:
@@ -126,9 +134,6 @@ GEM
     atomic (1.1.14)
     authorize-net (1.5.2)
       nokogiri (~> 1.4)
-    auto_html (1.6.0)
-      redcarpet (~> 2.0)
-      rinku (~> 1.5.0)
     bcrypt-ruby (3.1.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
@@ -492,7 +497,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store (~> 0.0.1)
   authorize-net (~> 1.5.2)
-  auto_html (~> 1.6.0)
+  auto_html!
   best_in_place!
   better_errors
   binding_of_caller

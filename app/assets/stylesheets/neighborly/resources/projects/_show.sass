@@ -1,0 +1,182 @@
+[data-namespace="null"][data-controller="projects"][data-action="show"]
+  #page_content
+    .sidebar
+      #rewards
+        .box
+          &.soon
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50)
+            opacity: 0.5
+      .info
+        #pledge, .statistics
+          background: image-url('neighborly/pledge_bg.png')
+        .statistics
+          .item
+            &.backers
+              background-image: image-url("neighborly/sidebar_backers_icon26x19.png")
+            &.goal
+              background-image: image-url("neighborly/goal_icon36x17.png")
+            &.time
+              background: image-url("neighborly/time_icon19x30.png") 10px center no-repeat
+        #condition
+          background: $_6f_gryn
+          &.successful
+            background: #c5b644
+          &.failed
+            background: $green
+          p
+            color: white
+            text-shadow: none
+            font-style: normal
+            text-transform: uppercase
+
+        #creator_profile
+          .avatar.company
+            width: 100px
+          h3
+            background: image-url("neighborly/profile_icon19x14.png") left 4px no-repeat
+    .main
+      #project_faqs
+        @extend #project_updates
+        .ui-state-default
+          padding-bottom: 10px
+        dl
+          dt
+            +lato-regular
+            color: $minimal_blue
+            font-size: 18px
+            cursor: pointer
+            +transition(all, 0.5s)
+            &:hover
+              color: $blue
+            a
+              font-family: Arial
+              font-size: 13px
+              color: $red
+              text-decoration: none
+              margin-left: 10px
+          dd
+            font-family: Arial
+            padding: 5px 0 15px
+            font-size: 15px
+            color: $_6f_gryn
+            line-height: 140%
+            height: auto !important
+        .bootstrap-form
+          input#project_faq_title
+            width: 98%
+        .ui-icon
+          background-color: $minimal_blue
+          float: left
+          margin-right: 10px
+          margin-top: 3px
+          +border-radius(8px)
+
+      #project_terms
+        table
+          margin-bottom: 30px
+          td
+            +lato-regular
+            font-size: 15px
+            .btn-danger
+              margin-left: 10px
+        h2
+          +lato-regular
+          font-size: 24px
+          padding-bottom: 5px
+          margin-bottom: 20px
+          border-bottom: 1px solid rgba(black, 0.1)
+          color: rgba(black, 0.6)
+        form.project_document
+          margin: 0
+          h3
+            +lato-regular
+            font-size: 16px
+            padding-bottom: 5px
+            margin-bottom: 20px
+            border-bottom: 1px solid rgba(black, 0.1)
+          li
+            list-style: none
+          fieldset.actions
+            ol
+              padding: 0
+              margin: 0
+
+      #project_backers
+        .backer
+          padding-right: 0
+          margin-right: 25px
+          .backer_avatar.company
+            width: 100px
+            height: auto
+          .back_info.company
+            width: 170px
+          .reward
+            width: auto
+            float: none
+
+          .short_note
+            font-size: 12px
+            font-family: Lato
+            margin-top: 10px
+            line-height: 120%
+            float: left
+            padding: 15px
+            background: #F3F3F3
+
+      #project_edit
+        .map-canvas
+          display: block
+          width: 458px
+          height: 250px
+          margin-left: 170px
+        .markdown
+          float: left
+          width: 460px
+          textarea
+            width: 458px
+        .input.required
+          label
+            &:after
+              content: " * "
+              color: #ff6600
+        .admin-fields
+          .input.required
+            label
+              &:after
+                content: ''
+        .section-header
+          background: #E5E5E5
+          color: #4C4C4C
+          text-transform: uppercase
+          clear: both
+          padding: 18px
+          margin-bottom: 30px
+          font-size: 36px
+        .bootstrap-form
+          .checkbox-inline
+            &.input
+              padding-left: 170px
+            label
+              width: auto
+              display: block
+              input
+                width: auto
+                display: inline-block
+                margin-right: 10px
+            p.inline-hints
+              @extend .clearfix
+              float: left
+        .address-input
+          li.input
+            float: none
+            border-bottom: none !important
+            margin-bottom: 0
+            padding-bottom: 0
+          border-bottom: dotted 1px #cccccc
+          margin-bottom: 20px
+          padding-bottom: 20px
+    .use_popover_bottom
+      border-bottom: 1px dashed #999
+      cursor: help
+
+
