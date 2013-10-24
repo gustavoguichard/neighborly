@@ -23,13 +23,13 @@ describe ProjectsController do
 
     context "when user is logged in" do
       let(:current_user){ create(:user) }
-      it{ should redirect_to project_by_slug_path(project.permalink) }
+      it{ should redirect_to project_path(project) }
     end
   end
 
   describe "DELETE destroy" do
     before do
-      delete :destroy, id: project.id, locale: :pt
+      delete :destroy, id: project, locale: :pt
     end
 
     context "when user is a guest" do
@@ -90,7 +90,7 @@ describe ProjectsController do
 
   describe "PUT update" do
     shared_examples_for "updatable project" do
-      before { put :update, id: project.id, project: { name: 'My Updated Title' },locale: :pt }
+      before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
       it {
         project.reload
         project.name.should == 'My Updated Title'
@@ -98,7 +98,7 @@ describe ProjectsController do
     end
 
     shared_examples_for "protected project" do
-      before { put :update, id: project.id, project: { name: 'My Updated Title' },locale: :pt }
+      before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
       it {
         project.reload
         project.name.should == 'Foo bar'
@@ -124,7 +124,7 @@ describe ProjectsController do
         end
 
         context "when I try to update the project name and the about field" do
-          before{ put :update, id: project.id, project: { name: 'new_title', about: 'new_description' }, locale: :pt }
+          before{ put :update, id: project, project: { name: 'new_title', about: 'new_description' }, locale: :pt }
           it "should not update neither" do
             project.reload
             project.name.should_not == 'new_title'
@@ -133,7 +133,7 @@ describe ProjectsController do
         end
 
         context "when I try to update only the about field" do
-          before{ put :update, id: project.id, project: { about: 'new_description' }, locale: :pt }
+          before{ put :update, id: project, project: { about: 'new_description' }, locale: :pt }
           it "should update it" do
             project.reload
             project.about.should == 'new_description'
@@ -171,7 +171,7 @@ describe ProjectsController do
     context "when we have update_id in the querystring" do
       let(:project){ create(:project) }
       let(:update){ create(:update, project: project) }
-      before{ get :show, permalink: project.permalink, update_id: update.id, locale: :pt }
+      before{ get :show, id: project, update_id: update.id, locale: :pt }
       it("should assign update to @update"){ assigns(:update).should == update }
     end
   end

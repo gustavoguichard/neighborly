@@ -69,6 +69,7 @@ class ProjectsController < ApplicationController
 
   def show
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
+    @update = resource.updates.where(id: params[:update_id]).first if params[:update_id].present?
     render :about if request.xhr?
   end
 

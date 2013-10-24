@@ -12,9 +12,9 @@ describe Projects::TermsController do
   subject { response }
 
   describe "POST create" do
-    before{ post :create, project_id: document.project.id, locale: 'en', project_document: { document: file } }
+    before{ post :create, project_id: document.project, locale: 'en', project_document: { document: file } }
 
-    subject { ProjectDocument.where(project_id: document.project.id) }
+    subject { ProjectDocument.where(project_id: document.project) }
 
     context 'When user is a guest' do
       it{ should have(1).item }
@@ -37,8 +37,8 @@ describe Projects::TermsController do
   end
 
   describe "DELETE destroy" do
-    before { delete :destroy, project_id: document.project.id, id: document.id, locale: 'en' }
-    let(:total_documents) { ProjectDocument.where(project_id: document.project.id) }
+    before { delete :destroy, project_id: document.project, id: document, locale: 'en' }
+    let(:total_documents) { ProjectDocument.where(project_id: document.project) }
 
     context 'When user is a guest' do
       its(:status) { should == 302 }

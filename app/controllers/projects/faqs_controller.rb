@@ -1,7 +1,7 @@
 class Projects::FaqsController < ApplicationController
   inherit_resources
-  defaults resource_class: ProjectFaq
-  load_and_authorize_resource :project_faq
+  defaults resource_class: ProjectFaq, collection_name: :project_faqs
+  load_and_authorize_resource class: :ProjectFaq
 
   actions :index, :create, :destroy
   belongs_to :project, finder: :find_by_permalink!
