@@ -38,7 +38,7 @@
   section.status-bar
     .row
       .large-5.columns.name
-        p = link_to '#' do
+        p = link_to '#', class: 'scroll-to-top' do
           i.icon-et-home
           = @project.name
 
