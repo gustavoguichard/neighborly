@@ -3,7 +3,7 @@ describe "Neighborly", ->
   describe ".init", ->
     it 'should initialize foundation scripts', ->
       foundation = spyOn($.fn, 'foundation')
-      Neighborly.Common.init()
+      Neighborly.init()
       expect($.fn.foundation).toHaveBeenCalled()
 
 
@@ -17,14 +17,14 @@ describe "Neighborly", ->
         expect($('#loading #front-overlay').is(':visible')).toBe(false)
 
       it "when calls the show method", ->
-        Neighborly.Common.Loading.show()
+        Neighborly.Loading.show()
         expect($('#loading #back-overlay').is(':visible')).toBe(true)
         expect($('#loading #front-overlay').is(':visible')).toBe(true)
 
     describe ".hide", ->
       it "when calls the hide method", ->
-        Neighborly.Common.Loading.show()
-        Neighborly.Common.Loading.hide()
+        Neighborly.Loading.show()
+        Neighborly.Loading.hide()
 
         expect($('#loading #back-overlay').is(':visible')).toBe(false)
         expect($('#loading #front-overlay').is(':visible')).toBe(false)

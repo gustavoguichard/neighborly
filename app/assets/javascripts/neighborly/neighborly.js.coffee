@@ -2,43 +2,46 @@
 #= require_tree .
 
 window.Neighborly =
-  Common:
-    initPage: ->
-      that = this
-      unless window.Turbolinks is undefined
-        $(document).bind "page:fetch", ->
-          that.Loading.show()
+  configs:
+    turbolinks: true
+    pjax: false
 
-        $(document).bind "page:restore", ->
-          that.Loading.hide()
+  modules: -> []
 
-        $(document).bind "page:change", ->
-          $(window).scrollTop(0)
+  initPage: ->
+    that = this
+    unless window.Turbolinks is undefined
+      $(document).bind "page:fetch", ->
+        that.Loading.show()
 
-          try
-            FB.XFBML.parse()
-          try
-            twttr.widgets.load()
+      $(document).bind "page:restore", ->
+        that.Loading.hide()
 
-    init: ->
-      $(document).foundation('reveal', {animation: 'fadeIn', animationSpeed: 100})
-      $(document).foundation()
+      $(document).bind "page:change", ->
+        $(window).scrollTop(0)
 
-      $('.button.disabled').click ->
-        return false
+        try
+          FB.XFBML.parse()
+        try
+          twttr.widgets.load()
 
-      $('.search-button').click ->
-        if $('.discover-form-input').val() != ''
-          $('form.discover-form').submit()
-        else
-          $('.discover-form-input').toggleClass('show').focus()
+  init: ->
+    $(document).foundation('reveal', {animation: 'fadeIn', animationSpeed: 100})
+    $(document).foundation()
 
-        return false
+    $('.button.disabled').click ->
+      return false
 
-    finish: ->
+    $('.search-button').click ->
+      if $('.discover-form-input').val() != ''
+        $('form.discover-form').submit()
+      else
+        $('.discover-form-input').toggleClass('show').focus()
 
-    Loading:
-      show: ->
-        $('#loading #back-overlay, #loading #front-overlay').fadeIn(2)
-      hide: ->
-        $('#loading #back-overlay, #loading #front-overlay').hide()
+      return false
+
+  Loading:
+    show: ->
+      $('#loading #back-overlay, #loading #front-overlay').fadeIn(2)
+    hide: ->
+      $('#loading #back-overlay, #loading #front-overlay').hide()
