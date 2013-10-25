@@ -1,24 +1,27 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
 
-Neighborly.Projects.Show = Backbone.View.extend
-  el: '.project-page'
+Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index]
 
-  events:
-    'click .scroll-to-top': 'scrollTop'
+Neighborly.Projects.Show =
+  init: Backbone.View.extend
+    el: '.project-page'
 
-  initialize: ->
-    $tabs = new Neighborly.Tabs()
-    $rewards = new Neighborly.Rewards.Index()
-    this.statusBar()
+    events:
+      'click .scroll-to-top': 'scrollTop'
 
-  statusBar: ->
-    offset = $('.status-bar').offset().top
-    $(window).scroll ->
-      if $(document).scrollTop() > offset
-        this.$('.status-bar').addClass('fixed')
-      else
-        this.$('.status-bar').removeClass('fixed')
+    initialize: ->
+      #$tabs = new Neighborly.Tabs()
+      #$rewards = new Neighborly.Rewards.Index()
+      this.statusBar()
 
-  scrollTop: (event)->
-    event.preventDefault()
-    $(document).scrollTop(0)
+    statusBar: ->
+      offset = $('.status-bar').offset().top
+      $(window).scroll ->
+        if $(document).scrollTop() > offset
+          this.$('.status-bar').addClass('fixed')
+        else
+          this.$('.status-bar').removeClass('fixed')
+
+    scrollTop: (event)->
+      event.preventDefault()
+      $(document).scrollTop(0)

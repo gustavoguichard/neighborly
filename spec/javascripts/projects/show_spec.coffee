@@ -1,16 +1,9 @@
 describe "Projects.Show", ->
   beforeEach ->
     $(document.body).append $('<div>').addClass('project-page').html($('<div>').addClass('status-bar'))
-    @view = new Neighborly.Projects.Show()
+    @view = new Neighborly.Projects.Show.init()
 
   describe "#initialize", ->
-    it 'should initialize Rewards.Index view', ->
-      spyOn(Neighborly.Rewards, 'Index')
-      spyOn(Neighborly, 'Tabs')
-      @view.initialize()
-      expect(Neighborly.Rewards.Index).toHaveBeenCalled()
-      expect(Neighborly.Tabs).toHaveBeenCalled()
-
     it 'should call statusBar method', ->
       spyOn(@view, 'statusBar')
       @view.initialize()
