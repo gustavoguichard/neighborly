@@ -26,7 +26,7 @@ window.Neighborly =
           twttr.widgets.load()
 
   init: ->
-    $(document).foundation('reveal', {animation: 'fadeIn', animationSpeed: 100})
+    $(document).foundation('reveal', {animation: 'fadeAndPop', animationSpeed: 100})
     $(document).foundation()
 
     $('.button.disabled').click ->
