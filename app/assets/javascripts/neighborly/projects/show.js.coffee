@@ -10,12 +10,10 @@ Neighborly.Projects.Show =
       'click .scroll-to-top': 'scrollTop'
 
     initialize: ->
-      #$tabs = new Neighborly.Tabs()
-      #$rewards = new Neighborly.Rewards.Index()
       this.statusBar()
 
     statusBar: ->
-      offset = $('.status-bar').offset().top
+      offset = this.$('.status-bar').offset().top
       $(window).scroll ->
         if $(document).scrollTop() > offset
           this.$('.status-bar').addClass('fixed')
