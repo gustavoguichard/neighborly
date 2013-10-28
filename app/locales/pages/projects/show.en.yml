@@ -37,3 +37,12 @@ en:
           draft: "This project is in draft mode and is not open to backers yet."
       make_contribution: 'Make a contribution'
       spread_the_word: 'Spred the word'
+      share:
+        title: 'Get your friends involved'
+        twitter: 'Twitter'
+        facebook: 'Facebook'
+        email: 'Email'
+        embed: 'Embed'
+        twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly"
+    video_embed:
+      a_project_by_html: "A project by %{link} on"
