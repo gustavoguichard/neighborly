@@ -120,6 +120,15 @@
         = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"
         = link_to t('.spread_the_word'), '#', class: 'button with-icon spread-the-word'
 
-      .rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
+      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
-
+      section.neighbors-behind-this
+        .title = t('.neighbors_behind_this')
+        - if @project.total_backers > 0
+          .list
+            - for backer in @project.backers.available_to_display.order("RANDOM()").limit(15)
+              = link_to image_tag(backer.user.display_image), user_path(backer.user), tite: backer.user.display_name
+          .more
+            = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
+        - else
+          p = t('.no-neighbors')

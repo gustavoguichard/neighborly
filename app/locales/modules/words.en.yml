@@ -4,6 +4,8 @@ en:
     sending: 'Sending...'
     remaining_plural: 'left'
     remaining_singular: 'left'
+    neighbor_plural: 'neighbors'
+    neighbor_singular: 'neighbor'
     confirm: 'Are you sure?'
     detele: 'Delete'
     cancel: 'Cancel'

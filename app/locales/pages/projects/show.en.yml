@@ -44,5 +44,6 @@ en:
         email: 'Email'
         embed: 'Embed'
         twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly"
+      no-neighbors: "No neighbors yet."
     video_embed:
       a_project_by_html: "A project by %{link} on"
