@@ -122,7 +122,7 @@
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
-      section.neighbors-behind-this
+      section.custom.neighbors-behind-this
         .title = t('.neighbors_behind_this')
         - if @project.total_backers > 0
           .list
