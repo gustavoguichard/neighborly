@@ -1,18 +1,20 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
 
-Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index]
+Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index, Neighborly.Projects.Show.StatusBar]
 
 Neighborly.Projects.Show =
   init: Backbone.View.extend
+    el: '.project-page'
+
+    initialize: ->
+
+  StatusBar: Backbone.View.extend
     el: '.project-page'
 
     events:
       'click .scroll-to-top': 'scrollTop'
 
     initialize: ->
-      this.statusBar()
-
-    statusBar: ->
       offset = this.$('.status-bar').offset().top
       $(window).scroll ->
         if $(document).scrollTop() > offset
@@ -23,3 +25,4 @@ Neighborly.Projects.Show =
     scrollTop: (event)->
       event.preventDefault()
       $(document).scrollTop(0)
+
