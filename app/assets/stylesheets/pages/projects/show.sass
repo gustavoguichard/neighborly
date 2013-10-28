@@ -108,4 +108,47 @@
 
   .main
     @extend .white
+    margin-bottom: +emCalc(20px)
 
+  section.share
+    +clearfix
+    background: $tertiary-color
+    margin-left: -(+emCalc(15px))
+    margin-right: -(+emCalc(15px))
+    padding: +emCalc(15px)
+    &:before
+      margin-top: -(+emCalc(15px))
+      margin-left: +emCalc(15px)
+      width: 0
+      height: 0
+      line-height: 0
+      border-top: +emCalc(20px) solid white
+      border-right: (+emCalc(20px)*.75) solid transparent
+      border-left: (+emCalc(20px)*.75) solid transparent
+
+    h4
+      text-align: center
+      color: white
+      text-transform: uppercase
+      font-weight: bold
+      padding-bottom: +emCalc(15px)
+
+    .button
+      width: 100%
+      background: white
+      color: $primary-color
+      &:after
+        border-left-color: darken($border-color, 10%)
+
+      &.twitter:after
+        @extend .icon-et-twitter:before
+      &.facebook:after
+        @extend .icon-et-facebook:before
+      &.embed:after
+        @extend .icon-et-code:before
+
+.embed-panel-page
+  textarea
+    height: +emCalc(115px)
+  #project-video-embed-html
+    width: 97%

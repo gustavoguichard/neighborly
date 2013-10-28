@@ -101,9 +101,25 @@
         - else
           = render template: 'projects/about', locals: { partial: true }
 
+      section.share
+        h4 = t('.share.title')
+
+        .large-10.columns.large-centered
+          .row
+            .large-4.columns
+              = link_to t('.share.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: @project.name, hash_tag: @project.hash_tag))}", class: 'button secondary with-icon twitter', target: :blank
+            .large-4.columns
+              = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('project_thumb_facebook')}", class: 'button secondary with-icon facebook', target: :blank
+            .large-4.columns
+              = link_to t('.share.embed'), embed_panel_project_path(@project), data: { 'reveal-id' => 'embed-panel', 'reveal-ajax' => true }, class: 'button secondary with-icon embed'
+            - content_for :modals do
+              #embed-panel.reveal-modal.small.fixed
+
     aside.large-3.columns.sidebar
       .call-to-action
         = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"
         = link_to t('.spread_the_word'), '#', class: 'button with-icon spread-the-word'
 
       .rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
+
+
