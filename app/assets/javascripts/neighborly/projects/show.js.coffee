@@ -15,7 +15,8 @@ Neighborly.Projects.Show =
       'click .scroll-to-top': 'scrollTop'
 
     initialize: ->
-      offset = this.$('.status-bar').offset().top
+      offset = this.$('.status-bar').offset()
+      offset = offset.top if offset?
       $(window).scroll ->
         if $(document).scrollTop() > offset
           this.$('.status-bar').addClass('fixed')
