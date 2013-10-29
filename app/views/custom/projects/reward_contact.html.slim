@@ -1,0 +1,14 @@
+a.close-reveal-modal ×
+= form_tag send_reward_email_project_path(resource) do
+  p = 'Thank you for your generosity. We would like to reach out to you by phone or email. Please let us know the following:'
+  = label_tag :name, '<abbr title="required">*</abbr> Name'.html_safe
+  = text_field_tag :name, nil, required: true
+  = label_tag :email, '<abbr title="required">*</abbr> Email address'.html_safe
+  = email_field_tag :email, nil, required: true
+  = label_tag :phone_number, 'Phone number'
+  = text_field_tag :phone_number
+  = label_tag :message, '<abbr title="required">*</abbr> Message'.html_safe
+  = text_area_tag :message, nil, required: true
+  = show_simple_captcha(code_type: 'numeric')
+  br/
+  = submit_tag 'Send message', class: 'button'
