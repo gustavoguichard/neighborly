@@ -115,6 +115,29 @@
             - content_for :modals do
               #embed-panel.reveal-modal.medium.fixed
 
+      .row
+        .large-6.columns.leading-team
+          section.custom
+
+        .large-6.columns.author
+          section.custom
+            .title = t('.author.about', name: @project.user.display_name)
+
+            .content
+              p = @project.user.bio
+
+              .social
+                ul
+                  - if @project.user.facebook_link
+                    li = link_to @project.user.facebook_link.gsub('https://www.facebook', 'fb').gsub('http://www.facebook', 'fb'), @project.user.facebook_link, target: :blank, class: 'facebook'
+                  - if @project.user.twitter
+                    li = link_to "@#{@project.user.twitter}", @project.user.twitter_link, target: :blank, class: 'twitter'
+                  - if @project.user.email
+                    li = mail_to @project.user.email, @project.user.email, class: 'email'
+                  - if @project.user.other_link
+                    li = link_to @project.user.other_link, @project.user.other_link, target: :blank, class: 'other'
+
+
     aside.large-3.columns.sidebar
       .call-to-action
         = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"

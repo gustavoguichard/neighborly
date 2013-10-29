@@ -128,16 +128,21 @@
       padding-right: +emCalc(5px)
       padding-bottom: +emCalc(10px)
 
-
   .main
-    @extend .white
-    margin-bottom: +emCalc(20px)
+    section.content
+      @extend .white
+      margin:
+        left: -(+emCalc(15px))
+        right: -(+emCalc(15px))
+      padding: +emCalc(15px)
 
   section.share
     +clearfix
     background: $tertiary-color
-    margin-left: -(+emCalc(15px))
-    margin-right: -(+emCalc(15px))
+    margin:
+      left: -(+emCalc(15px))
+      right: -(+emCalc(15px))
+      bottom: +emCalc(20px)
     padding: +emCalc(15px)
     &:before
       margin-top: -(+emCalc(15px))
@@ -169,6 +174,34 @@
         @extend .icon-et-facebook:before
       &.embed:after
         @extend .icon-et-code:before
+
+  .leading-team
+    padding-left: 0
+  .author
+    padding-right: 0
+  .leading-team, .author
+    .content
+      padding: +emCalc(25px)
+    .social
+      ul
+        margin: 0
+        li
+          list-style: none
+      a
+        &:before
+          @extend [class^="icon-et-"]:before
+          padding-right: +emCalc(5px)
+          font-size: 150%
+          vertical-align: middle
+
+        &.twitter:before
+          @extend .icon-et-twitter-circled:before
+        &.facebook:before
+          @extend .icon-et-facebook-circled:before
+        &.email:before
+          @extend .icon-et-mail:before
+        &.other:before
+          @extend .icon-et-globe:before
 
 .embed-panel-page
   textarea
