@@ -103,14 +103,14 @@ class ProjectsController < ApplicationController
   end
 
   def send_reward_email
-    project = Project.find params[:id]
     if simple_captcha_valid?
-      ProjectsMailer.contact_about_reward_email(params, project).deliver
+      ProjectsMailer.contact_about_reward_email(params, resource).deliver
       flash[:notice] = 'We\'ve received your request and will be in touch shortly.'
     else
       flash[:error] = 'The code is not valid. Try again.'
     end
-    redirect_to project_path(project)
+    redirect_to project_path(resource)
+  end
 
   def reward_contact
     render layout: !request.xhr?
