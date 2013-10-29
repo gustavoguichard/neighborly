@@ -111,5 +111,8 @@ class ProjectsController < ApplicationController
       flash[:error] = 'The code is not valid. Try again.'
     end
     redirect_to project_path(project)
+
+  def reward_contact
+    render layout: !request.xhr?
   end
 end
