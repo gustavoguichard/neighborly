@@ -132,3 +132,6 @@
             = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
         - else
           p = t('.no-neighbors')
+
+- content_for :modals do
+  #reward-contact.reveal-modal.small.fixed
