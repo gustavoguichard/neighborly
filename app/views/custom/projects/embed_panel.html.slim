@@ -11,10 +11,10 @@ br/
 
 
 .embed-panel-page.row.collapse
-  .large-4.columns
+  .large-6.small-12.medium-12.columns
     iframe frameborder='0' height=box_height width=box_width src=embed_project_path(@project)
     form.html= text_area_tag 'project-box-embed-html', '<iframe frameborder="0" height="' + box_height + '" src="' + embed_project_url(@project) + '" width="' + box_width + '"></iframe>', readonly: true
 
-  .large-6.columns
+  .large-6.small-12.medium-12.column.video-embed-wrapper
     iframe frameborder='0' height=video_height width=video_width src=video_embed_project_path(@project)
     form.html= text_area_tag 'project-video-embed-html', '<iframe frameborder="0" height="' + video_height + '" src="' + video_embed_project_url(@project) + '" width="' + video_width + '"></iframe>', readonly: true

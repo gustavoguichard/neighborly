@@ -174,4 +174,12 @@
   textarea
     height: +emCalc(115px)
   #project-video-embed-html
-    width: 97%
+    width: 364px
+    @media #{$large}
+      float: right
+  #project-box-embed-html
+    width: 250px
+  .video-embed-wrapper
+    @media #{$large}
+      text-align: right
+      +clearfix
