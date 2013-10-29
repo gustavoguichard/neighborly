@@ -24,3 +24,5 @@ Cookbooks
 .vagrant
 .project
 .secret.rvmrc
+*.sublime-project
+*.sublime-workspace
