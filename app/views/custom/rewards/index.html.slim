@@ -35,6 +35,9 @@
       .contribute
         = link_to t('.contribute'), new_project_backer_path(parent, reward_id: reward.id), class: 'button'
 
+    - if reward.show_contact_button
+      .contact
+        = link_to t('.contact'), reward_contact_project_path(parent), class: 'button', data: { 'reveal-id' => 'reward-contact', 'reveal-ajax' => true }
 - if can?(:update, parent)
 
   .reward.new-reward-form
