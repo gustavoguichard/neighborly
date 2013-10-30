@@ -1,0 +1,58 @@
+=avatar-position($size)
+  width: $size
+  height: $size
+  margin-bottom: -$size/2
+  margin-left: -$size/2
+  img
+    width: 100% !important
+
+.user-profile-page
+  header.hero
+    position: relative
+  
+  .profile_image
+    border-radius: 50%
+    overflow: hidden
+    position: absolute
+    bottom: 0
+    left: 50%
+    border: 6px solid white
+    &.personal
+      +avatar-position(150px)
+    &.company
+      +avatar-position(75px)
+
+.hero_bio
+  padding: 5em 0 2em
+  text-align: center
+  background: white
+  h2
+    text-transform: uppercase
+    margin-bottom: 0
+  .bio
+    margin: 1em auto
+    color: $secondary-font-color
+    font:
+      size: 1.05em
+      weight: 300
+
+.user_social 
+  li
+    display: inline-block
+  .social-link
+    display: block
+    width: 30px
+    height: 30px
+    padding: 5px
+    background: $primary-color
+    color: white
+    text-align: center
+    line-height: 1.3em
+    border-radius: 50%
+    margin: 0 .3em
+    +transition(.3s)
+    &:hover
+      background: darken($primary-color, 15%)
+
+#user_profile_content
+  padding: 1.5em 0
