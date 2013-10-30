@@ -63,12 +63,11 @@
     .status-description
       line-height: 1.3
 
-    &:not(.fixed)
-      .name
-        display: none
-      .status
-        width: 100%
+    .status
+      width: 100%
+
     .name
+      display: none
       a
         color: $secondary-color
         text-transform: uppercase
@@ -93,16 +92,22 @@
 
       & + .row
         margin-top: +emCalc(153px)
+      .name
+        display: block
+      .status
+        @extend .large-7
 
   .call-to-action
     .button
       font-size: 80%
       width: 100%
-      &.make-contribution:after
-        content: '$'
-        font-weight: 200
-        font-family: $body-font-family
-        padding-top: 5px
+      &.make-contribution
+        padding-left: 0\9
+        &:after
+          content: '$'
+          font-weight: 200
+          font-family: $body-font-family
+          padding-top: 5px
       &.spread-the-word:after
         @extend .icon-et-heart:before
 
