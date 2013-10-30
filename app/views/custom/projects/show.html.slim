@@ -23,7 +23,7 @@
         .flex-video
           iframe src="#{@project.display_video_embed_url}" width="480" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
         .share-small
-          = render 'share'
+          = render 'projects/share'
 
       .large-6.columns
         .name
@@ -111,7 +111,7 @@
         h4 = t('.share.title')
 
         .large-10.columns.large-centered
-          = render 'share'
+          = render 'projects/share'
 
       .row
         .large-6.columns.leading-team
