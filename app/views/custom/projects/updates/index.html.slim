@@ -1,5 +1,8 @@
 - content_for :page_content do
-  = render @updates
+  - if @updates.any?
+    = render @updates
+  - else
+    p = t('.no-updates')
 
 - if request.xhr?
   = yield :page_content
