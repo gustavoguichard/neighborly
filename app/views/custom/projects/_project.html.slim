@@ -1,4 +1,5 @@
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 columns' if defined?(large)} #{'large-3 columns' unless defined?(large)} #{project.category.to_s.parameterize if project.category}"]
+- columns_n = if defined? columns then columns else 'large-3' end
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 columns' if defined?(large)} #{columns_n + ' columns' unless defined?(large)} #{project.category.to_s.parameterize if project.category}"]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'

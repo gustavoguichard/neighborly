@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
   end
 
   def total_backs
-    backs.confirmed.not_anonymous.count
+    backs.with_state('confirmed').not_anonymous.length
   end
 
   def updates_subscription
@@ -275,6 +275,14 @@ class User < ActiveRecord::Base
     backed_projects.map do |p|
       unsubscribes.updates_unsubscribe(p.id)
     end
+  end
+
+  def projects_led
+    projects.visible.not_soon
+  end
+
+  def total_led
+    projects_led.length
   end
 
   def backed_projects

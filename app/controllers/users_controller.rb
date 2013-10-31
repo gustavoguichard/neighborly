@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   load_and_authorize_resource new: [ :set_email ], except: [ :projects ]
   inherit_resources
-  actions :show, :update, :unsubscribe_update, :request_refund, :set_email, :update_email, :uservoice_gadget
+  actions :show, :edit, :update, :unsubscribe_update, :request_refund, :set_email, :update_email, :uservoice_gadget
   respond_to :json, only: [:backs, :projects, :request_refund]
 
   def uservoice_gadget
@@ -21,6 +21,14 @@ class UsersController < ApplicationController
       @subscribed_to_updates = @user.updates_subscription
       @unsubscribes = @user.project_unsubscribes
     }
+  end
+
+  def edit
+    unless can?(:manage, @user)
+      redirect_to @user
+      return
+    end
+    edit!{@title = "Editing: #{@user.display_name}"}
   end
 
   def set_email

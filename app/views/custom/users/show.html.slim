@@ -7,128 +7,52 @@
   meta property="og:description" content=@user.bio
   meta property="fb:admins" content="#{fb_admins}"
 
-
-div
-  .row
-    #user_profile
-
-      // Public profile
-      - unless can? :manage, @user
-        .section_header
-          .profile_image[class=@user.profile_type]
-            - if @user.company?
-              = @user.display_image_html width: 160, height: 75
-            - else
-              = @user.display_image_html
-          .profile_title
-            h1.profile
-                = @user.display_name
-            h4.bio
-                = @user.bio
-            .user_social
-              ul
-                - if @user.facebook_link
-                  li
-                    = link_to @user.facebook_link, target: 'blank' do
-                      = image_tag 'neighborly/facebook_32.png'
-                - if @user.twitter
-                  li
-                    = link_to @user.twitter_link, target: 'blank' do
-                      = image_tag 'neighborly/twitter_32.png'
-                - if @user.linkedin_url
-                  li
-                    = link_to @user.linkedin_url, target: 'blank' do
-                      = image_tag 'neighborly/linkedin_32.png'
-                - if @user.other_link
-                  li.other
-                    = link_to @user.other_link, target: 'blank' do
-                      = image_tag 'neighborly/internet_32.png', width: '28px', heigt: '28px'
-        .clearfix
-          h2.ivebacked= "I've backed #{@user.backs.with_state('confirmed').not_anonymous.length} so far..."
-        #user_profile_content
-          #user_backed_projects.content[data-path=user_backers_path(@user)]
-            - if !can? :manage, @user
-              p.empty.hide= t('users.backs.no_backs', name: @user.display_name)
-            - else
-              p.empty.hide= t('users.backs.no_backs_current_user_html', link: ::Configuration[:base_url])
-            .results
-            .clearfix
-            .loading= image_tag "loading.gif"
-            .clearfix
-
-      // Private profile
+.user-profile-page
+  header.hero[style="background-image: url(#{image_url('home-hero.png')})"]
+    figure.profile_image[class=@user.profile_type]
+      - if @user.company?
+        = @user.display_image_html width: 160, height: 75
       - else
-        .section_header
-          .profile_title
-            h1.profile My Neighbor.ly Account
+        = @user.display_image_html
+  .hero_bio
+    .row
+      .large-6.large-centered.columns
+        h2.profile
+          = @user.display_name
+        h3.city
+          = @user.address
+        p.bio
+          = @user.bio
+        
+        ul.user_social
+          - if @user.facebook_link.present?
+            li
+              = link_to @user.facebook_link, target: 'blank', class: "social-link" do
+                i.icon-et-facebook
+          - if @user.twitter.present?
+            li
+              = link_to @user.twitter_link, target: 'blank', class: "social-link" do
+                i.icon-et-twitter
+          - if @user.linkedin_url.present?
+            li
+              = link_to @user.linkedin_url, target: 'blank', class: "social-link" do
+                i.icon-et-linkedin
+          - if @user.other_link.present?
+            li
+              = link_to @user.other_link, target: 'blank', class: "social-link" do
+                i.icon-et-globe
+      
 
-        .tab_container
-          nav#user_profile_menu
-            = link_to '#my_profile', id: 'my_profile_link', class: 'selected', data: { target: '#user_my_profile' } do
-              i.icon-user
-              = t('.tabs.my_profile')
-            = link_to '#backs', id: 'backed_projects_link', data: { target: '#user_backed_projects' } do
-              i.icon-ok-circle
-              = t('.tabs.backed_projects')
-            = link_to '#projects', id: 'created_projects_link', data: { target: '#user_created_projects' } do
-              i.icon-th
-              = t('.tabs.created_projects')
-            = link_to '#credits', id: 'credits_link', data: { target: '#user_credits' } do
-              i.icon-refresh
-              = t('.tabs.credits')
-            = link_to '#settings', id: 'settings_link', data: { target: '#user_settings' } do
-              i.icon-wrench
-              = t('.tabs.settings')
-            = link_to '#unsubscribes', id: 'unsubscribes_link', data: { target: '#user_unsubscribes' } do
-              i.icon-bell-alt
-              = t('.tabs.unsubscribes')
-        .clearfix
-        #user_profile_content
-          #user_backed_projects.content.hide[data-path=user_backers_path(@user)]
-            - if !can? :manage, @user
-              p.empty.hide= t('users.backs.no_backs', name: @user.display_name)
-            - else
-              p.empty.hide= t('users.backs.no_backs_current_user_html', link: ::Configuration[:base_url])
-            .results
-            .clearfix
-            .loading= image_tag "loading.gif"
-            .clearfix
-
-            .bootstrap-twitter
-              #badgesModal.modal.hide.fade
-                .modal-header
-                  button.close data-dismiss="modal" type="button" x
-                  h3= ::Configuration[:company_name]
-                .modal-body
-                  .loading= image_tag "loading.gif"
-                  .modal-content.hide
-                    p Copy the code that is next to the image and paste in your site.
-                    div
-                      .image
-                        = image_tag "badges/default.jpg", size: "100x100"
-                      .textarea
-                        form.html= text_area_tag 'badge_embed_html', "<a></a>", readonly: true
-                      .clearfix
-                      .base_code.hide
-                        = link_to root_url, target: "_blank" do
-                          = image_tag "#{root_url}assets/badges/default.jpg", alt: "I HELPED MAKE IT HAPPEN - #{::Configuration[:company_name]}", width: 100, height: 100
-                .modal-footer
-                  a.btn data-dismiss="modal" href="#" OK
-
-          #user_created_projects.content.hide[data-path=user_projects_path(@user)]
-            p.empty.hide= t('users.projects.no_projects', name: @user.display_name)
-            .results
-            .clearfix
-            .loading= image_tag "loading.gif"
-            .clearfix
-          - if can? :manage, @user
-            #user_my_profile.content
-              = render 'current_user_fields'
-            #user_unsubscribes.content.hide
-              = render 'unsubscribes'
-            #user_settings.content.hide
-              = render 'settings'
-            #user_credits.content.hide
-              = render 'credits'
-      .clearfix
-    .clearfix
+  section.content
+    - if @user.total_backs > 0
+      .row
+        .large-12.columns
+          h3.subtle-title.ivebacked= t('.ive_backed', number: @user.total_backs)
+          .row
+            = render @user.backed_projects, columns: "large-4"
+    - if @user.total_led > 0
+      .row
+        .large-12.columns
+          h3.subtle-title.ivebacked= t('.ive_led', number: @user.total_led)
+          .row
+            = render @user.projects_led, columns: "large-4"

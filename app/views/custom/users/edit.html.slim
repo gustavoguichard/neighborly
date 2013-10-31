@@ -1,0 +1,86 @@
+= content_for :meta_tags do
+  -# Meta tags for facebook social graph
+  meta property="og:title" content=@user.name
+  meta property="og:url" content=="#{Configuration[:base_url]}#{user_path(@user)}"
+  meta property="og:image" content==@user.display_image
+  meta property="og:site_name" content=::Configuration[:company_name]
+  meta property="og:description" content=@user.bio
+  meta property="fb:admins" content="#{fb_admins}"
+
+.user-profile-page
+  .row
+    #user_profile
+      .section_header
+        .profile_title
+          h1.profile My Neighbor.ly Account
+
+      .tab_container
+        nav#user_profile_menu
+          = link_to '#my_profile', id: 'my_profile_link', class: 'selected', data: { target: '#user_my_profile' } do
+            i.icon-user
+            = t('.tabs.my_profile')
+          = link_to '#backs', id: 'backed_projects_link', data: { target: '#user_backed_projects' } do
+            i.icon-ok-circle
+            = t('.tabs.backed_projects')
+          = link_to '#projects', id: 'created_projects_link', data: { target: '#user_created_projects' } do
+            i.icon-th
+            = t('.tabs.created_projects')
+          = link_to '#credits', id: 'credits_link', data: { target: '#user_credits' } do
+            i.icon-refresh
+            = t('.tabs.credits')
+          = link_to '#settings', id: 'settings_link', data: { target: '#user_settings' } do
+            i.icon-wrench
+            = t('.tabs.settings')
+          = link_to '#unsubscribes', id: 'unsubscribes_link', data: { target: '#user_unsubscribes' } do
+            i.icon-bell-alt
+            = t('.tabs.unsubscribes')
+      .clearfix
+      #user_profile_content
+        #user_backed_projects.content.hide[data-path=user_backers_path(@user)]
+          - if !can? :manage, @user
+            p.empty.hide= t('users.backs.no_backs', name: @user.display_name)
+          - else
+            p.empty.hide= t('users.backs.no_backs_current_user_html', link: ::Configuration[:base_url])
+          .results
+          .clearfix
+          .loading= image_tag "loading.gif"
+          .clearfix
+
+          .bootstrap-twitter
+            #badgesModal.modal.hide.fade
+              .modal-header
+                button.close data-dismiss="modal" type="button" x
+                h3= ::Configuration[:company_name]
+              .modal-body
+                .loading= image_tag "loading.gif"
+                .modal-content.hide
+                  p Copy the code that is next to the image and paste in your site.
+                  div
+                    .image
+                      = image_tag "badges/default.jpg", size: "100x100"
+                    .textarea
+                      form.html= text_area_tag 'badge_embed_html', "<a></a>", readonly: true
+                    .clearfix
+                    .base_code.hide
+                      = link_to root_url, target: "_blank" do
+                        = image_tag "#{root_url}assets/badges/default.jpg", alt: "I HELPED MAKE IT HAPPEN - #{::Configuration[:company_name]}", width: 100, height: 100
+              .modal-footer
+                a.btn data-dismiss="modal" href="#" OK
+
+        #user_created_projects.content.hide[data-path=user_projects_path(@user)]
+          p.empty.hide= t('users.projects.no_projects', name: @user.display_name)
+          .results
+          .clearfix
+          .loading= image_tag "loading.gif"
+          .clearfix
+        - if can? :manage, @user
+          #user_my_profile.content
+            = render 'current_user_fields'
+          #user_unsubscribes.content.hide
+            = render 'unsubscribes'
+          #user_settings.content.hide
+            = render 'settings'
+          / #user_credits.content.hide
+          /   = render 'credits'
+    .clearfix
+  .clearfix

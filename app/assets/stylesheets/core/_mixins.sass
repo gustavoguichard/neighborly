@@ -1,0 +1,234 @@
+// Mixins Extracted from gustavoguichard/semantic-mixins gem
+// This mixin is simple yet awesome to use, it'll give semantics to your sass code.
+// Use it like so:
+// ul.nav_menu
+//  padding: 20px
+//  +context(footer) // or +context("footer .menu_section") as a string when it's a class or id or a plural css selector.
+//    background: green
+= context($selector)
+  #{$selector} &
+    @content
+
+// Call this mixin to place a decorative content around an element, e.g a tape holding a post it.
+// When using the default configurations, you just need to set the dimensions, position and a background
+= decorative-content($position: after, $absolute: true)
+  @if $absolute
+    position: relative
+
+  &:#{$position}
+    content: ""
+    display: block
+    @if $absolute
+      position: absolute
+    @content
+
+= triangle($position: right, $size: 5px, $color: black)
+  width: 0
+  height: 0
+  line-height: 0
+  @if $position == top
+    border-bottom: $size solid $color
+    border-right: ($size*.75) solid transparent
+    border-left: ($size*.75) solid transparent
+  @if $position == bottom
+    border-top: $size solid $color
+    border-right: ($size*.75) solid transparent
+    border-left: ($size*.75) solid transparent
+  @if $position == left
+    border-right: $size solid $color
+    border-top: ($size*.75) solid transparent
+    border-bottom: ($size*.75) solid transparent
+  @if $position == right
+    border-left: $size solid $color
+    border-top: ($size*.75) solid transparent
+    border-bottom: ($size*.75) solid transparent
+  @if $position == top-left
+    border-top: $size solid $color
+    border-right: $size solid transparent
+  @if $position == top-right
+    border-top: $size solid $color
+    border-left: $size solid transparent
+  @if $position == bottom-right
+    border-bottom: $size solid $color
+    border-left: $size solid transparent
+  @if $position == bottom-left
+    border-bottom: $size solid $color
+    border-right: $size solid transparent
+
+// POSITIONING MIXINS
+= absolute-centering($width: 0, $direction: left, $offset: 0)
+  #{$direction}: 50%
+  margin-#{$direction}: - ($width / 2) - $offset
+
+= move($distance, $direction: bottom)
+  position: relative
+  #{$direction}: - $distance
+
+// FONT MIXINS
+=face($fontName, $fontFileName, $weight: normal, $style: normal)
+  @font-face
+    font-family: $fontName
+    src: url('#{$fontFileName}.eot')
+    src: url('#{$fontFileName}.eot?#iefix') format('embedded-opentype'), url('#{$fontFileName}.svg##{$fontName}') format('svg'), url('#{$fontFileName}.woff') format('woff'), url('#{$fontFileName}.ttf') format('truetype')
+    font-weight: $weight
+    font-style: $style
+
+// IMAGE MIXINS
+// Before using this mixin you should put the images in a folder called sprites
+// and then import'em like so: @import "sprites/*.png"
+= sprite-replace($name, $boilerplate: false)
+  +sprites-sprite($name)
+  @if $boilerplate
+    +boilerplate-image-replace
+  @else
+    +hide-text
+  display: block
+  width: sprites-sprite-width($name)
+  height: sprites-sprite-height($name)
+
+= image-replace($img, $boilerplate: false)
+  @if $boilerplate
+    +boilerplate-image-replace
+  @else
+    +hide-text
+  +image-block($img)
+
+= image-block($img)
+  display: block
+  background-repeat: no-repeat
+  height: image-height($img)
+  width: image-width($img)
+  background-image: image-url($img)
+
+= prepend-image($img, $absolute: true)
+  +decorative-content(before, $absolute)
+    +image-block($img)
+    @content
+
+= append-image($img, $absolute: true)
+  +decorative-content(after, $absolute)
+    +image-block($img)
+    @content
+
+// Don't use this technique if you are stylizing an pseudo element (e.g. decorative-content)
+= boilerplate-image-replace
+  background-color: transparent
+  border: 0
+  overflow: hidden
+  +decorative-content(before, false)
+    width: 0
+    height: 100%
+  // IE 6/7 fallback
+  +ie6-hack
+    text-indent: -9999px
+
+= inline-icon($img, $gap:5px, $pos: left, $padding: 0)
+  background-image: image-url($img)
+  background-repeat: no-repeat
+  @if $pos == right
+    background-position: right center
+    text-align: right
+  @else
+    background-position: left center
+    text-align: left
+  line-height: image-height($img)
+  padding: $padding
+  padding-#{$pos}: image-width($img) + $gap
+
+// COLOR MIXINS
+= vertical-gradient($color1, $color2, $legacy: true)
+  @if $legacy
+    background-color: mix($color1, $color2)
+    +filter-gradient($color1, $color2, vertical)
+  +background-image(linear-gradient(top, $color1, $color2))
+
+= horizontal-gradient($color1, $color2, $legacy: true)
+  @if $legacy
+    background-color: mix($color1, $color2)
+    +filter-gradient($color1, $color2, horizontal)
+  +background-image(linear-gradient(left, $color1, $color2))
+
+// Accessibility
+= for-blind-people($can-focus: true)
+  border: 0
+  clip: rect(0 0 0 0)
+  height: 1px
+  margin: -1px
+  overflow: hidden
+  padding: 0
+  position: absolute
+  width: 1px
+  @if $can-focus
+    &:active, &:focus
+      clip: auto
+      height: auto
+      margin: 0
+      overflow: visible
+      position: static
+      width: auto
+
+// FILTERS
+= blur($value: 4px)
+  +filter(blur($value))
+
+= brightness($value: 0.35)
+  +filter(brightness($value))
+
+= contrast($value: 140%)
+  +filter(contrast($value))
+
+= grayscale($value: 100%)
+  +filter(grayscale($value))
+
+= saturate($value: 4)
+  +filter(saturate($value))
+
+= invert($value: 100%)
+  +filter(invert($value))
+
+= hue-rotate($value: 180deg)
+  +filter(hue-rotate($value))
+
+// ANIMATION
+= keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+  @-moz-keyframes #{$animation-name}
+    @content
+  @-o-keyframes #{$animation-name}
+    @content
+  @keyframes #{$animation-name}
+    @content
+
+// Use it to set the color, background and text-shadow of selected areas of page
+= selection($no-shadow: true)
+  ::selection
+    @if $no-shadow
+      text-shadow: none
+    @content
+  ::-moz-selection
+    @if $no-shadow
+      text-shadow: none
+    @content
+
+// Set a color for the inputs placeholders. Compass doesn't have it =P
+= placeholder-color($color)
+  &::-webkit-input-placeholder
+    color: $color
+  &:-moz-placeholder
+    color: $color
+  &:-ms-input-placeholder
+    color: $color
+  &:input-placeholder
+    color: $color
+
+= rgba($property, $color, $alpha: 1)
+  #{$property}: $color
+  #{$property}: rgba($color, $alpha)
+
+// IE Hacks MIXINS
+= legacy-inline-block
+  display: inline-block
+  *display: inline
+  zoom: 1
+
