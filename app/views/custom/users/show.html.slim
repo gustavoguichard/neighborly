@@ -43,16 +43,16 @@
                 i.icon-et-globe
       
 
-  #user_profile_content
+  section.content
     - if @user.total_backs > 0
       .row
         .large-12.columns
-          h3.subtle_title.ivebacked= "Campaigns I've backed - #{@user.total_backs}"
+          h3.subtle-title.ivebacked= t('.ive_backed', number: @user.total_backs)
           .row
             = render @user.backed_projects, columns: "large-4"
     - if @user.total_led > 0
       .row
         .large-12.columns
-          h3.subtle_title.ivebacked= "Campaigns I've led - #{@user.total_led}"
+          h3.subtle-title.ivebacked= t('.ive_led', number: @user.total_led)
           .row
             = render @user.projects_led, columns: "large-4"
