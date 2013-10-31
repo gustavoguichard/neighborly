@@ -39,13 +39,14 @@ en:
       spread_the_word: 'Spred the word'
       share:
         title: 'Get your friends involved'
-        twitter: 'Twitter'
-        facebook: 'Facebook'
-        email: 'Email'
-        embed: 'Embed'
-        twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly"
       no-neighbors: "No neighbors yet."
       author:
         about: 'About %{name}'
     video_embed:
       a_project_by_html: "A project by %{link} on"
+    share:
+      twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly"
+      twitter: 'Tweet'
+      facebook: 'Share'
+      email: 'Email'
+      embed: 'Embed'
