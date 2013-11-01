@@ -2,11 +2,13 @@ class Projects::UpdatesController < ApplicationController
   inherit_resources
   load_and_authorize_resource
 
-  actions :index, :create, :destroy
+  actions :destroy
   belongs_to :project, finder: :find_by_permalink!
 
-  def show
-    render resource
+  def index
+    if params[:page] && params[:page] > 1
+      render collection
+    end
   end
 
   def create

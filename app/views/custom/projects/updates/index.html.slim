@@ -1,11 +1,17 @@
 - content_for :page_content do
-  - if @updates.any?
-    = render @updates
-  - else
-    p = t('.no-updates')
+  .updates
+    - if can? :update, @project
+      = render template: 'projects/updates/new'
+
+    .list
+      - if collection.any?
+        = render collection
+      - else
+        p = t('.empty')
+
+    .updates-loading.loading= image_tag "loading.gif"
 
 - if request.xhr?
   = yield :page_content
 - else
   = render template: 'projects/show' 
-
