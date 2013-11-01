@@ -126,13 +126,13 @@
 
               .social
                 ul
-                  - if @project.user.facebook_link
+                  - if @project.user.facebook_link.present?
                     li = link_to @project.user.facebook_link.gsub('https://www.facebook', 'fb').gsub('http://www.facebook', 'fb'), @project.user.facebook_link, target: :blank, class: 'facebook'
-                  - if @project.user.twitter
+                  - if @project.user.twitter.present?
                     li = link_to "@#{@project.user.twitter}", @project.user.twitter_link, target: :blank, class: 'twitter'
                   - if @project.user.email
                     li = mail_to @project.user.email, @project.user.email, class: 'email'
-                  - if @project.user.other_link
+                  - if @project.user.other_link.present?
                     li = link_to @project.user.other_link, @project.user.other_link, target: :blank, class: 'other'
 
 
