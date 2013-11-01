@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: git://github.com/josemarluedke/initjs.git
-  revision: 005a08717c14e870ad8ed7282e01c914803a3591
-  ref: 005a08717c14e870ad8ed7282e01c914803a3591
+  revision: b22dcf8d9d46985652b28352b3644c1aaffaec6c
+  ref: b22dcf8d9d46985652b28352b3644c1aaffaec6c
   specs:
     initjs (1.0.1)
       jquery-rails
