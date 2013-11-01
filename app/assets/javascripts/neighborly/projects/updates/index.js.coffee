@@ -4,6 +4,19 @@ Neighborly.Projects.Updates = {} if Neighborly.Projects.Updates is undefined
 Neighborly.Projects.Updates.Index =
   init: Backbone.View.extend _.extend(
     el: '.updates'
+    events:
+      "ajax:success .list .update": "onDestroy"
+      "ajax:success form#new_update": "onCreate"
+
+    onCreate: (e, data) ->
+      #$(".ghost-flash").addClass("flash").removeClass "hide", "ghost-flash"
+      #this.$('.flash.ghost').appendTo('header')
+      @$results.prepend data
+
+    onDestroy: (e) ->
+      $target = $(e.currentTarget)
+      $target.remove()
+      #@parent.$("a#updates_link .count").html " (" + @updates().length + ")"
 
     initialize: ->
       this.$loader = this.$('.updates-loading img')
