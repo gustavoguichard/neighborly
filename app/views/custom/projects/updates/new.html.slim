@@ -5,8 +5,7 @@
   p = t('.warning')
   = form.button :submit, t('.send'), disable_with: t('words.sending')
 
-- content_for :custom_flahses do
-  .hide.ghost-flash
-    div class="notice wrapper"
-      div class="notice"
-        = t('controllers.updates.create.notice')
+.flash.ghost.hide
+  div class="alert-box success animated fadeIn" data-alert="true"
+    = t('.created')
+    a.close &times;

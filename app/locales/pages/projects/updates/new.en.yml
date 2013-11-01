@@ -7,3 +7,4 @@ en:
         exclusive: "Visible for backers only"
         title: "Title of the update"
         warning: "Remember, the text you write here will automatically be sent out in an email to your supporters. Be sure to review what you've written before submitting."
+        created: 'Update was successfully created!'
