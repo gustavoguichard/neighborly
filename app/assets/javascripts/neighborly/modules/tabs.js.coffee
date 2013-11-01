@@ -28,3 +28,4 @@ Neighborly.Tabs = Backbone.View.extend
 
     $(this.$target_container).on 'pjax:complete', ->
       $(that.$target_container).removeClass('loading-section')
+      Initjs.initializePartial()
