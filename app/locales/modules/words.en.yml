@@ -1,6 +1,7 @@
 en:
   words:
     or: 'or'
+    send: 'send'
     sending: 'Sending...'
     remaining_plural: 'left'
     remaining_singular: 'left'
