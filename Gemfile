@@ -115,7 +115,7 @@ group :production do
 end
 group :development do
   gem "letter_opener"
-  gem 'foreman'
+  gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
   # Uncomment only for optimization, should be commented on master branch
