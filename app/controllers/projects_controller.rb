@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
       if current_user && current_user.address.present?
         @city = current_user.address
       elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
-        @city = [request.location.city, request.location.region_code].join(', ')
+        @city = request.location.city
       else
         @city = 'Kansas City, MO'
       end
