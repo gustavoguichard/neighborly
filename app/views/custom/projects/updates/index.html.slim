@@ -1,5 +1,5 @@
 - content_for :page_content do
-  .updates
+  .updates[data-path=project_updates_path(@project)]
     - if can? :update, @project
       = render template: 'projects/updates/new'
 

@@ -6,7 +6,7 @@ class Projects::UpdatesController < ApplicationController
   belongs_to :project, finder: :find_by_permalink!
 
   def index
-    if params[:page] && params[:page] > 1
+    if params[:page] && params[:page].to_i > 1
       render collection
     end
   end
@@ -21,6 +21,6 @@ class Projects::UpdatesController < ApplicationController
   end
 
   def collection
-    @updates ||= end_of_association_chain.visible_to(current_user).page(params[:page]).per(3)
+    @updates ||= end_of_association_chain.visible_to(current_user).order('created_at desc').page(params[:page]).per(3)
   end
 end
