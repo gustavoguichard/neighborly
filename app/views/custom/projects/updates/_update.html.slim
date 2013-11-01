@@ -1,17 +1,14 @@
 .update
-  h3= link_to "#updates/#{update.id}", id: "updates/#{update.id}" do
+  h3.title = link_to "##{update.id}", id: "#{update.id}" do
     = update.title
-  .time= l(update.created_at, format: :updates)
-  .clearfix
-  .comment= raw(update.comment_html)
-  .media
-    .social
-      .update_share
-        - url = project_url(@project, update_id: update.id, anchor: 'updates')
-        .twitter_share= render_twitter text: "#{update.title}", url: url
-        .facebook_share= render_facebook_like href: url, width: '360'
+  .created-at = t('.created_at', time: l(update.created_at.to_date, format: :long))
+  .comment = raw(update.comment_html)
+  .social-share
+    - url = project_updates_url(@project, anchor: update.id)
+    .twitter = render_twitter text: "#{update.title} #{url}", url: url
+    .facebook = render_facebook_like href: url, width: '360'
   - if can? :manage, update
-    = link_to t('projects.project_updates.destroy'), project_update_path(project_id: @project.id, id: update.id), confirm: t('projects.project_updates.destroy_confirmation'), remote: true, method: :delete, class: 'destroy_update'
-    .deleting_update.hide= image_tag "loading.gif"
+    = link_to t('.destroy'), project_update_path(project_id: @project, id: update.id), confirm: t('words.confirm'), remote: true, method: :delete, class: 'destroy button secondary small'
+    .deleting-update.hide = image_tag "loading.gif"
 
 

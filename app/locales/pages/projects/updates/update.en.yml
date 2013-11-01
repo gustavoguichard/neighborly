@@ -1,0 +1,7 @@
+en:
+  projects:
+    updates:
+      update:
+        empty: "This project didn't have updates yet. But wait and see =D"
+        destroy: 'Remove update'
+        created_at: 'Updated on %{time}'
