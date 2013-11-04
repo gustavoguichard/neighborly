@@ -1,6 +1,6 @@
 - content_for :page_content do
   = initjs_tag app_name: 'Neighborly', partial: true
-  .backers[data-path=project_backers_path(@project)]
+  .backers-page[data-path=project_backers_path(@project)]
     .list.row
       - if collection.any?
         = render collection

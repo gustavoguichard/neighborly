@@ -3,7 +3,7 @@ Neighborly.Projects.Backers = {} if Neighborly.Projects.Backers is undefined
 
 Neighborly.Projects.Backers.Index =
   init: Backbone.View.extend _.extend(
-    el: '.backers'
+    el: '.backers-page'
 
     initialize: ->
       Neighborly.CustomTooltip()

@@ -5,7 +5,7 @@
         = image_tag 'user.png', class: 'avatar'
       - else
         = link_to user_path(backer.user) do
-          = backer.user.display_image_html
+          = backer.user.display_image_html width: 85, height: 85
     .large-8.columns
       .name
         - if backer.anonymous
