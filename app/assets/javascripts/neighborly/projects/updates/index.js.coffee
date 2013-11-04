@@ -6,12 +6,14 @@ Neighborly.Projects.Updates.Index =
     el: '.updates'
     events:
       "ajax:success form#new_update": "onCreate"
+      "ajax:success .update": "onDestroy"
 
     onCreate: (e, data) ->
-      #$(".ghost-flash").addClass("flash").removeClass "hide", "ghost-flash"
-      #this.$('.flash.ghost').appendTo('header')
       this.$('.new_update').trigger('reset')
       @$results.prepend data
+
+    onDestroy: (e)->
+      $(e.currentTarget).remove()
 
     initialize: ->
       this.$loader = this.$('.updates-loading img')

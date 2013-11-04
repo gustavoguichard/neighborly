@@ -17,7 +17,13 @@ class Projects::UpdatesController < ApplicationController
   end
 
   def destroy
-    destroy! { project_updates_path(parent) }
+    destroy! do
+      if request.xhr?
+        return render nothing: true
+      else
+        project_updates_path(parent)
+      end
+    end
   end
 
   def collection

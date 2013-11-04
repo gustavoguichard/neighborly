@@ -8,5 +8,5 @@
     .twitter = render_twitter text: "#{update.title} #{url}", url: url
     .facebook = render_facebook_like href: url, width: '360'
   - if can? :manage, update
-    = link_to t('.destroy'), project_update_path(project_id: @project, id: update.id), confirm: t('words.confirm'), method: :delete, class: 'destroy button secondary small'
+    = link_to t('.destroy'), project_update_path(project_id: @project, id: update.id), confirm: t('words.confirm'), method: :delete, remote: true, class: 'destroy button secondary small'
     .deleting-update.hide = image_tag "loading.gif"
