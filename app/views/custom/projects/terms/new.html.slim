@@ -1,6 +1,4 @@
-.bootstrap-twitter
-  .well
-    = semantic_form_for [@project, ProjectDocument.new] do |f|
-      h3= 'Submit documents about terms'
-      = f.input :document, as: :file, label: false
-      = f.submit 'Submit file', class: 'btn'
+= simple_form_for ProjectDocument.new, url: project_terms_path(@project) do |f|
+  h3 = 'Submit documents about terms'
+  = f.input :document, as: :file, label: false
+  = f.button :submit, 'Submit file'

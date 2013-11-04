@@ -1,23 +1,27 @@
 - content_for :page_content do
-  .user-content = @project.terms_html
+  .terms
+    - if can? :update, @project
+      = render template: 'projects/terms/new'
+    .user-content = @project.terms_html
 
-  h2 Terms files to download
+    - if @documents.any?
+      h3 Terms files to download
 
-  table.table-striped.bootstrap-twitter style="width: 100%"
-    - @documents.each do |pd|
-      tr
-        td.name style="width: 68%; padding: 1%"
-          = pd.document.filename
-        td.actions_link style="padding: 1%; width: 28%; text-align: right;"
-          = link_to  pd.document.url, class: 'btn btn-info btn-large', target: 'blank' do
-            i.icon-download.icon-white
+      .list
+        table.table-striped.bootstrap-twitter style="width: 100%"
+          - @documents.each do |pd|
+            tr
+              td.name style="width: 68%; padding: 1%"
+                = pd.document.filename
+              td.actions_link style="padding: 1%; width: 28%; text-align: right;"
+                = link_to  pd.document.url, class: 'btn btn-info btn-large', target: 'blank' do
+                  i.icon-download.icon-white
 
-          - if can? :manage, @project
-            = link_to [@project, pd], method: :delete, class: 'btn btn-large btn-danger', confirm: 'Are you sure?' do 
-              i.icon-trash.icon-white
+                - if can? :manage, @project
+                  = link_to [@project, pd], method: :delete, class: 'btn btn-large btn-danger', confirm: 'Are you sure?' do 
+                    i.icon-trash.icon-white
 
 - if request.xhr?
   = yield :page_content
 - else
   = render template: 'projects/show'
-
