@@ -2,23 +2,25 @@
   .terms
     - if can? :update, @project
       = render template: 'projects/terms/new'
-    .user-content = @project.terms_html
+
+    - if @project.terms.present?
+      .user-content = @project.terms_html
 
     - if @documents.any?
       h3 Terms files to download
 
       .list
-        table.table-striped.bootstrap-twitter style="width: 100%"
+        table
           - @documents.each do |pd|
             tr
-              td.name style="width: 68%; padding: 1%"
+              td.name.large-10.small-10.columns
                 = pd.document.filename
-              td.actions_link style="padding: 1%; width: 28%; text-align: right;"
-                = link_to  pd.document.url, class: 'btn btn-info btn-large', target: 'blank' do
+              td.actions.large-2.small-2.columns
+                = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
                   i.icon-download.icon-white
-
+                | &nbsp;
                 - if can? :manage, @project
-                  = link_to [@project, pd], method: :delete, class: 'btn btn-large btn-danger', confirm: 'Are you sure?' do 
+                  = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', confirm: 'Are you sure?' do 
                     i.icon-trash.icon-white
 
 - if request.xhr?
