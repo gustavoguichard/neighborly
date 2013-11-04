@@ -6,7 +6,7 @@ class Projects::UpdatesController < ApplicationController
   belongs_to :project, finder: :find_by_permalink!
 
   def index
-    if params[:page] && params[:page].to_i > 1
+    if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
     end
   end
