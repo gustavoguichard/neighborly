@@ -15,7 +15,7 @@ Neighborly.InfiniteScroll =
     this.EOF = true  if $.trim(data) is ""
     this.$results.append data
     this.$loader.hide()
-    this.trigger "scroll:success", data
+    this.$el.trigger "scroll:success", data
 
   $window: ->
     $(window)
