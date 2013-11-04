@@ -1,7 +1,7 @@
 - content_for :page_content do
   = initjs_tag app_name: 'Neighborly', partial: true
   .backers[data-path=project_backers_path(@project)]
-    .list
+    .list.row
       - if collection.any?
         = render collection
       - else
@@ -12,4 +12,4 @@
 - if request.xhr?
   = yield :page_content
 - else
-  = render template: 'projects/show' 
+  = render template: 'projects/show'
