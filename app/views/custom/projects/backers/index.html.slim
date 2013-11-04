@@ -1,5 +1,13 @@
 - content_for :page_content do
-  = render @backers
+  = initjs_tag app_name: 'Neighborly', partial: true
+  .backers[data-path=project_backers_path(@project)]
+    .list
+      - if collection.any?
+        = render collection
+      - else
+        p = t('.empty')
+
+    .backers-loading.loading= image_tag "loading.gif"
 
 - if request.xhr?
   = yield :page_content

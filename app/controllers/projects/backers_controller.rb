@@ -1,6 +1,6 @@
 class Projects::BackersController < ApplicationController
   inherit_resources
-  actions :index, :show, :new, :update_info, :review, :create, :credits_checkout
+  actions :show, :new, :update_info, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :update_info]
   skip_before_filter :verify_authenticity_token, only: [:moip]
   has_scope :available_to_count, type: :boolean
@@ -8,6 +8,13 @@ class Projects::BackersController < ApplicationController
   has_scope :page, default: 1
   load_and_authorize_resource except: [:index]
   belongs_to :project, finder: :find_by_permalink!
+
+  def index
+    @project = parent
+    if request.xhr? && params[:page] && params[:page].to_i > 1
+      render collection
+    end
+  end
 
   def update_info
     resource.update_attributes(params[:backer])
