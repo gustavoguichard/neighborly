@@ -1,0 +1,9 @@
+en:
+  discover:
+    index:
+      title: 'Discover amazing projects'
+      tags: 'Popupar Tags: '
+      near: 'Locations'
+      category: 'Category'
+      filter: 'Filter'
+      showing_results_for: 'Showing results for: '

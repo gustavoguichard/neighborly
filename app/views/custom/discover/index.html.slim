@@ -1,67 +1,27 @@
-- if current_user
-  #nearOfData data-state="#{current_user.address_state}"
+- content_for :title, t('.title')
+.discover-page
+  section.filters.white
+    .row
+      .large-12.columns
+        = form_tag discover_path, method: 'GET', class: 'discover-form row' do
+          .large-3.small-3.columns
+            = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near')
+          .large-3.small-3.columns
+            = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category')
+          .large-3.small-3.columns
+            = select_tag :filter, options_for_select(@avaliable_filters, @filters[:filter]), prompt: t('.filter')
+          .large-3.small-3.columns
+            = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...'
 
-#page_content
-  .container
-    .main
-      .section_header
-        .original_title
-          h1= t('.title')
-          h4= t('.subtitle')
+        .tags
+          strong = t('.tags')
+          - for tag in @tags
+            = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize}}"
+            | &nbsp;
+        .results-for
+          strong = t('.showing_results_for')
+          = @filters
 
-      #explore_results[data-projects-path=projects_path]
-        .results &nbsp;
-        .clearfix
-        #loading= image_tag "loading.gif"
-
-    .sidebar
-      .content
-        section.highlights
-          h2= t('.quick_explore')
-          ul#explore_quick
-            li
-              a[href='#recommended']
-                = t('.recommended')
-            li
-              a[href='#expiring']
-                = t('.expiring')
-            li
-              a[href='#recent']
-                = t('.recent')
-            li
-              a[href='#successful']
-                = t('.successful')
-            li
-              a[href='#soon']
-                = t('.soon')
-            /- if current_user
-              /li.no_margin
-                /a[href="#near_of/#{current_user.address_state}"]
-                  /= t('.near')
-
-        - unless @categories.empty?
-          section.categories
-            h2= t('.categories')
-            ul#explore_categories
-              - @categories.each_with_index do |category, index|
-                li class="#{(index%2==1 ? 'no_margin':'')}"
-                  a[href="#by_category_id/#{category.id}"]
-                    = category
-
-
-        .faq
-          = link_to faq_path do
-            = image_tag 'neighborly/faq.png'
-
-        .how_it_works
-          = link_to how_it_works_path do
-            = image_tag 'neighborly/how_it_works.png'
-
-        .about_us
-          = link_to about_path do
-            = image_tag 'neighborly/about_us.png'
-
-        .start
-          = link_to start_path do
-            = image_tag 'neighborly/start.png'
-    .clearfix
+  section.projects
+    .row
+      = render @projects
