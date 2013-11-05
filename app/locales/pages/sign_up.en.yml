@@ -1,18 +1,18 @@
 en:
   pages:
     sign_up:
-      have_account_html: "Already have a Neighbor.ly account? <strong>%{link}</strong>"
+      have_account_html: "Already joined? <strong>%{link}</strong>"
       titles:
         site: 'Sign up'
-        header: 'Sign up'
+        header: 'Join the Neighborhood'
       links:
         login: "Log in"
       form:
         labels:
           show_password: 'Show password'
         hint:
-          password_length: 'Must be at least 6 characters.'
+          password_length: '*must be at least 6 characters.'
         inputs:
-          submit: 'Sign me up'
+          submit: 'Join the Neighborhood'
           facebook: 'Sign up with Facebook'
 

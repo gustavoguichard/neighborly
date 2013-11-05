@@ -3,9 +3,9 @@
 = render 'devise/shared/header'
 
 .row
-  .large-5.large-centered.columns
+  .large-6.large-centered.columns
     .login-box.animated.fadeIn
-      h2.text-center= t 'pages.sign_up.titles.header'
+      h3.text-center = t 'pages.sign_up.titles.header'
       p.text-center.register_link
         = t 'pages.sign_up.have_account_html', link: link_to(t('pages.sign_up.links.login'), new_user_session_path)
       hr
@@ -13,29 +13,31 @@
       .clearfix
 
       .large-10.large-centered.columns
-        = form_for(resource, as: resource_name, url: sign_up_path) do |f|
+        = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
           = f.hidden_field :newsletter, value: true
 
           = render 'devise/shared/alert'
           p
-            = f.label :name
-            = f.text_field :name, required: true
+            / = f.label :name
+            = f.input :name, as: :string, required: true, label: false
 
           p
-            = f.label :email
-            = f.text_field :email, required: true
+            / = f.label :email
+            = f.input :email, as: :email, required: true, label: false
 
           p
-            = f.label :password
-            span.right.text-right.inline-hint
+            / = f.label :password
+            = f.input :password, as: :password, required: true, label: false
+            i.right.text-right.inline-hint.password-hint
               = t('pages.sign_up.form.hint.password_length')
-            = f.password_field :password, required: true
 
+          br
           .text-left
             = check_box_tag :show_password
+          .text-right
             = f.label :show_password, t('pages.sign_up.form.labels.show_password')
 
-          .large-10.columns.large-centered
-            = f.submit t('pages.sign_up.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
+          .large-centered
+            = f.submit t('pages.sign_up.form.inputs.submit'), class: [:button, :success, 'small-12 large-12', 'large-centered']
 
       .clearfix

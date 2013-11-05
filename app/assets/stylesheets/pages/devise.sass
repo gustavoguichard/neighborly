@@ -3,35 +3,47 @@
     padding: 1.35em 1.1em
     &.facebook
       background: #3b5998
+      border-bottom-color: darken(#3b5998, $button-border-color-darken)
       color: white !important
+      padding-right: +emCalc(58px)
+      text-transform: none
+      font-weight: 500
+      font-size: 110%
       &:hover
-        background: lighten(#3b5998, 5%)
+        background: lighten(#3b5998, $button-border-color-darken)
+      &:after
+        border-left-color: darken(#3b5998, $button-border-color-darken)
+        padding-top: +emCalc(11px)
+        @extend .icon-et-facebook:before
 
-    &.twitter, &.google
-      margin-right:  2.1em
+
+    &.twitter, &.google, &.linkedin
+      width: 100%
 
     &.facebook, &.twitter, &.google, &.linkedin
       i
         font-size: 1.5em
-      //padding: 0.8em 0.3em
 
     &.twitter
       background: #00ABF1
+      border-bottom-color: darken(#00ABF1, $button-border-color-darken)
       color: white !important
       &:hover
-        background: lighten(#00ABF1, 5%)
+        background: lighten(#00ABF1, $button-border-color-darken)
 
     &.google
       background: #E14929
+      border-bottom-color: darken(#E14929, $button-border-color-darken)
       color: white !important
       &:hover
-        background: lighten(#E14929, 5%)
+        background: lighten(#E14929, $button-border-color-darken)
 
     &.linkedin
       background: #0B84BE
+      border-bottom-color: darken(#0B84BE, $button-border-color-darken)
       color: white !important
       &:hover
-        background: lighten(#0B84BE, 5%)
+        background: lighten(#0B84BE, $button-border-color-darken)
   .login-box
     background: white
     padding: .5em 0 1.7em 0
@@ -43,13 +55,13 @@
     a
       font-weight: 300
 
-    h2
-      margin-top: emCalc(10px)
-      font-size: 2.6em
+    h3
+      margin-top: emCalc(8px)
       line-height: 1em
       padding: 0 5px
+      font-weight: 400
     hr
-      margin: 2em 0
+      margin: 1.3em 0
       display: block
     p
       font-size: 1.1em
@@ -58,35 +70,39 @@
       display: none
 
     .right, .inline-hint
-      font-size: .9em
-      color: $primary-color !important
+      font-size: .8em
+      color: $secondary-font-color !important
+      font-weight: 400
+
+    .password-hint
+      margin-top: emCalc(-21px)
 
     .separator
       border-top: 1px solid $border-color
       height: 1px
-      margin: 2.1em 0
+      margin: 0.6em 0
       text-align: center
       clear: both
       position: relative
       p
         text-align: center
         background: white
-        color: $primary-color
+        color: $secondary-font-color
         width: 30px
         display: block
         margin: 0 auto
         position: relative
-        top: -11px
+        top: emCalc(-14px)
     .text-right, .text-left
       //color: $grafiti
       display: inline-block
     .button.success
-      margin-top: 1.5em
-    .button.facebook
-      margin-bottom: 2.4em
+      margin-top: 0.5em
+      font-weight: 400
     .register_link
       color: $secondary-font-color
-      font-size: 1.1em
+      font-size: 0.9em
+      font-weight: 400
     .field_with_errors
       display: inline
 
