@@ -3,7 +3,7 @@ en:
     index:
       title: 'Invest in civic projects you care about'
       recommended: 'Recommended'
-      near: 'Projects in'
+      near: 'Projects near'
       ending_soon: 'Ending Soon'
       coming_soon: 'Coming Soon'
       no_projects_near: 'No projects near %{city}.'
