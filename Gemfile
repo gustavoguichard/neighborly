@@ -49,7 +49,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.4.0'
-gem 'devise', '~> 3.0.2'
+gem 'devise', '~> 3.1.1'
 gem 'ezcrypto'
 
 # See https://github.com/ryanb/cancan/tree/2.0 for help about this
