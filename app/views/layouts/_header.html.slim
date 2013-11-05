@@ -45,7 +45,7 @@ header.fixed
           li.search
             span.search-box
               = form_tag discover_path, method: 'GET', class: 'discover-form' do
-                = text_field_tag :pg_search, nil, autocomplete: "off", value: params[:pg_search], class: "discover-form-input #{'show' if params[:pg_search].present?}", placeholder: 'Search...'
+                = text_field_tag :search, nil, autocomplete: "off", value: params[:search], class: "discover-form-input #{'show' if params[:search].present?}", placeholder: 'Search...'
                 = submit_tag
 
               = link_to '#search', class: 'search-button' do
