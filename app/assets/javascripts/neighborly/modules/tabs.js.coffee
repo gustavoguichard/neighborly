@@ -5,6 +5,7 @@ Neighborly.Tabs = Backbone.View.extend
     'click a': 'toggleSelected'
 
   initialize: (options)->
+    return if this.$el.length is 0
     options = _.extend({ enable_pjax: true }, options)
 
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?

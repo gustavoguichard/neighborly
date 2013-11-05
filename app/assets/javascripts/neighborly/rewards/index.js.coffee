@@ -9,6 +9,7 @@ Neighborly.Rewards.Index = Backbone.View.extend
     'click .reward a.cancel': 'cancel'
 
   initialize: ->
+    return if this.$el.length is 0
     this.$rewards = $(this.el)
     this.load()
     this.sortable()
