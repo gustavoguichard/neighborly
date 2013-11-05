@@ -1,4 +1,4 @@
-class ExploreController < ApplicationController
+class DiscoverController < ApplicationController
   def index
     @title = t('explore.title')
     ## Just to know if we should present the menu entries, the actual projects are fetched via AJAX

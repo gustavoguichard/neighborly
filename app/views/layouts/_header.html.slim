@@ -20,7 +20,7 @@ header.fixed
               i.icon-rocket
               = t('.start_campaign')
           li
-            = link_to explore_path do
+            = link_to discover_path do
               i.icon-et-map
               = t('.discover')
           li
@@ -44,7 +44,7 @@ header.fixed
                 = link_to t('.sign-in'), new_user_session_path, class: 'sign-in'
           li.search
             span.search-box
-              = form_tag explore_path, method: 'GET', class: 'discover-form' do
+              = form_tag discover_path, method: 'GET', class: 'discover-form' do
                 = text_field_tag :pg_search, nil, autocomplete: "off", value: params[:pg_search], class: "discover-form-input #{'show' if params[:pg_search].present?}", placeholder: 'Search...'
                 = submit_tag
 

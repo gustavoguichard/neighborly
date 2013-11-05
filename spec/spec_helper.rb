@@ -71,7 +71,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :controller) do
-    [Projects::BackersController, Users::BackersController, UsersController, UnsubscribesController, ProjectsController, ExploreController].each do |c|
+    [Projects::BackersController, Users::BackersController, UsersController, UnsubscribesController, ProjectsController, DiscoverController].each do |c|
       c.any_instance.stub(:render_facebook_sdk)
       c.any_instance.stub(:render_facebook_like)
       c.any_instance.stub(:render_twitter)
