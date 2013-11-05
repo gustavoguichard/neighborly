@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
       else
         @city = 'Kansas City, MO'
       end
-      @project_locations = Project.locations
+      @project_locations = Project.with_state('online').locations
       @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
 
       @press_assets = PressAsset.order('created_at DESC').limit(5)

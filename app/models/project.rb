@@ -390,7 +390,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.locations
-    visible.with_state('online').select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
+    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
   end
 
   private
