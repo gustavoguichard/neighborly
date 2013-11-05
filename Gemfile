@@ -7,7 +7,7 @@ gem 'mail',     '2.5.3'
 
 gem 'protected_attributes', '~> 1.0.3' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
-gem 'activerecord-session_store', '~> 0.0.1'
+gem 'activerecord-session_store', '~> 0.1.0'
 
 gem 'sidekiq',  '~> 2.13.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
@@ -19,7 +19,7 @@ gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
 gem 'state_machine', require: 'state_machine/core'
 
 # paranoid stuff
-gem 'paper_trail', '~> 3.0.0.beta1'
+gem 'paper_trail', '~> 3.0.0.rc1'
 
 # Database and data related
 gem 'pg'
