@@ -1,16 +1,16 @@
 en:
   pages:
     login:
-      no_account_html: "Need an account? <strong>%{link}</strong>"
+      no_account_html: "Not in the neighborhood yet? <strong>%{link}</strong>"
       titles:
         site: 'Log in'
         header: 'Log in'
       links:
-        register: "Sign up"
-        forgot_password: "I forgot my password"
+        register: "Go join <i class='icon-et-right-circled'></i>"
+        forgot_password: "Did you forget your password?"
       form:
         labels:
           remember_me: 'Remember me'
         inputs:
-          submit: 'Log me in'
+          submit: 'Log in'
           facebook: 'Log in with Facebook'
