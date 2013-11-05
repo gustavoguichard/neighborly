@@ -73,7 +73,7 @@ Catarse::Application.routes.draw do
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
-  get "/discover", to: "discover#index", as: :discover
+  get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
   resources :tags, only: [:index]
 
