@@ -29,6 +29,9 @@ window.Neighborly =
     $(document).foundation('reveal', {animation: 'fadeAndPop', animationSpeed: 100})
     $(document).foundation()
 
+    $.pjax.defaults.scrollTo = false if $.pjax.defaults?
+    $.pjax.defaults.timeout = false if $.pjax.defaults?
+
     $('.button.disabled').click ->
       return false
 

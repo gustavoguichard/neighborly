@@ -4,10 +4,6 @@ describe 'Tabs', ->
     @view = new Neighborly.Tabs()
 
   describe '#initialize', ->
-    it 'should set the scroll to as false on pjax', ->
-      @view.initialize()
-      expect($.pjax.defaults.scrollTo).toBeFalsy()
-
     it 'should set $target_container var', ->
       @view.initialize()
       expect(@view.$target_container).toEqual('.some-container')

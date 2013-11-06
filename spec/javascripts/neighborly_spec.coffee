@@ -6,6 +6,13 @@ describe "Neighborly", ->
       Neighborly.init()
       expect($.fn.foundation).toHaveBeenCalled()
 
+    it 'should set the scroll to false on pjax', ->
+      Neighborly.init()
+      expect($.pjax.defaults.scrollTo).toBeFalsy()
+
+    it 'should set the timeout to false on pjax', ->
+      Neighborly.init()
+      expect($.pjax.defaults.timeout).toBeFalsy()
 
   describe ".Loading", ->
     beforeEach ->

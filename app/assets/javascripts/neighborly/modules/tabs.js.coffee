@@ -8,7 +8,6 @@ Neighborly.Tabs = Backbone.View.extend
     return if this.$el.length is 0
     options = _.extend({ enable_pjax: true }, options)
 
-    $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     this.$target_container = $(this.el).data('target-container')
 
     if options.enable_pjax is true
