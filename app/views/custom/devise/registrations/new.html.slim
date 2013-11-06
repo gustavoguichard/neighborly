@@ -3,7 +3,7 @@
 = render 'devise/shared/header'
 
 .row
-  .large-6.large-centered.columns
+  .large-5.large-centered.columns
     .login-box.animated.fadeIn
       h3.text-center = t 'pages.sign_up.titles.header'
       p.text-center.register_link
@@ -12,7 +12,7 @@
       = render 'devise/shared/omniauth'
       .clearfix
 
-      .large-10.large-centered.columns
+      .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
           = f.hidden_field :newsletter, value: true
 
