@@ -39,7 +39,6 @@ describe "Projects.Index", ->
       tags = [$('<div data-name="tag1">'), $('<div data-name="tag2">')]
       search = $('<input value="something">')
       @url = @view.generateUrl(filter, near, category, tags, search)
-      console.log @url
 
     it 'should return the url', ->
       expect(@url).toEqual('/discover/recommended/near/Kansas City/category/transit/tags/tag1,tag2/search/something')
