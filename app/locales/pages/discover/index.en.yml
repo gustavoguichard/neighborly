@@ -2,6 +2,7 @@ en:
   discover:
     index:
       title: 'Discover amazing projects'
+      empty: 'No projects for your search.'
       tags: 'Popupar Tags: '
       near: 'Locations'
       category: 'Category'

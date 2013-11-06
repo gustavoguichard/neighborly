@@ -1,27 +1,38 @@
 - content_for :title, t('.title')
-.discover-page
-  section.filters.white
-    .row
-      .large-12.columns
-        = form_tag discover_path, method: 'GET', class: 'discover-form row' do
-          .large-3.small-3.columns
-            = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near')
-          .large-3.small-3.columns
-            = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category')
-          .large-3.small-3.columns
-            = select_tag :filter, options_for_select(@avaliable_filters, @filters[:filter]), prompt: t('.filter')
-          .large-3.small-3.columns
-            = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...'
 
-        .tags
-          strong = t('.tags')
-          - for tag in @tags
-            = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize}}"
-            | &nbsp;
-        .results-for
-          strong = t('.showing_results_for')
-          = @filters
-
-  section.projects
-    .row
+- content_for :page_content do
+  .row
+    - if @projects.any?
       = render @projects
+    - else
+      p = t('.empty')
+
+
+- if request.xhr?
+  = yield :page_content
+- else
+  .discover-page[data-path=discover_path]
+    section.filters.white
+      .row
+        .large-12.columns
+          = form_tag discover_path, method: 'GET', class: 'discover-form row custom' do
+            .large-3.small-3.columns
+              = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near'), class: 'near-input'
+            .large-3.small-3.columns
+              = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category'), class: 'category-input'
+            .large-3.small-3.columns
+              = select_tag :filter, options_for_select(@avaliable_filters, @filters[:filter]), prompt: t('.filter'), class: 'filter-input'
+            .large-3.small-3.columns
+              = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...', class: 'search-input'
+
+          .tags
+            strong = t('.tags')
+            - for tag in @tags
+              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize}} #{'selected' if @filters[:tags].present? && @filters[:tags].include?(tag.name) }"
+              | &nbsp;
+          .results-for
+            strong = t('.showing_results_for')
+            = @filters
+
+    section.content.projects
+      = yield :page_content
