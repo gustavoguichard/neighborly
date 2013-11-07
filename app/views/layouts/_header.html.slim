@@ -33,7 +33,7 @@ header.fixed
           li
             span.user-actions[class="#{'un-signed-in' unless user_signed_in?}"]
               - if user_signed_in?
-                = link_to current_user, class: 'user-profile' do
+                = link_to edit_user_path(current_user), class: 'user-profile' do
                   = image_tag current_user.display_image, size: "18x18", class: 'profile-picture'
                   |  Hey, #{ current_user.first_name }!
                 span.divider |
