@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
 
   mount_uploader :uploaded_image, ProjectUploader
   mount_uploader :video_thumbnail, ProjectUploader
+  mount_uploader :background, ProjectUploader
   has_permalink :name, true
   geocoded_by :address
   after_validation :geocode # auto-fetch coordinates
