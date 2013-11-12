@@ -26,8 +26,9 @@
     .row
       section.recommended
         h3
-          i.icon-et-heart
-          = t('.recommended')
+          = link_to discover_path(filter: 'recommended') do
+            i.icon-et-heart
+            = t('.recommended')
 
         .row
           = render 'project', project: @featured, large: true if @featured
@@ -51,8 +52,9 @@
       - if @ending_soon.any?
         section.ending-soon
           h3
-            i.icon-et-hourglass
-            = t('.ending_soon')
+            = link_to discover_path(filter: 'expiring') do
+              i.icon-et-hourglass
+              = t('.ending_soon')
 
           .row
             - for project in @ending_soon
@@ -61,8 +63,9 @@
       - if @coming_soon.any?
         section.coming-soon
           h3
-            i.icon-et-clock
-            = t('.coming_soon')
+            = link_to discover_path(filter: 'soon') do
+              i.icon-et-clock
+              = t('.coming_soon')
 
           .row
             - for project in @coming_soon
