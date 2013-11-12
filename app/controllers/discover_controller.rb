@@ -3,7 +3,7 @@ class DiscoverController < ApplicationController
   FILTERS = [ 'recommended', 'expiring', 'recent', 'successful', 'soon' ]
 
   def index
-    @avaliable_filters = FILTERS
+    @avaliable_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
     @filters = {}
     @tags = Tag.all
     @projects = Project.visible.order_for_search

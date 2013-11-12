@@ -8,3 +8,9 @@ en:
       category: 'Category'
       filter: 'Filter'
       showing_results_for: 'Showing results for: '
+      filters:
+        recommended: 'Recommended'
+        expiring: 'Ending Soon'
+        recent: 'Recent'
+        successful: 'Successful'
+        soon: 'Coming Soon'
