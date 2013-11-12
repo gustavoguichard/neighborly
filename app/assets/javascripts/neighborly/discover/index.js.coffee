@@ -6,6 +6,7 @@ Neighborly.Discover.Index =
 
     events:
       'click .tags a': 'toggleTag'
+      'click .search .search-button': 'searchButton'
 
     initialize: ->
       that = this
@@ -18,6 +19,10 @@ Neighborly.Discover.Index =
         that.process()
 
       this.bindPjaxLoading()
+
+    searchButton: (e)->
+      e.preventDefault()
+      this.process()
 
     process: ->
       $filter = this.$('.filter-input')

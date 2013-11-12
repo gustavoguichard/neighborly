@@ -35,7 +35,7 @@ window.Neighborly =
     $('.button.disabled').click ->
       return false
 
-    $('.search-button').click ->
+    $('.top-bar .search-button').click ->
       if $('.discover-form-input').val() != ''
         $('form.discover-form').submit()
       else
