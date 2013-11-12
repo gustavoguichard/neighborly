@@ -602,7 +602,7 @@ $alert-radius: $global-radius
 
 // We use these to control the basic form styles input styles
 
-// $custom-form-border-color: #ccc
+$custom-form-border-color: $input-border-color
 // $custom-form-border-size: 1px
 // $custom-form-bg: #fff
 // $custom-form-bg-disabled: #ddd
@@ -614,11 +614,11 @@ $alert-radius: $global-radius
 
 // We use these to style the custom select form element.
 
-// $custom-select-bg: #fff
-// $custom-select-fade-to-color: #f3f3f3
-// $custom-select-border-color: #ddd
-// $custom-select-triangle-color: #aaa
-// $custom-select-triangle-color-open: #222
+$custom-select-bg: #fff
+$custom-select-fade-to-color: #fff
+$custom-select-border-color: $input-border-color
+$custom-select-triangle-color: $primary-color
+$custom-select-triangle-color-open: darken($primary-color, 20%)
 // $custom-select-height: emCalc(13) + ($form-spacing * 1.5)
 // $custom-select-margin-bottom: emCalc(20)
 // $custom-select-font-color-selected: #141414
