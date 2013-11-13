@@ -33,10 +33,15 @@
       - unless defined?(large)
         h4.name = project.name
 
+      .location
+        i.icon-et-location
+        | &nbsp;
+        = project.address
+
       - if (defined?(large) || !browser.ie8?)
         .description[itemprop="description"]
           span = truncate(project.headline, length: 140, separator: ' ')
-          - unless project.soon? || defined?(large)
+          - unless project.soon?
             = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
 
       - if not project.soon?

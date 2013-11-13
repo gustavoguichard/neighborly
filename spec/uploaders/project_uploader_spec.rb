@@ -17,7 +17,7 @@ describe ProjectUploader do
 
   describe '#project_thumb' do
     subject{ @uploader.project_thumb }
-    it{ should have_dimensions(228, 122) }
+    it{ should have_dimensions(228, 178) }
   end
 
   describe '#project_thumb_small' do
@@ -32,7 +32,7 @@ describe ProjectUploader do
 
   describe '#project_thumb_large' do
     subject{ @uploader.project_thumb_large }
-    it{ should have_dimensions(495, 270) }
+    it{ should have_dimensions(495, 335) }
   end
   describe "#store_dir" do
     subject{ @uploader.store_dir }
