@@ -7,8 +7,10 @@ Neighborly.Discover.Index =
     events:
       'click .tags a': 'toggleTag'
       'click .search .search-button': 'searchButton'
+      'click .results-for a.remove-filter': 'removeFilter'
 
     initialize: ->
+      _.bindAll(this, 'removeFilter')
       that = this
       this.$target_container = this.$('section.content')
       this.$('.near-input, .category-input, .filter-input').change ->
@@ -19,6 +21,7 @@ Neighborly.Discover.Index =
         that.process()
 
       this.bindPjaxLoading()
+      this.toggleDisplayResultsFor()
 
     searchButton: (e)->
       e.preventDefault()
@@ -38,12 +41,21 @@ Neighborly.Discover.Index =
       url = this.$el.data('path')
       if $filter.val() != ''
         url += "/#{$filter.val().toLowerCase()}"
+        this.addResultFor('filter', $filter.find(':selected').text())
+      else
+        this.removeResultFor('filter')
 
       if $near.val() != ''
         url += "/near/#{$near.val()}"
+        this.addResultFor('near', $near.find(':selected').text())
+      else
+        this.removeResultFor('near')
 
       if $category.val() != ''
         url += "/category/#{$category.val().toLowerCase()}"
+        this.addResultFor('category', $category.find(':selected').text())
+      else
+        this.removeResultFor('category')
 
       if $tags.length > 0
         tags = _.map $tags, (t) -> $(t).data('name')
@@ -51,12 +63,21 @@ Neighborly.Discover.Index =
 
       if $search.val() != ''
         url += "/search/#{$search.val()}"
+        this.addResultFor('search', $search.val())
+      else
+        this.removeResultFor('search')
 
       return url
 
     toggleTag: (event)->
       event.preventDefault()
       $target = $(event.currentTarget)
+
+      if $target.hasClass('selected')
+        this.removeResultFor('tags', $target.data('class'))
+      else
+        this.addResultFor('tags', $target.text(), $target.data('class'))
+
       $target.toggleClass('selected')
       this.process()
 
@@ -68,3 +89,45 @@ Neighborly.Discover.Index =
       $(this.$target_container).on 'pjax:complete', ->
         $(that.$target_container).removeClass('loading-section')
         Initjs.initializePartial()
+
+    addResultFor: (type, text, value)->
+      filter = $('<div class="filter">')
+      filter.append("#{text} &nbsp; | &nbsp; ")
+      remove_button = $('<a class="remove-filter">').html('x').attr('data-filter-type', type)
+      if type == 'tags'
+        remove_button.attr('data-filter-value', value)
+
+      this.removeResultFor(type, value)
+      filter.append(remove_button)
+      this.$('.results-for').append(filter)
+      filter
+
+    removeResultFor: (type, value)->
+      if type == 'tags'
+        this.$(".filters a.remove-filter[data-filter-type=#{type}][data-filter-value=#{value}]").parent('.filter').remove()
+      else
+        this.$(".filters a.remove-filter[data-filter-type=#{type}]").parent('.filter').remove()
+      this.toggleDisplayResultsFor()
+
+    toggleDisplayResultsFor: ->
+      if this.$('.results-for .filter').size() > 0
+        this.$('.results-for').show()
+      else
+        this.$('.results-for').hide()
+
+    removeFilter: (e)->
+      e.preventDefault()
+      $target = $(e.currentTarget)
+      type = $target.data('filter-type')
+
+      if type == 'tags'
+        this.$(".tags [data-class=#{$target.data('filter-value')}]").click()
+        this.process()
+      else
+        if type == 'search'
+          this.$(".#{type}-input").val('')
+          this.process()
+        else
+          this.$(".#{type}-input").val('').trigger('change', true)
+
+        this.removeResultFor(type)
