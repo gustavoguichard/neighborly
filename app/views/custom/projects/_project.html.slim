@@ -33,13 +33,13 @@
       - unless defined?(large)
         h4.name = project.name
 
-      - if not project.soon?
-        - if (defined?(large) || !browser.ie8?)
-          .description[itemprop="description"]
-            span = truncate(project.headline, length: 140, separator: ' ')
-            - unless defined?(large)
-              = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
+      - if (defined?(large) || !browser.ie8?)
+        .description[itemprop="description"]
+          span = truncate(project.headline, length: 140, separator: ' ')
+          - unless project.soon? || defined?(large)
+            = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
 
+      - if not project.soon?
         .status
           .row.collapse
             .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"

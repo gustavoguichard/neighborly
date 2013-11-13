@@ -20,29 +20,9 @@
         height: +emCalc(243px)
         margin-top: +emCalc(-95px)
   &.soon
-    height: +emCalc(122px)
-    a
-      cursor: default
-    .content
-      position: absolute
-      bottom: 0
-      height: auto
-      background: transparent
-      .category
-        float: left
-        padding-left: +emCalc(5px)
-        padding-right: +emCalc(8px)
-        i
-          background: $primary-color
-          margin-top: 0
-          font-size: 70%
-          &:before
-            color: white
-
-      .name
-        padding-right: +emCalc(5px)
-        color: white
-        text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.8)
+    .description *
+      +single-transition(opacity, 1s)
+      opacity: 1
 
   &.large
     overflow: visible
