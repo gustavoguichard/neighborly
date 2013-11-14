@@ -26,6 +26,12 @@ module Catarse
     # Since Rails 3.1, all folders inside app/ will be loaded automatically
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/**)
 
+    config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '*.{rb,yml}').to_s]
+    # set default locale to something other than :en
+    config.i18n.default_locale = :en
+
+
     # Default encoding for the server
     config.encoding = "utf-8"
 
