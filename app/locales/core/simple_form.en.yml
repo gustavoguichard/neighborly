@@ -15,8 +15,17 @@ en:
         name: 'Full name'
         email: 'Email'
         password: 'Password'
-    # Labels and hints examples
-    # labels:
+    labels:
+      project:
+        name: 'Campaign Title'
+        campaign_type: 'Campaign Type'
+        category_id: 'Category'
+        goal: 'Campaign Goal'
+        address: 'City/State'
+        headline: 'Tagline'
+        about: 'The Story'
+        new:
+          category_id: 'Choose Category'
     #   defaults:
     #     password: 'Password'
     #   user:
@@ -28,4 +37,9 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
+  helpers:
+    submit:
+      project:
+        create: 'Submit Campaign'
+        update: 'Update Campaign'
 

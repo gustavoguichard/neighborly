@@ -11,3 +11,5 @@ en:
     detele: 'Delete'
     cancel: 'Cancel'
     fix-erros-below: 'Please, fix the errors below:'
+    accept_terms_html: 'I have read and accepted the %{link}.'
+    terms: 'Terms of Service'
