@@ -17,6 +17,9 @@ input, textarea
   &.with-postfix
     +radius($input-radius 0 0 $input-radius)
 
+  &.with-prefix.with-postfix
+    +radius(0)
+
 span.prefix, span.postfix
   @extend .radius
   border-color: $input-prefix-border-color
