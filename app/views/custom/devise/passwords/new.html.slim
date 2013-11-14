@@ -1,21 +1,19 @@
-= content_for :title, t('pages.forgot_password.titles.site')
+= content_for :title, t('.titles.site')
 
 = render 'devise/shared/header'
 
 #new-password-page.row
   .large-5.large-centered.columns
     .login-box.animated.fadeIn
-      h3.text-center= t 'pages.forgot_password.titles.header'
+      h3.text-center= t '.titles.header'
       p.text-center.register_link
-        = t 'pages.forgot_password.no_account_html', link: link_to(t('pages.forgot_password.links.register'), new_user_registration_path)
+        = t '.no_account_html', link: link_to(t('.links.register'), new_user_registration_path)
       hr
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: password_path(resource_name)) do |f|
           = render 'devise/shared/alert'
-          p
-            /= f.label :email, t('pages.forgot_password.form.labels.email')
-            = f.input :email, as: :email, placeholder: t('pages.forgot_password.form.labels.email'), required: true, label: false, class: [:login, :email]
+          = f.input :email, as: :email, placeholder: t('.form.labels.email'), required: true, label: false, class: [:login, :email]
 
           .large-centered
-            = f.submit t('pages.forgot_password.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
+            = f.submit t('.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
