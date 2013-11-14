@@ -1,0 +1,19 @@
+en:
+  devise:
+    sessions:
+      new:
+        no_account_html: "Not in the neighborhood yet? <strong>%{link}</strong>"
+        titles:
+          site: 'Log in'
+          header: 'Log in'
+        links:
+          register: "Go join <i class='icon-et-right-circled'></i>"
+          forgot_password: "Did you forget your password?"
+          new_user_confirmation: "Didn't receive confirmation instructions?"
+        form:
+          labels:
+            remember_me: 'Remember me'
+          inputs:
+            submit: 'Log in'
+            facebook: 'Log in with Facebook'
+

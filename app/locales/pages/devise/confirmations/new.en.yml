@@ -1,0 +1,15 @@
+en:
+  devise:
+    confirmations:
+      new:
+        no_account_html: "Need an account? <strong>%{link}</strong>"
+        titles:
+          site: 'Resend confirmation instructions'
+          header: 'Resend Instructions'
+        links:
+          register: "Sign up <i class='icon-et-right-circled'></i>"
+        form:
+          labels:
+            email: 'Your email address'
+          inputs:
+            submit: 'Resend instructions'

@@ -10,3 +10,4 @@ en:
     confirm: 'Are you sure?'
     detele: 'Delete'
     cancel: 'Cancel'
+    fix-erros-below: 'Please, fix the errors below:'
