@@ -8,7 +8,7 @@
         h3 = t '.titles.header'
         hr
         .row
-          .large-10.small-11.columns.large-centered
+          .large-10.small-11.columns.large-centered.small-centered
             = simple_form_for @project, html: { class: 'custom' } do |f|
               = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
 
@@ -20,11 +20,11 @@
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
                   = f.label :goal
-                  .large-1.small-1.columns
+                  .large-1.small-2.columns
                     span.prefix $
-                  .large-10.small-10.columns
+                  .large-10.small-8.columns
                     = f.number_field :goal, class: 'with-prefix with-postfix'
-                  .large-1.small-1.columns
+                  .large-1.small-2.columns
                     span.postfix .00
                 -  if @project.errors[:goal].present?
                   small.error = @project.errors[:goal].to_sentence
