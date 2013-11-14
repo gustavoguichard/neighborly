@@ -28,7 +28,7 @@
                 -  if @project.errors[:goal].present?
                   small.error = @project.errors[:goal].to_sentence
 
-              = f.input :address, required: true
+              = f.input :address
               .map-canvas
 
               = f.input :headline, as: :string, maxlength: 130

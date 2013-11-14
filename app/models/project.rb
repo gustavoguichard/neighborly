@@ -103,7 +103,7 @@ class Project < ActiveRecord::Base
   #validates :address, city_and_state: true
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink
+  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
   validates_format_of :permalink, with: /\A(\w|-)*\z/, allow_blank: true
