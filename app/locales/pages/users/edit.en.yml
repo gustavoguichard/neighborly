@@ -1,0 +1,7 @@
+en:
+  users:
+    edit:
+      tabs:
+        edit: "Profile"
+        my_campaigns: "My Campaigns"
+        ive_backed: "Campaigns I've Backed"

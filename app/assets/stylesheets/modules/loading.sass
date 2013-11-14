@@ -1,19 +1,30 @@
+$img-width: 80px
+$img-height: 66px
 #loading
-  #back-overlay
-    background-color: #fff
-    opacity: 0.5
-    height: 100%
-    width: 100%
-    position: fixed
-    left: 0px
-    top: 0px
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: rgba(white, .75)
+  z-index: -1
+  +opacity(0)
+  +transition(opacity .2s)
+  &.show
     z-index: 201
-    display: none
-  #front-overlay
-    height: 48px
-    width: 48px
-    position: fixed
-    left: 49%
-    top: 47%
-    z-index: 202
-    display: none
+    +opacity(1)
+  .loader-img
+    position: absolute
+    left: 50%
+    top: 50%
+    margin-left: -$img-width/2
+    margin-top: -$img-height/2
+    +experimental(animation, pulsing-heart 1s linear infinite)
+
++keyframes('pulsing-heart')
+  2%
+    +transform(scale(1.05))
+  50%
+    +transform(scale(.8))
+  100%
+    +transform(scale(1))
