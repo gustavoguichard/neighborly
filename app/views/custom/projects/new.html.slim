@@ -1,4 +1,5 @@
 - @title = t('.titles.site')
+= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places'
 
 .new-project-page
   .row
@@ -27,9 +28,9 @@
                     span.postfix .00
                 -  if @project.errors[:goal].present?
                   small.error = @project.errors[:goal].to_sentence
-
-              = f.input :address
-              .map-canvas
+              .address.address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-image-url=image_url('pin.png')]
+                = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
+                .map-canvas
 
               = f.input :headline, as: :string, maxlength: 130
               = f.input :about
