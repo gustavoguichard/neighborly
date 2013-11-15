@@ -8,7 +8,7 @@
   meta property="fb:admins" content="#{fb_admins}"
 
 .user-profile-page
-  header.hero[style="background-image: url(#{image_url('home-hero.png')})"]
+  header.hero[style="background-image: url(#{image_url(@user.background_url(:background_image))})"]
     figure.profile_image[class=@user.profile_type]
       - if @user.company?
         = @user.display_image_html width: 160, height: 75
