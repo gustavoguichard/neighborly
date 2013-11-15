@@ -5,6 +5,9 @@ window.Neighborly =
   configs:
     turbolinks: true
     pjax: false
+    respond_with:
+      'Create': 'New'
+      'Update': 'Edit'
 
   modules: -> []
 
