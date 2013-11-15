@@ -48,6 +48,6 @@ window.Neighborly =
 
   Loading:
     show: ->
-      $('#loading #back-overlay, #loading #front-overlay').fadeIn(2)
+      $('#loading').addClass('show')
     hide: ->
-      $('#loading #back-overlay, #loading #front-overlay').hide()
+      $('#loading').removeClass('show')

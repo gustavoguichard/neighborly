@@ -73,7 +73,7 @@
             .large-3.columns.get-involved
               = link_to t('.status-bar.get_involved'), new_project_backer_url(@project), class: 'button'
 
-  .row
+  .row.page-main-content
     section.large-9.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?

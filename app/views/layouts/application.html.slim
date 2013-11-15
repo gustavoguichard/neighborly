@@ -48,14 +48,11 @@ head
 body
   = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
+  = render 'layouts/loader'
   = render 'layouts/header'
   = render 'layouts/flash', flash: flash if flash.present?
   /.row.content
   = yield
   = render 'layouts/footer'
-  #loading
-    #back-overlay
-    #front-overlay
-      = image_tag 'heart-loading.gif'
   = yield :modals
 |</html>
