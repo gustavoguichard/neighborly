@@ -31,10 +31,7 @@ head
   = render 'layouts/analytics'
 body#devise
   = initjs_tag app_name: 'Neighborly'
+  = render 'layouts/loader'
   = yield
-  #loading
-    #back-overlay
-    #front-overlay
-      = image_tag 'heart-loading.gif'
   = yield :modals
 |</html>
