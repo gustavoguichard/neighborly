@@ -31,6 +31,15 @@ class UsersController < ApplicationController
     edit!{@title = "Editing: #{@user.display_name}"}
   end
 
+  def settings
+    unless can?(:manage, @user)
+      redirect_to @user
+      return
+    end
+    @title = "Settings: #{@user.display_name}"
+    @user = User.find params[:id]
+  end
+
   def set_email
     @user = current_user
     render layout: 'catarse_bootstrap'

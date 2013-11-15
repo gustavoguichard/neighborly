@@ -1,7 +1,0 @@
-- content_for :page_content do
-  h1 Works!!
-
-- if request.xhr? || defined?(partial)
-  = yield :page_content
-- else
-  = render template: 'users/edit'
