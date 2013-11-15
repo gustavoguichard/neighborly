@@ -20,19 +20,16 @@ describe "Neighborly", ->
 
     describe ".show", ->
       it 'is initially hidden', ->
-        expect($('#loading #back-overlay').is(':visible')).toBe(false)
-        expect($('#loading #front-overlay').is(':visible')).toBe(false)
+        expect($('#loading').hasClass('show')).toBe(false)
 
       it "when calls the show method", ->
         Neighborly.Loading.show()
-        expect($('#loading #back-overlay').is(':visible')).toBe(true)
-        expect($('#loading #front-overlay').is(':visible')).toBe(true)
+        expect($('#loading').hasClass('show')).toBe(true)
 
     describe ".hide", ->
       it "when calls the hide method", ->
         Neighborly.Loading.show()
         Neighborly.Loading.hide()
 
-        expect($('#loading #back-overlay').is(':visible')).toBe(false)
-        expect($('#loading #front-overlay').is(':visible')).toBe(false)
+        expect($('#loading').hasClass('show')).toBe(false)
 
