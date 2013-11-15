@@ -2,16 +2,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource new: [ :set_email ], except: [ :projects ]
   inherit_resources
-  actions :show, :edit, :update, :unsubscribe_update, :request_refund, :set_email, :update_email, :uservoice_gadget
+  actions :show, :edit, :update, :unsubscribe_update, :request_refund, :set_email, :update_email
   respond_to :json, only: [:backs, :projects, :request_refund]
-
-  def uservoice_gadget
-    if params[:secret] == ::Configuration[:uservoice_secret_gadget]
-      @user = User.find_by_email params[:email]
-    end
-
-    render :uservoice_gadget, layout: false
-  end
 
   def show
     show!{

@@ -127,10 +127,6 @@ Catarse::Application.routes.draw do
       end
     end
 
-    collection do
-      get :uservoice_gadget
-    end
-
     resources :unsubscribes, only: [:create]
     member do
       get :profile,   to: 'users#edit'
