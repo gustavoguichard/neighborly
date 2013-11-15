@@ -120,19 +120,19 @@ Catarse::Application.routes.draw do
 
   resources :users do
     resources :questions, controller: 'users/questions', only: [:new, :create]
-    
+    resources :projects, controller: 'users/projects', only: [ :index ]
+    resources :backers, controller: 'users/backers', only: [:index] do
+      member do
+        get :request_refund
+      end
+    end
+
     collection do
       get :uservoice_gadget
     end
 
     resources :unsubscribes, only: [:create]
     member do
-      resources :projects, controller: 'users/projects', only: [ :index ], as: :user_projects
-      resources :backers, controller: 'users/backers', only: [:index], as: :user_backers do
-        member do
-          get :request_refund
-        end
-      end
       get :profile,   to: 'users#edit'
       get :settings,  to: 'users#settings'
       get :edit
