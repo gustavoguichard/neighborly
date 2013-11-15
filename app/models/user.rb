@@ -61,13 +61,13 @@ class User < ActiveRecord::Base
     :company_logo,
     :linkedin_url,
     :address,
-    :background
+    :hero_image
 
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader
-  mount_uploader :background, UserUploader
+  mount_uploader :hero_image, HeroImageUploader
 
   validates_length_of :bio, maximum: 140
   validates :address, city_and_state: { allow_blank: true }
