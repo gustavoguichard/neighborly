@@ -148,7 +148,7 @@ gem 'font-icons-rails', github: 'shorelabs/font-icons-rails'
 gem 'zurb-foundation'
 gem 'turbolinks'
 gem 'pjax_rails'
-gem 'initjs', github: 'josemarluedke/initjs', ref: 'b22dcf8d9d46985652b28352b3644c1aaffaec6c'
+gem 'initjs', '~> 2.0.0.beta1'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
