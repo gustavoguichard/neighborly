@@ -12,5 +12,5 @@ en:
       legal: 'Legal'
       lets_get_social: "Let's get social"
       stay_in_touch: 'Stay in touch with us'
-      stay_in_touch_text: 'Email: %{email}<br /><br />Phone: 132-132-123<br /><br />Proudly located in the Crossroads of Kansas City on the Silicon Prairie.'
-      all_rights_reserved: '&copy; %{year} Neighbor.ly | All rights reserved.'
+      stay_in_touch_text: 'Email: %{email}<br /><br />Phone: 132-132-123<br /><br />Proudly located in the downtown of Kansas City on the Silicon Prairie.'
+      built_with_love: 'Built with love & bbq sauce in downtown Kansas City, Missouri | <a href="http://github.com/luminopolis/neighborly" target="blank">Open Source</a>'

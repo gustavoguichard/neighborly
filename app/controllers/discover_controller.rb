@@ -36,5 +36,7 @@ class DiscoverController < ApplicationController
       @projects = @projects.pg_search(params[:search])
       @filters.merge! search: params[:search]
     end
+
+    @channels = Channel.order('RANDOM()').limit(4) unless @filters.any?
   end
 end

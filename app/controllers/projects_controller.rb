@@ -12,29 +12,29 @@ class ProjectsController < ApplicationController
   respond_to :json, only: [:index, :show, :update]
 
   def index
-    if request.xhr?
-      params[:not_soon] = 'true' unless params.include?(:soon)
-      params[:not_expired] = 'true' if params.include?(:recommended)
-      projects = apply_scopes(Project).visible.order_for_search.includes(:project_total, :user, :category).page(params[:page]).per(4)
-      return render partial: 'project', collection: projects, layout: false
+    if current_user && current_user.address.present?
+      @city = current_user.address
+    elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
+      @city = request.location.city
     else
-      if current_user && current_user.address.present?
-        @city = current_user.address
-      elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
-        @city = request.location.city
-      else
-        @city = 'Kansas City, MO'
-      end
-      @project_locations = Project.with_state('online').locations
-      @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
-
-      @press_assets = PressAsset.order('created_at DESC').limit(5)
-      @featured = Project.with_state('online').featured.limit(1).first
-      @recommended = Project.with_state('online').recommended.home_page.limit(1).first
-      @near_projects = Project.with_state('online').near(@city, 50).order('distance').limit(4)
-      @ending_soon = Project.expiring.home_page.limit(4)
-      @coming_soon = Project.soon.home_page.limit(8)
+      @city = 'Kansas City, MO'
     end
+    @project_locations = Project.with_state('online').locations
+    @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
+
+    used_ids = [0]
+    @featured = Project.with_state('online').featured.limit(1).first
+    used_ids << @featured.id if @featured
+
+    @recommended = Project.with_state('online').recommended.home_page.limit(1).where('id NOT IN (?)', used_ids).first
+    used_ids << @recommended.id if @recommended
+
+    @near_projects = Project.with_state('online').near(@city, 50).order('distance').where('id NOT IN (?)', used_ids).limit(4)
+    used_ids += @near_projects.map(&:id) if @near_projects.any?
+
+    @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)
+    @coming_soon = Project.soon.home_page.limit(8)
+    @press_assets = PressAsset.order('created_at DESC').limit(5)
   end
 
   def near
