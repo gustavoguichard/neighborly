@@ -171,7 +171,6 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    crack (0.1.8)
     curb (0.8.5)
     daemons (1.1.9)
     database_cleaner (1.2.0)
@@ -235,8 +234,9 @@ GEM
     heroku-deflater (0.5.2)
       rack (>= 1.4.5)
     hike (1.2.3)
-    httparty (0.6.1)
-      crack (= 0.1.8)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     httpclient (2.3.4.1)
     i18n (0.6.5)
@@ -278,6 +278,7 @@ GEM
     money (6.0.0)
       i18n (~> 0.6.4)
     multi_json (1.8.2)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -295,8 +296,8 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.4.0)
-      omniauth-oauth2 (~> 1.0.2)
+    omniauth-facebook (1.5.0)
+      omniauth-oauth2 (~> 1.1.0)
     omniauth-google-oauth2 (0.2.1)
       omniauth (~> 1.0)
       omniauth-oauth2
@@ -305,7 +306,7 @@ GEM
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
-    omniauth-oauth2 (1.0.3)
+    omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     omniauth-twitter (1.0.1)
@@ -541,7 +542,6 @@ DEPENDENCIES
   has_permalink
   has_scope (~> 0.6.0.rc)
   heroku-deflater (>= 0.4.1)
-  httparty (~> 0.6.1)
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
   initjs!
@@ -553,8 +553,8 @@ DEPENDENCIES
   mail (= 2.5.3)
   newrelic_rpm (= 3.6.5.130)
   omniauth
-  omniauth-facebook (= 1.4.0)
-  omniauth-google-oauth2
+  omniauth-facebook (= 1.5.0)
+  omniauth-google-oauth2 (= 0.2.1)
   omniauth-linkedin
   omniauth-twitter
   paper_trail (~> 3.0.0.rc1)

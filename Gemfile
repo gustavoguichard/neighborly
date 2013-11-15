@@ -47,9 +47,9 @@ gem 'browser'
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '0.2.1'
 gem 'omniauth-linkedin'
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook', '1.5.0'
 gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
 
@@ -79,7 +79,6 @@ gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
 gem 'video_info', '~> 1.4.0'
 gem 'enumerate_it'
-gem 'httparty', '~> 0.6.1' # this version is required by moip gem, otherwise payment confirmation will break
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
 
