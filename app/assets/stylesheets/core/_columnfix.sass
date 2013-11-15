@@ -8,10 +8,10 @@
       width: $colWidth
       *width: $colWidth7 //sets the width for ie7
 
-    /* allows centering block elements
-    & .centered-#{$i}
-      margin-left: (100% - $colWidth) / 2
-      *margin-left: (98% - $colWidth7) / 2
+      /* allows centering block elements
+      &.large-centered, &.small-centered
+        margin-left: (100% - $colWidth) / 2
+        *margin-left: (98% - $colWidth7) / 2
     $i: $i + 1
 
   & .columns
