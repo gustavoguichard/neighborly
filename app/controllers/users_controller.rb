@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to @user
       return
     end
-    edit!{@title = "Editing: #{@user.display_name}"}
+    render :profile if request.xhr?
   end
 
   def settings
