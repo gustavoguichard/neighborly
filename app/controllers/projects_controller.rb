@@ -64,8 +64,8 @@ class ProjectsController < ApplicationController
   end
 
   def success
-    session[:successful_created] = resource.id
     redirect_to project_path(resource) unless session[:successful_created] == resource.id
+    session[:successful_created] = false
   end
 
   def update

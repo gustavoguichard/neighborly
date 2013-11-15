@@ -27,6 +27,32 @@ describe ProjectsController do
     end
   end
 
+  describe 'GET success' do
+    let(:project){ create(:project) }
+
+    context 'when has successful_created session' do
+      before do
+        session[:successful_created] = project.id
+        get :success, id: project
+      end
+
+      it { expect(response).to be_success }
+
+      it 'should set successful_created session as false' do
+        expect(session[:successful_created]).to be_false
+      end
+    end
+
+    context 'when does not have successful_created session' do
+      before do
+        session[:sucessful_created] = false
+        get :success, id: project
+      end
+
+      it { expect(response).to redirect_to project_path(project) }
+    end
+  end
+
   describe "DELETE destroy" do
     before do
       delete :destroy, id: project, locale: :pt
