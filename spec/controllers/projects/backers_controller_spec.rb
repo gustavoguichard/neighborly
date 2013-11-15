@@ -77,7 +77,7 @@ describe Projects::BackersController do
 
       it('should confirm backer'){ backer.reload.confirmed?.should be_true }
       it('should set flash success'){ request.flash[:success].should == I18n.t('projects.backers.checkout.success') }
-      it{ should redirect_to(project_backer_path(project_id: project, id: backer.id)) }
+      it{ should redirect_to(project_backer_path(project, backer.id)) }
     end
   end
 
@@ -106,7 +106,7 @@ describe Projects::BackersController do
       let(:user){ create(:user) }
       let(:value){ '' }
 
-      it{ should redirect_to new_project_backer_path(project_id: project) }
+      it{ should redirect_to new_project_backer_path(project) }
     end
 
     context "with invalid backer values" do
@@ -159,7 +159,7 @@ describe Projects::BackersController do
   describe "GET show" do
     let(:backer){ create(:backer, value: 10.00, credits: false, state: 'confirmed') }
     before do
-      get :show, { locale: :pt, project_id: backer.project.id, id: backer.id }
+      get :show, { locale: :pt, project_id: backer.project, id: backer.id }
     end
 
     context "when no user is logged in" do

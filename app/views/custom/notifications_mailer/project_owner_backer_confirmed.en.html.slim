@@ -19,10 +19,10 @@ br
 |Contributor email: #{backer.user.email}
 br
 br
-|You can view all contributors here: #{link_to project_by_slug_url(permalink: project.permalink, anchor: 'backers'), project_by_slug_url(permalink: project.permalink, anchor: 'backers')}
+|You can view all contributors here: #{link_to project_url(project, anchor: 'backers'), project_url(project, anchor: 'backers')}
 br
 br
-|And you can send an update to all contributors: #{link_to project_by_slug_url(permalink: project.permalink, anchor: 'updates'), project_by_slug_url(permalink: project.permalink, anchor: 'updates')}
+|And you can send an update to all contributors: #{link_to project_url(project, anchor: 'updates'), project_url(project, anchor: 'updates')}
 br
 br
 |Keep on truckin',

@@ -11,11 +11,11 @@ describe "Users" do
   describe "redirect to the last page after login" do
     before do
       @project = create(:project)
-      visit project_by_slug_path(permalink: @project.permalink)
+      visit project_path(@project)
       login
     end
 
-    it { current_path.should == project_by_slug_path(permalink: @project.permalink) }
+    it { current_path.should == project_path(@project) }
   end
 
   describe "the notification tab" do

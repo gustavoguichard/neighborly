@@ -77,7 +77,7 @@ class Projects::BackersController < ApplicationController
       @backer.confirm!
     end
     flash[:success] = t('projects.backers.checkout.success')
-    redirect_to project_backer_path(project_id: parent.id, id: resource.id)
+    redirect_to project_backer_path(parent, resource)
   end
 
   protected

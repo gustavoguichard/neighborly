@@ -38,12 +38,12 @@ class ProjectsController < ApplicationController
   end
 
   def near
-    #if request.xhr?
+    if request.xhr?
       projects = apply_scopes(Project).with_state('online').near(params[:location], 30).visible.order('distance').page(params[:page]).per(4)
       return render partial: 'project', collection: projects, layout: false
-    #else
-      #raise ActionController::UnknownController
-    #end
+    else
+      raise ActionController::UnknownController
+    end
   end
 
   def new

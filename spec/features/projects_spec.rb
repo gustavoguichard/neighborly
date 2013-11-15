@@ -85,7 +85,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_by_slug_path(project.permalink, locale: :pt)
+      visit project_path(project, locale: :pt)
     end
 
     it 'edit tab should be present' do
@@ -98,7 +98,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_by_slug_path(project.permalink, locale: :pt)
+      visit project_path(project)
     end
 
     it 'budget tab should be present' do

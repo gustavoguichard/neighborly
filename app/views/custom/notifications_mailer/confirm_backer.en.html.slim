@@ -2,7 +2,7 @@
 |Howdy, #{backer.user.display_name}!
 br
 br
-|This confirms your contribution to #{link_to(backer.project.name, project_by_slug_url(permalink: backer.project.permalink))}. Please keep this email as a receipt. Also, note that if you paid using a credit card, the charge will appear on your statement as #{Configuration[:company_name]}.
+|This confirms your contribution to #{link_to(backer.project.name, project_url(backer.project))}. Please keep this email as a receipt. Also, note that if you paid using a credit card, the charge will appear on your statement as #{Configuration[:company_name]}.
 br
 br
 |Contribution Amount: 

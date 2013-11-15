@@ -23,7 +23,7 @@ describe ProjectsController do
 
     context "when user is logged in" do
       let(:current_user){ create(:user) }
-      it{ should redirect_to project_path(project) }
+      it{ should redirect_to success_project_path(project) }
     end
   end
 

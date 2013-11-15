@@ -25,6 +25,15 @@ GIT
       rinku (~> 1.5.0)
 
 GIT
+  remote: git://github.com/josemarluedke/initjs.git
+  revision: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
+  ref: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
+  specs:
+    initjs (2.0.0.beta1)
+      jquery-rails
+      rails (>= 3.1)
+
+GIT
   remote: git://github.com/luminopolis/catarse_paypal_express
   revision: 9180b3b413d9a477a6258fdfcd2646787e47d609
   ref: 9180b3b
@@ -234,9 +243,6 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    initjs (2.0.0.beta1)
-      jquery-rails
-      rails (>= 3.1)
     jasmine-core (1.3.1)
     jasmine-rails (0.4.9)
       jasmine-core (~> 1.3)
@@ -538,7 +544,7 @@ DEPENDENCIES
   httparty (~> 0.6.1)
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
-  initjs (~> 2.0.0.beta1)
+  initjs!
   jasmine-rails (~> 0.4.6)
   jquery-rails (~> 3.0.4)
   kaminari
