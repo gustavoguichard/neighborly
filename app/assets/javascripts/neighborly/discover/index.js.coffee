@@ -61,7 +61,7 @@ Neighborly.Discover.Index =
         tags = _.map $tags, (t) -> $(t).data('name')
         url += "/tags/#{tags.join()}"
 
-      if $search.val() != ''
+      if $search.val() != '' && $search.val() != 'Search...'
         url += "/search/#{$search.val()}"
         this.addResultFor('search', $search.val())
       else
