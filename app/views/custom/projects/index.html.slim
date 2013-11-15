@@ -34,6 +34,11 @@
           = render 'project', project: @featured, large: true if @featured
           = render 'project', project: @recommended if @recommended
 
+        .text-right
+          = link_to discover_path(filter: 'recommended'), class: 'see-more' do
+            = t('words.see_more')
+            i.icon-et-right-circled
+
       section.near
         header
           h3
@@ -60,6 +65,12 @@
             - for project in @ending_soon
               = render 'project', project: project
 
+          - if @ending_soon.size >= 4
+            .text-right
+              = link_to discover_path(filter: 'expiring'), class: 'see-more' do
+                = t('words.see_more')
+                i.icon-et-right-circled
+
       - if @coming_soon.any?
         section.coming-soon
           h3
@@ -70,6 +81,13 @@
           .row
             - for project in @coming_soon
               = render 'project', project: project
+
+          - if @coming_soon.size >= 4
+            .text-right
+              = link_to discover_path(filter: 'soon'), class: 'see-more' do
+                = t('words.see_more')
+                i.icon-et-right-circled
+
         section.discover
           .row
             .large-centered.large-8.columns
