@@ -56,14 +56,22 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.new(params[:project])
 
     create!(notice: t('projects.create.success')) do |success, failure|
-      success.html{ return redirect_to project_path(@project.permalink) }
+      success.html do
+        session[:successful_created] = resource.id
+        return redirect_to success_project_path(@project)
+      end
     end
+  end
+
+  def success
+    session[:successful_created] = resource.id
+    redirect_to project_path(resource) unless session[:successful_created] == resource.id
   end
 
   def update
     update! do |success, failure|
-      success.html{ return redirect_to edit_project_path(@project.permalink) }
-      failure.html{ return redirect_to edit_project_path(@project.permalink) }
+      success.html{ return redirect_to edit_project_path(@project) }
+      failure.html{ return redirect_to edit_project_path(@project) }
     end
   end
 

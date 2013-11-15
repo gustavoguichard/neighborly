@@ -1,10 +1,10 @@
-.new-project-page
+.new-project-page, .success-project-page
   background-size: cover
   background-position: center
   background-image: image-url('categories/default.jpg')
   -ms-behavior: asset-url('backgroundsize.htc')\8
 
-  .new-project-box
+  .new-project-box, .success-project-box
     margin-top: +emCalc(30px)
     margin-bottom: +emCalc(100px)
     background: rgba(255, 255, 255, 0.9)
@@ -17,6 +17,16 @@
       font-weight: 500
       text-align: center
       padding-top: +emCalc(10px)
+      i
+        width: +emCalc(20px)
+        height: +emCalc(20px)
+        padding-top: +emCalc(2px)
+        +radius(50%)
+        font-size: 200%
+        background: $fourth-color
+        color: white
+        display: inline-block
+        margin-bottom: +emCalc(5px)
 
     .button
       margin-top: +emCalc(15px)

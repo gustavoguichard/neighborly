@@ -1,0 +1,16 @@
+- @title = t('.titles.site')
+
+.success-project-page
+  .row
+    .large-6.columns.large-centered
+      .success-project-box
+        h3
+          i.icon-et-check
+          br/
+          = t '.titles.header'
+        hr
+        .row
+          .large-10.small-11.columns.large-centered.small-centered
+            p
+              = t('.text').html_safe
+              = link_to t('.continue'), edit_project_path(resource), class: 'button'

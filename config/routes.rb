@@ -101,6 +101,7 @@ Catarse::Application.routes.draw do
       get 'reports'
       get 'budget'
       get 'reward_contact'
+      get 'success'
     end
 
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
