@@ -44,6 +44,7 @@ head
   = javascript_include_tag 'vendor/custom.modernizr'
   = javascript_include_tag :application
   = render 'layouts/analytics'
+  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places'
 body
   = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
