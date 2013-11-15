@@ -120,7 +120,7 @@
                     = link_to "#backerInfo#{backer.id}", class: 'btn btn-mini', data: {toggle:'modal'} do
                       i.icon-info-sign
                   td title=backer.project.name
-                    = link_to project_by_slug_path(permalink: backer.project.permalink) do
+                    = link_to project_path(backer.project) do
                       = image_tag backer.project.display_image, class: 'project_img'
                   td title=backer.user.display_name
                     = link_to user_path(backer.user) do

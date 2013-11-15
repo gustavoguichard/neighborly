@@ -2,15 +2,13 @@ class Projects::UpdatesController < ApplicationController
   inherit_resources
   load_and_authorize_resource
 
-  actions :index, :create, :destroy
-  belongs_to :project
-
-  def show
-    render resource
-  end
+  actions :destroy
+  belongs_to :project, finder: :find_by_permalink!
 
   def index
-    render end_of_association_chain.page(params[:page]).per(3)
+    if request.xhr? && params[:page] && params[:page].to_i > 1
+      render collection
+    end
   end
 
   def create
@@ -19,10 +17,16 @@ class Projects::UpdatesController < ApplicationController
   end
 
   def destroy
-    destroy!{|format| return index }
+    destroy! do
+      if request.xhr?
+        return render nothing: true
+      else
+        project_updates_path(parent)
+      end
+    end
   end
 
   def collection
-    @updates ||= end_of_association_chain.visible_to(current_user)
+    @updates ||= end_of_association_chain.visible_to(current_user).order('created_at desc').page(params[:page]).per(3)
   end
 end

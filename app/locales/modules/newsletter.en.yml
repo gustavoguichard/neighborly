@@ -1,0 +1,6 @@
+en:
+  layouts:
+    newsletter:
+      newsletter: 'Join the newsletter'
+      email: 'your@email.com'
+      submit: 'Join'

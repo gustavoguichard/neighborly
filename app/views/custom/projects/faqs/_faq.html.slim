@@ -1,0 +1,6 @@
+.faq
+  h2 = resource.title
+  p = resource.answer
+
+  - if can?(:manage, @project)
+    = link_to 'Delete FAQ', project_faq_path(@project, resource), confirm: 'You are sure?', method: :delete, class: 'button secondary small'

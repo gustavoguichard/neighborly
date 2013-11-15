@@ -1,0 +1,75 @@
+.lt-ie9
+  margin-top: +emCalc($topbar-height)
+  .top-bar
+    *zoom: 1
+    overflow: visible
+
+  .top-bar:before, .top-bar:after
+    content: " "
+    display: table
+
+  .top-bar:after
+    clear: both
+
+  .top-bar .toggle-topbar
+    display: none
+
+  .top-bar .title-area
+    float: left
+
+  .top-bar.expanded
+    background: $topbar-bg
+
+  .contain-to-grid .top-bar
+    max-width: 57.5em
+    margin: 0 auto
+
+  .top-bar-section
+    -webkit-transition: none 0 0
+    -moz-transition: none 0 0
+    transition: none 0 0
+    left: 0 !important
+
+  .top-bar-section ul
+    width: auto
+    height: auto !important
+    display: inline
+    margin-top: +emCalc(25px)
+
+  .top-bar-section ul li
+    float: left
+
+  .top-bar-section ul li > a
+    padding-right: 14px !important
+
+  .top-bar-section ul li .js-generated
+    display: none
+
+  .top-bar-section li a:not(.button):hover
+
+  .top-bar-section .has-dropdown > a
+    padding-right: 35px !important
+
+  .top-bar-section .has-dropdown > a:after
+    content: ""
+    display: block
+    width: 0
+    height: 0
+    border: solid 5px
+    border-color: rgba(255, 255, 255, 0.5) transparent transparent transparent
+    margin-top: -2.5px
+
+  .top-bar-section > ul > .divider
+    border-bottom: none
+    border-top: none
+    border-right: solid 1px #2b2b2b
+    border-left: solid 1px black
+    clear: none
+
+  .top-bar-section ul.right li .dropdown
+    left: auto
+    right: 0
+
+  .top-bar-section ul.right li .dropdown li .dropdown
+    right: 100%
+

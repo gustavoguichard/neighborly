@@ -1,0 +1,7 @@
+en:
+  projects:
+    reports:
+      link_reports: 'Download report of '
+      all_backers: 'all backers'
+      all_backers_without_reward: "all backers that don't select any reward "
+      link_reward: 'Download the report of backers that selected the reward '

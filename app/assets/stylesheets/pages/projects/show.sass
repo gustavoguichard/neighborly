@@ -1,0 +1,227 @@
+.project-page
+  header.hero
+    h3, h5, .has-tip
+      color: white
+    .has-tip
+      font-weight: normal
+    h3
+      text-transform: uppercase
+      font-weight: bold
+    .status
+      .pledged
+        font-size: 200%
+        padding-top: +emCalc(10px)
+      .progress
+        margin-top: +emCalc(10px)
+        background: #CACACA
+        +radius(10px)
+        height: +emCalc(20px)
+        span
+          display: block
+          background: white
+          height: +emCalc(20px)
+          +radius(10px)
+
+  section.status-bar
+    @extend .white
+    padding: +emCalc(30px) 0
+    color: $secondary-color
+    border-bottom: 1px solid $border-color
+    p
+      font-weight: 200
+      font-size: 180%
+      text-transform: lowercase
+      margin-bottom: 0
+      i
+        padding-right: +emCalc(5px)
+        opacity: .5
+    small
+      margin-top: +emCalc(-5px)
+    .time-remaining
+      small
+        padding-left: +emCalc(65px)
+    .pledged
+      small
+        padding-left: +emCalc(30px)
+    .backers
+      small
+        padding-left: +emCalc(70px)
+    .columns:not(:last-child)
+      border-right: 1px solid $border-color
+    .button
+      width: 100%
+      margin-bottom: 0
+      margin-top: +emCalc(10px)
+    .status-description
+      line-height: 1.3
+
+    .status
+      width: 100%
+
+    .name
+      display: none
+      a
+        color: $secondary-color
+        text-transform: uppercase
+        i
+          margin-right: +emCalc(5px)
+          color: $topbar-bg
+
+    &.fixed
+      top: +emCalc(90px)
+      padding: +emCalc(20px) 0
+      small
+        display: none
+      .button
+        margin-top: 0
+        @extend .small
+        font-size: 70%
+      p
+        font-size: 100%
+      .status-description
+        line-height: 1
+        font-size: 60%
+
+      & + .row
+        margin-top: +emCalc(153px)
+      .name
+        display: block
+      .status
+        @extend .large-7
+
+  .call-to-action
+    .button
+      font-size: 80%
+      width: 100%
+      &.make-contribution
+        padding-left: 0\9
+        &:after
+          content: '$'
+          font-weight: 200
+          font-family: $body-font-family
+          padding-top: 5px
+      &.spread-the-word:after
+        @extend .icon-et-heart:before
+
+  .neighbors-behind-this
+    .title
+      margin-bottom: +emCalc(5px)
+
+    p
+      text-align: center
+      padding: +emCalc(10px)
+    .list
+      margin-bottom: +emCalc(10px)
+      a
+        display: inline-block
+        padding: +emCalc(3px)
+        img
+          width: 35px
+          height: 35px
+          +radius(50%)
+
+    .more
+      text-align: right
+      padding-right: +emCalc(5px)
+      padding-bottom: +emCalc(10px)
+
+  .main
+    section.content
+      @extend .white
+      margin:
+        left: +emCalc(-15px)
+        right: +emCalc(-15px)
+      padding: +emCalc(15px)
+
+  section.share
+    +clearfix
+    background: $tertiary-color
+    margin:
+      left: +emCalc(-15px)
+      right: +emCalc(-15px)
+      bottom: +emCalc(20px)
+    padding: +emCalc(15px)
+    &:before
+      margin-top: +emCalc(-15px)
+      margin-left: +emCalc(15px)
+      width: 0
+      height: 0
+      line-height: 0
+      border-top: +emCalc(20px) solid white
+      border-right: (+emCalc(20px)*.75) solid transparent
+      border-left: (+emCalc(20px)*.75) solid transparent
+
+    h4
+      text-align: center
+      color: white
+      text-transform: uppercase
+      font-weight: bold
+      padding-bottom: +emCalc(15px)
+  section.share, .share-small
+    .button
+      width: 100%
+      &.twitter:after
+        @extend .icon-et-twitter:before
+      &.facebook:after
+        @extend .icon-et-facebook:before
+      &.embed:after
+        @extend .icon-et-code:before
+
+  section.share
+    .button
+      background: white
+      color: $primary-color
+      border-bottom-color: darken($border-color, 10%)
+      &:after
+        border-left-color: darken($border-color, 10%)
+
+  .share-small
+    .button
+      padding-left: 0
+      margin-bottom: 0
+      @extend .small
+      font-size: 70%
+      &:after
+        font-size: 130%
+
+  .leading-team
+    padding-left: 0
+  .author
+    padding-right: 0
+  .leading-team, .author
+    .content
+      padding: +emCalc(25px)
+    .social
+      ul
+        margin: 0
+        li
+          list-style: none
+      a
+        &:before
+          @extend [class^="icon-et-"]:before
+          padding-right: +emCalc(5px)
+          font-size: 150%
+          vertical-align: middle
+
+        &.twitter:before
+          @extend .icon-et-twitter-circled:before
+        &.facebook:before
+          @extend .icon-et-facebook-circled:before
+        &.email:before
+          @extend .icon-et-mail:before
+        &.other:before
+          @extend .icon-et-globe:before
+
+.embed-panel-page
+  textarea
+    height: +emCalc(115px)
+  #project-video-embed-html
+    width: 364px
+    @media #{$large}
+      float: right
+  #project-box-embed-html
+    width: 250px
+  .video-embed-wrapper
+    @media #{$large}
+      text-align: right
+      +clearfix

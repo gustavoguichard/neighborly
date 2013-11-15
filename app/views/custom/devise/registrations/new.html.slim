@@ -1,41 +1,31 @@
-= content_for :title, t('pages.sign_up.titles.site')
+= content_for :title, t('.titles.site')
 
 = render 'devise/shared/header'
 
 .row
   .large-5.large-centered.columns
     .login-box.animated.fadeIn
-      h2.text-center= t 'pages.sign_up.titles.header'
+      h3.text-center = t '.titles.header'
       p.text-center.register_link
-        = t 'pages.sign_up.have_account_html', link: link_to(t('pages.sign_up.links.login'), new_user_session_path)
+        = t '.have_account_html', link: link_to(t('.links.login').html_safe, new_user_session_path)
       hr
       = render 'devise/shared/omniauth'
-      .clearfix
 
-      .large-10.large-centered.columns
-        = form_for(resource, as: resource_name, url: sign_up_path) do |f|
+      .large-11.large-centered.columns
+        = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
           = f.hidden_field :newsletter, value: true
 
           = render 'devise/shared/alert'
-          p
-            = f.label :name
-            = f.text_field :name, required: true
-
-          p
-            = f.label :email
-            = f.text_field :email, required: true
-
-          p
-            = f.label :password
-            span.right.text-right.inline-hint
-              = t('pages.sign_up.form.hint.password_length')
-            = f.password_field :password, required: true
+          = f.input :name, as: :string, required: true, label: false
+          = f.input :email, as: :email, required: true, label: false
+          = f.input :password, as: :password, required: true, label: false
+          i.right.text-right.inline-hint.password-hint
+            = t('.form.hint.password_length')
 
           .text-left
             = check_box_tag :show_password
-            = f.label :show_password, t('pages.sign_up.form.labels.show_password')
+          .text-right
+            = f.label :show_password, t('.form.labels.show_password')
 
-          .large-10.columns.large-centered
-            = f.submit t('pages.sign_up.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
-
-      .clearfix
+          .large-centered
+            = f.submit t('.form.inputs.submit'), class: [:button, :success, 'small-12 large-12', 'large-centered']

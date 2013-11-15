@@ -4,10 +4,6 @@ class Users::BackersController < ApplicationController
   belongs_to :user
   actions :index
 
-  def index
-    render layout: false
-  end
-
   def request_refund
     authorize! :request_refund, resource
     if resource.value > resource.user.user_total.credits

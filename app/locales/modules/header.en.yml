@@ -1,0 +1,10 @@
+en:
+  layouts:
+    header:
+      start_campaign: 'Start Campaign'
+      discover: 'Discover'
+      about: 'About'
+      sign-out: 'Log out'
+      sign-up: 'Join'
+      sign-in: 'Log in'
+

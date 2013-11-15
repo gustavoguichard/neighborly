@@ -11,12 +11,17 @@ class ProjectUploader < ImageUploader
   end
 
   version :project_thumb do
-    process resize_to_fill: [220,172]
+    process resize_to_fill: [228,178]
     process convert: :png
   end
 
   version :project_thumb_small, from_version: :project_thumb do
     process resize_to_fill: [85,67]
+    process convert: :png
+  end
+
+  version :project_thumb_large do
+    process resize_to_fill: [495,335]
     process convert: :png
   end
 

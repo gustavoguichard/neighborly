@@ -1,0 +1,19 @@
+.faqs
+  .faq
+    h2
+      margin-bottom: 0
+    margin-bottom: +emCalc(10px)
+
+    &:after
+      display: block
+      content: ' '
+      height: +emCalc(20px)
+      background: $body-bg
+      margin:
+        left: +emCalc(-15px)
+        right: +emCalc(-15px)
+    &:last-child
+      &:after
+        display: none
+
+

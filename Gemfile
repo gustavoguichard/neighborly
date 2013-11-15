@@ -7,7 +7,7 @@ gem 'mail',     '2.5.3'
 
 gem 'protected_attributes', '~> 1.0.3' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
-gem 'activerecord-session_store', '~> 0.0.1'
+gem 'activerecord-session_store', '~> 0.1.0'
 
 gem 'sidekiq',  '~> 2.13.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
@@ -19,7 +19,7 @@ gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
 gem 'state_machine', require: 'state_machine/core'
 
 # paranoid stuff
-gem 'paper_trail', '~> 3.0.0.beta1'
+gem 'paper_trail', '~> 3.0.0.rc1'
 
 # Database and data related
 gem 'pg'
@@ -41,15 +41,16 @@ gem 'draper'
 
 # Frontend stuff
 gem 'slim-rails', '~> 1.1.1'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.0.4'
+gem 'browser'
 
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '0.2.1'
 gem 'omniauth-linkedin'
-gem 'omniauth-facebook', '1.4.0'
-gem 'devise', '~> 3.0.2'
+gem 'omniauth-facebook', '1.5.0'
+gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
 
 # See https://github.com/ryanb/cancan/tree/2.0 for help about this
@@ -60,7 +61,8 @@ gem 'cancan', github: 'ryanb/cancan', branch: '2.0', ref: 'f1cebde51a87be149b497
 gem 'catarse_mailchimp', git: 'git://github.com/catarse/catarse_mailchimp', ref: '2ed4f39'
 
 # HTML manipulation and formatting
-gem 'formtastic',   '~> 2.2.1'
+gem 'formtastic',   '~> 2.2.1' # WILL BE REMOVED
+gem 'simple_form', '~> 3.0.0'
 gem 'auto_html', github: 'dejan/auto_html'
 gem 'kaminari'
 
@@ -75,20 +77,19 @@ gem 'feedzirra'
 gem 'inherited_resources',        '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
-gem 'video_info', '>= 1.1.1'
+gem 'video_info', '~> 1.4.0'
 gem 'enumerate_it'
-gem 'httparty', '~> 0.6.1' # this version is required by moip gem, otherwise payment confirmation will break
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
 
 # Payment
-gem 'moip', github: 'catarse/moip-ruby'
 gem 'httpclient',     '>= 2.2.5'
 
 group :production do
   gem 'google-analytics-rails'
 
   # Gem used to handle image uploading
+  gem 'unf'
   gem 'fog', '>= 1.3.1'
 
   # Workers, forks and all that jazz
@@ -113,7 +114,7 @@ group :production do
 end
 group :development do
   gem "letter_opener"
-  gem 'foreman'
+  gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
   # Uncomment only for optimization, should be commented on master branch
@@ -122,6 +123,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.0'
+  gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
 end
 
@@ -132,7 +134,6 @@ group :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara',   '~> 2.1.0'
-  gem 'jasmine'
   gem 'coveralls', require: false
   gem 'selenium-webdriver', '~> 2.35.1'
 end
@@ -141,8 +142,12 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'uglifier'
-gem 'compass-960-plugin'
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '3.2.1.1'
+gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
+gem 'zurb-foundation', '~> 4.3.2'
+gem 'turbolinks'
+gem 'pjax_rails'
+gem 'initjs', github: 'josemarluedke/initjs', ref: '03db7eada95779edbd151c3d8441b3e00f9e2ea3'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum

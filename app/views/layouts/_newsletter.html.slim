@@ -1,3 +1,4 @@
-= form_tag Configuration['mailchimp_url'], id: 'mailee-form', method: 'post', class: 'newsletter newsletter-footer' do
-  = email_field_tag 'EMAIL', nil, placeholder: t('sidebar.placeholders.email'), label: 'email', class: 'newsletter-input newsletter-input-footer'
-  = submit_tag t('sidebar.buttons.newsletter'), class: 'newsletter-submit'
+= form_tag Configuration['mailchimp_url'], method: 'post', class: 'newsletter' do
+  h6 = t('.newsletter')
+  = email_field_tag 'EMAIL', nil, placeholder: t('.email'), label: 'email', class: 'newsletter-input'
+  = submit_tag t('.submit'), class: 'newsletter-submit button'

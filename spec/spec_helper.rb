@@ -71,7 +71,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :controller) do
-    [Projects::BackersController, Users::BackersController, UsersController, UnsubscribesController, ProjectsController, ExploreController].each do |c|
+    [Projects::BackersController, Users::BackersController, UsersController, UnsubscribesController, ProjectsController, DiscoverController].each do |c|
       c.any_instance.stub(:render_facebook_sdk)
       c.any_instance.stub(:render_facebook_like)
       c.any_instance.stub(:render_twitter)
@@ -89,6 +89,8 @@ RSpec.configure do |config|
                             'country'      => 'United States',
                             'country_code' => 'US'
     Geocoder.stub :search => [Geocoder::Result::Base.stub(:new).and_return(result)]
+    Geocoder.stub :coordinates => [result.latitude, result.longitude]
+
     CatarseMailchimp::API.stub(:subscribe).and_return(true)
     CatarseMailchimp::API.stub(:unsubscribe).and_return(true)
     PaperTrail.controller_info = {}

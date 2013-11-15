@@ -1,0 +1,15 @@
+en:
+  devise:
+    passwords:
+      new:
+        no_account_html: "No problem!"
+        titles:
+          site: 'Forgot your password?'
+          header: 'Forgot your password?'
+        links:
+          register: "Sign up"
+        form:
+          labels:
+            email: 'Your email here'
+          inputs:
+            submit: 'Send me instructions'

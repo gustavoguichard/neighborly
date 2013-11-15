@@ -1,7 +1,6 @@
 # coding: utf-8
 require 'uservoice_sso'
 class ApplicationController < ActionController::Base
-  layout :use_catarse_boostrap
   protect_from_forgery
   before_filter :require_basic_auth
 
@@ -38,7 +37,6 @@ class ApplicationController < ActionController::Base
 
   # TODO: Change this way to get the opendata
   before_filter do
-    @press_assets = PressAsset.order('created_at DESC').limit(5)
     @fb_admins = [100000428222603, 547955110]
   end
 
@@ -98,10 +96,6 @@ class ApplicationController < ActionController::Base
     names = self.class.to_s.split('::')
     return "null" if names.length < 2
     names[0..(names.length-2)].map(&:downcase).join('_')
-  end
-
-  def use_catarse_boostrap
-    devise_controller? ? 'catarse_bootstrap' : 'application'
   end
 
   def redirect_back_or_default(default)

@@ -19,14 +19,14 @@ br
     tr
       - recommended.each do |project| 
         td width="160" valign="top"
-          = link_to project_by_slug_url(project.permalink), style: 'text-decoration: none; color: #333;' do
+          = link_to project_url(project), style: 'text-decoration: none; color: #333;' do
             = image_tag(project.display_image, size: '160x100')
             br/
             p style='font-size: 13px; padding: 5px'= project.name
 
 br
 center
- = link_to 'Explore more projects', explore_url, target: 'blank', class: 'button'
+ = link_to 'Explore more projects', discover_url, target: 'blank', class: 'button'
 br
 br
 | High fives,

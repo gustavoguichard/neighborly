@@ -1,43 +1,37 @@
-.backer
-  - if backer.anonymous
-    img src="/assets/user.png" class="backer_avatar"
-    .back_info
-      p#text
-        em.anon=" #{t('.anonymous_backer')}"
-      p#confirmed
-        = backer.confirmed_at
-      p#backed= t('.anonymous_description')
-  - else
-    a href=user_path(backer.user)
-      img src=backer.user.display_image class="backer_avatar #{backer.user.profile_type}"
-    .back_info[class=backer.user.profile_type]
-      p#text
-        a href=user_path(backer.user)
-         = backer.user.short_name
-      p#backed
-        = backer.user.backs_text
-  - if current_user and (current_user == @project.user or current_user.admin)
-    .clearfix
-    .reward
-      =
-      .value = backer.display_value
-      - if backer.reward
-        .user_reward
-          = backer.reward.display_minimum
-          |  - 
-          = backer.reward.medium_description
+.backer.large-6.small-6.columns
+  .row
+    .large-4.columns
+      - if backer.anonymous
+        = image_tag 'user.png', class: 'avatar'
       - else
-        | &nbsp;
-        = t('.no_reward')
-      - if backer.user.email
-        .user_email = mail_to backer.user.email
-      - else
-        | &nbsp;
-        = t('not_informed')
-  - if backer.short_note.present?
-    .short_note.clearfix
-      p = backer.short_note
+        = link_to user_path(backer.user) do
+          = backer.user.display_image_html width: 85, height: 85
+    .large-8.columns
+      .name
+        - if backer.anonymous
+          = " #{t('.anonymous_backer')}"
+        - else
+          = link_to backer.user.short_name, user_path(backer.user)
+      .infos
+        - if current_user and (current_user == @project.user or current_user.admin)
+          .custom-tooltip
+            = link_to '#' do
+              i.icon-et-info-circled
+            .tooltip-content.hide
+              .reward
+                .value = backer.display_value
+                - if backer.reward
+                  .user-reward
+                    = backer.reward.display_minimum
+                    |  - 
+                    = backer.reward.medium_description
+                - else
+                  = "&nbsp; #{t('.no_reward')}"
+                .user_email = mail_to backer.user.email
 
-  .clear
-
-
+        - if backer.short_note.present?
+          .custom-tooltip
+            = link_to '#' do
+              i.icon-et-comment
+            .tooltip-content.hide
+              = backer.short_note

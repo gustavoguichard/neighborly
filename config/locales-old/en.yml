@@ -1,0 +1,830 @@
+en:
+  sending: 'Sending...'
+  have_an_idea_text: 'Have a civic project in need of funding? A streetcar, for example, or bike share, or perhaps a ball park? If you know of a civic project that could use a creative down payment...'
+  simple_captcha:
+    label: "human authentication"
+    placeholder: "Type the code"
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
+  failure_title: 'Please, fix the errors below:'
+  not_found:
+    title: "Sorry, we couldn't find this address :("
+    text: "You may have mistyped the address or the page may have moved."
+  controllers:
+    updates:
+      create:
+        notice: 'Update was successfully created!'
+  failure_title: 'Please, fix the errors below:'
+  uservoice_gadget:
+    user:
+      name: 'User'
+      location: 'City / State'
+      confirmed_backers: 'Confirmed backs'
+      created_projects: 'Created projects'
+  site:
+    title: "Invest in civic projects you care about"
+    meta_title:  "%{title} · %{company_name}"
+    description: "Crowdfunding for civic projects. Invest in places and civic projects you care about."
+    keywords: "Neighbor.ly, crowdfunding, project, community, open source, civic"
+    email:
+      contact: 'howdy@neighbor.ly'
+    ograph:
+      description: "Neighbor.ly is the best way for people, companies, and foundations to invest in the places and civic projects they care about."
+
+  login:
+    forgot_passord:
+      welcome: 'Reset password'
+      label: 'Fill your email to reset your password'
+      submit: 'Reset'
+    registrations:
+      welcome: 'Sign up'
+      password_hint: 'Minimum 6 characters'
+      show_password: 'Show password'
+    singin: "Log in"
+    placeholder:
+      email: "Email"
+      password: "Password"
+
+  backer_report_to_project_owner:
+    user_name: 'Contributor'
+    value: 'Contribution Amount'
+    minimum_value: 'Reward Level'
+    reward_description: 'Reward Description'
+    created_at: 'Contribution Made'
+    confirmed_at: 'Contribution Confirmed'
+    service_fee: 'Neighbor.ly Fee'
+    user_email: 'Email'
+    payment_method: 'Payment Method'
+    address_street: 'Street'
+    address_neighbourhood: 'Neighborhood'
+    address_city: 'City'
+    address_state: 'State'
+    address_zip_code: 'Zip Code'
+    anonymous: 'Anonymous'
+    short_note: 'Message'
+  edit_project: 'Edit this project'
+  facebook_locale: 'en_US'
+  or: or
+  'no': "No"
+  'yes': "Yes"
+  newsletter_ok_header: "You are subscribed to the newsletter!"
+  newsletter_ok_body: "Your email is now in our newsletter list, thanks for subscribing!"
+  newsletter_error_header: "Woops! There was an error."
+  newsletter_error_body: "Your email could not be added to our newsletter list, please try again later!"
+  newsletter_subscribe: "Join"
+  views:
+    pagination:
+      next: next
+      last: last
+      truncate: "..."
+  statistics:
+    backers:
+      subtitle: backers
+    goal:
+      subtitle: "total of %{total}"
+  project_by: "project by"
+  tell_about_this_back: "Tell the world about your support!"
+  share_my_backs: "See the projects that I support in Neighbor.ly!"
+  tell_about_this_project: "Tell the world about your project!"
+  share_my_projects: "See my projects in Neighbor.ly!"
+  count_backed_projects: "backed %{total} projects"
+  footer:
+    titles:
+      info: "Good to know..."
+      opendata: "nice statistics"
+      social: "Won't you be our neighbor?"
+      newsletter: "Join the newsletter"
+      accept_idea: "Now accepting proposals!"
+    stats:
+      backers: Backers
+      backs: Backs
+      total_backed: Backed
+      users: Users
+      funded_projects: "Successful projects"
+      active_projects: "Projects on air now"
+    links:
+      about: "Meet the Neighbors"
+      how_works: "How It Works"
+      faq: 'FAQ / Help'
+      terms: "Terms of Use"
+      policy: "Privacy Policy"
+      terms_link: 'http://neighbor.ly/terms'
+      policy_link: 'http://neighbor.ly/privacy'
+      contact: 'Contact Us'
+    texts:
+      copyleft: "Made with love."
+
+  main:
+    links:
+      channels: "explore the Asas Institute's Channel"
+      selected: "explore more projects selected"
+      successful: "explore more funded projects"
+      expiring: "explore more expiring projects"
+      recents: "explore more recent projects"
+      soon: "explore more coming soon projects"
+      near: "explore more near me projects"
+  sidebar:
+    titles:
+      blog: "Around the 'hood..."
+      facebook: "On Facebook..."
+      twitter: "Tweet, tweet..."
+      faq: "have any doubt?"
+      schedule: calendar
+    placeholders:
+      email: "Enter your email"
+    buttons:
+      newsletter: Submit
+  sections:
+    near:
+      title: near me
+    selection:
+      title: Recommended
+    coming_soon:
+      title: 'Coming Soon'
+    succesful:
+      title: Funded
+    channels:
+      title: channels
+  accept_terms_html: "I have read and accepted the %{link}."
+  activerecord:
+    validators:
+      city_and_state:
+        invalid: 'Invalid City/State'
+    errors:
+      models:
+        project:
+          attributes:
+            permalink:
+              invalid: "Invalid project permalink"
+    attributes:
+      unsubscribe:
+        update: "Receive project updates"
+      backer:
+        value: Value
+      project:
+        category: Category
+        expires_at: Duration
+        online_days: Days of the air campaign
+        headline: Headline
+        image_url: "Image URL"
+        name: Name
+        user_id: "User ID"
+        video_url: "Video Link"
+        permalink: 'Link'
+        how_know: "How did you hear about Neighbor.ly?"
+        more_links: 'Where can we find more about you and your project?'
+      reward:
+        description: Description
+        maximum_backers: "Limit Reward"
+        minimum_value: "Minimum Value"
+      user:
+        address_city: City
+        address: 'City/State'
+        address_complement: Complement
+        address_neighbourhood: Neighborhood
+        address_number: Number
+        address_state: State
+        address_street: Street
+        address_zip_code: "Zip code"
+        cpf: 'CPF / CNPJ '
+        cpf_hint_title: 'Nota Fiscal será emitida para esse documento'
+        cpf_hint: '(?)'
+        state_inscription: 'State Inscription'
+        moip_login: 'MoIP Login'
+        moip_login_hint: '(How to create an account)'
+        current_password: "Current password"
+        email: Email
+        full_name: "Full name / Company Name"
+        bio: 'Mini Bio'
+        name: 'Full name'
+        password: Password
+        password_confirmation: "Password Confirmation"
+        phone_number: "Mobile phone number"
+        newsletter: 'I want receive news about Neighbor.ly'
+    models:
+      backer: Backer
+      category: Category
+      project: Project
+      reward: Reward
+  backer:
+    display_confirmed_at: "%{time_ago} ago"
+    reward_must_be_from_project: "must be from the same project"
+    should_not_back_if_maximum_backers_been_reached: "has reached its maximum backers"
+    value_must_be_at_least_rewards_value: "must be at least %{minimum_value} for the selected reward"
+    project_should_be_online: "You cannot back a project that is not online"
+  backer_plural: backers
+  project_plural: projects
+  project_singular: project
+  backer_singular: backer
+  click_here: "Click here"
+  clicking_here: "clicking here"
+  click_term: 'terms'
+  comment:
+    display_time: "%{time_ago} ago"
+  credits:
+    modal:
+      title: "Do you want to confirm your refund request?"
+      text: "Check out how our refund process works:"
+      link: "See how the refund works"
+      reject_btn: "I want to keep my credits"
+      accept_btn: "I want to request the refund"
+    index:
+      back_date: "Back date"
+      current_credits_html: "Your current balance is <span id=\"current_credits\">%{credits}</span> in credits."
+      important_html: "If you ask for a refund, the value of your payment will be deducted from your credits."
+      project: Project
+      refund_expration_date_html: "Deadline to request refund (<a target='__blank' href='http://suporte.catarse.me/knowledgebase/articles/164746-regras-e-funcionamento-dos-reembolsos-estornos'>?</a>)"
+      refunded: "Refund request successfully done. Our team will contact you within two business days."
+      insufficient_credits: "You don't have enough credits to request this refund."
+      refunds_title: "Payments that can be refunded"
+      request_refund: "Request refund"
+      requested_refund: "Requested refund"
+      status: Status
+      title: "My credits"
+      value: Value
+    refund:
+      cannot_refund: "This payment cannot be refunded."
+      error: "Oops. There was an error while requesting your refund."
+      no_credits: "You don't have enough credits to request this refund."
+      refunded: "This payment has already been refunded."
+      requested_refund: "You already requested a refund for this payment."
+    title: "My Credits"
+  credits_mailer:
+    request_refund_from:
+      subject: "Refund request from project %{name}"
+      subject_html: "User %{name} requested refund for the back %{backer_key} to the project %{backer_project} in the amount of %{backer_value} made by %{backer_payment_service} gateway."
+      user_name: 'User name'
+      user_email: 'User email'
+      payer_email: 'Payment email'
+      payer_name: 'User name used on payment'
+      project: 'Project'
+      backer_key: 'Backer key'
+      payment_id: 'Payment ID'
+      backer_value: 'Backer value'
+      payment_method: 'Payment method'
+      payment_choice: 'Payment choice'
+      created_at: 'created at'
+  curated_pages:
+    index:
+      title: "Curated pages"
+    show:
+      backed: backed
+      reached: reached
+  error: "Ooops! There was an error. Please try again."
+  explore:
+    index:
+      near: 'Near Me'
+      categories: Categories
+      expiring: "Ending Soon"
+      quick_explore: "Filter By"
+      recent: Recent
+      soon: 'Coming Soon'
+      recommended: Recommended
+      subtitle: "Explore projects, find ones that speak to you, and help make them happen!"
+      successful: Successful
+      title: "Discover amazing projects"
+    title: "Explore the projects"
+    project:
+      empty: "Hey, we didn't find any project with the text you searched. Wanna try some new words? =D"
+  formtastic:
+    hints:
+      press_asset:
+        image: 'Upload a 170x60 image(.jpg or .png).'
+      backer:
+        credits: "You have <strong>%{credits}</strong> in credits and can back with up to this amount without needing to make a new payment."
+        value: "Please choose the amount you'd like to contribute. Starting with $10, any amount is appreciated and every bit counts."
+      project:
+        video_url_edit: 'Paste here the URL of your Vimeo or Youtube video.'
+        about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
+        more_links: "Which channels will be used to spread the word about your project? List here your facebook/twitter/blog/site/ and what ever more links you have to help you"
+        category: "Which category best describes your project?"
+        expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days."
+        goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
+        first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
+        headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
+        name: "Be concise and objective. 8 words or less."
+        uploaded_image: "Upload a 512x400 image(.jpg)."
+        video_url: "Paste the link from a Youtube or Vimeo video about your project. Your video should be short enough to retain viewers, but descriptive enough that viewers can understand the project clearly."
+        hash_tag: 'A short hashtag that can be added to tweets and Facebook updates.'
+        site: "Paste the full link to your project's website, if it has one."
+        foundation_widget: 'If you want to use new widget on embed, check this!'
+        campaign_type: 'All or None: Fund only if the goal is met by the deadline. <br> Every Dollar Counts: Keep the funds whether or not goal is met.'
+        budget: 'Contributors feel most comfortable when you have a clear plan for how the proceeds will be spent. Briefly explain how the money will be used.'
+        permalink: 'Automatically generated. You can edit this later.'
+        headlinet: 'headlinet hint'
+        address_neighborhood: 'If in a specific neighborhood, please specify.'
+        address_city: 'The primary city or region where your project is located.'
+        address_state: 'Please select the state where your project is located.'
+        how_know: 'How did you come across Neighbor.ly? If referred from a specific individual, please mention them. Thank you!'
+        tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
+      reward:
+        description: "Describe your reward in a way that will grab a contributor's attention."
+        maximum_backers: "Limit the number of rewards at this level."
+        minimum_value: "The minimum amount contributors must give to select this reward."
+        days_to_delivery: "An estimate of the total number of days it will take for a contributor to receive their reward after the campaign has ended."
+    labels:
+      backer:
+        anonymous: "I want my back to be anonymous."
+        credits: "I want to use my credits on this back."
+        reward: "Select your reward"
+        value: "How much would you like to contribute?"
+      comment:
+        comment: "Leave your comment about this project"
+      project:
+        #more_links: "List project related links *"
+        how_know: "How did you hear about Neighbor.ly?"
+        headline: "Tagline"
+        category: 'Category'
+        first_backers: "Contributors"
+        about: "The Story"
+        expires_at: "Duration"
+        goal: "Funding Goal"
+        name: "Project Title"
+        online_days: 'Duration'
+        video_url: Video
+        uploaded_image: "Project thumbnail"
+        site: 'Website'
+        hash_tag: 'Hashtag'
+        foundation_widget: 'Use new foundation widget?'
+        campaign_type: 'Campaign Type'
+        address_neighborhood: 'Neighborhood'
+        address: 'City/State'
+        address_city: 'City'
+        address_state: 'State'
+        budget: 'Budget Detail'
+        tag_list: 'Keywords'
+      reward:
+        maximum_backers: "Limit Reward"
+        days_to_delivery: "Reward Fulfillment"
+    optional: " (optional)"
+  found_plural: Found
+  found_singular: Found
+  here: here
+  i_backed: "I backed the project %{name} on @Neighborly"
+  i_just_backed: 'I just contributed %{value} to %{name} on @Neighborly: %{site}'
+  layouts:
+    login:
+      login_with_facebook: "sign in with your facebook account"
+      remember_me: "Remember me and keep me connected."
+    header:
+      blog: blog
+      help: help
+      signup: "sign up"
+      signin: login
+      explore: "Explore Projects"
+      submit_project: 'Start a Project'
+      backed_projects: "Projects I've backed"
+      profile: "my profile"
+      settings: "settings"
+      account: "account"
+    user:
+      logout: Logout
+      my_credits: "My credit"
+  not_informed: "not informed"
+  notify_locale: "We identified your language by your browser. If you prefer another one, click on one of the flags on the right."
+  on_the_spot:
+    cancel: Cancel
+    ok: OK
+    tooltip: "Click to edit..."
+  passwords:
+    edit:
+      label_new_password: "New password"
+      submit: "Change password"
+      title: "Reset password"
+      site_title: "Change password"
+      subtitle: "You requested to reset your password. Fill your new password below and click \"Change Password\". If you did not request this password reset, just skip this page and your password will remain the same."
+    email:
+      content_html: " <p>Someone has requested a link to change your password, and you can do this through the link below.</p><p>%{link}</p><p>If you didn't request this, please ignore this email.</p><p>Your password won't change until you access the link above and create a new one.</p> "
+      title: "Reset password instructions."
+    new:
+      submit: "Send instructions to reset my password"
+      title: "Forgot password?"
+      site_title: "Recover password"
+  project:
+    start:
+      email_subject: "Your project has been received by Neighbor.ly's team"
+      email_text: "Thanks for trusting your project to Neighbor.ly :)<br><br>We know that you expect a quick reply but, to be quite frank, we take up to 4 days to resnpond, ok? That is because we have a small team working on several projects. Note that the reply can come sooner, so keep atention to your inbox.<br><br>Meanwhile it is worth to get to know the projects that are online (<a href='%{explore_link}' style='color: #E75297 !important;'>%{explore_link}</a>) and - if you like any of them- back it! This is the way to show support for the crowdfunding culture in Brazil and to feed the ecosystem that keeps growing around Neighbor.ly.<br><br>Besides that, you will get some inspiration for your own project...<br><br>Stay tuned for updates in <a href='%{facebook}' style='color: #E75297 !important;'>Facebook</a> and get some deeper knowledge about Neighbor.ly reading the posts in our <a href='%{blog}' style='color: #E75297 !important;'>blog</a>.<br><br>If you have any doubt, send an email to: %{email}"
+      notification_text: "Your project has been received by Neighbor.ly's team"
+    finish:
+      successful:
+        email_subject: "Hooray! The project %{project_name} was successful on Neighbor.ly!"
+        email_text: "The project %{project_link}, that you have backed, was successfully funded! Let's celebrate o/<br><br>The project has, including you, %{project_total_backers} wonderful backers, raised %{project_pleged} and reached %{project_process}% of its goal =D<br><br>Something that is important to know: Neighbor.ly's team takes 3 days to send to the project creator the list with all information of the backers. So, the project creator will only be in touch with you to thank you and talk about the rewards delivery in a few days, ok?<br><br>So why don't you, in this meantine, share with all your friends this sucess?<br><br><div style='text-align:center;'>%{facebook_button}%{twitter_button}</div><br><br>If you want to get in touch with %{project_owner_name}, send an email to %{project_owner_email}.<br><br>If you have any doubt about Neighbor.ly, acess our FAQ: <a href='http://neighbor.ly/faq' style='color: #008800';>neighbor.ly/faq</a> or send an email to <a href='mail_to:howdy@neighbor.ly' style='color: #008800;'>howdy@neighbor.ly</a><br>"
+        facebook_text: "Hooray! The project '%{name}', which I backed, was successful on Neighbor.ly!"
+        notification_text: "Hooray! The project %{link} that you backed was successful! Spread the word!"
+        reward_notification_text: "Soon, %{link} will contact you to deliver your reward. Enjoy!"
+        twitter_text: "Hooray! The project '%{name}', which I backed, was successful on @Neighborly! %{short_url}"
+      unsuccessful:
+        email_subject: "The project %{project_name} wasn't funded on Neighbor.ly."
+        email_text: 'Unfortunately the project %{project_link}, that you have backed, did not reached its goal and was not funded at Neighbor.ly.<br><br>So, you have received <strong>%{value}</strong> in credits to back other projects. You can meet others %{project_category} projects in %{explore_category_link}.<br><br>You also can ask for your refund by clicking in %{credits_link}. Remember that you signed up in Neighbor.ly using %{user_provider}. If you have some difficulty in this process, do not be shame to send an email to howdy@neighbor.ly with the subject "Refund - login issue".<br><br>If, for any reason, you want to contact %{project_owner_name}, send an email to %{project_owner_email}.<br><br>If you have any other doubt, acess our FAQ or send an email to <a href="mail_to:howdy@neighbor.ly" style="color: #008800;">howdy@neighbor.ly</a>.<br>'
+        notification_text: "You received %{value} in credits to back other projects. If you prefer, you can request a refund %{link}."
+        unsuccessful_text: "The project %{link} that you backed wasn't funded. Maybe next time!"
+    video_regex_validation: "only Vimeo or Youtube URLs are allowed"
+    display_status:
+      expired: expired
+      failed: "not funded"
+      successful: funded
+      waiting_confirmation: waiting
+      waiting_funds: waiting
+      not_reached_goal: waiting
+      draf: "draft"
+  projects:
+    project_faqs:
+      empty: 'No F.A.Q just yet, but keep an eye out o_0.'
+    box:
+      by: by
+      when: in
+    admin_fields:
+      title: "Admin fields"
+    back_project:
+      display_status:
+        all_or_none:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
+          failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "Awaiting confirmation from payments to know if this project will be funded."
+          draft: "This project is in draft mode and is not open to backers yet."
+        flexible:
+          reached_goal: "This project will be successful and funded on %{date}"
+          not_reached_goal: "This project will be funded on %{date}"
+          failed: "This project was funded on %{date}"
+          successful: "This project was successful and was funded on %{date}"
+          waiting_funds: "This project recently closed and will be funded."
+          draft: "This project is in draft mode and is not open to backers yet."
+      reached_of: "Reached of"
+      submit: "Help Greenlight It!"
+    backers:
+      backer:
+        anonymous_backer: "Anonymous backer"
+        anonymous_description: "Opted to remain anonymous"
+        no_reward: "This backer has not picked a reward"
+      review:
+        error: "Oh noez! There was an error processing your contribution. Please try again."
+        paypal: 'PayPal'
+        echeck_net: 'eCheck'
+        credit_card_net: 'Credit Card'
+      show:
+        error: "Ooops. You can only access this page after backing a project."
+        moip_message: "Your transaction is “Authorized” and you Moip code is “%{code}″.<br>If you have any questions about this transaction, contact Moip directly."
+        header_subtitle: "This project is only possible with the support of people like you."
+        header_title: "Thank You, Neighbor!"
+        text_subtitle: "Tell everyone what you just did"
+        recommended_projects: "You may like these other projects:"
+        text_title_html: "You've just joined a team of passionate community builders making %{link} a reality!"
+        title: "Thank you"
+      checkout:
+        credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
+        no_credits: "You don't have enough credits to help greenlight this project."
+        success: "Your back was successfully made. Thanks a lot!"
+      new:
+        cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
+        header:
+          subtitle: "You're just a few steps away from doing a world of good."
+          title: "Get ready..."
+        no_reward: "Thanks. I just want to help the project."
+        submit: "Review and proceed to checkout"
+        title: "Back %{name}"
+      create:
+        brazil_address_title: 'Fill when you back is in Brazil'
+        live_in_brazil: "If you live in Brazil, please check this box"
+        credits_notice_html: "This back will be payed with your credits. After the confirmation, you will have <strong>%{credits}</strong> in credits to back other projects."
+        error: "Ooops. There was an error while registering your back. Please try again."
+        international:
+          description: "You can use PayPal to make international payments"
+          important_html: "<p>The use of PayPal is destinated mostly for international payments. That's because you'll have only 60 days to receive an eventual refund without paying any fee.</p><p>In case you can make the regular payment through MoIP, we recommend you to do it.</p><p>But if that's not possible, don't worry: you'll always be able to receive your money back. Only, in case your refund is made more than 60 days after your payment, you'll have to pay PayPal's fee, which is 5,4% + R$0,60 per transaction.</p>"
+          submit: "Proceed to PayPal's checkout"
+          title: "Want to make an international payment?"
+        review_with_reward_html: "You will back with <strong>%{value}</strong> and receive the following reward:"
+        review_without_reward_html: "You will back with <strong>%{value}</strong> but you don't want any reward for that."
+        submit:
+          credits: "Confirm"
+          moip: "Proceed to MoIP's checkout"
+        subtitle: "This is the last step to make the difference and become part of this project."
+        title: "Fill in and review your data"
+        choose_payment: "Please select payment method"
+        choose_payment_subtitle: "Select below a payment method"
+        choose_credit_card: "PayPal"
+        choose_boleto: "Payments from Brazil"
+        you_are_about_html: "You're about to help greenlight <br />%{link}"
+        pay_with: "Pay With"
+    create:
+      success: "Your project was successfully created! We'll soon contact you. Thanks a lot!"
+    form:
+      add_reward: "Add reward"
+      important_html: "Please notice that Neighbor.ly will charge 13% if your project is successful. Add this values to your budget in order to execute your project with no surprises."
+      project_warning:
+        content_html: "Want to have your project selected? Don't forget to read %{link}."
+        help_link: "our guide"
+      rewards_description: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon travelling!). Spend some time devising creative rewards and people will be interested."
+      rewards_title: Rewards
+      submit: "Submit project"
+    index_header:
+      subtitle_html: "Enhance cities and earn perks.<br/> Create jobs and save taxes.<br><br>Everyone wins. You're the solution you've been waiting for."
+      title: "Invest in places and civic projects <em>you</em> care about"
+    recommended_header:
+      suggest_for_you: "Featured Project"
+      highlight_project: "featured project"
+      guidelines: "How it Works"
+      guidelines_subtitle: "Getting to know Neighbor.ly"
+    pending:
+      can_finish: "Can finish?"
+      finished: Finished?
+      home_page: "Home page?"
+      id: Id
+      name: Name
+      no_projects: "No projects found."
+      order: Order
+      project: Project
+      slug: Slug
+      recommended: Recommended?
+      rejected: Rejected?
+      submit: Search
+      title: "Project management"
+      user: User
+      visible: Visible?
+    pending_backers:
+      anonymous: Anonymous?
+      confirmed: Confirmed?
+      credits: "Used credits?"
+      id: Id
+      key: Key
+      no_backers: "No backers found."
+      project: Project
+      refunded: Refunded?
+      requested_refund: "Requested refund?"
+      reward: Reward
+      submit: Search
+      title: "Backers management"
+      total_backed: backed
+      total_backers: backers
+      total_backs: backs
+      total_users: users
+      user: User
+      value: Value
+    project:
+      backed: so far
+      reached: reached
+    project_backers:
+      empty: "Nobody backed this project so far. How about being the first one?"
+      confirmed: "Confirmed"
+      pending: "Pending"
+    project_header:
+      subtitle_html: "A project by %{link}"
+      all_or_none:
+        without_city: "A project in %{category_name}, by %{author}"
+        with_city: "A project in %{category_name}, in %{city}, by %{author}"
+      flexible:
+        without_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in city"
+        with_city: "A <span class='use_popover_bottom' href='javascript:void(0);' rel='tooltip' title='Every Dollar Counts' data-content='In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
+    project_updates:
+      empty: "This project didn't have updates yet. But wait and see =D"
+      submit: "Send update"
+      comment: "Update text"
+      exclusive: "Visible for backers only"
+      title: "Title of the update"
+      destroy: "Remove update"
+      destroy_confirmation: "Do you want to remove the update?"
+      warning: "Remember, the text you write here will automatically be sent out in an email to your supporters. Be sure to review what you've written before submitting."
+    rewards:
+      reward_title: "For %{minimum} or more"
+      reward_deliver_time: "Estimated delivery: %{prevision}"
+      backs_to_confirm:
+        one:  "1 backer in time to confirm."
+        other: "%{count} backers in time to confirm."
+      title: "Back and receive..."
+    send_mail:
+      success: "Your project was successfully sent! We'll soon contact you. Thanks a lot!"
+    show:
+      rejected: "This project does not fit our <a href='https://docs.google.com/document/d/1Heh9LlvoSoD0lUfbmV5WlISJ3nqmGpEQiw15TBuCn-0/edit' target='_blank'>selection criteria.</a>"
+      waiting: "This project is waiting for approval and soon we'll know if it will go online on Neighbor.ly ;)"
+      waiting_owner: "To edit the project info, click on 'Edit project' tab. The rewards you can edit on reward column."
+      about_title: "About this project"
+      no_rewards_warning_title: 'Create New Rewards Here'
+      no_rewards_warning: "Create the rewards you'll be giving your supporters in return for their contribution. They should be fun and unique to your campaign."
+      reports:
+        no_backs: "This project don't have any back yet."
+        link_reports: 'Download report of '
+        all_backers: 'all backers'
+        all_backers_without_reward: "all backers that don't select any reward"
+        link_reward: 'Download the report of backers that selected the reward'
+      menu:
+        about: About
+        backers: Backers
+        comments: Comments
+        updates: Updates
+        edit: Edit
+        reports: Reports
+        add_reward: 'Add Rewards'
+      share:
+        embed: embed
+        embed_title: "Embed this project on your site"
+        link: Link
+        link_title: "Share the link"
+        take_a_look: "Check out the project"
+        title: "Be part of it and share this project"
+    new:
+      legend_html: "Please begin your project submission by filling out the project application form below to the fullest extent you're able to. Once submitted, you will be directed to a draft project page, but please note that your project application will need to be reviewed by the Neighbor.ly team before it will be accepted to the site. We use the information you provide here to evaluate your application."
+      send_project: "I want to submit my project."
+      subtitle: "Tell us as much as you can about your project"
+      title: "Submit your project"
+      about: "Describe your project and how much do you need"
+      category: "Category"
+      how_much_you_need: "How much do you want to raise?"
+      about_hint: "Tell us a little about what you want to do, how much you need and what for. Be brief and punctual, but don't forget to give the readers something that moves them. After all, it's your creation and they need to see your passion taking place!"
+      contact: "Leave us your email address so we can contact you"
+      links: "Where can we find more about you and your project?"
+      links_hint: "Leave us as many links as you have, so we can get to know your work and your project better. Doesn't have to be something formal or fancy, just a few useful links."
+      video: "Your project already have a video?"
+      video_hint: "A Vimeo or Youtube link"
+      twitter: "Have twitter account?"
+      facebook: "Have facebook account?"
+      blog: "Have a blog about the project?"
+      know_us_via: "How did you meet Neighbor.ly?"
+      how_works: "How to mobilize backers to raise $ needed for enforcement?"
+      project_warning:
+        content_html: "Want to have your project selected? Don't forget to read %{link}."
+        help_link: "our guide"
+      rewards: "What rewards do you want to offer?"
+      rewards_hint: "We believe that the best way to inspire people to back a project is offering excellent – and creative! – rewards. Everybody loves limited editions, unique things and joyful experiences (parties, candies, balloon travelling!). Spend some time devising creative rewards and people will be interested."
+      submit: "Submit the project"
+    twitter:
+      take_a_look: "Check out the project %{name} #%{hash_tag} on @Neighborly"
+    video_embed:
+      a_project_by_html: "A project by %{link} on"
+  projects_mailer:
+    start_project_email:
+      subject: "Project sent by %{name}"
+      subject_html: "Project sent by %{link}"
+  registrations:
+    new:
+      site_title: "Sign up"
+      submit: "Sign Up"
+      title: "Sign up using you email"
+  remaining_plural: left
+  remaining_singular: left
+  remove: remove
+  require_admin: "You must be admin to perform this action."
+  require_login: "You must be logged in to perform this action."
+  require_permission: "You don't have permission to perform this action."
+  reward:
+    dont_want: "Just donating, I don't want a perk."
+    limited: Limited
+    sold_out: "Sold out"
+  sessions:
+    auth:
+      success: "Successfully logged in. Welcome, %{name}!"
+    destroy:
+      success: "Successfully logged out. See you!"
+    failure:
+      error: "There was an error while loggin in. Please try again."
+
+
+  static:
+    guidelines_backers:
+      title: "I want to back a project!"
+      subtitle: "Understand step by step how to back a project on Catarse."
+      introduction: "Catarse is an excellent way to engaje in a cause you believe in"
+      legend_html: "We believe that being part of a project is the kind of thing that sometimes we do not really know why, but it does a darn good."
+      title_one: "Explore the Project"
+      step_one: "The first step is to understand the project. Watch the video, read the description, browse the links. If you are certain that this project can not remain only on paper, go one step forward!"
+      title_two: "Decide with how much you’ll back it"
+      step_two: "A good way to decide how much to back with it’s  to look  through which rewards  are offered in exchange for your backing. And also your bank statement."
+      title_three: "Finalize your backing"
+      step_three: "Fill in your information and review it! Then, decide what form of payment best meets your needs."
+      title_four: "Spread the word!"
+      step_four: "Now you're in the same boat as the project creator. Spread the word on your networks and stay tuned on the updates."
+      title_requirements: "Remember: in Neighbor.ly it’s “all or nothing”"
+      sucessfull_title: "If the project meet or exceed its financial target ..."
+      sucessfull: "The project is considered successful! The creator gets the money and contacts all supporters."
+      not_sucess_title: "If the project does not meet the target ..."
+      not_sucess: "You get the full amount of support in the form of loans (to support another project). If that does not please you, you can request your money back, according to the rules of the <a href='%{terms}' target='_blank'>terms of use</a>."
+      title_not_funded: "If the project does not achieve the goal, how do I use my credits?"
+      not_funded: "You will receive credits  on Neighbor.ly. The moment you choose to back another project, on the screen to select the reward, there will have a field to use your credits."
+      more_questions: "I'm dying to support a project, is there anything else I need to know?"
+      title_backer: "How do I know that my support was successful?"
+      backer: "You will receive a confirmation email. And stay tuned on the BACKERS tab at the page of the project you backed."
+      title_rewards: "If the project is funded, how do I get my rewards?"
+      rewards: "It is the duty of the project creator to contact you and arrange how to deliver  the chosen reward. If not, you need to send an email to him/her to claim it! If you get no answer … contact us so we can give them an earful = D"
+      title_credits: "If the project does not achieve the goal, how do I use my credits?"
+      credits: "You will receive credits  on Neighbor.ly. The moment you choose to back another project, on the screen to select the reward, there will have a field to use your credits."
+      title_money: "What if I don't want to use the credits?"
+      money: "No problem! You just need to enter in your profile (My credits) and request a chargeback. If you paid with debit or billet, you’ll need to open an account at MOIP. If you used a credit card the value will be back on your next bill."
+      other_backers: "I WANT MORE! CAN I HELP  IN OTHER WAYS?"
+      intro: "Get to know diferent ways to help projects you believe in"
+      other_one: "Bring two other friends to back with the same amount you did"
+      other_two: "Spread the word to every one. Tell them how great is the project you backed on Neighbor.ly."
+      other_three: "Do you have a friend who’s a Journalist? Try to have him/her to post something about it on his/her blog."
+      other_four: "Make a backing video to broadcast your believe in the project .Like these guys did:https://vimeo.com/46233018"
+      other_five: "Send an e-mail to the project creator asking how can  you help even more."
+      submit: "VERY COOL!"
+      send_project: "I want to submit my project "
+      explore_curious: "I’M ON BOARD!"
+      explore_projects: "I want to back a project"
+    how_it_works:
+      title: "How it works"
+      subtitle: "Get to know Neighbor.ly better."
+      introduction_html: "Neighbor.ly is a space of exchange among individuals who together <br >enable the realization of creative projects."
+      legend_html: "We believe that connecting people that share value with respect to a cause; an idea; a project,  is one of the best ways to make them come true. <br><br> Be very welcome! This is your space as much as it is ours, after all, catharsis happens daily from the meeting of people in search of new ways to give life to more initiatives from society itself. We understand this to be an alternative to government resources, the sponsoring companies and bank loans = D"
+      submit: "SUBMITTING A PROJECT"
+      send_project: "Understand how to submit your project"
+      explore_curious: "BACKING A PROJECT"
+      explore_projects: "Understand how to back a project"
+
+  terms: "terms of use"
+  user:
+    backs_text:
+      many: "Helped greenlight this and %{total} projects"
+      one: "Helped greenlight this project"
+      two: "Helped greenlight this and 1 other project"
+    no_name: Unnamed
+    google_account: "Google Account"
+  users:
+    project:
+      confirmed: "Confirmed"
+      refunded: "Refunded"
+      requested_refund: "Refund requested"
+      waiting_confirmation: "Waiting confirmation"
+    set_email:
+      update_email_title: 'Add your email address'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
+    show:
+      attention: Attention
+      tabs:
+        backed_projects: "Project's I've Backed"
+        created_projects: "My projects"
+        comments: Comments
+        credits: Credits
+        settings: 'Settings'
+        my_profile: 'My profile'
+        unsubscribes: Notifications
+      user_social:
+        email: "Send me an email"
+        facebook: "Profile on facebook"
+        twitter: "Profile on twiiter"
+    backs:
+      anonymous: "Anonymous back."
+      no_backs: "%{name} haven't backed any project yet. But we know it's just a matter of time! :D"
+      no_backs_current_user_html: "You haven't backed any project yet. What about <a href=\"/\">starting now</a>?"
+      no_reward: "You didn't pick a reward"
+      title: "Projects %{name} has backed"
+      title_current_user: "Projects I've backed"
+      your_reward: "Your reward"
+    unsubscribes:
+      title: "Choose from which projects you want to receive update notifications:"
+      updates: "I want to receive project updates"
+    current_user_fields:
+      bio_limit: 'only 140 characters'
+      updated: "Your information has been updated"
+      update_social_info: "Update info"
+      social_info: "Contact info"
+      twitter: "twitter ( username )"
+      facebook_link: "facebook profile (full link)"
+      other_link: "another internet page"
+      email_hint: "Your email will only be used for communications from Neighbor.ly and from the projects you back. It won't be visible in your profile. When you back a project, we will give your email to the project owner so he can provide your rewards."
+      email_tooltip: "Click here to fill your email..."
+      gravatar_hint_html: "Want to change your picture? Use %{link} with your email. It's as simple as uploading an image and works for other sites as well ;)"
+      local_avatar: "My avatar"
+      submit_text: "Choose your picture"
+      submit: "Submit"
+      my_data: "My profile"
+      password_hint: "<i>Leave blank if you don't want to change it.</i>"
+    settings:
+      communication_settings: 'Communication Preferences'
+      change_password: "Change Password"
+      current_password_hint: "<i>We need your current password to confirm your changes.</i>"
+      newsletter: "Receive occasional e-mail newsletters from Neighbor.ly"
+      new_project: 'Email me when new projects are added to Neighbor.ly'
+      submit: 'Update Communication Preferences'
+    header:
+      bio_tooltip: "Click here to write about you..."
+      name_tooltip: "Click here to fill your name..."
+    projects:
+      no_projects: "%{name} haven't started any project on Neighbor.ly yet. We wonder if inspiration will hit one of these days!"
+      no_projects_current_user_html: "You haven't submitted any project to Neighbor.ly yet. Let the inspiration flow and %{link} to start!"
+      title: "%{name}'s projects"
+      title_current_user: "My projects"
+  users_mailer:
+    notification_email:
+      alt: "You must enable images in order to correctly view this message."
+      forward: "Foward to your friends"
+      hello: Hi
+      intro: "You are receiving this message because you signed up on Neighbor.ly"
+      mailee: "Message delivered by Mailee.me"
+      salutation: "Big hugs,"
+      signature: "Neighbor.ly's Team"
+      unsubscribe: Unsubscribe
+      unsubscribe_long: "If you don't want to receive these emails"
+      weblink: "View on the web"
+      whitelist: "Add contact"
+      whitelist_long: "Add our email to your contacts"
+  notifications:
+    backers:
+      to_backer:
+        subject: "Thank you! Your back for %{project} has been confirmed!"
+        text: "Success! <br />Your back has just been confirmed.<br /><br />Check: %{backer_name}<br />%{backer_value}<br />%{reward}<br /><br />%{project_name}"
+    updates:
+      subject: "If the league! Update of %{project_name} by %{project_owner}: %{update_title}"
+      text: "%{update_title}<br />%{update_text}<br />Comments? Send it on in the project page: <a href='%{project_link}'>%{project_name}</a>."

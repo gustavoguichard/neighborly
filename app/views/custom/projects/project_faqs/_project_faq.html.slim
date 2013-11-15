@@ -1,7 +1,0 @@
-dt
-  = resource.title
-  - if can?(:manage, @project)
-    = link_to 'Delete FAQ', [@project, resource], confirm: 'You are sure?', method: :delete
-    .deleting_update.hide= image_tag "loading.gif"
-dd= resource.answer
-

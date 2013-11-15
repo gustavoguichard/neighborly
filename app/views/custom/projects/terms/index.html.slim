@@ -1,0 +1,29 @@
+- content_for :page_content do
+  .terms
+    - if can? :update, @project
+      = render template: 'projects/terms/new'
+
+    - if @project.terms.present?
+      .user-content = @project.terms_html
+
+    - if @documents.any?
+      h3 Terms files to download
+
+      .list
+        table
+          - @documents.each do |pd|
+            tr
+              td.name.large-10.small-10.columns
+                = pd.document.filename
+              td.actions.large-2.small-2.columns
+                = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
+                  i.icon-download.icon-white
+                | &nbsp;
+                - if can? :manage, @project
+                  = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', confirm: 'Are you sure?' do 
+                    i.icon-trash.icon-white
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'

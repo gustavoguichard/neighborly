@@ -1,0 +1,11 @@
+en:
+  project:
+    display_status:
+      expired: 'expired'
+      failed: 'not funded'
+      successful: 'funded'
+      waiting_confirmation: 'waiting'
+      waiting_funds: 'waiting'
+      not_reached_goal: 'waiting'
+      draf: 'draft'
+

@@ -7,7 +7,7 @@ class WwwDitcher
   def call(env)
     request = Rack::Request.new(env)
 
-    if request.host.starts_with?("www.") and request.host.match(/.*/)
+    if request.host.starts_with?("www.") and request.host.match(/.*/) and not Rails.env.test?
       [301, {"Location" => request.url.sub("//www.", "//")}, self]
     else
       @app.call(env)

@@ -1,0 +1,25 @@
+- content_for :title, "Editing: #{@user.display_name}"
+
+- content_for :meta_tags do
+  -# Meta tags for facebook social graph
+  meta property="og:title" content=@user.name
+  meta property="og:url" content=="#{Configuration[:base_url]}#{user_path(@user)}"
+  meta property="og:image" content==@user.display_image
+  meta property="og:site_name" content=::Configuration[:company_name]
+  meta property="og:description" content=@user.bio
+  meta property="fb:admins" content="#{fb_admins}"
+
+.user-edit-page
+  .row.page-main-content
+    section.large-12.columns.main
+      nav.tabs[data-target-container=".user-edit-page section.content"]
+        = tab_link_to t('.tabs.edit'), edit_user_path(@user)
+        = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
+        = tab_link_to t('.tabs.ive_backed'), user_backers_path(@user)
+        = tab_link_to t('.tabs.settings'), settings_user_path(@user)
+
+      section.content
+        - if content_for? :page_content
+          = yield :page_content
+        - else
+          = render template: 'users/profile', locals: { partial: true }

@@ -1,0 +1,50 @@
+.discover-page
+  .discover-form
+    margin-top: +emCalc(40px)
+
+    .search
+      .search-button
+        position: absolute
+        top: +emCalc(12px)
+        right: +emCalc(30px)
+
+  .tags
+    margin-bottom: +emCalc(40px)
+    a
+      &.selected
+        background: $tags-bg
+        color: $tags-text-color
+
+  .results-for
+    margin-bottom: +emCalc(40px)
+    border: 1px solid $border-color
+    padding:
+      top: +emCalc(10px)
+      bottom: +emCalc(10px)
+    border:
+      left: none
+      right: none
+
+    .filter
+      display: inline-block
+      +single-transition(background, .2)
+      padding:
+        left: +emCalc(10px)
+        right: +emCalc(10px)
+      background: $tags-bg-selected
+      color: $tags-text-color-selected
+      line-height: 2.5
+      margin: +emCalc(7px)
+      +radius(+emCalc(2px))
+      a
+        color: $tags-text-color-selected
+        font-size: 105%
+
+  .projects
+    [class*="column"]:last-child
+      float: left
+
+    padding:
+      top: +emCalc(40px)
+      bottom: +emCalc(40px)
+

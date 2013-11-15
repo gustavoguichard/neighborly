@@ -1,0 +1,27 @@
+en:
+  projects:
+    index:
+      title: 'Invest in civic projects you care about'
+      recommended: 'Recommended'
+      near: 'Projects near'
+      ending_soon: 'Ending Soon'
+      coming_soon: 'Coming Soon'
+      no_projects_near: 'No projects near %{city}.'
+      discover: 'Explore more campaigns'
+      join:
+        join_the_neighborhood: 'Join the Neighborhood'
+        already_joined: 'Already joined? %{link}.'
+        sign_in: 'Sign in'
+      hero:
+        title: 'Invest in places and civic projects that you care about.'
+        subtitle: 'Enhance Cities.'
+      how-it-works:
+        one:
+          headline: 'Headline one'
+          text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.'
+        two:
+          headline: 'Headline two'
+          text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.'
+        three:
+          headline: 'Headline three'
+          text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.'

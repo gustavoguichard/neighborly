@@ -2,6 +2,8 @@ require 'sidekiq/web'
 
 Catarse::Application.routes.draw do
 
+  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
+
   devise_for :users, path: '',
     path_names:   { sign_in: :login, sign_out: :logout, sign_up: :sign_up },
     controllers:  { omniauth_callbacks: :omniauth_callbacks, passwords: :passwords }
@@ -11,9 +13,7 @@ Catarse::Application.routes.draw do
     post '/sign_up', to: 'devise/registrations#create', as: :sign_up
   end
 
-
   get '/thank_you' => "static#thank_you"
-
 
   check_user_admin = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.admin }
 
@@ -73,7 +73,7 @@ Catarse::Application.routes.draw do
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
-  get "/explore" => "explore#index", as: :explore
+  get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
   resources :tags, only: [:index]
 
@@ -82,11 +82,12 @@ Catarse::Application.routes.draw do
   end
 
   resources :projects do
-    resources :project_faqs, controller: 'projects/project_faqs', only: [ :index, :create, :destroy ]
-    resources :project_documents, controller: 'projects/project_documents', only: [ :index, :create, :destroy ]
+    resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
+    resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
 
     collection do
+      get :near
       get 'video'
     end
 
@@ -96,6 +97,11 @@ Catarse::Application.routes.draw do
       get 'embed'
       get 'video_embed'
       get 'embed_panel'
+      get 'comments'
+      get 'reports'
+      get 'budget'
+      get 'reward_contact'
+      get 'success'
     end
 
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
@@ -115,10 +121,6 @@ Catarse::Application.routes.draw do
   resources :users do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
-
-    collection do
-      get :uservoice_gadget
-    end
     resources :backers, controller: 'users/backers', only: [:index] do
       member do
         get :request_refund
@@ -127,7 +129,9 @@ Catarse::Application.routes.draw do
 
     resources :unsubscribes, only: [:create]
     member do
-      get 'projects'
+      get :profile,   to: 'users#edit'
+      get :settings,  to: 'users#settings'
+      get :edit
       put 'unsubscribe_update'
       put 'update_email'
       put 'update_password'
@@ -172,5 +176,5 @@ Catarse::Application.routes.draw do
   end
 
   get "/set_email" => "users#set_email", as: :set_email_users
-  get "/:permalink" => "projects#show", as: :project_by_slug
+  #get "/:permalink" => "projects#show", as: :project_by_slug
 end

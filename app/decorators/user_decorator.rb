@@ -19,9 +19,11 @@ class UserDecorator < Draper::Decorator
   end
 
   def display_image_html options={width: 119, height: 121}
-    (%{<div class="avatar_wrapper" style="width: #{options[:width]}px; height: #{options[:height]}px">} +
-      h.image_tag(display_image, alt: "User", style: "width: #{options[:width]}px; height: auto") +
-      %{</div>}).html_safe
+    h.image_tag(display_image, alt: "User", style: "width: #{options[:width]}px; height: auto", class: "avatar").html_safe
+  end
+
+  def first_name
+    display_name.split(' ').first
   end
 
   def short_name

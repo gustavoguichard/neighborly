@@ -1,0 +1,15 @@
+en:
+  words:
+    or: 'or'
+    send: 'send'
+    sending: 'Sending...'
+    remaining_plural: 'left'
+    remaining_singular: 'left'
+    neighbor_plural: 'neighbors'
+    neighbor_singular: 'neighbor'
+    confirm: 'Are you sure?'
+    detele: 'Delete'
+    cancel: 'Cancel'
+    fix-erros-below: 'Please, fix the errors below:'
+    accept_terms_html: 'I have read and accepted the %{link}.'
+    terms: 'Terms of Service'

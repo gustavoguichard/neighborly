@@ -1,0 +1,63 @@
+.button
+  @extend .radius
+  text-transform: uppercase
+  border-width: 0px
+  border-bottom: 2px $button-border-style
+  box-shadow: none
+  border-bottom-color: darken($primary-color, $button-border-color-darken)
+  &.success
+    border-bottom-color: darken($success-color, $button-border-color-darken)
+  &.alert
+    border-bottom-color: darken($alert-color, $button-border-color-darken)
+  &.secondary
+    border-bottom-color: darken($secondary-color, $button-border-color-darken)
+  &:active
+    position: relative
+    top: 2px
+
+  &.custom
+    border: 2px solid $primary-color
+    background: transparent
+    color: $primary-color
+
+    &:hover
+      position: relative
+      top: 1px
+
+    &:active
+      position: relative
+      top: 3px
+
+    &.with-icon
+      padding-right: +emCalc(70px)
+      &:after
+        border-left: 2px solid $primary-color
+        font-size: 180%
+
+  &.with-icon
+    padding-right: +emCalc(50px)
+    &:after
+      position: absolute
+      display: inline-block
+      top: 0
+      right: 0
+      font-size: 160%
+      width: +emCalc(30px)
+      height: 100%
+      padding-top: +emCalc(6px)
+      padding-top: +emCalc(2px)\9
+      padding-left: +emCalc(8px)\9
+      @extend [class^="icon-et-"]:before
+      border-left: 1px solid darken($primary-color, $button-border-color-darken)
+    &.success:after
+      border-left-color: darken($success-color, $button-border-color-darken)
+    &.alert:after
+      border-left-color: darken($alert-color, $button-border-color-darken)
+    &.secondary:after
+      border-left-color: darken($secondary-color, $button-border-color-darken)
+    &.large
+      font-size: 150%
+      &.with-icon:after
+        padding-top: +emCalc(6px)
+        padding-top: +emCalc(13px)\9
+        padding-left: +emCalc(10px)\9

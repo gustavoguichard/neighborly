@@ -36,7 +36,7 @@ describe "Projects" do
     before do
       create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
       create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
-      visit explore_path(locale: :pt)
+      visit discover_path(locale: :pt)
       sleep 4
     end
     it "should show projects" do
@@ -49,7 +49,7 @@ describe "Projects" do
     #before do
       #create(:project, name: 'Foo', state: 'online', online_days: 30, recommended: true)
       #create(:project, name: 'Lorem', state: 'online', online_days: 30, recommended: false)
-      #visit explore_path(pg_search: 'Lorem')
+      #visit discover_path(pg_search: 'Lorem')
       #sleep 4
     #end
     #it "should show recommended projects" do
@@ -85,7 +85,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_by_slug_path(project.permalink, locale: :pt)
+      visit project_path(project, locale: :pt)
     end
 
     it 'edit tab should be present' do
@@ -98,7 +98,7 @@ describe "Projects" do
 
     before do
       login
-      visit project_by_slug_path(project.permalink, locale: :pt)
+      visit project_path(project)
     end
 
     it 'budget tab should be present' do

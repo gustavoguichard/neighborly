@@ -1,0 +1,18 @@
+en:
+  devise:
+    registrations:
+      new:
+        have_account_html: "Already joined? <strong>%{link}</strong>"
+        titles:
+          site: 'Sign up'
+          header: 'Join the Neighborhood'
+        links:
+          login: "Log in <i class='icon-et-right-circled'></i>"
+        form:
+          labels:
+            show_password: 'Show password'
+          hint:
+            password_length: '*must be at least 6 characters.'
+          inputs:
+            submit: 'Join the Neighborhood'
+            facebook: 'Sign up with Facebook'

@@ -1,87 +1,83 @@
-= render partial: 'recommended_header'
-#page_content
-  .container
-    .main
-      /- if current_user && @projects_near.present?
-        .near_projects.list
-          .list_title
-            .title
-              h2= t('sections.near.title')
-          .projects
-            - @projects_near.each_with_index do |item,i|
-              == render 'project', project: item, custom_class: ((@projects_near.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-          .explore_link
-            hr
-      .selected_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.selection.title'), explore_path(anchor: :recommended)
-        .projects
-          - @recommends.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@recommends.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr
-          = link_to t('main.links.selected'), explore_path(anchor: :recommended)
-      .coming_soon_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.coming_soon.title'), explore_path(anchor: :soon)
-        .projects
-          - @soon.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@soon.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr.soon
-          = link_to t('main.links.soon'), explore_path(anchor: :soon)
+- content_for :title, t('.title')
 
-      .successful_projects.list
-        .list_title
-          .title
-            h2= link_to t('sections.succesful.title'), explore_path(anchor: :successful)
-        .projects
-          - @succesful.each_with_index do |item,i|
-            == render 'project', project: item, custom_class: ((@succesful.length == (i+1) ? 'last' : false) || (i==0 ? 'first' : false))
-        .explore_link
-          hr
-          = link_to t('main.links.successful'), explore_path(anchor: :successful)
+.home-page
+  header.hero-header
+    .row
+      .large-8.columns.large-centered
+        h2 = t('.hero.title')
+        h3 = t('.hero.subtitle')
 
-    .sidebar
-      .content
-        .twitter
-          h3= t('sidebar.titles.twitter')
-          a.twitter-timeline height="230" data-dnt="true" data-widget-id="360799322792673280" href="https://twitter.com/#{Configuration['twitter_username']}"
+  section.how-it-works.white
+    .row
+      - for number in ['one', 'two', 'three']
+        .large-4.columns[class=number]
+          h4 =t(".how-it-works.#{number}.headline")
+          p =t(".how-it-works.#{number}.text")
 
-        .facebook
-          h3= t('sidebar.titles.facebook')
-          .fb-like-box data-href="#{Configuration['facebook_url']}" data-width="198" data-height="300" data-show-faces="true" data-stream="false" data-header="false" data-show-border="false"
+  - unless current_user.present?
+    section.join.white
+      .row
+        h3 = link_to sign_up_path do
+          = t('.join.join_the_neighborhood')
+          i.icon-et-right-circled
+        p = t('.join.already_joined', link: link_to(t('.join.sign_in'), new_user_session_path)).html_safe
 
-        .blog
-          h3= t('sidebar.titles.blog')
-          ul.posts
-            - (Blog.fetch_last_posts rescue [])[0..0].each do |post|
-              li
-                h2
-                  = link_to post.url, target: '__blank' do
-                    = truncate(post.title, length: 80, separator: ' ')
-                p.author= "#{t('projects.box.by')} #{post.author}"
-                = link_to post.url, target: '__blank', class: 'resume' do
-                  = post.summary.html_safe
+  section.projects
+    .row
+      section.recommended
+        h3
+          = link_to discover_path(filter: 'recommended') do
+            i.icon-et-heart
+            = t('.recommended')
 
-        .faq
-          = link_to faq_path do
-            = image_tag 'neighborly/faq.png'
+        .row
+          = render 'project', project: @featured, large: true if @featured
+          = render 'project', project: @recommended if @recommended
 
-        .how_it_works
-          = link_to how_it_works_path do
-            = image_tag 'neighborly/how_it_works.png'
+      section.near
+        header
+          h3
+            i.icon-et-location
+            = t('.near')
+          form.custom
+            = select_tag :city, options_for_select(@project_locations, @city), class: 'change-city', id: 'customDropdown', data: { 'projects-path' => near_projects_path }
 
-        .about_us
-          = link_to about_path do
-            = image_tag 'neighborly/about_us.png'
+        .row.content
+          - if @near_projects.any?
+            - for project in @near_projects
+              = render 'project', project: project
+          - else
+            .large-12.columns = t('.no_projects_near', city: @city)
 
-        .start
-          = link_to start_path do
-            = image_tag 'neighborly/start.png'
+      - if @ending_soon.any?
+        section.ending-soon
+          h3
+            = link_to discover_path(filter: 'expiring') do
+              i.icon-et-hourglass
+              = t('.ending_soon')
 
-    .clearfix
+          .row
+            - for project in @ending_soon
+              = render 'project', project: project
 
+      - if @coming_soon.any?
+        section.coming-soon
+          h3
+            = link_to discover_path(filter: 'soon') do
+              i.icon-et-clock
+              = t('.coming_soon')
 
+          .row
+            - for project in @coming_soon
+              = render 'project', project: project
+        section.discover
+          .row
+            .large-centered.large-8.columns
+              = link_to t('.discover'), discover_path, class: 'button custom large large-12 with-icon'
+
+  section.press
+    .row
+      - @press_assets.each do |asset|
+        
+        = link_to asset.url, target: :blank, title: asset.title do
+          = image_tag asset.image.thumb.url

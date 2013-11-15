@@ -1,0 +1,4 @@
+= simple_form_for @project.project_faqs.new, url: project_faqs_path(@project) do |form|
+  = form.input :title, as: :string
+  = form.input :answer, as: :text, input_html: {rows: 10}
+  = form.button :submit, 'Create'

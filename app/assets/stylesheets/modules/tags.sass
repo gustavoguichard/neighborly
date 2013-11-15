@@ -1,0 +1,16 @@
+.tags
+  a
+    display: inline-block
+    +single-transition(background, .2)
+    padding:
+      left: +emCalc(10px)
+      right: +emCalc(10px)
+
+    background: $tags-bg
+    color: $tags-text-color
+    line-height: 2.5
+    margin: +emCalc(7px)
+    +radius(+emCalc(2px))
+    &:hover, &.selected
+      background: $tags-bg-selected
+      color: $tags-text-color-selected

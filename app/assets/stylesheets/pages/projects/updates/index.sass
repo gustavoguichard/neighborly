@@ -1,0 +1,28 @@
+.project-page
+  .updates
+    .update
+      &:after
+        display: block
+        content: ' '
+        height: +emCalc(20px)
+        background: $body-bg
+        margin:
+          left: +emCalc(-15px)
+          right: +emCalc(-15px)
+      &:last-child
+        &:after
+          display: none
+
+      .title
+        padding-top: +emCalc(5px)
+        margin-bottom: +emCalc(5px)
+      .created-at
+        color: $secondary-font-color
+        padding-bottom: +emCalc(30px)
+      .social-share
+        text-align: right
+
+    .updates-loading
+      text-align: center
+      img
+        display: none

@@ -1,0 +1,129 @@
+.home-page
+  .hero-header
+    background-image: image-url('home-hero.png')
+
+  section.how-it-works
+    padding: +emCalc(70px) 0
+
+    &, h4
+      color: $secondary-font-color
+
+    .columns
+      padding: 0 +emCalc(40px)
+      &:nth-child(2n)
+        border: 1px solid $border-color
+        border-top: none
+        border-bottom: none
+    h4
+      text-transform: uppercase
+      &:before
+        content: '1'
+        display: block
+        float: left
+        background: $border-color
+        width: +emCalc(25px)
+        height: +emCalc(25px)
+        +radius(50%)
+        text-align: center
+        color: white
+        font-size: 85%
+        font-weight: bold
+        margin-right: +emCalc(8px)
+    .two
+      h4:before
+        content: '2'
+    .three
+      h4:before
+        content: '3'
+    p
+      padding-left: +emCalc(50px)
+      font-size: 85%
+
+  section.join
+    text-align: center
+    padding-bottom: +emCalc(30px)
+    a
+      font-weight: bold
+      letter-spacing: +emCalc(1px)
+    h3
+      text-transform: uppercase
+      i
+        padding-left: +emCalc(5px)
+        font-size: 150%
+        vertical-align: sub
+
+  section.projects
+    padding: +emCalc(25px) 0
+
+    section
+      margin-bottom: +emCalc(20px)
+
+    [class*="column"]:last-child
+      float: left
+
+    h3
+      text-transform: uppercase
+      color: $secondary-font-color
+      font-weight: 300
+      margin-bottom: +emCalc(10px)
+      i
+        padding-right: +emCalc(5px)
+      a
+        color: $secondary-font-color
+
+
+  section.press
+    @extend .white
+    padding: +emCalc(45px) 0
+    border-top: 1px solid $border-color
+    a
+      float: left
+      margin-right: +emCalc(35px)
+      opacity: 0.4
+      background: white
+      +single-transition(all, 0.5s)
+      &:hover
+        opacity: 1
+
+      &:last-child
+        float: right
+        margin-right: 0
+
+  section.near
+    header
+      +clearfix
+    h3
+      float: left
+    form.custom
+      float: left
+      margin-bottom: 0
+      .custom.dropdown.change-city
+        margin-left: +emCalc(8px)
+        background: transparent
+        box-shadow: none
+        border: none
+        margin-top: +emCalc(9px)
+        margin-bottom: 0
+        .current
+          text-decoration: underline
+          color: $secondary-font-color
+          margin: 0
+          font-size: +emCalc(28px)
+          font-weight: 200
+          line-height: normal
+          text-transform: uppercase
+          &:after
+            @extend [class^="icon-et-"]:before
+            @extend .icon-et-down-open-mini:before
+            margin-left: +emCalc(5px)
+            text-decoration: none
+
+        .selector
+          display: none
+        ul
+          font-size: 110%
+
+  section.discover
+    margin-top: +emCalc(20px)
+    .button.with-icon:after
+      @extend .icon-et-right-circled:before

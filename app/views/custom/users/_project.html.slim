@@ -2,7 +2,7 @@ div class=(can?(:manage, @user) ? 'project_land' : 'small_project_land')
   - if project.expired?
     .status_image
       a href=""
-      = link_to project_by_slug_path(project.permalink) do
+      = link_to project__path(project) do
         - if project.successful?
           = image_tag "successful.#{I18n.locale}.png"
         - elsif project.waiting_funds?
@@ -17,7 +17,7 @@ div class=(can?(:manage, @user) ? 'project_land' : 'small_project_land')
   .project_infos
     .title
       h4
-        = link_to project.name, project_by_slug_path(project.permalink)
+        = link_to project.name, project_path(project)
       p.author== "#{t('project_by')} #{project.user.name}"
       p.headline= project.headline
     .status_bar
@@ -56,7 +56,7 @@ div class=(can?(:manage, @user) ? 'project_land' : 'small_project_land')
         li= link_to image_tag('catarse/twitter_black_icon.png'), "http://twitter.com/share?text=#{t('share_my_backs')}<%= encodeURIComponent(project['name']) %>&url=<%= encodeURIComponent(project['full_uri']) %>".html_safe, target: '_blank'
       .badges
         .image
-          a.badgesModal[href="javascript:void(0)" data-url="#{project_by_slug_url(project.permalink)}"]
+          a.badgesModal[href="javascript:void(0)" data-url="#{project_url(project)}"]
             = image_tag "badges/default_thumb.jpg"
             span Put in your site
 .clearfix

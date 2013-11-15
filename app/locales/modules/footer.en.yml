@@ -1,0 +1,16 @@
+en:
+  layouts:
+    footer:
+      quick_links: 'Quick Links'
+      about: 'About'
+      discover: 'Discover'
+      start_campaign: 'Start Campaign'
+      how_it_works: 'How It Works'
+      blog: 'Blog'
+      contact: 'Contact Us'
+      faq: 'FAQ / Help'
+      legal: 'Legal'
+      lets_get_social: "Let's get social"
+      stay_in_touch: 'Stay in touch with us'
+      stay_in_touch_text: 'Email: %{email}<br /><br />Phone: 132-132-123<br /><br />Proudly located in the Crossroads of Kansas City on the Silicon Prairie.'
+      all_rights_reserved: '&copy; %{year} Neighbor.ly | All rights reserved.'

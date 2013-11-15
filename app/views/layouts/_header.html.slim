@@ -1,48 +1,53 @@
-header.header
-    h1
-      = link_to "#{Configuration[:company_name]}", root_url(host: Configuration[:base_domain] || request.domain), :class => 'logo', :title => Configuration[:company_name]
-    nav.header-nav
-      ul
-        li.header-nav-li
-          = link_to t('layouts.header.submit'), guidelines_start_path, :class => 'submit-project'
+header.fixed
+  nav.top-bar
+    .row
+      ul.title-area
+        li.name
+          h1
+            = link_to Configuration[:company_name], root_url
 
-        li.header-nav-li.search
-          = form_tag explore_path, :method => 'GET', :class=>'discover-form' do
-            = text_field_tag :pg_search, nil, autocomplete: "off", value: params[:pg_search], placeholder: t('layouts.header.discover'), class: "discover-form-input"
-            = submit_tag
+        / Mobile thing
+        li.toggle-topbar.menu-icon
+          a href="#"
+            span Menu
 
-        li.header-nav-li
-          = link_to t('layouts.header.help'), Configuration[:support_forum], target: :_blank, :class => 'header-nav-item',  id: 'guidelines_header_modal' if Configuration[:support_forum].present?
+      .top-bar-section
+        / Left Nav Section
+        ul.left
+          li#new_idea
+          li
+            = link_to start_path do
+              i.icon-rocket
+              = t('.start_campaign')
+          li
+            = link_to discover_path do
+              i.icon-et-map
+              = t('.discover')
+          li
+            = link_to about_path do
+              i.icon-info-sign
+              = t('.about')
 
-        li.header-nav-li
-          = link_to t('layouts.header.blog'), Configuration['blog_url'], target: :_blank, class: 'header-nav-item' if Configuration['blog_url'].present?
+        / Right Nav Section
+        ul.right
+          li
+            span.user-actions[class="#{'un-signed-in' unless user_signed_in?}"]
+              - if user_signed_in?
+                = link_to edit_user_path(current_user), class: 'user-profile' do
+                  = image_tag current_user.display_image, size: "18x18", class: 'profile-picture'
+                  |  Hey, #{ current_user.first_name }!
+                span.divider |
+                = link_to t('.sign-out'), destroy_user_session_path, method: :delete, class: 'sign-out'
+              - else
+                = link_to t('.sign-up'), new_user_registration_path, class: 'sign-up'
+                span.divider |
+                = link_to t('.sign-in'), new_user_session_path, class: 'sign-in'
+          li.search
+            span.search-box
+              = form_tag discover_path, method: 'GET', class: 'discover-form' do
+                = text_field_tag :search, nil, autocomplete: "off", value: params[:search], class: "discover-form-input #{'show' if params[:search].present?}", placeholder: 'Search...'
+                = submit_tag
 
-        li.header-nav-li.locales
-          - I18n.available_locales.map(&:to_s).sort.reverse.each do |locale|
-              = link_to locale, params.merge(locale: locale)
-
-        - if current_user
-          li.header-nav-li.user
-            = link_to '#', class: 'my_profile_link' do
-              = image_tag(current_user.display_image, :size => "40x40", :class => 'profile-picture')
-            ul.dropdown.user
-              li= link_to t('layouts.header.profile'), current_user
-              li
-                = link_to t('layouts.user.my_credits'), user_path(current_user, anchor: 'credits')
-                .small
-                  | (#{current_user.display_credits})
-              - if current_user.admin?
-                li.divider
-                - for menu, path in Admin::BaseController.menu do
-                  li= link_to menu, path
-              - if current_user.trustee?
-                li.divider
-                - for menu, path in Channels::Admin::ProjectsController.menu do
-                  li.channel_trustee= link_to menu, path
-              li= link_to t('layouts.user.logout'), destroy_user_session_path, method: :delete
-        - else
-          li.header-nav-li
-            = link_to t('layouts.header.signup'), new_user_registration_path, :class => 'header-nav-item'
-          li.header-nav-li
-            = link_to t('layouts.header.signin'), new_user_session_path, :class => 'header-nav-item'
-.clearfix
+              = link_to '#search', class: 'search-button' do
+                i.icon-search
+                | &nbsp;

@@ -1,0 +1,5 @@
+en:
+  users:
+    show:
+      ive_backed: "Campaigns I've backed - %{number}"
+      ive_led: "Campaigns I've led - %{number}"

@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
 
   mount_uploader :uploaded_image, ProjectUploader
   mount_uploader :video_thumbnail, ProjectUploader
+  mount_uploader :hero_image, HeroImageUploader
   has_permalink :name, true
   geocoded_by :address
   after_validation :geocode # auto-fetch coordinates
@@ -31,9 +32,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
 
-  catarse_auto_html_for field: :about, video_width: 600, video_height: 403
-  catarse_auto_html_for field: :budget, video_width: 600, video_height: 403
-  catarse_auto_html_for field: :terms, video_width: 600, video_height: 403
+  catarse_auto_html_for field: :about, video_width: 720, video_height: 405
+  catarse_auto_html_for field: :budget, video_width: 720, video_height: 405
+  catarse_auto_html_for field: :terms, video_width: 720, video_height: 405
 
   pg_search_scope :pg_search, against: [
       [:name, 'A'],
@@ -50,7 +51,7 @@ class Project < ActiveRecord::Base
 
   scope :by_progress, ->(progress) { joins(:project_total).where("project_totals.pledged >= projects.goal*?", progress.to_i/100.to_f) }
   scope :by_id, ->(id) { where(id: id) }
-  scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
+  scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
   scope :by_category_id, ->(id) { where(category_id: id) }
   scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
@@ -94,19 +95,19 @@ class Project < ActiveRecord::Base
 
   attr_accessor :accepted_terms, :address
 
-  def to_param
-    self.id
-  end
+  #def to_param
+    #self.id
+  #end
 
   validates_acceptance_of :accepted_terms, on: :create
 
   #validates :address, city_and_state: true
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink
+  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
-  validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false
+  validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update
   validates_format_of :permalink, with: /\A(\w|-)*\z/, allow_blank: true
   validates_format_of :video_url, with: Regexp.union(/https?:\/\/(www\.)?vimeo.com\/(\d+)/, /youtube\.com\/.*v=([A-Za-z0-9._%-]*)?|youtu\.be\/([A-Za-z0-9._%-]*)?|youtube\.com\/embed\/([A-Za-z0-9._%-]*)?/), message: I18n.t('project.video_regex_validation'), allow_blank: true
   validate :permalink_cant_be_route, allow_nil: true
@@ -226,7 +227,7 @@ class Project < ActiveRecord::Base
   end
 
   def remaining_text
-    pluralize_without_number(time_to_go[:time], I18n.t('remaining_singular'), I18n.t('remaining_plural'))
+    pluralize_without_number(time_to_go[:time], I18n.t('words.remaining_singular'), I18n.t('words.remaining_plural'))
   end
 
   def update_video_embed_url
@@ -387,6 +388,10 @@ class Project < ActiveRecord::Base
 
   def new_project_received_notification_type
     channels.first ? :project_received_channel : :project_received
+  end
+
+  def self.locations
+    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
   end
 
   private

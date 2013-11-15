@@ -1,6 +1,5 @@
-- for key, msg in flash
-  - unless msg.blank?
-    .flash
-      div class="#{key} wrapper"
-        div class=key
-          == msg
+.flash
+  - for key, message in flash
+    div class="alert-box #{key} animated fadeIn" data-alert="true"
+      = message
+      a.close &times;

@@ -1,22 +1,25 @@
 class Projects::BackersController < ApplicationController
   inherit_resources
-  actions :index, :show, :new, :update_info, :review, :create, :credits_checkout
+  actions :show, :new, :update_info, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :update_info]
   skip_before_filter :verify_authenticity_token, only: [:moip]
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
   has_scope :page, default: 1
   load_and_authorize_resource except: [:index]
-  belongs_to :project
+  belongs_to :project, finder: :find_by_permalink!
+
+  def index
+    @project = parent
+    if request.xhr? && params[:page] && params[:page].to_i > 1
+      render collection
+    end
+  end
 
   def update_info
     resource.update_attributes(params[:backer])
     resource.update_user_billing_info
     render json: {message: 'updated'}
-  end
-
-  def index
-    render collection
   end
 
   def show
@@ -74,7 +77,7 @@ class Projects::BackersController < ApplicationController
       @backer.confirm!
     end
     flash[:success] = t('projects.backers.checkout.success')
-    redirect_to project_backer_path(project_id: parent.id, id: resource.id)
+    redirect_to project_backer_path(parent, resource)
   end
 
   protected

@@ -26,7 +26,7 @@ br
 = simple_format(project.how_know)
 br
 br
-= link_to "View the Project", project_by_slug_url(permalink: project.permalink, subdomain: channel.permalink)
+= link_to "View the Project", project_url(project, subdomain: channel.permalink)
 br
 br
 | The #{channel.name} Team

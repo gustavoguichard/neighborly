@@ -1,0 +1,54 @@
+- content_for :title, t('.title')
+
+- content_for :page_content do
+  .row
+    - if @projects.any?
+      = render @projects
+    - else
+      p = t('.empty')
+
+
+- if request.xhr?
+  = yield :page_content
+- else
+  .discover-page[data-path=discover_path]
+    section.filters.white
+      .row
+        .large-12.columns
+          = form_tag discover_path, method: 'GET', class: 'discover-form row custom' do
+            .large-3.small-6.columns
+              = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near'), class: 'near-input'
+            .large-3.small-6.columns
+              = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category'), class: 'category-input'
+            .large-3.small-6.columns
+              = select_tag :filter, options_for_select(@avaliable_filters, @filters[:filter]), prompt: t('.filter'), class: 'filter-input'
+            .search.large-3.small-6.columns
+              = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...', class: 'search-input'
+              = link_to '#search', class: 'search-button' do
+                i.icon-search
+
+          .tags
+            strong = t('.tags')
+            - for tag in @tags
+              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @filters[:tags].present? && @filters[:tags].include?(tag.name) }"
+          .results-for
+            strong = t('.showing_results_for')
+            - for type, value in @filters
+              - if type == :tags
+                - for tag in value
+                  .filter
+                    = tag.titleize
+                    | &nbsp; | &nbsp;
+                    = link_to 'x', '#', data: { :'filter-type' => type, :'filter-value' => tag.parameterize }, class: 'remove-filter'
+              - else
+                .filter
+                  - if type == :filter
+                    = t(".filters.#{value}")
+                  - else
+                    = value
+                  | &nbsp; | &nbsp;
+                  = link_to 'x', '#', data: { :'filter-type' => type }, class: 'remove-filter'
+
+
+    section.content.projects
+      = yield :page_content

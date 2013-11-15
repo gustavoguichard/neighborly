@@ -10,7 +10,7 @@ describe Users::QuestionsController do
     end
 
     context 'should set a return to url' do
-      it { expect(session[:return_to]).to eq(project_by_slug_path(permalink: project.permalink, anchor: 'open-new-user-question-modal')) }
+      it { expect(session[:return_to]).to eq(project_path(project, anchor: 'open-new-user-question-modal')) }
     end
   end
 
@@ -49,7 +49,7 @@ describe Users::QuestionsController do
       before { post :create, user_id: user.id, project_id: project.id, question: { body: 'test' } }
 
       context 'should be success' do
-        it { expect(response).to redirect_to(project_by_slug_path(permalink: project.permalink)) }
+        it { expect(response).to redirect_to(project_path(project)) }
       end
 
       context 'shoul deliver the email' do

@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate  :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name,
     to: :decorator
 
   attr_accessible :email,
@@ -60,12 +60,14 @@ class User < ActiveRecord::Base
     :company_name,
     :company_logo,
     :linkedin_url,
-    :address
+    :address,
+    :hero_image
 
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader
   mount_uploader :company_logo, CompanyLogoUploader
+  mount_uploader :hero_image, HeroImageUploader
 
   validates_length_of :bio, maximum: 140
   validates :address, city_and_state: { allow_blank: true }
@@ -264,7 +266,7 @@ class User < ActiveRecord::Base
   end
 
   def total_backs
-    backs.confirmed.not_anonymous.count
+    backs.with_state('confirmed').not_anonymous.length
   end
 
   def updates_subscription
@@ -275,6 +277,14 @@ class User < ActiveRecord::Base
     backed_projects.map do |p|
       unsubscribes.updates_unsubscribe(p.id)
     end
+  end
+
+  def projects_led
+    projects.visible.not_soon
+  end
+
+  def total_led
+    projects_led.length
   end
 
   def backed_projects

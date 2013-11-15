@@ -1,0 +1,73 @@
+#about-page
+  .page-headline
+    text-align: center
+    padding-top: 30px
+
+    p
+      width: 80%
+      margin: auto
+      margin-bottom: +emCalc(30px)
+
+  .list-inline li
+    display: block
+    float: left
+    padding-right: 8px
+
+  .features
+    background: white
+    margin-top: +emCalc(50px)
+    padding: +emCalc(80px) 0
+    ul
+      +clearfix
+      text-align: center
+
+  .team
+    text-align: center
+    img
+      width: +emCalc(170px)
+      margin: +emCalc(20px) 0
+      float: none
+
+    .social i
+      padding-top: 10px
+
+    h4
+      padding: 0
+      margin: 0
+      font-weight: 400
+
+    h5
+      font-size: 95%
+      padding: 0
+      margin-bottom: +emCalc(20px)
+      text-transform: uppercase
+    ul
+      margin: 0
+      text-align: left
+    p
+      text-align: left
+      font-size: 90%
+
+  ul, li
+    list-style: none
+
+  .img-circle
+    +radius(50%)
+
+  hr
+    width: 80%
+    margin: +emCalc(30px) auto
+    //border: 0
+    //border-top: 1px solid #b8dbeb
+    //border-bottom: 1px solid #ffffff
+
+  .social
+    i
+      +single-transition(color, 0.6s)
+      font-size: +emCalc(38px)
+      margin: +emCalc(2px)
+      color: $primary-color
+
+      &:hover
+        color: darken($primary-color, 20%)
+        text-decoration: none

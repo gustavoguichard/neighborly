@@ -1,38 +1,33 @@
-= content_for :title, t('pages.login.titles.site')
+= content_for :title, t('.titles.site')
 
 = render 'devise/shared/header'
 
 .row
   .large-5.large-centered.columns
     .login-box.animated.fadeIn
-      h2.text-center= t 'pages.login.titles.header'
+      h3.text-center = t '.titles.header'
       p.text-center.register_link
-        = t 'pages.login.no_account_html', link: link_to(t('pages.login.links.register'), new_user_registration_path)
+        = t '.no_account_html', link: link_to(t('.links.register').html_safe, new_user_registration_path)
       hr
       = render 'devise/shared/omniauth'
-      .clearfix
 
-      .large-10.large-centered.columns
-        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .large-11.large-centered.columns
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
           = render 'devise/shared/alert'
-          p
-            = f.label :email
-            = f.text_field :email, class: [:login, :email], required: true, type: :email, tabindex: 1
 
-          p
-            = f.label :password
-            = link_to t('pages.login.links.forgot_password'), new_password_path(resource_name), class: 'right text-right'
-            = f.password_field :password, class: [:login], required: true, tabindex: 2
+          = f.input :email, as: :email, required: true, label: false
+          = f.input :password, as: :password, class: [:login], required: true, tabindex: 2, required: true, label: false
+          i = link_to t('.links.forgot_password'), new_password_path(resource_name), class: 'right text-right forget-password'
+
           .text-left
             = f.check_box :remember_me, checked: true
-            = f.label :remember_me, t('pages.login.form.labels.remember_me')
+          .text-right
+            = f.label :remember_me, t('.form.labels.remember_me')
 
-          .large-10.columns.large-centered
-            = f.submit t('pages.login.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
+          .large-centered
+            = f.submit t('.form.inputs.submit'), class: [:button, :success, 'large-12', 'columns']
 
-          .clearfix
           - if devise_mapping.confirmable?
-            .new_user_confirmation
-              = link_to "Didn't receive confirmation instructions?", new_user_confirmation_path
-            .clearfix
-
+            .new-user-confirmation
+              = link_to t('.links.new_user_confirmation'), new_user_confirmation_path

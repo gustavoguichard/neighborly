@@ -1,0 +1,37 @@
+doctype html
+/ http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+/[if lte IE 8 ]
+  |<html class="lt-ie9" lang="en">
+/[if IE 9 ]
+  |<html class="ie9" lang="en">
+/[if (gt IE 9)|!(IE)]
+  |<html lang="en">
+
+head
+  title= t('site.meta_title', title: (@title || yield(:title)), company_name: ::Configuration[:company_name])
+  meta[charset="utf-8"]
+  meta name="robots" content="index, follow"
+  meta name="author" content="Engage"
+  meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+
+  -# Stylesheets & Favicon
+  = stylesheet_link_tag :normalize
+  = stylesheet_link_tag :animate
+  = stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:300,400,700"
+  = stylesheet_link_tag :application
+  = favicon_link_tag 'favicon.ico'
+
+  -# CSRF protection
+  = csrf_meta_tag
+
+  /[if lt IE 9]
+    = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
+  = javascript_include_tag 'vendor/custom.modernizr'
+  = javascript_include_tag :application
+  = render 'layouts/analytics'
+body#devise
+  = initjs_tag app_name: 'Neighborly'
+  = render 'layouts/loader'
+  = yield
+  = yield :modals
+|</html>

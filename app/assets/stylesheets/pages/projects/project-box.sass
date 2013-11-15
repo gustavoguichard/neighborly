@@ -1,0 +1,183 @@
+.project-box
+  position: relative
+  overflow: hidden
+  margin-bottom: +emCalc(30px)
+  height: +emCalc(335px)
+  a
+    color: $body-font-color
+
+
+  &:not(.large):not(.soon)
+    &:hover
+      .description *
+        +single-transition(opacity, 1s)
+        opacity: 1
+      .content
+        -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        height: +emCalc(273px)
+        margin-top: +emCalc(-115px)
+  &.soon
+    .description *
+      +single-transition(opacity, 1s)
+      opacity: 1
+
+  &.large
+    overflow: visible
+    height: auto
+    .cover
+      padding: 0
+      height: +emCalc(335px)
+      overflow: hidden
+      img
+        width: +emCalc(500px)
+
+    .content
+      padding-left: 0
+      padding-right: 0
+      height: +emCalc(335px)
+
+    .name
+      background: $primary-color
+      padding-top: +emCalc(40px)
+      padding-bottom: +emCalc(50px)
+      color: white
+
+    .description *
+      opacity: 1
+
+  .status-image
+    position: absolute
+    top: -1px
+    left: +emCalc(14px)
+
+  .cover
+    height: +emCalc(178px)
+    overflow: hidden
+    img
+      width: 100%
+
+  .content
+    height: +emCalc(158px)
+    @extend .white
+    position: relative
+
+  .name
+    margin: 0
+    padding: +emCalc(20px)
+    padding-bottom: +emCalc(7px)
+    padding-top: 0
+    font-size: 90%
+    text-transform: uppercase
+    font-weight: 500
+    max-height: +emCalc(130px)
+
+  .category
+    text-align: center
+    i
+      margin-top: +emCalc(-20px)
+      padding: +emCalc(10px)
+      display: inline-block
+      width: +emCalc(48px)
+      height: +emCalc(48px)
+      @extend .white
+      +radius(50%)
+      &:before
+        color: $primary-color
+        @extend [class^="icon-et-"]:before
+        @extend .icon-et-thumbs-up:before
+        font-size: 180%
+    span
+      display: none
+
+  .location
+    padding: +emCalc(20px)
+    padding-top: 0
+    padding-bottom: +emCalc(10px)
+    margin-bottom: 0
+    font-size: 85%
+
+  .description
+    padding: +emCalc(20px)
+    padding-top: 0
+    padding-bottom: 0
+    margin-bottom: 0
+    font-size: 90%
+    line-height: 1.2
+    *
+      opacity: 0
+    span
+      display: block
+      font-size: 85%
+      padding-bottom: +emCalc(10px)
+    .button
+      display: block
+      color: white
+      width: 70%
+      margin-left: auto
+      margin-right: auto
+      margin-top: +emCalc(10px)
+
+  .status
+    @extend .white
+    position: absolute
+    width: 100%
+    bottom: 0
+    padding: +emCalc(20px)
+    padding-top: 0
+    font-size: 90%
+    .row
+      padding-top: +emCalc(10px)
+      border-top: 1px solid lighten($border-color, 5%)
+    .pledged, .time
+      font-size: 75%
+      i
+        padding-right: +emCalc(5px)
+    .time
+      text-align: right
+    .progress
+      margin-top: +emCalc(10px)
+      background: #CACACA
+      +radius(4px)
+      height: +emCalc(10px)
+      span
+        display: block
+        background: $primary-color
+        height: +emCalc(10px)
+        +radius(4px)
+
+  $categories-names: recreation, entertainment, event, mobility, restoration, technology
+  $categories-colors: #CB4042, #246b5b, #dec423, #d3663a, #256483, #744689
+  $categories-icons: bucket, leaf, calendar, rocket, arrows-ccw, signal
+
+  =category-style-for($name)
+    .category i:before
+      color: nth($categories-colors, index($categories-names, $name))
+      @extend .icon-et-#{nth($categories-icons, index($categories-names, $name))}:before
+    &.large .name, .progress span
+      background: nth($categories-colors, index($categories-names, $name))
+
+  @each $name in $categories-names
+    &.#{$name}
+      +category-style-for($name)
+
+body.embed
+  .project-box
+    margin-bottom: 0
+    padding: 0
+  .project-box-video-embed
+    text-align: center
+    h3
+      a
+        color: $body-font-color
+        text-transform: uppercase
+        font-size: 80%
+    h5
+      font-size: 90%
+    .video-embed-footer
+      width: 360px
+      left: 50%
+      margin-left: -180px
+      position: fixed
+      bottom: 5px
