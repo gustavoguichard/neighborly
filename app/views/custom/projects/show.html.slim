@@ -17,7 +17,7 @@
   meta property="fb:admins" content="#{fb_admins}"
 
 .project-page
-  header.hero[style="background-image: url(#{image_url(@project.background_url(:background_image))})"]
+  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
     .row
       .large-6.columns
         .flex-video
