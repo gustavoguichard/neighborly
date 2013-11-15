@@ -5,3 +5,26 @@
       left: +emCalc(-15px)
       right: +emCalc(-15px)
     padding: +emCalc(15px)
+
+.usr-upld-img
+  background: white no-repeat center
+  padding: 10px
+  border: 2px dashed $border-color
+  min-height: 180px
+  margin-bottom: 1.5em
+  +transition(.2s)
+  .info
+    text-align: center
+    display: block
+    text-transform: uppercase
+    font-weight: 600
+    +opacity(0)
+  &.usr-upld-pctr
+    background-image: image-url('user/usr-upld-pctr.png')
+  &.usr-upld-cvr
+    background-image: image-url('user/usr-upld-cvr.png')
+  &.dragging
+    background-color: #ffffe0
+    border-color: #e6db55
+    .info
+      +opacity(1)

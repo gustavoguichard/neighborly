@@ -15,7 +15,17 @@ en:
         name: 'Full name'
         email: 'Email'
         password: 'Password'
+        bio: '140 characters or less...'
+        facebook_link: 'facebook.com/'
+        other_link: 'www.'
+        linkedin_url: 'linkedin.com/in/'
+        twitter: '@'
     labels:
+      user:
+        bio: 'Short Bio'
+        password: 'New Password'
+        newsletter: 'Receive occasional e-mail newsletters from Neighbor.ly'
+        new_project: 'Email me when new projects are added to Neighbor.ly'
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'
@@ -32,6 +42,8 @@ en:
     #     password: 'No special characters, please.'
   helpers:
     submit:
+      user:
+        update: 'Save Changes'
       project:
         create: 'Submit Campaign'
         update: 'Update Campaign'

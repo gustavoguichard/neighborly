@@ -1,0 +1,5 @@
+en:
+  users:
+    settings:
+      change_password: "Change your password"
+      password_info: "We need your current password to confirm your changes."

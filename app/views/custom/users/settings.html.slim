@@ -1,0 +1,21 @@
+- content_for :page_content do
+  #user-settings-content.row
+    = simple_form_for(@user, url: {action: "update_password"}, html: { method: :put, class: 'skip_feed_event', id: 'password_form' }) do |f|
+      .large-8.columns
+        h3= t('.change_password')
+        p= t('.password_info')
+        .row
+          .large-6.columns
+            = f.input :current_password
+          .large-6.columns
+            = f.input :password
+        h3= t('.communication_settings')
+        = f.input :newsletter
+        = f.input :new_project
+        p= f.button :submit
+
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'users/edit'

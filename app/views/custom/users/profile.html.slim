@@ -1,0 +1,51 @@
+- content_for :page_content do
+  #user-profile-content.row
+    .large-8.columns
+      = simple_form_for resource do |f|
+        .row
+          .large-4.columns
+            .usr-upld-img.usr-upld-pctr
+
+              span.info Drop images here
+          .large-8.columns
+            .usr-upld-img.usr-upld-cvr
+              span.info Drop images here
+        = f.input :name, as: :string
+        = f.input :address, as: :string
+        = f.input :bio
+        .row
+          .large-6.columns
+            .row.collapse
+              .small-3.large-2.columns
+                span class="prefix"
+                  i.icon-et-facebook
+              .small-9.large-10.columns
+                = f.input :facebook_link, input_html: { class: "with-prefix" }, label: false
+          .large-6.columns
+            .row.collapse
+              .small-3.large-2.columns
+                span class="prefix"
+                  i.icon-et-twitter
+              .small-9.large-10.columns
+                = f.input :twitter, input_html: { class: "with-prefix" }, label: false
+        .row
+          .large-6.columns
+            .row.collapse
+              .small-3.large-2.columns
+                span class="prefix"
+                  i.icon-et-linkedin
+              .small-9.large-10.columns
+                = f.input :linkedin_url, input_html: { class: "with-prefix" }, label: false
+          .large-6.columns
+            .row.collapse
+              .small-3.large-2.columns
+                span class="prefix"
+                  i.icon-et-link
+              .small-9.large-10.columns
+                = f.input :other_link, input_html: { class: "with-prefix" }, label: false
+        = f.button :submit
+
+- if request.xhr? || defined?(partial)
+  = yield :page_content
+- else
+  = render template: 'users/edit'

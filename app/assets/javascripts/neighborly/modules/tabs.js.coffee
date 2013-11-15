@@ -14,18 +14,19 @@ Neighborly.Tabs = Backbone.View.extend
       this.initPjax()
 
   toggleSelected: (event)->
-    $(this.el).find('.selected').removeClass('selected')
-    $(event.currentTarget).addClass('selected')
+    $target = $(event.currentTarget)
+    unless $target.hasClass('selected')
+      this.$('.selected').removeClass('selected')
+      $target.addClass('selected')
 
   initPjax: ->
     $(this.el).pjax('a', this.$target_container)
     this.bindPjaxLoading()
 
   bindPjaxLoading: ->
-    that = this
-    $(this.$target_container).on 'pjax:send', ->
-      $(that.$target_container).addClass('loading-section')
+    $(this.$target_container).on 'pjax:send', =>
+      $(this.$target_container).addClass('loading-section')
 
-    $(this.$target_container).on 'pjax:complete', ->
-      $(that.$target_container).removeClass('loading-section')
+    $(this.$target_container).on 'pjax:complete', =>
+      $(this.$target_container).removeClass('loading-section')
       Initjs.initializePartial()
