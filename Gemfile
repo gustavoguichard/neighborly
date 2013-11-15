@@ -50,7 +50,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.4.0'
-gem 'devise', '~> 3.1.1'
+gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
 
 # See https://github.com/ryanb/cancan/tree/2.0 for help about this
@@ -77,20 +77,20 @@ gem 'feedzirra'
 gem 'inherited_resources',        '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
-gem 'video_info', '>= 1.1.1'
+gem 'video_info', '~> 1.4.0'
 gem 'enumerate_it'
 gem 'httparty', '~> 0.6.1' # this version is required by moip gem, otherwise payment confirmation will break
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
 
 # Payment
-gem 'moip', github: 'catarse/moip-ruby'
 gem 'httpclient',     '>= 2.2.5'
 
 group :production do
   gem 'google-analytics-rails'
 
   # Gem used to handle image uploading
+  gem 'unf'
   gem 'fog', '>= 1.3.1'
 
   # Workers, forks and all that jazz
