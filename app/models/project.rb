@@ -106,6 +106,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
+  validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update
   validates_format_of :permalink, with: /\A(\w|-)*\z/, allow_blank: true
   validates_format_of :video_url, with: Regexp.union(/https?:\/\/(www\.)?vimeo.com\/(\d+)/, /youtube\.com\/.*v=([A-Za-z0-9._%-]*)?|youtu\.be\/([A-Za-z0-9._%-]*)?|youtube\.com\/embed\/([A-Za-z0-9._%-]*)?/), message: I18n.t('project.video_regex_validation'), allow_blank: true
   validate :permalink_cant_be_route, allow_nil: true
