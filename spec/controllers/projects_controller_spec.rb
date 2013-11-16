@@ -78,12 +78,60 @@ describe ProjectsController do
     end
   end
 
-  describe "GET index" do
+  describe 'GET index' do
     before do
       controller.stub(:last_tweets).and_return([])
       get :index, locale: :pt
     end
     it { should be_success }
+  end
+
+  describe 'GET comments' do
+    before do
+      get :comments, id: project
+    end
+    it { should be_success }
+  end
+
+  describe 'GET budget' do
+    before do
+      get :budget, id: project
+    end
+    it { should be_success }
+  end
+
+  describe 'GET reports' do
+    before do
+      get :reports, id: project
+    end
+
+    context "when user is logged in" do
+      let(:current_user){ project.user }
+      it{ expect(response).to be_success }
+    end
+
+    context "when user is not logged in" do
+      it { expect(response).to redirect_to new_user_session_path }
+    end
+  end
+
+  describe 'GET reward_contact' do
+    context 'when request is not xhr' do
+      before do
+        get :reward_contact, id: project
+      end
+      it { should render_template layout: true }
+      it { should be_success }
+    end
+
+    context 'when request is xhr' do
+      before do
+        xhr :get, :reward_contact, id: project
+      end
+      it { should render_template layout: false }
+      it { should be_success }
+    end
+
   end
 
   describe 'GET near' do
@@ -98,7 +146,6 @@ describe ProjectsController do
 
       it { expect(response).to be_success }
     end
-
   end
 
   describe "GET new" do

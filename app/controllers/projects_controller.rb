@@ -86,6 +86,7 @@ class ProjectsController < ApplicationController
   end
 
   def reports
+    redirect_to(new_user_session_path) unless can? :update, resource
     @project = resource
   end
 
