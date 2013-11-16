@@ -6,25 +6,50 @@
       right: +emCalc(-15px)
     padding: +emCalc(15px)
 
+  #dropzone-preview-image
+    display: none
+
 .usr-upld-img
   background: white no-repeat center
   padding: 10px
   border: 2px dashed $border-color
   min-height: 180px
   margin-bottom: 1.5em
+  cursor: pointer
+  position: relative
   +transition(.2s)
+  .uploaded-image
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    +background-size(cover)
+    background:
+      repeat: no-repeat
+      position: center
   .info
-    text-align: center
+    text:
+      align: center
+      shadow: 1px 1px 0 white
+      transform: uppercase
     display: block
-    text-transform: uppercase
     font-weight: 600
+    position: relative
+    z-index: 10
     +opacity(0)
   &.usr-upld-pctr
     background-image: image-url('user/usr-upld-pctr.png')
   &.usr-upld-cvr
     background-image: image-url('user/usr-upld-cvr.png')
-  &.dz-drag-hover, &.dragging
+  &.dz-drag-hover, &.dragging, &.upload-started
     background-color: #ffffe0
     border-color: #e6db55
+  &.dz-drag-hover, &.dragging, &.dz-max-files-reached, &.upload-fail
     .info
       +opacity(1)
+  &.dz-max-files-reached, &.upload-fail
+    background-color: #FEE
+    border-color: #D84D4D
+  &.upload-complete
+    border: 2px solid #86AC4D

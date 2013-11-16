@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         flash[:error] = @user.errors.full_messages.to_sentence
       end
       success.json do
-        return render json: { status: :success, hero_image: @user.hero_image_url(:blur)  }
+        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), company_logo: @user.company_logo_url(:thumb) }
       end
       failure.json do
         return render json: @user
