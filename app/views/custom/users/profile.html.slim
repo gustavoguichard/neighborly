@@ -4,12 +4,14 @@
       = simple_form_for resource do |f|
         .row
           .large-4.columns
-            .usr-upld-img.usr-upld-pctr
-
-              span.info Drop images here
+            .usr-upld-img.usr-upld-pctr data-param="uploaded_image"
+              span.info Drop an image here
+              .uploaded-image style="background-image: url(#{@user.uploaded_image_url});"
           .large-8.columns
-            .usr-upld-img.usr-upld-cvr
-              span.info Drop images here
+            .usr-upld-img.usr-upld-cvr data-param="hero_image"
+              span.info Drop an image here
+              .uploaded-image style="background-image: url(#{@user.hero_image_url(:blur)});"
+              / company_logo
         = f.input :name, as: :string
         = f.input :address, as: :string
         = f.input :bio
