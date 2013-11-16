@@ -7,8 +7,9 @@ Neighborly.Users.Edit =
     el: '.user-edit-page'
 
     initialize: ->
+      @uploaders = []
       for uploader in $('.usr-upld-img')
-        new Neighborly.Users.Edit.DragDropUploader { el: uploader }
+        @uploaders.push new Neighborly.Users.Edit.DragDropUploader { el: uploader }
 
   DragDropUploader: Backbone.View.extend
     events:
@@ -17,6 +18,17 @@ Neighborly.Users.Edit =
 
     # TODO: Uploader functionality
     initialize: ->
+      this.action_url = @$el.closest('form')[0].getAttribute("action")
+      this.initializeDropzone()
+
+    initializeDropzone: ->
+      this.$el.dropzone
+        url: this.action_url
+        acceptedFiles: "image/*"
+        headers: "X-CSRF-Token" : $('meta[name="csrf-token"]')[0].getAttribute 'content'
+        paramName: 'user[hero_image]'
+        method: 'PUT'
+
 
     mouseEnter: (e)->
       $(e.currentTarget).addClass 'dragging'

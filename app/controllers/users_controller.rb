@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   inherit_resources
   actions :show, :edit, :update, :unsubscribe_update, :request_refund, :set_email, :update_email
   respond_to :json, only: [:backs, :projects, :request_refund]
+  respond_to :html, :json
 
   def show
     show!{
@@ -61,9 +62,15 @@ class UsersController < ApplicationController
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
       end
+      success.json do
+        return render json: { status: :success, hero_image: @user.hero_image_url(:blur)  }
+      end
+      failure.json do
+        return render json: @user
+      end
     end
-    return redirect_to user_path(@user, anchor: 'settings') if params[:settings_communication]
-    return redirect_to user_path(@user, anchor: 'my_profile')
+    return redirect_to settings_user_path(@user) if params[:settings_communication]
+    return redirect_to edit_user_path(@user)
   end
 
   def update_password

@@ -69,6 +69,7 @@ gem 'kaminari'
 # Uploads
 gem 'carrierwave', '~> 0.8.0'
 gem 'rmagick'
+gem 'dropzonejs-rails'
 
 # Other Tools
 gem 'has_permalink'
