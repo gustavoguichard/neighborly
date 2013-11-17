@@ -5,25 +5,43 @@ Neighborly.Users.modules =-> [Neighborly.Tabs]
 Neighborly.Users.Edit =
   init: Backbone.View.extend
     el: '.user-edit-page'
+    events:
+      'change .user_profile_type .radio_buttons': 'changedProfile'
 
     initialize: ->
+      _.bindAll this, 'changedProfile'
+      if window.File && window.FileReader && window.FileList && window.Blob
+        this.prepareToDropzone()
+        this.uploaders = []
+        for uploader in $('.usr-upld-img')
+          this.uploaders.push new Neighborly.Users.Edit.DragDropUploader { el: uploader }
+
+    prepareToDropzone: ->
       this.el.insertAdjacentHTML 'beforeend', '<div id="dropzone-preview-image"></div>'
-      this.uploaders = []
-      for uploader in $('.usr-upld-img')
-        this.uploaders.push new Neighborly.Users.Edit.DragDropUploader { el: uploader }
+      this.$('input.fallback[type=file]').closest('.input.file').remove()
+
+    changedProfile: (e)->
+      value = e.target.value
+      for profile in this.$('.profile_type_images')
+        if profile.id == "#{value}_images"
+          $(profile).show()
+        else
+          $(profile).hide()
 
   DragDropUploader: Backbone.View.extend
     events:
       'mouseenter': 'mouseEnter'
       'mouseleave': 'mouseLeave'
+      'click *': 'openFileChooser'
 
     # TODO: Uploader functionality
     initialize: ->
-      _.bindAll this, 'onFileAdded', 'onUploadProgress', 'onUploadComplete', 'onUploadFail', 'mouseEnter', 'mouseLeave'
+      _.bindAll this, 'onFileAdded', 'onUploadProgress', 'onUploadComplete', 'onUploadFail', 'mouseEnter', 'mouseLeave', 'openFileChooser'
       this.action_url = this.$el.closest('form')[0].getAttribute("action")
       this.param_name = this.$el[0].dataset.param
       this.$image_previewer = this.$('.uploaded-image')
       this.initializeDropzone()
+      this.listenDropzoneEvents()
 
     initializeDropzone: ->
       this.dropzone = new Dropzone(this.el,
@@ -35,10 +53,13 @@ Neighborly.Users.Edit =
         uploadMultiple: false
         previewsContainer: '#dropzone-preview-image'
       )
-      this.dropzone.on "addedfile", this.onFileAdded
-      this.dropzone.on "uploadprogress", this.onUploadProgress
-      this.dropzone.on "success", this.onUploadComplete
-      this.dropzone.on "error", this.onUploadFail
+
+    listenDropzoneEvents: ->
+      if this.dropzone?
+        this.dropzone.on "addedfile", this.onFileAdded
+        this.dropzone.on "uploadprogress", this.onUploadProgress
+        this.dropzone.on "success", this.onUploadComplete
+        this.dropzone.on "error", this.onUploadFail
 
     onFileAdded: (file)->
       this.$('.info').text 'Drop an image here'
@@ -50,11 +71,14 @@ Neighborly.Users.Edit =
     onUploadComplete: (file, response)->
       this.$('.info').text 'Drop an image here'
       this.$el.removeClass('upload-started').addClass 'upload-complete'
-      this.$image_previewer.css 'background-image', "url(#{response[this.param_name]})"
+      this.$image_previewer.attr 'src', response[this.param_name]
 
     onUploadFail: (file, error)->
       this.$('.info').text error
       this.$el.removeClass('upload-started').addClass 'upload-fail'
+
+    openFileChooser: (e)->
+      this.$el.trigger 'click'
 
     mouseEnter: (e)->
       this.$el.addClass 'dragging'

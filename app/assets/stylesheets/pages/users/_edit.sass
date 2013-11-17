@@ -8,36 +8,57 @@
 
   #dropzone-preview-image
     display: none
+  
+  .input.radio_buttons
+    @extend .clearfix
+    .radio
+      float: left
+      margin-right: 2em
+      font-weight: bold
+      color: gray
+      margin-top: .5em
+    .radio_buttons
+      margin-right: .5em
 
 .usr-upld-img
   background: white no-repeat center
   padding: 10px
-  border: 2px dashed $border-color
-  min-height: 180px
+  height: 180px
   margin-bottom: 1.5em
   cursor: pointer
   position: relative
   +transition(.2s)
+  &.usr-upld-pctr .uploaded-image
+    margin-top: -60px
+    margin-left: -60px
+  &.usr-upld-cp .uploaded-image
+    margin-top: -33px
+    margin-left: -80px
+  &.usr-upld-cvr .uploaded-image
+    position: static
+    max-width: 100%
+    max-height: 100%
+    text-align: center
+    display: block
+    margin: 0 auto
   .uploaded-image
     position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    +background-size(cover)
-    background:
-      repeat: no-repeat
-      position: center
+    top: 50%
+    left: 50%
   .info
     text:
       align: center
       shadow: 1px 1px 0 white
       transform: uppercase
     display: block
+    width: 100%
     font-weight: 600
-    position: relative
+    position: absolute
     z-index: 10
+    left: 0
     +opacity(0)
+  &.dz-clickable
+    border: 2px dashed $border-color
   &.usr-upld-pctr
     background-image: image-url('user/usr-upld-pctr.png')
   &.usr-upld-cvr

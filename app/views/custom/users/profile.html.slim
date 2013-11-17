@@ -1,17 +1,31 @@
 - content_for :page_content do
+  = initjs_tag app_name: 'Neighborly', partial: true
   #user-profile-content.row
     .large-8.columns
       = simple_form_for resource do |f|
-        .row
+        = f.input :profile_type, collection: {' Person'=> 'personal', ' Company / Organization'=> 'company'}, as: :radio_buttons
+        #personal_images.profile_type_images.row style="#{"display: none;" unless @user.profile_type == 'personal'}"
           .large-4.columns
             .usr-upld-img.usr-upld-pctr data-param="uploaded_image"
               span.info Drop an image here
-              .uploaded-image style="background-image: url(#{@user.uploaded_image_url});"
+              = image_tag @user.uploaded_image_url(:thumb_avatar), class: "uploaded-image"
+            = f.input :uploaded_image, as: :file, input_html: { class: 'fallback' }
           .large-8.columns
             .usr-upld-img.usr-upld-cvr data-param="hero_image"
               span.info Drop an image here
-              .uploaded-image style="background-image: url(#{@user.hero_image_url(:blur)});"
-              / company_logo
+              = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
+            = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
+        #company_images.profile_type_images.row style="#{"display: none;" unless @user.profile_type == 'company'}"
+          .large-4.columns
+            .usr-upld-img.usr-upld-cp data-param="company_logo"
+              span.info Drop an image here
+              = image_tag @user.company_logo_url(:thumb), class: "uploaded-image"
+            = f.input :company_logo, as: :file, input_html: { class: 'fallback' }
+          .large-8.columns
+            .usr-upld-img.usr-upld-cvr data-param="hero_image"
+              span.info Drop an image here
+              = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
+            = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
         = f.input :name, as: :string
         = f.input :address, as: :string
         = f.input :bio

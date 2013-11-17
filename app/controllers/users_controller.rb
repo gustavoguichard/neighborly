@@ -66,7 +66,7 @@ class UsersController < ApplicationController
         return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), company_logo: @user.company_logo_url(:thumb) }
       end
       failure.json do
-        return render json: @user
+        return render json: { status: :error }
       end
     end
     return redirect_to settings_user_path(@user) if params[:settings_communication]
