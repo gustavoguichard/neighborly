@@ -2,7 +2,7 @@ div class=(can?(:manage, @user) ? 'project_land' : 'small_project_land')
   - if project.expired?
     .status_image
       a href=""
-      = link_to project__path(project) do
+      = link_to project_path(project) do
         - if project.successful?
           = image_tag "successful.#{I18n.locale}.png"
         - elsif project.waiting_funds?

@@ -26,6 +26,7 @@ en:
         password: 'New Password'
         newsletter: 'Receive occasional e-mail newsletters from Neighbor.ly'
         new_project: 'Email me when new projects are added to Neighbor.ly'
+        profile_type: 'Display me as a'
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'
