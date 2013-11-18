@@ -92,17 +92,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def namespace
-    names = self.class.to_s.split('::')
-    return "null" if names.length < 2
-    names[0..(names.length-2)].map(&:downcase).join('_')
-  end
-
-  def redirect_back_or_default(default)
-    redirect_to(session[:return_to] || default)
-    session[:return_to] = nil
-  end
-
   def after_sign_in_path_for(resource_or_scope)
     if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
       return set_email_users_path
