@@ -18,7 +18,6 @@ en:
         backers: 'Backers'
         budget: 'Budget'
         terms: 'Terms'
-        edit: 'Edit'
         reports: 'Reports'
       display_status:
         all_or_none:
@@ -36,7 +35,7 @@ en:
           waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
       make_contribution: 'Make a contribution'
-      spread_the_word: 'Spred the word'
+      edit: 'Edit campaign'
       share:
         title: 'Get your friends involved'
       no-neighbors: "No neighbors yet."
