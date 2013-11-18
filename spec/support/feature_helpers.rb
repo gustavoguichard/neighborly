@@ -16,4 +16,5 @@ end
 
 RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
+  config.include CustomFormsHelper, type: :feature
 end
