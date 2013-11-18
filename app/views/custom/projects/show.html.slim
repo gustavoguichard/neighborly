@@ -140,8 +140,8 @@
                 #ask-a-question.reveal-modal.small.fixed
     aside.large-3.columns.sidebar
       .call-to-action
+        = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if can? :update, @project
         = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"
-        = link_to t('.spread_the_word'), '#', class: 'button with-icon spread-the-word'
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
