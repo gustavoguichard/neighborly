@@ -35,21 +35,21 @@ class UsersController < ApplicationController
 
   def set_email
     @user = current_user
-    render layout: 'catarse_bootstrap'
+    render layout: 'devise'
   end
 
   def update_email
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('users.current_user_fields.updated')
+        flash[:notice] = t('controllers.users.update.success')
         session[:return_to] = nil if session[:return_to] == update_email_user_url(@user)
-        redirect_to (session[:return_to] || user_path(@user, anchor: 'my_profile'))
+        redirect_to (session[:return_to] || edit_user_path(@user))
         session[:return_to] = nil
         return
       end
       failure.html do
         flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
-        return render :set_email, layout: 'catarse_bootstrap'
+        return render :set_email, layout: 'devise'
       end
     end
   end
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('users.current_user_fields.updated')
+        flash[:notice] = t('controllers.users.update.success')
       end
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
@@ -76,10 +76,10 @@ class UsersController < ApplicationController
   def update_password
     @user = User.find(params[:id])
     if @user.update_with_password(params[:user])
-      flash[:notice] = t('users.current_user_fields.updated')
+      flash[:notice] = t('controllers.users.update.success')
     else
       flash[:error] = @user.errors.full_messages.to_sentence
     end
-    return redirect_to user_path(@user, anchor: 'settings')
+    return redirect_to settings_user_path(@user)
   end
 end

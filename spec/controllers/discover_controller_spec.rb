@@ -17,11 +17,11 @@ describe DiscoverController do
 
   shared_examples 'has filter' do
     it 'should not assings channels when has filter' do
-      expect((:channels)).to be_nil
+      expect(assigns(:channels)).to be_nil
     end
 
-    it 'should assings filter' do
-      expect((:filters)).to have(1).filter
+    it 'should assigns filter' do
+      expect(assigns(:filters)).to have(1).filter
     end
   end
 
@@ -30,23 +30,23 @@ describe DiscoverController do
       before { get :index }
 
       it 'shoult get all project' do
-        expect((:projects)).to have(5).projects
+        expect(assigns(:projects)).to have(5).projects
       end
 
-      it 'should  channels' do
-        expect((:channels)).to have(1).channel
+      it 'should assigns channels' do
+        expect(assigns(:channels)).to have(1).channel
       end
 
-      it 'shoulds  existing tags' do
-        expect((:tags)).to have(1).tag
+      it 'shoulds assigns existing tags' do
+        expect(assigns(:tags)).to have(1).tag
       end
     end
 
     context 'when filtering by recommended' do
       before { get :index, filter: :recommended }
 
-      it 'should only  the recommended project' do
-        expect((:projects)).to eq [@recommended]
+      it 'should only assigns the recommended project' do
+        expect(assigns(:projects)).to eq [@recommended]
       end
 
       it_behaves_like 'has filter'
@@ -56,7 +56,7 @@ describe DiscoverController do
       before { get :index, near: 'Kansas City, MO' }
 
       it 'should only assings the near project' do
-        expect((:projects)).to eq [@near]
+        expect(assigns(:projects)).to eq [@near]
       end
 
       it_behaves_like 'has filter'
@@ -66,7 +66,7 @@ describe DiscoverController do
       before { get :index, category: @category.to_s }
 
       it 'should only assings the right categorized project' do
-        expect((:projects)).to eq [@category_project]
+        expect(assigns(:projects)).to eq [@category_project]
       end
 
       it_behaves_like 'has filter'
@@ -76,7 +76,7 @@ describe DiscoverController do
       before { get :index, tags: 'test' }
 
       it 'should only assings the right taged project' do
-        expect((:projects)).to eq [@tag]
+        expect(assigns(:projects)).to eq [@tag]
       end
 
       it_behaves_like 'has filter'
@@ -86,7 +86,7 @@ describe DiscoverController do
       before { get :index, search: 'test project for search' }
 
       it 'should only assings the right project' do
-        expect((:projects)).to eq [@search]
+        expect(assigns(:projects)).to eq [@search]
       end
 
       it_behaves_like 'has filter'

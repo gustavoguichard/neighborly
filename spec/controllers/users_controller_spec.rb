@@ -22,7 +22,7 @@ describe UsersController do
       user.reload
       user.twitter.should ==  'test'
     end
-    it{ should redirect_to user_path(user, anchor: 'my_profile') }
+    it{ should redirect_to edit_user_path(user) }
   end
 
   describe "PUT update_password" do
@@ -36,13 +36,13 @@ describe UsersController do
     context "with wrong current password" do
       let(:current_password){ 'wrong_password' }
       it{ flash[:error].should_not be_empty }
-      it{ should redirect_to user_path(user, anchor: 'settings') }
+      it{ should redirect_to settings_user_path(user) }
     end
 
     context "with right current password and right confirmation" do
       it{ flash[:notice].should_not be_empty }
       it{ flash[:error].should be_nil }
-      it{ should redirect_to user_path(user, anchor: 'settings') }
+      it{ should redirect_to settings_user_path(user) }
     end
   end
 
@@ -70,7 +70,7 @@ describe UsersController do
         user.reload
         user.email.should ==  'new_email@bar.com'
       end
-      it{ should redirect_to user_path(user, anchor: 'my_profile') }
+      it{ should redirect_to edit_user_path(user) }
     end
   end
 
