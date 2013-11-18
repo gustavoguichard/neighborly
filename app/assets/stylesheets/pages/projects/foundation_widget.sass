@@ -1,0 +1,77 @@
+.foundation_widget
+  font-size: 80%
+  width: 220px
+  height: auto
+  display: block
+  @include border-radius(5px)
+  @include box-shadow(rgba(black, 0.3) 2px 2px 4px)
+  background: #ededed
+  .fw-header
+    @include border-radius(5px 5px 0 0)
+    padding: 15px 10px
+    background: #1E5582
+    color: white
+    h4
+      color: white
+      font-size: 155%
+      margin: 0
+    span.city
+      padding-top: 3px
+    p.headline
+      height: 82px
+      padding-top: 20px
+      line-height: 140%
+      margin: 0
+
+  .fw-info
+    background: #7BB0FF
+    padding: 5px 3px 0 3px
+    color: white
+    p.opendata
+      margin-bottom: 3px
+      span.raised
+        text-align: left
+      span.timeleft
+        float: right
+
+  .fw-fountain-image
+    display: table
+    img
+      position: relative
+      z-index: 9999
+
+  .fw-fountain-raised
+    margin-top: -245px
+    width: 218px
+    height: 230px
+    margin-bottom: 22px
+    display: table
+    position: relative
+    z-index: 99
+    .total_raised
+      width: 218px
+      height: 230px
+      display: table-cell
+      vertical-align: bottom
+      position: relative
+      .bar
+        width: 218px
+        display: block
+        background: #7BB0FF
+
+  .fw-footer
+    padding: 20px
+    a.fountain-btn
+      display: block
+      padding: 10px
+      margin: 0 auto
+      background: #7BB0FF
+      color: white
+      text-align: center
+      text-transform: uppercase
+      text-decoration: none
+      border: 1px solid #6499E0
+      @include box-shadow(rgba(black, 0.4) 1px 1px 2px)
+      @include transition(all, 0.4s)
+      &:hover
+        @include box-shadow(rgba(black, 0.4) 1px 1px 2px inset)

@@ -1,9 +1,9 @@
-article.foundation_widget
+.foundation_widget
   section.fw-header
-    h3= truncate(project.name, length: 23)
-    span.city= "#{project.address_city}, #{project.address_state}"
+    h4 = truncate(project.name, length: 23)
+    span.city = "#{project.address_city}, #{project.address_state}"
 
-    p.headline= project.headline
+    p.headline = project.headline
 
   section.fw-info
     p.opendata
@@ -14,11 +14,11 @@ article.foundation_widget
       .clearfix
 
   section.fw-fountain-image
-    = image_tag('catarse/fountain-marker.png', alt: 'Fountain Marker')
+    = image_tag('fountain-marker.png', alt: 'Fountain Marker')
   section.fw-fountain-raised
     div class='total_raised' style='width: 100%'
       .bar style='height: #{project.display_progress}%; width: 100%'
         | &nbsp;
 
   section.fw-footer
-    = link_to 'Save our fountains', project_url(project), class: 'fountain-btn', target: "__blank"
+    = link_to 'Save our fountains', project_url(project), class: 'fountain-btn', target: :blank
