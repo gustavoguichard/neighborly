@@ -81,9 +81,35 @@ describe ProjectsController do
   describe 'GET index' do
     before do
       controller.stub(:last_tweets).and_return([])
-      get :index, locale: :pt
+      get :index
     end
     it { should be_success }
+
+    describe 'staging env' do
+      before do
+        request.stub(:protocol).and_return("http://")
+        request.stub(:host).and_return("staging.neighbor.ly")
+        request.stub(:port).and_return(80)
+        request.stub(:port_string).and_return(":80")
+        request.stub(:path).and_return("/")
+      end
+
+      it 'should require basic auth' do
+        get :index
+        expect(response.status).to eq 401
+      end
+    end
+
+    describe 'users without email' do
+      let(:current_user) { create(:user) }
+
+      before do
+        current_user.update email: "change-your-email+#{current_user.id}@neighbor.ly"
+        get :index
+      end
+
+      it { should redirect_to set_email_users_path }
+    end
   end
 
   describe 'GET comments' do
