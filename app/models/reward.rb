@@ -10,7 +10,6 @@ class Reward < ActiveRecord::Base
   schema_associations
 
   ranks :row_order, with_same: :project_id
-  has_paper_trail
 
   validates_presence_of :minimum_value, :description
   validates_numericality_of :minimum_value, greater_than_or_equal_to: 10.00

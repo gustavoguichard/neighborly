@@ -5,22 +5,6 @@ require 'spec_helper'
 describe Reward do
   let(:reward){ create(:reward, description: 'envie um email para foo@bar.com') }
 
-  describe "Versioning" do
-    subject { reward.versions }
-
-    context 'when reward is recent' do
-      it { should have(1).item }
-      it("#has_modification?") { reward.has_modification?.should be_false }
-    end
-
-    context 'after update reward' do
-      before { reward.update_attributes(description: 'just updated') }
-      it { should have(2).itens }
-      it { reward.last_description.should == "<p>envie um email para <a href=\"mailto:foo@bar.com\" target=\"_blank\">foo@bar.com</a></p>" }
-      it("#has_modification?") { reward.has_modification?.should be_true }
-    end
-  end
-
   describe "Associations" do
     it{ should belong_to :project }
     it{ should have_many :backers }
@@ -79,10 +63,10 @@ describe Reward do
   describe '.remaining' do
     subject { Reward.remaining }
     before do
-      @remaining = create(:reward, maximum_backers: 3) 
+      @remaining = create(:reward, maximum_backers: 3)
       create(:backer, state: 'confirmed', reward: @remaining, project: @remaining.project)
       create(:backer, state: 'waiting_confirmation', reward: @remaining, project: @remaining.project)
-      @sold_out = create(:reward, maximum_backers: 2) 
+      @sold_out = create(:reward, maximum_backers: 2)
       create(:backer, state: 'confirmed', reward: @sold_out, project: @sold_out.project)
       create(:backer, state: 'waiting_confirmation', reward: @sold_out, project: @sold_out.project)
     end
