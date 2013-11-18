@@ -1,8 +1,9 @@
 Neighborly.Users = {} if Neighborly.Users is undefined
 
-Neighborly.Users.modules =-> [Neighborly.Tabs, Neighborly.SearchCities]
+Neighborly.Users.modules =-> [Neighborly.Tabs]
 
 Neighborly.Users.Edit =
+  modules: -> [Neighborly.SearchCities]
   init: Backbone.View.extend
     el: '.user-edit-page'
     events:

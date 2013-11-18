@@ -27,7 +27,6 @@
               = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
             = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
         = f.input :name, as: :string
-        = f.input :address, as: :string
         = f.input :bio
         = f.input :phone_number, as: :string
         .row
