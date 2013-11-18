@@ -29,6 +29,7 @@
         = f.input :name, as: :string
         = f.input :address, as: :string
         = f.input :bio
+        = f.input :phone_number, as: :string
         .row
           .large-6.columns
             .row.collapse
@@ -59,6 +60,19 @@
                   i.icon-et-link
               .small-9.large-10.columns
                 = f.input :other_link, input_html: { class: "with-prefix" }, label: false
+        h3
+          = t('.address_title')
+          br/
+          small= t('.address_subtitle')
+        = f.input :address_street, as: :string
+        .row
+          .large-8.columns
+            = f.input :address_neighbourhood, as: :string
+          .large-4.columns
+            = f.input :address_zip_code, as: :string
+        .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
+          = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
+          .map-canvas
         = f.button :submit
 
 - if request.xhr? || defined?(partial)
