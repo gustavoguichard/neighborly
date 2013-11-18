@@ -1,29 +1,17 @@
 class StaticController < ApplicationController
-  def how_it_works
-    @title = t('static.how_it_works.title')
-  end
 
   def terms
-    @title = t('static.terms.title')
     render layout: false if request.xhr?
   end
 
   def privacy
-    @title = t('static.privacy.title')
     render layout: false if request.xhr?
   end
 
-  def start_terms
-    @title = t('static.start_terms.title')
-  end
-
-  def start
-    @title = t('static.start.title')
-  end
-
-  def faq
-    @title = t('static.faq.title')
-  end
+  def how_it_works; end
+  def start_terms; end
+  def start; end
+  def faq; end
 
   def thank_you
     backer = Backer.find session[:thank_you_backer_id]

@@ -1,0 +1,22 @@
+en:
+  controllers:
+    unsubscribes:
+      create:
+        success: 'Your information has been updated!'
+    projects:
+      backers:
+        new:
+          cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
+          no_reward: "Thanks. I just want to help the project."
+        create:
+          error: 'Oh noez! There was an error processing your contribution. Please try again.'
+        credits_checkout:
+          no_credits: "You don't have enough credits to help greenlight this project."
+          success: "Your back was successfully made. Thanks a lot!"
+    users:
+      update:
+        success: 'Your information has been updated!'
+      backers:
+        request_refund:
+          refunded: "Refund request successfully done. Our team will contact you within two business days."
+          insufficient_credits: "You don't have enough credits to request this refund."

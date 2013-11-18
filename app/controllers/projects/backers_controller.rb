@@ -22,13 +22,11 @@ class Projects::BackersController < ApplicationController
     render json: {message: 'updated'}
   end
 
-  def show
-    @title = t('projects.backers.show.title')
-  end
+  def show; end
 
   def new
     unless parent.online?
-      flash[:failure] = t('projects.back.cannot_back')
+      flash[:failure] = t('controllers.projects.backers.new.cannot_back')
       return redirect_to :root
     end
 
@@ -38,7 +36,7 @@ class Projects::BackersController < ApplicationController
 
     @title = t('projects.backers.new.title', name: @project.name)
     @backer = @project.backers.new(user: current_user)
-    empty_reward = Reward.new(minimum_value: 0, description: t('projects.backers.new.no_reward'))
+    empty_reward = Reward.new(minimum_value: 0, description: t('controllers.projects.backers.new.no_reward'))
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
     # Select
@@ -49,16 +47,15 @@ class Projects::BackersController < ApplicationController
   end
 
   def create
-    @title = t('projects.backers.create.title')
     @backer.user = current_user
     @backer.reward_id = nil if params[:backer][:reward_id].to_i == 0
     create! do |success,failure|
       failure.html do
-        flash[:failure] = t('projects.backers.review.error')
+        flash[:failure] = t('controllers.projects.backers.create.error')
         return redirect_to new_project_backer_path(@project)
       end
       success.html do
-        flash[:notice] = nil
+        flash.delete(:notice)
         session[:thank_you_backer_id] = @backer.id
         return render :create
       end
@@ -68,7 +65,7 @@ class Projects::BackersController < ApplicationController
 
   def credits_checkout
     if current_user.credits < @backer.value
-      flash[:failure] = t('projects.backers.checkout.no_credits')
+      flash[:failure] = t('controllers.projects.backers.credits_checkout.no_credits')
       return redirect_to new_project_backer_path(@backer.project)
     end
 
@@ -76,7 +73,7 @@ class Projects::BackersController < ApplicationController
       @backer.update_attributes({ payment_method: 'Credits' })
       @backer.confirm!
     end
-    flash[:success] = t('projects.backers.checkout.success')
+    flash[:success] = t('controllers.projects.backers.credits_checkout.success')
     redirect_to project_backer_path(parent, resource)
   end
 

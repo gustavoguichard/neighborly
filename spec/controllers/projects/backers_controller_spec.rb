@@ -63,7 +63,7 @@ describe Projects::BackersController do
     context "with correct user but insufficient credits" do
       let(:user){ backer.user }
       it('should not confirm backer'){ backer.reload.confirmed?.should be_false }
-      it('should set flash failure'){ request.flash[:failure].should == I18n.t('projects.backers.checkout.no_credits') }
+      it('should set flash failure'){ request.flash[:failure].should == I18n.t('controllers.projects.backers.credits_checkout.no_credits') }
       it{ should redirect_to(new_project_backer_path(project)) }
     end
 
@@ -76,7 +76,7 @@ describe Projects::BackersController do
       end
 
       it('should confirm backer'){ backer.reload.confirmed?.should be_true }
-      it('should set flash success'){ request.flash[:success].should == I18n.t('projects.backers.checkout.success') }
+      it('should set flash success'){ request.flash[:success].should == I18n.t('controllers.projects.backers.credits_checkout.success') }
       it{ should redirect_to(project_backer_path(project, backer.id)) }
     end
   end

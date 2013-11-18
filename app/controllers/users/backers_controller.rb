@@ -7,10 +7,10 @@ class Users::BackersController < ApplicationController
   def request_refund
     authorize! :request_refund, resource
     if resource.value > resource.user.user_total.credits
-      flash[:failure] = I18n.t('credits.index.insufficient_credits')
+      flash[:failure] = I18n.t('controllers.users.backers.request_refund.insufficient_credits')
     elsif can?(:request_refund, resource) && resource.can_request_refund?
       resource.request_refund!
-      flash[:notice] = I18n.t('credits.index.refunded')
+      flash[:notice] = I18n.t('controllers.users.backers.request_refund.refunded')
     end
 
     redirect_to user_path(parent, anchor: 'credits')

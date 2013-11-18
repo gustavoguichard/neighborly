@@ -14,7 +14,6 @@ class PasswordsController < Devise::PasswordsController
         return respond_with resource
       end
 
-      flash[:notice] = I18n.t('devise.failure.password_token')
       redirect_to new_password_path(resource_name)
     end
   end
