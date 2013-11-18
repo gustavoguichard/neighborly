@@ -55,7 +55,7 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.new(params[:project])
 
-    create!(notice: t('projects.create.success')) do |success, failure|
+    create! do |success, failure|
       success.html do
         session[:successful_created] = resource.id
         return redirect_to success_project_path(@project)
