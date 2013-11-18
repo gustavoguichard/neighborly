@@ -1,6 +1,7 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
 
-Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index, Neighborly.Projects.Show.StatusBar]
+Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index, Neighborly.Projects.Show.StatusBar, Neighborly.Projects.Show.AskQuestion]
+
 
 Neighborly.Projects.Show =
   init: Backbone.View.extend
@@ -29,3 +30,6 @@ Neighborly.Projects.Show =
       event.preventDefault()
       $(document).scrollTop(0)
 
+  AskQuestion: ->
+    if window.location.hash == '#open-new-user-question-modal'
+      $('a[data-reveal-id=ask-a-question]').trigger('click')

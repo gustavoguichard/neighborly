@@ -119,7 +119,7 @@
 
         .large-6.columns.author
           section.custom
-            .title = t('.author.about', name: @project.user.display_name)
+            .title = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
 
             .content
               p = @project.user.bio
@@ -135,7 +135,9 @@
                   - if @project.user.other_link.present?
                     li = link_to @project.user.other_link, @project.user.other_link, target: :blank, class: 'other'
 
-
+              = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
+              - content_for :modals do
+                #ask-a-question.reveal-modal.small.fixed
     aside.large-3.columns.sidebar
       .call-to-action
         = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"

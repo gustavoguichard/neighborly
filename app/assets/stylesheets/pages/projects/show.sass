@@ -189,6 +189,9 @@
   .author
     padding-right: 0
   .leading-team, .author
+    .title
+      a
+        color: $body-font-color
     .content
       padding: +emCalc(25px)
     .social
@@ -211,6 +214,11 @@
           @extend .icon-et-mail:before
         &.other:before
           @extend .icon-et-globe:before
+
+    .ask-a-question-button
+      margin-top: +emCalc(25px)
+      margin-bottom: 0
+      width: 100%
 
 .embed-panel-page
   textarea
