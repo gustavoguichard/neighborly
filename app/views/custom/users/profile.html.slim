@@ -61,9 +61,9 @@
               .small-9.large-10.columns
                 = f.input :other_link, input_html: { class: "with-prefix" }, label: false
         h3
-          | My address 
+          = t('.address_title')
           br/
-          small this information is not public and helps project owners get rewards out in a timely manner.
+          small= t('.address_subtitle')
         = f.input :address_street, as: :string
         .row
           .large-8.columns
