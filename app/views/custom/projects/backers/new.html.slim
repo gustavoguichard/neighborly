@@ -8,27 +8,37 @@
       .large-6.columns.large-centered
         .share-white
           = render 'projects/share'
-
-  section.large-6.columns.large-centered.main
-    .title
-      h3 = t('.contribute')
-    .subtitle
-      p = t('.contribute_subtitle')
-    .row
-  section.large-9.columns.large-centered.main
+  .row
+    section.large-6.columns.large-centered.main
+      .title
+        h2 = t('.contribute')
+      .subtitle
+        p = t('.contribute_subtitle')
     = simple_form_for @backer, url: @create_url, html: { id: 'form-backer', class: 'custom' } do |form|
       .large-8.columns.large-centered
         .row.collapse
-          .large-2.columns
+          .large-2.small-2.columns
             span.prefix $
-          .large-8.columns
+          .large-8.small-8.columns
             = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
-          .large-2.columns.left
+          .large-2.small-2.columns
             span.postfix .00
-      
-      = form.input :reward, as: :radio_buttons, label: false, collection: @rewards
-
-      / - for reward in @rewards
-      /   = form.radio_button :reward, label: false
+      .row
+        = form.association :reward_id, as: :radio_buttons, label: false, label_html: { class: 'large-4 small-4' }, collection: @rewards do |builder|
+          - if builder.object.any?
+            - for reward in builder.object
+              .large-6.small-6.columns
+                .reward-option.row
+                  .large-2.small.2.columns.radio
+                    = form.radio_button :reward_id, reward.id
+                  .large-10.small-10.columns
+                    = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
+                      .minimum-value
+                        = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
+                      .description
+                        = h reward.description
+                      - if reward.sold_out?
+                        .sold-out
+                          = I18n.t('reward.sold_out')
 
       = form.button :submit, t('.submit')

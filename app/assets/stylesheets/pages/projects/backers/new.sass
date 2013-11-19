@@ -1,6 +1,6 @@
 .backer-new-page
   header.hero
-    min-height: 14.625em
+    min-height: emCalc(260px)
   .share-small
     .button
       font-size: 100%
@@ -9,66 +9,41 @@
   .title
     text-align: center
     margin-bottom: emCalc(10px)
-    h3
+    h2
       margin-top: emCalc(20px)
       margin-bottom: 0
-      font-size: emCalc(34px)
-      line-height: 2em
-      font-weight: 700
+      font-weight: 400
   .subtitle
     text-align: center
     margin-bottom: emCalc(35px)
     p
       font-size: 100%
   span.prefix, span.postfix
-    font-size: emCalc(23px)
+    font-size: 200%
     height: 100%
     line-height: 170%
-    font-size: emCalc(40px)
-  
+
   span.prefix
     color: $primary-color
-    border-right: none
-    margin-right: emCalc(1px)
-    box-shadow: -2px 4px 7px #dfdfdf
-    border-bottom-left-radius: emCalc(2px)
-    border-top-left-radius: emCalc(2px)
-
   span.postfix
-    border-left: 1px solid #dbdbdb
-    color: #999
-    margin-left: emCalc(-1px)
-    box-shadow: 2px 4px 7px #dfdfdf
-    border-bottom-right-radius: emCalc(2px)
-    border-top-right-radius: emCalc(2px)
+    color: $secondary-color
 
   .with-prefix.with-postfix
-    font-size: emCalc(23px)
+    font-size: 114%
     text-align: center
-    border-radius: 0
-    box-shadow: 0 4px 7px #dfdfdf
 
-  .backer_reward
-    label.radio
-      display: inline-block
-      border: 1px solid black
-      width: emCalc(445px)
-      min-height: emCalc(100px)
-      margin-bottom: emCalc(30px)
-      margin-right: emCalc(15px)
+  .reward-option
+    border: 1px solid $border-color
+    +radius($input-radius)
+    background: white
+    &.row
+      margin-bottom: emCalc(15px)
+    .minimum-value
+      padding-bottom: emCalc(30px)
 
-    input[type="radio"].radio_buttons
-
-    .reward_minimum_value
+    .description
       position: relative
-      margin-top: 20px
-      margin-left: 80px
-      width: 28%
-
-    .reward_description
-      position: relative
-      margin-top: emCalc(60px)
-      margin-left: emCalc(50px)
+      padding-bottom: emCalc(30px)
 
 
 
