@@ -7,7 +7,7 @@ en:
       backers:
         new:
           cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
-          no_reward: "Thanks. I just want to help the project."
+          no_reward: "No perks! I just want to help out the project!"
         create:
           error: 'Oh noez! There was an error processing your contribution. Please try again.'
         credits_checkout:

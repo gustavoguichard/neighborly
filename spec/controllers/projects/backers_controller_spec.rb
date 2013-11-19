@@ -149,9 +149,8 @@ describe Projects::BackersController do
       it "should assign review_project_backers_path to @create_url" do
         assigns(:create_url).should == project_backers_path(project)
       end
-      its(:body) { should =~ /#{I18n.t('projects.backers.new.header.title')}/ }
-      its(:body) { should =~ /#{I18n.t('projects.backers.new.submit')}/ }
-      its(:body) { should =~ /#{I18n.t('projects.backers.new.no_reward')}/ }
+      its(:body) { should =~ /#{I18n.t('projects.backers.new.title')}/ }
+      its(:body) { should =~ /#{I18n.t('controllers.projects.backers.new.no_reward')}/ }
       its(:body) { should =~ /#{project.name}/ }
     end
   end
