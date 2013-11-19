@@ -19,10 +19,6 @@ class Reward < ActiveRecord::Base
   scope :not_soon, -> { where('soon is not true') }
   scope :soon, -> { where(soon: true) }
 
-  def has_modification?
-    versions.count > 1
-  end
-
   def sold_out?
     maximum_backers && total_compromised >= maximum_backers
   end
