@@ -1,51 +1,49 @@
 - content_for :title, t('.title')
-#page_content
-  .container
-    #project_review data-thank-you-path=project_backer_path(project_id: @project.id, id: @backer.id)
-      .project_info
+.create-backer-page[data-thank-you-path=project_backer_path(project_id: @project.id, id: @backer.id)]
+  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+    .row
+      .large-10.columns.large-centered
+        h3 = t('.you_are_about', project_name: @project.name)
+        .total-with-fee
+          input[type='text' disabled=true value="#{t('.total')}#{@backer.display_value}" data-total-text=t('.total')]
+          i.icon-info-sign
+
+  .row
+    section.content.large-8.medium-8.columns
+      .payment
+        h3.title = t('.payment.title')
+
+        .methods
+          - PaymentEngines.engines.each do |engine|
+            label.pull-left
+              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@backer, engine[:name])
+              | &nbsp;
+              = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
+          .clearfix
+
+        .subtile
+          = t('.payment.subtile')
+
+        section.conteiner
+          - PaymentEngines.engines.each do |engine|
+            div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@backer)]
+
+    aside.large-4.medium-4.columns
+      .project-image
         = image_tag @project.display_image, id: 'project_image', alt: @project.name, width: '250px'
-        h1= t('.you_are_about_html', link: link_to(@project.name, project_path(@project)))
-        #review_text
-          p= raw("<strong>Amount:</strong> #{@backer.display_value}")
-          - if @backer.reward
-            p= raw("<strong>Perk:</strong> #{@backer.reward.description}")
 
-      .clearfix
-      #payment
-        .title
-          h1= t('.choose_payment')
+      - if @backer.reward
+        .selected-reward
+          h4 = t('.reward.title')
+          p.description = @backer.reward.description
 
-        .payment_menu
-          - PaymentEngines.engines.each do |engine|
-            .input
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxs' => total_with_fee(@backer, engine[:name])
-              label
-                = image_tag("neighborly/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}_img")
-
-        .payment_content_container
-          - PaymentEngines.engines.each do |engine|
-            div[id="#{engine[:name]}_payment" class="payments_type hide" data-path=engine[:review_path].call(@backer) ]
-      #info_box
-        .bootstrap-twitter
-          .alert.alert-info
-            p
-              = raw("Your total charge will be <strong class='total_value'></strong> ")
-              i class='icon-info-sign'
-              .info_more[style='display:none']
-                br/
-                p= raw("Your support of <strong>#{@backer.project.name}</strong> makes a world of difference. In order to make the most of your contribution we ask that you please cover costs associated with the electronic transaction. Thank you for understanding and we are actively working on payment methods with lower fees.")
-    .clearfix
-
-
-
-
-    .seal-original.hide
-      / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
-      div class="AuthorizeNetSeal"
-        javascript:
-          var ANS_customer_id="dbe7fb76-0492-4501-aac8-8bb3f2da5039"
-        script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js"
-        a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank" Merchant Services
+  .seal-original.hide
+    / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
+    div class="AuthorizeNetSeal"
+      javascript:
+        var ANS_customer_id="dbe7fb76-0492-4501-aac8-8bb3f2da5039"
+      script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js"
+      a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank" Merchant Services
 
 
 
