@@ -14,7 +14,7 @@ describe ProjectsController do
   describe "POST create" do
     let(:project){ build(:project) }
     before do
-      post :create, { locale: :pt, project: project.attributes }
+      post :create, { project: project.attributes }
     end
 
     context "when no user is logged in" do
@@ -178,7 +178,7 @@ describe ProjectsController do
   end
 
   describe "GET new" do
-    before { get :new, locale: :pt }
+    before { get :new }
 
     context "when user is a guest" do
       it { should_not be_success }
@@ -226,7 +226,7 @@ describe ProjectsController do
         end
 
         context "when I try to update the project name and the about field" do
-          before{ put :update, id: project, project: { name: 'new_title', about: 'new_description' }, locale: :pt }
+          before{ put :update, id: project, project: { name: 'new_title', about: 'new_description' } }
           it "should not update neither" do
             project.reload
             project.name.should_not == 'new_title'
@@ -235,7 +235,7 @@ describe ProjectsController do
         end
 
         context "when I try to update only the about field" do
-          before{ put :update, id: project, project: { about: 'new_description' }, locale: :pt }
+          before{ put :update, id: project, project: { about: 'new_description' } }
           it "should update it" do
             project.reload
             project.about.should == 'new_description'
@@ -257,25 +257,23 @@ describe ProjectsController do
 
   describe "GET embed" do
     before do
-      get :embed, id: project, locale: :pt
+      get :embed, id: project
     end
     its(:status){ should == 200 }
   end
 
   describe "GET embed_panel" do
     before do
-      get :embed_panel, id: project, locale: :pt
+      get :embed_panel, id: project
     end
     its(:status){ should == 200 }
   end
 
   describe "GET show" do
-    context "when we have update_id in the querystring" do
-      let(:project){ create(:project) }
-      let(:update){ create(:update, project: project) }
-      before{ get :show, id: project, update_id: update.id, locale: :pt }
-      it("should assign update to @update"){ assigns(:update).should == update }
+    before do
+      get :show, id: project
     end
+    its(:status){ should == 200 }
   end
 
   describe "GET video" do
@@ -283,14 +281,14 @@ describe ProjectsController do
       let(:video_url){ 'http://vimeo.com/17298435' }
       before do
         VideoInfo.stub(:get).and_return({video_id: 'abcd'})
-        get :video, locale: :pt, url: video_url
+        get :video, url: video_url
       end
 
       its(:body){ should == VideoInfo.get(video_url).to_json }
     end
 
     context 'url is not a valid video' do
-      before { get :video, locale: :pt, url: 'http://????' }
+      before { get :video, url: 'http://????' }
 
       its(:body){ should == nil.to_json }
     end
