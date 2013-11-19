@@ -53,31 +53,6 @@ describe ProjectsController do
     end
   end
 
-  describe "DELETE destroy" do
-    before do
-      delete :destroy, id: project, locale: :pt
-    end
-
-    context "when user is a guest" do
-      it { Project.all.include?(project).should be_true }
-    end
-
-    context "when user is a project owner" do
-      let(:current_user){ project.user }
-      it { Project.all.include?(project).should be_true }
-    end
-
-    context "when user is a registered user" do
-      let(:current_user){ create(:user, admin: false) }
-      it { Project.all.include?(project).should be_true }
-    end
-
-    context "when user is an admin" do
-      let(:current_user){ create(:user, admin: true) }
-      it { Project.all.include?(project).should be_false }
-    end
-  end
-
   describe 'GET index' do
     before do
       controller.stub(:last_tweets).and_return([])
@@ -157,7 +132,35 @@ describe ProjectsController do
       it { should render_template layout: false }
       it { should be_success }
     end
+  end
 
+  describe 'POST send_reward_email' do
+    before do
+      @send_reward_email_params = { id: project, name: 'some guy', email: 'some@emal.com', phone_number: '123456789', message: 'message' }
+      ActionMailer::Base.deliveries.clear
+    end
+
+    context 'when simple captcha is valid' do
+      before do
+        controller.stub(:simple_captcha_valid?).and_return(true)
+        post :send_reward_email, @send_reward_email_params
+      end
+
+      it { ActionMailer::Base.deliveries.should_not be_empty }
+      it { expect(flash[:notice]).to eq 'We\'ve received your request and will be in touch shortly.' }
+      it { should redirect_to(project_path(project)) }
+    end
+
+    context 'when simple captcha not is valid' do
+      before do
+        controller.stub(:simple_captcha_valid?).and_return(false)
+        post :send_reward_email, @send_reward_email_params
+      end
+
+      it { ActionMailer::Base.deliveries.should be_empty }
+      it { expect(flash[:error]).to eq 'The code is not valid. Try again.' }
+      it { should redirect_to(project_path(project)) }
+    end
   end
 
   describe 'GET near' do

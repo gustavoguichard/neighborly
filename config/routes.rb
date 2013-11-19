@@ -81,7 +81,7 @@ Catarse::Application.routes.draw do
     resources :backer_reports_for_project_owners, only: [:index]
   end
 
-  resources :projects do
+  resources :projects, except: [ :destroy ] do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
     resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]

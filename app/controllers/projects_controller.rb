@@ -2,8 +2,9 @@
 class ProjectsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  load_and_authorize_resource only: [ :new, :create, :update, :destroy ]
+  load_and_authorize_resource only: [ :new, :create, :update ]
   inherit_resources
+  actions :new, :create, :edit, :update
   defaults finder: :find_by_permalink!
   has_scope :pg_search, :by_category_id
   has_scope :recent, :expiring, :successful, :recommended, :not_expired, :not_soon, :soon, type: :boolean
@@ -12,13 +13,7 @@ class ProjectsController < ApplicationController
   respond_to :json, only: [:index, :show, :update]
 
   def index
-    if current_user && current_user.address.present?
-      @city = current_user.address
-    elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
-      @city = request.location.city
-    else
-      @city = 'Kansas City, MO'
-    end
+    @city = user_city
     @project_locations = Project.with_state('online').locations
     @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
 
@@ -38,18 +33,9 @@ class ProjectsController < ApplicationController
   end
 
   def near
-    if request.xhr?
-      projects = apply_scopes(Project).with_state('online').near(params[:location], 30).visible.order('distance').page(params[:page]).per(4)
-      return render partial: 'project', collection: projects, layout: false
-    else
-      raise ActionController::UnknownController
-    end
-  end
-
-  def new
-    new! do
-      @project.rewards.build
-    end
+    raise ActionController::UnknownController unless request.xhr?
+    projects = apply_scopes(Project).with_state('online').near(params[:location], 30).visible.order('distance').page(params[:page]).per(4)
+    render partial: 'project', collection: projects, layout: false
   end
 
   def create
@@ -77,7 +63,6 @@ class ProjectsController < ApplicationController
 
   def show
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
-    @update = resource.updates.where(id: params[:update_id]).first if params[:update_id].present?
     render :about if request.xhr?
   end
 
@@ -107,7 +92,7 @@ class ProjectsController < ApplicationController
   end
 
   def embed_panel
-    @title = resource.name
+    @project = resource
     render layout: false
   end
 
@@ -123,5 +108,16 @@ class ProjectsController < ApplicationController
 
   def reward_contact
     render layout: !request.xhr?
+  end
+
+  private
+  def user_city
+    if current_user && current_user.address.present?
+      current_user.address
+    elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
+      request.location.city
+    else
+      'Kansas City, MO'
+    end
   end
 end
