@@ -24,7 +24,7 @@
                   .user-reward
                     = backer.reward.display_minimum
                     |  - 
-                    = backer.reward.medium_description
+                    = backer.reward.description
                 - else
                   = "&nbsp; #{t('.no_reward')}"
                 .user_email = mail_to backer.user.email
