@@ -1,53 +1,34 @@
-#page_content
-  .container
-    .backer_content
-      .title
-        h1= t('.header.title')
-        h2= t('.header.subtitle')
-      #back_options.bootstrap-form
-        = semantic_form_for @backer, url: @create_url, html: { id: 'backer_form' } do |form|
-          = link_to '#procceed', class: 'procceed-button' do
-            | Procceed
-            br/
-            i.icon-chevron-down
-          = form.inputs do
-            = hidden_field_tag 'credits', current_user.credits.to_i
-            = form.label :value, t('formtastic.labels.backer.value')
-            - if current_user.credits >= 10
-              .bootstrap-alert
-                .alert.alert-info
-                  = form.input :credits, hint: t('formtastic.hints.backer.credits', credits: current_user.display_credits).html_safe
-              .clearfix
-            li#backer_value_input.string.input.required.stringish
-              .input-prepend
-                  span.add-on $
-              = form.number_field :value, required: true, label: false, autocomplete: 'off', data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }
-              .input-append
-                  span.add-on .00
-            = form.input :reward, as: :radio, collection: @rewards
-            = form.input :anonymous
-            li#anonymous_warning.important.hide
-              .bootstrap-alert
-                .alert
-                  = render 'anonymous_warning'
-            .clearfix
-            li
-              br/
-              br/
-              = form.input :short_note, label: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
-          = form.actions do
-            .bootstrap-twitter
-              a#procceed[name='procceed']
-              = form.submit t('.submit'), class: 'btn btn-success btn-large', id: "backer_submit"
-      #back_info
-        #project_info
-          .project_name= link_to @project.name, project_path(@project)
-          = image_tag @project.display_image, alt: @project.name, class: 'project_image', width: 280
-          .project_owner by #{link_to @project.user.display_name, user_path(@project.user)}
-          .project_expires_at #{@project.time_to_go[:time]} #{@project.time_to_go[:unit]} #{pluralize_without_number(@project.time_to_go[:time], t('remaining_singular'), t('remaining_plural'))}
-        .clearfix
-        .back_faq
-          = render 'back_text'
-      .clearfix
-    .clearfix
+.backer-new-page
+  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+    .row
+      .large-10.columns.large-centered
+        .name
+          h3 = @project.name
+      br
+      .large-6.columns.large-centered
+        .share-white
+          = render 'projects/share'
 
+  section.large-6.columns.large-centered.main
+    .title
+      h3 = t('.contribute')
+    .subtitle
+      p = t('.contribute_subtitle')
+    .row
+  section.large-9.columns.large-centered.main
+    = simple_form_for @backer, url: @create_url, html: { id: 'form-backer', class: 'custom' } do |form|
+      .large-8.columns.large-centered
+        .row.collapse
+          .large-2.columns
+            span.prefix $
+          .large-8.columns
+            = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
+          .large-2.columns.left
+            span.postfix .00
+      
+      = form.input :reward, as: :radio_buttons, label: false, collection: @rewards
+
+      / - for reward in @rewards
+      /   = form.radio_button :reward, label: false
+
+    / = form.submit t('.submit'), class: 'btn btn-success btn-large', id: 'backer_submit'
