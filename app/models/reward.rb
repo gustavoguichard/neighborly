@@ -42,27 +42,8 @@ class Reward < ActiveRecord::Base
     I18n.t('reward.display_remaining', remaining: remaining, maximum: maximum_backers).html_safe
   end
 
-  def name
-    "<div class='reward_minimum_value'>#{minimum_value > 0 ? display_minimum+' or more' : I18n.t('reward.dont_want')}</div><div class='reward_description'>#{h description}</div>#{'<div class="sold_out">' + I18n.t('reward.sold_out') + '</div>' if sold_out?}<div class='clear'></div>".html_safe
-  end
-
   def display_minimum
     number_to_currency minimum_value, precision: 0
-  end
-
-  def short_description
-    truncate description, length: 35
-  end
-
-  def medium_description
-    truncate description, length: 65
-  end
-
-  def last_description
-    if versions.present?
-      reward = versions.last.reify(has_one: true)
-      auto_link(simple_format(reward.description), html: {target: :_blank})
-    end
   end
 
   def display_description
