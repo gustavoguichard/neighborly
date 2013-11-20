@@ -34,8 +34,9 @@
         .pull-left
           = check_box_tag :terms
         .pull-left
-          = label_tag :terms, raw("I understand and agree with the #{link_to 'Terms of Service', main_app.terms_path() }")
+          = label_tag :terms, raw("I understand and agree with the #{link_to 'Terms & Conditions of Use', main_app.terms_path(), data: { 'reveal-id' => 'terms-modal', 'reveal-ajax' => true } }.")
       .large-6.small-6.columns
-        = submit_tag 'Confirm', class: 'button', data: { disable_with: 'Processing...' }
+        = submit_tag 'Confirm payment', class: 'button', data: { disable_with: 'Processing...' }
       .large-6.small-6.columns
         div class="AuthorizeNetSeal pull-right"
+  #terms-modal.reveal-modal.small.fixed
