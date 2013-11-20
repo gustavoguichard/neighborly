@@ -1,35 +1,41 @@
-= javascript_include_tag 'catarse_credit_card_net'
+= javascript_include_tag 'catarse_credit_card_net/application'
 
-#catarse_credit_card_net_form
+.catarse-credit-card-net-form
   .title
-    h1 Billing Information
-    h2 Your card information will be sent securely to our payment processor.
-  .bootstrap-twitter
-    .alert.alert-error.checkError
-      h4.alert-heading= "Sorry, something must've gone wrong. Please reload this page and try again."
-      p.errorName
+    h4 Billing Information
+    p Your card information will be sent securely to our payment processor.
 
-  = form_tag pay_credit_card_net_path(params[:id]), id: 'credit_card_form' do
-    .input
-      = label_tag :billing_name, 'Billing name'
-      = text_field_tag :billing_name
-    .input
-      = label_tag :card_number, 'Credit card number'
-      = text_field_tag :card_number
-    .input.half
-      = label_tag 'Expiration date'
-      .date_selects
-        = select_month Date.today.month+1, { use_month_numbers: true }, { name: 'expiration_card_month', id: 'card_month' }
-        = raw("&nbsp; / &nbsp;")
-        = select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: 'card_year', id: 'card_year' }
-    .input.half.sec_code
-      = label_tag :card_code, 'Security code'
-      = text_field_tag :card_code
-    .input.accept
-      = label_tag :terms_paypal, raw("I understand and agree with the  #{link_to 'Terms of Service', '#termsModal', :class => 'termsModalLink', :'data-toggle'=>'modal', :'data-url' => '/terms' }")
-      = check_box_tag :terms_paypal
-    .clearfix
-    .submit
-      .bootstrap-twitter
-        = submit_tag 'Confirm', class: 'btn btn-success btn-large disabled'
-    div class="AuthorizeNetSeal" style="float: right;"
+  .alert-box.error.check-error.hide
+    h4 Sorry, something must've gone wrong.
+    p.error-name Please reload this page and try again.
+
+  .row
+    = form_tag pay_credit_card_net_path(params[:id]), id: 'credit-card-form', class: 'custom' do
+      .large-6.small-6.columns
+        = label_tag :billing_first_name, 'First Name'
+        = text_field_tag :billing_first_name
+      .large-6.small-6.columns
+        = label_tag :billing_last_name, 'Last Name'
+        = text_field_tag :billing_last_name
+      .large-12.columns
+        = label_tag :card_number, 'Credit card number'
+        = text_field_tag :card_number
+      .large-6.small-6.columns
+        = label_tag 'Expiration date'
+        .row
+          .large-6.small-6.columns
+            = select_month Date.today.month+1, { use_month_numbers: true }, { name: 'expiration_card_month', id: 'card_month' }
+          .large-6.small-6.columns
+            = select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: 'card_year', id: 'card_year' }
+      .large-6.small-6.columns
+        = label_tag :card_code, 'Security code'
+        = text_field_tag :card_code
+      .large-12.columns.terms
+        .pull-left
+          = check_box_tag :terms
+        .pull-left
+          = label_tag :terms, raw("I understand and agree with the #{link_to 'Terms of Service', main_app.terms_path() }")
+      .large-6.small-6.columns
+        = submit_tag 'Confirm', class: 'button', data: { disable_with: 'Processing...' }
+      .large-6.small-6.columns
+        div class="AuthorizeNetSeal pull-right"

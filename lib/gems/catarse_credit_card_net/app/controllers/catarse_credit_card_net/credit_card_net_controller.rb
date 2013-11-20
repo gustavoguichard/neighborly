@@ -93,7 +93,7 @@ class CatarseCreditCardNet::CreditCardNetController < ApplicationController
       :ip => request.remote_ip,
       :description => t('credit_card_description', scope: SCOPE, :project_name => backer.project.name, :value => backer.display_value),
       :billing_address => {
-        :name     => (params[:billing_name] rescue current_user.full_name),
+        :name     => full_name,
         :address1 => current_user.address_street,
         :city     => current_user.address_city,
         :state    => current_user.address_state,
@@ -104,8 +104,8 @@ class CatarseCreditCardNet::CreditCardNetController < ApplicationController
   end
 
   def credit_card(options)
-    if params[:billing_name]
-      splited = params[:billing_name].split(" ")
+    if full_name
+      splited = full_name.split(" ")
       last_name = splited.last
       splited.delete(last_name)
       first_name = splited.join(' ')
@@ -120,5 +120,10 @@ class CatarseCreditCardNet::CreditCardNetController < ApplicationController
       :first_name         => first_name,
       :last_name          => last_name
     )
+  end
+
+  def full_name
+    return current_user.full_name unless params[:billing_first_name].present? && params[:billing_last_name].present?
+    "#{params[:billing_first_name]} #{params[:billing_last_name]}"
   end
 end
