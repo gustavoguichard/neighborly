@@ -18,21 +18,22 @@
         = label_tag :billing_last_name, 'Last Name'
         = text_field_tag :billing_last_name
       .large-12.columns
-        = label_tag :card_number, 'Credit card number'
+        = label_tag :card_number, 'Card Number'
         = text_field_tag :card_number
       .large-6.small-6.columns
-        = label_tag 'Expiration date'
+        = label_tag :expiration_card_month, 'Expiration Date'
         .row
           .large-6.small-6.columns
             = select_month Date.today.month+1, { use_month_numbers: true }, { name: 'expiration_card_month', id: 'card_month' }
           .large-6.small-6.columns
             = select_year nil, { start_year: Date.today.year, end_year: Date.today.year+15 }, { name: 'card_year', id: 'card_year' }
       .large-6.small-6.columns
-        = label_tag :card_code, 'Security code'
+        = label_tag :card_code, 'Security Code'
         = text_field_tag :card_code
       .large-12.columns.terms
         .pull-left
           = check_box_tag :terms
+          |&nbsp;
         .pull-left
           = label_tag :terms, raw("I understand and agree with the #{link_to 'Terms & Conditions of Use', main_app.terms_path(), data: { 'reveal-id' => 'terms-modal', 'reveal-ajax' => true } }.")
       .large-6.small-6.columns
