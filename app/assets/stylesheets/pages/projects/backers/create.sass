@@ -5,3 +5,27 @@
       color: white
       text-transform: uppercase
       font-weight: bold
+
+  section.content, aside
+    margin-top: +emCalc(50px)
+
+  .payment
+    .methods
+      label
+        margin-right: +emCalc(40px)
+        img
+          margin-left: +emCalc(5px)
+          &.echeck_net-payment-method
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40)
+            opacity: 0.4
+
+    section.conteiner
+      margin-top: +emCalc(50px)
+      margin-bottom: +emCalc(30px)
+      min-height: +emCalc(300px)
+      border-top: 1px solid $border-color
+      padding-top: +emCalc(5px)
+
+      .catarse-credit-card-net-form
+        .button
+          margin-top: +emCalc(25px)
