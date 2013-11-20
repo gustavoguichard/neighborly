@@ -13,6 +13,10 @@ en:
         credits_checkout:
           no_credits: "You don't have enough credits to help greenlight this project."
           success: "Your back was successfully made. Thanks a lot!"
+        pay:
+          credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
+          no_credits: "You don't have enough credits to help greenlight this project."
+          success: "Your back was successfully made. Thanks a lot!"
     users:
       update:
         success: 'Your information has been updated!'

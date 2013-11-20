@@ -47,7 +47,7 @@ class CatarseCreditCardNet::CreditCardNetController < ApplicationController
           session[:thank_you_id] = backer.project.id
           session[:_payment_token] = backer.payment_token
 
-          flash[:success] = t('projects.backers.checkout.success')
+          flash[:success] = t('controllers.projects.backers.pay.success')
 
           return render :json => { process_status: 'ok', message: response.message } if request.xhr?
           redirect_to main_app.project_backer_path(backer.project, backer)
@@ -64,9 +64,9 @@ class CatarseCreditCardNet::CreditCardNetController < ApplicationController
     rescue Exception => e
       Rails.logger.info "Checkout direct credit card error -----> #{e.inspect}"
 
-      return render :json => { process_status: 'error', message: I18n.t('projects.backers.checkout.error') } if request.xhr?
+      return render :json => { process_status: 'error', message: I18n.t('controllers.projects.backers.pay.error') } if request.xhr?
 
-      flash[:failure] = I18n.t('projects.backers.checkout.error')
+      flash[:failure] = I18n.t('controllers.projects.backers.pay.error')
       redirect_to main_app.new_project_backer_path(backer.project, backer)
     end
   end
