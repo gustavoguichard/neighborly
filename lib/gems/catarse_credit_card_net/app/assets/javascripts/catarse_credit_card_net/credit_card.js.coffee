@@ -6,12 +6,12 @@ window.CreditCardNetForm = Backbone.View.extend
     this.$el.foundation()
 
     this.$button = this.$('input[type=submit]')
+    this.$form = this.$('form#credit-card-form')
 
     this.$('#billing_first_name, #billing_last_name, #card_number, #card_code').focusout =>
       this.validate()
 
-    this.$('#terms').change this.validate
-    this.$('form#credit-card-form').bind('submit', this.submit)
+    this.$form.bind('submit', this.submit)
 
     this.showAuthorizeNetSeal()
 
@@ -27,15 +27,14 @@ window.CreditCardNetForm = Backbone.View.extend
       billing_first_name: this.$('#billing_first_name').val()
       billing_last_name: this.$('#billing_last_name').val()
 
-    $.post(this.$('form#credit-card-form').prop('action'), data, (response) =>
+    $.post(this.$form.prop('action'), data, (response) =>
       console.log response
       if response.process_status is 'ok'
-        thank_you_path = $('.create-backer-page').data('thank-you-path')
-        location.href = thank_you_path
+        location.href = $('.create-backer-page').data('thank-you-path')
       else
         this.$('.check-error p.error-name').text response.message
         this.$('.check-error').fadeIn 300
-        $.rails.enableFormElements($('form#credit-card-form'))
+        $.rails.enableFormElements(this.$form)
     , 'json').error ->
       this.$('.check-error p.error-name').text 'The back already confirmed, if you can do another back please refresh the page or go back to project page :)'
       this.$('.check-error').fadeIn 300
@@ -46,7 +45,6 @@ window.CreditCardNetForm = Backbone.View.extend
     valid = false unless this.validateField this.$('#billing_last_name')
     valid = false unless this.validateField this.$('#card_number')
     valid = false unless this.validateField this.$('#card_code')
-    valid = false unless this.aceptedTerms()
 
     return valid
 
@@ -68,14 +66,6 @@ window.CreditCardNetForm = Backbone.View.extend
   removeError: ($field)->
     $field.removeClass 'error'
     $field.parent().find('span.error').remove()
-
-  aceptedTerms: ->
-    unless this.$('#terms').is(':checked')
-      this.$('#terms').parents('.terms').addClass('error')
-      return false
-    else
-      this.$('#terms').parents('.terms').removeClass('error')
-      return true
 
   replaceAll: (string, token, newtoken) ->
     return string unless string && string.length > 0
