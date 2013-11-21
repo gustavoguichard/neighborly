@@ -1,0 +1,27 @@
+h4 Frequently Asked Questions
+ul
+  li
+    a href="#"
+      i.icon-et-down-circled
+      | How do I contribute?
+    p.hide Easy! Just select or enter the amount you wish to contribute. Then choose a reward if you want one. You can also enter a special message to display with your contribution if you want, or choose to remain anonymous. Then proceed to checkout.
+  li
+    a href="#"
+      i.icon-et-down-circled
+      | When is the payment processed?
+    p.hide Shortly after you complete checkout. Usually you will receive confirmation in less than five minutes. If you use eCheck, please allow up to 5 business days for your payment to be confirmed.
+  li
+    a href="#"
+      i.icon-et-down-circled
+      | Am I refunded if the project doesn't get the greenlight?
+    p.hide Yes. Your account will automatically receive 100% credits to apply towards other projects on #{Configuration[:company_name]}.
+  li
+    a href="#"
+      i.icon-et-down-circled
+      | What if I don't want credits on #{Configuration[:company_name]}?
+    p.hide No problem. Please visit #{link_to t('words.credits'), user_path(current_user, anchor: :credits), target: :blank} within seven days after the project ends, and request a refund. Note that applicable platform and payment processor fees are withheld.
+  li
+    a href="#"
+      i.icon-et-down-circled
+      | How and when do I get my reward?
+    p.hide Shortly after the project is greenlit, #{link_to @project.user.display_name, user_path(@project.user)} will contact you to arrange delivery.
