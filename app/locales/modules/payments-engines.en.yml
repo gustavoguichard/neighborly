@@ -1,0 +1,26 @@
+en:
+  payments:
+    common:
+      terms: 'By contributing to this project I agree with the %{link}.'
+      terms-link: 'Terms & Conditions of Use'
+      confirm: 'Confirm payment'
+      proccessing: 'Processing...'
+      error:
+        title: "Sorry, something must've gone wrong."
+        name: 'Please reload this page and try again.'
+    echeck-net:
+      title: 'Checkout using eCheck'
+      labels:
+        account_holder_name: 'Account Holder Name'
+        routing_number: 'Routing Number'
+        bank_name: 'Bank Name'
+        account_number: 'Account Number'
+    credit-card-net:
+      title: 'Credit Card Information'
+      subtile: 'Your card information will be sent securely to our payment processor.'
+      labels:
+        billing_first_name: 'First Name'
+        billing_last_name: 'Last Name'
+        card_number: 'Card Number'
+        expiration_card_month: 'Expiration Date'
+        card_code: 'Security Code'
