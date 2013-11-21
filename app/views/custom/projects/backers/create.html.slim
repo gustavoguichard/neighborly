@@ -1,5 +1,5 @@
 - content_for :title, t('.title')
-.create-backer-page[data-thank-you-path=project_backer_path(project_id: @project.id, id: @backer.id)]
+.create-backer-page[data-thank-you-path=project_backer_path(project_id: @project, id: @backer.id)]
   header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
     .row
       .large-10.columns.large-centered
