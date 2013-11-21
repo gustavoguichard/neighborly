@@ -2,6 +2,7 @@ Neighborly.Projects = {} if Neighborly.Projects is undefined
 Neighborly.Projects.Backers = {} if Neighborly.Projects.Backers is undefined
 
 Neighborly.Projects.Backers.Create =
+  modules: -> [Neighborly.CustomTooltip]
   init: Backbone.View.extend
     el: '.create-backer-page'
 

@@ -5,8 +5,14 @@
       .large-10.columns.large-centered
         h3 = t('.you_are_about', project_name: @project.name)
         .total-with-fee
-          input[type='text' disabled=true value="#{t('.total')}#{@backer.display_value}" data-total-text=t('.total')]
-          i.icon-info-sign
+          .row
+            .large-4.small-4.columns.large-centered.small-centered
+              input[type='text' disabled=true value="#{t('.total')}#{@backer.display_value}" data-total-text=t('.total')]
+              .custom-tooltip
+                = link_to '#' do
+                  i.icon-info-sign
+                .tooltip-content.hide
+                  p = t('.tooltip-text', project_name: @project.name).html_safe
 
   .row
     section.content.large-8.medium-8.columns
@@ -30,7 +36,8 @@
 
     aside.large-4.medium-4.columns
       .project-image
-        = image_tag @project.display_image, id: 'project_image', alt: @project.name, width: '250px'
+        = image_tag @project.display_image('project_thumb_large'), id: 'project_image', alt: @project.name
+        h5 = "#{@project.time_to_go[:time]} #{@project.time_to_go[:unit]} #{@project.remaining_text}"
 
       - if @backer.reward
         .selected-reward
