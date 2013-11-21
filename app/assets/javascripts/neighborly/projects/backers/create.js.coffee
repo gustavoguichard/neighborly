@@ -5,8 +5,15 @@ Neighborly.Projects.Backers.Create =
   init: Backbone.View.extend
     el: '.create-backer-page'
 
+    events:
+      'click .faqs a': 'openFaqText'
+
     initialize: ->
       @payment_view = new this.Payment()
+
+    openFaqText: (e)->
+      e.preventDefault()
+      $(e.currentTarget).parent().find('p').toggleClass('hide')
 
     Payment: Backbone.View.extend
       el: '.create-backer-page .payment'

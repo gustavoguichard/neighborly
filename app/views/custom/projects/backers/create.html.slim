@@ -36,6 +36,8 @@
         .selected-reward
           h4 = t('.reward.title')
           p.description = @backer.reward.description
+      .faqs
+        = render 'faqs'
 
   .seal-original.hide
     / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
