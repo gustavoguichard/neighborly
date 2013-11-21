@@ -1,27 +1,31 @@
 - content_for :title, t('.title')
-#page_content
-  .container
-    #thank_you
-      .title
-        h1 = t('.header_title')
-        h2= t('.header_subtitle')
-      .project_info
-        = image_tag @project.display_image, id: 'project_image', alt: @project.name, width: '250px'
-        h1= t('.text_title_html', link: link_to(@project.name, project_path(@project)))
-        #review_text
-          - if @backer.payment_method == 'MoIP' && @backer.payment_id
-            = t('.moip_message', code: @backer.payment_id).html_safe
-            br
-            br
-          = t("projects.back_project.display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: @project.display_expires_at)
-        .share
-            h2= t('.text_subtitle')
-            = link_to "http://twitter.com/?status=#{t('i_just_backed', :value => @backer.display_value, :name => @project.name, :site => project_url(@project))}", target: :_blank do
-              = image_tag 'catarse/icon-tw.png', title: 'Twitter'
-            = link_to "http://www.facebook.com/share.php?u=#{project_url(@project)}", target: :_blank do
-              = image_tag 'catarse/icon-fb.png', title: 'Facebook'
-        #recommended_projects
-          h2 = t('.recommended_projects')
-          - @backer.user.recommended_projects.limit(3).each do |project|
-            = render partial: 'projects/project', locals: {project: project }
-      .clearfix
+.backer-page
+  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+    .row
+      .large-10.columns.large-centered
+        h3 = t('.thank_you', project_name: @project.name)
+        .row
+          .large-8.columns.large-centered
+            .status
+              .progress.round
+                span.meter[style="width: #{@project.display_progress}%"]
+              .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
+
+  section.share
+    .row
+      .large-12.columns
+        h3 = t('.share', project_owner_name: @project.user.display_name).html_safe
+
+        .row
+          .large-6.small-6.columns.large-centered.small-centered.buttons
+            .row
+              .large-6.small-6.columns
+                = link_to t('.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+              .large-6.small-6.columns
+                = link_to t('.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.twitter-text', value: @backer.display_value, name: @project.name, project_url: project_url(@project)))}", class: 'button with-icon twitter', target: :blank
+
+  section.recommended-projects
+    .row
+      h3 = t('.recommended_projects')
+      - @backer.user.recommended_projects.limit(4).each do |project|
+        = render partial: 'projects/project', locals: {project: project }
