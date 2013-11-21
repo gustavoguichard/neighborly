@@ -1,18 +1,20 @@
-= javascript_include_tag 'catarse_paypal_express'
+.catarse-paypal-express-form
+  .row
+    .large-9.small-9.columns
+      .title
+        h4 = t('payments.paypal.title')
+        p = t('payments.paypal.subtile')
 
-#catarse_paypal_express_form
-  .title
-    h1 Checkout using Paypal
-    h2 You will be taken to Paypal's checkout screen in the next step.
-  a.seal-paypal[href="https://www.paypal.com/us/verified/pal=books%40neighbor%2ely" target="_blank"]
-    img[src="https://www.paypal.com/en_US/i/icon/verification_seal.gif" border="0" alt="Official PayPal Seal"]
-  = form_tag pay_paypal_express_path(params[:id]) do
-    .clearfix
-    .bootstrap-twitter
-      .input.accept
-        = label_tag :terms, raw("I understand and agree with the  #{link_to 'Terms of Service', '#termsModal', :class => 'termsModalLink', :'data-toggle'=>'modal', :'data-url' => '/terms' }")
-        = check_box_tag :terms
-      .clearfix
-      .loader.hide= image_tag 'loading.gif'
-      .submit
-        = submit_tag t('projects.backers.review.international.button'), class: 'btn btn-success btn-large disabled'
+    .large-3.small-3.columns
+      = link_to 'https://www.paypal.com/us/verified/pal=books%40neighbor%2ely', target: :blank do
+        = image_tag 'https://www.paypal.com/en_US/i/icon/verification_seal.gif', title: 'Official PayPal Seal'
+
+    = form_tag pay_paypal_express_path(params[:id]) do
+      .large-12.columns.terms
+        = t('payments.common.terms', link: link_to(t('payments.common.terms-link'), main_app.terms_path(), data: { 'reveal-id' => 'terms-modal', 'reveal-ajax' => true })).html_safe
+
+      .large-6.small-6.columns
+        = submit_tag t('payments.paypal.redirect'), class: 'button', data: { disable_with: t('payments.common.proccessing') }
+
+      .large-6.small-6.columns
+        .loader.hide = image_tag 'loading.gif'
