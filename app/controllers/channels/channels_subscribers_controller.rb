@@ -13,7 +13,7 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
     end
   # This is needed when you press the follow channel button without being signed in
   rescue
-    return redirect_to sign_up_path
+    return redirect_to new_user_session_path
   end
 
   def destroy

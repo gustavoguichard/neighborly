@@ -139,7 +139,7 @@ describe ProjectsController do
     let(:current_user){ project.user }
 
     before do
-      get :send_to_analysis, id: project.id, locale: :pt
+      get :send_to_analysis, id: project, locale: :pt
       project.reload
     end
 
@@ -225,7 +225,7 @@ describe ProjectsController do
         project.name.should == 'My Updated Title'
       }
 
-      it{ should redirect_to project_path(project, anchor: 'edit') }
+      it{ should redirect_to edit_project_path(project) }
     end
 
     shared_examples_for "protected project" do

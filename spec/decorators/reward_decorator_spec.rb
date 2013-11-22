@@ -7,7 +7,7 @@ describe RewardDecorator do
 
   describe "#display_description" do
     subject{ reward.display_description }
-    it{ should == "<p>envie um email para <a href=\"mailto:foo@bar.com\" target=\"_blank\">foo@bar.com</a></p>" }
+    it{ should == "<p>envie um email para <a href=\"mailto:foo@bar.com\" target=\"blank\">foo@bar.com</a></p>" }
   end
 
   describe "#display_minimum" do

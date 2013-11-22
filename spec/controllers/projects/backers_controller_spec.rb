@@ -88,7 +88,7 @@ describe Projects::BackersController do
     end
 
     context "when no user is logged" do
-      it{ should redirect_to new_user_registration_path }
+      it{ should redirect_to new_user_session_path }
       it('should set the session[:return_to]'){ session[:return_to].should == "/test_path" }
     end
 
