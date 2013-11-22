@@ -1,0 +1,16 @@
+en:
+  static:
+    faq:
+      title: "Frequently asked questions"
+    privacy:
+      title: "Privacy Policy"
+    terms:
+      title: "Terms of use"
+    how_it_works:
+      title: 'How it works'
+    start_terms:
+      title: 'Terms'
+      explore_curious: "Just looking around!"
+      explore_projects: "I want to explore the projects."
+      submit: "Next step!"
+      send_project: "I want to submit my project."

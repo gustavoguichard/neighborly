@@ -1,0 +1,136 @@
+.markItUp
+  *
+    margin: 0px
+    padding: 0px
+    outline: none
+  a
+    &:link, &:visited
+      color: #000
+      text-decoration: none
+  margin: emCalc(5px, 0)
+
+.markItUpEditor
+  padding: emCalc(15px)
+  margin-bottom: emCalc(25px)
+
+
+.markItUpPreviewFrame
+  overflow: auto
+  background-color: #FFF
+  width: 99.9%
+  height: emCalc(300px)
+  margin: emCalc(5px)
+
+.markItUpFooter
+  width: 100%
+
+.markItUpHeader ul
+  li
+    list-style: none
+    float: left
+    position: relative
+    &:hover > ul
+      display: block
+  .markItUpDropMenu
+    background: transparent image-url('markitup/menu.png') no-repeat 115% 50%
+    margin-right: emCalc(5px)
+    li
+      margin-right: 0
+  ul
+    display: none
+    position: absolute
+    top: 18px
+    left: 0px
+    background: #FFF
+    border: 1px solid #000
+    li
+      float: none
+      border-bottom: 1px solid #000
+    .markItUpDropMenu
+      background: white image-url('markitup/submenu.png') no-repeat 100% 50%
+  .markItUpSeparator
+    margin: emCalc(0, 10px)
+    width: emCalc(1px)
+    height: emCalc(22px)
+    overflow: hidden
+    background-color: $border-color
+  ul
+    .markItUpSeparator
+      width: auto
+      height: emCalc(1px)
+      margin: 0
+    ul
+      position: absolute
+      top: -1px
+      left: 150px
+      li
+        float: none
+  a
+    display: block
+    width: emCalc(16px)
+    height: emCalc(16px)
+    text-indent: -10000px
+    background-repeat: no-repeat
+    padding: emCalc(3px)
+    margin: 0
+  ul a
+    display: block
+    padding-left: 0
+    text-indent: 0
+    width: emCalc(120px)
+    padding: emCalc(5px)
+    padding-bottom: emCalc(25px)
+    background-position: 2px 50%
+    &:hover
+      color: #FFF
+      background-color: #000
+
+
+.markdown .markItUpButton
+  margin-right: emCalc(5px)
+
+.markdown .markItUpButton1 a
+  background-image: image-url('markitup/h1.png')
+
+.markdown .markItUpButton2 a
+  background-image: image-url('markitup/h2.png')
+
+.markdown .markItUpButton3 a
+  background-image: image-url('markitup/h3.png')
+
+.markdown .markItUpButton4 a
+  background-image: image-url('markitup/h4.png')
+
+//.markdown .markItUpButton5 a
+  //background-image: image-url('markitup/h5.png')
+
+//.markdown .markItUpButton6 a
+  //background-image: image-url('markitup/h6.png')
+
+.markdown .markItUpButton5 a
+  background-image: image-url('markitup/bold.png')
+
+.markdown .markItUpButton6 a
+  background-image: image-url('markitup/italic.png')
+
+.markdown .markItUpButton7 a
+  background-image: image-url('markitup/list-bullet.png')
+
+.markdown .markItUpButton8 a
+  background-image: image-url('markitup/list-numeric.png')
+
+.markdown .markItUpButton9 a
+  background-image: image-url('markitup/picture.png')
+
+.markdown .markItUpButton10 a
+  background-image: image-url('markitup/link.png')
+
+.markdown .markItUpButton11 a
+  background-image: image-url('markitup/quotes.png')
+
+//.markdown .markItUpButton14 a
+  //background-image: image-url('markitup/code.png')
+
+.markdown .preview a
+  background-image: image-url('markitup/preview.png')
+
