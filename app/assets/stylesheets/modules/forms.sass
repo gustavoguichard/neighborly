@@ -13,7 +13,20 @@
 textarea
   height: +emCalc(200px)
 
-input, textarea
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea
   +radius($input-radius)
   &.with-prefix
     +radius(0 $input-radius $input-radius 0)
@@ -37,3 +50,15 @@ span.prefix, span.postfix
 label
   abbr
     color: red
+
+form.custom
+  .field_with_hint
+    .custom.dropdown
+      margin-bottom: +emCalc(3px)
+
+.field_with_hint
+  input, textarea
+    margin-bottom: +emCalc(3px)
+  p.hint
+    color: $secondary-color
+    font-size: 80%
