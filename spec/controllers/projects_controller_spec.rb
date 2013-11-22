@@ -2,10 +2,11 @@
 require 'spec_helper'
 
 describe ProjectsController do
-  before{ Notification.unstub(:create_notification) }
-  before{ Notification.unstub(:create_notification_once) }
+  before{ Notification.unstub(:notify) }
+  before{ Notification.unstub(:notify_once) }
   before{ controller.stub(:current_user).and_return(current_user) }
-  before{ ::Configuration[:base_url] = 'http://catarse.me' }
+  before{ Configuration[:base_url] = 'http://catarse.me' }
+  before{ Configuration[:email_projects] = 'foo@bar.com' }
   render_views
   subject{ response }
   let(:project){ create(:project, state: 'draft') }
@@ -134,6 +135,18 @@ describe ProjectsController do
     end
   end
 
+  describe "GET send_to_analysis" do
+    let(:current_user){ project.user }
+
+    before do
+      get :send_to_analysis, id: project.id, locale: :pt
+      project.reload
+    end
+
+    it { project.in_analysis?.should be_true }
+  end
+
+
   describe 'POST send_reward_email' do
     before do
       @send_reward_email_params = { id: project, name: 'some guy', email: 'some@emal.com', phone_number: '123456789', message: 'message' }
@@ -177,6 +190,20 @@ describe ProjectsController do
     end
   end
 
+  describe "GET index" do
+    it { should be_success }
+
+    context "with referal link" do
+      subject { controller.session[:referal_link] }
+
+      before do
+        get :index, locale: :pt, ref: 'referal'
+      end
+
+      it { should == 'referal' }
+    end
+  end
+
   describe "GET new" do
     before { get :new }
 
@@ -197,6 +224,8 @@ describe ProjectsController do
         project.reload
         project.name.should == 'My Updated Title'
       }
+
+      it{ should redirect_to project_by_slug_path(project.permalink, anchor: 'edit') }
     end
 
     shared_examples_for "protected project" do

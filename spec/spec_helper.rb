@@ -6,10 +6,16 @@ Coveralls.wear!('rails')
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'sidekiq/testing'
+require 'fakeweb'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+def fixture_path(basename)
+  "spec/fixtures/#{basename}"
+end
+
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -36,6 +42,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     ActiveRecord::Base.connection.execute "SET client_min_messages TO warning;"
+    ActiveRecord::Base.connection.execute "SET timezone TO 'utc';"
     DatabaseCleaner.clean_with :truncation
     I18n.locale = :en
     I18n.default_locale = :en
@@ -54,6 +61,10 @@ RSpec.configure do |config|
         }
       ]
     )
+
+    FakeWeb.register_uri(:get, "http://vimeo.com/api/v2/video/17298435.json", response: fixture_path('vimeo_default_json_request.txt'))
+    FakeWeb.register_uri(:get, "http://vimeo.com/17298435", response: fixture_path('vimeo_default_request.txt'))
+    FakeWeb.register_uri(:get, "http://www.youtube.com/watch?v=Brw7bzU_t4c", response: fixture_path("youtube_request.txt"))
   end
 
   config.before(:each) do
@@ -70,12 +81,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each, type: :controller) do
-    [Projects::BackersController, Users::BackersController, UsersController, UnsubscribesController, ProjectsController, DiscoverController].each do |c|
-      c.any_instance.stub(:render_facebook_sdk)
-      c.any_instance.stub(:render_facebook_like)
-      c.any_instance.stub(:render_twitter)
-      c.any_instance.stub(:display_uservoice_sso)
+  [:controller, :feature].each do |spec_type|
+    config.before(:each, type: spec_type) do
+      [:detect_old_browsers, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso].each do |method|
+        ApplicationController.any_instance.stub(method)
+      end
     end
   end
 
@@ -99,12 +109,12 @@ RSpec.configure do |config|
     Project.any_instance.stub(:download_video_thumbnail)
     CatarseMailchimp::API.stub(:subscribe)
     CatarseMailchimp::API.stub(:unsubscribe)
-    Notification.stub(:create_notification)
-    Notification.stub(:create_notification_once)
+    Notification.stub(:notify)
+    Notification.stub(:notify_once)
     Calendar.any_instance.stub(:fetch_events_from)
     Blog.stub(:fetch_last_posts).and_return([])
-    ::Configuration[:base_domain] = 'localhost'
-    ::Configuration['email_contact'] = 'foo@bar.com'
+    Configuration[:base_domain] = 'localhost'
+    Configuration[:email_contact] = 'foo@bar.com'
+    Configuration[:company_name] = 'Foo Bar Company'
   end
 end
-

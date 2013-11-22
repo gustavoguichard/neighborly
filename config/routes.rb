@@ -46,6 +46,8 @@ Catarse::Application.routes.draw do
           resources :subscriber_reports, only: [ :index ]
         end
 
+        resources :followers, only: [ :index ]
+
         resources :projects, only: [ :index, :update] do
           member do
             put 'approve'
@@ -55,6 +57,15 @@ Catarse::Application.routes.draw do
           end
         end
       end
+
+      resource :profile
+      resources :projects, only: [:new, :create, :show] do
+        collection do
+          get 'video'
+        end
+      end
+      # NOTE We use index instead of create to subscribe comming back from auth via GET
+      resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
     end
   end
 
@@ -72,6 +83,7 @@ Catarse::Application.routes.draw do
   #get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
+
 
   get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
@@ -102,6 +114,7 @@ Catarse::Application.routes.draw do
       get 'budget'
       get 'reward_contact'
       get 'success'
+      get 'send_to_analysis'
     end
 
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
@@ -113,7 +126,6 @@ Catarse::Application.routes.draw do
     resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
       member do
         put 'credits_checkout'
-        post 'update_info'
       end
     end
   end

@@ -1,6 +1,5 @@
 class Channels::Admin::StatisticsController < Admin::BaseController
-  menu I18n.t('channels.admin.statistics.index.menu') => Rails.application.routes.url_helpers.channels_admin_statistics_path
-
+  add_to_menu I18n.t('channels.admin.statistics.index.menu'), :channels_admin_followers_path
   actions :index
 
   before_filter do

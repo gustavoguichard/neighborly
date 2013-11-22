@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "Users" do
   before do
-    create(:notification_type, name: 'updates')
     OauthProvider.create! name: 'facebook', key: 'dummy_key', secret: 'dummy_secret'
   end
 
@@ -32,5 +31,6 @@ describe "Users" do
       #updates_unsubscribe.should have(1).items
     #end
   #end
+
 end
 

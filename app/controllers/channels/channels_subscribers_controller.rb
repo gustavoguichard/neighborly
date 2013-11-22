@@ -1,35 +1,35 @@
 class Channels::ChannelsSubscribersController < Channels::BaseController
   inherit_resources
   load_and_authorize_resource
-  actions :index, :create, :destroy
+  actions :show, :destroy, :create
 
-  # we skid the set_locale because we are using the index method to create a record
-  skip_before_filter :set_locale
+  # We use show as create to redirect to this action after auth
+  def show
+    @channels_subscriber = ChannelsSubscriber.new subscription_attributes
+    authorize! :create, @channels_subscriber
+    create! do |format|
+      flash[:notice] = I18n.t('channels_subscribers.created', channel: channel.name)
+      return redirect_to root_path
+    end
+  # This is needed when you press the follow channel button without being signed in
+  rescue
+    return redirect_to sign_up_path
+  end
 
-  def create
-    begin
-      create! do |success,failure|
-        success.html{
-          flash[:notice] = I18n.t('channels_subscribers.created')
-          return redirect_to root_path }
-      end
-    rescue PG::Error, ActiveRecord::RecordNotUnique => e
+  def destroy
+    destroy! do |format|
+      flash[:notice] = I18n.t('channels_subscribers.deleted', channel: channel.name)
       return redirect_to root_path
     end
   end
-  alias_method :index, :create
 
-  def destroy
-    destroy! do |success,failure|
-      success.html{
-        flash[:notice] = I18n.t('channels_subscribers.deleted')
-        return redirect_to root_path
-      }
-    end
+  def resource
+    @channels_subscriber ||= ChannelsSubscriber.where(subscription_attributes).first!
   end
 
-  prepend_before_filter do
-    params[:channels_subscriber] = { channel_id: Channel.find_by_permalink!(request.subdomain).id, user_id: current_user.id } if current_user
+  private
+  def subscription_attributes
+    { channel_id: channel.id, user_id: current_user.id }
   end
 end
 

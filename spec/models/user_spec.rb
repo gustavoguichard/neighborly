@@ -5,7 +5,6 @@ describe User do
   let(:unfinished_project){ create(:project, state: 'online') }
   let(:successful_project){ create(:project, state: 'online') }
   let(:failed_project){ create(:project, state: 'online') }
-  let(:notification_type){ create(:notification_type, name: 'updates') }
   let(:facebook_provider){ create :oauth_provider, name: 'facebook' }
 
   describe "associations" do
@@ -16,8 +15,9 @@ describe User do
     it{ should have_many :unsubscribes }
     it{ should have_many :authorizations }
     it{ should have_many(:oauth_providers).through(:authorizations) }
+    it{ should have_many :channels_subscribers }
     it{ should have_one :user_total }
-    it{ should have_and_belong_to_many :channels }
+    it{ should belong_to :channel }
     it{ should have_and_belong_to_many :subscriptions }
   end
 
@@ -187,38 +187,23 @@ describe User do
     end
   end
 
-  describe ".create_with_omniauth" do
+  describe ".create_from_hash" do
     let(:auth)  do {
-        'provider' => "twitter",
-        'uid' => "foobar",
-        'info' => {
-          'name' => "Foo bar",
-          'email' => 'another_email@anotherdomain.com',
-          'nickname' => "foobar",
-          'description' => "Foo bar's bio".ljust(200),
-          'image' => "image.png"
-        }
+      'provider' => "facebook",
+      'uid' => "foobar",
+      'info' => {
+        'name' => "Foo bar",
+        'email' => 'another_email@anotherdomain.com',
+        'nickname' => "foobar",
+        'description' => "Foo bar's bio".ljust(200),
+        'image' => "image.png"
       }
+    }
     end
-    let(:created_user){ User.create_with_omniauth(auth) }
-    let(:oauth_provider){ OauthProvider.create! name: 'twitter', key: 'dummy_key', secret: 'dummy_secret' }
-    let(:oauth_provider_fb){ OauthProvider.create! name: 'facebook', key: 'dummy_key', secret: 'dummy_secret' }
-    before{ oauth_provider }
-    before{ oauth_provider_fb }
-    subject{ created_user }
-    its(:email){ should == auth['info']['email'] }
-    its(:name){ should == auth['info']['name'] }
-    its(:nickname){ should == auth['info']['nickname'] }
-    its(:bio){ should == auth['info']['description'][0..139] }
-
-    describe "when user is merging facebook account" do
-      let(:user) { create(:user, name: 'Test', email: 'test@test.com') }
-      let(:created_user){ User.create_with_omniauth(auth, user) }
-
-      subject { created_user }
-
-      its(:email) { should == 'test@test.com' }
-      it { subject.authorizations.first.uid.should == auth['uid'] }
+    subject{ User.create_from_hash(auth) }
+    context "when user is really new" do
+      it{ should be_persisted }
+      its(:email){ should == auth['info']['email'] }
     end
 
     #describe "when user is not logged in and logs in with a facebook account with the same email" do
@@ -251,7 +236,8 @@ describe User do
         }
       }
       end
-      its(:image_url){ should == "https://graph.facebook.com/#{auth['uid']}/picture?type=large" }
+      it{ should be_persisted }
+      its(:email){ should == auth['info']['email'] }
     end
   end
 
@@ -325,11 +311,10 @@ describe User do
   describe "#updates_subscription" do
     subject{user.updates_subscription}
     context "when user is subscribed to all projects" do
-      before{ notification_type }
       it{ should be_new_record }
     end
     context "when user is unsubscribed from all projects" do
-      before { @u = create(:unsubscribe, project_id: nil, notification_type_id: notification_type.id, user_id: user.id )}
+      before { @u = create(:unsubscribe, project_id: nil, user_id: user.id )}
       it{ should == @u}
     end
   end
@@ -339,7 +324,7 @@ describe User do
     before do
       @p1 = create(:project)
       create(:backer, user: user, project: @p1)
-      @u1 = create(:unsubscribe, project_id: @p1.id, notification_type_id: notification_type.id, user_id: user.id )
+      @u1 = create(:unsubscribe, project_id: @p1.id, user_id: user.id )
     end
     it{ should == [@u1]}
   end
@@ -377,23 +362,4 @@ describe User do
       it{ should == 'http://facebook.com/foo' }
     end
   end
-
-  describe "#trustee?" do
-    let(:user) { create(:user) }
-
-    context "when user is a moderator of one or more channels" do
-      it "should return true" do
-        user.channels << create(:channel)
-        expect(user.trustee?).to eq(true)
-      end
-    end
-
-    context "when user is not a moderator of any channels" do
-      it "should return false" do
-        expect(user.trustee?).to eq(false)
-      end
-    end
-
-  end
-
 end

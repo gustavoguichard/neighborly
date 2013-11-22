@@ -19,9 +19,31 @@ describe Channel do
 
     it { should have_many :subscriber_reports }
     it { should have_many :channels_subscribers }
+    it { should have_many :users }
     it { should have_and_belong_to_many :projects }
-    it { should have_and_belong_to_many :trustees }
     it { should have_and_belong_to_many :subscribers }
+  end
+
+  describe ".by_permalink" do
+    before do
+      @c1 = create(:channel, permalink: 'foo')
+      @c2 = create(:channel, permalink: 'bar')
+    end
+
+    subject { Channel.by_permalink('foo') }
+
+    it { should == [@c1] }
+  end
+
+  describe '.find_by_permalink!' do
+    before do
+      @c1 = create(:channel, permalink: 'Foo')
+      @c2 = create(:channel, permalink: 'bar')
+    end
+
+    subject { Channel.find_by_permalink!('foo') }
+
+    it { should == @c1 }
   end
 
 
@@ -32,6 +54,29 @@ describe Channel do
     end
   end
 
+
+  describe "#has_subscriber?" do
+    let(:channel) { create(:channel) }
+    let(:user) { create(:user) }
+    subject{ channel.has_subscriber? user }
+
+    context "when user is nil" do
+      let(:user) { nil }
+      it{ should be_false }
+    end
+
+    context "when user is a channel subscriber" do
+      before do
+        channel.subscribers = [user]
+        channel.save!
+      end
+      it{ should be_true }
+    end
+
+    context "when user is not a channel subscriber" do
+      it{ should be_false }
+    end
+  end
 
   describe "#projects" do
     let(:channel) { create(:channel) }

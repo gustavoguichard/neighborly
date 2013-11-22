@@ -51,6 +51,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
           render 'users/set_email', layout: 'catarse_bootstrap'
         end
 
+        flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: p.name.capitalize)
+        sign_in @auth.user, event: :authentication
+        redirect_to(session[:return_to] || root_path)
+        session[:return_to] = nil
       end
     end
   end

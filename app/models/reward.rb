@@ -1,9 +1,6 @@
 # coding: utf-8
 require 'rails_autolink'
 class Reward < ActiveRecord::Base
-  include ActionView::Helpers::NumberHelper
-  include ActionView::Helpers::TextHelper
-  include ActionView::Helpers::UrlHelper
   include RankedModel
 
   include ERB::Util
@@ -19,6 +16,12 @@ class Reward < ActiveRecord::Base
   scope :not_soon, -> { where('soon is not true') }
   scope :soon, -> { where(soon: true) }
 
+  delegate :display_deliver_prevision, :display_remaining, :name, :display_minimum, :short_description,
+           :medium_description, :last_description, :display_description, to: :decorator
+  def decorator
+    @decorator ||= RewardDecorator.new(self)
+  end
+
   def sold_out?
     maximum_backers && total_compromised >= maximum_backers
   end
@@ -30,23 +33,5 @@ class Reward < ActiveRecord::Base
   def remaining
     return nil unless maximum_backers
     maximum_backers - total_compromised
-  end
-
-  def display_deliver_prevision
-    I18n.l((project.expires_at + days_to_delivery.days), format: :prevision)
-  rescue
-    days_to_delivery
-  end
-
-  def display_remaining
-    I18n.t('reward.display_remaining', remaining: remaining, maximum: maximum_backers).html_safe
-  end
-
-  def display_minimum
-    number_to_currency minimum_value, precision: 0
-  end
-
-  def display_description
-    auto_link(simple_format(description), html: {target: :_blank})
   end
 end

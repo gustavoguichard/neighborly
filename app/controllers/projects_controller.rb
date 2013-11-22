@@ -2,7 +2,7 @@
 class ProjectsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  load_and_authorize_resource only: [ :new, :create, :update ]
+  load_and_authorize_resource only: [ :new, :create, :update, :send_to_analysis ]
   inherit_resources
   actions :new, :create, :edit, :update
   defaults finder: :find_by_permalink!
@@ -40,13 +40,18 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.new(params[:project])
-
     create! do |success, failure|
       success.html do
         session[:successful_created] = resource.id
         return redirect_to success_project_path(@project)
       end
     end
+  end
+
+  def send_to_analysis
+    resource.send_to_analysis
+    flash[:notice] = t('projects.send_to_analysis')
+    redirect_to project_by_slug_path(@project.permalink)
   end
 
   def success
@@ -82,6 +87,8 @@ class ProjectsController < ApplicationController
   def video
     project = Project.new(video_url: params[:url])
     render json: project.video.to_json
+  rescue VideoInfo::UrlError
+    render json: nil
   end
 
   %w(embed video_embed).each do |method_name|

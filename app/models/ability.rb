@@ -33,9 +33,12 @@ class Ability
     end
 
     can :update, :projects do |project|
-      project.user == current_user && ( project.draft? || project.soon? || project.rejected? )
+      project.user == current_user && ( project.draft? || project.soon? || project.rejected? || project.in_analysis? )
     end
 
+    can :send_to_analysis, :projects do |project|
+      project.user == current_user
+    end
 
     # NOTE: Reward authorizations
     can :create, :rewards do |reward|
@@ -67,12 +70,11 @@ class Ability
       current_user.admin
     end
 
-
     # NOTE: Backer authorizations
     cannot :show, :backers
     can :create, :backers if current_user.persisted?
 
-    can [ :request_refund, :credits_checkout, :show, :update_info], :backers do |backer|
+    can [ :request_refund, :credits_checkout, :show, :update, :edit], :backers do |backer|
       backer.user == current_user
     end
 
@@ -88,52 +90,19 @@ class Ability
       cs.user == current_user
     end
 
-    if current_user.trustee?
-
-      can :access, :all
-      cannot :access, :projects
-      cannot :access, :rewards
-
-      can :create, :projects
-      can :access, :projects do |project|
-        current_user.channels_projects.exists?(project)
-      end
-
-
-      can :access, :rewards do |reward|
-        current_user.channels_projects.exists?(reward.project)
-      end
-
-
-      # For the access, :all
-      # we're removing the ability to update users at all, but
-      cannot [:update, :destroy], :users
-
-      # He can update himself
-      can :update, :users do |user|
-        user == current_user
-      end
-
-      # Nobody can destroy projects.
-      cannot :destroy, :projects
+    can [:update, :edit], :channels do |c|
+      c == current_user.channel
     end
 
-    # A trustee cannot access the adm/ path
-    # He can only do this if he is an admin too.
-    case options[:namespace]
-      when "Adm"
-        if current_user.trustee? && !current_user.admin?
-          cannot :access, :all
-        end
-      else
+    if options[:channel]  && options[:channel] == current_user.channel
+      can :access, :admin
+      can :access, :admin_projects_path
+      can :access, :edit_channels_profile_path
+      can :access, :channels_admin_followers_path
     end
-
-
 
     # NOTE: admin can access everything.
     # It's the last ability to override all previous abilities.
     can :access, :all if current_user.admin?
-
-
   end
 end
