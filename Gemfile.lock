@@ -34,6 +34,24 @@ GIT
       rails (>= 3.1)
 
 GIT
+  remote: git://github.com/luminopolis/catarse_credit_card_net.git
+  revision: 75c05a0b9783de4f855bfab97458b66018fe99ec
+  ref: 75c05a0b9783de4f855bfab97458b66018fe99ec
+  specs:
+    catarse_credit_card_net (0.0.1)
+      authorize-net (~> 1.5.2)
+      rails (~> 4.0.0)
+
+GIT
+  remote: git://github.com/luminopolis/catarse_echeck_net.git
+  revision: 3b64de32023d0b9d5a5fcff9b2300a98ff5423ca
+  ref: 3b64de32023d0b9d5a5fcff9b2300a98ff5423ca
+  specs:
+    catarse_echeck_net (0.0.1)
+      authorize-net (~> 1.5.2)
+      rails (~> 4.0.0)
+
+GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
   revision: 46878970d701c7912bb92c375b1d8c97b029b5fe
   ref: 46878970d701c7912bb92c375b1d8c97b029b5fe
@@ -65,20 +83,6 @@ GIT
   specs:
     font-icons-rails (0.0.5)
       sass-rails (>= 3.1.1)
-
-PATH
-  remote: lib/gems/catarse_credit_card_net
-  specs:
-    catarse_credit_card_net (0.0.1)
-      authorize-net (~> 1.5.2)
-      rails (~> 4.0.0)
-
-PATH
-  remote: lib/gems/catarse_echeck_net
-  specs:
-    catarse_echeck_net (0.0.1)
-      authorize-net (~> 1.5.2)
-      rails (~> 4.0.0)
 
 GEM
   remote: https://rubygems.org/
