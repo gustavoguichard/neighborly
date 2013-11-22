@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
   def send_to_analysis
     resource.send_to_analysis
     flash[:notice] = t('projects.send_to_analysis')
-    redirect_to project_by_slug_path(@project.permalink)
+    redirect_to project_path(@project)
   end
 
   def success

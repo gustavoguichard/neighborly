@@ -71,7 +71,7 @@ FactoryGirl.define do
     f.template_name 'project_success'
     f.origin_name 'Foo Bar'
     f.origin_email 'foo@bar.com'
-    f.locale 'pt'
+    f.locale 'en'
   end
 
   factory :reward do |f|

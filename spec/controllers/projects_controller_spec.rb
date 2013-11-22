@@ -225,7 +225,7 @@ describe ProjectsController do
         project.name.should == 'My Updated Title'
       }
 
-      it{ should redirect_to project_by_slug_path(project.permalink, anchor: 'edit') }
+      it{ should redirect_to project_path(project, anchor: 'edit') }
     end
 
     shared_examples_for "protected project" do

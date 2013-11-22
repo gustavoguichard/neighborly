@@ -10,10 +10,31 @@ class ApplicationController < ActionController::Base
 
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  helper_method :channel, :referal_link
+  helper_method :channel, :referal_link, :total_with_fee
 
   before_filter :force_http
   before_action :referal_it!
+
+  before_filter do
+    if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
+      redirect_to set_email_users_path unless controller_name == 'users'
+    end
+  end
+
+  # TODO: REFACTOR
+  include ActionView::Helpers::NumberHelper
+  def total_with_fee(backer, payment_method)
+    if payment_method == 'paypal'
+      value = (backer.value * 1.029)+0.30
+    elsif payment_method == 'credit_card_net'
+      value = (backer.value * 1.029)+0.30
+    elsif payment_method == 'echeck_net'
+      value = (backer.value * 1.010)+0.30
+    else
+      value = backer.value
+    end
+    number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
+  end
 
   def channel
     Channel.find_by_permalink(request.subdomain.to_s)
@@ -26,10 +47,6 @@ class ApplicationController < ActionController::Base
   private
   def referal_it!
     session[:referal_link] = params[:ref] if params[:ref].present?
-  end
-
-  def detect_old_browsers
-    return redirect_to page_path("bad_browser") if (!browser.modern? || browser.ie9?) && controller_name != 'pages'
   end
 
   def after_sign_in_path_for(resource_or_scope)

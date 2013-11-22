@@ -1,7 +1,7 @@
 class Projects::BackersController < ApplicationController
   inherit_resources
-  actions :show, :new, :update_info, :review, :create, :credits_checkout
-  skip_before_filter :force_http, only: [:create, :update_info]
+  actions :show, :new, :edit, :update, :review, :create, :credits_checkout
+  skip_before_filter :force_http, only: [:create]
   skip_before_filter :verify_authenticity_token, only: [:moip]
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
@@ -57,7 +57,7 @@ class Projects::BackersController < ApplicationController
       success.html do
         flash.delete(:notice)
         session[:thank_you_backer_id] = @backer.id
-        return redirect_to edit_project_backer_path(project_id: @project.id, id: @backer.id)
+        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id)
       end
     end
     @thank_you_id = @project.id

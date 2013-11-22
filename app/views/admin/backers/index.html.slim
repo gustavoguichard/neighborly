@@ -9,7 +9,7 @@
         strong= "#{@total_backs} "
         = t('.total_backs')
         | ·
-        strong= "#{number_to_currency @total_backed, unit: 'R$', precision: 0, delimiter: '.'} "
+        strong= "#{number_to_currency @total_backed} "
         = t('.total_backed')
         | ·
         strong= "#{@total_users} "
@@ -93,7 +93,7 @@
                           p
                             strong= t('.payment_fee')
                             | &nbsp;
-                            = number_to_currency backer.payment_service_fee, unit: 'R$', precision: 2, delimiter: '.'
+                            = number_to_currency backer.payment_service_fee
                           p
                             strong= t('.payment_id')
                             | &nbsp;

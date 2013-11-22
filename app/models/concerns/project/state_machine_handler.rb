@@ -3,6 +3,12 @@ module Project::StateMachineHandler
 
   included do
     #NOTE: state machine things
+    #
+     state_machine :campaign_type, initial: :all_or_none do
+      state :all_or_none, value: 'all_or_none'
+      state :flexible, value: 'flexible'
+    end
+
     state_machine :state, initial: :draft do
       state :draft, value: 'draft'
       state :soon, value: 'soon'

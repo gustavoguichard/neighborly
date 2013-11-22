@@ -13,7 +13,7 @@ class RewardDecorator < Draper::Decorator
   end
 
   def display_minimum
-    number_to_currency source.minimum_value
+    number_to_currency source.minimum_value, precision: 0
   end
 
   def short_description

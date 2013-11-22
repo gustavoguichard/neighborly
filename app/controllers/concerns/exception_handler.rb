@@ -12,7 +12,7 @@ module Concerns
         message = exception.message
 
         if current_user.nil?
-          redirect_to new_user_registration_path, alert: I18n.t('devise.failure.unauthenticated')
+          redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
         elsif request.env["HTTP_REFERER"]
           redirect_to :back, alert: message
         else
@@ -24,7 +24,7 @@ module Concerns
     def render_404(exception)
       @not_found_path = exception.message
       respond_to do |format|
-        format.html { render template: 'errors/not_found', layout: 'layouts/catarse_bootstrap', status: 404 }
+        format.html { render template: 'errors/not_found', status: 404 }
         format.all { render nothing: true, status: 404 }
       end
     end

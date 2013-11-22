@@ -23,9 +23,9 @@ class UserDecorator < Draper::Decorator
 
   def display_name
     if source.company?
-      source.company_name || I18n.t('user.no_name')
+      source.company_name || I18n.t('words.no_name')
     else
-      source.name || source.full_name || I18n.t('user.no_name')
+      source.name || source.full_name || I18n.t('words.no_name')
     end
   end
 

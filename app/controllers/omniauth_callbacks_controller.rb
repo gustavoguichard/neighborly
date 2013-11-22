@@ -38,7 +38,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
             if @user.nil?
               session[:omniauth] = omniauth.except('extra')
-              return render 'users/set_email', layout: 'catarse_bootstrap'
+              return render 'users/set_email', layout: 'devise'
             end
         end
 
@@ -48,13 +48,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to(session[:return_to] || root_path)
           session[:return_to] = nil
         else
-          render 'users/set_email', layout: 'catarse_bootstrap'
+          render 'users/set_email', layout: 'devise'
         end
-
-        flash[:notice] = I18n.t("devise.omniauth_callbacks.success", kind: p.name.capitalize)
-        sign_in @auth.user, event: :authentication
-        redirect_to(session[:return_to] || root_path)
-        session[:return_to] = nil
       end
     end
   end

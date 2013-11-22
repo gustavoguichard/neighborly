@@ -49,38 +49,38 @@ describe Authorization do
   end
 
   describe "Validations" do
-    it{ should validate_presence_of :oauth_provider } 
-    it{ should validate_presence_of :user } 
-    it{ should validate_presence_of :uid } 
+    it{ should validate_presence_of :oauth_provider }
+    it{ should validate_presence_of :user }
+    it{ should validate_presence_of :uid }
   end
 
-  describe ".find_from_hash" do
-    before do
-      provider = create(:oauth_provider, name: oauth_data[:provider])
-      @authotization = create(:authorization, oauth_provider: provider, uid: oauth_data[:uid])
-      create(:authorization, oauth_provider: provider)
-    end
-    subject{ Authorization.find_from_hash(oauth_data) }
-    it{ should == @authotization }
-  end
+  #describe ".find_from_hash" do
+    #before do
+      #provider = create(:oauth_provider, name: oauth_data[:provider])
+      #@authotization = create(:authorization, oauth_provider: provider, uid: oauth_data[:uid])
+      #create(:authorization, oauth_provider: provider)
+    #end
+    #subject{ Authorization.find_from_hash(oauth_data) }
+    #it{ should == @authotization }
+  #end
 
-  describe ".create_from_hash" do
-    before do
-      create(:oauth_provider, name: oauth_data[:provider])
-    end
-    subject{ Authorization.create_from_hash(oauth_data, user) }
-    context "when user exists" do
-      let(:user){ create(:user, email: oauth_data['info']['email']) }
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should == user }
-    end
+  #describe ".create_from_hash" do
+    #before do
+      #create(:oauth_provider, name: oauth_data[:provider])
+    #end
+    #subject{ Authorization.create_from_hash(oauth_data, user) }
+    #context "when user exists" do
+      #let(:user){ create(:user, email: oauth_data['info']['email']) }
+      #it{ should be_persisted }
+      #its(:uid){ should == oauth_data['uid'] }
+      #its(:user){ should == user }
+    #end
 
-    context "when user is new" do
-      let(:user){}
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should be_persisted }
-    end
-  end
+    #context "when user is new" do
+      #let(:user){}
+      #it{ should be_persisted }
+      #its(:uid){ should == oauth_data['uid'] }
+      #its(:user){ should be_persisted }
+    #end
+  #end
 end

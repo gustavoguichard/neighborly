@@ -123,7 +123,7 @@ Catarse::Application.routes.draw do
       end
     end
 
-    resources :backers, controller: 'projects/backers', only: [ :index, :show, :new, :create ] do
+    resources :backers, controller: 'projects/backers' do
       member do
         put 'credits_checkout'
       end

@@ -18,7 +18,7 @@ describe Projects::BackersController do
 
     before do
       set_expectations
-      put :update, { locale: :pt, project_id: project.id, id: backer.id, backer: backer_info, format: :json }
+      put :update, { locale: :pt, project_id: project, id: backer.id, backer: backer_info, format: :json }
     end
 
     context "when no user is logged in" do
@@ -84,7 +84,7 @@ describe Projects::BackersController do
   describe "GET edit" do
     before do
       request.env['REQUEST_URI'] = "/test_path"
-      get :edit, {locale: :pt, project_id: project.id, id: backer.id}
+      get :edit, {locale: :pt, project_id: project, id: backer.id}
     end
 
     context "when no user is logged" do
@@ -97,7 +97,7 @@ describe Projects::BackersController do
       let(:backer){ create(:backer, value: 10.00, credits: true, project: project, state: 'pending', user: user) }
       its(:body){ should =~ /#{I18n.t('projects.backers.edit.title')}/ }
       its(:body){ should =~ /#{project.name}/ }
-      its(:body){ should =~ /R\$ 10/ }
+      its(:body){ should =~ /\$10/ }
     end
   end
 
@@ -117,7 +117,7 @@ describe Projects::BackersController do
 
     context "when user is logged in" do
       let(:user){ create(:user) }
-      it{ should redirect_to edit_project_backer_path(project_id: project.id, id: Backer.last.id) }
+      it{ should redirect_to edit_project_backer_path(project_id: project, id: Backer.last.id) }
     end
 
     context "without value" do
