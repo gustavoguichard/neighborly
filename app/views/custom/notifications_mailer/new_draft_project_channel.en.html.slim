@@ -1,5 +1,5 @@
 - project = @notification.project
-- channel = project.channels.first
+- channel = @notification.channel
 
 br
 | A new project has been created on #{channel.name} channel by #{link_to project.user.name, user_url(project.user)}.
