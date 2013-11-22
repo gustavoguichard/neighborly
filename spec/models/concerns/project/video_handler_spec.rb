@@ -24,7 +24,7 @@ describe Project::VideoHandler do
     end
 
     it "should store the new embed url" do
-      project.video_embed_url.should == 'http://player.vimeo.com/video/49584778'
+      project.video_embed_url.should == 'player.vimeo.com/video/49584778'
     end
   end
 
@@ -41,13 +41,13 @@ describe Project::VideoHandler do
       before { project.video_url = "http://vimeo.com/17298435" }
 
       context 'video_url is a Vimeo url' do
-        its(:video){ should be_an_instance_of(VideoInfo::Providers::Vimeo) }
+        its(:video){ should be_an_instance_of(VideoInfo) }
       end
 
       context 'video_url is an YouTube url' do
         before { project.video_url = "http://www.youtube.com/watch?v=Brw7bzU_t4c" }
 
-        its(:video){ should be_an_instance_of(VideoInfo::Providers::Youtube) }
+        its(:video){ should be_an_instance_of(VideoInfo) }
       end
 
       it 'caches the response object' do
