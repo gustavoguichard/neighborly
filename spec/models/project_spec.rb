@@ -197,7 +197,7 @@ describe Project do
       @project_03 = create(:project, created_at: 300)
     end
 
-    it { should == [@project_01, @project_02] }
+    it { expect(subject.to_a).to eq [@project_01, @project_02] }
   end
 
 
