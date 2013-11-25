@@ -48,14 +48,6 @@ class BackerObserver < ActiveRecord::Observer
       project: backer.project
     )
 
-    Notification.notify_once(
-      :project_owner_backer_confirmed,
-      backer.project.user,
-      {backer_id: backer.id},
-      backer: backer,
-      project: backer.project
-    )
-
     if (Time.now > backer.project.expires_at  + 7.days) && (user = User.where(email: ::Configuration[:email_payments]).first)
       Notification.notify_once(
         :backer_confirmed_after_project_was_closed,

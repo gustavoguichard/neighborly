@@ -23,13 +23,14 @@ class Backer < ActiveRecord::Base
   scope :anonymous, -> { where(anonymous: true) }
   scope :credits, -> { where(credits: true) }
   scope :not_anonymous, -> { where(anonymous: false) }
+  scope :confirmed_today, -> { with_state('confirmed').where("backers.confirmed_at::date = current_timestamp::date ") }
 
   scope :can_cancel, -> { where("backers.can_cancel") }
 
   # Backers already refunded or with requested_refund should appear so that the user can see their status on the refunds list
   scope :can_refund, ->{ where("backers.can_refund") }
 
-  attr_protected :state
+  attr_protected :state, :user_id
 
   def self.between_values(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
