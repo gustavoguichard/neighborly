@@ -30,7 +30,7 @@ module Catarse
     config.encoding = "utf-8"
 
     config.filter_parameters += [:password, :password_confirmation]
-    config.time_zone = 'Brasilia'
+    config.time_zone = 'Central Time (US & Canada)'
     config.active_record.default_timezone = :local
 
     # Do not generate specs for views and requests. Also, do not generate assets.
