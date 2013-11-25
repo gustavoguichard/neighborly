@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails',    '4.0.0'
-gem 'mail',     '2.5.3'
+gem 'rails',    '4.0.1'
 
 gem 'protected_attributes', '~> 1.0.3' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
