@@ -20,8 +20,7 @@
   header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
     .row
       .large-6.columns
-        .flex-video
-          iframe src="#{@project.display_video_embed_url}" width="480" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
+        iframe src="#{@project.display_video_embed_url}" width="470" height="264" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
         .share-small
           = render 'projects/share'
 
