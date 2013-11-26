@@ -1,4 +1,9 @@
-Neighborly.Projects = {} if Neighborly.Projects is undefined
+Neighborly.Projects ?= {}
+Neighborly.Channels ?= {}
+Neighborly.Channels.Projects ?= {}
+
+Neighborly.Channels.Projects.New =
+  modules: -> [Neighborly.Projects.New]
 
 Neighborly.Projects.New =
   init: Backbone.View.extend
