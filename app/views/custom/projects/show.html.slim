@@ -56,7 +56,7 @@
               = t('.status-bar.total_backers', value: @project.total_backers)
             - if @project.total_backers > 0
               small
-                = link_to t('.status-bar.see_all_backers'), '#'
+                = link_to t('.status-bar.see_all_backers'), project_backers_path(@project)
           .large-3.columns.time-remaining
             p
               i.icon-et-clock
