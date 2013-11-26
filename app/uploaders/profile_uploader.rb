@@ -3,7 +3,7 @@
 class ProfileUploader < ImageUploader
 
   version :curator_thumb do
-    process resize_to_fill: [195,120]
+    process resize_to_fill: [218, 123]
     process convert: :png
   end
 
