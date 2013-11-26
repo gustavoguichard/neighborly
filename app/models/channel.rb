@@ -12,7 +12,7 @@ class Channel < ActiveRecord::Base
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340
 
-  delegate :display_facebook, :display_twitter, :display_website, :image_url, to: :decorator
+  delegate :display_facebook, :display_twitter, :display_website, :image_url, :display_video_embed_url, to: :decorator
   mount_uploader :image, ProfileUploader
 
   scope :by_permalink, ->(p) { where("lower(channels.permalink) = lower(?)", p) }
@@ -27,6 +27,10 @@ class Channel < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def video
+    @video ||= VideoInfo.get(self.video_url) if self.video_url.present?
   end
 
   # Links to channels should be their permalink
