@@ -2,7 +2,7 @@
 class ProjectsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  load_and_authorize_resource only: [ :new, :create, :update, :send_to_analysis ]
+  load_and_authorize_resource only: [ :new, :create, :edit, :update, :send_to_analysis ]
   inherit_resources
   actions :new, :create, :edit, :update
   defaults finder: :find_by_permalink!
