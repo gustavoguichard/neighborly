@@ -62,12 +62,8 @@ class Ability
       current_user.persisted?
     end
 
-    can [:update, :credits, :manage, :update_password, :update_email], :users  do |user|
-      current_user == user
-    end
-
-    can :update, :users, :admin do |user|
-      current_user.admin
+    can [:edit, :update, :credits, :manage, :update_password, :update_email, :settings], :users  do |user|
+      current_user == user || current_user.admin?
     end
 
     # NOTE: Backer authorizations

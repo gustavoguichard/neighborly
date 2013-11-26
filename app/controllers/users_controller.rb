@@ -1,9 +1,8 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  load_and_authorize_resource new: [ :set_email ], except: [ :projects ]
+  load_and_authorize_resource new: [ :set_email ]
   inherit_resources
-  actions :show, :edit, :update, :unsubscribe_update, :request_refund, :set_email, :update_email
-  respond_to :json, only: [:backs, :projects, :request_refund]
+  actions :show, :edit, :update, :unsubscribe_update, :set_email, :update_email
   respond_to :html, :json
 
   def show
@@ -17,18 +16,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    unless can?(:manage, @user)
-      redirect_to @user
-      return
-    end
     render :profile if request.xhr?
   end
 
   def settings
-    unless can?(:manage, @user)
-      redirect_to @user
-      return
-    end
     @title = "Settings: #{@user.display_name}"
     @user = User.find params[:id]
   end
