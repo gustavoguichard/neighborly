@@ -11,11 +11,13 @@ Neighborly.Projects.Updates.Index =
     onCreate: (e, data) ->
       this.$('.new_update').trigger('reset')
       @$results.prepend data
+      this.parseXFBML()
 
     onDestroy: (e)->
       $(e.currentTarget).remove()
 
     initialize: ->
+      _.bindAll(this, 'parseXFBML')
       this.$loader = this.$('.updates-loading img')
       this.$loaderDiv = this.$('.updates-loading')
       this.$results = this.$('.list')
