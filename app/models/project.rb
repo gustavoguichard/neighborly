@@ -118,11 +118,11 @@ class Project < ActiveRecord::Base
     where("EXISTS (SELECT true FROM channels_projects cp WHERE cp.project_id = projects.id AND cp.channel_id = ?)", channels)
   }
 
-  attr_accessor :accepted_terms, :address
+  scope :with_backers_confirmed_today, -> {
+    joins(:backers).merge(Backer.confirmed_today).uniq
+  }
 
-  #def to_param
-    #self.id
-  #end
+  attr_accessor :accepted_terms, :address
 
   validates_acceptance_of :accepted_terms, on: :create
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
