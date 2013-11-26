@@ -7,18 +7,18 @@
         = content_tag(:iframe, nil, src: @profile.video_url, width: '540', height: '300')
       .large-5.columns
         h2.title = @profile.name
-        p.description = truncate(@profile.description, length: 210)
+        p.description = truncate(@profile.description, length: 320)
         .row
-          - if resource.has_subscriber?(current_user)
-            .large-6.columns
-              = link_to t('.unfollow'), channels_subscriber_path, { method: :delete, class: [:button] }
-          - else
-            .large-6.columns
-              = link_to t('.follow'), channels_subscriber_path, class: [:button]
           .large-6.columns
             = link_to t('.submit'), start_path, class: [:button]
+          - if resource.has_subscriber?(current_user)
+            .large-6.columns
+              = link_to t('.unfollow'), channels_subscriber_path, method: :delete, class: [:button, :secondary]
+          - else
+            .large-6.columns
+              = link_to t('.follow'), channels_subscriber_path, class: [:button, :success]
 
-    .row.more
+    .row.more.hide
       .large-6.small-4.columns
         | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
       .large-6.small-8.columns
@@ -30,7 +30,12 @@
           - if @profile.twitter.present?
             li = link_to @profile.display_twitter, @profile.twitter, class: [:"icon-twitter"], target: :blank
 
-  section.projects
-    .row
-      - @profile.projects.visible.each do |project|
-        = render partial: 'projects/project', locals: { project: project }
+  - if @projects.any?
+    section.projects
+      .row
+        h3 
+          i.icon-et-home
+          = t('.our_projects')
+        .row
+          - @projects.each do |project|
+            = render partial: 'projects/project', locals: { project: project }
