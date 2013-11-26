@@ -3,10 +3,10 @@
     = update.title
   .created-at = t('.created_at', time: l(update.created_at.to_date, format: :long))
   .comment = raw(update.comment_html)
-  .social-share
+  .social-share.row
     - url = project_updates_url(@project, anchor: update.id)
-    .twitter = render_twitter text: "#{update.title} #{url}", url: url
-    .facebook = render_facebook_like href: url, width: '360'
+    .large-6.columns.facebook= render_facebook_like href: url, width: '360'
+    .large-6.columns.twitter = render_twitter text: "#{update.title} #{url}", url: url
   - if can? :manage, update
     = link_to t('.destroy'), project_update_path(project_id: @project, id: update.id), confirm: t('words.confirm'), method: :delete, remote: true, class: 'destroy button secondary small'
     .deleting-update.hide = image_tag "loading.gif"
