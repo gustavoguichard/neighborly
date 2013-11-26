@@ -137,7 +137,7 @@ describe ProjectDecorator do
     context 'source has a Vimeo video' do
       let(:project) { create(:project, video_url: 'http://vimeo.com/17298435') }
 
-      it { should == 'http://player.vimeo.com/video/17298435?title=0&byline=0&portrait=0&autoplay=0' }
+      it { should == 'http://player.vimeo.com/video/17298435?title=0&byline=0&portrait=0&autoplay=0&color=ffffff&badge=0&modestbranding=1&showinfo=0&border=0&controls=2' }
     end
 
     # In catarse.me we accept only vimeo videos, but feel free to uncomment this in your fork
