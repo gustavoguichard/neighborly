@@ -8,7 +8,7 @@ class Channels::Admin::ProjectsController < Admin::BaseController
 
   [:approve, :reject, :push_to_draft].each do |name|
     define_method name do
-      @project    = channel.projects.find(params[:id])
+      @project    = channel.projects.find_by_permalink!(params[:id])
       @project.send("#{name.to_s}!")
       redirect_to :back
     end
