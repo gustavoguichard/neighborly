@@ -165,7 +165,7 @@ describe ProjectDecorator do
         project.reload
       end
 
-      it { should == '//player.vimeo.com/video/17298435?title=0&byline=0&portrait=0&autoplay=0' }
+      it { should == '//player.vimeo.com/video/17298435?title=0&byline=0&portrait=0&autoplay=0&color=ffffff&badge=0&modestbranding=1&showinfo=0&border=0&controls=2' }
     end
 
     context 'source has an Youtube video' do
@@ -175,7 +175,7 @@ describe ProjectDecorator do
         project.reload
       end
 
-      it { should == '//www.youtube.com/embed/Brw7bzU_t4c?title=0&byline=0&portrait=0&autoplay=0' }
+      it { should == '//www.youtube.com/embed/Brw7bzU_t4c?title=0&byline=0&portrait=0&autoplay=0&color=ffffff&badge=0&modestbranding=1&showinfo=0&border=0&controls=2' }
     end
 
     context 'source does not have a video' do
