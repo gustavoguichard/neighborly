@@ -63,8 +63,6 @@ gem 'formtastic',   '~> 2.2.1' # WILL BE REMOVED
 gem 'simple_form', '~> 3.0.0'
 gem 'auto_html', github: 'dejan/auto_html'
 gem 'kaminari'
-#TODO: Take a look on dependencies. Why not auto_html?
-gem 'rails_autolink', '~> 1.1.0'
 
 # Uploads
 gem 'carrierwave', '~> 0.8.0'
