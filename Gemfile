@@ -23,7 +23,7 @@ gem 'pg_search'
 
 gem 'schema_plus'
 gem 'schema_associations'
-gem 'chartkick', '1.1.0'
+gem 'chartkick', '1.2.0'
 
 # Payment engines
 gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '75c05a0b9783de4f855bfab97458b66018fe99ec'
@@ -103,7 +103,7 @@ group :production do
   gem 'rails_12factor'
 
   # Monitoring with the new new relic
-  gem 'newrelic_rpm', '3.6.5.130'
+  gem 'newrelic_rpm', '3.6.9.171'
 
   # Using dalli and memcachier have not presented significative performance gains
   # Probably this is due to our pattern of cache usage
