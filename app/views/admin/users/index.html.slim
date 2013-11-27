@@ -1,5 +1,7 @@
-#page_content.admin
-  .container
+- content_tag :title, t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
     .title
       h1= @title = t('.title')
     .filters
