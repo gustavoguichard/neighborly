@@ -7,7 +7,7 @@ gem 'rails',    '4.0.1'
 gem 'protected_attributes', '~> 1.0.5' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
 
-gem 'sidekiq',  '~> 2.15.2'
+gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # Turns every field on a editable one
@@ -35,7 +35,7 @@ gem "authorize-net", "~> 1.5.2"
 gem 'draper'
 
 # Frontend stuff
-gem 'slim-rails', '~> 1.1.1'
+gem 'slim-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'browser'
 
@@ -65,15 +65,14 @@ gem 'auto_html', github: 'dejan/auto_html'
 gem 'kaminari'
 
 # Uploads
-gem 'carrierwave', '~> 0.8.0'
+gem 'carrierwave', '~> 0.9.0'
 gem 'rmagick'
-gem 'dropzonejs-rails'
+gem 'dropzonejs-rails', '~> 0.4.10'
 
 # Other Tools
 gem 'has_permalink'
 gem 'to_xls'
 gem 'ranked-model'
-gem 'feedzirra'
 gem 'inherited_resources',        '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
