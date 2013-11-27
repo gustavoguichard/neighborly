@@ -53,7 +53,6 @@
               - unless project.expired?
                 = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
               - else
-                span[title=t("project.display_status.#{project.display_status}").capitalize]
-                  = project.display_expires_at
+                = t('.completed')
           .progress.round
             span.meter[style="width: #{project.display_progress}%"]
