@@ -22,5 +22,5 @@
   - if resource.persisted? && can?(:destroy, resource)
     span.or = t('words.or')
     = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do
-      i.icon-trash.icon-white
+      i.icon-et-trash.icon-white
       = t('words.delete')

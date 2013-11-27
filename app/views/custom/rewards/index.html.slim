@@ -4,7 +4,7 @@
       = t('.reward_title', minimum: reward.display_minimum).html_safe
       - if can?(:update, reward)
         = link_to edit_project_reward_path(@project, reward), data: { element: ".edit-#{reward.id}-reward-form", path: edit_project_reward_path(@project, reward) }, class: 'edit' do
-          i.icon-pencil
+          i.icon-et-pencil
 
     div[class="edit-#{reward.id}-reward-form"]
       .loading.hide
