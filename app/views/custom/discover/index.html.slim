@@ -3,7 +3,7 @@
 - content_for :page_content do
   .row
     - if @projects.any?
-      = render @projects
+      .row = render @projects
     - else
       p = t('.empty')
 
