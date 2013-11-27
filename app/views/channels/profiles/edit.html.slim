@@ -1,21 +1,41 @@
-= render 'shared/header_channel'
 = content_for :title, @profile.name
 
-section.row
-  = simple_form_for @profile, as: 'profile', url: '/profile', html: { method: 'patch' }, class: 'channel-edit' do |form|
-    = form.input :name, as: :string
-    = form.input :description, as: :text
-    = form.input :image, as: :file
-    - if @profile.image.present?
-      p= image_tag(@profile.image.curator_thumb.url)
+.edit-channel-page
+  section.row
+    h2 = @title = t('.title', channel_name: @profile.name)
+    = simple_form_for @profile, as: 'profile', url: '/profile', html: { method: 'patch' }, class: 'channel-edit' do |form|
+      = form.input :name, as: :string
+      .row
+        .large-9.columns
+          = form.input :description, as: :text
+        .large-3.columns
+          = form.input :image, as: :file
+          - if @profile.image.present?
+            p= image_tag(@profile.image.curator_thumb.url)
+      = form.input :video_url, as: :string
+      .row
+        .large-4.columns
+          .row.collapse
+            .small-3.large-2.columns
+              span class="prefix"
+                i.icon-et-facebook
+            .small-9.large-10.columns
+              = form.input :facebook, input_html: { class: "with-prefix" }, label: false, as: :string
+        .large-4.columns
+          .row.collapse
+            .small-3.large-2.columns
+              span class="prefix"
+                i.icon-et-twitter
+            .small-9.large-10.columns
+              = form.input :twitter, input_html: { class: "with-prefix" }, label: false, as: :string
+        .large-4.columns
+          .row.collapse
+            .small-3.large-2.columns
+              span class="prefix"
+                i.icon-et-globe
+            .small-9.large-10.columns
+              = form.input :website, input_html: { class: "with-prefix" }, label: false, as: :string
 
-    = form.input :video_url, as: :string
-    = form.input :twitter, as: :string
-    = form.input :facebook, as: :string
-    = form.input :website, as: :string
-    = form.input :how_it_works, as: :text, input_html: {rows: 20}
-    .large-2.columns.large-centered
-      = form.button :submit, t('channels.edit'), class: 'button action'
-    .clearfix
+      = form.input :how_it_works, as: :text, input_html: {rows: 20}
+      = form.button :submit, t('.submit'), class: 'button', disable_with: t('words.sending')
 
-= render 'shared/footer_channel'

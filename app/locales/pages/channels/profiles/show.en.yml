@@ -1,0 +1,8 @@
+en:
+  channels:
+    profiles:
+      show:
+        unfollow: 'Unfollow'
+        follow: 'Follow Us'
+        submit: 'Submit Project'
+        our_projects: 'Our Projects'

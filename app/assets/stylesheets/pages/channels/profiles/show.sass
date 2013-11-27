@@ -1,0 +1,22 @@
+.channel-page
+  .header
+    @extend .white
+    padding: +emCalc(25px, 0)
+
+    .button
+      width: 100%
+
+  section.projects
+    padding-top: +emCalc(25px)
+
+    [class*="column"]:last-child
+      float: left
+    h3
+      text-transform: uppercase
+      color: $secondary-font-color
+      font-weight: 300
+      margin-bottom: +emCalc(10px)
+      i
+        padding-right: +emCalc(5px)
+      a
+        color: $secondary-font-color

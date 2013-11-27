@@ -20,6 +20,10 @@ en:
         other_link: 'www.'
         linkedin_url: 'linkedin.com/in/'
         twitter: '@'
+      profile:
+        facebook: 'http://facebook.com/'
+        twitter: 'http://twitter.com/'
+        website: 'http://www.'
     labels:
       user:
         bio: 'Short Bio'

@@ -17,6 +17,11 @@ class ChannelDecorator < Draper::Decorator
     source.website.gsub(/https?:\/\//i, '')
   end
 
+  def display_video_embed_url
+    video_embed_url = source.video.embed_url rescue nil
+    "//#{video_embed_url}?title=0&byline=0&portrait=0&autoplay=0&color=ffffff&badge=0&modestbranding=1&showinfo=0&border=0&controls=2".gsub('http://', '') if video_embed_url
+  end
+
   private
   def last_fragment(uri)
     uri.split("/").last

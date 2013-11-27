@@ -1,4 +1,4 @@
-= render 'shared/header_channel'
+/= render 'shared/header_channel'
 
 .row.admin-projects
   h1
@@ -59,7 +59,7 @@
       tbody
         - @projects.includes(:category).each do |project|
           tr id=project.id class=cycle("even", "odd")
-            td.large-2.columns= link_to project.name, project_by_slug_path(permalink: project.permalink)
+            td.large-2.columns= link_to project.name, project_path(project)
             td.large-1.columns= project.category
             td.large-1.columns= best_in_place [:channels, :admin, project], :user_id, method: :put, type: :input
             td.large-1.columns= best_in_place [:channels, :admin, project], :goal, method: :put, type: :input, display_as: :display_goal
@@ -101,4 +101,4 @@
 
   = paginate @projects
 
-= render 'shared/footer_channel'
+/= render 'shared/footer_channel'

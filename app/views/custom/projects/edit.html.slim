@@ -24,7 +24,7 @@
         = form.input :tag_list, as: :string
 
       .section-header #2. Project Location
-      - if can? :update, @project, :address_city
+      - if can? :update, @project, :address
         .address
           .address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png')]
           = form.input :address, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
@@ -61,7 +61,7 @@
       - if can? :update, @project, :terms
         = form.input :terms
 
-      = form.button :submit
+      = form.button :submit, disable_with: t('words.sending')
 
 
 - if request.xhr?

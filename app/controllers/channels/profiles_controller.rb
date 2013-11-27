@@ -9,6 +9,10 @@ class Channels::ProfilesController < Channels::BaseController
     authorize!(params[:action], resource)
   end
 
+  def show
+    @projects = resource.projects.visible
+  end
+
   def resource
     @profile ||= channel
   end
