@@ -1,70 +1,128 @@
 class ProjectObserver < ActiveRecord::Observer
   observe :project
 
-  def after_validation(project)
+  def after_save(project)
     if project.video_url.present? && project.video_url_changed?
-      project.download_video_thumbnail
-      project.update_video_embed_url
+      ProjectDownloaderWorker.perform_async(project.id)
     end
   end
 
   def after_create(project)
+    deliver_default_notification_for(project, :project_received)
+  end
+
+  def from_draft_to_in_analysis(project)
     if (user = project.new_draft_recipient)
-      Notification.create_notification_once(project.new_draft_project_notification_type,
-                                            user,
-                                            {project_id: project.id},
-                                            {project: project, project_name: project.name, from: project.user.email, display_name: project.user.display_name}
-                                           )
+      Notification.notify_once(
+        project.notification_type(:new_draft_project),
+        user,
+        {project_id: project.id, channel_id: project.last_channel.try(:id)},
+        {
+          project: project,
+          channel: project.last_channel,
+          origin_email: project.user.email,
+          origin_name: project.user.display_name
+        }
+      )
     end
 
-    Notification.create_notification_once(project.new_project_received_notification_type,
-                                          project.user,
-                                          {project_id: project.id},
-                                          {project: project, project_name: project.name})
+    deliver_default_notification_for(project, :in_analysis_project)
+
+    project.update_attributes({ sent_to_analysis_at: DateTime.now })
   end
 
-  def notify_owner_that_project_is_waiting_funds(project)
-    Notification.create_notification_once(:project_in_wainting_funds,
+  def from_online_to_waiting_funds(project)
+    Notification.notify_once(
+      :project_in_wainting_funds,
       project.user,
       {project_id: project.id},
-      project: project)
+      {
+        project: project,
+        origin_email: Configuration[:email_projects]
+      }
+    )
   end
 
-  def notify_owner_that_project_is_successful(project)
-    Notification.create_notification_once(:project_success,
+  def from_waiting_funds_to_successful(project)
+    Notification.notify_once(
+      :project_success,
       project.user,
       {project_id: project.id},
-      project: project)
+      {
+        project: project,
+        origin_email: Configuration[:email_projects]
+      }
+    )
+    notify_admin_that_project_reached_deadline(project)
+    notify_users(project)
   end
 
   def notify_admin_that_project_reached_deadline(project)
     if (user = User.where(email: ::Configuration[:email_payments]).first)
-      Notification.create_notification_once(:adm_project_deadline,
+      Notification.notify_once(
+        :adm_project_deadline,
         user,
         {project_id: project.id},
         project: project,
-        from: ::Configuration[:email_system],
-        project_name: project.name)
+        origin_email: Configuration[:email_system],
+        project: project
+      )
     end
   end
 
-  def notify_owner_that_project_is_rejected(project)
-    Notification.create_notification_once(:project_rejected,
-      project.user,
-      {project_id: project.id},
-      project: project)
+  def from_in_analysis_to_rejected(project)
+    deliver_default_notification_for(project, :project_rejected)
   end
 
-  def notify_owner_that_project_is_online(project)
-    Notification.create_notification_once(:project_visible,
+  def from_draft_to_rejected(project)
+    deliver_default_notification_for(project, :project_rejected)
+  end
+
+
+  def from_in_analysis_to_online(project)
+    deliver_default_notification_for(project, :project_visible)
+    project.update_attributes({ online_date: DateTime.now })
+  end
+
+  def from_draft_to_online(project)
+    from_in_analysis_to_online(project)
+  end
+
+  def from_soon_to_online(project)
+    from_in_analysis_to_online(project)
+  end
+
+  def from_online_to_failed(project)
+    notify_users(project)
+
+    project.backers.with_state('waiting_confirmation').each do |backer|
+      Notification.notify_once(
+        :pending_backer_project_unsuccessful,
+        backer.user,
+        {backer_id: backer.id},
+        {backer: backer, project: project }
+      )
+    end
+
+    Notification.notify_once(
+      :project_unsuccessful,
       project.user,
-      {project_id: project.id},
-      project: project)
+      {project_id: project.id, user_id: project.user.id},
+      {
+        project: project,
+        origin_email: Configuration[:email_projects]
+      }
+    )
+  end
+
+  def from_waiting_funds_to_failed(project)
+    from_online_to_failed(project)
+    notify_admin_that_project_reached_deadline(project)
   end
 
   def notify_users_that_a_new_project_is_online(project)
     User.where(new_project: true).each do |user|
-      Notification.create_notification_once(:new_project_visible,
+      Notification.notify_once(:new_project_visible,
         user,
         {project_id: project.id, user_id: user.id},
         project: project)
@@ -74,32 +132,16 @@ class ProjectObserver < ActiveRecord::Observer
   def notify_users(project)
     project.backers.with_state('confirmed').each do |backer|
       unless backer.notified_finish
-        Notification.create_notification_once(
+        Notification.notify_once(
           (project.successful? ? :backer_project_successful : :backer_project_unsuccessful),
           backer.user,
           {backer_id: backer.id},
           backer: backer,
           project: project,
-          project_name: project.name)
+        )
         backer.update_attributes({ notified_finish: true })
       end
     end
-
-    if project.failed?
-      project.backers.with_state('waiting_confirmation').each do |backer|
-        Notification.create_notification_once(
-          :pending_backer_project_unsuccessful,
-          backer.user,
-          {backer_id: backer.id},
-          {backer: backer, project: project, project_name: project.name })
-      end
-    end
-
-    Notification.create_notification_once(:project_unsuccessful,
-      project.user,
-      {project_id: project.id, user_id: project.user.id},
-      project: project) unless project.successful?
-
   end
 
   def sync_with_mailchimp(project)
@@ -119,4 +161,20 @@ class ProjectObserver < ActiveRecord::Observer
     end
   end
 
+  private
+
+  def deliver_default_notification_for(project, notification_type)
+    Notification.notify_once(
+      project.notification_type(notification_type),
+      project.user,
+      {project_id: project.id, channel_id: project.last_channel.try(:id)},
+      {
+        project: project,
+        channel: project.last_channel,
+        origin_email: project.last_channel.try(:email) || Configuration[:email_projects],
+        origin_name: project.last_channel.try(:name) || Configuration[:company_name]
+      }
+    )
+    notify_users_that_a_new_project_is_online(project)
+  end
 end

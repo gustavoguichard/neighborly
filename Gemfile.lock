@@ -87,11 +87,11 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.0.0)
-      actionpack (= 4.0.0)
-      mail (~> 2.5.3)
-    actionpack (4.0.0)
-      activesupport (= 4.0.0)
+    actionmailer (4.0.1)
+      actionpack (= 4.0.1)
+      mail (~> 2.5.4)
+    actionpack (4.0.1)
+      activesupport (= 4.0.1)
       builder (~> 3.1.0)
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
@@ -107,16 +107,16 @@ GEM
       json (~> 1.7)
       money (< 7.0.0)
       nokogiri (~> 1.4)
-    activemodel (4.0.0)
-      activesupport (= 4.0.0)
+    activemodel (4.0.1)
+      activesupport (= 4.0.1)
       builder (~> 3.1.0)
-    activerecord (4.0.0)
-      activemodel (= 4.0.0)
+    activerecord (4.0.1)
+      activemodel (= 4.0.1)
       activerecord-deprecated_finders (~> 1.0.2)
-      activesupport (= 4.0.0)
+      activesupport (= 4.0.1)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
-    activesupport (4.0.0)
+    activesupport (4.0.1)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
       multi_json (~> 1.3)
@@ -203,6 +203,7 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
+    fakeweb (1.3.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     feedzirra (0.2.2)
@@ -236,7 +237,9 @@ GEM
     hashie (2.0.5)
     heroku-deflater (0.5.2)
       rack (>= 1.4.5)
+    high_voltage (2.0.0)
     hike (1.2.3)
+    htmlentities (4.3.1)
     httparty (0.12.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -268,14 +271,13 @@ GEM
     lockfile (2.1.0)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mailchimp (0.0.9)
       httparty
     method_source (0.8.2)
-    mime-types (1.25)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
     money (6.0.0)
@@ -334,8 +336,8 @@ GEM
       pg
       rails (~> 4.0)
       responders
-    protected_attributes (1.0.3)
-      activemodel (>= 4.0.0, < 5.0)
+    protected_attributes (1.0.5)
+      activemodel (>= 4.0.1, < 5.0)
     pry (0.9.12.3)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -345,13 +347,13 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.0.0)
-      actionmailer (= 4.0.0)
-      actionpack (= 4.0.0)
-      activerecord (= 4.0.0)
-      activesupport (= 4.0.0)
+    rails (4.0.1)
+      actionmailer (= 4.0.1)
+      actionpack (= 4.0.1)
+      activerecord (= 4.0.1)
+      activesupport (= 4.0.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.0.0)
+      railties (= 4.0.1)
       sprockets-rails (~> 2.0.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
@@ -362,9 +364,9 @@ GEM
       rails (> 3.1)
     rails_serve_static_assets (0.0.1)
     rails_stdout_logging (0.0.3)
-    railties (4.0.0)
-      actionpack (= 4.0.0)
-      activesupport (= 4.0.0)
+    railties (4.0.1)
+      actionpack (= 4.0.1)
+      activesupport (= 4.0.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
@@ -394,6 +396,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
+    ruby-ole (1.2.11.7)
     rubyzip (0.9.9)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -418,12 +421,12 @@ GEM
     shoulda-context (1.1.6)
     shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
-    sidekiq (2.13.1)
-      celluloid (>= 0.14.1)
+    sidekiq (2.15.2)
+      celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
-      redis (>= 3.0)
-      redis-namespace
+      redis (>= 3.0.4)
+      redis-namespace (>= 1.3.1)
     simple_form (3.0.0)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -448,7 +451,9 @@ GEM
     slop (3.4.7)
     spectator-validates_email (0.2.0)
       activemodel (>= 3.0.0)
-    sprockets (2.10.0)
+    spreadsheet (0.9.5)
+      ruby-ole (>= 1.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -473,6 +478,8 @@ GEM
     tilt (1.4.1)
     timers (1.1.0)
     tins (0.13.1)
+    to_xls (1.5.2)
+      spreadsheet
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -490,8 +497,9 @@ GEM
       rack
       raindrops (~> 0.7)
     valuable (0.9.8)
-    video_info (1.4.0)
+    video_info (2.0.2)
       addressable
+      htmlentities
       multi_json
     warden (1.2.3)
       rack (>= 1.0)
@@ -531,6 +539,7 @@ DEPENDENCIES
   enumerate_it
   ezcrypto
   factory_girl_rails
+  fakeweb
   feedzirra
   fog (>= 1.3.1)
   font-awesome-rails (= 3.2.1.1)
@@ -541,6 +550,7 @@ DEPENDENCIES
   has_permalink
   has_scope (~> 0.6.0.rc)
   heroku-deflater (>= 0.4.1)
+  high_voltage
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
   initjs!
@@ -549,7 +559,6 @@ DEPENDENCIES
   kaminari
   launchy
   letter_opener
-  mail (= 2.5.3)
   newrelic_rpm (= 3.6.5.130)
   omniauth
   omniauth-facebook (= 1.5.1)
@@ -562,9 +571,9 @@ DEPENDENCIES
   pludoni-simple_captcha!
   poltergeist
   postgres-copy
-  protected_attributes (~> 1.0.3)
+  protected_attributes (~> 1.0.5)
   pry
-  rails (= 4.0.0)
+  rails (= 4.0.1)
   rails-observers (~> 0.1.2)
   rails_12factor
   rails_autolink (~> 1.1.0)
@@ -576,17 +585,18 @@ DEPENDENCIES
   schema_plus
   selenium-webdriver (~> 2.35.1)
   shoulda
-  sidekiq (~> 2.13.0)
+  sidekiq (~> 2.15.2)
   simple_form (~> 3.0.0)
   sinatra (~> 1.4.3)
   slim-rails (~> 1.1.1)
   spectator-validates_email
   state_machine
   thin
+  to_xls
   turbolinks
   uglifier
   unf
   unicorn
-  video_info (~> 1.4.0)
+  video_info (~> 2.0.2)
   weekdays
   zurb-foundation (~> 4.3.2)

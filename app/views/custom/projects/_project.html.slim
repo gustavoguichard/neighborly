@@ -50,7 +50,7 @@
             .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"
             .time.project.large-6.columns
               i.icon-et-clock
-              - if project.in_time?
+              - unless project.expired?
                 = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
               - else
                 span[title=t("project.display_status.#{project.display_status}").capitalize]

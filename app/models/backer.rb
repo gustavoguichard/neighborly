@@ -1,16 +1,15 @@
-require 'state_machine'
 # coding: utf-8
 class Backer < ActiveRecord::Base
   schema_associations
+
+  include Shared::StateMachineHelpers
+  include Backer::StateMachineHandler
+  include Backer::CustomValidators
 
   delegate :display_value, :display_confirmed_at, to: :decorator
 
   validates_presence_of :project, :user, :value
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
-  validate :reward_must_be_from_project
-  validate :value_must_be_at_least_rewards_value
-  validate :should_not_back_if_maximum_backers_been_reached, on: :create
-  validate :project_should_be_online, on: :create
 
   scope :available_to_count, ->{ with_states(['confirmed', 'requested_refund', 'refunded']) }
   scope :available_to_display, ->{ with_states(['confirmed', 'requested_refund', 'refunded', 'waiting_confirmation']) }
@@ -24,53 +23,18 @@ class Backer < ActiveRecord::Base
   scope :anonymous, -> { where(anonymous: true) }
   scope :credits, -> { where(credits: true) }
   scope :not_anonymous, -> { where(anonymous: false) }
+  scope :confirmed_today, -> { with_state('confirmed').where("backers.confirmed_at::date = current_timestamp::date ") }
 
-  scope :can_cancel, -> {
-    where(%Q{
-      backers.state = 'waiting_confirmation' and
-        (
-          ((
-            select count(1) as total_of_days
-            from generate_series(created_at::date, current_date, '1 day') day
-            WHERE extract(dow from day) not in (0,1)
-          )  > 4)
-          OR
-          (
-            payment_choice = 'DebitoBancario'
-            AND
-              (
-                select count(1) as total_of_days
-                from generate_series(created_at::date, current_date, '1 day') day
-                WHERE extract(dow from day) not in (0,1)
-              )  > 1)
-        )
-    })
-  }
+  scope :can_cancel, -> { where("backers.can_cancel") }
 
   # Backers already refunded or with requested_refund should appear so that the user can see their status on the refunds list
-  scope :can_refund, ->{
-    where(%Q{
-      backers.state IN('confirmed', 'requested_refund', 'refunded') AND
-      NOT backers.credits AND
-      EXISTS(
-        SELECT true
-          FROM projects p
-          WHERE p.id = backers.project_id and p.state = 'failed'
-      )
-    })
-  }
+  scope :can_refund, ->{ where("backers.can_refund") }
 
-  attr_protected :state
+  attr_protected :state, :user_id
 
   def self.between_values(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("value between ? and ?", start_at, ends_at)
-  end
-
-  def self.state_names
-    self.state_machine.states.map do |state|
-      state.name if state.name != :deleted
-    end.compact!
   end
 
   def decorator
@@ -109,27 +73,7 @@ class Backer < ActiveRecord::Base
   end
 
   def can_refund?
-    confirmed? && project.finished? && !project.successful?
-  end
-
-  def reward_must_be_from_project
-    return unless reward
-    errors.add(:reward, I18n.t('backer.reward_must_be_from_project')) unless reward.project == project
-  end
-
-  def value_must_be_at_least_rewards_value
-    return unless reward
-    errors.add(:value, I18n.t('backer.value_must_be_at_least_rewards_value', minimum_value: reward.display_minimum)) unless value.to_f >= reward.minimum_value
-  end
-
-  def should_not_back_if_maximum_backers_been_reached
-    return unless reward && reward.maximum_backers && reward.maximum_backers > 0
-    errors.add(:reward, I18n.t('backer.should_not_back_if_maximum_backers_been_reached')) if reward.sold_out?
-  end
-
-  def project_should_be_online
-    return if project && project.online?
-    errors.add(:project, I18n.t('backer.project_should_be_online'))
+    confirmed? && project.failed?
   end
 
   def available_rewards
@@ -158,62 +102,6 @@ class Backer < ActiveRecord::Base
       phone_number: address_phone_number,
       cpf: payer_document
     })
-  end
-
-  state_machine :state, initial: :pending do
-    state :pending, value: 'pending'
-    state :waiting_confirmation, value: 'waiting_confirmation'
-    state :confirmed, value: 'confirmed'
-    state :canceled, value: 'canceled'
-    state :refunded, value: 'refunded'
-    state :requested_refund, value: 'requested_refund'
-    state :refunded_and_canceled, value: 'refunded_and_canceled'
-    state :deleted, value: 'deleted'
-
-    event :push_to_trash do
-      transition all => :deleted
-    end
-
-    event :pendent do
-      transition all => :pending
-    end
-
-    event :waiting do
-      transition pending: :waiting_confirmation
-    end
-
-    event :confirm do
-      transition all => :confirmed
-    end
-
-    event :cancel do
-      transition all => :canceled
-    end
-
-    event :request_refund do
-      transition confirmed: :requested_refund, if: ->(backer){
-        backer.user.credits >= backer.value && !backer.credits
-      }
-    end
-
-    event :refund do
-      transition [:requested_refund, :confirmed] => :refunded
-    end
-
-    event :hide do
-      transition all => :refunded_and_canceled
-    end
-
-    after_transition confirmed: :requested_refund, do: :after_transition_from_confirmed_to_requested_refund
-    after_transition confirmed: :canceled, do: :after_transition_from_confirmed_to_canceled
-  end
-
-  def after_transition_from_confirmed_to_canceled
-    notify_observers :notify_backoffice_about_canceled
-  end
-
-  def after_transition_from_confirmed_to_requested_refund
-    notify_observers :notify_backoffice
   end
 
   # Used in payment engines

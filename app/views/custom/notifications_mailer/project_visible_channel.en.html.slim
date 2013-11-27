@@ -1,0 +1,59 @@
+- project = @notification.project
+|Great news, #{project.user.display_name}.
+br
+br
+|Your project is now live on Neighbor.ly. Now the fun begins! 
+br
+|Here's the link to begin sharing with your networks:
+br
+br
+= link_to(project.name, project_url(project))
+br
+br
+strong Here are some tips for you, to make the most of your campaign:
+ol
+  li 
+    |Engage early, engage often. There are four main ways to do so:
+    br
+    br
+    strong Updates
+    br
+    | Use the Updates tab on your project to notify all contributors of of your project. Research shows that projects that make frequent (up to once per week) updates tend to meet the goal faster and more often than projects that do not make regular updates.
+    br
+    br
+    strong Comments
+    br
+    | Follow along with the comments on your project regularly, and engage with commentators. Expect questions, ideas, advice, and links to other web pages in this section.
+    br
+    br
+    strong Embeds
+    br
+    | You have two primary embed widgets. Just click embed, choose the right style for your target, then copy & paste the code for that widget into almost any web page. This is especially helpful for blog posts, articles written about your campaign, and for corporate sponsor websites.
+    br
+    br
+    strong Social Media Shares
+    br
+    | The social buttons beneath your campaign video allow you and others to easily share your campaign on Facebook and Twitter. But don't stop there! You can write any tweet or post any message you want, then just copy your campaign url into it to drive traffic. This is a great way to allow for posting diversity in social media, which will allow you to post more frequently without repitition. And you should line up fans and supporters to do the same. 
+    br
+    br
+  li
+    |You can also edit some aspects of your project:
+    ul
+      li Update the campaign video
+      li Edit the primary description
+      li Create new rewards
+      li Set or modify the limit on existing rewards
+      li Edit rewards not yet chosen by contributors
+      li Edit the project thumbnail, tagline, and other related contextual information
+      li 
+        |You may not:
+        ul
+          li Change the length of the campaign
+          li Change the total goal of the campaign
+          li Edit a reward once a contributor has selected it
+      li Please note: to perform any edit actions, you must be logged into the Neighbor.ly account you used to create the project.
+    li We love to help you represent your project through social media to the fullest extent we're able to. If you would like help promoting your campaign, please email your ideas for how we can help to #{mail_to Configuration[:email_contact]}. But please note that the success of your campaign remains squarely in your hands, and is determined by your willingness to drive the campaign's engagement and your ability to connect with believers who care about your project. 
+br
+|Many thanks, and best of luck to you!
+br
+|The #{Configuration[:company_name]} Team

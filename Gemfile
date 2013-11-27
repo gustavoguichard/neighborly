@@ -2,13 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails',    '4.0.0'
-gem 'mail',     '2.5.3'
+gem 'rails',    '4.0.1'
 
-gem 'protected_attributes', '~> 1.0.3' # When upgrade to strong_parameters, remove this gem.
+gem 'protected_attributes', '~> 1.0.5' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
 
-gem 'sidekiq',  '~> 2.13.0'
+gem 'sidekiq',  '~> 2.15.2'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # Turns every field on a editable one
@@ -40,6 +39,9 @@ gem 'slim-rails', '~> 1.1.1'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'browser'
 
+# Static pages
+gem 'high_voltage'
+
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
@@ -61,6 +63,8 @@ gem 'formtastic',   '~> 2.2.1' # WILL BE REMOVED
 gem 'simple_form', '~> 3.0.0'
 gem 'auto_html', github: 'dejan/auto_html'
 gem 'kaminari'
+#TODO: Take a look on dependencies. Why not auto_html?
+gem 'rails_autolink', '~> 1.1.0'
 
 # Uploads
 gem 'carrierwave', '~> 0.8.0'
@@ -69,12 +73,13 @@ gem 'dropzonejs-rails'
 
 # Other Tools
 gem 'has_permalink'
+gem 'to_xls'
 gem 'ranked-model'
 gem 'feedzirra'
 gem 'inherited_resources',        '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
-gem 'video_info', '~> 1.4.0'
+gem 'video_info', '~> 2.0.2'
 gem 'enumerate_it'
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
@@ -125,6 +130,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'fakeweb'
   gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
@@ -149,6 +155,3 @@ gem 'initjs', github: 'josemarluedke/initjs', ref: '03db7eada95779edbd151c3d8441
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum
 gem 'weekdays'
-
-# TODO: Take a look on dependencies. Why not auto_html?
-gem 'rails_autolink', '~> 1.1.0'

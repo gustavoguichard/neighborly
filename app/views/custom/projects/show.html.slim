@@ -20,8 +20,7 @@
   header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
     .row
       .large-6.columns
-        .flex-video
-          iframe src="#{@project.display_video_embed_url}" width="480" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen 
+        iframe src="#{@project.display_video_embed_url}" width="470" height="264" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
         .share-small
           = render 'projects/share'
 
@@ -29,7 +28,7 @@
         .name
           h3 = @project.name
         .subtitle
-          h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(anchor: "by_category_id/#{@project.category_id}")), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+          h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(category: @project.category.to_s.downcase)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
         hr
         .headline
           p = @project.headline
@@ -56,7 +55,7 @@
               = t('.status-bar.total_backers', value: @project.total_backers)
             - if @project.total_backers > 0
               small
-                = link_to t('.status-bar.see_all_backers'), '#'
+                = link_to t('.status-bar.see_all_backers'), project_backers_path(@project)
           .large-3.columns.time-remaining
             p
               i.icon-et-clock

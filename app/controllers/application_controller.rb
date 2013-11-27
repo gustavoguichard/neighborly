@@ -1,43 +1,24 @@
 # coding: utf-8
-require 'uservoice_sso'
 class ApplicationController < ActionController::Base
+  include Concerns::ExceptionHandler
+  include Concerns::MenuHandler
+  include Concerns::SocialHelpersHandler
+
+  layout :use_catarse_boostrap
   protect_from_forgery
   before_filter :require_basic_auth
 
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
-
-  rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from ActionController::UnknownController, with: :render_404
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-
-  rescue_from CanCan::Unauthorized do |exception|
-    session[:return_to] = request.env['REQUEST_URI']
-    message = exception.message
-
-    if current_user.nil?
-      redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
-    elsif request.env["HTTP_REFERER"]
-      redirect_to :back, alert: message
-    else
-      redirect_to root_path, alert: message
-    end
-  end
-
-  helper_method :namespace, :fb_admins, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso, :total_with_fee
+  helper_method :channel, :referal_link, :total_with_fee
 
   before_filter :force_http
-
+  before_action :referal_it!
 
   before_filter do
     if current_user and current_user.email == "change-your-email+#{current_user.id}@neighbor.ly"
       redirect_to set_email_users_path unless controller_name == 'users'
     end
-  end
-
-  # TODO: Change this way to get the opendata
-  before_filter do
-    @fb_admins = [100000428222603, 547955110]
   end
 
   # TODO: REFACTOR
@@ -55,41 +36,17 @@ class ApplicationController < ActionController::Base
     number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
   end
 
-  # We use this method only to make stubing easier
-  # and remove FB templates from acceptance tests
-  def render_facebook_sdk
-    render_to_string(partial: 'layouts/facebook_sdk').html_safe
+  def channel
+    Channel.find_by_permalink(request.subdomain.to_s)
   end
 
-  def render_twitter options={}
-    render_to_string(partial: 'layouts/twitter', locals: options).html_safe
-  end
-
-  def render_facebook_like options={}
-    render_to_string(partial: 'layouts/facebook_like', locals: options).html_safe
-  end
-
-  def display_uservoice_sso
-    if current_user && ::Configuration[:uservoice_subdomain] && ::Configuration[:uservoice_sso_key]
-      Uservoice::Token.generate({
-        guid: current_user.id, email: current_user.email, display_name: current_user.display_name,
-        url: user_url(current_user), avatar_url: current_user.display_image
-      })
-    end
+  def referal_link
+    session[:referal_link]
   end
 
   private
-  def fb_admins
-    @fb_admins.join(',')
-  end
-
-  def fb_admins_add(ids)
-    case ids.class
-    when Array
-      ids.each {|id| @fb_admins << ids.to_i}
-    else
-      @fb_admins << ids.to_i
-    end
+  def referal_it!
+    session[:referal_link] = params[:ref] if params[:ref].present?
   end
 
   def after_sign_in_path_for(resource_or_scope)
@@ -100,14 +57,6 @@ class ApplicationController < ActionController::Base
     return_to = session[:return_to]
     session[:return_to] = nil
     (return_to || root_path)
-  end
-
-  def render_404(exception)
-    @not_found_path = exception.message
-    respond_to do |format|
-      format.html { render template: 'static/404', status: 404 }
-      format.all { render nothing: true, status: 404 }
-    end
   end
 
   def force_http
@@ -121,9 +70,13 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name,
-                                                            :email,
-                                                            :password) }
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:name, :email, :password, :newsletter)
+    end
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, { channel: channel })
   end
 
   def require_basic_auth

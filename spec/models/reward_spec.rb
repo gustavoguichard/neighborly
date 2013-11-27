@@ -10,19 +10,9 @@ describe Reward do
     it{ should have_many :backers }
   end
 
-  describe "#display_description" do
-    subject{ reward.display_description }
-    it{ should == "<p>envie um email para <a href=\"mailto:foo@bar.com\" target=\"_blank\">foo@bar.com</a></p>" }
-  end
-
   it "should have a minimum value" do
     r = build(:reward, minimum_value: nil)
     r.should_not be_valid
-  end
-
-  describe "#display_minimum" do
-    subject{ reward.display_minimum }
-    it{ should == reward.number_to_currency(reward.minimum_value, precision: 0) }
   end
 
   it "should have a greater than 10.00 minimum value" do

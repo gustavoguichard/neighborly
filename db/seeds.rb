@@ -14,7 +14,7 @@ puts 'Seeding the database...'
   { pt: 'Eventos', en: 'Events' },
   { pt: 'Moda', en: 'Fashion' },
   { pt: 'Gastronomia', en: 'Gastronomy' },
-  { pt: 'Cinema & Vídeo', en: 'Film & Video' },
+  { pt: 'Cinema e Vídeo', en: 'Film & Video' },
   { pt: 'Jogos', en: 'Games' },
   { pt: 'Jornalismo', en: 'Journalism' },
   { pt: 'Música', en: 'Music' },
@@ -24,7 +24,7 @@ puts 'Seeding the database...'
   { pt: 'Esporte', en: 'Sport' },
   { pt: 'Web', en: 'Web' },
   { pt: 'Carnaval', en: 'Carnival' },
-  { pt: 'Arquitetura & Urbanismo', en: 'Architecture & Urbanism' },
+  { pt: 'Arquitetura e Urbanismo', en: 'Architecture & Urbanism' },
   { pt: 'Literatura', en: 'Literature' },
   { pt: 'Mobilidade e Transporte', en: 'Mobility & Transportation' },
   { pt: 'Meio Ambiente', en: 'Environment' },
@@ -53,6 +53,7 @@ end
 
 {
   company_name: 'Catarse',
+  company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',
   host: 'catarse.me',
   base_url: "http://catarse.me",
 
@@ -73,9 +74,9 @@ end
   uservoice_key: 'uservoice_key',
   faq_url: 'http://suporte.catarse.me/',
   feedback_url: 'http://suporte.catarse.me/forums/103171-catarse-ideias-gerais',
-  support_url: 'http://suporte.catarse.me/',
-  terms_url: 'http://suporte.catarse.me/knowledgebase/articles/161102-terms-of-use',
-  privacy_url: 'http://suporte.catarse.me/knowledgebase/articles/161104-privacy-policy',
+  terms_url: 'http://suporte.catarse.me/knowledgebase/articles/161100-termos-de-uso',
+  privacy_url: 'http://suporte.catarse.me/knowledgebase/articles/161103-pol%C3%ADtica-de-privacidade',
+  about_channel_url: 'http://blog.catarse.me/conheca-os-canais-do-catarse/',
   instagram_url: 'http://instagram.com/catarse_',
   blog_url: "http://blog.catarse.me",
   github_url: 'http://github.com/catarse',

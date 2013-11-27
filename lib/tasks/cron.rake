@@ -1,6 +1,20 @@
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do
-  Project.finish_projects!
+  Project.to_finish.each do |project|
+    CampaignFinisherWorker.perform_async(project.id)
+  end
+end
+
+desc "This tasks should be executed 1x per day"
+task notify_project_owner_about_new_confirmed_backers: :environment do
+  Project.with_backers_confirmed_today.each do |project|
+    Notification.notify_once(
+      :project_owner_backer_confirmed,
+      {user_id: project.user.id, project_id: project.id, 'projects.created_at::date' => Date.today},
+      project.user,
+      project: project
+    )
+  end
 end
 
 desc "Move to deleted state all backers that are in pending a lot of time"

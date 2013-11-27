@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
                           CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
                         },
                         list_id: Configuration[:mailchimp_list_id],
-                        subscribe_when: ->(user) { user.newsletter_changed? && user.newsletter },
+                        subscribe_when: ->(user) { (user.newsletter_changed? && user.newsletter) || (user.newsletter && user.new_record?) },
                         unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
                         unsubscribe_email: ->(user) { user.email }
 
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name, :backs_text, :twitter_link, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
@@ -86,10 +86,7 @@ class User < ActiveRecord::Base
 
 
   # Channels relation
-  has_and_belongs_to_many :channels, join_table: :channels_trustees
   has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
-  has_many :channels_projects, through: :channels, source: :projects
-  has_many :channels_subscribers
 
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
 
@@ -108,8 +105,7 @@ class User < ActiveRecord::Base
      where("id NOT IN (
        SELECT user_id
        FROM unsubscribes
-       WHERE project_id IS NULL
-       AND notification_type_id = (SELECT id from notification_types WHERE name = 'updates'))")
+       WHERE project_id IS NULL)")
    }
 
   scope :subscribed_to_project, ->(project_id) {
@@ -141,11 +137,10 @@ class User < ActiveRecord::Base
 
   def self.send_credits_notification
     has_not_used_credits_last_month.find_each do |user|
-      Notification.create_notification_once(:credits_warning,
+      Notification.notify_once(
+        :credits_warning,
         user,
-        {user_id: user.id},
-        user: user,
-        amount: user.credits
+        {user_id: user.id}
       )
     end
   end
@@ -184,17 +179,6 @@ class User < ActiveRecord::Base
 
   def decorator
     @decorator ||= UserDecorator.new(self)
-  end
-
-  def admin?
-    admin
-  end
-
-  # NOTE: Checking if the user has CHANNELS
-  # If the user has some channels, this method returns TRUE
-  # Otherwise, it's FALSE
-  def trustee?
-    !self.channels.size.zero?
   end
 
   def credits
@@ -289,20 +273,6 @@ class User < ActiveRecord::Base
     Project.backed_by(self.id)
   end
 
-  def backs_text
-    if total_backed_projects == 2
-      I18n.t('user.backs_text.two')
-    elsif total_backed_projects > 1
-      I18n.t('user.backs_text.many', total: (total_backed_projects-1))
-    else
-      I18n.t('user.backs_text.one')
-    end
-  end
-
-  def twitter_link
-    "http://twitter.com/#{self.twitter}"
-  end
-
   def fix_twitter_user
     self.twitter.gsub!(/@/, '') if self.twitter
   end
@@ -311,12 +281,6 @@ class User < ActiveRecord::Base
     if !self.facebook_link.blank?
       self.facebook_link = ('http://' + self.facebook_link) unless self.facebook_link[/^https?:\/\//]
     end
-  end
-
-  # Returns a Gravatar URL associated with the email parameter, uses local avatar if available
-  def gravatar_url
-    return unless email
-    "https://gravatar.com/avatar/#{Digest::MD5.new.update(email)}.jpg?default=#{::Configuration[:base_url]}/assets/user.png"
   end
 
   def password_required?

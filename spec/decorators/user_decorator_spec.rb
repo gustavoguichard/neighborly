@@ -22,7 +22,7 @@ describe UserDecorator do
 
       context "when we have no name" do
         let(:user){ create(:user, name: nil, nickname: nil) }
-        it{ should == I18n.t('user.no_name') }
+        it{ should == I18n.t('words.no_name') }
       end
     end
 
@@ -34,7 +34,7 @@ describe UserDecorator do
 
       context "when we have no company name" do
         let(:user){ create(:user, profile_type: 'company', company_name: nil) }
-        it{ should == I18n.t('user.no_name') }
+        it{ should == I18n.t('words.no_name') }
       end
     end
   end
