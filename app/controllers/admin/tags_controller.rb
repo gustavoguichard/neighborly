@@ -1,5 +1,5 @@
 class Admin::TagsController < Admin::BaseController
-  menu I18n.t("admin.tags.index.menu") => Rails.application.routes.url_helpers.admin_tags_path
+  menu I18n.t("admin.tags.index.menu") => :admin_tags_path
   actions :all, except: [:show]
 
   def collection

@@ -31,14 +31,14 @@ class UserDecorator < Draper::Decorator
 
   def display_image
     if source.company?
-      source.company_logo.thumb.url || '/assets/neighborly/logo-blank.jpg'
+      source.company_logo.large.url || '/assets/logo-blank.jpg'
     else
       source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || '/assets/user.png'
     end
   end
 
-  def display_image_html options={width: 119, height: 121}
-    h.image_tag(display_image, alt: "User", style: "width: #{options[:width]}px; height: auto", class: "avatar").html_safe
+  def display_image_html options={width: 150, height: 150}
+    h.content_tag(:figure, h.image_tag(display_image, alt: source.display_name, style: "width: #{options[:width]}px; height: #{options[:height]}px", class: "avatar"), class: "profile-image #{source.profile_type}").html_safe
   end
 
   def first_name

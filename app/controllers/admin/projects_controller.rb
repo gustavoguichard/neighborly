@@ -1,4 +1,5 @@
 class Admin::ProjectsController < Admin::BaseController
+  defaults finder: :find_by_permalink!
   add_to_menu "admin.projects.index.menu", :admin_projects_path
 
   has_scope :by_user_email, :by_id, :pg_search, :user_name_contains, :with_state, :by_category_id, :order_by
@@ -10,7 +11,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   [:approve, :reject, :push_to_draft, :push_to_soon].each do |name|
     define_method name do
-      @project = Project.find params[:id]
+      @project = Project.find_by_permalink params[:id]
       @project.send("#{name.to_s}!")
       redirect_to :back
     end
@@ -49,7 +50,7 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def destroy
-    @project = Project.find params[:id]
+    @project = Project.find_by_permalink params[:id]
     if @project.can_push_to_trash?
       @project.push_to_trash!
     end

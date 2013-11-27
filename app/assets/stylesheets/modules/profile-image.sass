@@ -1,0 +1,16 @@
+=avatar-position($size, $width: '')
+  width: $size
+  height: $size
+  img
+    max-width: none
+  &.company
+    img
+      margin-left: -$width/4
+
+.profile-image
+  border-radius: 50%
+  overflow: hidden
+  &.personal
+    +avatar-position(85px)
+  &.company
+    +avatar-position(85px, 181px)
