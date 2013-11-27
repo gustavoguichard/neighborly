@@ -2,10 +2,13 @@
   .row
     .large-4.columns
       - if backer.anonymous
-        = image_tag 'user.png', class: 'avatar'
+        = image_tag 'anonymous-user.png', class: 'avatar'
       - else
         = link_to user_path(backer.user) do
-          = backer.user.display_image_html width: 85, height: 85
+          - if backer.user.company?
+            = backer.user.display_image_html width: 181, height: 85
+          - else
+            = backer.user.display_image_html width: 85, height: 85
     .large-8.columns
       .name
         - if backer.anonymous
