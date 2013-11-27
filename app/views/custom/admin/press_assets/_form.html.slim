@@ -1,3 +1,4 @@
+- content_tag :title, t('.title')
 .bootstrap-form
   = semantic_form_for resource, url: (resource.persisted? ? admin_press_asset_path(resource) : admin_press_assets_path) do |f|
     = f.inputs do 

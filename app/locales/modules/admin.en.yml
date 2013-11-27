@@ -36,7 +36,7 @@ en:
           hint: 'Funding Raised'
     tags:
       index:
-        menu: 'Manage Tags'
+        menu: 'Tags'
         title: 'Tags management'
         name: 'Name'
         total_projects_using: 'Total projects using'
@@ -51,7 +51,7 @@ en:
         title: 'Edit tag'
     press_assets:
       index:
-        menu: 'Manage Press Assets'
+        menu: 'Press Assets'
         page_title: 'Press assets management'
         no_press_assets: 'No press assets'
         title: 'Title'
@@ -68,6 +68,13 @@ en:
       index:
         by_state: 'By state'
         between_created_at: 'Created at between'
+        between_expires_at: 'Expires at between'
+        between_online_date: 'Between online date'
+        project: 'Search'
+        with_state: 'By state'
+        by_category: 'By category'
+        user: 'User name'
+        by_user_email: 'By user email'
         id: ID
         name: 'Name'
         populate_backer: 'Prepopulate backer'
@@ -83,7 +90,7 @@ en:
         pledged: 'Pledged'
         recommended: 'Recommended?'
         state: 'State'
-        menu: 'Manage Projects'
+        menu: 'Projects'
         title: 'Projects management'
         total_projects: 'projects'
         submit: 'filter'
@@ -95,6 +102,7 @@ en:
         order_desc: 'Goal desc'
         order_created_at: 'Submission date'
         featured: 'Featured?'
+        home_page: 'Home page?'
     financials:
       index:
         menu: 'Financial reports'
@@ -105,7 +113,7 @@ en:
     users:
       index:
         title: "Users management"
-        menu: 'Manage users'
+        menu: 'Users'
         credits: Credits
         credits_view: "Calculated credits"
         id: ID
@@ -145,7 +153,7 @@ en:
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
         title: "Backers management"
-        menu: 'Manage backs'
+        menu: 'Backs'
         anonymous: Anonymous?
         confirmed: Confirmed?
         credits: "Used credits?"

@@ -1,5 +1,7 @@
 en:
   words:
+    _no: 'No'
+    _yes: 'Yes'
     or: 'or'
     send: 'send'
     sending: 'Sending...'
@@ -16,3 +18,9 @@ en:
     see_more: 'See more'
     credits: 'Credits'
     no_name: 'Unnamed'
+    found_plural: 'Found'
+    found_singular: 'Found'
+    backer_plural: 'backers'
+    backer_singular: 'backer'
+    project_plural: 'projects'
+    project_singular: 'project'
