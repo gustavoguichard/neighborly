@@ -9,12 +9,11 @@
 
 .user-profile-page
   header.hero[style="background-image: url(#{image_url(@user.hero_image_url(:blur))})"]
-    figure.profile_image[class=@user.profile_type]
-      - if @user.company?
-        = @user.display_image_html width: 160, height: 75
-      - else
-        = @user.display_image_html
-  .hero_bio
+    - if @user.company?
+      = @user.display_image_html width: 300, height: 150
+    - else
+      = @user.display_image_html width: 150, height: 150
+  .hero-bio
     .row
       .large-6.large-centered.columns
         h2.profile
@@ -24,7 +23,7 @@
         p.bio
           = @user.bio
         
-        ul.user_social
+        ul.user-social
           - if @user.facebook_link.present?
             li
               = link_to @user.facebook_link, target: 'blank', class: "social-link" do
