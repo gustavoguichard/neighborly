@@ -60,6 +60,10 @@ en:
         tag_list: 'Keywords'
         new:
           category_id: 'Choose Category'
+      backer:
+        new:
+          anonymous: 'I want my back to be anonymous.'
+          short_note: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
     hints:
       project:
         edit:

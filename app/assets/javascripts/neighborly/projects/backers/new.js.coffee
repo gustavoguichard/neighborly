@@ -7,35 +7,35 @@ Neighborly.Projects.Backers.New =
   init: Backbone.View.extend
     el: '.new-backer-page'
 
-    events:
-      'change #backer_value': 'resetReward'
-      'change input[type=radio]': 'clickReward'
-      'click #backer_anonymous': 'clickAnonymous'
-
-
     initialize: ->
-      _.bindAll this, 'resetReward', 'clickReward'
-      @value = @$('#backer_value')
-      @rewards = @value.data('rewards')
-      @choices = @$('.reward-option')
-      @selectReward @$('input[type=radio]:checked')
+      _.bindAll this, 'resetReward', 'clickReward', 'clickAnonymous'
 
+      # bind change event (support for ie8 )
+      this.$('#backer_value').change this.resetReward
+      this.$('input[type=radio]').change this.clickReward
+      this.$('#backer_anonymous').change this.clickAnonymous
 
-    #clickAnonymous: ->
-      #$('#anonymous_warning').fadeToggle()
+      this.value = this.$('#backer_value')
+      this.rewards = this.value.data('rewards')
+      this.choices = this.$('.reward-option')
+      this.selectReward this.$('input[type=radio]:checked')
+
+    clickAnonymous: ->
+      this.$('.anonymous-warning').fadeToggle()
 
     clickReward: (event) ->
-      option = @$(event.currentTarget)
+      this.choices.removeClass('selected')
+      option = this.$(event.currentTarget)
       this.$('.custom.radio.checked').not(option.find('~ span')).removeClass('checked')
-      @selectReward option
-      @value.val @reward().minimum_value
-
+      this.selectReward option
+      this.value.val this.reward().minimum_value
+      reward.parents('.reward-option:first').addClass('selected')
 
     reward: ->
-      $reward = @$('input[type=radio]:checked')
+      $reward = this.$('input[type=radio]:checked')
       if $reward.length > 0
         reward = {}
-        for r in @rewards
+        for r in this.rewards
           reward = r if parseInt(r.id) is parseInt($reward.val())
 
         return reward
@@ -46,8 +46,8 @@ Neighborly.Projects.Backers.New =
       $reward.find('~ span').addClass('checked')
 
     resetReward: (event) ->
-      reward = @reward()
+      reward = this.reward()
       if reward
-        value = @value.val()
-        @selectReward @$('#backer_reward_id') if (!(/^(\d+)$/.test(value))) or (parseInt(value) < reward.minimum_value)
+        value = this.value.val()
+        this.selectReward this.$('#backer_reward_id') if (!(/^(\d+)$/.test(value))) or (parseInt(value) < reward.minimum_value)
 

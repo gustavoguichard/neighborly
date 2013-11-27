@@ -41,4 +41,9 @@
                         .sold-out
                           = I18n.t('reward.sold_out')
 
-      = form.button :submit, t('.submit')
+      = form.input :anonymous, as: :boolean
+      .anonymous-warning.hide
+        .alert-box
+          = render 'anonymous_warning'
+      = form.input :short_note
+      = form.button :submit, t('.submit'), disable_with: t('words.sending')
