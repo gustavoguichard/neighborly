@@ -112,7 +112,6 @@ RSpec.configure do |config|
     Notification.stub(:notify)
     Notification.stub(:notify_once)
     Calendar.any_instance.stub(:fetch_events_from)
-    Blog.stub(:fetch_last_posts).and_return([])
     Configuration[:base_domain] = 'localhost'
     Configuration[:email_contact] = 'foo@bar.com'
     Configuration[:company_name] = 'Foo Bar Company'
