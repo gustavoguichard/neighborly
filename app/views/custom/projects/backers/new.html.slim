@@ -5,8 +5,8 @@
         .name
           h3 = @project.name
       br
-      .large-6.columns.large-centered
-        .share-white
+      .share-white
+        .large-6.columns.large-centered
           = render 'projects/share'
   .row
     section.large-6.columns.large-centered.main
@@ -28,14 +28,14 @@
           - if builder.object.any?
             - for reward in builder.object
               .large-6.small-6.columns
-                .reward-option.row
-                  .large-2.small.2.columns.radio
+                .reward-option.row[class="#{'selected' if form.object.reward_id == reward.id }"]
+                  .large-2.small-2.columns.radio
                     = form.radio_button :reward_id, reward.id
                   .large-10.small-10.columns
                     = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
                       .minimum-value
                         = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
-                      .description
+                      p.description 
                         = h reward.description
                       - if reward.sold_out?
                         .sold-out
@@ -46,4 +46,5 @@
         .alert-box
           = render 'anonymous_warning'
       = form.input :short_note
-      = form.button :submit, t('.submit'), disable_with: t('words.sending')
+      .text-center
+        = form.button :submit, t('.submit'), disable_with: t('words.sending')

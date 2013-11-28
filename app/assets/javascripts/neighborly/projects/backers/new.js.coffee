@@ -29,7 +29,7 @@ Neighborly.Projects.Backers.New =
       this.$('.custom.radio.checked').not(option.find('~ span')).removeClass('checked')
       this.selectReward option
       this.value.val this.reward().minimum_value
-      reward.parents('.reward-option:first').addClass('selected')
+      option.parents('.reward-option:first').addClass('selected')
 
     reward: ->
       $reward = this.$('input[type=radio]:checked')
