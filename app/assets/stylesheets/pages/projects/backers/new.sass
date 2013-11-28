@@ -1,9 +1,24 @@
 .new-backer-page
+  form.custom
+    .custom.checkbox
+      margin-right: +emCalc(5px)
   header.hero
     min-height: emCalc(260px)
-  .share-small
+  .share-white
     .button
-      font-size: 100%
+      width: 100%
+      background: white
+      color: $primary-color
+      border-bottom-color: darken($border-color, 10%)
+      &:after
+        border-left-color: darken($border-color, 10%)
+      &.twitter:after
+        @extend .icon-et-twitter:before
+      &.facebook:after
+        @extend .icon-et-facebook:before
+      &.embed:after
+        @extend .icon-et-code:before
+
   .name
     text-align: center
   .title
@@ -36,16 +51,30 @@
     border: 1px solid $border-color
     +radius($input-radius)
     background: white
+    color: $secondary-color
     &.row
-      margin-bottom: emCalc(15px)
+      min-height: emCalc(85px)
+      margin-bottom: emCalc(20px)
+      margin-right: emCalc(0)
+    &.selected
+      border-color: $primary-color
     .minimum-value
-      padding-bottom: emCalc(30px)
-
+      padding-top: emCalc(15px)
+      text-transform: uppercase
+      font-size: 140%
     .description
-      position: relative
-      padding-bottom: emCalc(30px)
+      padding-bottom: emCalc(15px)
+      padding-top: emCalc(15px)
+    .custom.radio
+      position: absolute
+      display: block
+      top: 50%
+      left: 9%
+      margin-top: emCalc(-16px)
 
+  .backer_anonymous
+    margin-bottom: emCalc(10px)
 
-
-
-
+  .radio
+    position: initial
+    display: block
