@@ -10,7 +10,7 @@ Neighborly.Admin.Modules.Sort = Backbone.View.extend
   initialize: ->
     @form = @$("form")
     @table = @$(".data-table")
-    @selectSorting()
+    @selectSorting() if @table.length > 1
 
   getSorting: ->
     sortField = @form.find("[name=order_by]")
