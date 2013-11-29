@@ -43,7 +43,7 @@ describe UserDecorator do
     let(:user){ build(:user, image_url: 'http://image.jpg', uploaded_image: nil )}
     let(:options){ {width: 300, height: 300} }
     subject{ user.display_image_html(options) }
-    it{ should == "<img alt=\"User\" class=\"avatar\" src=\"http://image.jpg\" style=\"width: #{options[:width]}px; height: auto\" />" }
+    it { should == "<figure class=\"profile-image personal\"><img alt=\"Foo bar\" class=\"avatar\" src=\"http://image.jpg\" style=\"width: #{options[:width]}px; height: #{options[:height]}px\" /></figure>"}
   end
 
   describe "#display_image" do
@@ -77,6 +77,7 @@ describe UserDecorator do
         before do
           image = stub(url: 'image.png')
           image.stub(:thumb).and_return(image)
+          image.stub(:large).and_return(image)
           user.stub(:company_logo).and_return(image)
         end
         it{ should == 'image.png' }
@@ -84,7 +85,7 @@ describe UserDecorator do
 
       context 'when we dont have a company logo' do
         let(:user){ build(:user, profile_type: 'company', company_logo: nil )}
-        it{ should == '/assets/neighborly/logo-blank.jpg' }
+        it{ should == '/assets/logo-blank.jpg' }
       end
     end
   end

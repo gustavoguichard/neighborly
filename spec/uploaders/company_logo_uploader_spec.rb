@@ -17,7 +17,7 @@ describe CompanyLogoUploader do
 
   describe '#thumb' do
     subject{ @uploader.thumb }
-    it{ should have_dimensions(192, 90) }
+    it{ should have_dimensions(160, 75) }
   end
 
   describe '#large' do
