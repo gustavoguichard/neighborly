@@ -24,22 +24,23 @@
           .large-2.small-2.columns
             span.postfix .00
       .row
-        = form.association :reward_id, as: :radio_buttons, label: false, label_html: { class: 'large-4 small-4' }, collection: @rewards do |builder|
-          - if builder.object.any?
-            - for reward in builder.object
-              .large-6.small-6.columns
-                .reward-option.row[class="#{'selected' if form.object.reward_id == reward.id }"]
-                  .large-2.small-2.columns.radio
-                    = form.radio_button :reward_id, reward.id
-                  .large-10.small-10.columns
-                    = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
-                      .minimum-value
-                        = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
-                      p.description 
-                        = h reward.description
-                      - if reward.sold_out?
-                        .sold-out
-                          = I18n.t('reward.sold_out')
+        .large-12.columns
+          = form.association :reward_id, as: :radio_buttons, label: false, label_html: { class: 'large-4 small-4' }, collection: @rewards do |builder|
+            - if builder.object.any?
+              - for reward in builder.object
+                .large-6.small-6.columns
+                  .reward-option.row[class="#{'selected' if form.object.reward_id == reward.id }"]
+                    .large-2.small-2.columns.radio
+                      = form.radio_button :reward_id, reward.id
+                    .large-10.small-10.columns
+                      = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
+                        .minimum-value
+                          = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
+                        p.description
+                          = h reward.description
+                        - if reward.sold_out?
+                          .sold-out
+                            = I18n.t('reward.sold_out')
 
       = form.input :anonymous, as: :boolean
       .anonymous-warning.hide
