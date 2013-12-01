@@ -102,7 +102,7 @@
                         = l(backer.created_at)
 
                   = link_to "#backer-info-#{backer.id}", class: 'button tiny secondary', data: { 'reveal-id' => "backer-info-#{backer.id}" } do
-                    i.icon-info-sign
+                    i.icon-et-info-circled
                 td title=backer.project.name
                   = link_to project_path(backer.project) do
                     = image_tag backer.project.display_image, size: '100x100'
@@ -118,7 +118,7 @@
                     | -
                   | &nbsp;
                   = link_to 'javascript:void(0);', class: 'button tiny secondary', data: {dropdown: "dropdown-reward-#{backer.id}"} do
-                    i.icon-caret-down
+                    i.icon-et-down-dir
                   ul[id="dropdown-reward-#{backer.id}" data-dropdown-content class="f-dropdown"]
                     li title=("#{t('.no_reward')}" ) = link_to t('.no_reward'), change_reward_admin_backer_path(backer, reward_id: nil), method: :put
                     - backer.available_rewards.each do |reward|
@@ -130,7 +130,7 @@
                 td= backer.state
                 td
                   = link_to 'javascript:void(0);', class: 'button tiny secondary', data: {dropdown: "dropdown-#{backer.id}"} do
-                    i.icon-caret-down
+                    i.icon-et-down-dir
                 ul[id="dropdown-#{backer.id}" data-dropdown-content class="f-dropdown"]
                   - if backer.confirmed?
                     li= link_to t('admin.backers.index.unconfirm_backer'), pendent_admin_backer_path(backer, local_params: params), method: :put

@@ -117,7 +117,7 @@
                       span.label= project.state
                   td
                     = link_to 'javascript:void(0);', class: 'button tiny secondary', data: {dropdown: "dropdown-#{project.id}"} do
-                      i.icon-caret-down
+                      i.icon-et-down-dir
                     ul[id="dropdown-#{project.id}" data-dropdown-content class="f-dropdown"]
                       li
                         = link_to populate_backer_admin_project_path(project) do
@@ -125,29 +125,24 @@
                       - if project.can_push_to_trash?
                         li
                           = link_to admin_project_path(project), method: :delete, data: {confirm: t('admin.confirm_dialog')} do
-                            i.icon-trash
                             = t('.send_to_trash')
                       - if project.can_approve?
                         li
                           = link_to approve_admin_project_path(project), method: :put do
-                            i.icon-ok
                             = t('.approve')
 
                       - if project.can_reject?
                         li
                           = link_to reject_admin_project_path(project), method: :put  do
-                            i.icon-ban-circle
                             = t('.reject')
 
                       - if project.can_push_to_draft?
                         li
                           = link_to  push_to_draft_admin_project_path(project), method: :put  do
-                            i.icon-trash
                             = t('.send_to_draft')
                       - if project.can_push_to_soon?
                         li
                           = link_to  push_to_soon_admin_project_path(project), method: :put  do
-                            i.icon-trash
                             = t('.send_to_soon')
         = paginate @projects
 
