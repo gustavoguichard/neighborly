@@ -16,7 +16,7 @@ class HeroImageUploader < ImageUploader
 
   def apply_blur
     manipulate! do |img|
-      img.blur_image(0, 4)
+      img.blur_image(0, 5)
     end
   end
 
