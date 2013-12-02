@@ -65,9 +65,9 @@ class User < ActiveRecord::Base
 
   attr_accessor :address
 
-  mount_uploader :uploaded_image, UserUploader
-  mount_uploader :company_logo, CompanyLogoUploader
-  mount_uploader :hero_image, HeroImageUploader
+  mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
+  mount_uploader :company_logo, CompanyLogoUploader, mount_on: :company_logo
+  mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
 
   validates_length_of :bio, maximum: 140
   validates_presence_of :email

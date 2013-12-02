@@ -11,9 +11,8 @@ class Project < ActiveRecord::Base
   include Project::VideoHandler
   include Project::CustomValidators
 
-  mount_uploader :uploaded_image, ProjectUploader
-  mount_uploader :video_thumbnail, ProjectUploader
-  mount_uploader :hero_image, HeroImageUploader
+  mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
+  mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
   has_permalink :name, true
   geocoded_by :address
   after_validation :geocode # auto-fetch coordinates

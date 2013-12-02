@@ -2,7 +2,7 @@ module Project::VideoHandler
   extend ActiveSupport::Concern
 
   included do
-    mount_uploader :video_thumbnail, ProjectUploader
+    mount_uploader :video_thumbnail, ProjectUploader, mount_on: :video_thumbnail
 
     delegate :display_video_embed_url, to: :decorator
 
