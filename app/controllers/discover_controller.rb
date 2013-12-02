@@ -5,7 +5,7 @@ class DiscoverController < ApplicationController
   def index
     @avaliable_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
     @filters = {}
-    @tags = Tag.all
+    @tags = Tag.popular
     @projects = Project.visible.order_for_search
 
     if params[:filter].present? && FILTERS.include?(params[:filter].downcase)
