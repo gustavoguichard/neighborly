@@ -9,14 +9,14 @@ class HeroImageUploader < ImageUploader
   end
 
   version :blur do
+    process resize_to_limit: [2000, 0]
     process :apply_blur
     process convert: :png
   end
 
   def apply_blur
     manipulate! do |img|
-      img = img.blur_image(0, 3.5)
-      img
+      img.blur_image(0, 4)
     end
   end
 
