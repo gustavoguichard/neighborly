@@ -3,7 +3,7 @@ en:
     index:
       title: 'Discover amazing projects'
       empty: 'No projects for your search.'
-      tags: 'Popupar Tags: '
+      tags: 'Popular Tags: '
       near: 'Locations'
       category: 'Category'
       filter: 'Status'
