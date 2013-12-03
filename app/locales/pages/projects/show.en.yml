@@ -44,7 +44,7 @@ en:
     video_embed:
       a_project_by_html: "A project by %{link} on"
     share:
-      twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly"
+      twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly: %{project_url}"
       twitter: 'Tweet'
       facebook: 'Share'
       email: 'Email'
