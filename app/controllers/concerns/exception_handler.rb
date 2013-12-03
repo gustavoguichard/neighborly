@@ -12,7 +12,7 @@ module Concerns
         message = exception.message
 
         if current_user.nil?
-          redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
+          redirect_to new_user_session_path, flash: { devise_error: I18n.t('devise.failure.unauthenticated') }
         elsif request.env["HTTP_REFERER"]
           redirect_to :back, alert: message
         else
