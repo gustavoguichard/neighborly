@@ -1,5 +1,5 @@
 - if @project.foundation_widget
-  = render partial: 'foundation_widget', locals: { project: @project, embed_link: true }
+  = render partial: 'foundation_widget', locals: { project: @project, embed_link: true, columns: '' }
 - else
   #embed
-    = render partial: 'project', locals: { project: @project, embed_link: true }
+    = render partial: 'project', locals: { project: @project, embed_link: true, columns: '' }
