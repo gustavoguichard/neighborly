@@ -25,7 +25,7 @@ class Admin::ProjectsController < Admin::BaseController
       @user.email = "#{Devise.friendly_token}@populate.user"
       @user.password = password
       @user.password_confirmation = password
-      @user.profile_type = 'personal'
+      @user.profile_type = params[:user][:profile_type]
     else
       @user = User.find(params[:user][:id])
     end

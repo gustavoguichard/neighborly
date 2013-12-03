@@ -1,5 +1,5 @@
 - columns_n = if defined? columns then columns else 'large-3 medium-4' end
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 medium-8 columns' if defined?(large)} #{columns_n + ' columns' unless defined?(large)} #{project.category.to_s.parameterize if project.category}"]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 medium-8 columns' if defined?(large)} #{'large large-12 medium-12 columns' if defined?(backer)} #{columns_n + ' columns' unless defined?(large) || defined?(backer)} #{project.category.to_s.parameterize if project.category}"]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'
@@ -19,18 +19,18 @@
       .status-image
         = image_tag "coming_soon.#{I18n.locale}.png"
 
-    .cover[class="#{'large-8 medium-8 columns' if defined?(large)}"]
-      = image_tag project.display_image(defined?(large) ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
+    .cover[class="#{'large-8 medium-8 columns' if defined?(large)} #{'large-6 columns' if defined?(backer)} "]
+      = image_tag project.display_image(defined?(large) || defined?(backer) ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
-    .content[class="#{'large-4 medium-4 columns' if defined?(large)}"]
-      - if defined?(large)
+    .content[class="#{'large-4 medium-4 columns' if defined?(large)} #{'large-3 columns' if defined?(backer)}"]
+      - if defined?(large) || defined?(backer)
         h4.name = project.name
 
       .category
         i[title=project.category.to_s]
         span = project.category.to_s
 
-      - unless defined?(large)
+      - unless defined?(large) || defined?(backer)
         h4.name = project.name
 
       .location
@@ -38,7 +38,7 @@
         | &nbsp;
         = project.address
 
-      - if (defined?(large) || !browser.ie8?)
+      - if (defined?(large) || !browser.ie8? || defined?(backer))
         .description[itemprop="description"]
           span = truncate(project.headline, length: 140, separator: ' ')
           - if defined?(large) && project.online?
@@ -56,3 +56,27 @@
                 = t('.completed')
           .progress.round
             span.meter[style="width: #{project.display_progress}%"]
+
+    - if defined?(backer)
+      .back-informations.large-3.columns
+        h5
+          i.icon-et-calendar
+          = l backer.confirmed_at.to_date, format: :long
+
+        - if backer.display_value
+          h5
+            i.icon-et-heart
+            = backer.display_value
+        - if backer.reward
+          .reward
+            h5
+              i.icon-et-trophy
+              = t('rewards.index.reward_title', minimum: backer.reward.display_minimum)
+            - description = backer.reward.description.gsub(/"/,'&quot;')
+            p[title=description] = truncate(backer.reward.description, length: 160)
+
+        .share.row
+          .large-6.columns
+            = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{project.name}&p[summary]=#{project.headline}&p[url]=#{project_url(project)}&p[images[0]=#{project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+          .large-6.columns
+            = link_to t('.share.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: project.name, hash_tag: project.hash_tag))}", class: 'button with-icon twitter', target: :blank

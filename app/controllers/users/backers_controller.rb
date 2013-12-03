@@ -13,13 +13,13 @@ class Users::BackersController < ApplicationController
       flash[:notice] = I18n.t('controllers.users.backers.request_refund.refunded')
     end
 
-    redirect_to user_path(parent, anchor: 'credits')
+    redirect_to credits_user_path(parent)
   end
 
   protected
   def collection
     @backs = end_of_association_chain.available_to_display.order("created_at DESC, confirmed_at DESC")
     @backs = @backs.not_anonymous.with_state('confirmed') unless can? :manage, @user
-    @backs = @backs.includes(:user, :reward, project: [:user, :category, :project_total]).page(params[:page]).per(10)
+    @backs = @backs.includes(:user, :reward, project: [:user, :category, :project_total])
   end
 end

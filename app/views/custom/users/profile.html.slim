@@ -26,7 +26,11 @@
               span.info Drop an image here
               = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
             = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
-        = f.input :name, as: :string
+        .large-12.columns
+          #personal-name.profile-type-name.row style="#{"display: none;" unless @user.profile_type == 'personal'}"
+            = f.input :name, as: :string
+          #company-name.profile-type-name.row style="#{"display: none;" unless @user.profile_type == 'company'}"
+            = f.input :company_name, as: :string
         = f.input :bio
         = f.input :phone_number, as: :string
         .row
@@ -72,7 +76,7 @@
         .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
           = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
           .map-canvas
-        = f.button :submit
+        = f.button :submit, disable_with: t('words.sending')
 
 - if request.xhr? || defined?(partial)
   = yield :page_content

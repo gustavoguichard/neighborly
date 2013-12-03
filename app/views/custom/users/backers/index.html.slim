@@ -1,3 +1,9 @@
-h1 Ho
-- collection.each do |backer|
-  = render partial: 'users/project', locals: { project: backer.project, backer: backer }
+- content_for :page_content do
+  .row
+    - collection.each do |backer|
+      = render partial: 'projects/project', locals: { project: backer.project, backer: backer }
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'users/edit'

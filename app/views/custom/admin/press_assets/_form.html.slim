@@ -1,12 +1,11 @@
 - content_tag :title, t('.title')
-.bootstrap-form
-  = semantic_form_for resource, url: (resource.persisted? ? admin_press_asset_path(resource) : admin_press_assets_path) do |f|
-    = f.inputs do 
-      = f.input :title
-      = f.input :url
-      = f.input :image, as: :file, required: !resource.persisted?,
-        hint: (resource.image.present? ? image_tag(resource.image.thumb.url, size: '170x60') : t('formtastic.hints.press_asset.image') )
-      .clearfix
-      .bootstrap-twitter
-        = f.submit class: 'btn', disable_with: I18n.t('sending')
-    .clearfix
+= simple_form_for resource, url: (resource.persisted? ? admin_press_asset_path(resource) : admin_press_assets_path) do |f|
+  = f.input :title
+  = f.input :url
+  = f.input :image, as: :file, required: !resource.persisted?
+  - if resource.image.present?
+    .image-preview
+      = image_tag(resource.image.thumb.url, size: '170x60')
+      br/
+      br/
+  = f.button :submit, disable_with: I18n.t('words.sending')

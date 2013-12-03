@@ -1,0 +1,19 @@
+en:
+  users:
+    credits:
+      back_date: "Back date"
+      current_credits_html: "Your current balance is <span class=\"current-credits\">%{credits}</span> in credits."
+      important_html: "If you ask for a refund, the value of your payment will be deducted from your credits."
+      project: Project
+      refund_expiration_date_html: "Deadline to request refund"
+      refunded: "Refund request successfully done. Our team will contact you within two business days."
+      insufficient_credits: "You don't have enough credits to request this refund."
+      refunds_title: "Payments that can be refunded"
+      request_refund: "Request refund"
+      requested_refund: "Requested refund"
+      status: Status
+      title: "My credits"
+      value: Value
+      modal:
+        title: "Do you want to confirm your refund request?"
+        confirm: "I want to request the refund"
