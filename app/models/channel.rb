@@ -1,7 +1,11 @@
 class Channel < ActiveRecord::Base
-  extend CatarseAutoHtml
-  attr_accessible :description, :name, :permalink, :video_url, :twitter, :facebook, :website, :image, :how_it_works
   schema_associations
+
+  extend CatarseAutoHtml
+  include Shared::StateMachineHelpers
+  include Channel::StateMachineHandler
+
+  attr_accessible :description, :name, :permalink, :video_url, :twitter, :facebook, :website, :image, :how_it_works
 
   validates_presence_of :name, :description, :permalink
   validates_uniqueness_of :permalink
