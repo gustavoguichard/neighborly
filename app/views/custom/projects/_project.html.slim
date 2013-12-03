@@ -41,9 +41,9 @@
       - if (defined?(large) || !browser.ie8? || defined?(backer))
         .description[itemprop="description"]
           span = truncate(project.headline, length: 140, separator: ' ')
-          - if defined?(large) && project.online?
+          - if defined?(large) && project.online? && !browser.ie8?
             = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
-          - else
+          - elsif !browser.ie8?
             a
 
       - if not project.soon?
