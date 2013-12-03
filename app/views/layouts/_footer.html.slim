@@ -6,14 +6,14 @@ footer
         = t('.quick_links')
 
       ul
-        li = link_to t('.about'), about_path
         li = link_to t('.discover'), discover_path
         li = link_to t('.start_campaign'), start_path
+        li = link_to t('.about'), about_path
         li = link_to t('.how_it_works'), how_it_works_path
-        li = link_to t('.blog'), Configuration[:blog_url], target: :blank
-        li = mail_to Configuration[:email_contact], t('.contact')
         li = link_to t('.faq'), faq_path
         li = link_to t('.legal'), privacy_path
+        li = link_to t('.terms'), terms_path
+        li = mail_to Configuration[:email_contact], t('.contact')
 
     .large-4.medium-4.columns.now-acception-proposals
       h6
