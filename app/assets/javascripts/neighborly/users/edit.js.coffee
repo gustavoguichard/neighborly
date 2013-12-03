@@ -29,6 +29,12 @@ Neighborly.Users.Edit =
         else
           $(profile).hide()
 
+      for profile in this.$('.profile-type-name')
+        if profile.id == "#{value}-name"
+          $(profile).show()
+        else
+          $(profile).hide()
+
   DragDropUploader: Backbone.View.extend
     events:
       'mouseenter': 'mouseEnter'

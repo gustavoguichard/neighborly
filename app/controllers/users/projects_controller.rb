@@ -4,6 +4,6 @@ class Users::ProjectsController < ApplicationController
   belongs_to :user
 
   def collection
-    @projects ||= end_of_association_chain.page(params[:page]).per(10)
+    @projects ||= end_of_association_chain
   end
 end

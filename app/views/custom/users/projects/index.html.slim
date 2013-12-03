@@ -1,32 +1,33 @@
-h1 Hey
-- if collection.any?
-  #my_projects
-    .bootstrap-twitter
-      table.table.table-striped
+- content_for :page_content do
+  - if collection.any?
+    .my-campaigns
+      table
         thead
           tr
             th= t('.id')
             th= 'cover'
-            th= 'project'
+            th= 'name'
             th= 'pleged'
             th= 'deadline'
             th= 'total of backers'
-            th= 'actions'
-            /th= t('.rejected')
+            th.text-right= 'actions'
         tbody
           - collection.each do |project|
-            tr class=cycle("even", "odd")
+            tr
               td= link_to project.id, project_path(project)
               td title=project.name
-                = link_to project_path(project, anchor: 'edit') do
-                  = image_tag project.display_image, class: 'project_img'
+                = link_to edit_project_path(project) do
+                  = image_tag project.display_image, size: '50', class: 'project-imgage'
               td= project.name
               td
                 = "#{project.display_pledged} / #{project.display_goal}"
               td= project.display_expires_at
               td= project.total_backers
-              td
-                = link_to project_path(project, anchor: 'edit'), :class => 'btn' do
+              td.text-right
+                = link_to edit_project_path(project), class: 'button tiny' do
                   i.icon-et-pencil
 
-
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'users/edit'
