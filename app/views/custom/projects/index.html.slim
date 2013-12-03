@@ -9,18 +9,23 @@
 
   section.how-it-works.white
     .row
-      - for number in ['one', 'two', 'three']
-        .large-4.medium-4.columns[class=number]
-          h4 =t(".how-it-works.#{number}.headline")
-          p =t(".how-it-works.#{number}.text")
+      .large-4.medium-4.columns.one
+        h4 = t('.how-it-works.one.headline' )
+        p
+          = t('.how-it-works.one.text')
+          = link_to t('.how-it-works.one.button'), '#', class: 'button disabled secondary'
+      .large-4.medium-4.columns.two
+        h4 = t('.how-it-works.two.headline' )
+        p
+          = t('.how-it-works.two.text')
+          = link_to t('.how-it-works.two.button'), start_path, class: 'button'
+      .large-4.medium-4.columns.three
+        h4 = t('.how-it-works.three.headline' )
+        p
+          = t('.how-it-works.three.text')
+          = link_to t('.how-it-works.three.button'), discover_path, class: 'button'
 
-  - unless current_user.present?
-    section.join.white
-      .row
-        h3 = link_to sign_up_path do
-          = t('.join.join_the_neighborhood')
-          i.icon-et-right-circled
-        p = t('.join.already_joined', link: link_to(t('.join.sign_in'), new_user_session_path)).html_safe
+
 
   section.projects
     .row

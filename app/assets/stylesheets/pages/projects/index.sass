@@ -3,7 +3,7 @@
     background-image: image-url('home-hero.png')
 
   section.how-it-works
-    padding: +emCalc(70px) 0
+    padding: +emCalc(30px) 0
 
     &, h4
       color: $secondary-font-color
@@ -16,28 +16,18 @@
         border-bottom: none
     h4
       text-transform: uppercase
-      &:before
-        content: '1'
-        display: block
-        float: left
-        background: $border-color
-        width: +emCalc(25px)
-        height: +emCalc(25px)
-        +radius(50%)
-        text-align: center
-        color: white
-        font-size: 85%
-        font-weight: bold
-        margin-right: +emCalc(8px)
+      text-align: center
     .two
       h4:before
-        content: '2'
+      
     .three
       h4:before
-        content: '3'
+      
     p
-      padding-left: +emCalc(50px)
       font-size: 85%
+      .button
+        display: block
+        margin-top: +emCalc(20px)
 
   section.projects
     padding: +emCalc(25px) 0
