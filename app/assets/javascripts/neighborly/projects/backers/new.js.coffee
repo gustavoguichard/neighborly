@@ -19,9 +19,18 @@ Neighborly.Projects.Backers.New =
       this.rewards = this.value.data('rewards')
       this.choices = this.$('.reward-option')
       this.selectReward this.$('input[type=radio]:checked')
+      this.value.focus()
+      this.submitButtonHandler()
+
+    submitButtonHandler: ->
+      if this.value[0].checkValidity()
+        this.$('input[type=submit]').removeClass('disable').attr('disabled', false)
+      else
+        this.$('input[type=submit]').addClass('disable').attr('disabled', true)
 
     clickAnonymous: ->
       this.$('.anonymous-warning').fadeToggle()
+      this.submitButtonHandler()
 
     clickReward: (event) ->
       this.choices.removeClass('selected')
@@ -30,6 +39,7 @@ Neighborly.Projects.Backers.New =
       this.selectReward option
       this.value.val this.reward().minimum_value
       option.parents('.reward-option:first').addClass('selected')
+      this.submitButtonHandler()
 
     reward: ->
       $reward = this.$('input[type=radio]:checked')
@@ -50,4 +60,5 @@ Neighborly.Projects.Backers.New =
       if reward
         value = this.value.val()
         this.selectReward this.$('#backer_reward_id') if (!(/^(\d+)$/.test(value))) or (parseInt(value) < reward.minimum_value)
+      this.submitButtonHandler()
 

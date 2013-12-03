@@ -1,7 +1,7 @@
 .new-backer-page
   form.custom
     .custom.checkbox
-      margin-right: +emCalc(5px)
+      margin-right: +emCalc(10px)
   header.hero
     min-height: emCalc(260px)
   .share-white
@@ -43,8 +43,13 @@
   span.postfix
     color: $secondary-color
 
-  .with-prefix.with-postfix
-    font-size: 114%
+  #backer_value
+    color: $secondary-color
+    font-weight: normal
+    font-size: 200%
+    height: 100%
+    line-height: 170%
+    padding: 0
     text-align: center
 
   .reward-option
@@ -56,6 +61,7 @@
       min-height: emCalc(85px)
       margin-bottom: emCalc(20px)
       margin-right: emCalc(0)
+      margin-left: 0
     &.selected
       border-color: $primary-color
     .minimum-value
@@ -75,6 +81,12 @@
   .backer_anonymous
     margin-bottom: emCalc(10px)
 
+  .backer_short_note
+    margin-top: +emCalc(25px)
+
   .radio
     position: initial
     display: block
+
+  .button
+    width: 100%
