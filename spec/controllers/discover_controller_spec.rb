@@ -36,10 +36,6 @@ describe DiscoverController do
       it 'should assigns channels' do
         expect(assigns(:channels)).to have(1).channel
       end
-
-      it 'shoulds assigns existing tags' do
-        expect(assigns(:tags)).to have(1).tag
-      end
     end
 
     context 'when filtering by recommended' do
