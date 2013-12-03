@@ -4,9 +4,9 @@ class UnsubscribesController < ApplicationController
 
   def create
     params[:user][:unsubscribes_attributes].each_value do |subscription|
-      if subscription[:subscribed] == '1' && !subscription[:id].nil? #change from unsubscribed to subscribed
+      if subscription[:subscribed] == '1' && subscription[:id].present? #change from unsubscribed to subscribed
         parent.unsubscribes.where(project_id: subscription[:project_id]).destroy_all
-      elsif subscription[:subscribed] == '0' && subscription[:id].nil? #change from subscribed to unsubscribed
+      elsif subscription[:subscribed] == '0' && !subscription[:id].present? #change from subscribed to unsubscribed
         parent.unsubscribes.create!(project_id: subscription[:project_id])
       end
     end
