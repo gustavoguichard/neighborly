@@ -37,6 +37,6 @@ class DiscoverController < ApplicationController
       @filters.merge! search: params[:search]
     end
 
-    @channels = Channel.order('RANDOM()').limit(4) unless @filters.any?
+    @channels = Channel.with_state('online').order('RANDOM()').limit(4) unless @filters.any?
   end
 end

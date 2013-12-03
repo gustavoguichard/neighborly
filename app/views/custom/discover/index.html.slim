@@ -8,15 +8,16 @@
       p = t('.empty')
 
   - unless @filters.any?
-    section.channels
-      .row
-        .large-12.columns
-          h3
-            i.icon-et-megaphone
-            = t('.channels')
+    - if @channels.any?
+      section.channels
+        .row
+          .large-12.columns
+            h3
+              i.icon-et-megaphone
+              = t('.channels')
 
-      .row
-        = render @channels
+        .row
+          = render @channels
 
 
 - if request.xhr?
