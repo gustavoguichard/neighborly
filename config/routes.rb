@@ -39,7 +39,8 @@ Catarse::Application.routes.draw do
       resources :channels_subscribers, only: [:index, :create, :destroy]
 
       namespace :admin do
-        resources :statistics, only: [ :index ]
+
+        get '/', to: 'dashboard#index', as: :dashboard
 
         namespace :reports do
           resources :subscriber_reports, only: [ :index ]
