@@ -43,6 +43,8 @@
           span = truncate(project.headline, length: 140, separator: ' ')
           - if defined?(large) && project.online?
             = link_to t('.get_involved'), project_path(project), target: ( defined?(embed_link) ? :blank : '' ), class: 'button small'
+          - else
+            a
 
       - if not project.soon?
         .status
