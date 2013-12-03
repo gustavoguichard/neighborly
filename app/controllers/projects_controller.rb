@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     @recommended = Project.with_state('online').recommended.home_page.limit(1).where('id NOT IN (?)', used_ids).first
     used_ids << @recommended.id if @recommended
 
-    @near_projects = Project.with_state('online').near(@city, 50).order('distance').where('id NOT IN (?)', used_ids).limit(4)
+    @near_projects = Project.with_state('online').near(@city, 50).visible.order('distance').limit(4)
     used_ids += @near_projects.map(&:id) if @near_projects.any?
 
     @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)
