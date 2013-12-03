@@ -14,8 +14,10 @@
     section.large-12.columns.main
       nav.tabs[data-target-container=".user-edit-page section.content"]
         = tab_link_to t('.tabs.edit'), edit_user_path(@user)
-        = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
-        = tab_link_to t('.tabs.ive_backed'), user_backers_path(@user)
+        - if @user.projects.any?
+          = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
+        - if @user.backers.any?
+          = tab_link_to t('.tabs.ive_backed'), user_backers_path(@user)
         = tab_link_to t('.tabs.credits'), credits_user_path(@user)
         = tab_link_to t('.tabs.settings'), settings_user_path(@user)
 
