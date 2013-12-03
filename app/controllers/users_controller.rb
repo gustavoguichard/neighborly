@@ -9,9 +9,6 @@ class UsersController < ApplicationController
     show!{
       fb_admins_add(@user.facebook_id) if @user.facebook_id
       @title = "#{@user.display_name}"
-      @credits = @user.backs.can_refund
-      @subscribed_to_updates = @user.updates_subscription
-      @unsubscribes = @user.project_unsubscribes
     }
   end
 
@@ -19,9 +16,17 @@ class UsersController < ApplicationController
     render :profile if request.xhr?
   end
 
+  def credits
+    @title = "Credits: #{@user.display_name}"
+    @user = User.find params[:id]
+    @credits = @user.backs.can_refund
+  end
+
   def settings
     @title = "Settings: #{@user.display_name}"
     @user = User.find params[:id]
+    @subscribed_to_updates = @user.updates_subscription
+    @unsubscribes = @user.project_unsubscribes
   end
 
   def set_email
@@ -60,7 +65,7 @@ class UsersController < ApplicationController
         return render json: { status: :error }
       end
     end
-    return redirect_to settings_user_path(@user) if params[:settings_communication]
+    return redirect_to settings_user_path(@user) if params[:settings]
     return redirect_to edit_user_path(@user)
   end
 

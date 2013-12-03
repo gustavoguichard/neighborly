@@ -148,6 +148,30 @@
         background: $primary-color
         height: +emCalc(10px)
         +radius(4px)
+  .back-informations
+    i
+      margin-right: +emCalc(10px)
+    .reward
+      p
+        font-size: 90%
+    .share
+      .button
+        width: 100%
+        padding-left: 0
+        font-size: 70%
+        color: white
+        &.twitter
+          background: #00ABF1
+          border-bottom-color: darken(#00ABF1, $button-border-color-darken)
+          &:after
+            border-left-color: darken(#00ABF1, $button-border-color-darken)
+            @extend .icon-et-twitter:before
+        &.facebook
+          background: #3b5998
+          border-bottom-color: darken(#3b5998, $button-border-color-darken)
+          &:after
+            border-left-color: darken(#3b5998, $button-border-color-darken)
+            @extend .icon-et-facebook:before
 
   $categories-names: recreation, entertainment, event, mobility, restoration, technology
   $categories-colors: #CB4042, #246b5b, #dec423, #d3663a, #256483, #744689

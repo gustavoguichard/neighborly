@@ -15,6 +15,7 @@ en:
         name: 'Full name'
         email: 'Email'
         password: 'Password'
+        current_password: 'Current Password'
         bio: '140 characters or less...'
         facebook_link: 'facebook.com/'
         other_link: 'www.'

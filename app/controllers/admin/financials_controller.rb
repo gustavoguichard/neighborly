@@ -23,7 +23,7 @@ class Admin::FinancialsController < Admin::BaseController
     respond_to do |format|
       format.html {collection}
       format.csv do
-        financials = ProjectFinancial.where(project_id: projects.select("id"))
+        financials = ProjectFinancial.where(project_id: projects.select("projects.id"))
 
         self.response_body = Enumerator.new do |y|
           financials.copy_to do |line|

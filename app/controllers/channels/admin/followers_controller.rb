@@ -1,5 +1,5 @@
 class Channels::Admin::FollowersController < Admin::BaseController
-  add_to_menu I18n.t('channels.admin.statistics.index.menu'), :channels_admin_followers_path
+  add_to_menu 'channels.admin.followers.menu', :channels_admin_followers_path
   actions :index
 
   before_filter do

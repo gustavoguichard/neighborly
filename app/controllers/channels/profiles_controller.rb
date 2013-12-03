@@ -1,5 +1,5 @@
 class Channels::ProfilesController < Channels::BaseController
-  add_to_menu 'channels.admin.profile_menu', :edit_channels_profile_path
+  add_to_menu 'channels.admin.profile.menu', :edit_channels_profile_path
   inherit_resources
 
   actions :show, :edit, :update

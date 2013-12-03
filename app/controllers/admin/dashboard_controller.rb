@@ -4,4 +4,3 @@ class Admin::DashboardController < Admin::BaseController
   menu I18n.t("admin.dashboard.index.menu") => :admin_dashboard_path
   actions :index
 end
-

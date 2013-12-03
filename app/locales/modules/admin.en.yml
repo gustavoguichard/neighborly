@@ -34,6 +34,9 @@ en:
         total_backed:
           title: 'Total Backed'
           hint: 'Funding Raised'
+        total_subscribers:
+          title: 'Total Followers'
+          hint: 'Number of Followers'
     tags:
       index:
         menu: 'Tags'
@@ -108,8 +111,11 @@ en:
         menu: 'Financial reports'
         title: 'Finalcial reports'
         submit: 'Filter'
-        by_state: 'By state'
+        with_state: 'By state'
         by_progress: By progress %
+        user: 'User name'
+        project: 'Project name'
+        download_search_report: 'Download report of results'
     users:
       index:
         title: "Users management"
@@ -197,3 +203,16 @@ en:
   channels:
     admin:
       <<: *admin
+      management:
+        title: "Channel management"
+        totla: 'Total'
+      filter:
+        title: 'Filter'
+        pg_search: 'Search'
+        submit: 'Filter'
+      followers:
+        title: 'Followers'
+        download: 'Download Followers Report'
+        menu: 'Followers'
+      profile:
+        menu: 'Edit channel informations'

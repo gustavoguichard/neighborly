@@ -1,0 +1,18 @@
+- @title = t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      .text-right
+        = link_to t('channels.admin.profile.menu'), edit_channels_profile_path, class: 'button'
+      .row.collapse
+        .large-6.small-6.columns
+          .box
+            .title = t('.total_projects.title')
+            p = @total_projects
+            .hint = t('.total_projects.hint')
+        .large-6.small-6.columns
+          .box
+            .title = t('.total_subscribers.title')
+            p = @total_subscribers
+            .hint = t('.total_subscribers.hint')
