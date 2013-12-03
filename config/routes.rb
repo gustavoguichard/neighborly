@@ -141,7 +141,8 @@ Catarse::Application.routes.draw do
     resources :unsubscribes, only: [:create]
     member do
       get :profile,   to: 'users#edit'
-      get :settings,  to: 'users#settings'
+      get :settings
+      get :credits
       get :edit
       put 'unsubscribe_update'
       put 'update_email'

@@ -13,7 +13,7 @@ class Users::BackersController < ApplicationController
       flash[:notice] = I18n.t('controllers.users.backers.request_refund.refunded')
     end
 
-    redirect_to user_path(parent, anchor: 'credits')
+    redirect_to credits_user_path(parent)
   end
 
   protected

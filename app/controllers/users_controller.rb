@@ -9,7 +9,6 @@ class UsersController < ApplicationController
     show!{
       fb_admins_add(@user.facebook_id) if @user.facebook_id
       @title = "#{@user.display_name}"
-      @credits = @user.backs.can_refund
       @subscribed_to_updates = @user.updates_subscription
       @unsubscribes = @user.project_unsubscribes
     }
@@ -17,6 +16,12 @@ class UsersController < ApplicationController
 
   def edit
     render :profile if request.xhr?
+  end
+
+  def credits
+    @title = "Credits: #{@user.display_name}"
+    @user = User.find params[:id]
+    @credits = @user.backs.can_refund
   end
 
   def settings
