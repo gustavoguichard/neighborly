@@ -5,6 +5,7 @@ header.hero
   background-size: cover
   background-position: center
   color: white
+  text-shadow: 3px 3px 5px rgba(0,0,0,0.5)
   -ms-behavior: asset-url('backgroundsize.htc')\8
   &.small
     min-height: +emCalc(200px)
@@ -18,3 +19,5 @@ header.hero
     text-transform: uppercase
     font-weight: 300
     padding-top: +emCalc(8px)
+  .button, input, .tooltip-content
+    text-shadow: none
