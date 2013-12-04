@@ -16,17 +16,17 @@ header.fixed
         ul.left
           li#new_idea
           li
-            = link_to start_path do
-              i.icon-et-rocket
-              = t('.start_campaign')
+            = link_to about_path do
+              i.icon-et-info-circled
+              = t('.about')
           li
             = link_to discover_path do
               i.icon-et-map
               = t('.discover')
           li
-            = link_to about_path do
-              i.icon-et-info-circled
-              = t('.about')
+            = link_to start_path do
+              i.icon-et-rocket
+              = t('.start_campaign')
 
         / Right Nav Section
         ul.right

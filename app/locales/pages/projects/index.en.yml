@@ -13,7 +13,7 @@ en:
         already_joined: 'Already joined? %{link}.'
         sign_in: 'Sign in'
       hero:
-        title: 'Invest in the places and civic projects you care about.'
+        title: 'Invest in the places and civic projects <strong>you</strong> care about.'
         subtitle: "You're the solution you've been waiting for."
       how-it-works:
         one:
