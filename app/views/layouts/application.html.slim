@@ -15,11 +15,11 @@ head
   meta[name="viewport" content="width=device-width, initial-scale=1.0"]
 
   -# Stylesheets & Favicon
+  = favicon_link_tag 'favicon.ico'
   = stylesheet_link_tag :normalize, 'data-turbolinks-track' => true
   = stylesheet_link_tag :animate, 'data-turbolinks-track' => true
-  = stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:300,400,700", 'data-turbolinks-track' => true
   = stylesheet_link_tag :application, 'data-turbolinks-track' => true
-  = favicon_link_tag 'favicon.ico'
+  = stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:300,400,700", 'data-turbolinks-track' => true
 
   -# CSRF protection
   = csrf_meta_tag
