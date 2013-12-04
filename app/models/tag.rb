@@ -5,7 +5,7 @@ class Tag < ActiveRecord::Base
   before_save :lowercase_name
 
   scope :popular, -> do
-    where("exists(select true from taggings where tag_id = tags.id and taggings.project_id in (select project_id from taggings where exists(select true from projects where taggings.project_id = projects.id and projects.state not in('draft', 'rejected')) group by taggings.project_id having count(*) > 2))")
+    where("exists(select true from taggings where tag_id = tags.id and taggings.project_id in (select t.project_id from taggings t where t.project_id in (select p.id from projects p where p.id = t.project_id and p.state not in('draft', 'rejected', 'in_analysis') group by p.id having count(*) >= 2)))")
   end
 
   def decorator
