@@ -81,6 +81,7 @@ class ProjectObserver < ActiveRecord::Observer
 
   def from_in_analysis_to_online(project)
     deliver_default_notification_for(project, :project_visible)
+    notify_users_that_a_new_project_is_online(project)
     project.update_attributes({ online_date: DateTime.now })
   end
 
@@ -175,6 +176,5 @@ class ProjectObserver < ActiveRecord::Observer
         origin_name: project.last_channel.try(:name) || Configuration[:company_name]
       }
     )
-    notify_users_that_a_new_project_is_online(project)
   end
 end
