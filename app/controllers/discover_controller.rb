@@ -6,7 +6,7 @@ class DiscoverController < ApplicationController
     @avaliable_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
     @filters = {}
     @tags = Tag.popular
-    @projects = Project.visible.order_for_search
+    @projects = Project.visible
 
     if params[:filter].present? && FILTERS.include?(params[:filter].downcase)
       @projects = @projects.send(params[:filter].downcase)
@@ -37,7 +37,7 @@ class DiscoverController < ApplicationController
       @filters.merge! search: params[:search]
     end
 
-    @projects = @projects.group('projects.id')
+    @projects = @projects.group('projects.id').order_for_search
     @channels = Channel.with_state('online').order('RANDOM()').limit(4) unless @filters.any?
   end
 end
