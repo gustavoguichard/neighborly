@@ -121,8 +121,8 @@ class ProjectsController < ApplicationController
   def user_city
     if current_user && current_user.address.present?
       current_user.address
-    elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
-      request.location.city
+    #elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
+      #request.location.city
     else
       'Kansas City, MO'
     end
