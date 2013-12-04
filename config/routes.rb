@@ -93,6 +93,9 @@ Catarse::Application.routes.draw do
     resources :backer_reports_for_project_owners, only: [:index]
   end
 
+  # Temporary
+  get '/projects/neuse-river-greenway-benches', to: redirect('/')
+
   resources :projects, except: [ :destroy ] do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
     resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
