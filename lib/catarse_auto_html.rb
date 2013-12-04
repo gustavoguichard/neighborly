@@ -13,10 +13,7 @@ module CatarseAutoHtml
       iframe width: 720
       youtube width: options[:video_width], height: options[:video_height], wmode: "opaque"
       vimeo width: options[:video_width], height: options[:video_height]
-      redcarpet markdown_options: { autolink: true, filter_html: true, link_attributes: { target: :blank, data: { :"no-turbolink" => true } }, hard_wrap: true }
-      #image
-      #redcloth target: :_blank
-      #link target: :_blank
+      redcarpet markdown_options: { autolink: true, filter_html: true, hard_wrap: true, link_attributes: { target: :blank, data: { :"no-turbolink" => true } } }
     end
   end
 end
