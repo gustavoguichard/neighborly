@@ -11,7 +11,8 @@ class HeroImageUploader < ImageUploader
   version :blur do
     process resize_to_limit: [2000, 0]
     process :apply_blur
-    process convert: :png
+    process convert: :jpg
+    process quality: 60
   end
 
   def apply_blur
