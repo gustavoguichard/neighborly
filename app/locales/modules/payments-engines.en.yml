@@ -27,4 +27,4 @@ en:
     paypal:
       title: 'Checkout using Paypal'
       subtile: "You will be taken to Paypal's checkout screen in the next step."
-      redirect: 'Redirect to PayPal'
+      redirect: 'Proceed to PayPal'

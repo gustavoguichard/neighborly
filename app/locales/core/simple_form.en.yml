@@ -34,7 +34,7 @@ en:
         profile_type: 'Display me as a'
         phone_number: 'Mobile phone number'
         address_street: 'Street'
-        address_neighbourhood: 'Neighbourhood'
+        address_neighbourhood: 'Neighborhood'
         address_zip_code: 'Zip code'
       project:
         name: 'Campaign Title'
