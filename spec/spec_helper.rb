@@ -115,5 +115,6 @@ RSpec.configure do |config|
     Configuration[:base_domain] = 'localhost'
     Configuration[:email_contact] = 'foo@bar.com'
     Configuration[:company_name] = 'Foo Bar Company'
+    Configuration[:timezone] = 'US/Central'
   end
 end

@@ -8,7 +8,8 @@ describe DiscoverController do
     @category_project = create(:project, category: @category)
     @tag = create(:project, tag_list: 'test')
     @search = create(:project, name: 'test project for search')
-    create(:channel)
+    create(:channel, state: 'online')
+    create(:channel, state: 'draft')
   end
 
   it 'should have the rights filters' do
@@ -33,7 +34,7 @@ describe DiscoverController do
         expect(assigns(:projects)).to have(5).projects
       end
 
-      it 'should assigns channels' do
+      it 'should assigns online channels' do
         expect(assigns(:channels)).to have(1).channel
       end
     end

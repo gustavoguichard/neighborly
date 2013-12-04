@@ -55,7 +55,7 @@ describe Users::BackersController do
         failed_backer.requested_refund?.should be_true
       end
 
-      it { should redirect_to user_path(current_user, anchor: 'credits') }
+      it { should redirect_to credits_user_path(current_user) }
     end
 
     context "when current_user have a unconfirmed backer" do
@@ -67,7 +67,7 @@ describe Users::BackersController do
         unconfirmed_backer.requested_refund?.should be_false
       end
 
-      it { should redirect_to user_path(current_user, anchor: 'credits') }
+      it { should redirect_to credits_user_path(current_user) }
     end
 
     context "when current_user is not owner of the backer" do
