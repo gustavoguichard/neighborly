@@ -15,6 +15,7 @@ en:
           success: "Your back was successfully made. Thanks a lot!"
         pay:
           credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
+          paypal_description: "Back project %{project_name} with %{value} (plus fees)"
           no_credits: "You don't have enough credits to help greenlight this project."
           success: "Your back was successfully made. Thanks a lot!"
     users:

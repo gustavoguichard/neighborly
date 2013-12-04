@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
-  revision: b002b1a57db0a7e9c174f27adf65a90e25b5105d
-  ref: b002b1a57db0a7e9c174f27adf65a90e25b5105d
+  revision: 42aede03e0e6333a638afccd7d72de545781b233
+  ref: 42aede03e0e6333a638afccd7d72de545781b233
   specs:
     catarse_credit_card_net (0.0.1)
       authorize-net (~> 1.5.2)
@@ -44,8 +44,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_echeck_net.git
-  revision: 3b64de32023d0b9d5a5fcff9b2300a98ff5423ca
-  ref: 3b64de32023d0b9d5a5fcff9b2300a98ff5423ca
+  revision: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
+  ref: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
   specs:
     catarse_echeck_net (0.0.1)
       authorize-net (~> 1.5.2)
@@ -53,8 +53,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
-  revision: b9dd2302d3523759fc3dac26d323582e6727fadf
-  ref: b9dd2302d3523759fc3dac26d323582e6727fadf
+  revision: efac34d9468429c588733bfda75aeeca74d8ad68
+  ref: efac34d9468429c588733bfda75aeeca74d8ad68
   specs:
     catarse_paypal_express (2.1.0)
       activemerchant (>= 1.34.0)
