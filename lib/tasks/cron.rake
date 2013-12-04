@@ -75,6 +75,20 @@ task :migrate_project_thumbnails => :environment do
   end
 end
 
+desc "Migrate project hero images to new format"
+task :migrate_project_hero_images => :environment do
+  p1 = Project.where('hero_image is not null').all
+
+  p1.each do |project|
+    begin
+      project.hero_image.recreate_versions! if project.hero_image.file.present?
+      puts "Recreating versions: #{project.id} - #{project.name}"
+    rescue Exception => e
+      puts "Original image not found"
+    end
+  end
+end
+
 desc "Checking echeck payments"
 task :check_echeck => [:environment] do
   Backer.where(%Q{
