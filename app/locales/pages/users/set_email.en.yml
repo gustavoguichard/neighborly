@@ -1,0 +1,8 @@
+en:
+  users:
+    set_email:
+      update_email_title: 'Add your email address'
+      site_title: 'Create your Neighbor.ly Account'
+      title: 'Please enter your email address'
+      submit: 'Proceed'
+      create: 'Join the Neighborhood'
