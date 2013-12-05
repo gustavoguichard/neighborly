@@ -45,7 +45,7 @@ class Project < ActiveRecord::Base
       [:about, 'C']
     ],
     associated_against:  {user: [:name, :address_city ]},
-    using: {tsearch: {dictionary: "portuguese"}},
+    using: {tsearch: {dictionary: "english"}},
     ignoring: :accents
 
   # Used to simplify a has_scope
