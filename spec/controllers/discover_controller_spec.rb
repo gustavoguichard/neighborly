@@ -31,7 +31,7 @@ describe DiscoverController do
       before { get :index }
 
       it 'shoult get all project' do
-        expect(assigns(:projects)).to have(5).projects
+        expect(assigns(:projects).to_a).to have(5).items
       end
 
       it 'should assigns online channels' do

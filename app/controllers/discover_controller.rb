@@ -37,7 +37,9 @@ class DiscoverController < ApplicationController
       @filters.merge! search: params[:search]
     end
 
-    @projects = @projects.group('projects.id').order_for_search
+    @projects = @projects.group('projects.id') unless params[:search].present?
+
+    @projects = @projects.order_for_search
     @channels = Channel.with_state('online').order('RANDOM()').limit(4) unless @filters.any?
   end
 end
