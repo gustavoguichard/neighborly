@@ -89,6 +89,20 @@ task :migrate_project_hero_images => :environment do
   end
 end
 
+desc "Migrate company users logo"
+task :migrate_company_users_logo => :environment do
+  users = User.with_profile_type('company').where('company_logo is not null')
+
+  users.each do |user|
+    begin
+      user.company_logo.recreate_versions!
+      puts "Recreating versions: #{user.id} - #{user.company_name}"
+    rescue Exception => e
+      puts "Original image not found"
+    end
+  end
+end
+
 desc "Checking echeck payments"
 task :check_echeck => [:environment] do
   Backer.where(%Q{
