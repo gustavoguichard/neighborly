@@ -17,16 +17,27 @@
   meta property="fb:admins" content="#{fb_admins}"
 
 .project-page
-  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+  header.hero[style="#{ "background-image: url(#{image_url(@project.hero_image_url(:blur))})" if @project.hero_image_url.present?}"]
     .row
-      .large-6.columns
-        iframe src="#{@project.display_video_embed_url}" width="470" height="264" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
-        .share-small
-          = render 'projects/share'
-
-      .large-6.columns
+      .large-12.columns
         .name
           h3 = @project.name
+      .large-8.columns
+        iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+        .row
+          .large-6.small-8.columns.share-small
+            = render 'projects/share'
+          .large-6.small-4.columns.time-remaining
+            i.icon-et-clock
+            - if @project.draft? || @project.rejected?
+              strong = @project.online_days
+              = " #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('words.remaining_singular'), t('words.remaining_plural'))}"
+            - else
+              strong = @project.remaining_days
+              = " #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
+
+
+      .large-4.columns
         .subtitle
           h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(category: @project.category.to_s.downcase)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
         hr
@@ -35,7 +46,10 @@
         .status
           .progress.round
             span.meter[style="width: #{@project.display_progress}%"]
-          .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
+          .pledged
+            = @project.display_pledged
+            small = t('.so_far').html_safe
+            = @project.display_goal
 
   section.status-bar
     .row
