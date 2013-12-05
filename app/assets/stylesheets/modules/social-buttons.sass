@@ -1,0 +1,49 @@
+.button
+  &.facebook
+    background: $facebook-color
+    border-bottom-color: darken($facebook-color, $button-border-color-darken)
+    color: white
+    &:hover
+      background: lighten($facebook-color, $button-border-color-darken)
+    &.with-icon
+      &:after
+        border-left-color: darken($facebook-color, $button-border-color-darken)
+        padding-top: +emCalc(8px)
+        @extend .icon-et-facebook:before
+
+  &.twitter
+    background: $twitter-color
+    border-bottom-color: darken($twitter-color, $button-border-color-darken)
+    color: white
+    &:hover
+      background: lighten($twitter-color, $button-border-color-darken)
+    &.with-icon
+      &:after
+        border-left-color: darken($twitter-color, $button-border-color-darken)
+        padding-top: +emCalc(6px)
+        @extend .icon-et-twitter:before
+
+
+  &.google
+    background: $google-color
+    border-bottom-color: darken($google-color, $button-border-color-darken)
+    color: white
+    &:hover
+      background: lighten($google-color, $button-border-color-darken)
+    &.with-icon
+      &:after
+        border-left-color: darken($google-color, $button-border-color-darken)
+        padding-top: +emCalc(6px)
+        @extend .icon-et-gplus:before
+
+  &.linkedin
+    background: $linkedin-color
+    border-bottom-color: darken($linkedin-color, $button-border-color-darken)
+    color: white
+    &:hover
+      background: lighten($linkedin-color, $button-border-color-darken)
+    &.with-icon
+      &:after
+        border-left-color: darken($linkedin-color, $button-border-color-darken)
+        padding-top: +emCalc(6px)
+        @extend .icon-et-linkedin:before

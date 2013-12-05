@@ -2,20 +2,11 @@
   .button
     padding: 1em 1.1em
     &.facebook
-      background: #3b5998
-      border-bottom-color: darken(#3b5998, $button-border-color-darken)
       color: white !important
       padding-right: +emCalc(58px)
       text-transform: none
       font-weight: 500
       font-size: 110%
-      &:hover
-        background: lighten(#3b5998, $button-border-color-darken)
-      &:after
-        border-left-color: darken(#3b5998, $button-border-color-darken)
-        padding-top: +emCalc(8px)
-        @extend .icon-et-facebook:before
-
 
     &.twitter, &.google, &.linkedin
       padding: 0.74em 1.1em
@@ -25,26 +16,6 @@
       i
         font-size: 1.5em
 
-    &.twitter
-      background: #00ABF1
-      border-bottom-color: darken(#00ABF1, $button-border-color-darken)
-      color: white !important
-      &:hover
-        background: lighten(#00ABF1, $button-border-color-darken)
-
-    &.google
-      background: #E14929
-      border-bottom-color: darken(#E14929, $button-border-color-darken)
-      color: white !important
-      &:hover
-        background: lighten(#E14929, $button-border-color-darken)
-
-    &.linkedin
-      background: #0B84BE
-      border-bottom-color: darken(#0B84BE, $button-border-color-darken)
-      color: white !important
-      &:hover
-        background: lighten(#0B84BE, $button-border-color-darken)
   .login-box
     background: white
     padding: .5em 0 1.7em 0
