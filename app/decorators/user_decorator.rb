@@ -18,7 +18,7 @@ class UserDecorator < Draper::Decorator
 
   def gravatar_url
     return unless source.email
-    "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?default=#{::Configuration[:base_url]}/assets/user.png"
+    "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?default=#{::Configuration[:base_url]}/assets/default-avatar.png"
   end
 
   def display_name
