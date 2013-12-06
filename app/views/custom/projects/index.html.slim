@@ -72,6 +72,22 @@
                 = t('words.see_more')
                 i.icon-et-right-circled
 
+      - if @successful.any?
+        section.successful
+          h3
+            = link_to discover_path(filter: 'successful') do
+              i.icon-et-thumbs-up
+              = t('.successful')
+
+          .row
+            - for project in @successful
+              = render 'project', project: project
+
+          .text-right
+            = link_to discover_path(filter: 'successful'), class: 'see-more' do
+              = t('words.see_more')
+              i.icon-et-right-circled
+
       - if @coming_soon.any?
         section.coming-soon
           h3
