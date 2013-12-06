@@ -1,0 +1,3 @@
+- for project in @projects
+  = render 'project', project: project
+= render 'projects/start_one', projects: @projects.size if @projects.size < 4

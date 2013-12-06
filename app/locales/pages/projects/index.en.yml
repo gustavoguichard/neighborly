@@ -3,11 +3,10 @@ en:
     index:
       title: 'Fundraising for civic projects | Civic Crowdfunding | CSR | Cause Marketing'
       recommended: 'Recommended'
-      near: 'Projects near'
+      near: 'Projects Near'
       ending_soon: 'Ending Soon'
+      successful: 'Successful'
       coming_soon: 'Coming Soon'
-      no_projects_near: 'No projects near %{city}.'
-      discover: 'Explore more campaigns'
       join:
         join_the_neighborhood: 'Join the Neighborhood'
         already_joined: 'Already joined? %{link}.'
@@ -28,3 +27,7 @@ en:
           headline: 'For Citizens'
           text: 'Want to earn perks while enhancing cities? What you do matters. Welcome to the neighborhood.'
           button: 'Find Projects'
+    start_one:
+      title: 'Have a community project in need of funding?'
+      button: 'Start one in your area'
+      small_button: 'Start one'

@@ -1,0 +1,19 @@
+- if projects == 1
+  - n_columns = 9
+- elsif projects == 2
+  - n_columns = 6
+- elsif projects == 3
+  - n_columns = 3
+- else
+  - n_columns = 12
+
+.columns[class="large-#{ n_columns }"]
+  = link_to start_path do
+    section.start-one[class="n-columns-#{ n_columns }"]
+      h3 = t('.title')
+      - if n_columns == 3
+        - button_text = t('.small_button')
+      - else
+        - button_text = t('.button')
+
+      = link_to button_text, start_path, class: "button custom with-icon #{ n_columns == 3 ? 'medium' : 'large' }"
