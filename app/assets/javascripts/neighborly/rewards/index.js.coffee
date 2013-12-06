@@ -7,6 +7,7 @@ Neighborly.Rewards.Index = Backbone.View.extend
     'click .add-reward a': 'loadForm'
     'click .reward a.edit': 'loadForm'
     'click .reward a.cancel': 'cancel'
+    'click .reward.clickable': 'newProjectBacker'
 
   initialize: ->
     return if this.$el.length is 0
@@ -76,3 +77,12 @@ Neighborly.Rewards.Index = Backbone.View.extend
   cancel: (event)->
     event.preventDefault()
     $(event.currentTarget).parents('.hide').fadeOut('fast').parents('.editing').removeClass('editing')
+
+  newProjectBacker: (event)->
+    $target = $(event.target)
+    return if $target.hasClass('edit') || $target.hasClass('cancel') || $target.hasClass('btn-contact') || $target.hasClass('editing') || $target.parents('.reward').hasClass('editing')
+    url = $target.parents('.reward').data('new-project-backer-path')
+    if window.Turbolinks?
+      window.Turbolinks.visit(url)
+    else
+      window.location.href = url

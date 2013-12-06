@@ -1,5 +1,5 @@
 - collection.rank(:row_order).each do |reward|
-  div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) class="reward #{ 'sortable' if can?(:update, reward) } #{ 'soon' if reward.soon? }"]
+  div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-backer-path=new_project_backer_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? && !reward.soon? } #{ 'sortable' if can?(:update, reward) } #{ 'soon' if reward.soon? }"]
     .title
       = t('.reward_title', minimum: reward.display_minimum).html_safe
       - if can?(:update, reward)
@@ -29,13 +29,9 @@
 
     .description = reward.display_description
 
-    - if parent.online? && !reward.sold_out? && !reward.soon?
-      .contribute
-        = link_to t('.contribute'), new_project_backer_path(parent, reward_id: reward.id), class: 'button'
-
     - if reward.show_contact_button
       .contact
-        = link_to t('.contact'), reward_contact_project_path(parent), class: 'button', data: { 'reveal-id' => 'reward-contact', 'reveal-ajax' => true }
+        = link_to t('.contact'), reward_contact_project_path(parent), class: 'button btn-contact', data: { 'reveal-id' => 'reward-contact', 'reveal-ajax' => true }
 
     - if reward.days_to_delivery.present?
       .days-to-delivery
