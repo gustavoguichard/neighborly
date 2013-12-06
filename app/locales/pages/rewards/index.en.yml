@@ -8,6 +8,5 @@ en:
         one:  "1 backer in time to confirm."
         other: "%{count} backers in time to confirm."
       reward_title: "For %{minimum} or more"
-      contribute: 'Contribute'
       contact: 'Contact'
       reward_deliver_time: "Estimated delivery: %{prevision}"

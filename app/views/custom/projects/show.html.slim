@@ -112,7 +112,6 @@
         = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || can?(:update, @project)
         - if can? :update, @project
           = tab_link_to t('.tabs.reports'), reports_project_path(@project)
-          /= tab_link_to t('.tabs.edit'), edit_project_path(@project)
 
       section.content
         - if content_for? :page_content
@@ -153,8 +152,8 @@
                 #ask-a-question.reveal-modal.small.fixed
     aside.large-3.columns.sidebar
       .call-to-action
+        = link_to t('.contribute'), new_project_backer_url(@project), class: "button with-icon contribute #{ 'disabled secondary' if not @project.online? }"
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if can? :update, @project
-        = link_to t('.make_contribution'), new_project_backer_url(@project), class: "button with-icon make-contribution #{ 'disabled secondary' if not @project.online? }"
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
