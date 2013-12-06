@@ -21,17 +21,17 @@ describe "Projects.Show.StatusBar", ->
       @view.initialize()
       expect($.fn.scroll).toHaveBeenCalledWith(jasmine.any(Function))
 
-    it 'should add fixed class to status bar when scoll top is more then status bar offset', ->
+    it 'should add show class to status bar when scoll top is more then status bar offset', ->
       spyOn($.fn, 'scrollTop').andReturn(10)
       spyOn($.fn, 'offset').andReturn({top: 5})
       @view.initialize()
       $(document).trigger('scroll')
-      expect($('.status-bar').hasClass('fixed')).toBeTruthy()
+      expect($('.status-bar').hasClass('show')).toBeTruthy()
 
-    it 'should not add fixed class to status bar when scoll top is less then status bar offset', ->
+    it 'should not add show class to status bar when scoll top is less then status bar offset', ->
       spyOn($.fn, 'scrollTop').andReturn(10)
       spyOn($.fn, 'offset').andReturn({top: 15})
       @view.initialize()
       $(document).trigger('scroll')
-      expect($('.status-bar').hasClass('fixed')).toBeFalsy()
+      expect($('.status-bar').hasClass('show')).toBeFalsy()
 

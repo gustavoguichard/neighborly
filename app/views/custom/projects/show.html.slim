@@ -51,40 +51,32 @@
             small = t('.so_far').html_safe
             = @project.display_goal
 
-  section.status-bar
+  section.status-bar.fixed
     .row
-      .large-5.columns.name
-        p = link_to '#', class: 'scroll-to-top' do
-          i.icon-et-home
-          = @project.name
-
-      .large-7.columns.status
+      .large-12.columns.status
         .row
-          .large-3.columns.pledged
+          .large-3.columns.share-small
+            = render 'projects/share', embed: false
+          .large-2.columns.pledged
             p = "#{@project.display_pledged} (#{@project.progress}%)"
-            small = t('.status-bar.goal', value: @project.display_goal)
-          .large-3.columns.backers
+          .large-2.columns.backers
             p
               i.icon-et-user
               = t('.status-bar.total_backers', value: @project.total_backers)
-            - if @project.total_backers > 0
-              small
-                = link_to t('.status-bar.see_all_backers'), project_backers_path(@project)
-          .large-3.columns.time-remaining
+          .large-2.columns.time-remaining
             p
               i.icon-et-clock
               - if @project.draft? || @project.rejected?
                 = "#{@project.online_days} #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('words.remaining_singular'), t('words.remaining_plural'))}"
               - else
                 = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
-            small = t('.status-bar.expires_at', date: l(@project.expires_at.to_date, format: :long)) if @project.expires_at.present?
 
           - unless @project.online?
             .large-3.columns.status-description
               span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
           - else
-            .large-3.columns.get-involved
-              = link_to t('.status-bar.get_involved'), new_project_backer_url(@project), class: 'button'
+            .large-3.columns.contribute
+              = link_to t('.status-bar.contribute'), new_project_backer_url(@project), class: 'button small'
 
   .row.page-main-content
     section.large-9.columns.main
@@ -152,7 +144,12 @@
                 #ask-a-question.reveal-modal.small.fixed
     aside.large-3.columns.sidebar
       .call-to-action
-        = link_to t('.contribute'), new_project_backer_url(@project), class: "button with-icon contribute #{ 'disabled secondary' if not @project.online? }"
+        - if @project.online?
+          = link_to t('.contribute'), new_project_backer_url(@project), class: "button with-icon contribute"
+        - else
+          .alert-box.secondary.status-description
+            p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
+
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if can? :update, @project
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]

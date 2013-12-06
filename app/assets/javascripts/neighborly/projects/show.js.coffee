@@ -12,23 +12,16 @@ Neighborly.Projects.Show =
   StatusBar: Backbone.View.extend
     el: '.project-page'
 
-    events:
-      'click .scroll-to-top': 'scrollTop'
-
     initialize: ->
       return if this.$el.length is 0
-      offset = this.$('.status-bar').offset()
+      offset = this.$('.page-main-content').offset()
       offset = offset.top if offset?
       $(window).unbind('scroll')
       $(window).scroll ->
         if $(document).scrollTop() > offset
-          this.$('.status-bar').addClass('fixed')
+          this.$('.status-bar').addClass('show')
         else
-          this.$('.status-bar').removeClass('fixed')
-
-    scrollTop: (event)->
-      event.preventDefault()
-      $(document).scrollTop(0)
+          this.$('.status-bar').removeClass('show')
 
   AskQuestion: ->
     if window.location.hash == '#open-new-user-question-modal'

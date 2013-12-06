@@ -8,9 +8,7 @@ en:
       status-bar:
         goal: 'Goal: %{value}'
         total_backers: '%{value} backers'
-        see_all_backers: 'See all neighbors behind this.'
-        get_involved: 'Get Involved!'
-        expires_at: 'Ends on %{date}'
+        contribute: 'Contribute'
       tabs:
         about: 'About'
         updates: 'Updates'
