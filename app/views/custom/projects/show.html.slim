@@ -111,37 +111,35 @@
         - else
           = render template: 'projects/about', locals: { partial: true }
 
-      section.share
-        h4 = t('.share.title')
+      section.author
+        .row
+          - if @project.user.company?
+            .large-5.columns
+              = link_to @project.user.display_image_html(width: 300, height: 150, class: 'large'), @project.user
+          - else
+            .large-3.columns
+              = link_to @project.user.display_image_html(width: 150, height: 150, class: 'large'), @project.user
 
-        .large-10.columns.large-centered
-          = render 'projects/share'
+          .columns[class="large-#{ @project.user.company? ? 7 : 9}"]
+            h4 = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
+            p = @project.user.bio
 
-      .row
-        .large-6.columns.leading-team
-          section.custom
+            .social
+              ul
+                - if @project.user.facebook_link.present?
+                  li = link_to @project.user.facebook_link, target: :blank, class: 'facebook' do
+                   i.icon-et-facebook-circled
+                - if @project.user.twitter.present?
+                  li = link_to @project.user.twitter_link, target: :blank, class: 'twitter' do
+                   i.icon-et-twitter-circled
+                - if @project.user.other_link.present?
+                  li = link_to @project.user.other_link, target: :blank, class: 'other' do
+                   i.icon-et-globe
 
-        .large-6.columns.author
-          section.custom
-            .title = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
+            = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
+            - content_for :modals do
+              #ask-a-question.reveal-modal.small.fixed
 
-            .content
-              p = @project.user.bio
-
-              .social
-                ul
-                  - if @project.user.facebook_link.present?
-                    li = link_to @project.user.facebook_link.gsub('https://www.facebook', 'fb').gsub('http://www.facebook', 'fb'), @project.user.facebook_link, target: :blank, class: 'facebook'
-                  - if @project.user.twitter.present?
-                    li = link_to "@#{@project.user.twitter}", @project.user.twitter_link, target: :blank, class: 'twitter'
-                  - if @project.user.email
-                    li = mail_to @project.user.email, @project.user.email, class: 'email'
-                  - if @project.user.other_link.present?
-                    li = link_to @project.user.other_link, @project.user.other_link, target: :blank, class: 'other'
-
-              = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
-              - content_for :modals do
-                #ask-a-question.reveal-modal.small.fixed
     aside.large-3.columns.sidebar
       .call-to-action
         - if @project.online?

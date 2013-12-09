@@ -38,7 +38,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def display_image_html options={width: 150, height: 150}
-    h.content_tag(:figure, h.image_tag(display_image, alt: source.display_name, style: "width: #{options[:width]}px; height: #{options[:height]}px", class: "avatar"), class: "profile-image #{source.profile_type}").html_safe
+    h.content_tag(:figure, h.image_tag(display_image, alt: source.display_name, style: "width: #{options[:width]}px; height: #{options[:height]}px", class: "avatar"), class: "profile-image #{source.profile_type}#{" #{options[:class]}" if options[:class].present?}").html_safe
   end
 
   def first_name
