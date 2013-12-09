@@ -10,9 +10,9 @@
 .user-profile-page
   header.hero[style="background-image: url(#{image_url(@user.hero_image_url(:blur))})"]
     - if @user.company?
-      = @user.display_image_html width: 300, height: 150
+      = @user.display_image_html width: 300, height: 150, class: 'large'
     - else
-      = @user.display_image_html width: 150, height: 150
+      = @user.display_image_html width: 150, height: 150, class: 'large'
   .hero-bio
     .row
       .large-6.large-centered.columns
