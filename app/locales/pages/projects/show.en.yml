@@ -40,6 +40,7 @@ en:
       no-neighbors: "No neighbors yet."
       author:
         about: 'About %{name}'
+      in_partnership_with: 'In Partnership With'
     video_embed:
       a_project_by_html: "A project by %{link} on"
     share:

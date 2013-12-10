@@ -150,6 +150,14 @@
 
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if can? :update, @project
 
+      - if @project.last_channel
+        section.channel
+          = link_to root_url(subdomain: @project.last_channel.permalink) do
+            .row
+              .large-12.columns.large-centered
+                h5 = t('.in_partnership_with')
+                = image_tag @project.last_channel.image.curator_thumb.url, size: '200x'
+
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
       section.custom.neighbors-behind-this
