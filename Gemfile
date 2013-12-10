@@ -140,7 +140,7 @@ end
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
 gem 'zurb-foundation', '~> 4.3.2'
