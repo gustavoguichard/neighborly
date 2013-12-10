@@ -12,7 +12,11 @@
           = form.input :image, as: :file
           - if @profile.image.present?
             p= image_tag(@profile.image.curator_thumb.url)
-      = form.input :video_url, as: :string
+      .row
+        .large-6.small-6.columns
+          = form.input :email, as: :string
+        .large-6.small-6.columns
+          = form.input :video_url, as: :string
       .row
         .large-4.columns
           .row.collapse
