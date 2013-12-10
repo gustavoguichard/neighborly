@@ -13,7 +13,7 @@ Neighborly.InfiniteScroll =
 
   onSuccess: (data) ->
     this.EOF = true  if $.trim(data) is ""
-    this.$results.append data
+    this.$results.append data unless this.use_custom_append? && this.use_custom_append == true
     this.$loader.hide()
     this.$el.trigger "scroll:success", data
 
