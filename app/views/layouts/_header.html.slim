@@ -4,7 +4,11 @@ header.fixed
       ul.title-area
         li.name
           h1
-            = link_to Configuration[:company_name], root_url
+            - if Rails.env.production?
+              - url = root_url(host: Configuration[:base_domain] || request.domain, protocol: 'http')
+            - else
+              - url = root_url
+            = link_to Configuration[:company_name], url
 
         / Mobile thing
         li.toggle-topbar.menu-icon
