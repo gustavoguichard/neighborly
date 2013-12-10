@@ -18,17 +18,33 @@
             .large-6.columns
               = link_to t('.follow'), channels_subscriber_path, class: [:button, :success]
 
-    .row.more.hide
-      .large-6.small-4.columns
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-      .large-6.small-8.columns
-        ul.social
-          - if @profile.website.present?
-            li = link_to @profile.display_website, @profile.website, class: [:"icon-earth"], target: :blank
-          - if @profile.facebook.present?
-            li = link_to @profile.display_facebook, @profile.facebook, class: [:"icon-facebook"], target: :blank
-          - if @profile.twitter.present?
-            li = link_to @profile.display_twitter, @profile.twitter, class: [:"icon-twitter"], target: :blank
+    section.more.animated.fadeIn
+      .row
+        .large-3.small-4.columns.submit-your-project
+          h4 = t('.submit_your_project.title')
+          p = t('.submit_your_project.text')
+          = link_to t('.submit_your_project.button'), start_path, class: 'button'
+        .large-9.small-8.columns
+          .about-us
+            h4 = t('.about.title')
+            p = @profile.how_it_works_html.html_safe
+          .connect
+            h4 = "#{t('.connect.title')} #{@profile.name}"
+            .row.social
+              - if @profile.website.present?
+                .large-3.small-3.columns
+                  = link_to t('.connect.website'), @profile.website, class: 'button website success with-icon', target: :blank
+              - if @profile.facebook.present?
+                .large-3.small-3.columns
+                  = link_to t('.connect.facebook'), @profile.facebook, class: 'button facebook with-icon', target: :blank
+              - if @profile.twitter.present?
+                .large-3.small-3.columns
+                  = link_to t('.connect.twitter'), @profile.twitter, class: 'button twitter with-icon', target: :blank
+              - if @profile.email.present?
+                .large-3.small-3.columns
+                  = mail_to @profile.email, t('.connect.email'), class: 'button email with-icon'
+    .see-more-wrapper
+      = link_to '', '#', title: t('.see_more'), class: 'see-more-toggle icon-et-down-circled'
 
   - if @projects.any?
     section.projects

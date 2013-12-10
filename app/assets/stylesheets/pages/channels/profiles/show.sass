@@ -6,6 +6,37 @@
     .button
       width: 100%
 
+    section.more
+      display: none
+      margin-top: +emCalc(50px)
+      .submit-your-project
+        border-right: 1px solid $border-color
+      .social
+        .button
+          font-size: 90%
+          &.website:after
+            @extend .icon-et-globe:before
+          &.email:after
+            @extend .icon-et-mail:before
+
+    .see-more-wrapper
+      position: relative
+      text-align: center
+      a
+        background: white
+        border-radius: 50%
+        padding: +emCalc(3px)
+        position: absolute
+        bottom: +emCalc(-25px)
+        font-size: 180%
+    &.expanded
+      .see-more-wrapper
+        a:before
+          @extend .icon-et-up-circled:before
+      section.more
+        display: block
+
+
   section.projects
     padding-top: +emCalc(25px)
 
