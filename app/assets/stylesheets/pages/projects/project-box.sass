@@ -161,7 +161,7 @@
     .category i:before
       color: nth($categories-colors, index($categories-names, $name))
       @extend .icon-et-#{nth($categories-icons, index($categories-names, $name))}:before
-    &.large .name, .progress span
+    &.large .name
       background: nth($categories-colors, index($categories-names, $name))
 
   @each $name in $categories-names
