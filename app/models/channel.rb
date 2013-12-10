@@ -9,6 +9,7 @@ class Channel < ActiveRecord::Base
 
   validates_presence_of :name, :description, :permalink
   validates_uniqueness_of :permalink
+  after_validation :update_video_embed_url
 
   has_and_belongs_to_many :projects, -> { order("online_date desc") }
   has_and_belongs_to_many :subscribers, class_name: 'User', join_table: :channels_subscribers
@@ -35,6 +36,10 @@ class Channel < ActiveRecord::Base
 
   def video
     @video ||= VideoInfo.get(self.video_url) if self.video_url.present?
+  end
+
+  def update_video_embed_url
+    self.video_embed_url = self.video.embed_url if self.video_url.present?
   end
 
   # Links to channels should be their permalink
