@@ -26,6 +26,8 @@ en:
         twitter: 'http://twitter.com/'
         website: 'http://www.'
     labels:
+      profile:
+        how_it_works: 'About Us'
       user:
         bio: 'Short Bio'
         password: 'New Password'
