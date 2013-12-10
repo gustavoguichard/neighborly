@@ -4,7 +4,8 @@ br
 br
 br
 |Thanks to you and #{backer.project.total_backers - 1} other supporters, #{link_to(backer.project.name, "#{Configuration[:base_url]}/projects/#{backer.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{backer.project.display_pledged}, totalling #{backer.project.progress}% of the goal!
-br
+br/
+br/
 |Hang tight - you don't need to do anything for now. #{backer.project.user.display_name} will follow up with you soon. If you chose a reward that requires additional information, the project owner will follow up with you directly.
 br
 br
@@ -14,7 +15,7 @@ br
 - fb_img = "<img src=\"#{Configuration[:base_url]}/assets/auth/facebook_64.png\" title='Facebook' class='social' />".html_safe
 = raw link_to(fb_img, "http://www.facebook.com/share.php?u=#{project_url(backer.project)}" , :target => :_blank)
 - twitter_img = "<img src='#{Configuration[:base_url]}/assets/auth/twitter_64.png' title='Twitter' class='social' />".html_safe
-= raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight #{backer.project.name}, on @#{Configuration[:twitter_username]}! #{project_url(backer.project)}"}", :target => :_blank)
+= raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight #{backer.project.name} on @#{Configuration[:twitter_username]}! #{project_url(backer.project)}"}", :target => :_blank)
 br
 br
 br
@@ -39,7 +40,7 @@ br
 strong #{backer.key}
 br
 br
-|If you wish to contact #{backer.project.user.name}, please email #{mail_to backer.project.user.email}
+|If you wish to contact #{backer.project.user.name}, please email  #{mail_to backer.project.user.email}
 br
 br
 |If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.
