@@ -94,7 +94,7 @@ Catarse::Application.routes.draw do
   end
 
   # Temporary
-  get '/projects/neuse-river-greenway-benches', to: redirect('/')
+  get '/projects/neuse-river-greenway-benches-draft', to: redirect('/projects/neuse-river-greenway-benches')
 
   resources :projects, except: [ :destroy ] do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
