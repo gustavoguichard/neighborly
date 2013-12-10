@@ -1,11 +1,12 @@
 - content_for :page_content do
   = initjs_tag app_name: 'Neighborly', partial: true
   .backers-page[data-path=project_backers_path(@project)]
-    .list.row
-      - if collection.any?
-        = render collection
-      - else
-        p = t('.empty')
+    .row
+      .list
+        - if collection.any?
+          = render collection
+        - else
+          p = t('.empty')
 
     .backers-loading.loading= image_tag "loading.gif"
 
