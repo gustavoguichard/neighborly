@@ -9,11 +9,8 @@ br
 
 table border="0" cellpadding="3" cellspacing="0" width="220" align="center"
   tr
-    td width="220" valign="top"
-      = link_to project_url(project), style: 'text-decoration: none; color: #333;' do
-        = image_tag(project.display_image.gsub('+', ''), size: '220x172') if project.display_image.present?
-        br/
-        p style='font-size: 13px; padding: 5px; text-align: center'= link_to(project.name, project_url(project))
+    td width="220" valign="top" style="text-align: center;"
+      = link_to project.name, project_url(project), style: 'text-decoration: none; color: #333; font-size: 16px; text-align: center;'
 
 br
 |High fives,
