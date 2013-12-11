@@ -25,15 +25,6 @@ GIT
       rinku (~> 1.5.0)
 
 GIT
-  remote: git://github.com/josemarluedke/initjs.git
-  revision: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
-  ref: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
-  specs:
-    initjs (2.0.0.beta1)
-      jquery-rails
-      rails (>= 3.1)
-
-GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
   revision: 7413ebaba40505881e3366b26b4238981d82d67a
   ref: 7413ebaba40505881e3366b26b4238981d82d67a
@@ -242,6 +233,9 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
+    initjs (2.0.0)
+      jquery-rails
+      rails (>= 3.1)
     jasmine-core (1.3.1)
     jasmine-rails (0.4.9)
       jasmine-core (~> 1.3)
@@ -538,7 +532,7 @@ DEPENDENCIES
   high_voltage
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
-  initjs!
+  initjs (~> 2.0.0)
   jasmine-rails (~> 0.4.6)
   jquery-rails (~> 3.0.4)
   kaminari
