@@ -18,7 +18,7 @@
     .row
       .large-8.columns.large-centered
         .subtitle
-          h4 = t('.contribute_subtitle')
+          h4 = t('.subtitle')
         .row
           = form.association :reward_id, as: :radio_buttons, label: false, collection: @rewards do |builder|
             - if builder.object.any?
