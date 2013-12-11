@@ -15,15 +15,15 @@ Neighborly.Projects.Backers.New =
       this.$('input[type=radio]').change this.clickReward
       this.$('#backer_anonymous').change this.clickAnonymous
 
-      this.value = this.$('#backer_value')
-      this.rewards = this.value.data('rewards')
-      this.choices = this.$('.reward-option')
-      this.selectReward this.$('input[type=radio]:checked')
-      this.value.focus()
+      this.$value = this.$('#backer_value')
+      this.rewards = this.$value.data('rewards')
+      this.$choices = this.$('.reward-option')
+      this.selectReward(this.$('input[type=radio]:checked'))
+      this.$value.focus()
       this.submitButtonHandler()
 
     submitButtonHandler: ->
-      if this.value[0].checkValidity()
+      if this.$value[0].checkValidity()
         this.$('input[type=submit]').removeClass('disable').attr('disabled', false)
       else
         this.$('input[type=submit]').addClass('disable').attr('disabled', true)
@@ -33,11 +33,12 @@ Neighborly.Projects.Backers.New =
       this.submitButtonHandler()
 
     clickReward: (event) ->
-      this.choices.removeClass('selected')
+      this.$choices.removeClass('selected')
       option = this.$(event.currentTarget)
+      reward = this.reward()
       this.$('.custom.radio.checked').not(option.find('~ span')).removeClass('checked')
       this.selectReward option
-      this.value.val this.reward().minimum_value
+      this.$value.val(reward.minimum_value) if this.$value.val() == '' || parseInt(this.$value.val()) < parseInt(reward.minimum_value)
       option.parents('.reward-option:first').addClass('selected')
       this.submitButtonHandler()
 
@@ -58,7 +59,7 @@ Neighborly.Projects.Backers.New =
     resetReward: (event) ->
       reward = this.reward()
       if reward
-        value = this.value.val()
-        this.selectReward this.$('#backer_reward_id') if (!(/^(\d+)$/.test(value))) or (parseInt(value) < reward.minimum_value)
+        value = this.$value.val()
+        this.selectReward(this.$('#backer_reward_id')) if (!(/^(\d+)$/.test(value))) || (parseInt(value) < parseInt(reward.minimum_value))
       this.submitButtonHandler()
 
