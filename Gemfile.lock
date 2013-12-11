@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
-  revision: 42aede03e0e6333a638afccd7d72de545781b233
-  ref: 42aede03e0e6333a638afccd7d72de545781b233
+  revision: 7413ebaba40505881e3366b26b4238981d82d67a
+  ref: 7413ebaba40505881e3366b26b4238981d82d67a
   specs:
     catarse_credit_card_net (0.0.1)
       authorize-net (~> 1.5.2)
@@ -44,8 +44,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_echeck_net.git
-  revision: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
-  ref: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
+  revision: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
+  ref: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
   specs:
     catarse_echeck_net (0.0.1)
       authorize-net (~> 1.5.2)
