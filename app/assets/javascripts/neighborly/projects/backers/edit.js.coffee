@@ -26,14 +26,15 @@ Neighborly.Projects.Backers.Edit =
 
       showContent: (e)->
         this.showTotalValue(e)
-        this.$('.payment-method').hide()
-
+        this.$('.payment-method').addClass('loading-section')
         $payment = $("##{$(e.currentTarget).val()}-payment.payment-method")
-        $payment.fadeIn()
 
         if $payment.data('path')
-          $.get($payment.data('path')).success (data) ->
+          $.get($payment.data('path')).success (data) =>
+            this.$('.payment-method').hide()
             $payment.html data
+            $payment.show()
+            this.$('.payment-method').removeClass('loading-section')
 
       showTotalValue: (e)->
         $input = $('.create-backer-page header .total-with-fee input')
