@@ -42,4 +42,7 @@
           = label_tag 'backer[value]', 'Value'
           = text_field_tag 'backer[value]'
         .input
+          = label_tag 'backer[anonymous]', 'Anonymous'
+          = check_box_tag 'backer[anonymous]', true, checked: true
+        .input
           = submit_tag 'Submit', class: 'button'
