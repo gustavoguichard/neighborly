@@ -4,6 +4,6 @@ en:
       new:
         title: "Get Involved!"
         subtitle: "Contribute to this campaign"
-        contribute: "Contribute to this campaign"
+        contribute: "Contribute to <strong>%{project_name}</strong>"
         contribute_subtitle: "Select your amount or select your reward."
         submit: 'Review & Proceed'

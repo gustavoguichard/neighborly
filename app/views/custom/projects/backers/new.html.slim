@@ -1,30 +1,24 @@
 .new-backer-page
-  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
-    .row
-      .large-10.columns.large-centered
-        .name
-          h3 = @project.name
-      br
-      .share-white
-        .large-6.columns.large-centered
-          = render 'projects/share'
-  .row
-    section.large-6.columns.large-centered.main
-      .title
-        h2 = t('.contribute')
-      .subtitle
-        p = t('.contribute_subtitle')
-    = simple_form_for @backer, url: @create_url, html: { id: 'form-backer', class: 'custom' } do |form|
-      .large-8.columns.large-centered
-        .row.collapse
-          .large-2.small-2.columns
-            span.prefix $
-          .large-8.small-8.columns
-            = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
-          .large-2.small-2.columns
-            span.postfix .00
+  = simple_form_for @backer, url: @create_url, html: { id: 'form-backer', class: 'custom' } do |form|
+    header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+      .row
+        .large-10.columns.large-centered
+          .name
+            h3 = t('.contribute', project_name: @project.name).html_safe
+      .row.value-wrapper
+        .large-8.columns.large-centered
+          .row.collapse
+            .large-2.small-2.columns
+              span.prefix $
+            .large-8.small-8.columns
+              = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
+            .large-2.small-2.columns
+              span.postfix .00
 
+    .row
       .large-8.columns.large-centered
+        .subtitle
+          h4 = t('.contribute_subtitle')
         .row
           = form.association :reward_id, as: :radio_buttons, label: false, collection: @rewards do |builder|
             - if builder.object.any?
