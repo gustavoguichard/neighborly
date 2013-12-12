@@ -8,4 +8,7 @@
     .large-12.large-centered.columns
       h4 = t('words.fix-erros-below')
       - resource.errors.messages.each do |message|
-        p = message[1].to_sentence
+        - if message[0] == :reset_password_token
+          p Please click on the password reset link from the most resent email.
+        - else
+          p = message[1].to_sentence

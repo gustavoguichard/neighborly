@@ -1,5 +1,5 @@
 = content_for :title, t('.titles.site')
-
+= render 'layouts/flash', flash: flash if flash
 = render 'devise/shared/header'
 
 #new-password-page.row
