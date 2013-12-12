@@ -1,5 +1,5 @@
 .project-box-video-embed
-  iframe src="#{@project.display_video_embed_url}" width="360" height="205"
+  iframe src="#{@project.display_video_embed_url}" width="390" height="219" frameborder="0"
   h3= link_to @project.name, project_path(permalink: @project.permalink), target: :blank
   .video-embed-footer
     h5 = t('.a_project_by_html', link: link_to(@project.user.display_name, user_path(@project.user), target: :blank))
