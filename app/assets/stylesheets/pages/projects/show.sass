@@ -229,11 +229,20 @@
 
 #embed-panel
   min-width: +emCalc(780px)
+  max-width: +emCalc(780px)
+  margin-left: +emCalc(-780px) / 2
 .embed-panel-page
+  h5
+    text-align: left
+    text-transform: uppercase
+  .header
+    text-align: center
+    h3
+      text-transform: uppercase
   textarea
-    height: +emCalc(115px)
+    height: +emCalc(125px)
   #project-video-embed-html
-    width: 364px
+    width: 360px
     @media #{$large}
       float: right
   #project-box-embed-html

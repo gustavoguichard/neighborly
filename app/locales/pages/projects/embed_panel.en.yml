@@ -1,0 +1,7 @@
+en:
+  projects:
+    embed_panel:
+      title: 'Help spread thi campaign arround the web!'
+      subtitle: 'Copy and paste an embed code from below into your website to enable a widget.'
+      campaign_progress: 'Campaign Progress'
+      campaign_video: 'Campaign Video'
