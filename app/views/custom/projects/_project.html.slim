@@ -53,8 +53,7 @@
                 = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
               - else
                 = t('.completed')
-          .progress.round
-            span.meter[style="width: #{project.display_progress}%"]
+          = project.progress_bar
 
     - if defined?(backer)
       .back-informations.large-3.columns

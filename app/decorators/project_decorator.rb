@@ -66,9 +66,10 @@ class ProjectDecorator < Draper::Decorator
   end
 
   def progress_bar
-    width = source.progress > 100 ? 100 : source.progress
-    content_tag(:div, id: :progress_wrapper) do
-      content_tag(:div, nil, id: :progress, style: "width: #{width}%")
+    width = source.display_progress
+    width = 5 if width < 1 && source.backers.with_state('confirmed').size > 0
+    content_tag(:div, class: [:progress, :round]) do
+      content_tag(:span, nil, class: :meter, style: "width: #{width}%")
     end
   end
 

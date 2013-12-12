@@ -44,8 +44,7 @@
         .headline
           p = @project.headline
         .status
-          .progress.round
-            span.meter[style="width: #{@project.display_progress}%"]
+          = @project.progress_bar
           .pledged
             = @project.display_pledged
             small = t('.so_far').html_safe
