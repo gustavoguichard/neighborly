@@ -3,7 +3,6 @@ class Admin::BackersController < Admin::BaseController
   has_scope :by_user_id, :by_key, :user_name_contains, :user_email_contains, :payer_email_contains, :project_name_contains, :confirmed, :with_state, :by_value
   has_scope :credits, type: :boolean
   has_scope :between_values, using: [ :start_at, :ends_at ], allow_blank: true
-  before_filter :set_title
 
   def self.backer_actions
     %w[confirm pendent refund hide cancel push_to_trash].each do |action|
@@ -23,10 +22,6 @@ class Admin::BackersController < Admin::BaseController
   end
 
   protected
-  def set_title
-    @title = t("admin.backers.index.title")
-  end
-
   def collection
     @backers = apply_scopes(end_of_association_chain).without_state('deleted').order("backers.created_at DESC").page(params[:page])
   end
