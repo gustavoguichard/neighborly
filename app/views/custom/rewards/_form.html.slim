@@ -4,7 +4,7 @@
   .clearfix
 
   - if resource.new_record? || can?(:update, resource, :title)
-    = f.input :title, as: :string, required: true
+    = f.input :title
 
   - if resource.new_record? || can?(:update, resource, :minimum_value)
     = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
