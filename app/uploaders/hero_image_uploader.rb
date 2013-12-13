@@ -2,17 +2,10 @@
 
 class HeroImageUploader < ImageUploader
 
-  version :blur
-
-  def store_dir
-    "uploads/project/#{mounted_as}/#{model.id}"
-  end
-
   version :blur do
     process resize_to_limit: [2000, 0]
     process :apply_blur
-    process convert: :jpg
-    process quality: 60
+    process quality: 70
   end
 
   def apply_blur

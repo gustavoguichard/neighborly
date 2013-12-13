@@ -2,11 +2,11 @@
 
 class PressUploader < ImageUploader
 
-  version :thumb
+  process convert: :png
+  process quality: 100
 
   version :thumb do
     process resize_to_fill: [170, 60]
-    process convert: :png
   end
 
 end
