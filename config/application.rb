@@ -14,11 +14,6 @@ module Catarse
       Devise::Mailer.layout "email" # email.haml or email.erb
     end
 
-    config.paths['app/views'].unshift("#{Rails.root}/app/views/catarse_bootstrap")
-
-    #NOTE: the custom view path is for build a new style without need to
-    # edit the catarse_views
-    #raise config.paths['app/views'].inspect
     config.paths['app/views'].unshift("#{Rails.root}/app/views/custom")
 
     config.active_record.schema_format = :sql
@@ -28,9 +23,7 @@ module Catarse
 
     config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '*.{rb,yml}').to_s]
-    # set default locale to something other than :en
     config.i18n.default_locale = :en
-
 
     # Default encoding for the server
     config.encoding = "utf-8"
@@ -52,7 +45,7 @@ module Catarse
     end
 
     config.active_record.observers = [
-      :backer_observer, :user_observer, 
+      :backer_observer, :user_observer,
       :update_observer, :project_observer, :payment_notification_observer
     ]
 
