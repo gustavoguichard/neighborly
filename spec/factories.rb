@@ -76,6 +76,7 @@ FactoryGirl.define do
 
   factory :reward do |f|
     f.association :project, factory: :project
+    f.title "Awesome Foo Bar"
     f.minimum_value 10.00
     f.description "Foo bar"
     f.days_to_delivery 10

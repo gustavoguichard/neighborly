@@ -15,6 +15,11 @@ describe Reward do
     r.should_not be_valid
   end
 
+  it "should have a title" do
+    r = build(:reward, title: nil)
+    r.should_not be_valid
+  end
+
   it "should have a greater than 10.00 minimum value" do
     r = build(:reward)
     r.minimum_value = -0.01
