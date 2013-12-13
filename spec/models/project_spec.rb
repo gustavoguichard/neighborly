@@ -104,19 +104,6 @@ describe Project do
     it { should have(2).items }
   end
 
-  describe '.near_of' do
-    before do
-      3.times { create(:project, address_state: 'MG') }
-      6.times { create(:project, address_state: 'SP') }
-    end
-
-    let(:state) { 'MG' }
-
-    subject { Project.near_of(state) }
-
-    it { should have(3).itens }
-  end
-
   describe '.featured' do
     before do
       @p1 = create(:project, featured: true, state: 'online')

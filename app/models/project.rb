@@ -59,18 +59,8 @@ class Project < ActiveRecord::Base
   scope :by_category_id, ->(id) { where(category_id: id) }
   scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
-  #scope :order_table, ->(sort) {
-    #if sort == 'desc'
-      #order('goal desc')
-    #elsif sort == 'asc'
-      #order('goal asc')
-    #else
-      #order('created_at desc')
-    #end
-  #}
 
   scope :featured, -> { not_soon.visible.where(featured: true).limit(1) }
-  scope :near_of, ->(address_state) { where("lower(address_state) = lower(?)", address_state) }
 
   scope :by_goal, ->(goal) { where(goal: goal) }
   scope :by_online_date, ->(online_date) { where("online_date::date = ?", online_date.to_date) }
