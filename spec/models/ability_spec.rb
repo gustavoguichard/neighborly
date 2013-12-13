@@ -33,6 +33,7 @@ describe Ability do
       it { should be_able_to(:destroy, reward) }
       it { should be_able_to(:update, reward, :days_to_delivery) }
       it { should be_able_to(:update, reward, :description) }
+      it { should be_able_to(:update, reward, :title) }
       it { should be_able_to(:update, reward, :maximum_backers) }
 
       context "and someone make a back and select a reward" do

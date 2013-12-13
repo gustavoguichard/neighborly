@@ -3,6 +3,9 @@
     a.cancel.button.secondary href="#" = t('words.cancel')
   .clearfix
 
+  - if resource.new_record? || can?(:update, resource, :title)
+    = f.input :title
+
   - if resource.new_record? || can?(:update, resource, :minimum_value)
     = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
 
@@ -18,7 +21,7 @@
   = f.input :soon, as: :boolean
   = f.input :show_contact_button, as: :boolean
 
-  = f.button :submit, disable_with: I18n.t('words.sending')
+  = f.button :submit, disable_with: t('words.sending')
   - if resource.persisted? && can?(:destroy, resource)
     span.or = t('words.or')
     = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do

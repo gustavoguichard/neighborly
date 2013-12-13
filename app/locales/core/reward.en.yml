@@ -4,6 +4,7 @@ en:
       reward: 'Perk'
     attributes:
       reward:
+        title: 'Create a short, catchy title that summarizes what contributors will be getting.'
         description: "Describe your perk in a way that will grab a contributor's attention."
         maximum_backers: "Limit the number of perks at this level."
         minimum_value: "The minimum amount contributors must give to select this perk."

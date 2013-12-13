@@ -42,6 +42,20 @@ task :index_rewards_versions => :environment do
   end
 end
 
+
+desc "Create reward title"
+task :create_reward_title => :environment do
+   Project.all.each do |project|
+    puts "PROJECT: #{project.id} -- #{project.name}"
+    i = 0
+    project.rewards.rank(:row_order).each do |reward|
+      i += 1
+      puts "REWARD LEVEL: #{i} -- #{reward.minimum_value} -- ID: #{reward.id}"
+      reward.update_attributes(title: "Level #{i}") unless reward.title.present?
+    end
+  end
+end
+
 desc "Update video_embed_url column"
 task :fill_embed_url => :environment do
   Project.where('video_url is not null and video_embed_url is null').each do |project|
