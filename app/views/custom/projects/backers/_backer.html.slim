@@ -1,7 +1,7 @@
 .large-6.small-6.columns.backer-wrapper
   .row
     .large-12.columns
-      .backer[class="#{backer.user.profile_type}"]
+      .backer[class="#{backer.user.profile_type} #{'with-note' if backer.short_note.present?}"]
         .row.collapse
           .columns[class="large-#{ backer.user.company? ? 7 : 4 }"]
             - if backer.anonymous
