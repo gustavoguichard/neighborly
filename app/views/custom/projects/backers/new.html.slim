@@ -1,3 +1,4 @@
+- content_for :title, t('projects.backers.new.title', name: @project.name)
 .new-backer-page
   = simple_form_for @backer, url: @create_url, html: { id: 'form-backer', class: 'custom' } do |form|
     header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
