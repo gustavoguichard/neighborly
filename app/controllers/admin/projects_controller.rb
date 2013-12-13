@@ -18,23 +18,13 @@ class Admin::ProjectsController < Admin::BaseController
   end
 
   def populate
-    unless params[:user][:id].present?
-      password = Devise.friendly_token
-
-      @user = User.new(params[:user])
-      @user.email = "#{Devise.friendly_token}@populate.user"
-      @user.password = password
-      @user.password_confirmation = password
-      @user.profile_type = params[:user][:profile_type]
-    else
+    if params[:user][:id].present?
       @user = User.find(params[:user][:id])
+    else
+      @user = create_user
     end
 
-    @backer = Backer.new(params[:backer])
-    @backer.payment_method = 'PrePopulate'
-    @backer.state = 'confirmed'
-    @backer.project = resource
-    @backer.user = @user
+    @backer = build_backer(@user)
 
     if @user.valid? and @backer.valid?
       @user.save!
@@ -42,17 +32,15 @@ class Admin::ProjectsController < Admin::BaseController
       flash[:notice] = 'Success!'
       redirect_to populate_backer_admin_project_path(resource)
     else
-      flash[:alert] = ""
-      flash[:alert] += @user.errors.full_messages.to_sentence unless @user.valid?
-      flash[:alert] += @backer.errors.full_messages.to_sentence unless @backer.valid?
+      flash[:alert] = @user.errors.full_messages.to_sentence unless @user.valid?
+      flash[:error] = @backer.errors.full_messages.to_sentence unless @backer.valid?
       render :populate_backer
     end
   end
 
   def destroy
-    @project = Project.find_by_permalink params[:id]
-    if @project.can_push_to_trash?
-      @project.push_to_trash!
+    if resource.can_push_to_trash?
+      resource.push_to_trash!
     end
 
     redirect_to admin_projects_path
@@ -61,5 +49,23 @@ class Admin::ProjectsController < Admin::BaseController
   protected
   def collection
     @projects = apply_scopes(end_of_association_chain).with_project_totals.without_state('deleted').page(params[:page])
+  end
+
+  def create_user
+    password = Devise.friendly_token
+    user = User.new(params[:user])
+    user.email = "#{Devise.friendly_token}@populate.user"
+    user.password = password
+    user.password_confirmation = password
+    user.profile_type = params[:user][:profile_type]
+    user
+  end
+
+  def build_backer(user)
+    backer = resource.backers.new(params[:backer])
+    backer.payment_method = 'PrePopulate'
+    backer.state = 'confirmed'
+    backer.user = user
+    backer
   end
 end
