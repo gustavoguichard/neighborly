@@ -49,7 +49,7 @@ class Ability
       reward.backers.with_state('waiting_confirmation').empty? && reward.backers.with_state('confirmed').empty? && reward.project.user == current_user
     end
 
-    can [:update, :sort], :rewards, [:description, :maximum_backers] do |reward|
+    can [:update, :sort], :rewards, [:title, :description, :maximum_backers] do |reward|
       reward.project.user == current_user
     end
 
