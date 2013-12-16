@@ -1,4 +1,5 @@
 = simple_form_for  resource, url: (resource.persisted? ? admin_channel_path(resource) : admin_channels_path) do |form|
+  = form.input :permalink, as: :string
   = form.input :name, as: :string
   .row
     .large-9.columns
