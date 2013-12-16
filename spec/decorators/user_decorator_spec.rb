@@ -91,12 +91,12 @@ describe UserDecorator do
   end
 
   describe "#short_name" do
-    subject { user = create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet') }
+    subject { create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet') }
     its(:short_name) { should == 'My Name Is Lorem ...' }
   end
 
   describe "#medium_name" do
-    subject { user = create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet And This Is a Bit Name I Think') }
+    subject { create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet And This Is a Bit Name I Think') }
     its(:medium_name) { should == 'My Name Is Lorem Ipsum Dolor Sit Amet A...' }
   end
 
@@ -105,8 +105,13 @@ describe UserDecorator do
     its(:display_credits) { should == '$0.00'}
   end
 
+  describe "#twitter_link" do
+    subject { create(:user, twitter: 'Neighborly') }
+    its(:twitter_link) { should == 'http://twitter.com/Neighborly'}
+  end
+
   describe "#display_total_of_backs" do
-    subject { user = create(:user) }
+    subject { create(:user) }
     context "with confirmed backs" do
       before do
         create(:backer, state: 'confirmed', user: subject, value: 500.0)

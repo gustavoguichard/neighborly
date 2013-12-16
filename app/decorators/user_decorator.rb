@@ -2,16 +2,6 @@ class UserDecorator < Draper::Decorator
   decorates :user
   include Draper::LazyHelpers
 
-  def backs_text
-    if source.total_backed_projects == 2
-      I18n.t('user.backs_text.two')
-    elsif source.total_backed_projects > 1
-      I18n.t('user.backs_text.many', total: (source.total_backed_projects-1))
-    else
-      I18n.t('user.backs_text.one')
-    end
-  end
-
   def twitter_link
     "http://twitter.com/#{source.twitter}"
   end
