@@ -21,11 +21,17 @@ en:
         other_link: 'www.'
         linkedin_url: 'linkedin.com/in/'
         twitter: '@'
+      channel:
+        facebook: 'http://facebook.com/'
+        twitter: 'http://twitter.com/'
+        website: 'http://www.'
       profile:
         facebook: 'http://facebook.com/'
         twitter: 'http://twitter.com/'
         website: 'http://www.'
     labels:
+      channel:
+        how_it_works: 'About Us'
       profile:
         how_it_works: 'About Us'
       user:

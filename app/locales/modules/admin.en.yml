@@ -52,6 +52,21 @@ en:
           'Add new tag'
       edit:
         title: 'Edit tag'
+    channels:
+      index:
+        menu: 'Channels'
+        title: 'Channels management'
+        name: 'Name'
+        owners: 'Owners'
+        no_chaneels: 'No channels yet'
+        edit: 'Edit'
+        destroy: 'Destroy'
+        new: 'Add new channel'
+      new:
+        title:
+          'Add new channel'
+      edit:
+        title: 'Edit channel'
     press_assets:
       index:
         menu: 'Press Assets'

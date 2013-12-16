@@ -1,0 +1,37 @@
+- @title = t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      .text-right
+        = link_to t('.new'), new_admin_channel_path, class: 'button'
+      .data-table
+        = paginate collection
+        - if collection.empty?
+          = t('.no_channels')
+        - else
+          table
+            thead
+              tr
+                th style="width: 200px;"
+                  = t('.name')
+                th
+                  = t('.owners')
+                th
+            tbody
+              - collection.each do |channel|
+                tr id=channel.id
+                  td = channel.name
+                  td
+                    - if channel.users.any?
+                      ul
+                        - for user in channel.users
+                          li = link_to user.display_name, user_path(user)
+                  td
+                    .text-right
+                      = link_to t('.edit'), edit_admin_channel_path(channel), class: 'button tiny'
+                      | &nbsp;
+                      = link_to t('.destroy'), admin_channel_path(channel), method: :delete, confirm: t('admin.confirm_dialog'), class: 'button tiny alert'
+
+        = paginate collection
+
