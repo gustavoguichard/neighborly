@@ -29,20 +29,16 @@ class Admin::ProjectsController < Admin::BaseController
     if @user.valid? and @backer.valid?
       @user.save!
       @backer.save!
-      flash[:notice] = 'Success!'
-      redirect_to populate_backer_admin_project_path(resource)
+      redirect_to populate_backer_admin_project_path(resource), flash: { success: 'Success!' }
     else
-      flash[:alert] = @user.errors.full_messages.to_sentence unless @user.valid?
-      flash[:error] = @backer.errors.full_messages.to_sentence unless @backer.valid?
+      flash[:alert] = @user.errors.full_messages.to_sentence
+      flash[:error] = @backer.errors.full_messages.to_sentence
       render :populate_backer
     end
   end
 
   def destroy
-    if resource.can_push_to_trash?
-      resource.push_to_trash!
-    end
-
+    resource.push_to_trash! if resource.can_push_to_trash?
     redirect_to admin_projects_path
   end
 
