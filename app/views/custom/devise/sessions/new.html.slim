@@ -1,5 +1,6 @@
 = content_for :title, t('.titles.site')
 
+= render 'layouts/flash' if flash[:notice].present?
 = render 'devise/shared/header'
 
 .row
