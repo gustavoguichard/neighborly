@@ -19,22 +19,18 @@ class Projects::BackersController < ApplicationController
   def update
     resource.update_attributes(params[:backer])
     resource.update_user_billing_info
-    render json: {message: 'updated'}
+    render json: { message: 'updated' }
   end
 
   def show; end
 
   def new
-    unless parent.online?
-      flash[:failure] = t('controllers.projects.backers.new.cannot_back')
-      return redirect_to :root
-    end
+    return redirect_to :root, flash: { error: t('controllers.projects.backers.new.cannot_back') } unless parent.online?
 
     @create_url = create_url
     @backer = @project.backers.new(user: current_user)
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
-    # Select
     if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
       @backer.reward = selected_reward
       @backer.value = "%0.0f" % selected_reward.minimum_value
@@ -46,30 +42,26 @@ class Projects::BackersController < ApplicationController
     @backer.reward_id = nil if params[:backer][:reward_id].to_i == 0
 
     create! do |success, failure|
-      failure.html do
-        return redirect_to new_project_backer_path(@project), flash: { failure: t('controllers.projects.backers.create.error') }
+      success.html do
+        session[:thank_you_backer_id] = @backer.id
+        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id), flash: { notice: nil }
       end
 
-      success.html do
-        flash.delete(:notice)
-        session[:thank_you_backer_id] = @backer.id
-        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id)
+      failure.html do
+        return redirect_to new_project_backer_path(@project), flash: { failure: t('controllers.projects.backers.create.error') }
       end
     end
   end
 
   def credits_checkout
-    if current_user.credits < @backer.value
-      flash[:failure] = t('controllers.projects.backers.credits_checkout.no_credits')
-      return redirect_to new_project_backer_path(@backer.project)
-    end
+    return redirect_to new_project_backer_path(@backer.project), flash: { failure: t('controllers.projects.backers.credits_checkout.no_credits') } if current_user.credits < @backer.value
 
     unless @backer.confirmed?
       @backer.update_attributes({ payment_method: 'Credits' })
       @backer.confirm!
     end
-    flash[:success] = t('controllers.projects.backers.credits_checkout.success')
-    redirect_to project_backer_path(parent, resource)
+
+    redirect_to project_backer_path(parent, resource), flash: { success: t('controllers.projects.backers.credits_checkout.success') }
   end
 
   protected
