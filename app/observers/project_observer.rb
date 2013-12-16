@@ -9,6 +9,7 @@ class ProjectObserver < ActiveRecord::Observer
 
   def after_create(project)
     deliver_default_notification_for(project, :project_received)
+    from_draft_to_in_analysis(project)
   end
 
   def from_draft_to_in_analysis(project)
@@ -38,7 +39,7 @@ class ProjectObserver < ActiveRecord::Observer
       {project_id: project.id},
       {
         project: project,
-        origin_email: Configuration[:email_projects]
+        origin_email: Configuration[:email_contact]
       }
     )
   end
@@ -50,7 +51,7 @@ class ProjectObserver < ActiveRecord::Observer
       {project_id: project.id},
       {
         project: project,
-        origin_email: Configuration[:email_projects]
+        origin_email: Configuration[:email_contact]
       }
     )
     notify_admin_that_project_reached_deadline(project)
@@ -111,7 +112,7 @@ class ProjectObserver < ActiveRecord::Observer
       {project_id: project.id, user_id: project.user.id},
       {
         project: project,
-        origin_email: Configuration[:email_projects]
+        origin_email: Configuration[:email_contact]
       }
     )
   end
@@ -172,7 +173,7 @@ class ProjectObserver < ActiveRecord::Observer
       {
         project: project,
         channel: project.last_channel,
-        origin_email: project.last_channel.try(:email) || Configuration[:email_projects],
+        origin_email: project.last_channel.try(:email) || Configuration[:email_contact],
         origin_name: project.last_channel.try(:name) || Configuration[:company_name]
       }
     )
