@@ -14,8 +14,7 @@ class ProjectsController < ApplicationController
 
   def index
     @city = user_city
-    @project_locations = Project.with_state('online').locations
-    @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
+    @project_locations = project_locations(@city)
 
     used_ids = [0]
     @featured = Project.with_state('online').featured.limit(1).first
@@ -101,7 +100,7 @@ class ProjectsController < ApplicationController
 
   def embed_panel
     @project = resource
-    render layout: false
+    render layout: !request.xhr?
   end
 
   def send_reward_email
@@ -127,5 +126,11 @@ class ProjectsController < ApplicationController
     else
       'Kansas City, MO'
     end
+  end
+
+  def project_locations(current_city)
+    locations = Project.with_state('online').locations
+    locations.concat([current_city]) unless locations.include?(current_city)
+    locations
   end
 end
