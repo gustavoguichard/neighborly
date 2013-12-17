@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::StatisticsController do
+describe Admin::DashboardController do
   subject{ response }
   let(:admin) { create(:user, admin: true) }
   before do
@@ -9,7 +9,7 @@ describe Admin::StatisticsController do
 
   describe "GET index" do
     before do
-      get :index, locale: 'pt'
+      get :index
     end
     it{ should render_template :index }
     its(:status){ should == 200 }
