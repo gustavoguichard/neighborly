@@ -53,18 +53,24 @@ en:
       edit:
         title: 'Edit tag'
     channels:
-      successful:
-        push_to_draft: 'Channel in on draft now!'
-        push_to_online: 'Channel in online now!'
+      messages:
+        successful:
+          push_to_draft: 'The channel is no longer visible!'
+          push_to_online: 'The channel is now visible!'
       index:
         menu: 'Channels'
         title: 'Channels management'
         name: 'Name'
         owners: 'Owners'
+        permalink: 'Permalink'
+        created_at: 'Created at'
+        state: 'State'
         no_chaneels: 'No channels yet'
         edit: 'Edit'
         destroy: 'Destroy'
         new: 'Add new channel'
+        push_to_draft: 'Send to draft'
+        push_to_online: 'Make it Visible'
       new:
         title:
           'Add new channel'

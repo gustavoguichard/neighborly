@@ -15,6 +15,6 @@ class Admin::ChannelsController < Admin::BaseController
 
   protected
   def collection
-    @channels = apply_scopes(end_of_association_chain).page(params[:page])
+    @channels = apply_scopes(end_of_association_chain).order(:name).page(params[:page])
   end
 end
