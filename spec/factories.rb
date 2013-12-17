@@ -148,5 +148,9 @@ FactoryGirl.define do
     image File.open("#{Rails.root}/spec/fixtures/image.png")
   end
 
+  factory :tag do
+    name 'bike'
+  end
+
 end
 
