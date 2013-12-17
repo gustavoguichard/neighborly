@@ -108,5 +108,85 @@ describe Admin::ProjectsController do
       end
     end
   end
+
+  describe "POST populate" do
+    let(:project) { create(:project, state: 'online') }
+
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        post :populate, id: project
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm logged as admin" do
+      let(:reward) { create(:reward, project: project) }
+
+      shared_examples_for 'create the backer' do
+        subject { project.backers.first }
+
+        it 'should create the backer' do
+          expect(subject).to_not be_nil
+        end
+
+
+        it 'should assign the reward the backer' do
+          expect(subject.reward).to eq reward
+        end
+
+        it 'should set the payment method ' do
+          expect(subject.payment_method).to eq 'PrePopulate'
+        end
+
+        it 'should set the backer as confirmed' do
+          expect(subject.confirmed?).to be_true
+        end
+
+        it 'should set the backer as anonymous' do
+          expect(subject.anonymous).to be_true
+        end
+
+        it{ should redirect_to populate_backer_admin_project_path(project) }
+      end
+
+      context 'existing user' do
+        before do
+          post :populate, id: project, user: { id: admin.id }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
+        end
+
+        it_behaves_like 'create the backer'
+
+        it 'should assign the user to the backer' do
+          expect(project.backers.first.user).to eq admin
+        end
+      end
+
+      context 'new user' do
+        before do
+          post :populate, id: project, user: { name: 'New user', profile_type: 'company' }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
+        end
+
+        it_behaves_like 'create the backer'
+
+        context 'create the user' do
+          subject { project.backers.first.user }
+
+          it 'should create the iser' do
+            expect(subject).to_not be_nil
+          end
+
+          it 'should set the user name' do
+            expect(subject.name).to eq 'New user'
+          end
+
+          it 'should create an email with populate.user' do
+            expect(subject.email).to match(/@populate.user/)
+          end
+        end
+      end
+    end
+  end
+
 end
 
