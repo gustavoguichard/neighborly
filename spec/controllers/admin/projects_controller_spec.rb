@@ -185,6 +185,14 @@ describe Admin::ProjectsController do
           end
         end
       end
+
+      context 'with error' do
+        before do
+          post :populate, id: project, user: { }, backer: { }
+        end
+
+        it{ should render_template 'populate_backer' }
+      end
     end
   end
 
