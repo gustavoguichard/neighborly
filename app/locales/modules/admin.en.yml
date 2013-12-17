@@ -60,6 +60,7 @@ en:
       index:
         menu: 'Channels'
         title: 'Channels management'
+        manage_owners: 'Manage'
         name: 'Name'
         owners: 'Owners'
         permalink: 'Permalink'
@@ -70,12 +71,30 @@ en:
         destroy: 'Destroy'
         new: 'Add new channel'
         push_to_draft: 'Send to draft'
-        push_to_online: 'Make it Visible'
+        push_to_online: 'Make it visible'
       new:
         title:
           'Add new channel'
       edit:
         title: 'Edit channel'
+      owners:
+        messages:
+          removed: 'Successfully removed!'
+          success: 'Success! Now the user owns this channel.'
+          user_not_found: 'User not found.'
+          owns_a_channel: "This user already owns a channel."
+        index:
+          title: 'Manage %{channel_name} Owners'
+          no_owners: 'No owners yet.'
+          id: 'User ID'
+          name: 'Name'
+          email: 'Email'
+          destroy: 'Remove'
+          new: 'Add new owner'
+        new:
+          title: 'Add new owner'
+          user_id: 'User ID'
+
     press_assets:
       index:
         menu: 'Press Assets'

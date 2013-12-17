@@ -166,6 +166,8 @@ Catarse::Application.routes.draw do
         put 'push_to_draft'
         put 'push_to_online'
       end
+
+      resources :owners, only: [:index, :new, :create, :destroy], controller: 'channels/owners'
     end
 
     resources :projects, only: [ :index, :update, :destroy ] do
