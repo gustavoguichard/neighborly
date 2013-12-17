@@ -1,5 +1,4 @@
 class Admin::TagsController < Admin::BaseController
-  menu I18n.t("admin.tags.index.menu") => :admin_tags_path
   actions :all, except: [:show]
 
   def collection
