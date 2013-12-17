@@ -9,7 +9,8 @@ describe ProjectObserver do
 
   before do
     Configuration[:support_forum] = 'http://support.com'
-    Configuration[:email_projects] = 'foo@foo.com'
+    Configuration[:email_projects] = 'bar@foo.com'
+    Configuration[:email_contact] = 'foo@foo.com'
     Configuration[:facebook_url] = 'http://facebook.com/foo'
     Configuration[:blog_url] = 'http://blog.com/foo'
     Configuration[:company_name] = 'Catarse'
@@ -18,13 +19,19 @@ describe ProjectObserver do
   end
 
   describe "after_create" do
+    let(:user) { create(:user, email: ::Configuration[:email_projects])}
     before do
       ProjectObserver.any_instance.should_receive(:after_create).and_call_original
+      user
       project
     end
 
     it "should create notification for project owner" do
       Notification.where(user_id: project.user.id, template_name: 'project_received', project_id: project.id).first.should_not be_nil
+    end
+
+    it "should create notification for catarse admin" do
+      Notification.where(user_id: user.id, template_name: :new_draft_project, project_id: project.id).first.should_not be_nil
     end
   end
 
@@ -83,7 +90,7 @@ describe ProjectObserver do
           {
             project: project,
             channel: nil,
-            origin_email: Configuration[:email_projects],
+            origin_email: Configuration[:email_contact],
             origin_name: Configuration[:company_name]
           }
         )
@@ -117,7 +124,7 @@ describe ProjectObserver do
         {project_id: project.id},
         {
           project: project,
-          origin_email: Configuration[:email_projects]
+          origin_email: Configuration[:email_contact]
         }
       )
     end

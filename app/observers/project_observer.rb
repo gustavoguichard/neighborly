@@ -9,26 +9,12 @@ class ProjectObserver < ActiveRecord::Observer
 
   def after_create(project)
     deliver_default_notification_for(project, :project_received)
-    from_draft_to_in_analysis(project)
+    notify_new_draft_project(project)
   end
 
   def from_draft_to_in_analysis(project)
-    if (user = project.new_draft_recipient)
-      Notification.notify_once(
-        project.notification_type(:new_draft_project),
-        user,
-        {project_id: project.id, channel_id: project.last_channel.try(:id)},
-        {
-          project: project,
-          channel: project.last_channel,
-          origin_email: project.user.email,
-          origin_name: project.user.display_name
-        }
-      )
-    end
-
+    notify_new_draft_project(project)
     deliver_default_notification_for(project, :in_analysis_project)
-
     project.update_attributes({ sent_to_analysis_at: DateTime.now })
   end
 
@@ -120,6 +106,22 @@ class ProjectObserver < ActiveRecord::Observer
   def from_waiting_funds_to_failed(project)
     from_online_to_failed(project)
     notify_admin_that_project_reached_deadline(project)
+  end
+
+  def notify_new_draft_project(project)
+    if (user = project.new_draft_recipient)
+      Notification.notify_once(
+        project.notification_type(:new_draft_project),
+        user,
+        {project_id: project.id, channel_id: project.last_channel.try(:id)},
+        {
+          project: project,
+          channel: project.last_channel,
+          origin_email: project.user.email,
+          origin_name: project.user.display_name
+        }
+      )
+    end
   end
 
   def notify_users_that_a_new_project_is_online(project)
