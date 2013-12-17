@@ -33,6 +33,7 @@
                       ul
                         - for user in channel.users
                           li = link_to user.display_name, user_path(user)
+                    = link_to t('.manage_owners'), admin_channel_owners_path(channel), class: 'button secondary tiny'
                   td = channel.permalink
                   td = channel.created_at.to_date
                   td = channel.state
