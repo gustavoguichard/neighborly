@@ -157,10 +157,16 @@ Catarse::Application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :tags, except: [:show]
-    resources :channels, except: [:show]
     resources :press_assets, except: [:show]
     resources :financials, only: [ :index ]
     resources :users, only: [ :index ]
+
+    resources :channels, except: [:show] do
+      member do
+        put 'push_to_draft'
+        put 'push_to_online'
+      end
+    end
 
     resources :projects, only: [ :index, :update, :destroy ] do
       member do

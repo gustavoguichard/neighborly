@@ -53,6 +53,9 @@ en:
       edit:
         title: 'Edit tag'
     channels:
+      successful:
+        push_to_draft: 'Channel in on draft now!'
+        push_to_online: 'Channel in online now!'
       index:
         menu: 'Channels'
         title: 'Channels management'
