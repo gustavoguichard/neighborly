@@ -57,7 +57,7 @@ describe Admin::ProjectsController do
       before do
         get :index, locale: :pt
       end
-      it{ should redirect_to new_user_registration_path }
+      it{ should redirect_to new_user_session_path }
     end
 
     context "when I'm logged as admin" do
@@ -93,7 +93,7 @@ describe Admin::ProjectsController do
       before do
         delete :destroy, id: project, locale: :pt
       end
-      it{ should redirect_to new_user_registration_path }
+      it{ should redirect_to new_user_session_path  }
     end
 
     context "when I'm logged as admin" do
