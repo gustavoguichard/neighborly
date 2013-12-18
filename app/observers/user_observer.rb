@@ -6,8 +6,9 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_create(user)
-    Notification.notify_once(:new_user_registration, user, {user_id: user.id}, {user: user})
-    user.update(newsletter: true)
+    return if user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/
+    Notification.notify_once(:new_user_registration, user, {user_id: user.id})
+    user.update_attribute(:newsletter, true)
   end
 
   def before_save(user)
