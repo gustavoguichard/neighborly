@@ -172,11 +172,6 @@ class User < ActiveRecord::Base
     [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
-  def has_facebook_authentication?
-    oauth = OauthProvider.find_by_name 'facebook'
-    authorizations.where(oauth_provider_id: oauth.id).present? if oauth
-  end
-
   def decorator
     @decorator ||= UserDecorator.new(self)
   end
@@ -199,52 +194,16 @@ class User < ActiveRecord::Base
     "#{self.id}-#{self.display_name.parameterize}"
   end
 
-  def self.create_with_omniauth(auth, current_user = nil, auto_safe = true, user = new)
-    omniauth_email = (auth["info"]["email"] rescue nil)
-    omniauth_email = (auth["extra"]["user_hash"]["email"] rescue nil) unless omniauth_email
-    found_user = User.where(email: omniauth_email).first if auth['provider'] == 'facebook' && omniauth_email.present?
-
-    if current_user
-      user = current_user
-    elsif auth['provider'] == 'facebook' && omniauth_email.present? && found_user.present?
-      user = found_user
-      auto_safe = false
-    else
-      user.name = auth['info']['name']
-      user.email = omniauth_email
-      user.nickname = auth['info']['nickname']
-      user.bio = (auth['info']['description'][0..139] rescue nil)
-      user.locale = 'en'
-
-      if auth['provider'] == 'twitter'
-        user.twitter = auth['info']['nickname']
-        user.image_url = auth['info']['image'] if auth['info']['image'].present?
-      end
-
-      if auth['provider'] == 'linkedin'
-        user.linkedin_url = auth['info']['urls']['public_profile'] if auth['info']['urls'].present?
-        user.image_url = auth['info']['image'] if auth['info']['image'].present?
-      end
-
-      if auth['provider'] == 'facebook'
-        user.facebook_link = "http://facebook.com/#{auth['info']['nickname']}"
-        user.image_url = "https://graph.facebook.com/#{auth['uid']}/picture?type=large"
-      end
-    end
-    provider = OauthProvider.where(name: auth['provider']).first
-    user.authorizations.build(uid: auth['uid'], oauth_provider_id: provider.id) if provider
-    user.save! if auto_safe
-    user
-  end
-
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if auth = session[:omniauth]
-        auth["info"]["email"] = params[:email] if auth["info"]["email"].nil? || params[:email]
-        user = self.create_with_omniauth(auth, nil, false, user)
-      end
-      user
-    end
+  def self.create_from_hash(hash)
+    create!(
+      {
+        name: hash['info']['name'],
+        email: hash['info']['email'],
+        nickname: hash["info"]["nickname"],
+        bio: (hash["info"]["description"][0..139] rescue nil),
+        locale: I18n.locale.to_s
+      }.merge(social_info_from_hash(hash))
+    )
   end
 
   def total_backs
@@ -295,4 +254,13 @@ class User < ActiveRecord::Base
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
 
+  protected
+  def self.social_info_from_hash(hash)
+    {
+      twitter: ( hash['info']['nickname'] rescue nil ),
+      linkedin_url: ( hash['info']['urls']['public_profile'] rescue nil ),
+      facebook_link: ( hash['provider'] == 'facebook' ? "http://facebook.com/#{hash['info']['nickname']}" : nil ),
+      image_url: ( hash['info']['image'].present? ? hash['info']['image'] : ( hash['provider'] == 'facebook' ? "https://graph.facebook.com/#{hash['uid']}/picture?type=large" : nil ) )
+    }
+  end
 end
