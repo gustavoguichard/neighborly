@@ -27,7 +27,7 @@
         .large-9.small-8.columns
           .about-us
             h4 = t('.about.title')
-            p = @profile.how_it_works_html.html_safe
+            p = @profile.how_it_works_html.html_safe if @profile.how_it_works_html
           .connect
             h4 = "#{t('.connect.title')} #{@profile.name}"
             .row.social
