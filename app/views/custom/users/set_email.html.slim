@@ -1,18 +1,19 @@
 - if @user
   - @title = t('.update_email_title')
-  - if @user.email == "change-your-email+#{@user.id}@neighbor.ly"
+  - if @user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/
     - @user.email = nil
 - else
   - @title = t('.site_title')
 
 = content_for :title, @title
 
+= render 'layouts/flash'
 = render 'devise/shared/header'
 
 .row
   .large-7.large-centered.columns
     .login-box.animated.fadeIn
-      h2.text-center
+      h3.text-center
         - if @user
           | Howdy, #{@user.display_name}.
           br/

@@ -77,10 +77,9 @@ describe ProjectsController do
     end
 
     describe 'users without email' do
-      let(:current_user) { create(:user) }
+      let(:current_user) { create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly") }
 
       before do
-        current_user.update email: "change-your-email+#{current_user.id}@neighbor.ly"
         get :index
       end
 
