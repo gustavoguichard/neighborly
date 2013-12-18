@@ -10,5 +10,7 @@
       - resource.errors.messages.each do |message|
         - if message[0] == :reset_password_token
           p Please click on the password reset link from the most resent email.
+        - elsif message[0] == :confirmation_token
+          p Your token is invalid! Try sending the confirmation instructions again.
         - else
           p = message[1].to_sentence
