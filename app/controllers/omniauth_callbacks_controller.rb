@@ -4,11 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     OauthProvider.all.each do |p|
       define_method p.name.downcase do
         omniauth = request.env['omniauth.auth']
-        unless (@auth = Authorization.find_from_hash(omniauth))
-          user = current_user || (User.find_by_email(omniauth[:info][:email]) rescue nil)
-          @auth = omniauth[:info][:email].present? ? Authorization.create_from_hash(omniauth, user) : Authorization.create_without_email_from_hash(omniauth, user)
-        end
-
+        @auth = authorization(omniauth)
         update_google_uid(@auth, omniauth['uid']) if omniauth['provider'] == 'google_oauth2'
 
         sign_in @auth.user, event: :authentication
@@ -21,6 +17,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   add_providers if Rails.env.development?
 
   protected
+
+  def authorization(omniauth)
+    unless (auth = Authorization.find_from_hash(omniauth))
+      user = current_user || (User.find_by_email(omniauth[:info][:email]) rescue nil)
+      auth = omniauth[:info][:email].present? ? Authorization.create_from_hash(omniauth, user) : Authorization.create_without_email_from_hash(omniauth, user)
+    end
+    auth
+  end
+
   def flash_message(user, kind)
     if user.confirmed?
       t('devise.omniauth_callbacks.success', kind: kind)
@@ -34,4 +39,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # We can remove this when all users be with the new uid saved.
     auth.update_attribute(:uid, uid)
   end
+
 end
