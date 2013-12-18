@@ -59,18 +59,22 @@ describe UsersController do
       it{ should render_template('set_email') }
     end
 
-    context "when email is valid and we have a session[:return_to]" do
-      let(:return_to){ '/foo' }
-      it{ should redirect_to return_to }
-      it{ session[:return_to].should be_nil }
-    end
-
     context "when email is valid" do
-      it("should update the user") do
-        user.reload
-        user.email.should ==  'new_email@bar.com'
+      context 'when account is not confirmed' do
+        it("should not update the user") do
+          user.reload
+          user.email.should == user.email
+        end
+        it{ should redirect_to root_path(user) }
       end
-      it{ should redirect_to edit_user_path(user) }
+
+      context 'when account is confirmed' do
+        it("should update the user") do
+          user.reload.confirm!
+          user.email.should == 'new_email@bar.com'
+        end
+        it{ should redirect_to root_path(user) }
+      end
     end
   end
 
