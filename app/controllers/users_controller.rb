@@ -37,11 +37,9 @@ class UsersController < ApplicationController
   def update_email
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('controllers.users.update.success')
-        session[:return_to] = nil if session[:return_to] == update_email_user_url(@user)
-        redirect_to (session[:return_to] || edit_user_path(@user))
-        session[:return_to] = nil
-        return
+        flash[:notice] = t('devise.confirmations.send_instructions')
+        sign_out current_user
+        redirect_to root_path
       end
       failure.html do
         flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
@@ -53,7 +51,11 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('controllers.users.update.success')
+        if (params['user']['email'] != @user.email rescue false)
+          flash[:notice] = t('devise.confirmations.send_instructions')
+        else
+          flash[:notice] = t('controllers.users.update.success')
+        end
       end
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
