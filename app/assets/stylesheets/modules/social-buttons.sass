@@ -24,7 +24,7 @@
         @extend .icon-et-twitter:before
 
 
-  &.google
+  &.google, &.google_oauth2
     background: $google-color
     border-bottom-color: darken($google-color, $button-border-color-darken)
     color: white
@@ -47,3 +47,11 @@
         border-left-color: darken($linkedin-color, $button-border-color-darken)
         padding-top: +emCalc(6px)
         @extend .icon-et-linkedin:before
+
+  &.facebook.secondary, &.twitter.secondary, &.linkedin.secondary, &.google.secondary, &.google_oauth2.secondary
+    background: $secondary-color
+    border-bottom-color: darken($secondary-color, $button-border-color-darken)
+    &.with-icon
+      &:after
+        border-left-color: darken($secondary-color, $button-border-color-darken)
+
