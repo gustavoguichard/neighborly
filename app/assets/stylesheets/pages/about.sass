@@ -1,4 +1,8 @@
 #about-page
+  .subheader
+    strong
+      font-weight: 500
+
   .page-headline
     text-align: center
     padding-top: 30px
@@ -30,7 +34,6 @@
       float: none
 
     .social i
-      padding-top: 10px
 
     h4
       padding: 0
@@ -48,6 +51,7 @@
     p
       text-align: left
       font-size: 90%
+      margin-bottom: 0
 
   ul, li
     list-style: none
@@ -67,7 +71,7 @@
       +single-transition(color, 0.6s)
       font-size: +emCalc(38px)
       margin: +emCalc(2px)
-      color: $primary-color
+      color: $secondary-color
 
       &:hover
         color: darken($primary-color, 20%)
