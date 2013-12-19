@@ -110,6 +110,7 @@ task :migrate_company_users_logo => :environment do
   users.each do |user|
     begin
       user.company_logo.recreate_versions!
+      user.save!
       puts "Recreating versions: #{user.id} - #{user.company_name}"
     rescue Exception => e
       puts "Original image not found"
