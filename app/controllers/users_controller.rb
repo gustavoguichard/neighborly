@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        if (params['user']['email'] != @user.email rescue false)
+        if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
           flash[:notice] = t('devise.confirmations.send_instructions')
         else
           flash[:notice] = t('controllers.users.update.success')
