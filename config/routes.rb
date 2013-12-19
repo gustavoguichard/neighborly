@@ -142,6 +142,7 @@ Catarse::Application.routes.draw do
       end
     end
 
+    resources :authorizations, controller: 'users/authorizations', only: [:destroy]
     resources :unsubscribes, only: [:create]
     member do
       get :profile,   to: 'users#edit'

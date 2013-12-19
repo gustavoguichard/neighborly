@@ -62,6 +62,10 @@ class Ability
       current_user.persisted?
     end
 
+    can :destroy, :authorizations do |authorization|
+      authorization.user == current_user || current_user.admin?
+    end
+
     can [:edit, :update, :credits, :manage, :update_password, :update_email, :settings], :users  do |user|
       current_user == user || current_user.admin?
     end

@@ -104,11 +104,13 @@ describe Ability do
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project) }
     let(:reward) { FactoryGirl.create(:reward, project: project) }
+    let(:authorization) { FactoryGirl.create(:authorization, user: user) }
 
     it { should_not be_able_to(:access, :all) }
     it { should_not be_able_to(:update, project) }
     it { should be_able_to(:create, :projects) }
     it { should_not be_able_to(:update, reward)}
+    it { should be_able_to(:destroy, authorization)}
   end
 
   context "When is a guest" do
