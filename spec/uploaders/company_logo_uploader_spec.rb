@@ -17,12 +17,12 @@ describe CompanyLogoUploader do
 
   describe '#thumb' do
     subject{ @uploader.thumb }
-    it{ should have_dimensions(160, 75) }
+    it{ should have_dimensions(170, 85) }
   end
 
   describe '#large' do
     subject{ @uploader.large }
-    it{ should have_dimensions(320, 150) }
+    it{ should have_dimensions(300, 150) }
   end
 
 end
