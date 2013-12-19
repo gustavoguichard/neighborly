@@ -33,37 +33,21 @@
             = f.input :company_name, as: :string
         = f.input :email, as: :string
         = f.input :bio
-        = f.input :phone_number, as: :string
         .row
           .large-6.columns
-            .row.collapse
-              .small-3.large-2.columns
-                span class="prefix"
-                  i.icon-et-facebook
-              .small-9.large-10.columns
-                = f.input :facebook_link, input_html: { class: "with-prefix" }, label: false
+            = f.input :phone_number, as: :string
           .large-6.columns
-            .row.collapse
-              .small-3.large-2.columns
-                span class="prefix"
-                  i.icon-et-twitter
-              .small-9.large-10.columns
-                = f.input :twitter, input_html: { class: "with-prefix" }, label: false
+            = f.input :other_link
+        h3 = t('.omniauth.title')
         .row
-          .large-6.columns
-            .row.collapse
-              .small-3.large-2.columns
-                span class="prefix"
-                  i.icon-et-linkedin
-              .small-9.large-10.columns
-                = f.input :linkedin_url, input_html: { class: "with-prefix" }, label: false
-          .large-6.columns
-            .row.collapse
-              .small-3.large-2.columns
-                span class="prefix"
-                  i.icon-et-link
-              .small-9.large-10.columns
-                = f.input :other_link, input_html: { class: "with-prefix" }, label: false
+          - for provider in OauthProvider.all
+            .large-6.columns
+              - authorization = @user.authorizations.where(oauth_provider_id: provider.id).first
+              - if authorization
+                = link_to t(".omniauth.disconnect.#{provider.name}"), user_authorization_path(@user, authorization), method: :delete, class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon', 'secondary']
+              - else
+                = link_to t(".omniauth.connect.#{provider.name}"), user_omniauth_authorize_path(provider: provider.name), class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon']
+
         h3
           = t('.address_title')
           br/
