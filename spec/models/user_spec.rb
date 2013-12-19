@@ -210,12 +210,56 @@ describe User do
       User.create! do |u|
         u.email = 'diogob@gmail.com'
         u.password = '123456'
-        u.twitter = '@dbiazus'
-        u.facebook_link = 'facebook.com/test'
+        u.twitter = 'dbiazus'
+        u.facebook_link = 'http://facebook.com/test'
       end
     end
     its(:twitter){ should == 'dbiazus' }
     its(:facebook_link){ should == 'http://facebook.com/test' }
+  end
+
+  describe '#update_social_info' do
+    let(:base_auth)  do {
+      'uid' => "foobar",
+      'info' => {
+        'name' => "Foo bar",
+        'email' => 'another_email@anotherdomain.com',
+        'nickname' => "foobar",
+        'description' => "Foo bar's bio".ljust(200),
+        'image' => "image.png",
+        'urls' => {
+          'public_profile' => 'http://linkedin.com/in/foo_bar'
+        }
+      }
+    }
+    end
+    let(:user) { create(:user) }
+    subject { user.reload }
+    before { user.update_social_info(auth) }
+
+    context 'when provider is facebook' do
+      let(:auth) { base_auth.merge({ 'provider' => 'facebook' }) }
+      its(:twitter) { should be_nil }
+      its(:linkedin_url) { should be_nil }
+      its(:facebook_link) { should eq 'http://facebook.com/foobar' }
+      its(:image_url) { should eq 'https://graph.facebook.com/foobar/picture?type=large' }
+    end
+
+    context 'when provider is twiiter' do
+      let(:auth) { base_auth.merge({ 'provider' => 'twitter' }) }
+      its(:twitter) { should eq 'foobar' }
+      its(:linkedin_url) { should be_nil }
+      its(:facebook_link) { should be_nil }
+      its(:image_url) { should eq 'image.png' }
+    end
+
+    context 'when provider is linkedin' do
+      let(:auth) { base_auth.merge({ 'provider' => 'linkedin' }) }
+      its(:twitter) { should be_nil }
+      its(:linkedin_url) { should eq 'http://linkedin.com/in/foo_bar' }
+      its(:facebook_link) { should be_nil }
+      its(:image_url) { should eq 'image.png' }
+    end
   end
 
   describe "#total_backed_projects" do
@@ -312,18 +356,6 @@ describe User do
     context "when user do not have a FB authorization" do
       let(:user){ create(:user) }
       it{ should == nil }
-    end
-  end
-
-  describe "#fix_facebook_link" do
-    subject{ user.facebook_link }
-    context "when user provides invalid url" do
-      let(:user){ create(:user, facebook_link: 'facebook.com/foo') }
-      it{ should == 'http://facebook.com/foo' }
-    end
-    context "when user provides valid url" do
-      let(:user){ create(:user, facebook_link: 'http://facebook.com/foo') }
-      it{ should == 'http://facebook.com/foo' }
     end
   end
 end

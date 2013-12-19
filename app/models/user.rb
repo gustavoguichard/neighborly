@@ -202,7 +202,7 @@ class User < ActiveRecord::Base
         nickname: hash["info"]["nickname"],
         bio: (hash["info"]["description"][0..139] rescue nil),
         locale: I18n.locale.to_s
-      }.merge(social_info_from_hash(hash))
+      }
     )
   end
 
@@ -232,16 +232,6 @@ class User < ActiveRecord::Base
     Project.backed_by(self.id)
   end
 
-  def fix_twitter_user
-    self.twitter.gsub!(/@/, '') if self.twitter
-  end
-
-  def fix_facebook_link
-    if !self.facebook_link.blank?
-      self.facebook_link = ('http://' + self.facebook_link) unless self.facebook_link[/^https?:\/\//]
-    end
-  end
-
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
@@ -254,13 +244,18 @@ class User < ActiveRecord::Base
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
 
+  def update_social_info(hash)
+    self.update_attributes(social_info_from_hash(hash))
+  end
+
   protected
-  def self.social_info_from_hash(hash)
-    {
-      twitter: ( hash['info']['nickname'] rescue nil ),
-      linkedin_url: ( hash['info']['urls']['public_profile'] rescue nil ),
-      facebook_link: ( hash['provider'] == 'facebook' ? "http://facebook.com/#{hash['info']['nickname']}" : nil ),
-      image_url: ( hash['info']['image'].present? ? hash['info']['image'] : ( hash['provider'] == 'facebook' ? "https://graph.facebook.com/#{hash['uid']}/picture?type=large" : nil ) )
-    }
+  def social_info_from_hash(hash)
+    info = {}
+    info[:twitter] = hash['info']['nickname'] if hash['provider'] == 'twitter'
+    info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
+    info[:facebook_link] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
+    info[:image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
+    info[:image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
+    info
   end
 end

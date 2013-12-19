@@ -10,9 +10,4 @@ class UserObserver < ActiveRecord::Observer
     Notification.notify_once(:new_user_registration, user, {user_id: user.id})
     user.update_attribute(:newsletter, true)
   end
-
-  def before_save(user)
-    user.fix_twitter_user
-    user.fix_facebook_link
-  end
 end

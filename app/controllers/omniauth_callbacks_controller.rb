@@ -6,6 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         omniauth = request.env['omniauth.auth']
         @auth = authorization(omniauth)
         update_google_uid(@auth, omniauth['uid']) if omniauth['provider'] == 'google_oauth2'
+        @auth.user.update_social_info(omniauth)
 
         sign_in @auth.user, event: :authentication
         redirect_to(session[:return_to] || root_path, flash: { notice: flash_message(@auth.user, p.name.capitalize) })

@@ -62,9 +62,11 @@ describe OmniauthCallbacksController do
   describe "GET facebook" do
 
     describe "when user already loged in" do
+      let(:set_expectations) { }
       let(:user) { FactoryGirl.create(:user, name: 'Foo') }
 
       before do
+        set_expectations
         controller.stub(:current_user).and_return(user)
         session[:return_to] = return_to
         request.env['omniauth.auth'] = oauth_data
@@ -77,11 +79,18 @@ describe OmniauthCallbacksController do
         it { subject.authorizations.should have(1).item }
       end
 
+      describe 'update social info' do
+        let(:set_expectations) { User.any_instance.should_receive(:update_social_info).once }
+        it "should satisfy expectations" do; end
+      end
+
       it{ should redirect_to root_path }
     end
 
     describe 'when user not loged in' do
+      let(:set_expectations) { }
       before do
+        set_expectations
         user
         session[:return_to] = return_to
         request.env['omniauth.auth'] = oauth_data
@@ -107,6 +116,11 @@ describe OmniauthCallbacksController do
       context "when there is a valid user with this provider and uid and session return_to is nil" do
         it{ assigns(:auth).user.should == user }
         it{ should redirect_to root_path }
+      end
+
+      describe 'update social info' do
+        let(:set_expectations) { User.any_instance.should_receive(:update_social_info).once }
+        it "should satisfy expectations" do; end
       end
     end
   end
