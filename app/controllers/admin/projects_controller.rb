@@ -43,7 +43,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   protected
   def collection
-    @projects = apply_scopes(end_of_association_chain).with_project_totals.without_state('deleted').page(params[:page])
+    @projects = apply_scopes(end_of_association_chain).order('projects.created_at desc').with_project_totals.without_state('deleted').page(params[:page])
   end
 
   def create_user
