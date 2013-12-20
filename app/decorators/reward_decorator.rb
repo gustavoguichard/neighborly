@@ -4,9 +4,7 @@ class RewardDecorator < Draper::Decorator
   include AutoHtml
 
   def display_deliver_prevision
-    I18n.l((source.project.expires_at + source.days_to_delivery.days), format: :prevision)
-  rescue
-    source.days_to_delivery
+    I18n.l((source.project.expires_at + source.days_to_delivery.days), format: :prevision) rescue source.days_to_delivery
   end
 
   def display_remaining
@@ -15,10 +13,6 @@ class RewardDecorator < Draper::Decorator
 
   def display_minimum
     number_to_currency source.minimum_value, precision: 0
-  end
-
-  def short_description
-    truncate source.description, length: 35
   end
 
   def display_description

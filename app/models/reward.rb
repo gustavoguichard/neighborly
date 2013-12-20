@@ -15,7 +15,7 @@ class Reward < ActiveRecord::Base
   scope :not_soon, -> { where('soon is not true') }
   scope :soon, -> { where(soon: true) }
 
-  delegate :display_deliver_prevision, :display_remaining, :name, :display_minimum, :short_description,
+  delegate :display_deliver_prevision, :display_remaining, :name, :display_minimum,
            :medium_description, :last_description, :display_description, to: :decorator
   def decorator
     @decorator ||= RewardDecorator.new(self)
