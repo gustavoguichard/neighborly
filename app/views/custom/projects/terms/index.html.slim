@@ -19,7 +19,7 @@
                 = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
                   i.icon-et-download.icon-white
                 | &nbsp;
-                - if can? :manage, @project
+                - if can? :update, @project
                   = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', confirm: 'Are you sure?' do 
                     i.icon-et-trash.icon-white
 
