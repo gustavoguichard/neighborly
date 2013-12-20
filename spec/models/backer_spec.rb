@@ -27,7 +27,7 @@ describe Backer do
     it{ should allow_value(20).for(:value) }
   end
 
-  describe ".confirmed_today" do
+  pending ".confirmed_today" do
     before do
       3.times { create(:backer, state: 'confirmed', confirmed_at: 2.days.ago) }
       4.times { create(:backer, state: 'confirmed', confirmed_at: 6.days.ago) }
