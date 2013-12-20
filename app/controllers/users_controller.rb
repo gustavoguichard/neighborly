@@ -51,11 +51,7 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
-          flash[:notice] = t('devise.confirmations.send_instructions')
-        else
-          flash[:notice] = t('controllers.users.update.success')
-        end
+        flash[:notice] = update_success_flash_message
       end
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
@@ -67,8 +63,7 @@ class UsersController < ApplicationController
         return render json: { status: :error }
       end
     end
-    return redirect_to settings_user_path(@user) if params[:settings]
-    return redirect_to edit_user_path(@user)
+    return redirect_to params[:settings] ? settings_user_path(@user) : edit_user_path(@user)
   end
 
   def update_password
@@ -79,5 +74,14 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors.full_messages.to_sentence
     end
     return redirect_to settings_user_path(@user)
+  end
+
+  protected
+  def update_success_flash_message
+    if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
+      t('devise.confirmations.send_instructions')
+    else
+      t('controllers.users.update.success')
+    end
   end
 end
