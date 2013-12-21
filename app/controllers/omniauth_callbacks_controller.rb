@@ -5,8 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       define_method p.name.downcase do
         omniauth = request.env['omniauth.auth']
         @auth = authorization(omniauth)
-        update_google_uid(@auth, omniauth['uid']) if omniauth['provider'] == 'google_oauth2'
-        @auth.user.update_social_info(omniauth)
+        update_informations(@auth, omniauth)
 
         sign_in @auth.user, event: :authentication
         redirect_to(session[:return_to] || root_path, flash: { notice: flash_message(@auth.user, p.name.capitalize) })
@@ -18,6 +17,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   add_providers if Rails.env.development?
 
   protected
+
+  def update_informations(auth, omniauth)
+    auth = Authorization.find(auth.id)
+    auth.user.update_social_info(omniauth)
+    auth.update_access_token_from_hash(omniauth)
+    auth.update_uid_from_hash(omniauth) if omniauth['provider'] == 'google_oauth2'
+    auth
+  end
 
   def authorization(omniauth)
     unless (auth = Authorization.find_from_hash(omniauth))
@@ -34,11 +41,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       t('devise.confirmations.send_instructions')
     end
   end
-
-  def update_google_uid(auth, uid)
-    # Save the uid for old google users (openid)
-    # We can remove this when all users be with the new uid saved.
-    auth.update_attribute(:uid, uid)
-  end
-
 end

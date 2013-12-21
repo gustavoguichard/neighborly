@@ -84,6 +84,11 @@ describe OmniauthCallbacksController do
         it "should satisfy expectations" do; end
       end
 
+      describe 'update access token' do
+        let(:set_expectations) { Authorization.any_instance.should_receive(:update_access_token_from_hash).once }
+        it "should satisfy expectations" do; end
+      end
+
       it{ should redirect_to root_path }
     end
 
@@ -120,6 +125,11 @@ describe OmniauthCallbacksController do
 
       describe 'update social info' do
         let(:set_expectations) { User.any_instance.should_receive(:update_social_info).once }
+        it "should satisfy expectations" do; end
+      end
+
+      describe 'update access token' do
+        let(:set_expectations) { Authorization.any_instance.should_receive(:update_access_token_from_hash).once }
         it "should satisfy expectations" do; end
       end
     end
