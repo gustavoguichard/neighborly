@@ -6,7 +6,9 @@ describe Authorization do
       credentials: {
         expires: true,
         expires_at: 1366644101,
-        token: "AAAHuZCwF61OkBAOmLTwrhv52pZCriPnTGIasdasdasdascNhZCZApsZCSg6POZCQqolxYjnqLSVH67TaRDONx72fXXXB7N7ZBByLZCV7ldvagm"
+        token: "AAAHuZCwF61OkBAOmLTwrhv52pZCriPnTGIasdasdasdascNhZCZApsZCSg6POZCQqolxYjnqLSVH67TaRDONx72fXXXB7N7ZBByLZCV7ldvagm",
+        secret: 'secret',
+        refresh_token: 'refresh_token'
       },
       extra: {
         raw_info: {
@@ -125,6 +127,67 @@ describe Authorization do
       its(:user){ should be_persisted }
       it { expect(subject.user.email).to match(/change-your-email\+[0-9]+@neighbor\.ly/) }
       it { expect(subject.user.confirmed?).to be_true }
+    end
+  end
+
+  describe '#update_uid_from_hash' do
+    let(:authorization) { create(:authorization, oauth_provider: create(:oauth_provider, name: oauth_data[:provider]), uid: 'other uid') }
+
+    describe 'should update uid from hash' do
+      before { authorization.update_uid_from_hash(oauth_data) }
+      it { expect(authorization.reload.uid).to eq oauth_data['uid'] }
+    end
+  end
+
+  describe '#update_access_token_from_hash' do
+    let(:authorization) { create(:authorization, oauth_provider: create(:oauth_provider, name: @oauth_data['provider']), uid: @oauth_data['uid']) }
+    before do
+      @oauth_data = oauth_data
+      @oauth_data['provider'] = provider_name
+      @authorization = authorization
+      @authorization.update_access_token_from_hash(@oauth_data)
+    end
+
+    context 'when provider is facebook' do
+      let(:provider_name) { 'facebook' }
+      subject { @authorization }
+
+      it { expect(subject.access_token).to eq @oauth_data['credentials']['token'] }
+      it { expect(subject.access_token_expires_at).to eq Time.at(@oauth_data['credentials']['expires_at'].to_i) }
+    end
+
+    context 'when provider is twitter' do
+      let(:provider_name) { 'twitter' }
+      subject { @authorization }
+
+      it { expect(subject.access_token).to eq @oauth_data['credentials']['token'] }
+      it { expect(subject.access_token_secret).to eq @oauth_data['credentials']['secret'] }
+    end
+
+    context 'when provider is linkedin' do
+      let(:provider_name) { 'linkedin' }
+      subject { @authorization }
+
+      it { expect(subject.access_token).to eq @oauth_data['credentials']['token'] }
+      it { expect(subject.access_token_secret).to eq @oauth_data['credentials']['secret'] }
+    end
+
+    context 'when provider is google_oauth2' do
+      let(:provider_name) { 'google_oauth2' }
+      subject { @authorization }
+
+      it { expect(subject.access_token).to eq @oauth_data['credentials']['token'] }
+      it { expect(subject.access_token_secret).to eq @oauth_data['credentials']['refresh_token'] }
+      it { expect(subject.access_token_expires_at).to eq Time.at(@oauth_data['credentials']['expires_at'].to_i) }
+    end
+
+    context 'when we do not support a provider' do
+      let(:provider_name) { 'some_other_provider' }
+      subject { @authorization }
+
+      it { expect(subject.access_token).to be_nil }
+      it { expect(subject.access_token_secret).to be_nil }
+      it { expect(subject.access_token_expires_at).to be_nil }
     end
   end
 end

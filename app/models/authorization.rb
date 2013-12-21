@@ -1,5 +1,5 @@
 class Authorization < ActiveRecord::Base
-  attr_accessible :oauth_provider, :oauth_provider_id, :uid, :user_id, :user
+  attr_accessible :oauth_provider, :oauth_provider_id, :uid, :user_id, :user, :access_token, :access_token_secret, :access_token_expires_at
   schema_associations
   validates_presence_of :oauth_provider, :user, :uid
 
@@ -27,5 +27,32 @@ class Authorization < ActiveRecord::Base
     auth = create_from_hash(hash)
     auth.user.confirm!
     auth
+  end
+
+  def update_uid_from_hash(hash)
+    self.update_attribute(:uid, hash['uid'])
+  end
+
+  def update_access_token_from_hash(hash)
+    send("update_access_token_from_hash_for_#{hash['provider']}", hash)
+  rescue Exception => e
+    Rails.logger.info "-----> #{e.inspect}"
+  end
+
+  private
+  def update_access_token_from_hash_for_facebook(hash)
+    self.update_attributes({ access_token: hash['credentials']['token'], access_token_expires_at: Time.at(hash['credentials']['expires_at'].to_i)} )
+  end
+
+  def update_access_token_from_hash_for_twitter(hash)
+    self.update_attributes({ access_token: hash['credentials']['token'], access_token_secret: hash['credentials']['secret']} )
+  end
+
+  def update_access_token_from_hash_for_linkedin(hash)
+    self.update_attributes({ access_token: hash['credentials']['token'], access_token_secret: hash['credentials']['secret'] })
+  end
+
+  def update_access_token_from_hash_for_google_oauth2(hash)
+    self.update_attributes({ access_token: hash['credentials']['token'], access_token_secret: hash['credentials']['refresh_token'], access_token_expires_at: Time.at(hash['credentials']['expires_at'].to_i) })
   end
 end
