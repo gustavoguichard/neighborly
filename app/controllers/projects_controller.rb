@@ -29,6 +29,7 @@ class ProjectsController < ApplicationController
     @successful = Project.visible.successful.home_page.limit(4)
     @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)
     @coming_soon = Project.soon.home_page.limit(4)
+    @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
   end
 
