@@ -102,7 +102,7 @@
         = tab_link_to t('.tabs.budget'), budget_project_path(@project) if @project.budget.present?
         = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || can?(:update, @project)
         - if can? :update, @project
-          = tab_link_to t('.tabs.reports'), reports_project_path(@project)
+          = tab_link_to t('.tabs.reports'), reports_project_path(@project), 'private'
 
       section.content
         - if content_for? :page_content

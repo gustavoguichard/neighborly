@@ -11,9 +11,9 @@ nav.tabs
       left: +emCalc(15px)
       right: +emCalc(15px)
     font-size: 85%
-    &.selected
+    &.selected, &.private.selected
       background: $tabs-selected-bg
-    &:hover
+    &:hover, &.private:hover
       background: $tabs-hover-bg
     .count
       @extend .label
@@ -21,6 +21,9 @@ nav.tabs
       margin-left: +emCalc(10px)
       font-size: 60%
       top: -1px
+    &.private
+      background: darken($tabs-bg, 5%)
+
 
 .row
   .columns
