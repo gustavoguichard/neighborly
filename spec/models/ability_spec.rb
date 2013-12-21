@@ -10,6 +10,26 @@ describe Ability do
     it { should be_able_to(:access, :all) }
   end
 
+  describe 'when project has a channel' do
+    let(:channel) { create(:channel) }
+    let(:project) { FactoryGirl.create(:project, channels: [channel]) }
+    let(:user) { create(:user, admin: false) }
+
+    context 'when user is not the channel owner' do
+      it { should_not be_able_to(:update, project) }
+    end
+
+    context 'when user is the channel owner' do
+      before { channel.users << user; channel.save }
+      it { should be_able_to(:update, project) }
+    end
+
+    context 'when user is owner of other channel' do
+      let(:channel) { create(:channel, users: [create(:user)]) }
+      it { should_not be_able_to(:update, project) }
+    end
+  end
+
   context "When user is project owner" do
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project, user: user) }
