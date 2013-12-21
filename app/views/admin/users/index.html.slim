@@ -58,6 +58,7 @@
                 th
                   a data-sort="coalesce(user_totals.credits,0)" href='#'= t('.credits')
                   span.sort-order
+                th
             tbody
               - for user in @users do
                 tr id=user.id
@@ -66,4 +67,5 @@
                   td= user.email
                   td= user.user_total ? user.user_total.sum : 0
                   td= user.credits
+                  td= link_to t('.edit'), edit_user_path(user), class: 'button tiny', target: :blank
         = paginate @users

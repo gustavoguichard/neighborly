@@ -178,6 +178,7 @@ en:
         user: User
         value: Value
         provider: Provider
+        edit: 'Edit'
     backers:
       messages:
         successful:
