@@ -116,6 +116,7 @@ group :development do
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rails-erd'
   # Uncomment only for optimization, should be commented on master branch
   # gem 'rack-mini-profiler'
 end
