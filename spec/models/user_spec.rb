@@ -196,7 +196,7 @@ describe User do
         'email' => 'another_email@anotherdomain.com',
         'nickname' => "foobar",
         'description' => "Foo bar's bio".ljust(200),
-        'image' => "image.png"
+        'image' => "https://graph.facebook.com/foobar/picture?type=large"
       }
     }
     end
@@ -226,7 +226,7 @@ describe User do
         'email' => 'another_email@anotherdomain.com',
         'nickname' => "foobar",
         'description' => "Foo bar's bio".ljust(200),
-        'image' => "image.png",
+        'image' => "https://graph.facebook.com/foobar/picture?type=large",
         'urls' => {
           'public_profile' => 'http://linkedin.com/in/foo_bar'
         }
@@ -242,7 +242,6 @@ describe User do
       its(:twitter) { should be_nil }
       its(:linkedin_url) { should be_nil }
       its(:facebook_link) { should eq 'http://facebook.com/foobar' }
-      its(:image_url) { should eq 'https://graph.facebook.com/foobar/picture?type=large' }
     end
 
     context 'when provider is twiiter' do
@@ -250,7 +249,6 @@ describe User do
       its(:twitter) { should eq 'foobar' }
       its(:linkedin_url) { should be_nil }
       its(:facebook_link) { should be_nil }
-      its(:image_url) { should eq 'image.png' }
     end
 
     context 'when provider is linkedin' do
@@ -258,7 +256,6 @@ describe User do
       its(:twitter) { should be_nil }
       its(:linkedin_url) { should eq 'http://linkedin.com/in/foo_bar' }
       its(:facebook_link) { should be_nil }
-      its(:image_url) { should eq 'image.png' }
     end
   end
 

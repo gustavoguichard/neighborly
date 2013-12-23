@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
     :company_logo,
     :linkedin_url,
     :address,
-    :hero_image
+    :hero_image,
+    :remote_uploaded_image_url
 
   attr_accessor :address
 
@@ -254,8 +255,10 @@ class User < ActiveRecord::Base
     info[:twitter] = hash['info']['nickname'] if hash['provider'] == 'twitter'
     info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
     info[:facebook_link] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
-    info[:image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
-    info[:image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
+    unless self.uploaded_image.present?
+      info[:remote_uploaded_image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
+      info[:remote_uploaded_image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
+    end
     info
   end
 end
