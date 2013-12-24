@@ -27,3 +27,4 @@ Cookbooks
 spec/tmp/
 *.sublime-project
 *.sublime-workspace
+*.dot
