@@ -183,3 +183,17 @@ task :fix_payment_method_from_old_backers => :environment do
 
 end
 
+
+desc "Fix the payment method from old backers"
+task :migrate_company_to_organization => :environment do
+  users = User.where(profile_type: 'company')
+
+  users.each do |user|
+    puts "USER #{user.id}"
+    user.profile_type = 'organization'
+    user.create_organization(name: user.company_name, remote_image_url: user.company_logo.url)
+    saved = user.save
+    puts "Saving user.... #{saved}"
+    puts "ERROR: #{user.errors.messages.inspect}" if saved == false
+  end
+end
