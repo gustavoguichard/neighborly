@@ -43,12 +43,12 @@ describe User do
       end
     end
 
-    describe "#company" do
-      let(:user) { create(:user, profile_type: 'company') }
+    describe "#organization?" do
+      let(:user) { create(:user, profile_type: 'organization') }
 
-      subject { user.company? }
+      subject { user.organization? }
 
-      context "when change profile type to company" do
+      context "when change profile_type to organization" do
         it { should be_true }
       end
     end

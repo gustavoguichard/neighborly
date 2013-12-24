@@ -26,14 +26,14 @@ describe UserDecorator do
       end
     end
 
-    context 'when profile type is company' do
-      context "when we the company name" do
-        let(:user){ create(:user, profile_type: 'company', company_name: 'Neighbor.ly') }
+    context 'when profile_type is organization' do
+      context "when we the organization name" do
+        let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: 'Neighbor.ly' }) }
         it{ should == 'Neighbor.ly' }
       end
 
-      context "when we have no company name" do
-        let(:user){ create(:user, profile_type: 'company', company_name: nil) }
+      context "when we have no organization name" do
+        let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: nil }) }
         it{ should == I18n.t('words.no_name') }
       end
     end
@@ -71,20 +71,20 @@ describe UserDecorator do
       end
     end
 
-    context 'when profile type is company' do
-      context "when we have a company logo" do
-        let(:user){ build(:user, profile_type: 'company', company_logo: 'image.png' )}
+    context 'when profile_type is organization' do
+      context "when we have a organization image" do
+        let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: 'image.png'} )}
         before do
           image = stub(url: 'image.png')
           image.stub(:thumb).and_return(image)
           image.stub(:large).and_return(image)
-          user.stub(:company_logo).and_return(image)
+          user.organization.stub(:image).and_return(image)
         end
         it{ should == 'image.png' }
       end
 
-      context 'when we dont have a company logo' do
-        let(:user){ build(:user, profile_type: 'company', company_logo: nil )}
+      context 'when we dont have a organization image' do
+        let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: nil }) }
         it{ should == '/assets/logo-blank.jpg' }
       end
     end

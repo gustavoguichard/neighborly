@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user.build_organization unless @user.organization
     render :profile if request.xhr?
   end
 
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
         flash[:error] = @user.errors.full_messages.to_sentence
       end
       success.json do
-        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), company_logo: @user.company_logo_url(:thumb) }
+        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
       end
       failure.json do
         return render json: { status: :error }

@@ -62,7 +62,8 @@ class User < ActiveRecord::Base
     :linkedin_url,
     :address,
     :hero_image,
-    :remote_uploaded_image_url
+    :remote_uploaded_image_url,
+    :organization_attributes
 
   attr_accessor :address
 
@@ -84,6 +85,8 @@ class User < ActiveRecord::Base
   has_many :backs, class_name: "Backer"
   has_one :user_total
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
+  has_one :organization, dependent: :destroy
+  accepts_nested_attributes_for :organization
 
 
   # Channels relation

@@ -12,16 +12,16 @@ class UserDecorator < Draper::Decorator
   end
 
   def display_name
-    if source.company?
-      source.company_name || I18n.t('words.no_name')
+    if source.organization? && source.organization.present?
+      source.organization.name || I18n.t('words.no_name')
     else
       source.name || source.full_name || I18n.t('words.no_name')
     end
   end
 
   def display_image
-    if source.company?
-      source.company_logo.large.url || '/assets/logo-blank.jpg'
+    if source.organization? && source.organization.present?
+      source.organization.image.large.url || '/assets/logo-blank.jpg'
     else
       source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || '/assets/user.png'
     end

@@ -152,5 +152,10 @@ FactoryGirl.define do
     name 'bike'
   end
 
+  factory :organization do |f|
+    f.association :user
+    f.name 'Organization name'
+    f.image File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
 end
 
