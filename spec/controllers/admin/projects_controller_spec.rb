@@ -164,7 +164,7 @@ describe Admin::ProjectsController do
 
       context 'new user' do
         before do
-          post :populate, id: project, user: { name: 'New user', profile_type: 'company' }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
+          post :populate, id: project, user: { name: 'New user', profile_type: 'organization' }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
         end
 
         it_behaves_like 'create the backer'

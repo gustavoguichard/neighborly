@@ -3,17 +3,17 @@
     .large-12.columns
       .backer[class="#{backer.user.profile_type} #{'with-note' if backer.short_note.present?}"]
         .row.collapse
-          .columns[class="large-#{ backer.user.company? ? 7 : 4 }"]
+          .columns[class="large-#{ backer.user.organization? ? 7 : 4 }"]
             - if backer.anonymous
               figure.profile-image.personal
                 = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
             - else
               = link_to user_path(backer.user) do
-                - if backer.user.company?
+                - if backer.user.organization?
                   = backer.user.display_image_html width: 181, height: 85
                 - else
                   = backer.user.display_image_html width: 85, height: 85
-          .columns[class="large-#{ backer.user.company? ? 5 : 8 }"]
+          .columns[class="large-#{ backer.user.organization? ? 5 : 8 }"]
             .name
               - if backer.anonymous
                 = " #{t('.anonymous_backer')}"

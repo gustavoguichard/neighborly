@@ -32,7 +32,7 @@ describe User do
     it{ should validate_uniqueness_of(:email) }
   end
 
-  describe "profile types" do
+  describe "profile_types" do
     let(:user) { create(:user) }
 
     describe "#personal?" do

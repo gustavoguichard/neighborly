@@ -112,14 +112,14 @@
 
       section.author
         .row
-          - if @project.user.company?
+          - if @project.user.organization?
             .large-5.columns
               = link_to @project.user.display_image_html(width: 300, height: 150, class: 'large'), @project.user
           - else
             .large-3.columns
               = link_to @project.user.display_image_html(width: 150, height: 150, class: 'large'), @project.user
 
-          .columns[class="large-#{ @project.user.company? ? 7 : 9}"]
+          .columns[class="large-#{ @project.user.organization? ? 7 : 9}"]
             h4 = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
             p = @project.user.bio
 

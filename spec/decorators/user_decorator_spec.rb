@@ -4,7 +4,7 @@ describe UserDecorator do
   describe "#display_name" do
     subject{ user.display_name }
 
-    context 'when profile type is personal' do
+    context 'when profile_type is personal' do
       context "when we only have a full name" do
         let(:user){ create(:user, name: nil, full_name: "Full Name") }
         it{ should == 'Full Name' }
@@ -49,7 +49,7 @@ describe UserDecorator do
   describe "#display_image" do
     subject{ user.display_image }
 
-    context 'when profile type is personal' do
+    context 'when profile_type is personal' do
       context "when we have an uploaded image" do
         let(:user){ build(:user, uploaded_image: 'image.png' )}
         before do

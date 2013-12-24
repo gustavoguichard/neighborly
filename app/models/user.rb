@@ -133,7 +133,8 @@ class User < ActiveRecord::Base
 
   state_machine :profile_type, initial: :personal do
     state :personal, value: 'personal'
-    state :company, value: 'company'
+    state :organization, value: 'organization'
+    state :channel, value: 'channel'
   end
 
   def self.send_credits_notification

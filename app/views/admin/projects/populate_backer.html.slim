@@ -21,9 +21,9 @@
                 | Person
                 | &nbsp;
               label.large-10.columns
-                = radio_button_tag 'user[profile_type]', 'company'
+                = radio_button_tag 'user[profile_type]', 'organization'
                 | &nbsp;
-                | Company / Organization
+                | Organization (Company, Foundation, etc...)
           .input
             = label_tag 'user[uploaded_image]', 'Image'
             = file_field_tag 'user[uploaded_image]'

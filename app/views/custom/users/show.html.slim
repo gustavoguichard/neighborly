@@ -9,7 +9,7 @@
 
 .user-profile-page
   - content_for :user_image do
-    - if @user.company?
+    - if @user.organization?
       = @user.display_image_html width: 300, height: 150, class: 'large'
     - else
       = @user.display_image_html width: 150, height: 150, class: 'large'

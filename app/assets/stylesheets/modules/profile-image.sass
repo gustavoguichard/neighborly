@@ -2,7 +2,7 @@
   @if $type == person
     width: $size
     height: $size
-  @else if $type == company
+  @else if $type == organization
     width: $size
     height: $size / 2
 
@@ -13,7 +13,7 @@
     +avatar-position(85px)
     &.large
       +avatar-position(150px)
-  &.company
-    +avatar-position(170px, company)
+  &.organization, &.channel
+    +avatar-position(170px, organization)
     &.large
-      +avatar-position(300px, company)
+      +avatar-position(300px, organization)

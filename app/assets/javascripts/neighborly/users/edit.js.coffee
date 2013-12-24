@@ -23,8 +23,8 @@ Neighborly.Users.Edit =
 
     changedProfile: (e)->
       value = e.target.value
-      for profile in this.$('.profile_type_images')
-        if profile.id == "#{value}_images"
+      for profile in this.$('.profile-type-images')
+        if profile.id == "#{value}-images"
           $(profile).show()
         else
           $(profile).hide()

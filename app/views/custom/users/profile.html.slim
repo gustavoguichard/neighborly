@@ -3,8 +3,8 @@
   #user-profile-content.row
     .large-8.columns
       = simple_form_for resource do |f|
-        = f.input :profile_type, collection: {' Person'=> 'personal', ' Company / Organization'=> 'company'}, as: :radio_buttons
-        #personal_images.profile_type_images.row style="#{"display: none;" unless @user.profile_type == 'personal'}"
+        = f.input :profile_type, collection: {' Person'=> 'personal', 'Organization (Company, Foundation, etc...)'=> 'organization'}, as: :radio_buttons
+        #personal-images.profile-type-images.row style="#{"display: none;" unless @user.personal?}"
           .large-4.columns
             .usr-upld-img.usr-upld-pctr data-param="uploaded_image"
               span.info Drop an image here
@@ -15,7 +15,7 @@
               span.info Drop an image here
               = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
             = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
-        #company_images.profile_type_images.row style="#{"display: none;" unless @user.profile_type == 'company'}"
+        #organization-images.profile-type-images.row style="#{"display: none;" unless @user.organization?}"
           .large-4.columns
             .usr-upld-img.usr-upld-cp data-param="company_logo"
               span.info Drop an image here
@@ -27,10 +27,10 @@
               = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
             = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
         .large-12.columns
-          #personal-name.profile-type-name.row style="#{"display: none;" unless @user.profile_type == 'personal'}"
+          #personal-name.profile-type-name.row style="#{"display: none;" unless @user.personal?}"
             = f.input :name, as: :string
-          #company-name.profile-type-name.row style="#{"display: none;" unless @user.profile_type == 'company'}"
             = f.input :company_name, as: :string
+          #organization-name.profile-type-name.row style="#{"display: none;" unless @user.organization?}"
         = f.input :email, as: :string
         = f.input :bio
         .row
