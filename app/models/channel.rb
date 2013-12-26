@@ -5,15 +5,16 @@ class Channel < ActiveRecord::Base
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
 
-  attr_accessible :description, :name, :permalink, :email, :video_url, :twitter, :facebook, :website, :image, :how_it_works
+  attr_accessible :description, :name, :permalink, :email, :video_url, :twitter, :facebook, :website, :image, :how_it_works, :user, :user_id
 
-  validates_presence_of :name, :description, :permalink
+  validates_presence_of :name, :description, :permalink, :user_id
   validates_uniqueness_of :permalink
   after_validation :update_video_embed_url
 
   has_and_belongs_to_many :projects, -> { order("online_date desc") }
   has_and_belongs_to_many :subscribers, class_name: 'User', join_table: :channels_subscribers
   has_many :subscriber_reports
+  belongs_to :user
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340
 

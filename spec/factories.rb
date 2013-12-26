@@ -131,6 +131,7 @@ FactoryGirl.define do
   end
 
   factory :channel do
+    user { create(:user, profile_type: 'channel') }
     name "Test"
     email "email+channel@foo.bar"
     description "Lorem Ipsum"

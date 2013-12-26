@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
 
   # Channels relation
   has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
+  has_one :channel
+  accepts_nested_attributes_for :channel
 
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
 
