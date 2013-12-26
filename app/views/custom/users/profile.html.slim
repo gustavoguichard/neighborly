@@ -40,16 +40,7 @@
             = f.input :phone_number, as: :string
           .large-6.columns
             = f.input :other_link
-        h3 = t('.omniauth.title')
-        .row
-          - for provider in OauthProvider.all
-            .large-6.columns
-              - authorization = @user.authorizations.where(oauth_provider_id: provider.id).first
-              - if authorization
-                = link_to t(".omniauth.disconnect.#{provider.name}"), user_authorization_path(@user, authorization), method: :delete, class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon', 'secondary']
-              - else
-                = link_to t(".omniauth.connect.#{provider.name}"), user_omniauth_authorize_path(provider: provider.name), class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon']
-
+        = render 'authorizations'
         h3
           = t('.address_title')
           br/

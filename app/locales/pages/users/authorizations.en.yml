@@ -1,0 +1,14 @@
+en:
+  users:
+    authorizations:
+      title: 'Connect an account'
+      connect:
+        facebook: 'Connect Facebook'
+        twitter: 'Connect Twitter'
+        google_oauth2: 'Connect Google'
+        linkedin: 'Connect Linkedin'
+      disconnect:
+        facebook: 'Disconnect Facebook'
+        twitter: 'Disconnect Twitter'
+        google_oauth2: 'Disconnect Google'
+        linkedin: 'Disconnect Linkedin'

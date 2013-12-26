@@ -1,0 +1,10 @@
+.row
+  .large-12.columns
+    h3 = t('.title')
+  - for provider in OauthProvider.all
+    .large-6.columns
+      - authorization = @user.authorizations.where(oauth_provider_id: provider.id).first
+      - if authorization
+        = link_to t(".disconnect.#{provider.name}"), user_authorization_path(@user, authorization), method: :delete, class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon', 'secondary']
+      - else
+        = link_to t(".connect.#{provider.name}"), user_omniauth_authorize_path(provider: provider.name), class: [:button, provider.name, 'small-12 large-12', 'columns',  'with-icon']
