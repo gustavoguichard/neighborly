@@ -184,7 +184,7 @@ task :fix_payment_method_from_old_backers => :environment do
 end
 
 
-desc "Fix the payment method from old backers"
+desc "Migrate Company to Organization"
 task :migrate_company_to_organization => :environment do
   users = User.where(profile_type: 'company')
 
@@ -195,5 +195,22 @@ task :migrate_company_to_organization => :environment do
     saved = user.save
     puts "Saving user.... #{saved}"
     puts "ERROR: #{user.errors.messages.inspect}" if saved == false
+  end
+end
+
+desc "Fix twitter url"
+task :fix_twitter_url => :environment do
+  users = User.where('twitter_url is not null')
+
+  users.each do |user|
+    if user.twitter_url.present?
+      puts "USER #{user.id}"
+      unless user.twitter_url[/\Ahttp:\/\/twitter.com/] || user.twitter_url[/\Ahttps:\/\/twitter.com/]
+        user.twitter_url = "http://twitter.com/#{user.twitter_url}"
+        saved = user.save
+        puts "Saving user.... #{saved} #{user.twitter_url}"
+        puts "ERROR: #{user.errors.messages.inspect}" if saved == false
+      end
+    end
   end
 end
