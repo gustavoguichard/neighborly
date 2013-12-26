@@ -17,10 +17,10 @@ en:
         password: 'Password'
         current_password: 'Current Password'
         bio: '140 characters or less...'
-        facebook_link: 'facebook.com/'
-        other_link: 'www.'
-        linkedin_url: 'linkedin.com/in/'
-        twitter: '@'
+        facebook_url: 'http://facebook.com/'
+        other_url: 'http://www.'
+        linkedin_url: 'http://linkedin.com/in/'
+        twitter_url: 'http://twitter.com/'
       channel:
         facebook: 'http://facebook.com/'
         twitter: 'http://twitter.com/'
@@ -44,7 +44,7 @@ en:
         address_street: 'Street'
         address_neighbourhood: 'Neighborhood'
         address_zip_code: 'Zip code'
-        other_link: 'Your website'
+        other_url: 'Your website'
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'

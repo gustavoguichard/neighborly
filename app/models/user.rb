@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name, :twitter_link, :gravatar_url,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
@@ -51,15 +51,15 @@ class User < ActiveRecord::Base
     :cpf,
     :state_inscription,
     :locale,
-    :twitter,
-    :facebook_link,
-    :other_link,
+    :twitter_url,
+    :facebook_url,
+    :linkedin_url,
+    :other_url,
     :moip_login,
     :new_project,
     :profile_type,
     :company_name,
     :company_logo,
-    :linkedin_url,
     :address,
     :hero_image,
     :remote_uploaded_image_url,
@@ -259,9 +259,9 @@ class User < ActiveRecord::Base
   protected
   def social_info_from_hash(hash)
     info = {}
-    info[:twitter] = hash['info']['nickname'] if hash['provider'] == 'twitter'
+    info[:twitter_url] = "http://twitter.com/#{hash['info']['nickname']}" if hash['provider'] == 'twitter'
     info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
-    info[:facebook_link] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
+    info[:facebook_url] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
     unless self.uploaded_image.present?
       info[:remote_uploaded_image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
       info[:remote_uploaded_image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'

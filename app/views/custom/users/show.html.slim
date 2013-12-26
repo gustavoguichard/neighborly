@@ -34,21 +34,21 @@
           = @user.bio
         
         ul.user-social
-          - if @user.facebook_link.present?
+          - if @user.facebook_url.present?
             li
-              = link_to @user.facebook_link, target: 'blank', class: "social-link" do
+              = link_to @user.facebook_url, target: 'blank', class: "social-link" do
                 i.icon-et-facebook
-          - if @user.twitter.present?
+          - if @user.twitter_url.present?
             li
-              = link_to @user.twitter_link, target: 'blank', class: "social-link" do
+              = link_to @user.twitter_url, target: 'blank', class: "social-link" do
                 i.icon-et-twitter
           - if @user.linkedin_url.present?
             li
               = link_to @user.linkedin_url, target: 'blank', class: "social-link" do
                 i.icon-et-linkedin
-          - if @user.other_link.present?
+          - if @user.other_url.present?
             li
-              = link_to @user.other_link, target: 'blank', class: "social-link" do
+              = link_to @user.other_url, target: 'blank', class: "social-link" do
                 i.icon-et-globe
       
 

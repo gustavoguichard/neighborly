@@ -17,11 +17,11 @@ describe UsersController do
   describe "PUT update" do
     context 'when does not update the email' do
       before do
-        put :update, id: user.id, locale: 'pt', user: { twitter: 'test' }
+        put :update, id: user.id, locale: 'pt', user: { twitter_url: 'http://twitter.com/test' }
       end
       it("should update the user") do
         user.reload
-        user.twitter.should ==  'test'
+        user.twitter_url.should ==  'http://twitter.com/test'
       end
       it{ should redirect_to edit_user_path(user) }
       it { expect(flash[:notice]).to eq(I18n.t('controllers.users.update.success')) }
@@ -38,7 +38,7 @@ describe UsersController do
     context 'as JSON format' do
       context 'success' do
         before do
-          put :update, id: user.id, locale: 'pt', user: { twitter: 'test' }, format: :json
+          put :update, id: user.id, locale: 'pt', user: { twitter_url: 'http://twitter.com/test' }, format: :json
         end
 
         its(:status){ should == 200 }

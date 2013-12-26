@@ -125,14 +125,14 @@
 
             .social
               ul
-                - if @project.user.facebook_link.present?
-                  li = link_to @project.user.facebook_link, target: :blank, class: 'facebook' do
+                - if @project.user.facebook_url.present?
+                  li = link_to @project.user.facebook_url, target: :blank, class: 'facebook' do
                    i.icon-et-facebook-circled
-                - if @project.user.twitter.present?
-                  li = link_to @project.user.twitter_link, target: :blank, class: 'twitter' do
+                - if @project.user.twitter_url.present?
+                  li = link_to @project.user.twitter_url, target: :blank, class: 'twitter' do
                    i.icon-et-twitter-circled
-                - if @project.user.other_link.present?
-                  li = link_to @project.user.other_link, target: :blank, class: 'other' do
+                - if @project.user.other_url.present?
+                  li = link_to @project.user.other_url, target: :blank, class: 'other' do
                    i.icon-et-globe
 
             = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'

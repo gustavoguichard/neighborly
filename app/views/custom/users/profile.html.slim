@@ -9,7 +9,7 @@
           = render 'users/profile_types/personal_organization', f: f
         = render 'authorizations'
         = render 'address', f: f
-        = f.button :submit, disable_with: t('words.sending')
+        = f.button :submit, data: { disable_with: t('words.sending') }
 
 - if request.xhr? || defined?(partial)
   = yield :page_content

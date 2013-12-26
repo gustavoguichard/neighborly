@@ -212,12 +212,12 @@ describe User do
       User.create! do |u|
         u.email = 'diogob@gmail.com'
         u.password = '123456'
-        u.twitter = 'dbiazus'
-        u.facebook_link = 'http://facebook.com/test'
+        u.twitter_url = 'http://twitter.com/dbiazus'
+        u.facebook_url = 'http://facebook.com/test'
       end
     end
-    its(:twitter){ should == 'dbiazus' }
-    its(:facebook_link){ should == 'http://facebook.com/test' }
+    its(:twitter_url){ should == 'http://twitter.com/dbiazus' }
+    its(:facebook_url){ should == 'http://facebook.com/test' }
   end
 
   describe '#update_social_info' do
@@ -241,23 +241,23 @@ describe User do
 
     context 'when provider is facebook' do
       let(:auth) { base_auth.merge({ 'provider' => 'facebook' }) }
-      its(:twitter) { should be_nil }
+      its(:twitter_url) { should be_nil }
       its(:linkedin_url) { should be_nil }
-      its(:facebook_link) { should eq 'http://facebook.com/foobar' }
+      its(:facebook_url) { should eq 'http://facebook.com/foobar' }
     end
 
     context 'when provider is twiiter' do
       let(:auth) { base_auth.merge({ 'provider' => 'twitter' }) }
-      its(:twitter) { should eq 'foobar' }
+      its(:twitter_url) { should eq 'http://twitter.com/foobar' }
       its(:linkedin_url) { should be_nil }
-      its(:facebook_link) { should be_nil }
+      its(:facebook_url) { should be_nil }
     end
 
     context 'when provider is linkedin' do
       let(:auth) { base_auth.merge({ 'provider' => 'linkedin' }) }
-      its(:twitter) { should be_nil }
+      its(:twitter_url) { should be_nil }
       its(:linkedin_url) { should eq 'http://linkedin.com/in/foo_bar' }
-      its(:facebook_link) { should be_nil }
+      its(:facebook_url) { should be_nil }
     end
   end
 

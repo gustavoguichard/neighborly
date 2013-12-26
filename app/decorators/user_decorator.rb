@@ -2,10 +2,6 @@ class UserDecorator < Draper::Decorator
   decorates :user
   include Draper::LazyHelpers
 
-  def twitter_link
-    "http://twitter.com/#{source.twitter}"
-  end
-
   def gravatar_url
     return unless source.email
     "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?size=150&default=#{::Configuration[:base_url]}/assets/default-avatar.png"

@@ -105,11 +105,6 @@ describe UserDecorator do
     its(:display_credits) { should == '$0.00'}
   end
 
-  describe "#twitter_link" do
-    subject { create(:user, twitter: 'Neighborly') }
-    its(:twitter_link) { should == 'http://twitter.com/Neighborly'}
-  end
-
   describe "#display_total_of_backs" do
     subject { create(:user) }
     context "with confirmed backs" do
