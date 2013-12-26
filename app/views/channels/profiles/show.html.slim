@@ -31,18 +31,18 @@
           .connect
             h4 = "#{t('.connect.title')} #{@profile.name}"
             .row.social
-              - if @profile.website.present?
+              - if @profile.user.other_url.present?
                 .large-3.small-3.columns
-                  = link_to t('.connect.website'), @profile.website, class: 'button website success with-icon', target: :blank
-              - if @profile.facebook.present?
+                  = link_to t('.connect.website'), @profile.user.other_url, class: 'button website success with-icon', target: :blank
+              - if @profile.user.facebook_url.present?
                 .large-3.small-3.columns
-                  = link_to t('.connect.facebook'), @profile.facebook, class: 'button facebook with-icon', target: :blank
-              - if @profile.twitter.present?
+                  = link_to t('.connect.facebook'), @profile.user.facebook_url, class: 'button facebook with-icon', target: :blank
+              - if @profile.user.twitter_url.present?
                 .large-3.small-3.columns
-                  = link_to t('.connect.twitter'), @profile.twitter, class: 'button twitter with-icon', target: :blank
-              - if @profile.email.present?
+                  = link_to t('.connect.twitter'), @profile.user.twitter_url, class: 'button twitter with-icon', target: :blank
+              - if @profile.user.email.present?
                 .large-3.small-3.columns
-                  = mail_to @profile.email, t('.connect.email'), class: 'button email with-icon'
+                  = mail_to @profile.user.email, t('.connect.email'), class: 'button email with-icon'
     .see-more-wrapper
       = link_to '', '#', title: t('.see_more'), class: 'see-more-toggle icon-et-down-circled'
 

@@ -5,7 +5,7 @@ class Channel < ActiveRecord::Base
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
 
-  attr_accessible :description, :name, :permalink, :email, :video_url, :twitter, :facebook, :website, :image, :how_it_works, :user, :user_id
+  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :user, :user_id
 
   validates_presence_of :name, :description, :permalink, :user_id
   validates_uniqueness_of :permalink

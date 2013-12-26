@@ -133,7 +133,6 @@ FactoryGirl.define do
   factory :channel do
     user { create(:user, profile_type: 'channel') }
     name "Test"
-    email "email+channel@foo.bar"
     description "Lorem Ipsum"
     sequence(:permalink) { |n| "#{n}-test-page" }
   end
