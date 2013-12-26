@@ -1,0 +1,25 @@
+- resource.build_channel unless resource.channel
+= f.fields_for :channel do |cf|
+  = cf.input :name, as: :string
+  .row
+    .large-9.columns
+      = cf.input :description, as: :text
+    .large-3.columns
+      = cf.input :image, as: :file
+      - if resource.channel.image.present?
+        p= image_tag(resource.channel.image.curator_thumb.url)
+  .row
+    .large-6.small-6.columns
+      = f.input :email, as: :string
+    .large-6.small-6.columns
+      = cf.input :video_url, as: :string
+  .row
+    .large-12.columns
+      .row.collapse
+        .small-3.large-2.columns
+          span class="prefix"
+            i.icon-et-globe
+        .small-9.large-10.columns
+          = f.input :other_link, input_html: { class: "with-prefix" }, label: false, as: :string
+
+  = cf.input :how_it_works, as: :text, input_html: {rows: 20}

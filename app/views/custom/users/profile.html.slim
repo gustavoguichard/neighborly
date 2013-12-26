@@ -3,57 +3,12 @@
   #user-profile-content.row
     .large-8.columns
       = simple_form_for resource do |f|
-        = f.input :profile_type, collection: {' Person'=> 'personal', 'Organization (Company, Foundation, etc...)'=> 'organization'}, as: :radio_buttons
-        #personal-images.profile-type-images.row style="#{"display: none;" unless @user.personal?}"
-          .large-4.columns
-            .usr-upld-img.usr-upld-pctr data-param="uploaded_image"
-              span.info Drop an image here
-              = image_tag @user.uploaded_image_url(:thumb_avatar), class: "uploaded-image"
-            = f.input :uploaded_image, as: :file, input_html: { class: 'fallback' }
-          .large-8.columns
-            .usr-upld-img.usr-upld-cvr data-param="hero_image"
-              span.info Drop an image here
-              = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
-            = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
-        #organization-images.profile-type-images.row style="#{"display: none;" unless @user.organization?}"
-          .large-4.columns
-            .usr-upld-img.usr-upld-cp data-param="organization_attributes[image]"
-              span.info Drop an image here
-              = image_tag @user.organization.image_url(:thumb), class: "uploaded-image"
-            = f.fields_for :organization do |o|
-              = o.input :image, as: :file, input_html: { class: 'fallback' }
-          .large-8.columns
-            .usr-upld-img.usr-upld-cvr data-param="hero_image"
-              span.info Drop an image here
-              = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
-            = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
-        .large-12.columns
-          #personal-name.profile-type-name.row style="#{"display: none;" unless @user.personal?}"
-            = f.input :name, as: :string
-          #organization-name.profile-type-name.row style="#{"display: none;" unless @user.organization?}"
-            = f.fields_for :organization do |o|
-              = o.input :name, as: :string
-        = f.input :email, as: :string
-        = f.input :bio
-        .row
-          .large-6.columns
-            = f.input :phone_number, as: :string
-          .large-6.columns
-            = f.input :other_link
+        - if resource.channel?
+          = render 'users/profile_types/channel', f: f
+        - else
+          = render 'users/profile_types/personal_organization', f: f
         = render 'authorizations'
-        h3
-          = t('.address_title')
-          br/
-          small= t('.address_subtitle')
-        = f.input :address_street, as: :string
-        .row
-          .large-8.columns
-            = f.input :address_neighbourhood, as: :string
-          .large-4.columns
-            = f.input :address_zip_code, as: :string
-        .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
-          = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
-          .map-canvas
+        = render 'address', f: f
         = f.button :submit, disable_with: t('words.sending')
 
 - if request.xhr? || defined?(partial)

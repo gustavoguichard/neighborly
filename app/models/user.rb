@@ -63,7 +63,8 @@ class User < ActiveRecord::Base
     :address,
     :hero_image,
     :remote_uploaded_image_url,
-    :organization_attributes
+    :organization_attributes,
+    :channel_attributes
 
   attr_accessor :address
 
