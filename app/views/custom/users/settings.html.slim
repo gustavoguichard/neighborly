@@ -9,7 +9,7 @@
             = f.input :current_password
           .large-6.columns
             = f.input :password
-        p = f.button :submit, t('.save_password'), disable_with: t('words.sending')
+        p = f.button :submit, t('.save_password'), data: { disable_with: t('words.sending') }
 
     = simple_form_for @user, html: { method: :put } do |f|
       = hidden_field_tag :settings, true
@@ -17,7 +17,7 @@
         h3= t('.communication_preferences')
         = f.input :newsletter
         = f.input :new_project
-        p = f.button :submit, t('.update_communication_preferences'), disable_with: t('words.sending')
+        p = f.button :submit, t('.update_communication_preferences'), data: { disable_with: t('words.sending') }
 
     = simple_form_for(@user, url: user_unsubscribes_path(user_id: @user.id), html:{ method: :post}) do |f|
       .large-8.columns
@@ -36,7 +36,7 @@
                 = u.input :project_id, as: :hidden
                 = u.input :user_id, as: :hidden
 
-        = f.button :submit, t('.unsubscribes.submit'), disable_with: t('words.sending')
+        = f.button :submit, t('.unsubscribes.submit'), data: { disable_with: t('words.sending') }
 
 - if request.xhr?
   = yield :page_content
