@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe User do
+  before { UserUploader.any_instance.stub(:download!) }
   let(:user){ create(:user) }
   let(:unfinished_project){ create(:project, state: 'online') }
   let(:successful_project){ create(:project, state: 'online') }
