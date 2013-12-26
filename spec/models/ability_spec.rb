@@ -11,21 +11,21 @@ describe Ability do
   end
 
   describe 'when project has a channel' do
-    let(:channel) { create(:channel) }
     let(:project) { FactoryGirl.create(:project, channels: [channel]) }
     let(:user) { create(:user, admin: false) }
+    let(:channel) { create(:channel, user: user) }
 
     context 'when user is not the channel owner' do
+      let(:channel) { create(:channel, user: create(:user)) }
       it { should_not be_able_to(:update, project) }
     end
 
-    context 'when user is the channel owner' do
-      before { channel.users << user; channel.save }
+    context 'when user is the channel' do
       it { should be_able_to(:update, project) }
     end
 
-    context 'when user is owner of other channel' do
-      let(:channel) { create(:channel, users: [create(:user)]) }
+    context 'when user is other channel' do
+      let(:channel) { create(:channel, user: create(:user)) }
       it { should_not be_able_to(:update, project) }
     end
   end
