@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def show
+    return redirect_to root_url(subdomain: resource.channel.permalink) if resource.channel? && resource.channel.present?
     show!{
       fb_admins_add(@user.facebook_id) if @user.facebook_id
       @title = "#{@user.display_name}"
