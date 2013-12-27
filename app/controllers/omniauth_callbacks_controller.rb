@@ -7,7 +7,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         @auth = authorization(omniauth)
         update_informations(@auth, omniauth)
 
-        sign_in @auth.user, event: :authentication
+        sign_in @auth.user, event: :authentication unless current_user
         redirect_to(session[:return_to] || root_path, flash: { notice: flash_message(@auth.user, p.name.capitalize) })
         session[:return_to] = nil
       end
