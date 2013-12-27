@@ -175,7 +175,7 @@ class ProjectObserver < ActiveRecord::Observer
       {
         project: project,
         channel: project.last_channel,
-        origin_email: project.last_channel.try(:email) || Configuration[:email_contact],
+        origin_email: project.last_channel.try(:user).try(:email) || Configuration[:email_contact],
         origin_name: project.last_channel.try(:name) || Configuration[:company_name]
       }
     )

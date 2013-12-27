@@ -68,7 +68,7 @@ describe ProjectObserver do
           {
             project: project,
             channel: channel,
-            origin_email: channel.email,
+            origin_email: channel.user.email,
             origin_name: channel.name
           }
         )
