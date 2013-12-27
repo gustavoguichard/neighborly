@@ -16,7 +16,7 @@
                 th style="width: 200px;"
                   = t('.name')
                 th
-                  = t('.owners')
+                  = t('.members')
                 th
                   = t('.permalink')
                 th
@@ -33,7 +33,7 @@
                       ul
                         - for user in channel.members
                           li = link_to user.display_name, user_path(user)
-                    = link_to t('.manage_owners'), admin_channel_owners_path(channel), class: 'button secondary tiny'
+                    = link_to t('.manage_members'), admin_channel_members_path(channel), class: 'button secondary tiny'
                   td = channel.permalink
                   td = channel.created_at.to_date
                   td = channel.state

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Channels::OwnersController do
+describe Admin::Channels::MembersController do
 
   subject{ response }
   let(:admin) { create(:user, admin: true) }
@@ -62,8 +62,8 @@ describe Admin::Channels::OwnersController do
           post :create, channel_id: channel, user_id: 'not_exist'
         end
 
-        it { expect(flash[:error]).to eq(I18n.t('admin.channels.owners.messages.user_not_found')) }
-        it { should redirect_to admin_channel_owners_path(channel) }
+        it { expect(flash[:error]).to eq(I18n.t('admin.channels.members.messages.user_not_found')) }
+        it { should redirect_to admin_channel_members_path(channel) }
       end
 
       context 'when the user has not channel' do
@@ -75,8 +75,8 @@ describe Admin::Channels::OwnersController do
           expect(channel.members).to eq [user]
         end
 
-        it { expect(flash[:success]).to eq(I18n.t('admin.channels.owners.messages.success')) }
-        it { should redirect_to admin_channel_owners_path(channel) }
+        it { expect(flash[:success]).to eq(I18n.t('admin.channels.members.messages.success')) }
+        it { should redirect_to admin_channel_members_path(channel) }
       end
 
       context 'when the user has a channel' do
@@ -86,8 +86,8 @@ describe Admin::Channels::OwnersController do
           post :create, channel_id: channel, user_id: user.id
         end
 
-        it { expect(flash[:error]).to eq(I18n.t('admin.channels.owners.messages.already_a_member')) }
-        it { should redirect_to admin_channel_owners_path(channel) }
+        it { expect(flash[:error]).to eq(I18n.t('admin.channels.members.messages.already_a_member')) }
+        it { should redirect_to admin_channel_members_path(channel) }
       end
     end
   end
@@ -107,7 +107,7 @@ describe Admin::Channels::OwnersController do
     context "when I'm logged as admin" do
       before { delete :destroy, id: user, channel_id: channel }
 
-      it{ should redirect_to admin_channel_owners_path(channel) }
+      it{ should redirect_to admin_channel_members_path(channel) }
 
       it 'should remove the user from channel members' do
         expect(channel.reload.members).to eq []

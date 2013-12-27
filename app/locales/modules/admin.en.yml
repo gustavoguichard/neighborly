@@ -60,9 +60,9 @@ en:
       index:
         menu: 'Channels'
         title: 'Channels management'
-        manage_owners: 'Manage'
+        manage_members: 'Manage'
         name: 'Name'
-        owners: 'Owners'
+        members: 'Members'
         permalink: 'Permalink'
         created_at: 'Created at'
         state: 'State'
@@ -77,22 +77,22 @@ en:
           'Add new channel'
       edit:
         title: 'Edit channel'
-      owners:
+      members:
         messages:
           removed: 'Successfully removed!'
           success: 'Success! Now the user owns this channel.'
           user_not_found: 'User not found.'
           already_a_member: "This user already owns a channel."
         index:
-          title: 'Manage %{channel_name} Owners'
-          no_owners: 'No owners yet.'
+          title: 'Manage %{channel_name} Members'
+          no_members: 'No memberts yet.'
           id: 'User ID'
           name: 'Name'
           email: 'Email'
           destroy: 'Remove'
-          new: 'Add new owner'
+          new: 'Add new Member'
         new:
-          title: 'Add new owner'
+          title: 'Add new Member'
           user_id: 'User ID'
 
     press_assets:

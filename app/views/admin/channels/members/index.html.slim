@@ -1,0 +1,38 @@
+- @title = t('.title', channel_name: parent.name)
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      .row
+        .large-8.columns
+          h3 = @title
+
+        .large-4.columns.text-right
+          = link_to t('.new'), new_admin_channel_member_path(parent), class: 'button'
+      .data-table
+        = paginate @members
+        - if @members.empty?
+          = t('.no_members')
+        - else
+          table
+            thead
+              tr
+                th
+                  = t('.id')
+                th
+                  = t('.name')
+                th
+                  = t('.email')
+                th
+            tbody
+              - @members.each do |member|
+                tr id=member.id
+                  td = member.id
+                  td = link_to member.display_name, member
+                  td = member.email
+                  td
+                    .text-right
+                      = link_to t('.destroy'), admin_channel_member_path(parent, member), method: :delete, confirm: t('admin.confirm_dialog'), class: 'button tiny alert'
+
+        = paginate @members
+
