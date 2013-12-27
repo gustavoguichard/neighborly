@@ -7,7 +7,7 @@
     .large-3.columns
       = cf.input :image, as: :file
       - if resource.channel.image.present?
-        p= image_tag(resource.channel.image.curator_thumb.url)
+        p= image_tag(resource.channel.image.thumb.url)
   .row
     .large-6.small-6.columns
       = f.input :email, as: :string

@@ -155,7 +155,7 @@
             .row
               .large-12.columns.large-centered
                 h5 = t('.in_partnership_with')
-                = image_tag @project.last_channel.image.curator_thumb.url
+                = image_tag @project.last_channel.image.large.url
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 

@@ -7,7 +7,7 @@
     .large-3.columns
       = form.input :image, as: :file
       - if resource.image.present?
-        p= image_tag(resource.image.curator_thumb.url)
+        p= image_tag(resource.image.thumb.url)
   .row
     .large-6.small-6.columns
       = form.input :email, as: :string
