@@ -14,6 +14,8 @@ class Channel < ActiveRecord::Base
   has_and_belongs_to_many :projects, -> { order("online_date desc") }
   has_and_belongs_to_many :subscribers, class_name: 'User', join_table: :channels_subscribers
   has_many :subscriber_reports
+  has_many :channel_members, dependent: :destroy
+  has_many :members, through: :channel_members, source: :user
   belongs_to :user
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340

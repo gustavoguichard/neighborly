@@ -22,6 +22,8 @@ describe Channel do
     it { should belong_to :user }
     it { should have_and_belong_to_many :projects }
     it { should have_and_belong_to_many :subscribers }
+    it { should have_many :channel_members }
+    it { should have_many :members }
   end
 
   describe ".by_permalink" do

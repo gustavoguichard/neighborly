@@ -21,6 +21,8 @@ describe User do
     it{ should have_and_belong_to_many :subscriptions }
     it{ should have_one :channel }
     it{ should have_one :organization }
+    it{ should have_many :channel_members }
+    it{ should have_many :channels }
   end
 
   describe "validations" do
