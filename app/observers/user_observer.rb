@@ -7,7 +7,6 @@ class UserObserver < ActiveRecord::Observer
 
   def after_create(user)
     return if user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/
-    Notification.notify_once(:new_user_registration, user, {user_id: user.id})
-    user.update_attribute(:newsletter, true)
+    WelcomeWorker.perform_async(user.id)
   end
 end
