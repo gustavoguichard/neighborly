@@ -37,6 +37,11 @@ describe UserDecorator do
         it{ should == I18n.t('words.no_name') }
       end
     end
+
+    context 'when profile_type is channel' do
+      let(:user){ create(:channel, name: 'Neighbor.ly').user }
+      it{ should == 'Neighbor.ly' }
+    end
   end
 
   describe "#display_image_html" do
@@ -53,7 +58,7 @@ describe UserDecorator do
       context "when we have an uploaded image" do
         let(:user){ build(:user, uploaded_image: 'image.png' )}
         before do
-          image = stub(url: 'image.png')
+          image = double(url: 'image.png')
           image.stub(:thumb_avatar).and_return(image)
           user.stub(:uploaded_image).and_return(image)
         end
@@ -75,7 +80,7 @@ describe UserDecorator do
       context "when we have a organization image" do
         let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: 'image.png'} )}
         before do
-          image = stub(url: 'image.png')
+          image = double(url: 'image.png')
           image.stub(:thumb).and_return(image)
           image.stub(:large).and_return(image)
           user.organization.stub(:image).and_return(image)
@@ -85,6 +90,24 @@ describe UserDecorator do
 
       context 'when we dont have a organization image' do
         let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: nil }) }
+        it{ should == '/assets/logo-blank.jpg' }
+      end
+    end
+
+    context 'when profile_type is channel' do
+      context "when we have a channel image" do
+        let(:user){ create(:channel, image: 'image.png').user }
+        before do
+          image = double(url: 'image.png')
+          image.stub(:thumb).and_return(image)
+          image.stub(:large).and_return(image)
+          user.channel.stub(:image).and_return(image)
+        end
+        it{ should == 'image.png' }
+      end
+
+      context 'when we dont have a organization image' do
+        let(:user){ create(:channel, image: nil).user }
         it{ should == '/assets/logo-blank.jpg' }
       end
     end
