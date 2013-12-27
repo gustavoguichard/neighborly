@@ -5,9 +5,9 @@ class Channel < ActiveRecord::Base
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
 
-  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :user, :user_id
+  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :user, :user_id, :user_attributes
 
-  validates_presence_of :name, :description, :permalink, :user_id
+  validates_presence_of :name, :description, :permalink, :user
   validates_uniqueness_of :permalink
   after_validation :update_video_embed_url
 
@@ -16,7 +16,8 @@ class Channel < ActiveRecord::Base
   has_many :subscriber_reports
   has_many :channel_members, dependent: :destroy
   has_many :members, through: :channel_members, source: :user
-  belongs_to :user
+  belongs_to :user, autosave: true
+  accepts_nested_attributes_for :user
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340
 
@@ -51,5 +52,17 @@ class Channel < ActiveRecord::Base
   # Using decorators
   def decorator
     @decorator ||= ChannelDecorator.new(self)
+  end
+
+  def user_attributes=(user_attributes)
+    if self.user.present?
+      unless self.persisted?
+        user_attributes.delete(:email)
+        user_attributes.delete(:password)
+      end
+      self.user.update_attributes(user_attributes.merge({ profile_type: 'channel' }))
+    else
+      self.user = User.new(user_attributes.merge({ profile_type: 'channel' }))
+    end
   end
 end

@@ -1,4 +1,24 @@
 = simple_form_for  resource, url: (resource.persisted? ? admin_channel_path(resource) : admin_channels_path) do |form|
+  - resource.build_user unless resource.user.present?
+
+  - unless resource.persisted?
+    .row
+      .large-6.columns.existing-user
+        .row
+          .large-12.columns
+            h5 = t('.associate_existing_user')
+            = form.input :user_id, as: :integer, required: false
+
+      .large-6.columns.new-user
+        = form.fields_for :user do |uf|
+          .row
+            .large-12.columns
+              h5 = t('.create_new_channel_user')
+              = uf.input :email, as: :string, required: false
+            .large-12.columns
+              = uf.input :password, as: :password
+
+
   = form.input :permalink, as: :string
   = form.input :name, as: :string
   .row
@@ -9,8 +29,10 @@
       - if resource.image.present?
         p= image_tag(resource.image.thumb.url)
   .row
-    .large-6.small-6.columns
-      = form.input :email, as: :string
+    - if resource.persisted?
+      .large-6.small-6.columns
+        = form.fields_for :user do |uf|
+          = uf.input :email, as: :string
     .large-6.small-6.columns
       = form.input :video_url, as: :string
   .row
@@ -20,21 +42,24 @@
           span class="prefix"
             i.icon-et-facebook
         .small-9.large-10.columns
-          = form.input :facebook, input_html: { class: "with-prefix" }, label: false, as: :string
+          = form.fields_for :user do |uf|
+            = uf.input :facebook_url, input_html: { class: "with-prefix" }, label: false, as: :string
     .large-4.columns
       .row.collapse
         .small-3.large-2.columns
           span class="prefix"
             i.icon-et-twitter
         .small-9.large-10.columns
-          = form.input :twitter, input_html: { class: "with-prefix" }, label: false, as: :string
+          = form.fields_for :user do |uf|
+            = uf.input :twitter_url, input_html: { class: "with-prefix" }, label: false, as: :string
     .large-4.columns
       .row.collapse
         .small-3.large-2.columns
           span class="prefix"
             i.icon-et-globe
         .small-9.large-10.columns
-          = form.input :website, input_html: { class: "with-prefix" }, label: false, as: :string
+          = form.fields_for :user do |uf|
+            = uf.input :other_url, input_html: { class: "with-prefix" }, label: false, as: :string
 
   = form.input :how_it_works, as: :text, input_html: {rows: 20}
   = form.button :submit, class: 'button', disable_with: t('words.sending')

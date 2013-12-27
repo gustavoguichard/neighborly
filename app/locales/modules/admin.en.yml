@@ -77,6 +77,9 @@ en:
           'Add new channel'
       edit:
         title: 'Edit channel'
+      form:
+        associate_existing_user: 'Associate an existing user'
+        create_new_channel_user: 'Create a new user'
       members:
         messages:
           removed: 'Successfully removed!'
