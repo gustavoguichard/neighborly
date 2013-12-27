@@ -15,4 +15,3 @@ describe WelcomeWorker do
     perform_async
   end
 end
-
