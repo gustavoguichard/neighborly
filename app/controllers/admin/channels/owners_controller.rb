@@ -9,10 +9,11 @@ class Admin::Channels::OwnersController < Admin::BaseController
       user = User.find(params[:user_id]) rescue nil
 
       if user.present?
-        if user.channel_id.present?
-          flash[:error] = t('admin.channels.owners.messages.owns_a_channel')
+        if parent.members.include?(user)
+          flash[:error] = t('admin.channels.owners.messages.already_a_member')
         else
-          user.update_attribute(:channel_id, parent.id)
+          parent.members << user
+          parent.save
           flash[:success] = t('admin.channels.owners.messages.success')
         end
       else
@@ -24,13 +25,13 @@ class Admin::Channels::OwnersController < Admin::BaseController
   end
 
   def destroy
-    resource.update_attribute(:channel_id, nil)
+    parent.channel_members.where(user_id: resource.id).first.delete rescue false
     redirect_to admin_channel_owners_path(parent), flash: { success: t('admin.channels.owners.messages.removed') }
   end
 
   protected
   def resource
-    @owner ||= parent.users.find(params[:id])
+    @owner ||= parent.members.find(params[:id])
   end
 
   def parent
@@ -38,6 +39,6 @@ class Admin::Channels::OwnersController < Admin::BaseController
   end
 
   def collection
-    @owners ||= parent.users.page(params[:page])
+    @owners ||= parent.members.page(params[:page])
   end
 end

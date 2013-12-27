@@ -82,7 +82,7 @@ en:
           removed: 'Successfully removed!'
           success: 'Success! Now the user owns this channel.'
           user_not_found: 'User not found.'
-          owns_a_channel: "This user already owns a channel."
+          already_a_member: "This user already owns a channel."
         index:
           title: 'Manage %{channel_name} Owners'
           no_owners: 'No owners yet.'

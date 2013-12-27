@@ -72,7 +72,7 @@ describe Admin::Channels::OwnersController do
         end
 
         it 'should assign the user to the channel' do
-          expect(channel.users).to eq [user]
+          expect(channel.members).to eq [user]
         end
 
         it { expect(flash[:success]).to eq(I18n.t('admin.channels.owners.messages.success')) }
@@ -81,18 +81,20 @@ describe Admin::Channels::OwnersController do
 
       context 'when the user has a channel' do
         before do
-          user.update_attribute(:channel_id, channel.id)
+          channel.members << user
+          channel.save
           post :create, channel_id: channel, user_id: user.id
         end
 
-        it { expect(flash[:error]).to eq(I18n.t('admin.channels.owners.messages.owns_a_channel')) }
+        it { expect(flash[:error]).to eq(I18n.t('admin.channels.owners.messages.already_a_member')) }
         it { should redirect_to admin_channel_owners_path(channel) }
       end
     end
   end
 
   describe "DELETE destroy" do
-    let(:user) { create(:user, channel_id: channel.id) }
+    let(:user) { create(:user) }
+    before { channel.members << user; channel.save }
 
     context "when I'm not logged in" do
       let(:current_user){ nil }
@@ -107,8 +109,8 @@ describe Admin::Channels::OwnersController do
 
       it{ should redirect_to admin_channel_owners_path(channel) }
 
-      it 'should unassign the user from the channel' do
-        expect(user.reload.channel_id).to be_nil
+      it 'should remove the user from channel members' do
+        expect(channel.reload.members).to eq []
       end
     end
   end

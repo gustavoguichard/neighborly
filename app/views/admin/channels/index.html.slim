@@ -29,9 +29,9 @@
                 tr id=channel.id
                   td = channel.name
                   td
-                    - if channel.users.any?
+                    - if channel.members.any?
                       ul
-                        - for user in channel.users
+                        - for user in channel.members
                           li = link_to user.display_name, user_path(user)
                     = link_to t('.manage_owners'), admin_channel_owners_path(channel), class: 'button secondary tiny'
                   td = channel.permalink
