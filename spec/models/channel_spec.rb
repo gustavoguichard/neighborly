@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Channel do
   describe "Validations & Assoaciations" do
 
-    [:name, :description, :permalink, :user_id].each do |attribute|
+    [:name, :description, :permalink, :user].each do |attribute|
       it { should validate_presence_of      attribute }
       it { should allow_mass_assignment_of  attribute }
     end
