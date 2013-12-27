@@ -29,11 +29,11 @@ class Ability
     can :create, :projects if current_user.persisted?
 
     can :update, :projects, [:about, :video_url, :background, :uploaded_image, :hero_image, :headline, :budget, :terms, :address_neighborhood, :address, :address_city, :address_state, :hash_tag, :site, :tag_list] do |project|
-      (project.user == current_user || project.last_channel.try(:user) == current_user) && ( project.online? || project.waiting_funds? || project.successful? || project.failed? )
+      (project.user == current_user || project.last_channel.try(:user) == current_user || current_user.channels.include?(project.last_channel)) && ( project.online? || project.waiting_funds? || project.successful? || project.failed? )
     end
 
     can :update, :projects do |project|
-      (project.user == current_user || project.last_channel.try(:user) == current_user) && ( project.draft? || project.soon? || project.rejected? || project.in_analysis? )
+      (project.user == current_user || project.last_channel.try(:user) == current_user || current_user.channels.include?(project.last_channel)) && ( project.draft? || project.soon? || project.rejected? || project.in_analysis? )
     end
 
     can :send_to_analysis, :projects do |project|
@@ -46,15 +46,15 @@ class Ability
     end
 
     can [:update, :destroy], :rewards do |reward|
-      reward.backers.with_state('waiting_confirmation').empty? && reward.backers.with_state('confirmed').empty? && reward.project.user == current_user
+      reward.backers.with_state('waiting_confirmation').empty? && reward.backers.with_state('confirmed').empty? && (reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel))
     end
 
     can [:update, :sort], :rewards, [:title, :description, :maximum_backers] do |reward|
-      reward.project.user == current_user
+      reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel)
     end
 
     can :update, :rewards, :days_to_delivery do |reward|
-      reward.project.user == current_user && !reward.project.successful? && !reward.project.failed?
+      (reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel)) && !reward.project.successful? && !reward.project.failed?
     end
 
     # NOTE: User authorizations

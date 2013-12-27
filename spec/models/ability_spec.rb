@@ -28,6 +28,23 @@ describe Ability do
       let(:channel) { create(:channel, user: create(:user)) }
       it { should_not be_able_to(:update, project) }
     end
+
+    describe 'channel members' do
+      let(:channel) { create(:channel, user: create(:user)) }
+      let(:reward) { FactoryGirl.create(:reward, project: project) }
+      before { channel.members << user; channel.save }
+
+      it { should be_able_to(:update, project) }
+      it { should be_able_to(:update, project, :about) }
+      it { should be_able_to(:update, project, :video_url) }
+      it { should be_able_to(:update, project, :headline) }
+      it { should be_able_to(:update, project, :uploaded_image) }
+      it { should be_able_to(:destroy, reward) }
+      it { should be_able_to(:update, reward, :days_to_delivery) }
+      it { should be_able_to(:update, reward, :description) }
+      it { should be_able_to(:update, reward, :title) }
+      it { should be_able_to(:update, reward, :maximum_backers) }
+    end
   end
 
   context "When user is project owner" do
