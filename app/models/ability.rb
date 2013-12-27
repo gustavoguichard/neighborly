@@ -91,10 +91,10 @@ class Ability
     end
 
     can [:update, :edit], :channels do |c|
-      c == current_user.channel
+      c == current_user.channel || c.members.include?(current_user)
     end
 
-    if options[:channel]  && options[:channel] == current_user.channel
+    if options[:channel]  && (options[:channel] == current_user.channel || options[:channel].members.include?(current_user))
       can :access, :admin
       can :access, :admin_projects_path
       can :access, :edit_channels_profile_path
