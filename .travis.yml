@@ -1,5 +1,5 @@
 rvm:
-  - 2.0.0
+  - 2.1.0
 
 before_script:
   - "cp config/database.sample.yml config/database.yml"
@@ -19,4 +19,3 @@ branches:
   only:
     - master
     - production
-    - new-ui
