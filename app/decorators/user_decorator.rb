@@ -35,6 +35,10 @@ class UserDecorator < Draper::Decorator
     display_name.split(' ').first
   end
 
+  def last_name
+    display_name.split(' ').last
+  end
+
   def short_name
     truncate display_name, length: 20
   end

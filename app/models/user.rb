@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name, :gravatar_url,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
