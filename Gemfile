@@ -122,7 +122,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails', '~> 2.14.1'
   gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
 end
