@@ -27,7 +27,7 @@ gem 'chartkick', '1.2.0'
 
 # Payment engines
 gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '7413ebaba40505881e3366b26b4238981d82d67a'
-gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: '93f853aea5a3ca8fa60e1618b6fbc935483ab81b'
+gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: 'f5c6f32b857c5e651c55d4713d779100c3c10e4f'
 gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: 'd2382b1c7c3cb5f230b901776aa08fe827acce98'
 gem "authorize-net", "~> 1.5.2"
 

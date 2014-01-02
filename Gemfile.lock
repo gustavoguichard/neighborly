@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_echeck_net.git
-  revision: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
-  ref: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
+  revision: f5c6f32b857c5e651c55d4713d779100c3c10e4f
+  ref: f5c6f32b857c5e651c55d4713d779100c3c10e4f
   specs:
     catarse_echeck_net (0.0.1)
       authorize-net (~> 1.5.2)
