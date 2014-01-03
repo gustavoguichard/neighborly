@@ -1,6 +1,7 @@
 .flash
   - for key, message in flash
     - if message.present?
-      div class="alert-box #{key} animated fadeIn" data-alert="true"
-        = message
-        a.close &times;
+      .row
+        .alert-box.large-10.columns.large-centered.animated.fadeIn[class="#{key}" data-alert="true"]
+          = message
+          a.close &times;

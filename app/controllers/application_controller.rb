@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :referal_it!
 
   before_filter do
+    flash[:notice] = 'Lorem ipson Lorem ipson Lorem ipson Lorem ipson Lorem ipson'
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
       redirect_to set_email_users_path unless controller_name =~ /users|confirmations/
     end
