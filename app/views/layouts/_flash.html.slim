@@ -1,7 +1,8 @@
 .flash
   - for key, message in flash
     - if message.present?
+      - dismissible = true
       .row
-        .alert-box.large-10.columns.large-centered.animated.fadeIn[class="#{key}" data-alert="true"]
+        .alert-box.large-10.columns.large-centered.animated.fadeIn[class="#{key} #{'dismissible' if dismissible}" data-alert="true"]
           = message
           a.close &times;

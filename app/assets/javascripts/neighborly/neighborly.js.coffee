@@ -20,7 +20,6 @@ window.Neighborly =
         this.Loading.hide()
 
       $(document).bind "page:change", =>
-        clearTimeout(this.flash_time_out)
         $(window).scrollTop(0)
 
         try
@@ -55,9 +54,10 @@ window.Neighborly =
 
   flash:
     init: ->
-      if $(".flash").length > 0
+      clearTimeout(this.flash_time_out)
+      if $('.flash').length > 0 && $('.flash .alert-box').hasClass('dismissible')
         this.flash_time_out = setTimeout(this.close, 5000)
-        $(".flash a.close").click(this.close)
+        $('.flash a.close').click(this.close)
 
     close: ->
       $('.flash .alert-box').fadeOut('fast')
