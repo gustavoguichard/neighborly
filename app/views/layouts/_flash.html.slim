@@ -1,6 +1,14 @@
 .flash
-  - for key, message in flash
-    - if message.present?
-      div class="alert-box #{key} animated fadeIn" data-alert="true"
-        = message
-        a.close &times;
+  - for key, value in flash
+    - if value.present?
+      - dismissible = true
+
+      - if value.is_a?(Hash)
+        - dismissible = false if value[:dismissible] == false
+        - message = value[:message]
+      - else
+        - message = value
+      .row
+        .alert-box.large-10.columns.large-centered.animated.fadeIn[class="#{key} #{'dismissible' if dismissible}" data-alert="true"]
+          = message.html_safe
+          a.close &times;

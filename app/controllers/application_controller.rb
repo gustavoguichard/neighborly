@@ -13,13 +13,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_http
   before_action :referal_it!
+  before_action :needs_confirm_account
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
       redirect_to set_email_users_path unless controller_name =~ /users|confirmations/
     end
   end
-
+  #
   # TODO: REFACTOR
   include ActionView::Helpers::NumberHelper
   def total_with_fee(backer, payment_method)
@@ -44,6 +45,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def needs_confirm_account
+    if current_user && !current_user.confirmed?
+      flash[:notice] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+    end
+  end
+
   def referal_it!
     session[:referal_link] = params[:ref] if params[:ref].present?
   end

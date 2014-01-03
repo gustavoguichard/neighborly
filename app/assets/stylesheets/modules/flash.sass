@@ -1,0 +1,25 @@
+.flash
+  background: image-url('default-flash-bg.jpg')
+  padding: +emCalc(20px)
+  padding-bottom: 0
+  .alert-box
+    margin-bottom: 0
+    border-radius: $global-radius
+    padding: +emCalc(20px)
+    margin-bottom: +emCalc(20px)
+    font-size: 100%
+    font-weight: normal
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
+    background: rgba($success-color, 0.75)
+    a:not(.close)
+      color: lighten($secondary-color, 30%)
+      font-weight: bold
+    .close
+      font-size: 200%
+
+    &.success
+      background: rgba($success-color, 0.75)
+    &.alert
+      background: rgba($alert-color, 0.75)
+    &.secondary
+      background: rgba($secondary-color, 0.75)
