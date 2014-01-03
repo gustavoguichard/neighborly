@@ -10,5 +10,5 @@
         - message = value
       .row
         .alert-box.large-10.columns.large-centered.animated.fadeIn[class="#{key} #{'dismissible' if dismissible}" data-alert="true"]
-          = message
+          = message.html_safe
           a.close &times;
