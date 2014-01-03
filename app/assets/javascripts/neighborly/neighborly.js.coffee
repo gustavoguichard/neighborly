@@ -56,7 +56,7 @@ window.Neighborly =
     init: ->
       clearTimeout(this.flash_time_out)
       if $('.flash').length > 0
-        this.flash_time_out = setTimeout(this.close, 5000) if $('.flash .alert-box').hasClass('dismissible')
+        this.flash_time_out = setTimeout(this.close, 5000) if $('.flash .alert-box.dismissible').length == $('.flash .alert-box').length
         $('.flash a.close').click(this.close)
 
     close: ->
