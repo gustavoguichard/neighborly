@@ -8,16 +8,11 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
 
   begin
-    sync_with_mailchimp subscribe_data: ->(user) {
-                          { EMAIL: user.email, FNAME: user.name,
-                          CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
-                        },
+    sync_with_mailchimp subscribe_data: ->(user) { { EMAIL: user.email, NAME: user.display_name } },
                         list_id: Configuration[:mailchimp_list_id],
                         subscribe_when: ->(user) { (user.newsletter_changed? && user.newsletter) || (user.newsletter && user.new_record?) },
                         unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
                         unsubscribe_email: ->(user) { user.email }
-
-
   rescue Exception => e
     Rails.logger.info "-----> #{e.inspect}"
   end
