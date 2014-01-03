@@ -12,15 +12,15 @@ window.Neighborly =
   modules: -> []
 
   initPage: ->
-    that = this
     unless window.Turbolinks is undefined
-      $(document).bind "page:fetch", ->
-        that.Loading.show()
+      $(document).bind "page:fetch", =>
+        this.Loading.show()
 
-      $(document).bind "page:restore", ->
-        that.Loading.hide()
+      $(document).bind "page:restore", =>
+        this.Loading.hide()
 
-      $(document).bind "page:change", ->
+      $(document).bind "page:change", =>
+        clearTimeout(this.flash_time_out)
         $(window).scrollTop(0)
 
         try
@@ -34,6 +34,8 @@ window.Neighborly =
 
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
+
+    this.flash()
 
     $('.button.disabled').click ->
       return false
@@ -51,3 +53,14 @@ window.Neighborly =
       $('#loading').addClass('show')
     hide: ->
       $('#loading').removeClass('show')
+
+  flash: ->
+    if $(".flash").length > 0
+      this.flash_time_out = setTimeout this.closeFlash, 5000
+      $(".flash a.close").click(this.closeFlash)
+
+  closeFlash: ->
+    $('.flash .alert-box').fadeOut('fast')
+    setTimeout (->
+      $('.flash').slideUp('slow')
+    ), 100
