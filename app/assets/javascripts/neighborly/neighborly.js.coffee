@@ -31,11 +31,10 @@ window.Neighborly =
   init: ->
     $(document).foundation('reveal', {animation: 'fadeAndPop', animationSpeed: 100})
     $(document).foundation()
+    this.flash.init()
 
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
-
-    this.flash()
 
     $('.button.disabled').click ->
       return false
@@ -54,13 +53,14 @@ window.Neighborly =
     hide: ->
       $('#loading').removeClass('show')
 
-  flash: ->
-    if $(".flash").length > 0
-      this.flash_time_out = setTimeout this.closeFlash, 5000
-      $(".flash a.close").click(this.closeFlash)
+  flash:
+    init: ->
+      if $(".flash").length > 0
+        this.flash_time_out = setTimeout(this.close, 5000)
+        $(".flash a.close").click(this.close)
 
-  closeFlash: ->
-    $('.flash .alert-box').fadeOut('fast')
-    setTimeout (->
-      $('.flash').slideUp('slow')
-    ), 100
+    close: ->
+      $('.flash .alert-box').fadeOut('fast')
+      setTimeout (->
+        $('.flash').slideUp('slow')
+      ), 100
