@@ -298,10 +298,21 @@ describe ProjectsController do
   end
 
   describe "GET show" do
-    before do
-      get :show, id: project
+    context 'when the project is on draft' do
+      before do
+        get :show, id: project
+      end
+      its(:status){ should redirect_to(root_path) }
     end
-    its(:status){ should == 200 }
+
+    context 'when the project is not on draft' do
+      before do
+        project.approve
+        project.reload
+        get :show, id: project
+      end
+      its(:status){ should == 200 }
+    end
   end
 
   describe "GET video" do

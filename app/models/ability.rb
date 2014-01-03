@@ -40,6 +40,15 @@ class Ability
       project.user == current_user
     end
 
+    # Yes, this name is a crap. But if I use only show, it does not work.
+    can :show_project, :projects do |project|
+      if project.draft? || project.in_analysis?
+        (current_user.admin? || project.user == current_user || project.last_channel.try(:user) == current_user || current_user.channels.include?(project.last_channel))
+      else
+        true
+      end
+    end
+
     # NOTE: Reward authorizations
     can :create, :rewards do |reward|
       reward.project.user == current_user

@@ -214,7 +214,7 @@ describe Project do
   describe '.goal_between' do
     let(:start_at) { 100 }
     let(:ends_at) { 200 }
-    subject { Project.goal_between(start_at, ends_at) }
+    subject { Project.goal_between(start_at, ends_at).order('goal asc') }
 
     before do
       @project_01 = create(:project, goal: 100)

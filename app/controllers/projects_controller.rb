@@ -2,7 +2,7 @@
 class ProjectsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  load_and_authorize_resource only: [ :new, :create, :edit, :update, :send_to_analysis ]
+  load_and_authorize_resource only: [ :new, :create, :edit, :update, :send_to_analysis]
   inherit_resources
   actions :new, :create, :edit, :update
   defaults finder: :find_by_permalink!
@@ -68,6 +68,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    redirect_to(root_path) unless can? :show_project, resource
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
     render :about if request.xhr?
   end
