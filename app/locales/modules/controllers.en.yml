@@ -12,13 +12,13 @@ en:
           error: 'Oh noez! There was an error processing your contribution. Please try again.'
         credits_checkout:
           no_credits: "You don't have enough credits to help greenlight this project."
-          success: "Your back was successfully made. Thanks a lot!"
+          success: "You successfully contributed using credits."
         pay:
           credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
           echeck_description: "Back project %{project_name} with %{value} (plus fees)"
           paypal_description: "Back project %{project_name} with %{value} (plus fees)"
           no_credits: "You don't have enough credits to help greenlight this project."
-          success: "Your back was successfully made. Thanks a lot!"
+          success: "You successfully contributed. Thank you!"
     users:
       update:
         success: 'Your information has been updated!'

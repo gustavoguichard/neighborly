@@ -4,7 +4,7 @@ en:
       new:
         send: "Send update"
         comment: "Update text"
-        exclusive: "Visible for backers only"
+        exclusive: "Visible to contributors only?"
         title: "Title of the update"
-        warning: "Remember, the text you write here will automatically be sent out in an email to your supporters. Be sure to review what you've written before submitting."
-        created: 'Update was successfully created!'
+        warning: "Your update will automatically be sent out in an email to your existing supporters. Please review carefully before submitting."
+        created: 'Success! Your update was sent!'
