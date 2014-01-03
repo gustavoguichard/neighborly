@@ -17,7 +17,7 @@
   meta property="fb:admins" content="#{fb_admins}"
 
 .project-page
-  header.hero[style="#{ "background-image: url(#{image_url(@project.hero_image_url(:blur))})" if @project.hero_image_url.present?}"]
+  = hero_header_tag @project do
     .row
       .large-12.columns
         .name

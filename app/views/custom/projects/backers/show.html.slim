@@ -1,6 +1,6 @@
 - content_for :title, t('.title')
 .backer-page
-  header.hero[style="background-image: url(#{image_url(@project.hero_image_url(:blur))})"]
+  = hero_header_tag @project do
     .row
       .large-10.columns.large-centered
         h3 = t('.thank_you', project_name: @project.name)

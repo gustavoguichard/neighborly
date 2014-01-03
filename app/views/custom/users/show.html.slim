@@ -20,7 +20,7 @@
       .map-canvas
       = yield :user_image
   - else
-    header.hero[style="background-image: url(#{image_url(@user.hero_image_url(:blur))})"]
+    = hero_header_tag @user do
       = yield :user_image
 
   .hero-bio
