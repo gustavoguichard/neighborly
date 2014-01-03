@@ -2,7 +2,7 @@ en:
   projects:
     backers:
       index:
-        empty: "This project has no backers. But wait and see =D"
+        empty: "No contributions yet. Be the first!"
       backer:
-        anonymous_backer: "Anonymous backer"
-        no_reward: "This backer has not picked a reward"
+        anonymous_backer: "Anonymous neighbor"
+        no_reward: "This neighbor did not select a reward"

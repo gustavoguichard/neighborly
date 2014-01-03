@@ -7,37 +7,37 @@ en:
         flexible: "A <span data-tooltip class='has-tip' title='Every Dollar Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
       status-bar:
         goal: 'Goal: %{value}'
-        total_backers: '%{value} backers'
+        total_backers: '%{value} neighbors'
         contribute: 'Contribute'
       tabs:
         about: 'About'
         updates: 'Updates'
         faqs: 'FAQs'
         comments: 'Comments'
-        backers: 'Backers'
+        backers: 'Neighbors'
         budget: 'Budget'
         terms: 'Terms'
         reports: 'Reports'
       display_status:
         all_or_none:
           reached_goal: "This project will be successful and funded on %{date}"
-          not_reached_goal: "This project will only be funded if at least %{goal} is backed until %{date}"
+          not_reached_goal: "This project will only be funded if at least %{goal} is pledged until %{date}"
           failed: "This project didn't reach the goal of %{goal} until %{date} and wasn't funded"
           successful: "This project was successful and was funded on %{date}"
           waiting_funds: "Awaiting confirmation from payments to know if this project will be funded."
-          draft: "This project is in draft mode and is not open to backers yet."
+          draft: "This project is in draft mode and is not open to contributors yet."
         flexible:
           reached_goal: "This project will be successful and funded on %{date}"
           not_reached_goal: "This project will be funded on %{date}"
           failed: "This project was funded on %{date}"
           successful: "This project was successful and was funded on %{date}"
           waiting_funds: "This project recently closed and will be funded."
-          draft: "This project is in draft mode and is not open to backers yet."
+          draft: "This project is in draft mode and is not open to contributors yet."
       contribute: 'Contribute'
       edit: 'Edit campaign'
       share:
         title: 'Get your friends involved'
-      no-neighbors: "No neighbors yet."
+      no-neighbors: "No neighbors yet. Be the first!"
       author:
         about: 'About %{name}'
       in_partnership_with: 'In Partnership With'

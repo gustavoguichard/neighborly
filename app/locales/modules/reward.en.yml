@@ -1,6 +1,6 @@
 en:
   reward:
-    dont_want: "Just donating, I don't want a perk."
+    dont_want: "Just donating, I don't want a reward."
     limited: 'Limited'
     sold_out: 'Sold out'
-    display_remaining: "%{remaining}/%{maximum} available"
+    display_remaining: "Only %{remaining} of %{maximum} Available"

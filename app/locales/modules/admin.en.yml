@@ -206,13 +206,13 @@ en:
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
         title: "Backers management"
-        menu: 'Backs'
+        menu: 'Contributions'
         anonymous: Anonymous?
         confirmed: Confirmed?
         credits: "Used credits?"
         id: ID
         key: Key
-        no_backers: "No backers found."
+        no_backers: "No contributors found."
         project: Project
         refunded: Refunded?
         requested_refund: "Requested refund?"

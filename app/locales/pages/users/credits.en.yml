@@ -1,7 +1,7 @@
 en:
   users:
     credits:
-      back_date: "Back date"
+      back_date: "Contribution date"
       current_credits_html: "Your current balance is <span class=\"current-credits\">%{credits}</span> in credits."
       important_html: "If you ask for a refund, the value of your payment will be deducted from your credits."
       project: Project

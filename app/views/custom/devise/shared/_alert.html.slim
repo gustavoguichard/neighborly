@@ -1,16 +1,16 @@
 - if flash[:alert].present?
   .alert-box.alert.animated.shake
     .large-12.large-centered.columns
-      h4 = t('words.fix-erros-below')
-      p = flash[:alert]
+      h4 = t('words.fix-errors-below')
+      p.text-center = flash[:alert]
 - elsif resource.errors.present?
   .alert-box.alert.animated.shake
     .large-12.large-centered.columns
-      h4 = t('words.fix-erros-below')
+      h4 = t('words.fix-errors-below')
       - resource.errors.messages.each do |message|
         - if message[0] == :reset_password_token
-          p Please click on the password reset link from the most resent email.
+          p.text-center Please click the password reset link in the most recent email.
         - elsif message[0] == :confirmation_token
-          p Your token is invalid! Try sending the confirmation instructions again.
+          p.text-center Invalid token. Please resend confirmation instructions.
         - else
-          p = message[1].to_sentence
+          p.text-center = message[1].to_sentence

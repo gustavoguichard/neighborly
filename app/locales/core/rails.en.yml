@@ -193,7 +193,7 @@ en:
   time:
     am: am
     formats:
-      prevision: "%B/%Y"
+      prevision: "%b %Y"
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
