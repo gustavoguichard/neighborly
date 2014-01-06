@@ -1,15 +1,10 @@
 header.hero
   padding: +emCalc(60px) 0
   min-height: +emCalc(330px)
-  background-color: darken($secondary-color, 30%)
-  background-size: cover
-  background-position: center
   color: white
   text-shadow: 3px 3px 5px rgba(0,0,0,0.5)
-  -ms-behavior: asset-url('backgroundsize.htc')\8
-  &.no-image
-    background: image-url('default-bg-hero.jpg') repeat
-    background-size: auto
+  &, .backstretch
+    background: darken($secondary-color, 30%) image-url('default-bg-hero.jpg') repeat
   &.small
     min-height: +emCalc(200px)
   &.center

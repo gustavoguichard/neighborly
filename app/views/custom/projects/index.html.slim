@@ -1,7 +1,7 @@
 - content_for :title, t('.title')
 
 .home-page
-  header.hero.center
+  header.hero.center[data-image-url=image_path('home-hero.jpg')]
     .row
       .large-12.columns.large-centered
         h2 = t('.hero.title').html_safe

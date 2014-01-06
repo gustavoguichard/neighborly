@@ -31,6 +31,7 @@ window.Neighborly =
     $(document).foundation('reveal', {animation: 'fadeAndPop', animationSpeed: 100})
     $(document).foundation()
     this.flash.init()
+    this.backstretch.init()
 
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
@@ -64,3 +65,9 @@ window.Neighborly =
       setTimeout (->
         $('.flash').slideUp('slow')
       ), 100
+
+  backstretch:
+    init: ->
+      if $('header.hero').not('.no-image').data('image-url') != null && $('header.hero').not('.no-image').data('image-url') != ''
+        $('header.hero').backstretch($('header.hero').data('image-url'), {fade: 'normal'})
+
