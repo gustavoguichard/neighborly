@@ -44,4 +44,4 @@
             = render 'anonymous_warning'
         = form.input :short_note
         .text-center
-          = form.button :submit, t('.submit'), disable_with: t('words.sending')
+          = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }

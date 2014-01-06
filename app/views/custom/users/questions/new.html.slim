@@ -6,4 +6,4 @@
     h4 = t '.to', user_name: @user.display_name
     = f.text_area :body, required: true
 
-    = f.button t('.send'), class: 'button', disable_with: t('words.sending')
+    = f.button t('.send'), class: 'button', data: { disable_with: t('words.sending') }

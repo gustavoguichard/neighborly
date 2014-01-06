@@ -21,7 +21,7 @@
   = f.input :soon, as: :boolean
   = f.input :show_contact_button, as: :boolean
 
-  = f.button :submit, disable_with: t('words.sending')
+  = f.button :submit, data: { disable_with: t('words.sending') }
   - if resource.persisted? && can?(:destroy, resource)
     span.or = t('words.or')
     = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do

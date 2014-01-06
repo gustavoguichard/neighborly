@@ -62,4 +62,4 @@
             = uf.input :other_url, input_html: { class: "with-prefix" }, label: false, as: :string
 
   = form.input :how_it_works, as: :text, input_html: {rows: 20}
-  = form.button :submit, class: 'button', disable_with: t('words.sending')
+  = form.button :submit, class: 'button', data: { disable_with: t('words.sending') }

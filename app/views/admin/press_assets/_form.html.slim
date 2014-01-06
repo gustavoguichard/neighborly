@@ -8,4 +8,4 @@
       = image_tag(resource.image.thumb.url, size: '170x60')
       br/
       br/
-  = f.button :submit, disable_with: I18n.t('words.sending')
+  = f.button :submit, data: { disable_with: I18n.t('words.sending') }
