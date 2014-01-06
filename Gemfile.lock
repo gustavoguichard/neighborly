@@ -277,6 +277,7 @@ GEM
     newrelic_rpm (3.6.9.171)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    nprogress-rails (0.1.2.3)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -547,6 +548,7 @@ DEPENDENCIES
   launchy
   letter_opener
   newrelic_rpm (= 3.6.9.171)
+  nprogress-rails
   omniauth
   omniauth-facebook (= 1.5.1)
   omniauth-google-oauth2 (= 0.2.1)
