@@ -20,19 +20,11 @@
             @extend .icon-et-mail:before
 
     .see-more-wrapper
-      position: relative
-      text-align: center
+      text-align: right
       a
-        background: white
-        border-radius: 50%
-        padding: +emCalc(3px)
-        position: absolute
-        bottom: +emCalc(-25px)
-        font-size: 180%
+        font-size: 150%
+        text-transform: uppercase
     &.expanded
-      .see-more-wrapper
-        a:before
-          @extend .icon-et-up-circled:before
       section.more
         display: block
 

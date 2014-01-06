@@ -43,8 +43,18 @@
               - if @profile.user.email.present?
                 .large-3.small-3.columns
                   = mail_to @profile.user.email, t('.connect.email'), class: 'button email with-icon'
-    .see-more-wrapper
-      = link_to '', '#', title: t('.see_more'), class: 'see-more-toggle icon-et-down-circled'
+    .see-more-wrapper.row
+      .large-12.columns
+        = link_to '#', class: 'see-more-toggle' do
+          span
+            = t('.see_more')
+            | &nbsp;
+            i.icon-et-down-circled
+          span.hide
+            = t('.see_less')
+            | &nbsp;
+            i.icon-et-up-circled
+
 
   - if @projects.any?
     section.projects

@@ -6,7 +6,8 @@ en:
         follow: 'Follow Us'
         submit: 'Submit Project'
         our_projects: 'Our Projects'
-        see_more: 'See more'
+        see_more: 'Learn more'
+        see_less: 'See less'
         submit_your_project:
           title: 'Submit Your Project'
           text: "Have a project with a similar mission? Submit your project here! Campaigns in line with our mission will be included under our supported projects section. You'll get access to new contributors and supporters."

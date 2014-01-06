@@ -12,3 +12,4 @@ Neighborly.Channels.Profiles.Show =
     toggleMoreSection: (event)=>
       event.preventDefault()
       this.$('.header').toggleClass('expanded')
+      this.$('.see-more-toggle span').toggleClass('hide')
