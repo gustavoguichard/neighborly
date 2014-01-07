@@ -12,6 +12,8 @@ window.Neighborly =
   modules: -> []
 
   initPage: ->
+    NProgress.configure
+      showSpinner: false
     unless window.Turbolinks is undefined
       $(document).bind "page:fetch", =>
         this.Loading.show()

@@ -10,3 +10,7 @@
 //= require neighborly/neighborly.js
 //= require init.js
 //= require_tree ./lib
+//= require nprogress
+//= require nprogress-turbolinks
+//= require nprogress-pjax
+//= require nprogress-ajax
