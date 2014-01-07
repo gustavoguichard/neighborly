@@ -56,12 +56,11 @@ gem 'ezcrypto'
 gem 'cancan', github: 'ryanb/cancan', branch: '2.0', ref: 'f1cebde51a87be149b4970a3287826bb63c0ac0b'
 
 # Email marketing
-gem 'catarse_mailchimp', git: 'git://github.com/catarse/catarse_mailchimp', ref: '2ed4f39'
+gem 'catarse_mailchimp', github: 'catarse/catarse_mailchimp', ref: '2ed4f39'
 
 # HTML manipulation and formatting
-gem 'formtastic',   '~> 2.2.1' # WILL BE REMOVED
-gem 'simple_form', '~> 3.0.0'
-gem 'auto_html', github: 'dejan/auto_html'
+gem 'simple_form', '~> 3.0.1'
+gem 'auto_html', '~> 1.6.1'
 gem 'kaminari'
 
 # Uploads
@@ -73,16 +72,15 @@ gem 'dropzonejs-rails', '~> 0.4.10'
 gem 'has_permalink'
 gem 'to_xls'
 gem 'ranked-model'
-gem 'inherited_resources',        '~> 1.4.1'
+gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'spectator-validates_email',  require: 'validates_email'
 gem 'video_info', '~> 2.0.2'
-gem 'enumerate_it'
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
 
 # Payment
-gem 'httpclient',     '>= 2.2.5'
+gem 'httpclient', '>= 2.2.5'
 
 group :production do
   gem 'google-analytics-rails'
@@ -99,26 +97,17 @@ group :production do
   gem 'heroku-deflater', '>= 0.4.1'
 
   # Make heroku serve static assets and loggin with stdout
-  #gem 'rails_on_heroku'
   gem 'rails_12factor'
 
   # Monitoring with the new new relic
   gem 'newrelic_rpm', '3.6.9.171'
-
-  # Using dalli and memcachier have not presented significative performance gains
-  # Probably this is due to our pattern of cache usage
-  # + the lack of concurrent procs in our deploy
-  #gem 'memcachier'
-  #gem 'dalli'
 end
+
 group :development do
   gem "letter_opener"
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rails-erd'
-  # Uncomment only for optimization, should be commented on master branch
-  # gem 'rack-mini-profiler'
 end
 
 group :test, :development do
@@ -129,7 +118,6 @@ end
 
 group :test do
   gem 'fakeweb'
-  gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'shoulda'
@@ -139,8 +127,8 @@ group :test do
   gem 'selenium-webdriver', '~> 2.35.1'
 end
 
-gem 'sass-rails', '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.1'
+gem 'coffee-rails', '~> 4.0.1'
 gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
