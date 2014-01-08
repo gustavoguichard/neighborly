@@ -57,10 +57,15 @@ Neighborly.Users.Edit =
         acceptedFiles: "image/*"
         headers: "X-CSRF-Token" : $('meta[name="csrf-token"]')[0].getAttribute 'content'
         paramName: "user[#{this.param_name}]"
+        params: this.defineParams()
         method: 'PUT'
         uploadMultiple: false
         previewsContainer: '#dropzone-preview-image'
       )
+
+    defineParams: ->
+      if $('#user_profile_type_organization').is(':checked') && $('#user_organization_attributes_id').length > 0
+        { 'user[organization_attributes][id]': $('#user_organization_attributes_id').val() }
 
     listenDropzoneEvents: ->
       if this.dropzone?
