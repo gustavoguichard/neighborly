@@ -214,3 +214,16 @@ task :fix_twitter_url => :environment do
     end
   end
 end
+
+desc "Migrate documents filename to name field"
+task :migrate_documents_filename => :environment do
+  docs = ProjectDocument.all
+
+  docs.each do |doc|
+    puts "DOC #{doc.id}"
+      doc.name = doc.document.filename
+      saved = doc.save
+      puts "Saving doc.... #{saved}"
+      puts "ERROR: #{doc.errors.messages.inspect}" if saved == false
+  end
+end
