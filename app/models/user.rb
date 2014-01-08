@@ -53,8 +53,6 @@ class User < ActiveRecord::Base
     :moip_login,
     :new_project,
     :profile_type,
-    :company_name,
-    :company_logo,
     :address,
     :hero_image,
     :remote_uploaded_image_url,
@@ -64,7 +62,6 @@ class User < ActiveRecord::Base
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
-  mount_uploader :company_logo, CompanyLogoUploader, mount_on: :company_logo
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
 
   validates_length_of :bio, maximum: 140
