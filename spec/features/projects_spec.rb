@@ -91,6 +91,7 @@ describe "Projects" do
 
   describe "tabs" do
     before do
+      create(:backer, project: project, state: 'confirmed')
       login
       visit project_path(project)
     end
