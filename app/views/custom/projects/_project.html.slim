@@ -43,17 +43,18 @@
           span = truncate(project.headline, length: 140, separator: ' ')
           a
 
-      - if not project.soon?
-        .status
-          .row.collapse
-            .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"
-            .time.project.large-6.columns
-              i.icon-et-clock
-              - unless project.expired?
-                = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
-              - else
-                = t('.completed')
-          = project.progress_bar
+      .status
+        .row.collapse
+          .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"
+          .time.project.large-6.columns
+            i.icon-et-clock
+            - if project.soon?
+              = t('.soon')
+            - elsif project.expired?
+              = t('.completed')
+            - else
+              = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
+        = project.progress_bar
 
     - if defined?(backer)
       .back-informations.large-3.columns
