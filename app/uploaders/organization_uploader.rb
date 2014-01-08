@@ -1,6 +1,6 @@
 class OrganizationUploader < ImageUploader
 
-  process quality: 90
+  process quality: 100
 
   version :thumb do
     process resize_and_pad: [170, 85]
