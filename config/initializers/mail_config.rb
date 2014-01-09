@@ -1,4 +1,6 @@
 begin
+  ActionMailer::Base.default 'Content-Transfer-Encoding' => 'quoted-printable'
+
   if Rails.env.production?
     ActionMailer::Base.smtp_settings = {
     address: 'smtp.mandrillapp.com',
