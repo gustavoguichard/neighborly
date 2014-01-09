@@ -11,6 +11,9 @@
       = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
     = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
 #organization-images.profile-type-images.row style="#{"display: none;" unless @user.organization?}"
+  - if @user.organization.persisted?
+     = f.fields_for :organization do |o|
+      = o.input :id, as: :hidden
   .large-4.columns
     .usr-upld-img.usr-upld-cp data-param="organization_attributes[image]"
       span.info Drop an image here

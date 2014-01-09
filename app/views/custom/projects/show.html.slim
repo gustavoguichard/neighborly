@@ -85,13 +85,15 @@
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
-        = tab_link_to project_updates_path(@project) do
-          = t('.tabs.updates')
-          span.count=" #{@project.updates.size}"
+        - if can? :update, @project || @project.updates.size > 0
+          = tab_link_to project_updates_path(@project) do
+            = t('.tabs.updates')
+            span.count=" #{@project.updates.size}"
 
-        = tab_link_to project_backers_path(@project) do
-          = t('.tabs.backers')
-          span.count=" #{@project.total_backers}"
+        - if @project.total_backers > 0
+          = tab_link_to project_backers_path(@project) do
+            = t('.tabs.backers')
+            span.count=" #{@project.total_backers}"
 
         = tab_link_to comments_project_path(@project) do
           = t('.tabs.comments')

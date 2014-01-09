@@ -72,7 +72,7 @@ describe UserDecorator do
 
       context "when we have an email" do
         let(:user){ create(:user, image_url: nil, email: 'diogob@gmail.com') }
-        it{ should == "https://gravatar.com/avatar/5e2a237dafbc45f79428fdda9c5024b1.jpg?size=150&default=#{::Configuration[:base_url]}/assets/default-avatar.png" }
+        it{ should ~ /https:\/\/gravatar.com\/avatar\/5e2a237dafbc45f79428fdda9c5024b1\.jpg\?size=150&default=#{::Configuration[:base_url]}\/assets\/default-avatars\/(d+.)\.png/ }
       end
     end
 

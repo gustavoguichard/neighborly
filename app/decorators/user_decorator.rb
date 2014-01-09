@@ -4,7 +4,7 @@ class UserDecorator < Draper::Decorator
 
   def gravatar_url
     return unless source.email
-    "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?size=150&default=#{::Configuration[:base_url]}/assets/default-avatar.png"
+    "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?size=150&default=#{::Configuration[:base_url]}/assets/default-avatars/#{[*1..11].sample}.png"
   end
 
   def display_name
@@ -23,7 +23,7 @@ class UserDecorator < Draper::Decorator
     elsif source.channel? && source.channel.present?
       source.channel.image.large.url || '/assets/logo-blank.jpg'
     else
-      source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || '/assets/user.png'
+      source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || "/assets/default-avatars/#{[*1..11].sample}.png"
     end
   end
 

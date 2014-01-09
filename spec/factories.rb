@@ -22,6 +22,7 @@ FactoryGirl.define do
   end
 
   factory :project_document do |f|
+    f.name 'name'
     f.document "foo.png"
     f.association :project
   end

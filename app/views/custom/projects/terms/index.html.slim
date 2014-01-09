@@ -14,7 +14,7 @@
           - @documents.each do |pd|
             tr
               td.name.large-10.small-10.columns
-                = pd.document.filename
+                = pd.name
               td.actions.large-2.small-2.columns
                 = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
                   i.icon-et-download.icon-white

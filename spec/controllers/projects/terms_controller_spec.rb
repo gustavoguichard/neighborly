@@ -12,7 +12,7 @@ describe Projects::TermsController do
   subject { response }
 
   describe "POST create" do
-    before{ post :create, project_id: document.project, locale: 'en', project_document: { document: file } }
+    before{ post :create, project_id: document.project, locale: 'en', project_document: { name: 'some name', document: file } }
 
     subject { ProjectDocument.where(project_id: document.project) }
 

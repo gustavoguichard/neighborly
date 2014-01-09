@@ -6,8 +6,7 @@
   a
     color: $body-font-color
 
-
-  &:not(.large):not(.soon)
+  &:not(.large)
     &:hover
       .description *
         +single-transition(opacity, 1s)
@@ -18,12 +17,8 @@
         transition: height 0.4s ease-out, margin-top 0.4s ease-out
         height: +emCalc(273px)
         margin-top: +emCalc(-115px)
-  &.soon
-    a
-      cursor: default
-    .description *
-      +single-transition(opacity, 1s)
-      opacity: 1
+  &.soon a
+    cursor: default
 
   &.large
     overflow: visible
