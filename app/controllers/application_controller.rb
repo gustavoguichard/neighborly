@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_http
   before_action :referal_it!
-  before_action :needs_confirm_account
+  before_action :needs_confirm_account, unless: -> { request.xhr? }
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
