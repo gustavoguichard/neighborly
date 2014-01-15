@@ -163,7 +163,7 @@
         section.custom.neighbors-behind-this
           .title = t('.neighbors_behind_this')
           .list
-            - for backer in @project.backers.available_to_display.order("RANDOM()").limit(15)
+            - for backer in @project.backers.available_to_display.not_anonymous.order("RANDOM()").limit(15)
               = link_to image_tag(backer.user.display_image), user_path(backer.user), tite: backer.user.display_name
           .more
             = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
