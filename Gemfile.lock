@@ -18,8 +18,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
-  revision: 7413ebaba40505881e3366b26b4238981d82d67a
-  ref: 7413ebaba40505881e3366b26b4238981d82d67a
+  revision: 2fa23c561073cc8c3e4177047cde007ae5261558
+  ref: 2fa23c561073cc8c3e4177047cde007ae5261558
   specs:
     catarse_credit_card_net (0.0.1)
       authorize-net (~> 1.5.2)
