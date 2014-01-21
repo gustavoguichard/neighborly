@@ -38,7 +38,7 @@ class Update < ActiveRecord::Base
     end
   end
 
-  def notify_contributions
+  def notify_contributors
     project.subscribed_users.each do |user|
       Notification.notify_once(
         :updates,
