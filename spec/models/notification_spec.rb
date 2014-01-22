@@ -14,6 +14,7 @@ describe Notification do
     it{ should belong_to :user }
     it{ should belong_to :project }
     it{ should belong_to :backer }
+    it{ should belong_to :company_contact }
     it{ should belong_to :project_update }
   end
 
