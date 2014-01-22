@@ -1,0 +1,28 @@
+- content_for :title, t('.title')
+
+.companies-contact-page
+  header.hero
+    .row
+      .large-12.columns.text-center
+        h2 = t('.title')
+        h4 = t('.summary')
+
+  section.form
+    .row
+      = simple_form_for resource, url: companies_contacts_path do |f|
+        .large-6.columns
+          = f.input :first_name
+        .large-6.columns
+          = f.input :last_name
+        .large-6.columns
+          = f.input :email
+        .large-6.columns
+          = f.input :phone
+        .large-6.columns
+          = f.input :company_name
+        .large-6.columns
+          = f.input :company_website
+        .large-12.columns
+          = f.input :message
+        .large-12.columns
+          = f.button :submit
