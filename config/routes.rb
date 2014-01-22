@@ -201,6 +201,11 @@ Catarse::Application.routes.draw do
     end
   end
 
+  namespace :companies do
+    get :contact, to: 'contacts#new'
+    resources :contacts, only: [:create]
+  end
+
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:id", to: redirect('projects/%{id}')
 end
