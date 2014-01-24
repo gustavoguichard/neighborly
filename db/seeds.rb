@@ -135,3 +135,16 @@ end
 
 puts '---------------------------------------------'
 puts 'Done!'
+
+
+
+
+# Neighbor.ly
+
+# User to receive company contact notifications
+contact_user = User.create! email: Configuration[:email_contact], password: SecureRandom.hex(4)
+contact_user.confirm! if contact_user
+
+# User to receive new projects on draft notifications
+project_user = User.create! email: Configuration[:email_projects], password: SecureRandom.hex(4)
+project_user.confirm! if project_user
