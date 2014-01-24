@@ -29,3 +29,7 @@ en:
     channels_subscribers:
       created: 'You are now following %{channel}'
       deleted: 'You are no longer following %{channel}'
+    companies:
+      contacts:
+        create:
+          success: 'Thanks for your request. We will be in touch shortly.'
