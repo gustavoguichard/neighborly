@@ -1,13 +1,7 @@
 class StaticController < ApplicationController
 
-  def terms
-    render layout: false if request.xhr?
-  end
-
-  def privacy
-    render layout: false if request.xhr?
-  end
-
+  def terms; end
+  def privacy; end
   def how_it_works; end
   def start_terms; end
   def start; end
