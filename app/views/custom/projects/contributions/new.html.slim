@@ -32,6 +32,7 @@
                       = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
                         .minimum-value
                           = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
+                        .title = reward.title
                         p.description
                           = h reward.description
                         - if reward.sold_out?
