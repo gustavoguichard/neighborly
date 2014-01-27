@@ -33,7 +33,7 @@
       .row
         .large-6.columns.text-left
           strong= "#{@total_users} "
-          = t('.total_backers')
+          = t('.total_contributions')
           |  ·
           strong= "#{number_to_currency @total_backed, precision: 0} "
           = t('.total_backed')
@@ -63,7 +63,7 @@
               - for user in @users do
                 tr id=user.id
                   td= link_to user.id, user_path(user), target: '_blank'
-                  td= link_to user.name, admin_backers_path(by_user_id: user.id), target: '_blank'
+                  td= link_to user.name, admin_contributions_path(by_user_id: user.id), target: '_blank'
                   td= user.email
                   td= user.user_total ? user.user_total.sum : 0
                   td= user.credits

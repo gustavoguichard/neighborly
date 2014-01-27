@@ -8,7 +8,7 @@ class RewardDecorator < Draper::Decorator
   end
 
   def display_remaining
-    I18n.t('reward.display_remaining', remaining: source.remaining, maximum: source.maximum_backers).html_safe
+    I18n.t('reward.display_remaining', remaining: source.remaining, maximum: source.maximum_contributions).html_safe
   end
 
   def display_minimum

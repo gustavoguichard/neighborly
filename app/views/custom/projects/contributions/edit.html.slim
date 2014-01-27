@@ -1,5 +1,5 @@
 - content_for :title, t('.title')
-.create-backer-page[data-thank-you-path=project_backer_path(project_id: @project, id: @backer.id)]
+.create-contribution-page[data-thank-you-path=project_contribution_path(project_id: @project, id: @contribution.id)]
   = hero_header_tag @project do
     .row
       .large-10.columns.large-centered
@@ -7,7 +7,7 @@
         .total-with-fee
           .row
             .large-4.small-4.columns.large-centered.small-centered
-              input[type='text' disabled=true value="#{t('.total')}#{@backer.display_value}" data-total-text=t('.total')]
+              input[type='text' disabled=true value="#{t('.total')}#{@contribution.display_value}" data-total-text=t('.total')]
               .custom-tooltip
                 = link_to '#' do
                   i.icon-et-info-circled
@@ -22,7 +22,7 @@
         .methods
           - PaymentEngines.engines.each do |engine|
             label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@backer, engine[:name])
+              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
               | &nbsp;
               = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix
@@ -32,17 +32,17 @@
 
         section.conteiner
           - PaymentEngines.engines.each do |engine|
-            div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@backer)]
+            div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
 
     aside.large-4.medium-4.columns
       .project-image
         = image_tag @project.display_image('project_thumb_large'), id: 'project_image', alt: @project.name
         h5 = "#{@project.time_to_go[:time]} #{@project.time_to_go[:unit]} #{@project.remaining_text}"
 
-      - if @backer.reward
+      - if @contribution.reward
         .selected-reward
           h4 = t('.reward.title')
-          p.description = @backer.reward.description
+          p.description = @contribution.reward.description
       .faqs
         = render 'faqs'
 
@@ -60,20 +60,20 @@
 /= check_box_tag 'accept'
 /= label_tag 'accept', t('accept_terms_html', link: link_to(t('terms'), '#termsModal', class: 'termsModalLink', :"data-toggle" => 'modal', :"data-url" => terms_path)), class: 'inline'
 
-/- unless @backer.credits
-/- if @backer.credits
-    /= form.submit (@backer.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
+/- unless @contribution.credits
+/- if @contribution.credits
+    /= form.submit (@contribution.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
 
-/- if @backer.credits
+/- if @contribution.credits
   /#back_with_credits
     /.bootstrap-alert
       /.alert
-        /#credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @backer.value), unit: 'R$', precision: 0, delimiter: '.'))
+        /#credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @contribution.value), unit: 'R$', precision: 0, delimiter: '.'))
 /.bootstrap-form
-  /= simple_form_for current_user, url: credits_checkout_project_backer_path(@backer.project, @backer), html: { data: { update_info_path: update_info_project_backer_path(project_id: @backer.project.id, id: @backer.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @backer.credits)}" } do |form|
-    /= hidden_field_tag 'project_id', @backer.project.id
-    /= hidden_field_tag 'backer_id', @backer.id
-    /= hidden_field_tag 'backer_credits', @backer.credits
+  /= simple_form_for current_user, url: credits_checkout_project_contribution_path(@contribution.project, @contribution), html: { data: { update_info_path: update_info_project_contribution_path(project_id: @contribution.project.id, id: @contribution.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @contribution.credits)}" } do |form|
+    /= hidden_field_tag 'project_id', @contribution.project.id
+    /= hidden_field_tag 'contribution_id', @contribution.id
+    /= hidden_field_tag 'contribution_credits', @contribution.credits
     /= hidden_field_tag 'payment_method_url', nil
 
 

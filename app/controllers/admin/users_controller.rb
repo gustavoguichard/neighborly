@@ -7,7 +7,7 @@ class Admin::UsersController < Admin::BaseController
 
   protected
   def set_totals
-    totals = end_of_association_chain.backer_totals
+    totals = end_of_association_chain.contribution_totals
     @total_users = totals[:users].to_i
     @total_backs = totals[:backs]
     @total_backed = totals[:backed]

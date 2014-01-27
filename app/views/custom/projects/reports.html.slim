@@ -2,16 +2,16 @@
   - selected_r = @project.selected_rewards
   .panel
     = t('.link_reports')
-    = link_to t('.all_backers'), reports_backer_reports_for_project_owners_path(project_id: @project.id, format: :csv)
+    = link_to t('.all_contributions'), reports_contribution_reports_for_project_owners_path(project_id: @project.id, format: :csv)
   .panel
     = t('.link_reports')
-    = link_to t('.all_backers_without_reward'), reports_backer_reports_for_project_owners_path(project_id: @project.id, reward_id: 0, format: :csv)
+    = link_to t('.all_contributions_without_reward'), reports_contribution_reports_for_project_owners_path(project_id: @project.id, reward_id: 0, format: :csv)
   - if selected_r.length > 0
       - selected_r.each do |reward|
         .panel
           p
             = t('.link_reward')
-            = link_to reward.display_minimum, reports_backer_reports_for_project_owners_path(project_id: @project.id, reward_id: reward.id, format: :csv)
+            = link_to reward.display_minimum, reports_contribution_reports_for_project_owners_path(project_id: @project.id, reward_id: reward.id, format: :csv)
 - if request.xhr?
   = yield :page_content
 - else

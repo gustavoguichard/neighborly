@@ -1,5 +1,5 @@
 en:
-  backer_report_to_project_owner:
+  contribution_report_to_project_owner:
     user_name: 'Contributor'
     value: 'Contribution Amount'
     minimum_value: 'Reward Level'

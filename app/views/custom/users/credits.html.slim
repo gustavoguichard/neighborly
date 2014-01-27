@@ -26,7 +26,7 @@
                 .reveal-modal.small.fixed[id="request-refund-modal-#{credit.id}"]
                   h4 = t('.modal.title')
                   a.close-reveal-modal ×
-                  = link_to request_refund_user_backer_path(@user, credit), class: 'button' do
+                  = link_to request_refund_user_contribution_path(@user, credit), class: 'button' do
                     = t('.modal.confirm')
                 = link_to t('.request_refund'), "request-refund-modal-#{credit.id}", data: { 'reveal-id' => "request-refund-modal-#{credit.id}" }, class: 'link-project'
     .alert.alert-info

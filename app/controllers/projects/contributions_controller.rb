@@ -1,4 +1,4 @@
-class Projects::BackersController < ApplicationController
+class Projects::ContributionsController < ApplicationController
   inherit_resources
   actions :show, :new, :edit, :update, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create]
@@ -17,7 +17,7 @@ class Projects::BackersController < ApplicationController
   end
 
   def update
-    resource.update_attributes(params[:backer])
+    resource.update_attributes(params[:contribution])
     resource.update_user_billing_info
     render json: { message: 'updated' }
   end
@@ -25,59 +25,59 @@ class Projects::BackersController < ApplicationController
   def show; end
 
   def new
-    return redirect_to :root, flash: { error: t('controllers.projects.backers.new.cannot_back') } unless parent.online?
+    return redirect_to :root, flash: { error: t('controllers.projects.contributions.new.cannot_back') } unless parent.online?
 
     @create_url = create_url
-    @backer = @project.backers.new(user: current_user)
+    @contribution = @project.contributions.new(user: current_user)
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
     if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
-      @backer.reward = selected_reward
-      @backer.value = "%0.0f" % selected_reward.minimum_value
+      @contribution.reward = selected_reward
+      @contribution.value = "%0.0f" % selected_reward.minimum_value
     end
   end
 
   def create
-    @backer.user = current_user
-    @backer.reward_id = nil if params[:backer][:reward_id].to_i == 0
+    @contribution.user = current_user
+    @contribution.reward_id = nil if params[:contribution][:reward_id].to_i == 0
 
     create! do |success, failure|
       success.html do
-        session[:thank_you_backer_id] = @backer.id
-        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id), flash: { notice: nil }
+        session[:thank_you_contribution_id] = @contribution.id
+        return redirect_to edit_project_contribution_path(project_id: @project, id: @contribution.id), flash: { notice: nil }
       end
 
       failure.html do
-        return redirect_to new_project_backer_path(@project), flash: { failure: t('controllers.projects.backers.create.error') }
+        return redirect_to new_project_contribution_path(@project), flash: { failure: t('controllers.projects.contributions.create.error') }
       end
     end
   end
 
   def credits_checkout
-    return redirect_to new_project_backer_path(@backer.project), flash: { failure: t('controllers.projects.backers.credits_checkout.no_credits') } if current_user.credits < @backer.value
+    return redirect_to new_project_contribution_path(@contribution.project), flash: { failure: t('controllers.projects.contributions.credits_checkout.no_credits') } if current_user.credits < @contribution.value
 
-    unless @backer.confirmed?
-      @backer.update_attributes({ payment_method: 'Credits' })
-      @backer.confirm!
+    unless @contribution.confirmed?
+      @contribution.update_attributes({ payment_method: 'Credits' })
+      @contribution.confirm!
     end
 
-    redirect_to project_backer_path(parent, resource), flash: { success: t('controllers.projects.backers.credits_checkout.success') }
+    redirect_to project_contribution_path(parent, resource), flash: { success: t('controllers.projects.contributions.credits_checkout.success') }
   end
 
   protected
   def collection
-    @backers ||= apply_scopes(end_of_association_chain).available_to_display.order("confirmed_at DESC").per(10)
+    @contributions ||= apply_scopes(end_of_association_chain).available_to_display.order("confirmed_at DESC").per(10)
   end
 
   def empty_reward
-    Reward.new(minimum_value: 0, description: t('controllers.projects.backers.new.no_reward'))
+    Reward.new(minimum_value: 0, description: t('controllers.projects.contributions.new.no_reward'))
   end
 
   def create_url
     if ::Configuration[:secure_review_host]
-      return project_backers_url(@project, {host: ::Configuration[:secure_review_host], protocol: 'https'})
+      return project_contributions_url(@project, {host: ::Configuration[:secure_review_host], protocol: 'https'})
     else
-      return project_backers_path(@project)
+      return project_contributions_path(@project)
     end
   end
 end

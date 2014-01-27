@@ -1,21 +1,21 @@
-- backer = @notification.backer
+- contribution = @notification.contribution
 br
-|Howdy, #{backer.user.name}!
+|Howdy, #{contribution.user.name}!
 br
 br
-|Thanks to you and #{backer.project.total_backers - 1} other supporters, #{link_to(backer.project.name, "#{Configuration[:base_url]}/projects/#{backer.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{backer.project.display_pledged}, totalling #{backer.project.progress}% of the goal!
+|Thanks to you and #{contribution.project.total_contributions - 1} other supporters, #{link_to(contribution.project.name, "#{Configuration[:base_url]}/projects/#{contribution.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{contribution.project.display_pledged}, totalling #{contribution.project.progress}% of the goal!
 br/
 br/
-|Hang tight - you don't need to do anything for now. #{backer.project.user.display_name} will follow up with you soon. If you chose a reward that requires additional information, the project owner will follow up with you directly.
+|Hang tight - you don't need to do anything for now. #{contribution.project.user.display_name} will follow up with you soon. If you chose a reward that requires additional information, the project owner will follow up with you directly.
 br
 br
 |Meanwhile, share this success with the world!
 br
 br
 - fb_img = "<img src=\"#{Configuration[:base_url]}/assets/mails/facebook-icon.png\" title='Facebook' class='social' />".html_safe
-= raw link_to(fb_img, "http://www.facebook.com/share.php?u=#{project_url(backer.project)}" , target: :blank)
+= raw link_to(fb_img, "http://www.facebook.com/share.php?u=#{project_url(contribution.project)}" , target: :blank)
 - twitter_img = "<img src='#{Configuration[:base_url]}/assets/mails/twitter-icon.png' title='Twitter' class='social' />".html_safe
-= raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight #{backer.project.name} on @#{Configuration[:twitter_username]}! #{project_url(backer.project)}"}", target: :blank)
+= raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight #{contribution.project.name} on @#{Configuration[:twitter_username]}! #{project_url(contribution.project)}"}", target: :blank)
 br
 br
 br
@@ -23,24 +23,24 @@ br
 br
 br
 |Contribution Amount: 
-strong #{number_to_currency backer.value, precision: 0}
+strong #{number_to_currency contribution.value, precision: 0}
 br
 br
-- if backer.reward
+- if contribution.reward
   |Reward Selected: 
-  strong #{number_to_currency backer.reward.minimum_value, precision: 0}
-  |  &mdash; #{backer.reward.description}
+  strong #{number_to_currency contribution.reward.minimum_value, precision: 0}
+  |  &mdash; #{contribution.reward.description}
   br
   br
 |Contribution Date: 
-strong #{l backer.created_at.to_date, format: :long}
+strong #{l contribution.created_at.to_date, format: :long}
 br
 br
 |Contribution Key: 
-strong #{backer.key}
+strong #{contribution.key}
 br
 br
-|If you wish to contact #{backer.project.user.name}, please email  #{mail_to backer.project.user.email}
+|If you wish to contact #{contribution.project.user.name}, please email  #{mail_to contribution.project.user.email}
 br
 br
 |If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.

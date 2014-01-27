@@ -15,8 +15,8 @@
   - if resource.new_record? || can?(:update, resource, :description)
     = f.input :description
 
-  - if resource.new_record? || can?(:update, resource, :maximum_backers)
-    = f.input :maximum_backers
+  - if resource.new_record? || can?(:update, resource, :maximum_contributions)
+    = f.input :maximum_contributions
 
   = f.input :soon, as: :boolean
   = f.input :show_contact_button, as: :boolean
