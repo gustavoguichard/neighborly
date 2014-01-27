@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   include Concerns::ExceptionHandler
   include Concerns::SocialHelpersHandler
 
-  layout :use_catarse_boostrap
+  layout :application
+  before_filter :handle_xhr_layout
   protect_from_forgery
   before_filter :require_basic_auth
 
@@ -89,5 +90,10 @@ class ApplicationController < ActionController::Base
         username == 'admin' && password == 'Streetcar4321'
       end
     end
+  end
+
+  private
+  def handle_xhr_layout
+    self.class.layout false if request and request.xhr?
   end
 end

@@ -4,17 +4,11 @@ class RewardsController < ApplicationController
   belongs_to :project, finder: :find_by_permalink!
   respond_to :html, :json
 
-  def index
-    render layout: !request.xhr?
-  end
+  def index; end
 
-  def new
-    render layout: !request.xhr?
-  end
+  def new; end
 
-  def edit
-    render layout: !request.xhr?
-  end
+  def edit; end
 
   def update
     update! { project_path(parent) }
