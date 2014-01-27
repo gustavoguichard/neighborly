@@ -18,28 +18,28 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
-  revision: 2fa23c561073cc8c3e4177047cde007ae5261558
-  ref: 2fa23c561073cc8c3e4177047cde007ae5261558
+  revision: 1297c623f0f3b52551cead50e939dd961a0401ad
+  ref: 1297c623f0f3b52551cead50e939dd961a0401ad
   specs:
-    catarse_credit_card_net (0.0.1)
+    catarse_credit_card_net (1.0.0)
       authorize-net (~> 1.5.2)
-      rails (~> 4.0.0)
+      rails (~> 4.0)
 
 GIT
   remote: git://github.com/luminopolis/catarse_echeck_net.git
-  revision: f5c6f32b857c5e651c55d4713d779100c3c10e4f
-  ref: f5c6f32b857c5e651c55d4713d779100c3c10e4f
+  revision: 9f0988707dcb66b169b9094ad5b603c8844453bf
+  ref: 9f0988707dcb66b169b9094ad5b603c8844453bf
   specs:
-    catarse_echeck_net (0.0.1)
+    catarse_echeck_net (1.0.0)
       authorize-net (~> 1.5.2)
-      rails (~> 4.0.0)
+      rails (~> 4.0)
 
 GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
-  revision: d2382b1c7c3cb5f230b901776aa08fe827acce98
-  ref: d2382b1c7c3cb5f230b901776aa08fe827acce98
+  revision: 30c36c2b88db0495722f45e6e1c4e6db90f8bd9d
+  ref: 30c36c2b88db0495722f45e6e1c4e6db90f8bd9d
   specs:
-    catarse_paypal_express (2.1.0)
+    catarse_paypal_express (2.2.0)
       activemerchant (>= 1.34.0)
       rails (~> 4.0)
       slim-rails
@@ -82,7 +82,7 @@ GEM
     active_utils (2.0.1)
       activesupport (>= 2.3.11)
       i18n
-    activemerchant (1.42.2)
+    activemerchant (1.42.4)
       active_utils (~> 2.0, >= 2.0.1)
       activesupport (>= 2.3.14, < 5.0.0)
       builder (>= 2.1.2, < 4.0.0)
@@ -255,8 +255,10 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    money (6.0.0)
+    monetize (0.1.3)
+    money (6.0.1)
       i18n (~> 0.6.4)
+      monetize (~> 0.1.3)
     multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
@@ -451,7 +453,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.3.1)
+    turbolinks (2.2.0)
       coffee-rails
     tzinfo (0.3.38)
     uglifier (2.3.1)
@@ -555,7 +557,7 @@ DEPENDENCIES
   state_machine
   thin
   to_xls
-  turbolinks
+  turbolinks (~> 2.2.0)
   uglifier
   unf
   unicorn
