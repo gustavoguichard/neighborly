@@ -18,12 +18,12 @@ describe ContributionDecorator do
 
     context "when the value has decimal places" do
       subject{ build(:contribution, value: 99.99).display_value }
-      it{ should == "$100" }
+      it{ should == "$99.99" }
     end
 
     context "when the value does not have decimal places" do
       subject{ build(:contribution, value: 1).display_value }
-      it{ should == "$1" }
+      it{ should == "$1.00" }
     end
   end
 end
