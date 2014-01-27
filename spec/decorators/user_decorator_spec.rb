@@ -132,7 +132,7 @@ describe UserDecorator do
     subject { create(:user) }
     context "with confirmed backs" do
       before do
-        create(:backer, state: 'confirmed', user: subject, value: 500.0)
+        create(:contribution, state: 'confirmed', user: subject, value: 500.0)
       end
       its(:display_total_of_backs) { should == '$500.00'}
     end

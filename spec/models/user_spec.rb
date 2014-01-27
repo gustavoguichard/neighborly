@@ -63,10 +63,10 @@ describe User do
 
     context "when he has credits in the user_total" do
       before do
-        b = create(:backer, state: 'confirmed', value: 100, project: failed_project)
+        b = create(:contribution, state: 'confirmed', value: 100, project: failed_project)
         failed_project.update_attributes state: 'failed'
         @u = b.user
-        b = create(:backer, state: 'confirmed', value: 100, project: successful_project)
+        b = create(:contribution, state: 'confirmed', value: 100, project: successful_project)
       end
       it{ should == [@u] }
     end
@@ -77,14 +77,14 @@ describe User do
 
     context "when he has used credits in the last month" do
       before do
-        b = create(:backer, state: 'confirmed', value: 100, credits: true)
+        b = create(:contribution, state: 'confirmed', value: 100, credits: true)
         @u = b.user
       end
       it{ should == [] }
     end
     context "when he has not used credits in the last month" do
       before do
-        b = create(:backer, state: 'confirmed', value: 100, project: failed_project)
+        b = create(:contribution, state: 'confirmed', value: 100, project: failed_project)
         failed_project.update_attributes state: 'failed'
         @u = b.user
       end
@@ -95,11 +95,11 @@ describe User do
   describe ".by_payer_email" do
     before do
       p = create(:payment_notification)
-      backer = p.backer
-      @u = backer.user
+      contribution = p.contribution
+      @u = contribution.user
       p.extra_data = {'payer_email' => 'foo@bar.com'}
       p.save!
-      p = create(:payment_notification, backer: backer)
+      p = create(:payment_notification, contribution: contribution)
       p.extra_data = {'payer_email' => 'another_email@bar.com'}
       p.save!
       p = create(:payment_notification)
@@ -112,14 +112,14 @@ describe User do
 
   describe ".by_key" do
     before do
-      b = create(:backer)
+      b = create(:contribution)
       @u = b.user
       b.key = 'abc'
       b.save!
-      b = create(:backer, user: @u)
+      b = create(:contribution, user: @u)
       b.key = 'abcde'
       b.save!
-      b = create(:backer)
+      b = create(:contribution)
       b.key = 'def'
       b.save!
     end
@@ -157,18 +157,18 @@ describe User do
   describe ".who_backed_project" do
     subject{ User.who_backed_project(successful_project.id) }
     before do
-      @backer = create(:backer, state: 'confirmed', project: successful_project)
-      create(:backer, state: 'confirmed', project: successful_project, user: @backer.user)
-      create(:backer, state: 'pending', project: successful_project)
+      @contribution = create(:contribution, state: 'confirmed', project: successful_project)
+      create(:contribution, state: 'confirmed', project: successful_project, user: @contribution.user)
+      create(:contribution, state: 'pending', project: successful_project)
     end
-    it{ should == [@backer.user] }
+    it{ should == [@contribution.user] }
   end
 
-  describe ".backer_totals" do
+  describe ".contribution_totals" do
     before do
-      create(:backer, state: 'confirmed', value: 100, credits: false, project: successful_project)
-      create(:backer, state: 'confirmed', value: 50, credits: false, project: successful_project)
-      user = create(:backer, state: 'confirmed', value: 25, project: failed_project).user
+      create(:contribution, state: 'confirmed', value: 100, credits: false, project: successful_project)
+      create(:contribution, state: 'confirmed', value: 50, credits: false, project: successful_project)
+      user = create(:contribution, state: 'confirmed', value: 25, project: failed_project).user
       failed_project.update_attributes state: 'failed'
       successful_project.update_attributes state: 'successful'
       user.save!
@@ -176,18 +176,18 @@ describe User do
     end
 
     context "when we call upon user without backs" do
-      subject{ User.where(id: @u.id).backer_totals }
-      it{ should == {users: 0.0, backers: 0.0, backed: 0.0, credits: 0.0} }
+      subject{ User.where(id: @u.id).contribution_totals }
+      it{ should == {users: 0.0, contributions: 0.0, backed: 0.0, credits: 0.0} }
     end
 
     context "when we call without scopes" do
-      subject{ User.backer_totals }
-      it{ should == {users: 3.0, backers: 3.0, backed: 175.0, credits: 25.0} }
+      subject{ User.contribution_totals }
+      it{ should == {users: 3.0, contributions: 3.0, backed: 175.0, credits: 25.0} }
     end
 
     context "when we call with scopes" do
-      subject{ User.has_credits.backer_totals }
-      it{ should == {users: 1.0, backers: 1.0, backed: 25.0, credits: 25.0} }
+      subject{ User.has_credits.contribution_totals }
+      it{ should == {users: 1.0, contributions: 1.0, backed: 25.0, credits: 25.0} }
     end
   end
 
@@ -269,10 +269,10 @@ describe User do
     subject { user.total_backed_projects }
 
     before do
-      create(:backer, state: 'confirmed', user: user, project: project)
-      create(:backer, state: 'confirmed', user: user, project: project)
-      create(:backer, state: 'confirmed', user: user, project: project)
-      create(:backer, state: 'confirmed', user: user)
+      create(:contribution, state: 'confirmed', user: user, project: project)
+      create(:contribution, state: 'confirmed', user: user, project: project)
+      create(:contribution, state: 'confirmed', user: user, project: project)
+      create(:contribution, state: 'confirmed', user: user)
     end
 
     it { should == 2}
@@ -281,14 +281,14 @@ describe User do
   describe "#credits" do
     before do
       @u = create(:user)
-      create(:backer, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: successful_project)
-      create(:backer, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: unfinished_project)
-      create(:backer, state: 'confirmed', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:backer, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: successful_project)
-      create(:backer, state: 'confirmed', credits: true, value: 50, user_id: @u.id, project: unfinished_project)
-      create(:backer, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: failed_project)
-      create(:backer, state: 'requested_refund', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:backer, state: 'refunded', credits: false, value: 200, user_id: @u.id, project: failed_project)
+      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: successful_project)
+      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: unfinished_project)
+      create(:contribution, state: 'confirmed', credits: false, value: 200, user_id: @u.id, project: failed_project)
+      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: successful_project)
+      create(:contribution, state: 'confirmed', credits: true, value: 50, user_id: @u.id, project: unfinished_project)
+      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: failed_project)
+      create(:contribution, state: 'requested_refund', credits: false, value: 200, user_id: @u.id, project: failed_project)
+      create(:contribution, state: 'refunded', credits: false, value: 200, user_id: @u.id, project: failed_project)
       failed_project.update_attributes state: 'failed'
       successful_project.update_attributes state: 'successful'
     end
@@ -310,9 +310,9 @@ describe User do
   describe "#recommended_project" do
     subject{ user.recommended_projects }
     before do
-      other_backer = create(:backer, state: 'confirmed')
-      create(:backer, state: 'confirmed', user: other_backer.user, project: unfinished_project)
-      create(:backer, state: 'confirmed', user: user, project: other_backer.project)
+      other_contribution = create(:contribution, state: 'confirmed')
+      create(:contribution, state: 'confirmed', user: other_contribution.user, project: unfinished_project)
+      create(:contribution, state: 'confirmed', user: user, project: other_contribution.project)
     end
     it{ should == [unfinished_project]}
   end
@@ -332,7 +332,7 @@ describe User do
     subject{user.project_unsubscribes}
     before do
       @p1 = create(:project)
-      create(:backer, user: user, project: @p1)
+      create(:contribution, user: user, project: @p1)
       @u1 = create(:unsubscribe, project_id: @p1.id, user_id: user.id )
     end
     it{ should == [@u1]}
@@ -342,8 +342,8 @@ describe User do
     subject{user.backed_projects}
     before do
       @p1 = create(:project)
-      create(:backer, user: user, project: @p1)
-      create(:backer, user: user, project: @p1)
+      create(:contribution, user: user, project: @p1)
+      create(:contribution, user: user, project: @p1)
     end
     it{should == [@p1]}
   end

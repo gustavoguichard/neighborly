@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RewardDecorator do
   include ActionView::Helpers::NumberHelper
 
-  let(:reward){ create(:reward, description: 'envie um email para foo@bar.com', days_to_delivery: 20, maximum_backers: 20) }
+  let(:reward){ create(:reward, description: 'envie um email para foo@bar.com', days_to_delivery: 20, maximum_contributions: 20) }
 
   describe "#display_description" do
     subject{ reward.display_description }
