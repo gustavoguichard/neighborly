@@ -42,7 +42,9 @@
       - if @contribution.reward
         .selected-reward
           h4 = t('.reward.title')
-          p.description = @contribution.reward.description
+          p.description
+            h5 = @contribution.reward.title
+            = @contribution.reward.description
       .faqs
         = render 'faqs'
 
