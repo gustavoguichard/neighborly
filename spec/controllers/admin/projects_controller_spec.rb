@@ -123,15 +123,15 @@ describe Admin::ProjectsController do
     context "when I'm logged as admin" do
       let(:reward) { create(:reward, project: project) }
 
-      shared_examples_for 'create the backer' do
-        subject { project.backers.first }
+      shared_examples_for 'create the contribution' do
+        subject { project.contributions.first }
 
-        it 'should create the backer' do
+        it 'should create the contribution' do
           expect(subject).to_not be_nil
         end
 
 
-        it 'should assign the reward the backer' do
+        it 'should assign the reward the contribution' do
           expect(subject.reward).to eq reward
         end
 
@@ -139,38 +139,38 @@ describe Admin::ProjectsController do
           expect(subject.payment_method).to eq 'PrePopulate'
         end
 
-        it 'should set the backer as confirmed' do
+        it 'should set the contribution as confirmed' do
           expect(subject.confirmed?).to be_true
         end
 
-        it 'should set the backer as anonymous' do
+        it 'should set the contribution as anonymous' do
           expect(subject.anonymous).to be_true
         end
 
-        it{ should redirect_to populate_backer_admin_project_path(project) }
+        it{ should redirect_to populate_contribution_admin_project_path(project) }
       end
 
       context 'existing user' do
         before do
-          post :populate, id: project, user: { id: admin.id }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
+          post :populate, id: project, user: { id: admin.id }, contribution: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
         end
 
-        it_behaves_like 'create the backer'
+        it_behaves_like 'create the contribution'
 
-        it 'should assign the user to the backer' do
-          expect(project.backers.first.user).to eq admin
+        it 'should assign the user to the contribution' do
+          expect(project.contributions.first.user).to eq admin
         end
       end
 
       context 'new user' do
         before do
-          post :populate, id: project, user: { name: 'New user', profile_type: 'organization' }, backer: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
+          post :populate, id: project, user: { name: 'New user', profile_type: 'organization' }, contribution: { reward_id: reward.id, value: reward.minimum_value, anonymous: true }
         end
 
-        it_behaves_like 'create the backer'
+        it_behaves_like 'create the contribution'
 
         context 'create the user' do
-          subject { project.backers.first.user }
+          subject { project.contributions.first.user }
 
           it 'should create the iser' do
             expect(subject).to_not be_nil
@@ -188,10 +188,10 @@ describe Admin::ProjectsController do
 
       context 'with error' do
         before do
-          post :populate, id: project, user: { }, backer: { }
+          post :populate, id: project, user: { }, contribution: { }
         end
 
-        it{ should render_template 'populate_backer' }
+        it{ should render_template 'populate_contribution' }
       end
     end
   end
