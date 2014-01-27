@@ -23,16 +23,16 @@ class Admin::ProjectsController < Admin::BaseController
       @user = create_user
     end
 
-    @backer = build_backer(@user)
+    @contribution = build_contribution(@user)
 
-    if @user.valid? and @backer.valid?
+    if @user.valid? and @contribution.valid?
       @user.save!
-      @backer.save!
-      redirect_to populate_backer_admin_project_path(resource), flash: { success: 'Success!' }
+      @contribution.save!
+      redirect_to populate_contribution_admin_project_path(resource), flash: { success: 'Success!' }
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
-      flash[:error] = @backer.errors.full_messages.to_sentence
-      render :populate_backer
+      flash[:error] = @contribution.errors.full_messages.to_sentence
+      render :populate_contribution
     end
   end
 
@@ -56,11 +56,11 @@ class Admin::ProjectsController < Admin::BaseController
     user
   end
 
-  def build_backer(user)
-    backer = resource.backers.new(params[:backer])
-    backer.payment_method = 'PrePopulate'
-    backer.state = 'confirmed'
-    backer.user = user
-    backer
+  def build_contribution(user)
+    contribution = resource.contributions.new(params[:contribution])
+    contribution.payment_method = 'PrePopulate'
+    contribution.state = 'confirmed'
+    contribution.user = user
+    contribution
   end
 end

@@ -1,10 +1,10 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
-Neighborly.Projects.Backers = {} if Neighborly.Projects.Backers is undefined
+Neighborly.Projects.Contributions = {} if Neighborly.Projects.Contributions is undefined
 
-Neighborly.Projects.Backers.Edit =
+Neighborly.Projects.Contributions.Edit =
   modules: -> [Neighborly.CustomTooltip]
   init: Backbone.View.extend
-    el: '.create-backer-page'
+    el: '.create-contribution-page'
 
     events:
       'click .faqs a': 'openFaqText'
@@ -17,7 +17,7 @@ Neighborly.Projects.Backers.Edit =
       $(e.currentTarget).parent().find('p').toggleClass('hide')
 
     Payment: Backbone.View.extend
-      el: '.create-backer-page .payment'
+      el: '.create-contribution-page .payment'
 
       initialize: ->
         _.bindAll this, 'showContent'
@@ -37,5 +37,5 @@ Neighborly.Projects.Backers.Edit =
             this.$('.payment-method').removeClass('loading-section')
 
       showTotalValue: (e)->
-        $input = $('.create-backer-page header .total-with-fee input')
+        $input = $('.create-contribution-page header .total-with-fee input')
         $input.val("#{$input.data('total-text')} #{$(e.target).data('value-with-taxes')}")

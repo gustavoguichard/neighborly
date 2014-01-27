@@ -1,15 +1,15 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
-Neighborly.Projects.Backers = {} if Neighborly.Projects.Backers is undefined
+Neighborly.Projects.Contributions = {} if Neighborly.Projects.Contributions is undefined
 
-Neighborly.Projects.Backers.Index =
+Neighborly.Projects.Contributions.Index =
   init: Backbone.View.extend _.extend(
-    el: '.backers-page'
+    el: '.contributions-page'
 
     initialize: ->
       this.use_custom_append = true
       Neighborly.CustomTooltip()
-      this.$loader = this.$('.backers-loading img')
-      this.$loaderDiv = this.$('.backers-loading')
+      this.$loader = this.$('.contributions-loading img')
+      this.$loaderDiv = this.$('.contributions-loading')
       this.$results = this.$('.list')
       this.path = this.$el.data('path')
       this.filter = { page: 2 }
@@ -24,7 +24,7 @@ Neighborly.Projects.Backers.Index =
 
     masonry: ->
       this.$('.list').masonry ->
-        itemSelector: '.backer-wrapper'
+        itemSelector: '.contribution-wrapper'
         #columnWidth : 230
 
 

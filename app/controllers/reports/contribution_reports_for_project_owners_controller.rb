@@ -1,8 +1,8 @@
-class Reports::BackerReportsForProjectOwnersController < Reports::BaseController
+class Reports::ContributionReportsForProjectOwnersController < Reports::BaseController
   before_filter :check_if_project_belongs_to_user
 
   def index
-    @report = end_of_association_chain.to_xls( columns: I18n.t('backer_report_to_project_owner').values )
+    @report = end_of_association_chain.to_xls( columns: I18n.t('contribution_report_to_project_owner').values )
     super do |format|
       format.xls { send_data @report, :filename => 'apoiadores.xls' }
     end
@@ -15,24 +15,24 @@ class Reports::BackerReportsForProjectOwnersController < Reports::BaseController
 
     super.
       select(%Q{
-        user_name as "#{I18n.t('backer_report_to_project_owner.user_name')}",
-        back_value as "#{I18n.t('backer_report_to_project_owner.value')}",
-        reward_minimum_value as "#{I18n.t('backer_report_to_project_owner.minimum_value')}",
-        reward_description as "#{I18n.t('backer_report_to_project_owner.reward_description')}",
-        created_at as "#{I18n.t('backer_report_to_project_owner.created_at')}",
-        confirmed_at as "#{I18n.t('backer_report_to_project_owner.confirmed_at')}",
-        service_fee as "#{I18n.t('backer_report_to_project_owner.service_fee')}",
-        user_email as "#{I18n.t('backer_report_to_project_owner.user_email')}",
-        payment_method as "#{I18n.t('backer_report_to_project_owner.payment_method')}",
-        street as "#{I18n.t('backer_report_to_project_owner.address_street')}",
-        neighbourhood as "#{I18n.t('backer_report_to_project_owner.address_neighbourhood')}",
-        city as "#{I18n.t('backer_report_to_project_owner.address_city')}",
-        state as "#{I18n.t('backer_report_to_project_owner.address_state')}",
-        zip_code as "#{I18n.t('backer_report_to_project_owner.address_zip_code')}",
+        user_name as "#{I18n.t('contribution_report_to_project_owner.user_name')}",
+        back_value as "#{I18n.t('contribution_report_to_project_owner.value')}",
+        reward_minimum_value as "#{I18n.t('contribution_report_to_project_owner.minimum_value')}",
+        reward_description as "#{I18n.t('contribution_report_to_project_owner.reward_description')}",
+        created_at as "#{I18n.t('contribution_report_to_project_owner.created_at')}",
+        confirmed_at as "#{I18n.t('contribution_report_to_project_owner.confirmed_at')}",
+        service_fee as "#{I18n.t('contribution_report_to_project_owner.service_fee')}",
+        user_email as "#{I18n.t('contribution_report_to_project_owner.user_email')}",
+        payment_method as "#{I18n.t('contribution_report_to_project_owner.payment_method')}",
+        street as "#{I18n.t('contribution_report_to_project_owner.address_street')}",
+        neighbourhood as "#{I18n.t('contribution_report_to_project_owner.address_neighbourhood')}",
+        city as "#{I18n.t('contribution_report_to_project_owner.address_city')}",
+        state as "#{I18n.t('contribution_report_to_project_owner.address_state')}",
+        zip_code as "#{I18n.t('contribution_report_to_project_owner.address_zip_code')}",
         CASE WHEN anonymous='t' THEN '#{I18n.t('yes')}'
             WHEN anonymous='f' THEN '#{I18n.t('no')}'
-        END as "#{I18n.t('backer_report_to_project_owner.anonymous')}",
-        short_note as "#{I18n.t('backer_report_to_project_owner.short_note')}"
+        END as "#{I18n.t('contribution_report_to_project_owner.anonymous')}",
+        short_note as "#{I18n.t('contribution_report_to_project_owner.short_note')}"
       }).
       where(conditions)
   end

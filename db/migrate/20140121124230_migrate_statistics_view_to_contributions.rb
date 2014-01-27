@@ -18,7 +18,7 @@ class MigrateStatisticsViewToContributions < ActiveRecord::Migration
         projects_totals.total_projects_draft,
         projects_totals.total_projects_soon
        FROM ( SELECT count(*) AS total_contributions,
-                count(DISTINCT contributions.user_id) AS total_contributions,
+                count(DISTINCT contributions.user_id) AS total_contributors,
                 sum(contributions.value) AS total_contributed
                FROM contributions
               WHERE contributions.state::text <> ALL (ARRAY['waiting_confirmation'::character varying::text, 'pending'::character varying::text, 'canceled'::character varying::text, 'deleted'])) contributions_totals,

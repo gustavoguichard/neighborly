@@ -1,16 +1,16 @@
-class Users::BackersController < ApplicationController
+class Users::ContributionsController < ApplicationController
   inherit_resources
-  defaults resource_class: Backer, collection_name: 'backs', instance_name: 'back'
+  defaults resource_class: Contribution, collection_name: 'backs', instance_name: 'back'
   belongs_to :user
   actions :index
 
   def request_refund
     authorize! :request_refund, resource
     if resource.value > resource.user.user_total.credits
-      flash[:failure] = I18n.t('controllers.users.backers.request_refund.insufficient_credits')
+      flash[:failure] = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
     elsif can?(:request_refund, resource) && resource.can_request_refund?
       resource.request_refund!
-      flash[:notice] = I18n.t('controllers.users.backers.request_refund.refunded')
+      flash[:notice] = I18n.t('controllers.users.contributions.request_refund.refunded')
     end
 
     redirect_to credits_user_path(parent)

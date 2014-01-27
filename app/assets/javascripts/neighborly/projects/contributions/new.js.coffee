@@ -1,21 +1,21 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
-Neighborly.Projects.Backers = {} if Neighborly.Projects.Backers is undefined
+Neighborly.Projects.Contributions = {} if Neighborly.Projects.Contributions is undefined
 
-Neighborly.Projects.Backers.New =
+Neighborly.Projects.Contributions.New =
   modules: -> []
 
   init: Backbone.View.extend
-    el: '.new-backer-page'
+    el: '.new-contribution-page'
 
     initialize: ->
       _.bindAll this, 'resetReward', 'clickReward', 'clickAnonymous'
 
       # bind change event (support for ie8 )
-      this.$('#backer_value').change this.resetReward
+      this.$('#contribution_value').change this.resetReward
       this.$('input[type=radio]').change this.clickReward
-      this.$('#backer_anonymous').change this.clickAnonymous
+      this.$('#contribution_anonymous').change this.clickAnonymous
 
-      this.$value = this.$('#backer_value')
+      this.$value = this.$('#contribution_value')
       this.rewards = this.$value.data('rewards')
       this.$choices = this.$('.reward-option')
       this.selectReward(this.$('input[type=radio]:checked'))
@@ -60,6 +60,6 @@ Neighborly.Projects.Backers.New =
       reward = this.reward()
       if reward
         value = this.$value.val()
-        this.selectReward(this.$('#backer_reward_id')) if (!(/^(\d+)$/.test(value))) || (parseInt(value) < parseInt(reward.minimum_value))
+        this.selectReward(this.$('#contribution_reward_id')) if (!(/^(\d+)$/.test(value))) || (parseInt(value) < parseInt(reward.minimum_value))
       this.submitButtonHandler()
 

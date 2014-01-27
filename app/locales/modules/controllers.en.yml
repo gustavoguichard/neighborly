@@ -4,7 +4,7 @@ en:
       create:
         success: 'Your information has been updated!'
     projects:
-      backers:
+      contributions:
         new:
           cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
           no_reward: "No perks! I just want to help out the project!"
@@ -22,7 +22,7 @@ en:
     users:
       update:
         success: 'Your information has been updated!'
-      backers:
+      contributions:
         request_refund:
           refunded: "Refund request successfully done. Our team will contact you within two business days."
           insufficient_credits: "You don't have enough credits to request this refund."

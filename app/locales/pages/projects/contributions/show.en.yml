@@ -1,6 +1,6 @@
 en:
   projects:
-    backers:
+    contributions:
       show:
         title: 'Thank you'
         thank_you: 'Thank you, Neighbor! %{project_name} is only possible with the support of people like you.'

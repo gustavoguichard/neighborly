@@ -1,6 +1,6 @@
 en:
   projects:
-    backers:
+    contributions:
       edit:
         title: 'Fill in and review your data'
         you_are_about: "You're about to greenlight %{project_name}"
