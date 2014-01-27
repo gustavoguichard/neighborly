@@ -102,6 +102,7 @@ class ProjectsController < ApplicationController
 
   def embed_panel
     @project = resource
+    render layout: !request.xhr?
   end
 
   def send_reward_email
@@ -114,7 +115,9 @@ class ProjectsController < ApplicationController
     redirect_to project_path(resource)
   end
 
-  def reward_contact; end
+  def reward_contact
+    render layout: !request.xhr?
+  end
 
   private
   def user_city
