@@ -65,7 +65,8 @@ class UsersController < ApplicationController
         return render json: { status: :error }
       end
     end
-    return redirect_to params[:settings] ? settings_user_path(@user) : edit_user_path(@user)
+    return redirect_to settings_user_path(@user) if params[:settings]
+    return render 'edit'
   end
 
   def update_password
