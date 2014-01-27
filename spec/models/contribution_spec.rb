@@ -146,7 +146,7 @@ describe Contribution do
       it{ should eq [@recommended] }
     end
 
-    context "when another user has backed the same project" do
+    context "when another user has contributed the same project" do
       before do
         @another_contribution = create(:contribution, project: contribution.project)
         @recommended = create(:contribution, user: @another_contribution.user).project
@@ -205,7 +205,7 @@ describe Contribution do
 
   describe "#credits" do
     subject{ user.credits.to_f }
-    context "when backs are confirmed and not done with credits but project is successful" do
+    context "when contributions are confirmed and not done with credits but project is successful" do
       before do
         create(:contribution, state: 'confirmed', user: user, project: successful_project)
         successful_project.update_attributes state: 'successful'
@@ -213,7 +213,7 @@ describe Contribution do
       it{ should == 0 }
     end
 
-    context "when backs are confirmed and not done with credits" do
+    context "when contributions are confirmed and not done with credits" do
       before do
         create(:contribution, state: 'confirmed', user: user, project: failed_project)
         failed_project.update_attributes state: 'failed'
@@ -221,7 +221,7 @@ describe Contribution do
       it{ should == 10 }
     end
 
-    context "when backs are done with credits" do
+    context "when contributions are done with credits" do
       before do
         create(:contribution, credits: true, state: 'confirmed', user: user, project: failed_project)
         failed_project.update_attributes state: 'failed'
@@ -229,7 +229,7 @@ describe Contribution do
       it{ should == 0 }
     end
 
-    context "when backs are not confirmed" do
+    context "when contributions are not confirmed" do
       before do
         create(:contribution, user: user, project: failed_project, state: 'pending')
         failed_project.update_attributes state: 'failed'

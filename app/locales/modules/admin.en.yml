@@ -25,14 +25,14 @@ en:
         total_projects_online:
           title: 'Total Projects Online'
           hint: 'Number of Projects Online Now'
-        total_backs:
-          title: 'Total Backs'
-          hint: 'Number of Backs'
         total_contributions:
           title: 'Total Contributions'
           hint: 'Number of Contributions'
-        total_backed:
-          title: 'Total Backed'
+        total_contributors:
+          title: 'Total Contributors'
+          hint: 'Number of Contributors'
+        total_contributed:
+          title: 'Total Contributed'
           hint: 'Funding Raised'
         total_subscribers:
           title: 'Total Followers'
@@ -134,7 +134,7 @@ en:
         approve: 'Approve!'
         user_id: 'User ID'
         goal: 'Goal'
-        total_backs: 'Backs'
+        total_contributions: 'Contributions'
         online_date: 'Online date'
         pledged: 'Pledged'
         recommended: 'Recommended?'
@@ -172,9 +172,9 @@ en:
         key: Key
         submit: Search
         has_credits_difference: "Discrepancy in credits"
-        total_backed: backed
+        total_contributed: contributed
+        total_contributors: contributors
         total_contributions: contributions
-        total_backs: backs
         total_users: users
         total_credits: credits
         total_credits_view: "calculated credits"
@@ -219,9 +219,9 @@ en:
         reward: Reward
         no_reward: "No reward"
         submit: Search
-        total_backed: backed
+        total_contributed: contributed
+        total_contributors: contributors
         total_contributions: contributions
-        total_backs: backs
         total_users: Users
         user: User
         value: Value
@@ -230,9 +230,9 @@ en:
         menu: "Statistics"
         title: "Statistics"
         total_users: "Users"
-        total_backs: "Backs"
         total_contributions: "Contributions"
-        total_backed: "Backed"
+        total_contributors: "Contributors"
+        total_contributed: "Contributed"
         total_projects: "Projects"
         total_projects_success: "Successful"
         total_projects_online: "Online"

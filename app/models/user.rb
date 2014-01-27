@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name, :last_name, :gravatar_url,
+    :medium_name, :display_credits, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
@@ -75,7 +75,6 @@ class User < ActiveRecord::Base
 
   schema_associations
   has_many :oauth_providers, through: :authorizations
-  has_many :backs, class_name: "Contribution"
   has_one :user_total
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
   has_one :organization, dependent: :destroy
@@ -98,7 +97,7 @@ class User < ActiveRecord::Base
       WHERE contributions.state <> ALL(ARRAY['pending'::character varying::text, 'canceled'::character varying::text]))")
   }
 
-  scope :who_backed_project, ->(project_id) {
+  scope :who_contributed_project, ->(project_id) {
     where("id IN (SELECT user_id FROM contributions WHERE contributions.state = 'confirmed' AND project_id = ?)", project_id)
   }
 
@@ -110,7 +109,7 @@ class User < ActiveRecord::Base
    }
 
   scope :subscribed_to_project, ->(project_id) {
-    who_backed_project(project_id).
+    who_contributed_project(project_id).
     where("id NOT IN (SELECT user_id FROM unsubscribes WHERE project_id = ?)", project_id)
   }
 
@@ -154,7 +153,7 @@ class User < ActiveRecord::Base
       select('
         count(DISTINCT user_id) as users,
         count(*) as contributions,
-        sum(user_totals.sum) as backed,
+        sum(user_totals.sum) as contributed,
         sum(user_totals.credits) as credits').
       to_sql
     ).reduce({}){|memo,el| memo.merge({ el[0].to_sym => BigDecimal.new(el[1] || '0') }) }
@@ -182,8 +181,8 @@ class User < ActiveRecord::Base
     user_total ? user_total.credits : 0.0
   end
 
-  def total_backed_projects
-    user_total ? user_total.total_backed_projects : 0
+  def total_contributed_projects
+    user_total ? user_total.total_contributed_projects : 0
   end
 
   def facebook_id
@@ -208,8 +207,8 @@ class User < ActiveRecord::Base
     )
   end
 
-  def total_backs
-    backs.with_state('confirmed').not_anonymous.length
+  def total_contributions
+    contributions.with_state('confirmed').not_anonymous.length
   end
 
   def updates_subscription
@@ -217,7 +216,7 @@ class User < ActiveRecord::Base
   end
 
   def project_unsubscribes
-    backed_projects.map do |p|
+    contributed_projects.map do |p|
       unsubscribes.updates_unsubscribe(p.id)
     end
   end
@@ -230,8 +229,8 @@ class User < ActiveRecord::Base
     projects_led.length
   end
 
-  def backed_projects
-    Project.backed_by(self.id)
+  def contributed_projects
+    Project.contributed_by(self.id)
   end
 
   def password_required?

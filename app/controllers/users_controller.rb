@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def credits
     @title = "Credits: #{@user.display_name}"
     @user = User.find params[:id]
-    @credits = @user.backs.can_refund
+    @credits = @user.contributions.can_refund
   end
 
   def settings
