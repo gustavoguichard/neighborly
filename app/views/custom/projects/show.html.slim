@@ -137,7 +137,10 @@
                   li = link_to @project.user.other_url, target: :blank, class: 'other' do
                    i.icon-et-globe
 
-            = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
+            - if current_user.present?
+              = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
+            - else
+              = link_to t('.ask_a_question'), new_user_session_path(redirect_to: project_path(@project, anchor: 'open-new-user-question-modal')), class: 'button ask-a-question-button'
             - content_for :modals do
               #ask-a-question.reveal-modal.small.fixed
 
