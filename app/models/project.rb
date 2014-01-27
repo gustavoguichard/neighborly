@@ -84,7 +84,7 @@ class Project < ActiveRecord::Base
                                      WHEN 'failed' THEN 4
                                      END ASC, projects.online_date DESC, projects.created_at DESC") }
 
-  scope :backed_by, ->(user_id){
+  scope :contributed_by, ->(user_id){
     where("id IN (SELECT project_id FROM contributions b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
   }
 

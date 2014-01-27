@@ -25,7 +25,7 @@
 
         - in_time_to_confirm = reward.contributions.with_state('waiting_confirmation').count
         - if in_time_to_confirm > 0
-          .pending = t('.backs_to_confirm', count: in_time_to_confirm)
+          .pending = t('.contributions_to_confirm', count: in_time_to_confirm)
 
     .title = reward.title
     .description = reward.display_description
