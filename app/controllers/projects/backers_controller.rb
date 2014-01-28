@@ -44,7 +44,8 @@ class Projects::BackersController < ApplicationController
     create! do |success, failure|
       success.html do
         session[:thank_you_backer_id] = @backer.id
-        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id), flash: { notice: nil }
+        flash.delete(:notice)
+        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id)
       end
 
       failure.html do
