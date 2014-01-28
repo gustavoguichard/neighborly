@@ -88,7 +88,7 @@ describe Contribution do
       build(:user, {
         address_street: 'test stret',
         address_number: '123',
-        address_neighbourhood: 'test area',
+        address_neighborhood: 'test area',
         address_zip_code: 'test zipcode',
         address_city: 'test city',
         address_state: 'test state',
@@ -102,7 +102,7 @@ describe Contribution do
     end
     its(:address_street){ should eq(user.address_street) }
     its(:address_number){ should eq(user.address_number) }
-    its(:address_neighbourhood){ should eq(user.address_neighbourhood) }
+    its(:address_neighborhood){ should eq(user.address_neighborhood) }
     its(:address_zip_code){ should eq(user.address_zip_code) }
     its(:address_city){ should eq(user.address_city) }
     its(:address_state){ should eq(user.address_state) }
@@ -117,7 +117,7 @@ describe Contribution do
       {
         address_street: contribution.address_street,
         address_number: contribution.address_number,
-        address_neighbourhood: contribution.address_neighbourhood,
+        address_neighborhood: contribution.address_neighborhood,
         address_zip_code: contribution.address_zip_code,
         address_city: contribution.address_city,
         address_state: contribution.address_state,

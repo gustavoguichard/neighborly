@@ -10,7 +10,7 @@ en:
     user_email: 'Email'
     payment_method: 'Payment Method'
     address_street: 'Street'
-    address_neighbourhood: 'Neighborhood'
+    address_neighborhood: 'Neighborhood'
     address_city: 'City'
     address_state: 'State'
     address_zip_code: 'Zip Code'

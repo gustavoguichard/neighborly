@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     :address_street,
     :address_number,
     :address_complement,
-    :address_neighbourhood,
+    :address_neighborhood,
     :address_city,
     :address_state,
     :address_zip_code,

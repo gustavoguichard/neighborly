@@ -25,7 +25,7 @@ class Reports::ContributionReportsForProjectOwnersController < Reports::BaseCont
         user_email as "#{I18n.t('contribution_report_to_project_owner.user_email')}",
         payment_method as "#{I18n.t('contribution_report_to_project_owner.payment_method')}",
         street as "#{I18n.t('contribution_report_to_project_owner.address_street')}",
-        neighbourhood as "#{I18n.t('contribution_report_to_project_owner.address_neighbourhood')}",
+        neighborhood as "#{I18n.t('contribution_report_to_project_owner.address_neighborhood')}",
         city as "#{I18n.t('contribution_report_to_project_owner.address_city')}",
         state as "#{I18n.t('contribution_report_to_project_owner.address_state')}",
         zip_code as "#{I18n.t('contribution_report_to_project_owner.address_zip_code')}",
