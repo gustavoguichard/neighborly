@@ -44,7 +44,8 @@ class Projects::ContributionsController < ApplicationController
     create! do |success, failure|
       success.html do
         session[:thank_you_contribution_id] = @contribution.id
-        return redirect_to edit_project_contribution_path(project_id: @project, id: @contribution.id), flash: { notice: nil }
+        flash.delete(:notice)
+        return redirect_to edit_project_contribution_path(project_id: @project, id: @contribution.id)
       end
 
       failure.html do
