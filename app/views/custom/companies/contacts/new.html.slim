@@ -8,20 +8,23 @@
         h4 = t('.summary')
 
   section.form
-    .row
-      = simple_form_for resource, url: companies_contacts_path do |f|
+    = simple_form_for resource, url: companies_contacts_path do |f|
+      .row
         .large-6.columns
           = f.input :first_name
         .large-6.columns
           = f.input :last_name
+      .row
         .large-6.columns
           = f.input :email
         .large-6.columns
           = f.input :phone
+      .row
         .large-6.columns
           = f.input :company_name
         .large-6.columns
           = f.input :company_website
+      .row
         .large-12.columns
           = f.input :message
         .large-12.columns
