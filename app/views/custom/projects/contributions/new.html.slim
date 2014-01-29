@@ -15,6 +15,10 @@
               = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
             .large-2.small-2.columns
               span.postfix .00
+          .row
+            .large-12.columns.text-center
+                .minimum-value
+                  i = t('.minimum_value')
 
     .row
       .large-8.columns.large-centered
