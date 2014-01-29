@@ -47,6 +47,9 @@ window.Neighborly =
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
 
+    $('nav.top-bar a').click ->
+      this.blur()
+
     $('.button.disabled').click ->
       return false
 
