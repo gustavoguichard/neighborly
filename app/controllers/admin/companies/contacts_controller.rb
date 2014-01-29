@@ -3,6 +3,6 @@ class Admin::Companies::ContactsController < Admin::BaseController
   actions :index, :show
 
   def collection
-    @contacts ||= apply_scopes(end_of_association_chain).page(params[:page])
+    @contacts ||= apply_scopes(end_of_association_chain).order('created_at desc').page(params[:page])
   end
 end
