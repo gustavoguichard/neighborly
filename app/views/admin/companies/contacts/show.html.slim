@@ -1,0 +1,34 @@
+- @title = t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      h2 = @title
+      p
+        i = t('.created_at', date: l(resource.created_at, format: :long))
+
+      strong = "#{t('.first_name')}: "
+      p = resource.first_name
+
+      strong = "#{t('.last_name')}: "
+      p = resource.last_name
+
+      strong = "#{t('.email')}: "
+      p = resource.email
+
+      - if resource.phone.present?
+        strong = "#{t('.phone')}: "
+        p = resource.phone
+
+      strong = "#{t('.company_name')}: "
+      p = resource.company_name
+
+      - if resource.company_website.present?
+        strong = "#{t('.company_website')}: "
+        p = resource.company_website
+
+      - if resource.message.present?
+        strong = "#{t('.message')}: "
+        p = resource.message
+      
+      = link_to t('.back'), :back, class: 'button'

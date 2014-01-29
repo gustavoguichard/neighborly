@@ -199,6 +199,10 @@ Catarse::Application.routes.draw do
       resources :funding_raised_per_project_reports, only: [ :index ]
       resources :statistics, only: [ :index ]
     end
+
+    namespace :companies do
+      resources :contacts, only: [:index, :show]
+    end
   end
 
   namespace :companies do
