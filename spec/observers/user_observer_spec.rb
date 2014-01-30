@@ -22,4 +22,14 @@ describe UserObserver do
     end
   end
 
+  describe "#after_save" do
+    before do
+      @user = create(:user)
+      expect_any_instance_of(User).to receive(:update_completeness_progress!)
+      @user.name = 'test'
+    end
+
+    it { @user.save }
+  end
+
 end

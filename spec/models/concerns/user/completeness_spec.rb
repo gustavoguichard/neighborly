@@ -28,4 +28,11 @@ describe User::Completeness do
     end
   end
 
+  describe '#update_completeness_progress' do
+    let(:user) { create(:user, name: 'Some name', profile_type: 'personal') }
+
+    before { user.update_completeness_progress! }
+    it { expect(user.reload.completeness_progress).to_not eq 0 }
+  end
+
 end
