@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'state_machine'
 class User < ActiveRecord::Base
+  include User::Completeness
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
