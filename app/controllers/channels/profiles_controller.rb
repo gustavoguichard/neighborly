@@ -13,6 +13,6 @@ class Channels::ProfilesController < Channels::BaseController
   end
 
   def resource
-    @profile ||= channel
+    @profile ||= Channel.find_by_permalink!(request.subdomain.to_s)
   end
 end
