@@ -37,6 +37,29 @@ en:
         total_subscribers:
           title: 'Total Followers'
           hint: 'Number of Followers'
+    companies:
+      contacts:
+        index:
+          menu: 'Contacts'
+          title: 'Companies Contacts'
+          first_name: 'First Name'
+          last_name: 'Last Name'
+          email: 'Email Address'
+          company_name: 'Company Name'
+          created_at: 'Created at'
+          no_records: 'No contacts yet'
+          details: 'Details'
+        show:
+          title: 'Companies Contact - Details'
+          first_name: 'First Name'
+          last_name: 'Last Name'
+          phone: 'Phone'
+          email: 'Email Address'
+          company_name: 'Company Name'
+          company_website: 'Company Website'
+          message: 'Message'
+          created_at: 'Contact sent at %{date}'
+          back: 'Back'
     tags:
       index:
         menu: 'Tags'

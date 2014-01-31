@@ -33,7 +33,7 @@ Catarse::Application.routes.draw do
   end
 
   # Channels
-  constraints subdomain: /^(?!www|secure|test|local|staging)(\w+)/ do
+  constraints subdomain: /^(?!www|secure|test|local|staging|neighborly|neighborly-staging)(\w+)/ do
     namespace :channels, path: '' do
       get '/', to: 'profiles#show', as: :profile
       resources :channels_subscribers, only: [:index, :create, :destroy]
@@ -198,6 +198,10 @@ Catarse::Application.routes.draw do
       resources :contribution_reports, only: [ :index ]
       resources :funding_raised_per_project_reports, only: [ :index ]
       resources :statistics, only: [ :index ]
+    end
+
+    namespace :companies do
+      resources :contacts, only: [:index, :show]
     end
   end
 

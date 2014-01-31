@@ -1,0 +1,32 @@
+- @title = t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      .data-table
+        = paginate collection
+        - if collection.empty?
+          = t('.no_records')
+        - else
+          table
+            thead
+              tr
+                th = t('.first_name')
+                th = t('.last_name')
+                th = t('.company_name')
+                th = t('.email_address')
+                th = t('.created_at')
+                th
+            tbody
+              - collection.each do |contact|
+                tr id=contact.id
+                  td = contact.first_name
+                  td = contact.last_name
+                  td = contact.company_name
+                  td = contact.email
+                  td = l contact.created_at, format: :long
+                  td
+                    .text-right
+                      = link_to t('.details'), admin_companies_contact_path(contact), class: 'button tiny'
+
+        = paginate collection
