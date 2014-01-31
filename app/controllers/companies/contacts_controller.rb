@@ -5,7 +5,7 @@ class Companies::ContactsController < ApplicationController
 
   def create
     create! do
-      flash[:notice] = { message: t('controllers.companies.contacts.create.success'), dismissible: false }
+      flash[:success] = { message: t('controllers.companies.contacts.create.success'), dismissible: false }
       return redirect_to companies_contact_path
     end
   end

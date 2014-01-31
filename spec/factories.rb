@@ -164,5 +164,12 @@ FactoryGirl.define do
     user_id 1
     uid "MyText"
   end
+
+  factory :company_contact do
+    first_name 'First'
+    last_name 'Last'
+    email 'some@email.com'
+    company_name 'Test'
+  end
 end
 

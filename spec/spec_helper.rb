@@ -107,8 +107,6 @@ RSpec.configure do |config|
     ProjectObserver.any_instance.stub(:after_create)
     UserObserver.any_instance.stub(:after_create)
     Project.any_instance.stub(:download_video_thumbnail)
-    CatarseMailchimp::API.stub(:subscribe)
-    CatarseMailchimp::API.stub(:unsubscribe)
     Notification.stub(:notify)
     Notification.stub(:notify_once)
     Configuration[:base_domain] = 'localhost'
