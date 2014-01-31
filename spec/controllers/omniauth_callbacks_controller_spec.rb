@@ -76,7 +76,7 @@ describe OmniauthCallbacksController do
       describe "assigned user" do
         subject{ assigns(:auth).user }
         its(:name){ should == "Foo" }
-        it { subject.authorizations.should have(1).item }
+        it { subject.authorizations.reload.should have(1).item }
       end
 
       describe 'update social info' do
