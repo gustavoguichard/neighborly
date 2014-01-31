@@ -3,6 +3,8 @@ require 'spec_helper'
 describe SubscriberReport do
   let(:subscriber){ SubscriberReport.first }
   before(:all) do
+    CatarseMailchimp::API.stub(:subscribe).and_return(true)
+    CatarseMailchimp::API.stub(:unsubscribe).and_return(true)
     Configuration[:email_contact] = 'foo@bar.com'
     Configuration[:company_name] = 'Foo Bar Company'
     @channel = create(:channel)
