@@ -1,46 +1,7 @@
-####
+###
 # Task to manage the application users
 ##
 namespace :users do
-
-###
-# Syncs users with newsletter
-# usage: rake users:sync_with_mailee
-##
-  desc 'This task will sync the users with newsletter = true with Mailee.'
-  task :sync_with_mailee => :environment do
-    print "Synchronizing contacts..."
-    User.where(:newsletter => true).each do |user|
-      user.update_attribute :newsletter, true
-    end
-    puts "OK!"
-  end
-
-  ###
-  # Shows all entries in the configuration table
-  # usage: rake users:show
-  ##
-  desc "Shows all entries in the configuration table"
-  task :show => :environment do
-
-    puts
-    puts '============================================='
-    puts ' Application Users'
-    puts '---------------------------------------------'
-
-    User.all.each do |conf|
-      a = conf.attributes
-      print "\nname: #{a['name']}"
-      print "\n   nickname: #{a['nickname']}"
-      print "\n   email: #{a['email']}"
-      print "\n   admin: #{a['admin']}"
-      puts
-    end
-
-    puts '---------------------------------------------'
-    puts 'Done!'
-  end
-
   ###
   # Sets user as administrator
   # usage: rake users:admin[email]
