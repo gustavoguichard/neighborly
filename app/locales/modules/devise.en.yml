@@ -42,6 +42,7 @@ en:
       updated: "You updated your account successfully."
     sessions:
       signed_in: "Howdy, neighbor!"
+      signed_in_custom: 'Howdy, neighbor! Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       signed_out: "Bye neighbor. Safe travels, happy trails."
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
