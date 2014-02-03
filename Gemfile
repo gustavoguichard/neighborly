@@ -26,9 +26,9 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '2fa23c561073cc8c3e4177047cde007ae5261558'
-gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: 'f5c6f32b857c5e651c55d4713d779100c3c10e4f'
-gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: 'd2382b1c7c3cb5f230b901776aa08fe827acce98'
+gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '1297c623f0f3b52551cead50e939dd961a0401ad'
+gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: '9f0988707dcb66b169b9094ad5b603c8844453bf'
+gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: '30c36c2b88db0495722f45e6e1c4e6db90f8bd9d'
 gem "authorize-net", "~> 1.5.2"
 
 # Decorators
@@ -133,7 +133,7 @@ gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
 gem 'zurb-foundation', '~> 4.3.2'
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.2.0'
 gem 'nprogress-rails'
 gem 'pjax_rails'
 gem 'initjs', '~> 2.0.0'

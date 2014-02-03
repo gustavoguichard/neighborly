@@ -1,0 +1,9 @@
+- content_for :page_content do
+  .row
+    - collection.each do |contribution|
+      = render partial: 'projects/project', locals: { project: contribution.project, contribution: contribution }
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'users/edit'

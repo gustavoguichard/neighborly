@@ -58,10 +58,10 @@
             = render 'projects/share', embed: false
           .large-2.columns.pledged
             p = "#{@project.display_pledged} (#{@project.progress}%)"
-          .large-2.columns.backers
+          .large-2.columns.contributions
             p
               i.icon-et-user
-              = t('.status-bar.total_backers', value: @project.total_backers)
+              = t('.status-bar.total_contributions', value: @project.total_contributions)
           .large-2.columns.time-remaining
             p
               i.icon-et-clock
@@ -75,7 +75,7 @@
               span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
           - else
             .large-3.columns.contribute
-              = link_to t('.status-bar.contribute'), new_project_backer_url(@project), class: 'button small'
+              = link_to t('.status-bar.contribute'), new_project_contribution_url(@project), class: 'button small'
 
   .row.page-main-content
     section.large-9.columns.main
@@ -90,10 +90,10 @@
             = t('.tabs.updates')
             span.count=" #{@project.updates.size}"
 
-        - if @project.total_backers > 0
-          = tab_link_to project_backers_path(@project) do
-            = t('.tabs.backers')
-            span.count=" #{@project.total_backers}"
+        - if @project.total_contributions > 0
+          = tab_link_to project_contributions_path(@project) do
+            = t('.tabs.contributions')
+            span.count=" #{@project.total_contributions}"
 
         = tab_link_to comments_project_path(@project) do
           = t('.tabs.comments')
@@ -144,7 +144,7 @@
     aside.large-3.columns.sidebar
       .call-to-action
         - if @project.online?
-          = link_to t('.contribute'), new_project_backer_url(@project), class: "button with-icon contribute"
+          = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
         - else
           .alert-box.secondary.status-description
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
@@ -159,17 +159,17 @@
                 h5 = t('.in_partnership_with')
                 = image_tag @project.last_channel.image.large.url
 
-      - if @project.total_backers > 0
+      - if @project.total_contributions > 0
         section.custom.neighbors-behind-this
           .title = t('.neighbors_behind_this')
           .list
-            - for backer in @project.backers.available_to_display.order("RANDOM()").limit(15)
-              - if backer.anonymous
-                = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_backer')
+            - for contribution in @project.contributions.available_to_display.order("RANDOM()").limit(15)
+              - if contribution.anonymous
+                = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_contribution'), class: 'has-tip', data: { tooltip: '' }
               - else
-                = link_to image_tag(backer.user.display_image), user_path(backer.user), tite: backer.user.display_name
+                = link_to image_tag(contribution.user.display_image), user_path(contribution.user), title: contribution.user.display_name, class: 'has-tip', data: { tooltip: '' }
           .more
-            = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
+            = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 

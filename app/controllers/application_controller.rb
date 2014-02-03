@@ -23,15 +23,15 @@ class ApplicationController < ActionController::Base
   #
   # TODO: REFACTOR
   include ActionView::Helpers::NumberHelper
-  def total_with_fee(backer, payment_method)
+  def total_with_fee(contribution, payment_method)
     if payment_method == 'paypal'
-      value = (backer.value * 1.029)+0.30
+      value = (contribution.value * 1.029)+0.30
     elsif payment_method == 'credit_card_net'
-      value = (backer.value * 1.029)+0.30
+      value = (contribution.value * 1.029)+0.30
     elsif payment_method == 'echeck_net'
-      value = (backer.value * 1.010)+0.30
+      value = (contribution.value * 1.010)+0.30
     else
-      value = backer.value
+      value = contribution.value
     end
     number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
   end

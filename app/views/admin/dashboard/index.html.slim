@@ -13,21 +13,21 @@
       .row.collapse
         .large-6.small-6.columns
           .box
-            .title = t('.total_backs.title')
-            p = @statistics.total_backs
-            .hint = t('.total_backs.hint')
+            .title = t('.total_contributions.title')
+            p = @statistics.total_contributions
+            .hint = t('.total_contributions.hint')
 
         .large-6.small-6.columns
           .box
-            .title = t('.total_backers.title')
-            p = @statistics.total_backers
-            .hint = t('.total_backers.hint')
+            .title = t('.total_contributors.title')
+            p = @statistics.total_contributors
+            .hint = t('.total_contributors.hint')
 
         .large-6.small-6.columns
           .box
-            .title = t('.total_backed.title')
-            p = number_to_currency @statistics.total_backed
-            .hint = t('.total_backed.hint')
+            .title = t('.total_contributed.title')
+            p = number_to_currency @statistics.total_contributed
+            .hint = t('.total_contributed.hint')
 
         .large-6.small-6.columns
           .box
@@ -67,8 +67,8 @@
 
         .large-12.columns
           .box
-            .title = t('admin.statistics.backers_by_week.title')
-            p = line_chart BackersByPeriod.chart
+            .title = t('admin.statistics.contributions_by_week.title')
+            p = line_chart ContributionsByPeriod.chart
         .large-12.columns
           .box
             .title = t('admin.statistics.projects_by_week.title')

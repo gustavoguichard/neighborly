@@ -9,7 +9,7 @@
             th= 'name'
             th= 'pleged'
             th= 'deadline'
-            th= 'total of backers'
+            th= 'total of contributions'
             th.text-right= 'actions'
         tbody
           - collection.each do |project|
@@ -22,7 +22,7 @@
               td
                 = "#{project.display_pledged} / #{project.display_goal}"
               td= project.display_expires_at
-              td= project.total_backers
+              td= project.total_contributions
               td.text-right
                 = link_to edit_project_path(project), class: 'button tiny' do
                   i.icon-et-pencil

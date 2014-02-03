@@ -1,0 +1,51 @@
+- contribution = @notification.contribution
+br
+|Howdy, #{contribution.user.name}!
+br
+br
+|Thanks to you and #{contribution.project.total_contributions - 1} other supporters, #{link_to(contribution.project.name, "#{Configuration[:base_url]}/projects/#{contribution.project.to_param}")} was successfully funded on #{Configuration[:company_name]}. Together, you raised #{contribution.project.display_pledged}, totalling #{contribution.project.progress}% of the goal!
+br/
+br/
+|Hang tight - you don't need to do anything for now. #{contribution.project.user.display_name} will follow up with you soon. If you chose a reward that requires additional information, the project owner will follow up with you directly.
+br
+br
+|Meanwhile, share this success with the world!
+br
+br
+- fb_img = "<img src=\"#{Configuration[:base_url]}/assets/mails/facebook-icon.png\" title='Facebook' class='social' />".html_safe
+= raw link_to(fb_img, "http://www.facebook.com/share.php?u=#{project_url(contribution.project)}" , target: :blank)
+- twitter_img = "<img src='#{Configuration[:base_url]}/assets/mails/twitter-icon.png' title='Twitter' class='social' />".html_safe
+= raw link_to(twitter_img,"http://twitter.com/?status=#{"Success! I helped greenlight #{contribution.project.name} on @#{Configuration[:twitter_username]}! #{project_url(contribution.project)}"}", target: :blank)
+br
+br
+br
+|Important information about your contribution:
+br
+br
+|Contribution Amount: 
+strong #{number_to_currency contribution.value, precision: 0}
+br
+br
+- if contribution.reward
+  |Reward Selected: 
+  strong #{number_to_currency contribution.reward.minimum_value, precision: 0}
+  |  &mdash; #{contribution.reward.description}
+  br
+  br
+|Contribution Date: 
+strong #{l contribution.created_at.to_date, format: :long}
+br
+br
+|Contribution Key: 
+strong #{contribution.key}
+br
+br
+|If you wish to contact #{contribution.project.user.name}, please email  #{mail_to contribution.project.user.email}
+br
+br
+|If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.
+br
+br
+|High fives all around,
+br
+|The #{Configuration[:company_name]} Team

@@ -41,7 +41,7 @@
           | &nbsp;
           = pluralize_without_number(@projects.count, t('words.project_singular'), t('words.project_plural')).downcase
       - if @projects.empty?
-        = t('.no_backers')
+        = t('.no_contributions')
       - else
         table
           thead
@@ -51,7 +51,7 @@
               th= t('channels.admin.table.user_id')
               th= t('channels.admin.table.goal')
               th= t('channels.admin.table.pledged')
-              th= t('channels.admin.table.total_backs')
+              th= t('channels.admin.table.total_contributions')
               th= t('channels.admin.table.recommended')
               th= t('channels.admin.table.online_date')
               th= t('channels.admin.table.expires_at')
@@ -65,7 +65,7 @@
                 td= best_in_place [:channels, :admin, project], :user_id, method: :put, type: :input
                 td= best_in_place [:channels, :admin, project], :goal, method: :put, type: :input, display_as: :display_goal
                 td= "#{project.display_pledged} (#{project.progress}%)"
-                td= project.total_backers
+                td= project.total_contributions
                 td= best_in_place [:channels, :admin, project], :recommended, method: :put, type: :checkbox, collection: [t('words._no'), t('words._yes')]
                 td= project.online_date.to_date if project.online_date
                 td= project.display_expires_at

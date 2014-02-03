@@ -1,5 +1,5 @@
 - collection.rank(:row_order).each do |reward|
-  div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-backer-path=new_project_backer_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? && !reward.soon? } #{ 'sortable' if can?(:update, reward) } #{ 'soon' if reward.soon? }"]
+  div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? && !reward.soon? } #{ 'sortable' if can?(:update, reward) } #{ 'soon' if reward.soon? }"]
     header.title
       = t('.reward_title', minimum: reward.display_minimum).html_safe
       - if can?(:update, reward)
@@ -11,7 +11,7 @@
         = image_tag 'loading.gif'
       .form-content.hide
 
-    - if reward.maximum_backers
+    - if reward.maximum_contributions
       - if reward.sold_out?
         .sold-out
           .wrapper
@@ -19,13 +19,13 @@
               i.icon-et-cancel-squared
               br/
               = t('.sold_out')
-      .maximum-backers
+      .maximum-contributions
         i.icon-et-alert
         = reward.display_remaining
 
-        - in_time_to_confirm = reward.backers.with_state('waiting_confirmation').count
+        - in_time_to_confirm = reward.contributions.with_state('waiting_confirmation').count
         - if in_time_to_confirm > 0
-          .pending = t('.backs_to_confirm', count: in_time_to_confirm)
+          .pending = t('.contributions_to_confirm', count: in_time_to_confirm)
 
     .title = reward.title
     .description = reward.display_description

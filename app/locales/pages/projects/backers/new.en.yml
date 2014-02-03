@@ -1,8 +1,0 @@
-en:
-  projects:
-    backers:
-      new:
-        title: "Contribute to this campaign"
-        subtitle: "Select your amount or select your reward."
-        contribute: "Contribute to <strong>%{project_name}</strong>"
-        submit: 'Review & Proceed'

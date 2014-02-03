@@ -53,15 +53,15 @@
       
 
   section.content.projects
-    - if @user.total_backs > 0
+    - if @user.total_contributions > 0
       .row
         .large-12.columns
-          h3.subtle-title.ivebacked= t('.ive_backed', number: @user.total_backs)
+          h3.subtle-title.ive_contributed= t('.ive_contributed', number: @user.total_contributions)
           .row
-            = render @user.backed_projects, columns: "large-4"
+            = render @user.contributed_projects, columns: "large-4"
     - if @user.total_led > 0
       .row
         .large-12.columns
-          h3.subtle-title.ivebacked= t('.ive_led', number: @user.total_led)
+          h3.subtle-title.ive_led= t('.ive_led', number: @user.total_led)
           .row
             = render @user.projects_led, columns: "large-4"

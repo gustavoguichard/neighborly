@@ -71,7 +71,7 @@
                   a data-sort="pt.progress" href='#'= t('.pledged')
                   span.sort-order
                 th
-                  a data-sort="pt.total_backers" href='#'= t('.total_backs')
+                  a data-sort="pt.total_contributions" href='#'= t('.total_contributions')
                   span.sort-order
                 th= t('.recommended')
                 th= t('.featured')
@@ -98,7 +98,7 @@
                   td= best_in_place [:admin, project], :user_id, method: :put, type: :input
                   td= best_in_place [:admin, project], :goal, method: :put, type: :input, display_as: :display_goal
                   td= "#{project.display_pledged} (#{project.progress}%)"
-                  td= project.total_backers
+                  td= project.total_contributions
                   td.checkbox= best_in_place [:admin, project], :recommended, method: :put, type: :checkbox, collection: [t('words._no'), t('words._yes')]
                   td.checkbox= best_in_place [:admin, project], :featured, method: :put, type: :checkbox, collection: [t('words._no'), t('words._yes')]
                   td.checkbox= best_in_place [:admin, project], :home_page, method: :put, type: :checkbox, collection: [t('words._no'), t('words._yes')]
@@ -120,8 +120,8 @@
                       i.icon-et-down-dir
                     ul[id="dropdown-#{project.id}" data-dropdown-content class="f-dropdown"]
                       li
-                        = link_to populate_backer_admin_project_path(project) do
-                          = t('.populate_backer')
+                        = link_to populate_contribution_admin_project_path(project) do
+                          = t('.populate_contribution')
                       - if project.can_push_to_trash?
                         li
                           = link_to admin_project_path(project), method: :delete, data: {confirm: t('admin.confirm_dialog')} do

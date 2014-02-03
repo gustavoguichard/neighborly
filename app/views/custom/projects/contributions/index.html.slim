@@ -1,0 +1,16 @@
+- content_for :page_content do
+  = initjs_tag app_name: 'Neighborly', partial: true
+  .contributions-page[data-path=project_contributions_path(@project)]
+    .row
+      .list
+        - if collection.any?
+          = render collection
+        - else
+          p = t('.empty')
+
+    .contributions-loading.loading= image_tag "loading.gif"
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'

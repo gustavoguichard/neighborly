@@ -1,0 +1,40 @@
+.large-6.small-6.columns.contribution-wrapper
+  .row
+    .large-12.columns
+      .contribution[class="#{contribution.user.profile_type} #{'with-note' if contribution.short_note.present?}"]
+        .row.collapse
+          .columns[class="large-#{ contribution.user.organization? ? 7 : 4 }"]
+            - if contribution.anonymous
+              figure.profile-image.personal
+                = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
+            - else
+              = link_to user_path(contribution.user) do
+                - if contribution.user.organization?
+                  = contribution.user.display_image_html width: 181, height: 85
+                - else
+                  = contribution.user.display_image_html width: 85, height: 85
+          .columns[class="large-#{ contribution.user.organization? ? 5 : 8 }"]
+            .name
+              - if contribution.anonymous
+                = " #{t('.anonymous_contribution')}"
+              - else
+                = link_to contribution.user.display_name, user_path(contribution.user)
+            .infos
+              - if current_user and (current_user == @project.user or current_user.admin)
+                .custom-tooltip
+                  = link_to '#' do
+                    i.icon-et-info-circled
+                  .tooltip-content.hide
+                    .reward
+                      .value = contribution.display_value
+                      - if contribution.reward
+                        .user-reward
+                          = contribution.reward.display_minimum
+                          |  -
+                          = contribution.reward.description
+                      - else
+                        = t('.no_reward')
+                      .user_email = mail_to contribution.user.email
+
+              - if contribution.short_note.present?
+                p = contribution.short_note

@@ -1,8 +1,8 @@
--backer = @notification.backer
-|Howdy, <strong>#{backer.user.display_name}</strong>!
+-contribution = @notification.contribution
+|Howdy, <strong>#{contribution.user.display_name}</strong>!
 br
 br
-|Your contribution to #{backer.project.name} is being <strong>processed</strong> on <strong>#{backer.payment_method}</strong>.
+|Your contribution to #{contribution.project.name} is being <strong>processed</strong> on <strong>#{contribution.payment_method}</strong>.
 br
 br
 |This is a security measure in order to prevent fraud and no further action is currently required. However, for some payments, the processor will need to contact you directly in order to approve the payment.
@@ -14,7 +14,7 @@ br
 |We will notify you once your payment has been confirmed.
 br
 |Contribution Key: 
-strong #{backer.key}
+strong #{contribution.key}
 br
 br
 |High fives,

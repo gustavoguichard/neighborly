@@ -1,0 +1,48 @@
+- content_for :title, t('.title')
+.admin
+  .row
+    = render 'layouts/admin/menu'
+    section.content.large-12.columns
+      h3 = "Pre populate contributions on #{resource.name}"
+
+      = form_tag populate_admin_project_path, :multipart => true do
+        fieldset.first
+          legend
+            | Create a new guest user
+          .input
+            = label_tag 'user[name]', 'Name'
+            = text_field_tag 'user[name]'
+          .input
+            = label_tag 'user[profile_type]', 'Profile Type'
+            .row
+              label.large-2.columns
+                = radio_button_tag 'user[profile_type]', 'personal', true
+                | &nbsp;
+                | Person
+                | &nbsp;
+              label.large-10.columns
+                = radio_button_tag 'user[profile_type]', 'organization'
+                | &nbsp;
+                | Organization (Company, Foundation, etc...)
+          .input
+            = label_tag 'user[uploaded_image]', 'Image'
+            = file_field_tag 'user[uploaded_image]'
+        fieldset.last
+          legend
+            | Or add this contribution a registered user
+          .input
+            = label_tag 'user[id]', 'User ID'
+            = text_field_tag 'user[id]'
+        .clearfix
+        hr
+        .input
+          = label_tag 'contribution[reward_id]', 'Reward value'
+          = select_tag 'contribution[reward_id]', options_from_collection_for_select(resource.rewards.not_soon, "id", "display_minimum"), :include_blank => true
+        .input
+          = label_tag 'contribution[value]', 'Value'
+          = text_field_tag 'contribution[value]'
+        .input
+          = label_tag 'contribution[anonymous]', 'Anonymous'
+          = check_box_tag 'contribution[anonymous]', true, checked: true
+        .input
+          = submit_tag 'Submit', class: 'button'

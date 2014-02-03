@@ -1,0 +1,40 @@
+.contribution-page
+  .hero
+    h3
+      text-align: center
+      font-weight: bold
+
+    .status
+      padding-top: +emCalc(10px)
+      .pledged
+        font-size: 200%
+        padding-top: +emCalc(10px)
+      .progress
+        margin-top: +emCalc(10px)
+        background: $secondary-color
+        +radius(10px)
+        height: +emCalc(20px)
+        span
+          display: block
+          background: white
+          height: +emCalc(20px)
+          +radius(10px)
+
+  .share
+    @extend .white
+    padding: +emCalc(50px, 0)
+    .buttons
+      padding-top: +emCalc(30px)
+    .button
+      width: 100%
+
+  .recommended-projects
+    margin-top: +emCalc(50px)
+
+    [class*="column"]:last-child
+      float: left
+
+  .recommended-projects, .share
+    h3
+      text-align: center
+

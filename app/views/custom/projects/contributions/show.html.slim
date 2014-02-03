@@ -1,0 +1,31 @@
+- content_for :title, t('.title')
+.contribution-page
+  = hero_header_tag @project do
+    .row
+      .large-10.columns.large-centered
+        h3 = t('.thank_you', project_name: @project.name)
+        .row
+          .large-8.columns.large-centered
+            .status
+              .progress.round
+                span.meter[style="width: #{@project.display_progress}%"]
+              .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
+
+  section.share
+    .row
+      .large-12.columns
+        h3 = t('.share', project_owner_name: @project.user.display_name).html_safe
+
+        .row
+          .large-6.small-6.columns.large-centered.small-centered.buttons
+            .row
+              .large-6.small-6.columns
+                = link_to t('.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+              .large-6.small-6.columns
+                = link_to t('.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.twitter-text', value: @contribution.display_value, name: @project.name, project_url: project_url(@project)))}", class: 'button with-icon twitter', target: :blank
+
+  section.recommended-projects
+    .row
+      h3 = t('.recommended_projects')
+      - @contribution.user.recommended_projects.limit(4).each do |project|
+        = render partial: 'projects/project', locals: {project: project }

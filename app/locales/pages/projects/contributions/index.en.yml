@@ -1,0 +1,8 @@
+en:
+  projects:
+    contributions:
+      index:
+        empty: "No contributions yet. Be the first!"
+      contribution:
+        anonymous_contribution: "Anonymous neighbor"
+        no_reward: "This neighbor did not select a reward"

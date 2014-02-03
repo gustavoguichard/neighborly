@@ -1,8 +1,0 @@
-en:
-  projects:
-    backers:
-      index:
-        empty: "No contributions yet. Be the first!"
-      backer:
-        anonymous_backer: "Anonymous neighbor"
-        no_reward: "This neighbor did not select a reward"

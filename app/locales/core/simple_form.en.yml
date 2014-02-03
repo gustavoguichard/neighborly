@@ -79,7 +79,7 @@ en:
         tag_list: 'Keywords'
         new:
           category_id: 'Choose Category'
-      backer:
+      contribution:
         new:
           anonymous: 'I want to contribute anonymously.'
           short_note: 'Optional: Add a short note to accompany your contribution. This will be displayed with your name on the "Neighbors" tab.'
@@ -91,7 +91,7 @@ en:
           category: "Which category best describes your project?"
           expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days."
           goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
-          first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
+          first_contributions: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
           headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
           name: "Be concise and objective. 8 words or less."
           uploaded_image: "Upload a 512x400 image(.jpg)."

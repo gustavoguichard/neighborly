@@ -1,0 +1,33 @@
+- contribution = @notification.contribution
+|Greetings, #{contribution.user.name}.
+br
+br
+|Unfortunately, the All or None project #{link_to(contribution.project.name, "#{Configuration[:base_url]}/projects/#{contribution.project.to_param}")} did not reach its goal, and wasn't funded on #{Configuration[:company_name]}. As a contributor to this project, you automatically received #{contribution.display_value} in #{Configuration[:company_name]} credits to back other projects.
+br
+br
+|You can #{link_to "explore more projects", "#{Configuration[:base_url]}/explore"} here. Some projects we think might interest you:
+br
+br
+-contribution.user.recommended_projects.limit(3).each do |project|
+  |#{link_to(project.name, "#{Configuration[:base_url]}/projects/#{project.to_param}")}
+  br
+  |#{project.headline}
+  br
+  br
+|If you prefer, you can request a refund by clicking #{link_to("here", "#{Configuration[:base_url]}/users/#{contribution.user.to_param}#credits")}. You will need to log in to your account, and ask for a refund of credits there.
+br
+br
+|If you choose to be refunded, please remember that, as stated in the #{link_to(" #{Configuration[:company_name]} Terms & Conditions","#{Configuration[:base_url]}/terms")}, the refund amount will exclude any payment fees incurred with your transaction. If you have any questions about the process, please send an email to #{mail_to Configuration[:email_payments]} with the subject “Refund of credits”.
+br
+br
+|If, for any reason, you want to contact #{contribution.project.user.display_name}, please send an email directly to #{mail_to contribution.project.user.email}. If you have any questions, please review our #{link_to('FAQ',"#{Configuration[:base_url]}/faq")} or send an email to #{mail_to Configuration[:email_payments]}.
+br
+br
+|Thank you,
+br
+|The #{Configuration[:company_name]} Team
+br
+br
+br
+br
+|Back key: #{contribution.key}

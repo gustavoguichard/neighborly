@@ -45,7 +45,7 @@ module Catarse
     end
 
     config.active_record.observers = [
-      :backer_observer, :user_observer,
+      :contribution_observer, :user_observer,
       :update_observer, :project_observer,
       :payment_notification_observer, :company_contact_observer
     ]

@@ -22,6 +22,6 @@ class PaymentEngines
   end
 
   def self.find_payment filter
-    Backer.where(filter).first
+    Contribution.where(filter).first
   end
 end

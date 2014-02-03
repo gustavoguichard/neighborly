@@ -1,0 +1,37 @@
+- contribution = @notification.contribution
+|Howdy, #{contribution.user.name}!
+br
+br
+|Unfortunately, the project #{link_to(contribution.project.name, "#{Configuration[:base_url]}/projects/#{contribution.project.to_param}")} did not reach its goal and will not be funded on #{Configuration[:company_name]}.
+br
+br
+|We see that you began your contribution process a few days ago. If you did <strong>not</strong> complete the transaction process, please disregard this email.
+br
+br
+| If you completed your transaction but did not receive an email confirmation from Neighbor.ly, you should receive one within a few days.
+br
+
+br
+|When we've received confirmation of your contribution, you will receive credits in the amount of #{contribution.display_value} that can be used toward any project on Neighbor.ly.
+br
+br
+|If you prefer, you may request a refund of your contribution by clicking #{link_to("here", "#{Configuration[:base_url]}/users/#{contribution.user.to_param}#credits")}.
+|  If you have any problems with this process, please email #{mail_to Configuration[:email_payments]} with the subject "Problem With Refund"
+br
+br
+|When requesting a refund of a payment made with a credit card, please keep in mind, as laid out in our #{link_to 'Terms of Use', "#{Configuration[:base_url]}/terms"}, the amount will be reversed in the next card billing statement. If the contribution was made through e-check, please send an email to #{mail_to Configuration[:email_payments]}.
+br
+br
+|If you for any reason you would like to contact #{contribution.project.user.display_name}, please email them at #{mail_to contribution.project.user.email}.
+br
+br
+|If you have any other questions, please access our #{link_to 'FAQ', "#{Configuration[:base_url]}/faq"}.
+
+br
+|Contribution Key: 
+strong #{contribution.key}
+br
+br
+|High fives,
+br
+|The #{Configuration[:company_name]} Team

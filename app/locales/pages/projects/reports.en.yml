@@ -2,6 +2,6 @@ en:
   projects:
     reports:
       link_reports: 'Download report of '
-      all_backers: 'all contributors'
-      all_backers_without_reward: "All contributors who chose no reward "
+      all_contributions: 'all contributors'
+      all_contributions_without_reward: "All contributors who chose no reward "
       link_reward: 'All contributors who chose this reward '

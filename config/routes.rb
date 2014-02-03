@@ -80,7 +80,7 @@ Catarse::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
 
-  #get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
+  #get "/guidelines_contributions",    to: "static#guidelines_contributions",  as: :guidelines_contributions
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
@@ -90,7 +90,7 @@ Catarse::Application.routes.draw do
   resources :tags, only: [:index]
 
   namespace :reports do
-    resources :backer_reports_for_project_owners, only: [:index]
+    resources :contribution_reports_for_project_owners, only: [:index]
   end
 
   # Temporary
@@ -126,7 +126,7 @@ Catarse::Application.routes.draw do
       end
     end
 
-    resources :backers, controller: 'projects/backers' do
+    resources :contributions, controller: 'projects/contributions' do
       member do
         put 'credits_checkout'
       end
@@ -136,7 +136,7 @@ Catarse::Application.routes.draw do
   resources :users do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
-    resources :backers, controller: 'users/backers', only: [:index] do
+    resources :contributions, controller: 'users/contributions', only: [:index] do
       member do
         get :request_refund
       end
@@ -177,12 +177,12 @@ Catarse::Application.routes.draw do
         put 'reject'
         put 'push_to_draft'
         put 'push_to_soon'
-        get 'populate_backer'
+        get 'populate_contribution'
         post 'populate'
       end
     end
 
-    resources :backers, only: [ :index, :update ] do
+    resources :contributions, only: [ :index, :update ] do
       member do
         put 'confirm'
         put 'pendent'
@@ -195,7 +195,7 @@ Catarse::Application.routes.draw do
     end
 
     namespace :reports do
-      resources :backer_reports, only: [ :index ]
+      resources :contribution_reports, only: [ :index ]
       resources :funding_raised_per_project_reports, only: [ :index ]
       resources :statistics, only: [ :index ]
     end

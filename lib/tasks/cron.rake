@@ -6,10 +6,10 @@ task :cron => :environment do
 end
 
 desc "This tasks should be executed 1x per day"
-task notify_project_owner_about_new_confirmed_backers: :environment do
-  Project.with_backers_confirmed_today.each do |project|
+task notify_project_owner_about_new_confirmed_contributions: :environment do
+  Project.with_contributions_confirmed_today.each do |project|
     Notification.notify_once(
-      :project_owner_backer_confirmed,
+      :project_owner_contribution_confirmed,
       project.user,
       {user_id: project.user.id, project_id: project.id, 'notifications.created_at' => Date.today},
       {project: project}
@@ -17,14 +17,14 @@ task notify_project_owner_about_new_confirmed_backers: :environment do
   end
 end
 
-desc "Move to deleted state all backers that are in pending a lot of time"
-task :move_pending_backers_to_trash => [:environment] do
-  Backer.where("state in('pending') and created_at + interval '6 days' < current_timestamp").update_all({state: 'deleted'})
+desc "Move to deleted state all contributions that are in pending a lot of time"
+task :move_pending_contributions_to_trash => [:environment] do
+  Contribution.where("state in('pending') and created_at + interval '6 days' < current_timestamp").update_all({state: 'deleted'})
 end
 
-desc "Cancel all waiting_confirmation backers that is passed 4 weekdays"
-task :cancel_expired_waiting_confirmation_backers => :environment do
-  Backer.can_cancel.update_all(state: 'canceled')
+desc "Cancel all waiting_confirmation contributions that is passed 4 weekdays"
+task :cancel_expired_waiting_confirmation_contributions => :environment do
+  Contribution.can_cancel.update_all(state: 'canceled')
 end
 
 desc "Send notification about credits 1 month after the project failed"
@@ -120,9 +120,9 @@ end
 
 desc "Checking echeck payments"
 task :check_echeck => [:environment] do
-  Backer.where(%Q{
+  Contribution.where(%Q{
     state <> 'confirmed' AND payment_method = 'eCheckNet' AND payment_id IS NOT NULL
-  }).each do |backer|
+  }).each do |contribution|
     _test = (Configuration[:test_payments] == 'true')
 
     an_login_id = ::Configuration[:authorizenet_login_id]
@@ -130,11 +130,11 @@ task :check_echeck => [:environment] do
     an_gateway = _test ? :sandbox : :production
 
     reporting = AuthorizeNet::Reporting::Transaction.new(an_login_id, an_transaction_key, :gateway => an_gateway)
-    details = reporting.get_transaction_details(backer.payment_id)
+    details = reporting.get_transaction_details(contribution.payment_id)
 
     if details and details.transaction.present?
       transaction = details.transaction
-      backer.confirm! if transaction.status == 'settledSuccessfully'
+      contribution.confirm! if transaction.status == 'settledSuccessfully'
     end
   end
 end
@@ -163,22 +163,22 @@ task :update_routing_numbers => :environment do
   tmp_file.unlink
 end
 
-desc "Fix the payment method from old backers"
-task :fix_payment_method_from_old_backers => :environment do
-  confirmed_backers = Backer.with_state('confirmed')
+desc "Fix the payment method from old contributions"
+task :fix_payment_method_from_old_contributions => :environment do
+  confirmed_contributions = Contribution.with_state('confirmed')
 
-  confirmed_backers.where("
-    backers.payment_token ~* '^EC.*' and lower(backers.payment_method) = lower('MoIP')
+  confirmed_contributions.where("
+    contributions.payment_token ~* '^EC.*' and lower(contributions.payment_method) = lower('MoIP')
   ").update_all(payment_method: 'PayPal')
 
-  confirmed_backers.where("
-    lower(backers.payment_method) = lower('MoIP')
-    and backers.created_at + interval '2 hours' < backers.confirmed_at
+  confirmed_contributions.where("
+    lower(contributions.payment_method) = lower('MoIP')
+    and contributions.created_at + interval '2 hours' < contributions.confirmed_at
   ").update_all(payment_method: 'eCheckNet')
 
-  confirmed_backers.where("
-    lower(backers.payment_method) = lower('MoIP')
-    and backers.created_at + interval '2 hours' > backers.confirmed_at
+  confirmed_contributions.where("
+    lower(contributions.payment_method) = lower('MoIP')
+    and contributions.created_at + interval '2 hours' > contributions.confirmed_at
   ").update_all(payment_method: 'AuthorizeNet')
 
 end
