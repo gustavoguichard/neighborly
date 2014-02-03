@@ -23,13 +23,25 @@ describe UserObserver do
   end
 
   describe "#after_save" do
-    before do
-      @user = create(:user)
-      expect_any_instance_of(User).to receive(:update_completeness_progress!)
-      @user.name = 'test'
+    context 'when profile is complete' do
+      before do
+        @user = create(:user, completeness_progress: 100)
+        expect_any_instance_of(User).to_not receive(:update_completeness_progress!)
+        @user.name = 'test'
+      end
+
+      it { @user.save }
     end
 
-    it { @user.save }
+    context 'when profile is not complete' do
+      before do
+        @user = create(:user, completeness_progress: 50)
+        expect_any_instance_of(User).to receive(:update_completeness_progress!)
+        @user.name = 'test'
+      end
+
+      it { @user.save }
+    end
   end
 
 end

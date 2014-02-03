@@ -11,6 +11,6 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_save(user)
-    user.update_completeness_progress!
+    user.update_completeness_progress! if user.completeness_progress < 100
   end
 end
