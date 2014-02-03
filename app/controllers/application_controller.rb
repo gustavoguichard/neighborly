@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   def needs_confirm_account
     if current_user && !current_user.confirmed?
-      flash[:notice] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+      flash[:notice_confirmation] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
     end
   end
 
