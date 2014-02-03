@@ -42,6 +42,13 @@ task :index_rewards_versions => :environment do
   end
 end
 
+desc "Update user completeness_progress"
+task :update_user_completeness_progress => :environment do
+  User.all.each do |user|
+    puts "USER: #{user.id}"
+    user.update_completeness_progress!
+  end
+end
 
 desc "Create reward title"
 task :create_reward_title => :environment do
