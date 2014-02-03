@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'state_machine'
 class User < ActiveRecord::Base
+  include User::Completeness
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
@@ -38,7 +39,7 @@ class User < ActiveRecord::Base
     :address_street,
     :address_number,
     :address_complement,
-    :address_neighbourhood,
+    :address_neighborhood,
     :address_city,
     :address_state,
     :address_zip_code,

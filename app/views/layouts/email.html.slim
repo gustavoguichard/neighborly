@@ -34,7 +34,7 @@ html
                               td align="left" style="line-height:150%;font-family:Helvetica;font-size:13px;color:#3f4652;padding:40px" valign="top"
                                 h2 style="font-size:22px;line-height:28px;margin:0 0 10px 0"
                                   span style="font-family:arial,helvetica neue,helvetica,sans-serif"
-                                    = message.subject
+                                    = message.subject.html_safe
                                 p dir="ltr" style="padding:0 0 10px 0"
                                  = yield
                     tr

@@ -34,7 +34,7 @@ en:
       updated_not_active: "Your password was changed successfully."
     registrations:
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
-      signed_up: "Welcome! You have signed up successfully."
+      signed_up: 'Welcome to the neighborhood! Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
       signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
       signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
@@ -42,6 +42,7 @@ en:
       updated: "You updated your account successfully."
     sessions:
       signed_in: "Howdy, neighbor!"
+      signed_in_custom: 'Howdy, neighbor! Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       signed_out: "Bye neighbor. Safe travels, happy trails."
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."

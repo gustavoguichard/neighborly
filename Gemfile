@@ -108,12 +108,14 @@ group :development do
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.1'
   gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
+  gem 'awesome_print'
 end
 
 group :test do
@@ -124,7 +126,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara',   '~> 2.1.0'
   gem 'coveralls', require: false
-  gem 'selenium-webdriver', '~> 2.35.1'
+  gem 'selenium-webdriver', '~> 2.39.0'
 end
 
 gem 'sass-rails', '~> 4.0.1'
@@ -136,7 +138,7 @@ gem 'zurb-foundation', '~> 4.3.2'
 gem 'turbolinks', '~> 2.2.0'
 gem 'nprogress-rails'
 gem 'pjax_rails'
-gem 'initjs', '~> 2.0.0'
+gem 'initjs', '~> 2.1.0'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum

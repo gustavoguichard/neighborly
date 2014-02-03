@@ -15,6 +15,10 @@
               = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
             .large-2.small-2.columns
               span.postfix .00
+          .row
+            .large-12.columns.text-center
+                .minimum-value
+                  i = t('.minimum_value')
 
     .row
       .large-8.columns.large-centered
@@ -32,6 +36,7 @@
                       = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
                         .minimum-value
                           = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
+                        .title = reward.title
                         p.description
                           = h reward.description
                         - if reward.sold_out?

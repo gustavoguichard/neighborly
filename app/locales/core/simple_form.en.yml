@@ -51,7 +51,7 @@ en:
         phone_number: 'Phone number'
         address: 'City, State'
         address_street: 'Street Address'
-        address_neighbourhood: 'Neighborhood Name'
+        address_neighborhood: 'Neighborhood Name'
         address_zip_code: 'Zip code'
         other_url: 'Your website'
       project:

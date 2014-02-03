@@ -133,7 +133,7 @@ Catarse::Application.routes.draw do
     end
   end
 
-  resources :users do
+  resources :users, path: 'neighbors' do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
     resources :contributions, controller: 'users/contributions', only: [:index] do
@@ -209,6 +209,9 @@ Catarse::Application.routes.draw do
     get :contact, to: 'contacts#new'
     resources :contacts, only: [:create]
   end
+
+  # Redirect from old users url to the new
+  get "/users/:id", to: redirect('neighbors/%{id}')
 
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:id", to: redirect('projects/%{id}')

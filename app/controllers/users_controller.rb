@@ -54,9 +54,14 @@ class UsersController < ApplicationController
     update! do |success,failure|
       success.html do
         flash[:notice] = update_success_flash_message
+        return redirect_to settings_user_path(@user) if params[:settings]
+        return redirect_to edit_user_path(@user)
       end
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
+        return redirect_to settings_user_path(@user) if params[:settings]
+        @user.build_organization unless @user.organization
+        return render 'edit'
       end
       success.json do
         return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
@@ -65,7 +70,6 @@ class UsersController < ApplicationController
         return render json: { status: :error }
       end
     end
-    return redirect_to params[:settings] ? settings_user_path(@user) : edit_user_path(@user)
   end
 
   def update_password

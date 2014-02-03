@@ -3,10 +3,11 @@ class ApplicationController < ActionController::Base
   include Concerns::ExceptionHandler
   include Concerns::SocialHelpersHandler
 
-  layout :use_catarse_boostrap
+  layout :application
   protect_from_forgery
   before_filter :require_basic_auth
 
+  before_filter :set_return_to, if: -> { !current_user && params[:redirect_to].present? }
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
   helper_method :channel, :referal_link, :total_with_fee
@@ -45,9 +46,16 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def set_return_to
+    if params[:redirect_to].present?
+      session[:return_to] = params[:redirect_to]
+      flash[:devise_error] = t('devise.failure.unauthenticated')
+    end
+  end
+
   def needs_confirm_account
     if current_user && !current_user.confirmed?
-      flash[:notice] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+      flash[:notice_confirmation] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
     end
   end
 
