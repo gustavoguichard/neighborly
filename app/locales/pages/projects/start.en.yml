@@ -1,0 +1,24 @@
+en:
+  projects:
+    start:
+      title: "A collaborative way to build the civic projects you care about"
+      get-started: 'Get Started'
+      steps:
+        first:
+          title: '1. Submit an Idea'
+          description: "The first step of getting started is getting your idea out! We'll review it to make sure it fits."
+        second:
+          title: '2. Plan Your Project'
+          description: "It takes more than an idea, so while we are reviewing, you'll be getting all of your ducks in a row."
+        third:
+          title: '3. Launch Your Campaign'
+          description: "Once your project is approved, you'll ready to go live and start raising money!"
+      who:
+        title: 'Who can run a campaign?'
+        local-governments: 'Local Governments'
+        nonprofits: 'Nonprofits'
+        neighborhood-organizations: 'Neighborhood Organizations'
+        description: "Community improvement shouldn't be limited to any one group or any one geography. Any US resident is welcome to propose a project on Neighbor.ly but campaigns must be owned by a local government, nonprofit, neighborhood organization or other non-governmental organization. This one, simple requirement helps to ensure that the projects you give to  handle your contributions responsibly."
+      work:
+        title: 'A successful campaign takes some work.'
+        subtitle: "Here's what you'll need:"

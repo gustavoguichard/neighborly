@@ -1,0 +1,65 @@
+- content_for :title, t('.title')
+
+.start-page
+  header.hero[data-image-url=image_path('start/hero.jpg')]
+    .row
+      .large-8.columns.large-centered.text-center
+        h2 = t('.title')
+  .white
+    section.steps
+      .row
+        .large-4.columns
+          .large-11.columns.large-centered.rounded-top
+            .step
+              i.icon-et-paper-plane
+              h5 = t('.steps.first.title')
+              p = t('.steps.first.description')
+        .large-4.columns
+          .large-11.columns.large-centered.rounded-top
+            .step
+              i.icon-et-clock
+              h5 = t('.steps.second.title')
+              p = t('.steps.first.description')
+        .large-4.columns
+          .large-11.columns.large-centered.rounded-top
+            .step
+              i.icon-et-rocket
+              h5 = t('.steps.third.title')
+              p = t('.steps.third.description')
+    .row
+      .large-10.columns.large-centered
+        hr
+
+    section.who
+      .row
+        .large-12.columns
+          h2 = t('.who.title')
+        .large-4.columns
+          .large-8.columns.large-centered
+            i.icon-fa-building
+            h5 = t('.who.local-governments')
+        .large-4.columns
+          .large-10.columns.large-centered
+            i.icon-fa-heart
+            h5 = t('.who.nonprofits')
+        .large-4.columns
+          .large-10.columns.large-centered
+            i.icon-fa-home
+            h5 = t('.who.neighborhood-organizations')
+        .large-11.columns.large-centered
+          .row
+            .large-12.columns
+              p = t('.who.description')
+          .row
+            = link_to t('.get-started'), new_project_path, class: 'button large large-5 columns large-centered'
+    .row
+      .large-10.columns.large-centered
+        hr
+
+    section.work
+      .row
+        .large-12.columns
+          h2 = t('.work.title')
+          h3 = t('.work.subtitle')
+      .row
+        .large-4.small-6.columns
