@@ -10,7 +10,7 @@
         p.description = truncate(@profile.description, length: 320)
         .row
           .large-6.columns
-            = link_to t('.submit'), start_path, class: [:button]
+            = link_to t('.submit'), start_path, class: [:button] if @profile.accepts_projects?
           - if resource.has_subscriber?(current_user)
             .large-6.columns
               = link_to t('.unfollow'), channels_subscriber_path, method: :delete, class: [:button, :secondary]
@@ -20,11 +20,12 @@
 
     section.more.animated.fadeIn
       .row
-        .large-3.small-4.columns.submit-your-project
-          h4 = t('.submit_your_project.title')
-          p = t('.submit_your_project.text')
-          = link_to t('.submit_your_project.button'), start_path, class: 'button'
-        .large-9.small-8.columns
+        - if @profile.accepts_projects?
+          .large-3.small-4.columns.submit-your-project
+            h4 = t('.submit_your_project.title')
+            p = t('.submit_your_project.text')
+            = link_to t('.submit_your_project.button'), start_path, class: 'button'
+        .small-8.columns[class="large-#{ @profile.accepts_projects? ? '9' : '12' }"]
           .about-us
             h4 = t('.about.title')
             p = @profile.how_it_works_html.html_safe if @profile.how_it_works_html

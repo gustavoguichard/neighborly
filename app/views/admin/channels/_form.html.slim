@@ -19,7 +19,12 @@
               = uf.input :password, as: :password
 
 
-  = form.input :permalink, as: :string
+  .row
+    .large-10.columns
+      = form.input :permalink, as: :string
+    .large-2.columns
+      br/
+      = form.input :accepts_projects
   = form.input :name, as: :string
   .row
     .large-9.columns
