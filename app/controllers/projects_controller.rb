@@ -119,6 +119,7 @@ class ProjectsController < ApplicationController
     render layout: !request.xhr?
   end
 
+  def start; end
   private
   def user_city
     if current_user && current_user.address.present?
