@@ -63,3 +63,40 @@
           h3 = t('.work.subtitle')
       .row
         .large-4.small-6.columns
+          i.icon-fa-group
+          h5 = t('.work.team.title')
+          p = t('.work.team.description')
+        .large-4.small-6.columns
+          i.icon-et-picture
+          h5 = t('.work.imagery.title')
+          p = t('.work.imagery.description')
+        .large-4.small-6.columns
+          i.icon-et-video
+          h5 = t('.work.video.title')
+          p = t('.work.video.description')
+        .large-4.small-6.columns
+          i.icon-et-book-open
+          h5 = t('.work.detailed.title')
+          p = t('.work.detailed.description')
+        .large-4.small-6.columns
+          i.icon-fa-gift
+          h5 = t('.work.rewards.title')
+          p = t('.work.rewards.description')
+        .large-4.small-6.columns
+          i.icon-et-link
+          h5 = t('.work.engagement.title')
+          p = t('.work.engagement.description')
+
+  section.inspiration
+    .row
+      .large-12.columns
+        h2 = t('.inspiration.title')
+        h3 = t('.inspiration.subtitle')
+    .row
+      = render @projects, columns: 'large-4'
+    .row
+      .large-12.columns
+        .text-right
+          = link_to discover_path(filter: 'successful'), class: 'see-more' do
+            = t('words.see_more')
+            i.icon-et-right-circled

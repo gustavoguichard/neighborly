@@ -22,3 +22,24 @@ en:
       work:
         title: 'A successful campaign takes some work.'
         subtitle: "Here's what you'll need:"
+        team:
+          title: 'A Strong Team'
+          description: 'Lorem ipson dorem'
+        imagery:
+          title: 'Beautiful Imagery'
+          description: 'Lorem ipson dorem'
+        video:
+          title: 'A Powerful Video'
+          description: 'Lorem ipson dorem'
+        detailed:
+          title: 'Detailed Copy'
+          description: 'Lorem ipson dorem'
+        rewards:
+          title: 'Compelling Rewards'
+          description: 'Lorem ipson dorem'
+        engagement:
+          title: 'Continual Engagement'
+          description: 'Lorem ipson dorem'
+      inspiration:
+        title: 'Need a little inspiration?'
+        subtitle: 'Check out these successfully funded campaigns:'
