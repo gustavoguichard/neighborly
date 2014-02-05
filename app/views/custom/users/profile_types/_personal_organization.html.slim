@@ -5,11 +5,13 @@
       span.info Drop an image here
       = image_tag @user.uploaded_image_url(:thumb_avatar), class: "uploaded-image"
     = f.input :uploaded_image, as: :file, input_html: { class: 'fallback' }
+    i = t('simple_form.hints.user.uploaded_image')
   .large-8.columns
     .usr-upld-img.usr-upld-cvr data-param="hero_image"
       span.info Drop an image here
       = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
     = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
+    i = t('simple_form.hints.user.hero_image')
 #organization-images.profile-type-images.row style="#{"display: none;" unless @user.organization?}"
   - if @user.organization.persisted?
      = f.fields_for :organization do |o|
@@ -20,11 +22,13 @@
       = image_tag @user.organization.image_url(:thumb), class: "uploaded-image"
     = f.fields_for :organization do |o|
       = o.input :image, as: :file, input_html: { class: 'fallback' }
+    i = t('simple_form.hints.organization.image')
   .large-8.columns
     .usr-upld-img.usr-upld-cvr data-param="hero_image"
       span.info Drop an image here
       = image_tag @user.hero_image_url(:blur), class: "uploaded-image"
     = f.input :hero_image, as: :file, input_html: { class: 'fallback' }
+    i = t('simple_form.hints.user.hero_image')
 .large-12.columns
   #personal-name.profile-type-name.row style="#{"display: none;" unless @user.personal?}"
     = f.input :name, as: :string
