@@ -190,6 +190,7 @@ GEM
     fakeweb (1.3.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    ffaker (1.23.0)
     ffi (1.9.3)
     fog (1.20.0)
       builder
@@ -504,6 +505,7 @@ DEPENDENCIES
   ezcrypto
   factory_girl_rails
   fakeweb
+  ffaker
   fog (>= 1.20.0)
   font-icons-rails!
   geocoder
