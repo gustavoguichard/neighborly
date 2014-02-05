@@ -22,20 +22,26 @@
   .map-canvas
     margin-bottom: 1em
 
+.profile-type-images
+  i
+    display: inline-block
+    margin-bottom: 1.5em
+    font-size: 80%
+    color: $secondary-color
 .usr-upld-img
+  margin-bottom: +emCalc(5px)
   background: white no-repeat center
   padding: 10px
   height: 180px
-  margin-bottom: 1.5em
   cursor: pointer
   position: relative
   +transition(.2s)
   &.usr-upld-pctr .uploaded-image
-    margin-top: -60px
-    margin-left: -60px
+    margin-top: -75px
+    margin-left: -75px
   &.usr-upld-cp .uploaded-image
-    margin-top: -33px
-    margin-left: -80px
+    margin-top: -45px
+    margin-left: -85px
   &.usr-upld-cvr .uploaded-image
     position: static
     max-width: 100%
