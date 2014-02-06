@@ -1,5 +1,9 @@
 require 'ffaker'
 
+# Disable sidekiq
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
+
 puts 'Creating Configuration entries...'
 
   {
@@ -20,7 +24,7 @@ puts 'Creating Configuration entries...'
     project_finish_time: '02:59:59',
     secret_token: SecureRandom.hex(64),
     secret_key_base: SecureRandom.hex(64),
-    currency_charge: USD,
+    currency_charge: 'USD',
     google_analytics_id: 'SOMETHING',
     email_projects: 'ideas@neighbor.ly',
     timezone: 'US/Central',
@@ -52,7 +56,7 @@ puts 'Done!'
 
 puts 'Creating OauthProvider entries...'
 
-  categories = %w{faceook twitter google_oauth2 linkedin}
+  categories = %w{facebook twitter google_oauth2 linkedin}
   categories.each do |name|
     OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
   end
@@ -72,46 +76,54 @@ puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating Admin user...'
-  User.create! admin: true,
-               name: 'Admin',
-               email: 'admin@admin.com',
-               password: 'password',
-               confirmed_at: Time.now
+  u = User.new name: 'Admin',
+                   email: 'admin@admin.com',
+                   password: 'password'
+  u.admin = true
+  u.skip_confirmation!
+  u.confirm!
+  u.save
 
 puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating Test user...'
 
-  User.create! admin: false,
+  User.new admin: false,
                name: 'Test',
                email: 'test@test.com',
-               password: 'password',
-               confirmed_at: Time.now
+               password: 'password'
+  u.admin = true
+  u.skip_confirmation!
+  u.confirm!
+  u.save
 
 puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating Organization user...'
 
-  User.create! admin: false,
-               name: 'Organization',
-               email: 'org@org.com',
-               password: 'password',
-               confirmed_at: Time.now,
-               profile_type: 'organization'
+  u = User.new name: 'Organization',
+                   email: 'org@org.com',
+                   password: 'password',
+                   profile_type: 'organization'
+  u.admin = true
+  u.confirm!
+  u.save
 
 puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating Channel user...'
 
-  User.create! admin: false,
-               name: 'Channel',
-               email: 'channel@channel.com',
-               password: 'password',
-               confirmed_at: Time.now,
-               profile_type: 'channel'
+  u = User.new name: 'Channel',
+                   email: 'channel@channel.com',
+                   password: 'password',
+                   profile_type: 'channel'
+  u.admin = true
+  u.skip_confirmation!
+  u.confirm!
+  u.save
 
 puts '---------------------------------------------'
 puts 'Done!'
@@ -119,17 +131,23 @@ puts 'Done!'
 puts 'Creating system users...'
 
   # User to receive company contact notifications
-  User.create! email: Configuration[:email_contact], password: SecureRandom.hex(4), confirmed_at: Time.now
+  u = User.new email: Configuration[:email_contact], password: SecureRandom.hex(4)
+  u.skip_confirmation!
+  u.confirm!
+  u.save
 
   # User to receive new projects on draft notifications
-  User.create! email: Configuration[:email_projects], password: SecureRandom.hex(4), confirmed_at: Time.now
+  u = User.new email: Configuration[:email_projects], password: SecureRandom.hex(4)
+  u.skip_confirmation!
+  u.confirm!
+  u.save
 
 puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating channel...'
 
-  Channel.create! user: User.where(email: 'channel@channel.com').first, name: 'Channel', permalink: 'channel', description: Faker::Lorem.sentences
+  Channel.create! user: User.where(email: 'channel@channel.com').first, name: 'Channel', permalink: 'channel', description: Faker::Lorem.sentence
 
 puts '---------------------------------------------'
 puts 'Done!'
