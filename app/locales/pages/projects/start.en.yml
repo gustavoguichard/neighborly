@@ -24,22 +24,22 @@ en:
         subtitle: "Here's what you'll need:"
         team:
           title: 'A Strong Team'
-          description: 'Lorem ipson dorem'
+          description: "In order to receive the greatest return, you'll need an active and engaged team backed by a civic minded organization."
         imagery:
           title: 'Beautiful Imagery'
-          description: 'Lorem ipson dorem'
+          description: 'A picture is worth a thousand words. Engage your contributors with images that capture their attention.'
         video:
           title: 'A Powerful Video'
-          description: 'Lorem ipson dorem'
+          description: 'A video is the very best way to summarize your project allow contributors to get a glimpse into your organization.'
         detailed:
           title: 'Detailed Copy'
-          description: 'Lorem ipson dorem'
+          description: 'Explain your project in detail. The more users know about your project and how you plan to use their money, the more likely they are to contribute.'
         rewards:
           title: 'Compelling Rewards'
-          description: 'Lorem ipson dorem'
+          description: 'Incentivize contributors further by offering rewards as icing on the cake.'
         engagement:
           title: 'Continual Engagement'
-          description: 'Lorem ipson dorem'
+          description: 'Stay connected with your current supporters while spreading the message to new one. Engagement is key to a successful campaign.'
       inspiration:
         title: 'Need a little inspiration?'
         subtitle: 'Check out these successfully funded campaigns:'
