@@ -80,7 +80,11 @@ Catarse::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
 
-  #get "/guidelines_contributions",    to: "static#guidelines_contributions",  as: :guidelines_contributions
+  # Only accessible on development
+  if Rails.env.development?
+    get "/base",                to: "static#base",              as: :base
+  end
+
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 

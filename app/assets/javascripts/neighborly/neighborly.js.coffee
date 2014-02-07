@@ -35,6 +35,15 @@ window.Neighborly =
     this.flash.init()
     this.backstretch.init()
 
+    $('.bs-affix').affix({
+      offset: {
+        top: 0
+        bottom: ->
+          return (this.bottom = $('footer').outerHeight(true))
+      }
+    })
+    $('.side-nav').localScroll({offset: -180})
+
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
 
