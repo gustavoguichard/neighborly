@@ -26,7 +26,7 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-
+gem 'neighborly-balanced-creditcard', path: '../neighborly-balanced-creditcard'
 
 # Decorators
 gem 'draper'
