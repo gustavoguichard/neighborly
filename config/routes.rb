@@ -22,11 +22,6 @@ Catarse::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount CatarseCreditCardNet::Engine => "/", as: :catarse_credit_card_net
-  mount CatarseEcheckNet::Engine => "/", as: :catarse_echeck_net
-  mount CatarsePaypalExpress::Engine => "/", as: :catarse_paypal_express
-  #mount CatarseMoip::Engine => "/", as: :catarse_moip
-
   # Non production routes
   if Rails.env.development?
     resources :emails, only: [ :index, :show ]
