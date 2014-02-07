@@ -39,6 +39,11 @@ GIT
     font-icons-rails (0.0.5)
       sass-rails (>= 3.1.1)
 
+PATH
+  remote: ../neighborly-balanced-creditcard
+  specs:
+    neighborly-balanced-creditcard (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -479,6 +484,7 @@ DEPENDENCIES
   kaminari
   launchy
   letter_opener
+  neighborly-balanced-creditcard!
   newrelic_rpm (= 3.6.9.171)
   nprogress-rails
   omniauth
