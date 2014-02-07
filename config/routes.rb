@@ -79,6 +79,7 @@ Catarse::Application.routes.draw do
   get "/faq",                   to: "static#faq",                 as: :faq
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
+  get "/base",                  to: "static#base",                as: :base
 
   #get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
   get "/start",                 to: "static#start",               as: :start
