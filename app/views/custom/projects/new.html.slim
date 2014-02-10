@@ -33,13 +33,13 @@
         .row
           .large-10.small-11.columns.large-centered.small-centered
             = simple_form_for @project, html: { class: 'custom' } do |f|
-              = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
               #joyride-project-category
+                = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
 
               = f.input :name, as: :string, maxlength: 100
               = f.label :campaign_type
-              = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
               #joyride-project-campaign-type
+                = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
