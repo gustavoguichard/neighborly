@@ -81,6 +81,11 @@ Catarse::Application.routes.draw do
   get "/privacy",               to: "static#privacy",             as: :privacy
   get "/start",                 to: "projects#start",             as: :start
 
+  # Only accessible on development
+  if Rails.env.development?
+    get "/base",                to: "static#base",              as: :base
+  end
+
   get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
   resources :tags, only: [:index]

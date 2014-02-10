@@ -14,3 +14,5 @@ en:
       explore_projects: "I want to explore the projects."
       submit: "Next step!"
       send_project: "I want to submit my project."
+    base:
+      title: 'This is the base of a static page'

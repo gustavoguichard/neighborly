@@ -1,11 +1,28 @@
 .static-page
+  header.white
+    border-bottom: 1px solid $border-color
+    h2
+      padding: +emCalc(7px, 0)
+      margin: 0
+      text-transform: uppercase
   .title
     h2
       margin-bottom: 0
     h4
       color: $secondary-color
       margin-bottom: +emCalc(25px)
+  .sidebar
+    padding: +emCalc(25px, 0)
+    strong
+      color: $secondary-color
+    ul:last-child
+      margin-bottom: +emCalc(20px)
   .text
+    padding-top: +emCalc(15px)
+    h3
+      margin-top: +emCalc(25px)
+      &:first-child
+        margin-top: 0
     h4
       font-weight: 400
     ul, ol
