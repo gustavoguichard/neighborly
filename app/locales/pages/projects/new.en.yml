@@ -4,3 +4,27 @@ en:
       titles:
         site: 'Submit your project'
         header: 'The First Step'
+      joyride:
+        next: 'Next'
+        done: 'Done'
+        category:
+          title: 'Choose Category'
+          description: 'Which category best describes your campaign? You can change this later.'
+        name:
+          title: 'Campaign Title'
+          description: 'What would you like to call it? A short, catchy, shareable title works best!'
+        campaign_type:
+          title: 'Campaign Type'
+          description: 'What funding model would you like to use? <br /><br/> <strong>Every Dollar Counts:</strong> The project is funded whether or not the goal is reached. <br /> <strong>All or None:</strong> You must reach your goal by the end of your campaign to receive funds.'
+        goal:
+          title: 'Campaign Goal'
+          description: 'How much do you need to raise in order to complete your project? Please enter a number without commas.'
+        address:
+          title: 'City, State'
+          description: 'In what city is your project based?'
+        headline:
+          title: 'Tagline'
+          description: 'Describe your project in 140 characters.'
+        about:
+          title: 'The Story'
+          description: "Tell us what you can about your project. Why do you need the community's help?"
