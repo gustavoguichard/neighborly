@@ -11,7 +11,7 @@ module DeviseCustomFlashMessage
     if kind == :signed_up || (kind == :signed_in && resource.completeness_progress < 100)
       options = { link: edit_user_path(resource) }
     end
-    kind = :signed_in_custom if kind == :signed_in
+    kind = :signed_in_custom if kind == :signed_in && resource.completeness_progress < 100
 
     orifinal_find_message kind, options
   end
