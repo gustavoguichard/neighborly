@@ -8,6 +8,9 @@ en:
       joyride:
         next: 'Next'
         done: 'Done'
+        start:
+          title: 'You are submitting an idea.'
+          description: 'Information provided here can be changed later.'
         category:
           title: 'Choose Category'
           description: 'Which category best describes your campaign? You can change this later.'
