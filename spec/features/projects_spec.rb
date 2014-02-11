@@ -54,6 +54,7 @@ describe "Projects" do
       all("form#new_project").should have(1).items
       within "form#new_project" do
         foundation_select(project.category.to_s, from: 'project[category_id]')
+        foundation_select(I18n.t("project.organization_type.#{Project.organization_types.first}"), from: 'project[organization_type]')
         ['name', 'goal', 'address', 'headline', 'about'].each do |a|
           fill_in "project_#{a}", with: project.attributes[a]
         end
