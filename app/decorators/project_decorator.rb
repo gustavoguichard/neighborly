@@ -83,6 +83,10 @@ class ProjectDecorator < Draper::Decorator
 
   end
 
+  def display_organization_type
+    I18n.t("project.organization_type.#{source.organization_type}")
+  end
+
   private
 
   def use_uploaded_image(version)
