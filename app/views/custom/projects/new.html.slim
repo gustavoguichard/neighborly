@@ -32,7 +32,7 @@
     .large-6.columns.large-centered
       .new-project-box
         header#joyride-start
-          h3 = t '.titles.header'
+          h3 = t('.titles.header')
           p = t('.titles.sub')
           hr
         .row
@@ -63,6 +63,8 @@
 
               = f.input :headline, as: :string, maxlength: 140
               = f.input :about
+
+              = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
 
               p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
 
