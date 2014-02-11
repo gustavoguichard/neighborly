@@ -32,4 +32,7 @@ en:
         about:
           title: 'The Story'
           description: "Tell us what you can about your project. Why do you need the community's help?"
+        organization_type:
+          title: 'Organization Type'
+          description: 'Please select the type that best describes the entity who will receive funds raised.'
       accept_terms_html: 'By submitting, you agree to the %{link}.'

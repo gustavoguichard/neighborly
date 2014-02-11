@@ -27,6 +27,9 @@
     li data-id="project_about" data-text=t('.joyride.done')
       h5 = t('.joyride.about.title')
       p = t('.joyride.about.description')
+    li data-id="joyride-organization-type" data-text=t('.joyride.done')
+      h5 = t('.joyride.organization_type.title')
+      p = t('.joyride.organization_type.description')
 
   .row
     .large-6.columns.large-centered
@@ -64,7 +67,8 @@
               = f.input :headline, as: :string, maxlength: 140
               = f.input :about
 
-              = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
+              #joyride-organization-type
+                = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
 
               p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
 
