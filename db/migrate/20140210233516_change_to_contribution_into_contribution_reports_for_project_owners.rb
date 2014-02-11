@@ -19,7 +19,7 @@ class ChangeToContributionIntoContributionReportsForProjectOwners < ActiveRecord
         coalesce(b.address_street, u.address_street) as street,
         coalesce(b.address_complement, u.address_complement) as complement,
         coalesce(b.address_number, u.address_number) as address_number,
-        coalesce(b.address_neighbourhood, u.address_neighbourhood) as neighbourhood,
+        coalesce(b.address_neighborhood, u.address_neighborhood) as neighbourhood,
         coalesce(b.address_city, u.address_city) as city,
         coalesce(b.address_state, u.address_state) as state,
         coalesce(b.address_zip_code, u.address_zip_code) as zip_code
@@ -52,7 +52,7 @@ class ChangeToContributionIntoContributionReportsForProjectOwners < ActiveRecord
         coalesce(b.address_street, u.address_street) as street,
         coalesce(b.address_complement, u.address_complement) as complement,
         coalesce(b.address_number, u.address_number) as address_number,
-        coalesce(b.address_neighbourhood, u.address_neighbourhood) as neighbourhood,
+        coalesce(b.address_neighborhood, u.address_neighborhood) as neighbourhood,
         coalesce(b.address_city, u.address_city) as city,
         coalesce(b.address_state, u.address_state) as state,
         coalesce(b.address_zip_code, u.address_zip_code) as zip_code
