@@ -38,7 +38,7 @@ header.fixed
             span.user-actions[class="#{'un-signed-in' unless user_signed_in?}"]
               - if user_signed_in?
                 = link_to edit_user_path(current_user), class: 'user-profile' do
-                  = image_tag current_user.display_image, size: "18x18", class: 'profile-picture'
+                  = image_tag current_user.display_image, size: "18x18", class: 'profile-picture', alt: ''
                   |  Howdy, #{ current_user.first_name }!
                 span.divider |
                 = link_to t('.sign-out'), destroy_user_session_path, method: :delete, class: 'sign-out'
