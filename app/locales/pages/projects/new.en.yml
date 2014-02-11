@@ -29,3 +29,4 @@ en:
         about:
           title: 'The Story'
           description: "Tell us what you can about your project. Why do you need the community's help?"
+      accept_terms_html: 'By submitting, you agree to the %{link}.'

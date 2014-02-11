@@ -57,7 +57,6 @@ describe "Projects" do
         ['name', 'goal', 'address', 'headline', 'about'].each do |a|
           fill_in "project_#{a}", with: project.attributes[a]
         end
-        find('label[for=project_accepted_terms]').click
         find('input[type=submit]').click
       end
     end

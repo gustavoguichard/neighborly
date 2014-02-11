@@ -96,9 +96,6 @@ class Project < ActiveRecord::Base
     joins(:backers).merge(Backer.confirmed_today).uniq
   }
 
-  attr_accessor :accepted_terms, :address
-
-  validates_acceptance_of :accepted_terms, on: :create
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
   validates_length_of :headline, maximum: 140
