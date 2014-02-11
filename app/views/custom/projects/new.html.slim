@@ -28,8 +28,10 @@
   .row
     .large-6.columns.large-centered
       .new-project-box
-        h3 = t '.titles.header'
-        hr
+        header
+          h3 = t '.titles.header'
+          p = t('.titles.sub')
+          hr
         .row
           .large-10.small-11.columns.large-centered.small-centered
             = simple_form_for @project, html: { class: 'custom' } do |f|
@@ -56,7 +58,7 @@
                 = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
                 .map-canvas
 
-              = f.input :headline, as: :string, maxlength: 130
+              = f.input :headline, as: :string, maxlength: 140
               = f.input :about
 
               .input.boolean[class="#{'error' if @project.errors[:accepted_terms].present?}"]

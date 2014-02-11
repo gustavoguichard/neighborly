@@ -3,7 +3,8 @@ en:
     new:
       titles:
         site: 'Submit your project'
-        header: 'The First Step'
+        header: 'Propose a Project'
+        sub: 'Anyone can propose a project. Get started for free!'
       joyride:
         next: 'Next'
         done: 'Done'
@@ -23,7 +24,7 @@ en:
           title: 'City, State'
           description: 'In what city is your project based?'
         headline:
-          title: 'Tagline'
+          title: 'Summary'
           description: 'Describe your project in 140 characters.'
         about:
           title: 'The Story'
