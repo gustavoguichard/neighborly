@@ -14,6 +14,13 @@ class Configuration < ActiveRecord::Base
         keys.map{|key| get key }
       end
     end
+
+    def fetch(key)
+      find_by!(name: key)
+    rescue ActiveRecord::RecordNotFound
+      raise "No \"#{key}\" configuration defined."
+    end
+
     def []= key, value
       set key, value
     end
