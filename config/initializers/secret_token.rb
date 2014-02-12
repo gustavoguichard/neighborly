@@ -20,5 +20,5 @@ rescue
   nil
 end
 
-Catarse::Application.config.secret_token = find_secure_token
-Catarse::Application.config.secret_key_base = find_secure_key_base
+Neighborly::Application.config.secret_token = find_secure_token
+Neighborly::Application.config.secret_key_base = find_secure_key_base

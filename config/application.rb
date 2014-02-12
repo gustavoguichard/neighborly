@@ -8,7 +8,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Catarse
+module Neighborly
   class Application < Rails::Application
     config.to_prepare do
       Devise::Mailer.layout "email" # email.haml or email.erb
