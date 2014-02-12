@@ -46,7 +46,7 @@ describe ::Configuration do
     context "with undefined key" do
       it "should raise exception" do
         expect {
-          ::Configuration.fetch(:not_found_config)
+          described_class.fetch(:not_found_config)
         }.to raise_error
       end
     end
