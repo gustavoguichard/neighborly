@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-Catarse::Application.routes.draw do
+Neighborly::Application.routes.draw do
 
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
