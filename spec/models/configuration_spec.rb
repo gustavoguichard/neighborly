@@ -28,4 +28,23 @@ describe ::Configuration do
     end
   end
 
+  describe "#fetch" do
+    context "with existing key" do
+      before { @config.save }
+
+      it "should return the predefined value" do
+        expect {
+          ::Configuration.fetch(:a_config)
+        }.to_not raise_error
+      end
+    end
+
+    context "with undefined key" do
+      it "should raise exception" do
+        expect {
+          ::Configuration.fetch(:not_found_config)
+        }.to raise_error
+      end
+    end
+  end
 end
