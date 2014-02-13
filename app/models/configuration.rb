@@ -16,7 +16,7 @@ class Configuration < ActiveRecord::Base
     end
 
     def fetch(key)
-      find_by!(name: key)
+      find_by!(name: key).value
     rescue ActiveRecord::RecordNotFound
       raise "No \"#{key}\" configuration defined."
     end
