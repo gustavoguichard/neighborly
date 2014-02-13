@@ -54,6 +54,7 @@ en:
         address_neighborhood: 'Neighborhood Name'
         address_zip_code: 'Zip code'
         other_url: 'Your website'
+        update_address: "Update my address on Neighbor.ly's profile."
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'
