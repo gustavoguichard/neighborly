@@ -21,7 +21,7 @@ Neighborly.Projects.Contributions.Edit =
 
       initialize: ->
         _.bindAll this, 'showContent'
-        this.$('.methods input').change this.showContent
+        this.$('.methods input').click this.showContent
         this.$('.methods input:first').click()
 
       showContent: (e)->
