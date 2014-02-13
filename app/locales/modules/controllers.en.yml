@@ -20,6 +20,7 @@ en:
           no_credits: "You don't have enough credits to help greenlight this project."
           success: "You successfully contributed. Thank you!"
     users:
+      completeness_progress: 'Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       update:
         success: 'Your information has been updated!'
       contributions:

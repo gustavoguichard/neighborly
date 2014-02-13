@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :force_http
   before_action :referal_it!
-  before_action :needs_confirm_account, unless: -> { request.xhr? }
+  after_action :needs_confirm_account, unless: -> { request.xhr? }
+  after_action :complete_profile, unless: -> { request.xhr? }
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
@@ -56,6 +57,12 @@ class ApplicationController < ActionController::Base
   def needs_confirm_account
     if current_user && !current_user.confirmed?
       flash[:notice_confirmation] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+    end
+  end
+
+  def complete_profile
+    if current_user && current_user.completeness_progress < 100
+      flash[:notice_completeness_progress] = { message: t('controllers.users.completeness_progress', link: edit_user_path(current_user)), dismissible: false }
     end
   end
 

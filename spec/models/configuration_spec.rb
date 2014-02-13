@@ -37,9 +37,7 @@ describe ::Configuration do
       before { @config.save }
 
       it "should return the predefined value" do
-        expect {
-          described_class.fetch(:a_config)
-        }.to_not raise_error
+        expect(described_class.fetch(:a_config)).to eql('a_value')
       end
     end
 
