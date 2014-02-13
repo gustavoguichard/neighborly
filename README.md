@@ -27,11 +27,9 @@ The two current supported payment gateways are:
 * Authorize.net for credit cards and e-checks
 * PayPal
 
-We're actively planning to implement [Dwolla](http://dwolla.com) in the future.
+We're implementing [Balanced](http://balancedpayments.com/) on [balanced-payments](https://github.com/neighborly/neighborly/tree/balanced_payments) branch.
 
 If you have created another payment engine, please contact us so we can link your engine here.
-
-
 
 ## How to contribute
 
