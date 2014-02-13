@@ -85,11 +85,6 @@ Neighborly::Application.routes.draw do
     get "/base",                to: "static#base",              as: :base
   end
 
-  # Only accessible on development
-  if Rails.env.development?
-    get "/base",                to: "static#base",              as: :base
-  end
-
   get "/start",                 to: "static#start",               as: :start
   get "/start/terms",           to: "static#start_terms",         as: :start_terms
 
