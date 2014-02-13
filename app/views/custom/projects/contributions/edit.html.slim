@@ -42,40 +42,8 @@
       - if @contribution.reward
         .selected-reward
           h4 = t('.reward.title')
-          p.description
+          .description
             h5 = @contribution.reward.title
-            = @contribution.reward.description
+            p = @contribution.reward.description
       .faqs
         = render 'faqs'
-
-  .seal-original.hide
-    / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
-    div class="AuthorizeNetSeal"
-      javascript:
-        var ANS_customer_id="dbe7fb76-0492-4501-aac8-8bb3f2da5039"
-      script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js"
-      a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank" Merchant Services
-
-
-
-
-/= check_box_tag 'accept'
-/= label_tag 'accept', t('accept_terms_html', link: link_to(t('terms'), '#termsModal', class: 'termsModalLink', :"data-toggle" => 'modal', :"data-url" => terms_path)), class: 'inline'
-
-/- unless @contribution.credits
-/- if @contribution.credits
-    /= form.submit (@contribution.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
-
-/- if @contribution.credits
-  /#back_with_credits
-    /.bootstrap-alert
-      /.alert
-        /#credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @contribution.value), unit: 'R$', precision: 0, delimiter: '.'))
-/.bootstrap-form
-  /= simple_form_for current_user, url: credits_checkout_project_contribution_path(@contribution.project, @contribution), html: { data: { update_info_path: update_info_project_contribution_path(project_id: @contribution.project.id, id: @contribution.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @contribution.credits)}" } do |form|
-    /= hidden_field_tag 'project_id', @contribution.project.id
-    /= hidden_field_tag 'contribution_id', @contribution.id
-    /= hidden_field_tag 'contribution_credits', @contribution.credits
-    /= hidden_field_tag 'payment_method_url', nil
-
-
