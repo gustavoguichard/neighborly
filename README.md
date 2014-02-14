@@ -33,7 +33,7 @@ If you have created another payment engine, please contact us so we can link you
 
 ## How to contribute
 
-Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to submit pull requests and contact us if you have ideas or questions.
+Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to [open issues](https://github.com/neighborly/neighborly/issues/new) with your concerns and [fix/implement](https://github.com/neighborly/neighborly/issues) something using pull requests. Probably the better way to do this is commenting on the issue so we can give you the responsibility of it. This will prevent more than one person to contribute with the same change.
 
 ### Coding style
 
