@@ -15,14 +15,20 @@ br
 b Goal:
 = " #{project.display_goal}"
 br
+b Summary:
+= " #{project.headline}"
 br
-b Existing Backers:
+b Category:
 br
-= simple_format(project.first_backers)
+= project.category.to_s
 br
-b How did you hear about #{Configuration[:company_name]}?
+b City/State:
 br
-= simple_format(project.how_know)
+= project.address
+br
+b Organization Type:
+br
+= project.display_organization_type
 br
 br
 = link_to "View Project on #{Configuration[:company_name]}", project_url(project)

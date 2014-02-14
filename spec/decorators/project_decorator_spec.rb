@@ -27,6 +27,10 @@ describe ProjectDecorator do
     end
   end
 
+  describe '#display_organization_type' do
+    before { project.update_column :organization_type, :municipality}
+    it { expect(project.reload.display_organization_type).to eq 'Municipality' }
+  end
 
   describe "#display_expires_at" do
     subject{ project.display_expires_at }

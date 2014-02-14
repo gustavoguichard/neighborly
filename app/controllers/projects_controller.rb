@@ -119,6 +119,10 @@ class ProjectsController < ApplicationController
     render layout: !request.xhr?
   end
 
+  def start
+    @projects = Project.visible.successful.home_page.limit(3)
+  end
+
   private
   def user_city
     if current_user && current_user.address.present?
