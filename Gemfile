@@ -124,7 +124,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara',   '~> 2.1.0'
+  gem 'capybara',   '~> 2.2.1'
   gem 'coveralls', require: false
   gem 'selenium-webdriver', '~> 2.39.0'
 end

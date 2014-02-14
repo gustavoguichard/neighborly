@@ -61,7 +61,7 @@ en:
         category: 'Category'
         permalink: 'Permalink'
         goal: 'Campaign Goal'
-        headline: 'Tagline'
+        headline: 'Summary'
         about: 'The Story'
         expires_at: 'Duration'
         online_days: 'Duration'
@@ -78,7 +78,7 @@ en:
         budget: 'Budget Detail'
         tag_list: 'Keywords'
         new:
-          category_id: 'Choose Category'
+          category_id: 'Campaign Category'
       contribution:
         new:
           anonymous: 'I want to contribute anonymously.'

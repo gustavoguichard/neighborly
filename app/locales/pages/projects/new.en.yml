@@ -3,4 +3,36 @@ en:
     new:
       titles:
         site: 'Submit your project'
-        header: 'The First Step'
+        header: 'Propose a Project'
+        sub: 'Anyone can propose a project for free. Get started today!'
+      joyride:
+        next: 'Next'
+        done: 'Done'
+        start:
+          title: 'You are submitting an idea.'
+          description: 'Information provided here can be changed later.'
+        category:
+          title: 'Choose Category'
+          description: 'Which category best describes your campaign? You can change this later.'
+        name:
+          title: 'Campaign Title'
+          description: 'What would you like to call it? A short, catchy, shareable title works best!'
+        campaign_type:
+          title: 'Campaign Type'
+          description: 'What funding model would you like to use? <br /><br/> <strong>Every Dollar Counts:</strong> The project is funded whether or not the goal is reached. <br /> <strong>All or None:</strong> You must reach your goal by the end of your campaign to receive funds.'
+        goal:
+          title: 'Campaign Goal'
+          description: 'How much do you need to raise in order to complete your project? Please enter a number without commas.'
+        address:
+          title: 'City, State'
+          description: 'In what city is your project based?'
+        headline:
+          title: 'Summary'
+          description: 'Describe your project in 140 characters.'
+        about:
+          title: 'The Story'
+          description: "Tell us what you can about your project. Why do you need the community's help?"
+        organization_type:
+          title: 'Organization Type'
+          description: 'Please select the type that best describes the entity who will receive funds raised.'
+      accept_terms_html: 'By submitting, you agree to the %{link}.'
