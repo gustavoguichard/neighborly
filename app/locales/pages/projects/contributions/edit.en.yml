@@ -5,6 +5,7 @@ en:
         title: 'Fill in and review your data'
         you_are_about: "You're about to greenlight %{project_name}"
         total: 'Total: '
+        i_want_pay_fees: 'I want to pay the payment fees'
         payment:
           title: 'Please select a payment method'
           subtile: 'Your total equals your contribution amount plus credt card processing fees.'
