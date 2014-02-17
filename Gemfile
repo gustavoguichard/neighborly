@@ -26,8 +26,8 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-gem 'neighborly-balanced-creditcard', github: 'neighborly/neighborly-balanced-creditcard'
-gem 'neighborly-balanced', github: 'neighborly/neighborly-balanced'
+gem 'neighborly-balanced-creditcard', github: 'neighborly/neighborly-balanced-creditcard', branch: :master
+gem 'neighborly-balanced', github: 'neighborly/neighborly-balanced', branch: :master
 
 # Decorators
 gem 'draper'
