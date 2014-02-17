@@ -22,7 +22,7 @@
         .methods
           - PaymentEngines.engines.each do |engine|
             label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
+              = radio_button_tag :payment_method, engine[:name], false, :'data-path-value-with-taxes' => "TODO"
               | &nbsp;
               = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix

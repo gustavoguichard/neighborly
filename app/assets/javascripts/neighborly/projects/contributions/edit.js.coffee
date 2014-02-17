@@ -39,4 +39,4 @@ Neighborly.Projects.Contributions.Edit =
 
       showTotalValue: (e)->
         $input = $('.create-contribution-page header .total-with-fee input')
-        $input.val("#{$input.data('total-text')} #{$(e.target).data('value-with-taxes')}")
+        $input.val("#{$input.data('total-text')} #{$(e.target).data('path-value-with-taxes')}")
