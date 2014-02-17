@@ -13,6 +13,8 @@
                   i.icon-et-info-circled
                 .tooltip-content.hide
                   p = t('.tooltip-text', project_name: @project.name).html_safe
+              = check_box_tag 'pay_payment_fees', 1, true
+              = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
 
   .row
     section.content.large-8.medium-8.columns
@@ -22,7 +24,7 @@
         .methods
           - PaymentEngines.engines.each do |engine|
             label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
+              = radio_button_tag :payment_method, engine[:name], false, :'data-value-total-without-fees' => @contribution.value, :'data-value-total-with-fees' => engine[:total_with_fees].call(@contribution.value)
               | &nbsp;
               = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix

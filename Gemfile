@@ -26,8 +26,8 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-gem 'neighborly-balanced-creditcard', path: '../neighborly-balanced-creditcard'
-gem 'neighborly-balanced', path: '../neighborly-balanced'
+gem 'neighborly-balanced-creditcard', github: 'neighborly/neighborly-balanced-creditcard', branch: :master
+gem 'neighborly-balanced', github: 'neighborly/neighborly-balanced', branch: :master
 
 # Decorators
 gem 'draper'
@@ -122,7 +122,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara',   '~> 2.1.0'
+  gem 'capybara',   '~> 2.2.1'
   gem 'coveralls', require: false
   gem 'selenium-webdriver', '~> 2.39.0'
 end

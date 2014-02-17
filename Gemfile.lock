@@ -17,6 +17,24 @@ GIT
       supermodel
 
 GIT
+  remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
+  revision: 3042720b184f5d0255a7daad0dade23f486eada8
+  branch: im-attach-cc-to-customer
+  specs:
+    neighborly-balanced-creditcard (0.0.1)
+      neighborly-balanced (~> 0)
+      rails
+
+GIT
+  remote: git://github.com/neighborly/neighborly-balanced.git
+  revision: 602e57c3b8418d2ab01aea65d23d066de0ce833c
+  branch: master
+  specs:
+    neighborly-balanced (0.0.1)
+      balanced (~> 0.7.4)
+      rails (~> 4.0)
+
+GIT
   remote: git://github.com/pludoni/simple-captcha.git
   revision: cd38d1b5342d7ac62511d8520331ff9d84c462f7
   branch: rails-4
@@ -38,20 +56,6 @@ GIT
   specs:
     font-icons-rails (0.0.5)
       sass-rails (>= 3.1.1)
-
-PATH
-  remote: ../neighborly-balanced
-  specs:
-    neighborly-balanced (0.0.1)
-      balanced (~> 0.7.4)
-      rails (~> 4.0)
-
-PATH
-  remote: ../neighborly-balanced-creditcard
-  specs:
-    neighborly-balanced-creditcard (0.0.1)
-      neighborly-balanced (~> 0)
-      rails
 
 GEM
   remote: https://rubygems.org/
@@ -81,14 +85,14 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    arel (4.0.1)
+    arel (4.0.2)
     atomic (1.1.14)
     auto_html (1.6.1)
       redcarpet (~> 2.0)
       rinku (~> 1.5.0)
     awesome_print (1.2.0)
-    balanced (0.7.4)
-      faraday (>= 0.8.6)
+    balanced (0.7.5)
+      faraday (~> 0.8.6)
       faraday_middleware (~> 0.9.0)
     bcrypt-ruby (3.1.2)
     better_errors (1.0.1)
@@ -98,7 +102,7 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (0.2.1)
     builder (3.1.4)
-    capybara (2.1.0)
+    capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -164,7 +168,7 @@ GEM
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
-    faraday (0.8.8)
+    faraday (0.8.9)
       multipart-post (~> 1.2.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
@@ -466,7 +470,7 @@ DEPENDENCIES
   binding_of_caller
   browser
   cancan!
-  capybara (~> 2.1.0)
+  capybara (~> 2.2.1)
   carrierwave (~> 0.9.0)
   catarse_mailchimp!
   chartkick (= 1.2.0)

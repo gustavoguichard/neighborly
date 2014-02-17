@@ -52,7 +52,6 @@ FactoryGirl.define do
     f.online_days 5
     f.how_know 'Lorem ipsum'
     f.more_links 'Ipsum dolor'
-    f.first_contributions 'Foo bar'
     f.video_url 'http://vimeo.com/17298435'
     f.state 'online'
     f.home_page true

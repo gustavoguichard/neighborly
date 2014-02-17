@@ -13,11 +13,15 @@
   &.category-event
     background-image: image-url('categories/event.jpg')
   &.category-mobility
-    background-image: image-url('categories/mobility.jpg')
+    background-image: image-url('categories/bicycling.jpg')
   &.category-recreation
     background-image: image-url('categories/recreation.jpg')
   &.category-restoration
     background-image: image-url('categories/restoration.jpg')
+  &.category-bicycling
+    background-image: image-url('categories/bicycling.jpg')
+  &.category-technology
+    background-image: image-url('categories/technology.jpg')
 
   .new-project-box, .success-project-box
     margin-top: +emCalc(30px)
@@ -27,20 +31,26 @@
     hr
       border-color: #999
 
-    h3
-      color: $fourth-color
-      font-weight: 500
-      text-align: center
-      padding-top: +emCalc(10px)
-      i
-        width: +emCalc(20px)
-        height: +emCalc(20px)
-        +radius(50%)
-        font-size: 200%
-        background: $fourth-color
-        color: white
-        display: inline-block
+    header
+      h3
+        color: $fourth-color
+        font-weight: 500
+        text-align: center
+        padding-top: +emCalc(10px)
+        margin-bottom: 0
+        i
+          width: +emCalc(20px)
+          height: +emCalc(20px)
+          +radius(50%)
+          font-size: 200%
+          background: $fourth-color
+          color: white
+          display: inline-block
+          margin-bottom: +emCalc(5px)
+      p
+        text-align: center
         margin-bottom: +emCalc(5px)
+        font-size: 90%
 
     .button
       margin-top: +emCalc(15px)
@@ -54,3 +64,11 @@
 
     .text-right, .text-left
       display: inline-block
+    .counter
+      display: block
+      margin-top: +emCalc(-15px)
+      margin-bottom: +emCalc(15px)
+      text-align: right
+    .terms
+      font-size: 90%
+      margin-bottom: 0

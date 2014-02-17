@@ -1,20 +1,43 @@
 - @title = t('.titles.site')
 
 .new-project-page[class="category-#{resource.category.to_s.parameterize}"]
+
+  ol.joyride-list[data-joyride]
+    li data-id="joyride-start" data-text=t('.joyride.next') data-options='tipLocation: right; tip_animation: fade;'
+      h5 = t('.joyride.start.title')
+      p = t('.joyride.start.description')
+
+    - joyride = [{id: 'joyride-project-category',       name: :category},
+                 {id: 'project_name',                   name: :name},
+                 {id: 'joyride-project-campaign-type',  name: :campaign_type},
+                 {id: 'project_goal',                   name: :goal},
+                 {id: 'project_address',                name: :address},
+                 {id: 'project_headline',               name: :headline},
+                 {id: 'project_about',                  name: :about},
+                 {id: 'joyride-organization-type',      name: :organization_type}]
+
+    - for joy in joyride
+      li data-id=joy[:id] data-text=t('.joyride.next')
+        h5 = t(".joyride.#{joy[:name]}.title")
+        p = t(".joyride.#{joy[:name]}.description").html_safe
+
   .row
     .large-6.columns.large-centered
       .new-project-box
-        h3 = t '.titles.header'
-        hr
+        header#joyride-start
+          h3 = t('.titles.header')
+          p = t('.titles.sub')
+          hr
         .row
           .large-10.small-11.columns.large-centered.small-centered
             = simple_form_for @project, html: { class: 'custom' } do |f|
-              = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
+              #joyride-project-category
+                = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
 
               = f.input :name, as: :string, maxlength: 100
-
               = f.label :campaign_type
-              = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
+              #joyride-project-campaign-type
+                = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
@@ -31,15 +54,12 @@
                 = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
                 .map-canvas
 
-              = f.input :headline, as: :string, maxlength: 130
+              = f.input :headline, as: :string, maxlength: 140
               = f.input :about
 
-              .input.boolean[class="#{'error' if @project.errors[:accepted_terms].present?}"]
-                .text-left
-                  = f.check_box :accepted_terms, { checked: params.include?(:accepted_terms) }
-                .text-right
-                  = f.label :accepted_terms, t('words.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
-                -  if @project.errors[:accepted_terms].present?
-                  small.error = @project.errors[:accepted_terms].to_sentence
+              #joyride-organization-type
+                = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
+
+              p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
 
               = f.button :submit

@@ -54,7 +54,7 @@ en:
         address_neighborhood: 'Neighborhood Name'
         address_zip_code: 'Zip code'
         other_url: 'Your website'
-        update_address: "Update my address on Neighbor.ly's profile."
+        update_address: "Update my address on my profile."
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'
@@ -62,7 +62,7 @@ en:
         category: 'Category'
         permalink: 'Permalink'
         goal: 'Campaign Goal'
-        headline: 'Tagline'
+        headline: 'Summary'
         about: 'The Story'
         expires_at: 'Duration'
         online_days: 'Duration'
@@ -79,7 +79,7 @@ en:
         budget: 'Budget Detail'
         tag_list: 'Keywords'
         new:
-          category_id: 'Choose Category'
+          category_id: 'Campaign Category'
       contribution:
         new:
           anonymous: 'I want to contribute anonymously.'
