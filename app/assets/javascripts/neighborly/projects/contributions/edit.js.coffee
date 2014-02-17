@@ -22,7 +22,9 @@ Neighborly.Projects.Contributions.Edit =
       initialize: ->
         _.bindAll this, 'showContent'
         this.$('.methods input').click this.showContent
+        $('.create-contribution-page #pay_payment_fees').on 'change', this.showTotalValue
         this.$('.methods input:first').click()
+        this.showTotalValue()
 
       showContent: (e)->
         this.showTotalValue(e)
@@ -37,6 +39,12 @@ Neighborly.Projects.Contributions.Edit =
             $payment.show()
             this.$('.payment-method').removeClass('loading-section')
 
-      showTotalValue: (e)->
+      showTotalValue: =>
         $input = $('.create-contribution-page header .total-with-fee input')
-        $input.val("#{$input.data('total-text')} #{$(e.target).data('value-total-with-fees')}")
+        $target = this.$('.methods input:checked')
+        if $('.create-contribution-page #pay_payment_fees').is(':checked')
+          value = $($target).data('value-total-with-fees')
+        else
+          value = $($target).data('value-total-without-fees')
+
+        $input.val("#{$input.data('total-text')} #{value}") if value
