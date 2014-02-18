@@ -16,7 +16,7 @@ class Reports::ContributionReportsForProjectOwnersController < Reports::BaseCont
     super.
       select(%Q{
         user_name as "#{I18n.t('contribution_report_to_project_owner.user_name')}",
-        back_value as "#{I18n.t('contribution_report_to_project_owner.value')}",
+        contribution_value as "#{I18n.t('contribution_report_to_project_owner.value')}",
         reward_minimum_value as "#{I18n.t('contribution_report_to_project_owner.minimum_value')}",
         reward_description as "#{I18n.t('contribution_report_to_project_owner.reward_description')}",
         created_at as "#{I18n.t('contribution_report_to_project_owner.created_at')}",
