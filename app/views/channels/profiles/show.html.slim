@@ -4,7 +4,10 @@
   section.header
     .row
       .large-7.columns.video
-        = content_tag(:iframe, nil, src: @profile.display_video_embed_url, width: '540', height: '304', frameborder: 0)
+        - if @profile.video_url.present?
+          = content_tag(:iframe, nil, src: @profile.display_video_embed_url, width: '540', height: '304', frameborder: 0)
+        - else
+          = image_tag @profile.image.x_large.url
       .large-5.columns
         h2.title = @profile.name
         p.description = truncate(@profile.description, length: 320)
