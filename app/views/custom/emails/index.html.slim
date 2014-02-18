@@ -1,9 +1,9 @@
-#page_content
-  .container
+.row
+  .large-12.columns
     .title
       h1 Notifications
 
-    .data-table
+    .data-table[data-no-turbolink=true]
       .bootstrap-twitter
         table.table.table-striped
           thead
@@ -14,8 +14,9 @@
           tbody
             - @notifications.each do |notification|
               tr id=notification.id class=cycle("even", "odd")
-                td = I18n.t("notifications.#{notification.notification_type.name}.subject", notification.mail_params)
-                td = notification.notification_type.name
+                - @notification = notification
+                td = render(template: "notifications_mailer/subjects/#{notification.template_name}", formats: [:text, :html])
+                td = notification.template_name
                 td
                   .pull-right
                     = link_to 'Show', email_path(notification), class: 'btn'
