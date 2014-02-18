@@ -4,17 +4,18 @@
     .row
       .large-10.columns.large-centered
         h3 = t('.you_are_about', project_name: @project.name)
-        .total-with-fee
+        form.total-value.custom
           .row
-            .large-4.small-4.columns.large-centered.small-centered
+            .large-5.small-5.columns.large-centered.small-centered
               input[type='text' disabled=true value="#{t('.total')}#{@contribution.display_value}" data-total-text=t('.total')]
-              .custom-tooltip
-                = link_to '#' do
-                  i.icon-et-info-circled
-                .tooltip-content.hide
-                  p = t('.tooltip-text', project_name: @project.name).html_safe
-              = check_box_tag 'pay_payment_fees', 1, true
-              = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
+              .who-pay-fees
+                = check_box_tag 'pay_payment_fees', 1, true
+                = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
+                .custom-tooltip
+                  = link_to '#' do
+                    i.icon-et-info-circled
+                  .tooltip-content.hide
+                    p = t('.tooltip-text', project_name: @project.name).html_safe
 
   .row
     section.content.large-8.medium-8.columns

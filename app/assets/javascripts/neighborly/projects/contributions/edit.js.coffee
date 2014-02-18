@@ -40,7 +40,7 @@ Neighborly.Projects.Contributions.Edit =
             this.$('.payment-method').removeClass('loading-section')
 
       showTotalValue: =>
-        $input = $('.create-contribution-page header .total-with-fee input')
+        $input = $('.create-contribution-page header .total-value input')
         $target = this.$('.methods input:checked')
         if $('.create-contribution-page #pay_payment_fees').is(':checked')
           value = $($target).data('value-total-with-fees')
