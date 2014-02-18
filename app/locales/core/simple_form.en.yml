@@ -110,7 +110,7 @@ en:
           address_state: 'Please select the state where your project is located.'
           tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
       channel:
-        image: "Upload a minimum 300x150 image(.jpg or .png)."
+        image: "Upload a minimum 600x300 image(.jpg or .png)."
       organization:
         image: "Upload a minimum 300x150 image(.jpg or .png)."
       user:
