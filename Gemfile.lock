@@ -17,9 +17,16 @@ GIT
       supermodel
 
 GIT
+  remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
+  revision: 7301ed40d0af44d3c5c8246587cc7dcf6af2b62c
+  branch: master
+  specs:
+    neighborly-balanced-bankaccount (0.0.1)
+
+GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: 3042720b184f5d0255a7daad0dade23f486eada8
-  branch: im-attach-cc-to-customer
+  revision: 5e119d04a6219047df31769b390ae03d612c17ac
+  branch: master
   specs:
     neighborly-balanced-creditcard (0.0.1)
       neighborly-balanced (~> 0)
@@ -501,6 +508,7 @@ DEPENDENCIES
   launchy
   letter_opener
   neighborly-balanced!
+  neighborly-balanced-bankaccount!
   neighborly-balanced-creditcard!
   newrelic_rpm (= 3.6.9.171)
   nprogress-rails
