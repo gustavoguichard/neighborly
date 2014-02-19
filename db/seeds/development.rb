@@ -138,7 +138,8 @@ puts 'Done!'
 puts 'Creating Admin user...'
   u = User.new name: 'Admin',
                    email: 'admin@admin.com',
-                   password: 'password'
+                   password: 'password',
+                   remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/people/150/150/project.jpg'
   u.admin = true
   u.skip_confirmation!
   u.confirm!
@@ -152,7 +153,8 @@ puts 'Creating Test user...'
   User.new admin: false,
                name: 'Test',
                email: 'test@test.com',
-               password: 'password'
+               password: 'password',
+               remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/people/150/150/project.jpg'
   u.admin = true
   u.skip_confirmation!
   u.confirm!
@@ -163,10 +165,10 @@ puts 'Done!'
 
 puts 'Creating Organization user...'
 
-  u = User.new name: 'Organization',
-                   email: 'org@org.com',
-                   password: 'password',
-                   profile_type: 'organization'
+  u = User.new email: 'org@org.com',
+               password: 'password',
+               profile_type: 'organization',
+               organization_attributes: { name: 'Organization Name', remote_image_url: 'http://jpg-lorem-pixel.herokuapp.com/transport/300/150/project.jpg' }
   u.admin = true
   u.confirm!
   u.save
@@ -207,7 +209,50 @@ puts 'Done!'
 
 puts 'Creating channel...'
 
-  Channel.create! user: User.where(email: 'channel@channel.com').first, name: 'Channel', permalink: 'channel', description: Faker::Lorem.sentence
+  c = Channel.create! user: User.where(email: 'channel@channel.com').first,
+                      name: 'Channel Name',
+                      permalink: 'channel',
+                      description: Faker::Lorem.sentence,
+                      remote_image_url: 'http://jpg-lorem-pixel.herokuapp.com/business/600/300/project.jpg'
+  c.push_to_online!
 
 puts '---------------------------------------------'
 puts 'Done!'
+
+puts 'Creating channel project...'
+
+  channel_project = Project.create! user: User.where(email: 'org@org.com').first,
+                                    category: Category.first,
+                                    channels: [Channel.first],
+                                    name: "Foo bar",
+                                    permalink: 'foo_bar_channel',
+                                    about: "Foo bar",
+                                    headline: "Foo bar",
+                                    goal: 10000,
+                                    online_date: Time.now,
+                                    online_days: 90,
+                                    how_know: 'Lorem ipsum',
+                                    more_links: 'Ipsum dolor',
+                                    video_url: 'http://vimeo.com/17298435',
+                                    home_page: true,
+                                    recommended: true,
+                                    address: 'Kansas City, MO',
+                                    remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/city/500/400/project.jpg',
+                                    remote_hero_image_url: 'http://jpg-lorem-pixel.herokuapp.com/city/1600/800/project.jpg'
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+
+puts 'Creating channel project notifications...'
+
+  channel_project.approve!
+  channel_project.push_to_draft!
+  channel_project.reject!
+  channel_project.push_to_draft!
+  channel_project.approve!
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+
