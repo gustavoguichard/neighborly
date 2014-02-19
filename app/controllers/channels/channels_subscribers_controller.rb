@@ -12,8 +12,8 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
       return redirect_to root_path
     end
   # This is needed when you press the follow channel button without being signed in
-  rescue
-    return redirect_to new_user_session_path
+  #rescue
+    #return redirect_to new_user_session_path
   end
 
   def destroy
