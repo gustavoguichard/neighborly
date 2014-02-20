@@ -6,4 +6,4 @@ Neighborly.Channels.Profiles.Edit =
     el: '.edit-channel-page'
 
     initialize: ->
-      this.$('#profile_how_it_works').markItUp(Neighborly.markdownSettings)
+      this.$('#profile_how_it_works, #profile_submit_your_project_text').markItUp(Neighborly.markdownSettings)

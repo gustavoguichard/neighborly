@@ -26,7 +26,10 @@
         - if @profile.accepts_projects?
           .large-3.small-4.columns.submit-your-project
             h4 = t('.submit_your_project.title')
-            p = t('.submit_your_project.text')
+            - if @profile.submit_your_project_text.present?
+              p = @profile.submit_your_project_text_html.html_safe
+            - else
+              p = t('.submit_your_project.text')
             = link_to t('.submit_your_project.button'), start_path, class: 'button'
         .small-8.columns[class="large-#{ @profile.accepts_projects? ? '9' : '12' }"]
           .about-us
