@@ -21,7 +21,7 @@
             .large-6.columns
               = link_to t('.follow'), channels_subscriber_path, class: [:button, :success]
 
-    section.more.animated.fadeIn
+    section.more
       .row
         - if @profile.accepts_projects?
           .large-3.small-4.columns.submit-your-project
@@ -65,7 +65,7 @@
       .row
         h3 
           i.icon-et-home
-          = t('.our_projects')
+          = t('.projects_we_support')
         .row
           - @projects.each do |project|
             = render partial: 'projects/project', locals: { project: project }
