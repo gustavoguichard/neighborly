@@ -5,8 +5,9 @@ class Channel < ActiveRecord::Base
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
   include Channel::StartContent
+  include Channel::SuccessContent
 
-  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :accepts_projects, :submit_your_project_text, :user, :user_id, :user_attributes, :start_hero_image, :start_primary_content, :start_content
+  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :accepts_projects, :submit_your_project_text, :user, :user_id, :user_attributes, :start_hero_image, :start_primary_content, :start_content, :success_content
 
   validates_presence_of :name, :description, :permalink, :user
   validates_uniqueness_of :permalink
