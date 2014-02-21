@@ -41,6 +41,10 @@ en:
       channel:
         how_it_works: 'About Us'
         submit_your_project_text: 'Submit Your Project'
+        start_hero_image: 'Header Image'
+        start_content:
+          start_primary_content: 'Primary Content'
+          start_secondary_content: 'Secondary Content'
       profile:
         how_it_works: 'About Us'
         submit_your_project_text: 'Submit Your Project'
