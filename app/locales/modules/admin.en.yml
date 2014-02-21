@@ -104,6 +104,7 @@ en:
         associate_existing_user: 'Associate an existing user'
         create_new_channel_user: 'Create a new user'
         start_content: 'Content for Start Page'
+        success_content: 'Content for Successfully Submitted Page'
       members:
         messages:
           removed: 'Successfully removed!'
