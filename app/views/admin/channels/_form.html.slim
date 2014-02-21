@@ -66,25 +66,26 @@
           = form.fields_for :user do |uf|
             = uf.input :other_url, input_html: { class: "with-prefix" }, label: false, as: :string
 
-  = form.input :submit_your_project_text, as: :text, input_html: {rows: 20, class: 'small'}
-  = form.input :how_it_works, as: :text, input_html: {rows: 20}
+  = form.input :submit_your_project_text, as: :text, input_html: {rows: 20, class: 'small markdown-editor'}
+  = form.input :how_it_works, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
 
-  h3 START
-  = form.simple_fields_for :start_content, OpenStruct.new(resource.start_content) do |fs|
-    = form.input :start_hero_image, as: :file
-    = fs.input :title
-    = fs.input :subtitle
+  fieldset
+    h3 = t('.start_content')
+    = form.simple_fields_for :start_content, OpenStruct.new(resource.start_content) do |fs|
+      = form.input :start_hero_image, as: :file
+      = fs.input :title
+      = fs.input :subtitle
 
-    - for step in [:first, :second, :third]
-      .row
-        .large-4.columns
-          = fs.input "#{step}_step_icon"
-        .large-4.columns
-          = fs.input "#{step}_step_title"
-        .large-4.columns
-          = fs.input "#{step}_step_description"
+      - for step in [:first, :second, :third]
+        .row
+          .large-4.columns
+            = fs.input "#{step}_step_icon"
+          .large-4.columns
+            = fs.input "#{step}_step_title"
+          .large-4.columns
+            = fs.input "#{step}_step_description"
 
-    = fs.input :start_primary_content, as: :text, input_html: {rows: 20}
-    = fs.input :start_secondary_content, as: :text, input_html: {rows: 20}
+      = fs.input :start_primary_content, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
+      = fs.input :start_secondary_content, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
 
   = form.button :submit, class: 'button', data: { disable_with: t('words.sending') }
