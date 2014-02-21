@@ -1,31 +1,36 @@
 - content_for :title, t('.title')
 
+- channel = controller.channel
+
 .start-page
-  header.hero[data-image-url=image_path('start/hero.jpg')]
+  header.hero[data-image-url="#{ (channel && channel.start_hero_image.present?) ? channel.start_hero_image_url(:blur) : image_path('start/hero.jpg')}"]
     .row
       .large-8.columns.large-centered.text-center
-        h2 = t('.title')
+        h2
+          - if channel
+            = channel.start.title
+            br/
+            = channel.start.subtitle
+          - else
+            = t('.title')
   .white
     section.steps
       .row
-        .large-4.columns
-          .large-11.columns.large-centered.rounded-top
-            .step
-              i.icon-et-paper-plane
-              h5 = t('.steps.first.title')
-              p = t('.steps.first.description')
-        .large-4.columns
-          .large-11.columns.large-centered.rounded-top
-            .step
-              i.icon-et-clock
-              h5 = t('.steps.second.title')
-              p = t('.steps.first.description')
-        .large-4.columns
-          .large-11.columns.large-centered.rounded-top
-            .step
-              i.icon-et-rocket
-              h5 = t('.steps.third.title')
-              p = t('.steps.third.description')
+        - if channel
+          - steps = channel.start
+        - else
+          - steps = OpenStruct.new first_step_icon: 'et-paper-plane', first_step_title: t('.steps.first.title'), first_step_description: t('.steps.first.description'),
+                                   second_step_icon: 'et-clock', second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
+                                   third_step_icon: 'et-rocket', third_step_title: t('.steps.third.title'), third_step_description: t('.steps.third.description')
+
+        - for step in [:first, :second, :third]
+          .large-4.columns
+            .large-11.columns.large-centered.rounded-top
+              .step
+                i[class="icon-#{steps.send("#{step}_step_icon")}"]
+                h5 = steps.send("#{step}_step_title")
+                p = steps.send("#{step}_step_description")
+
     .row
       .large-10.columns.large-centered
         hr
@@ -33,28 +38,42 @@
     section.who
       .row
         .large-12.columns
-          h2 = t('.who.title')
-        .large-4.columns
-          .large-8.columns.large-centered
-            i.icon-fa-building
-            h5 = t('.who.local-governments')
-        .large-4.columns
-          .large-10.columns.large-centered
-            i.icon-fa-heart
-            h5 = t('.who.nonprofits')
-        .large-4.columns
-          .large-10.columns.large-centered
-            i.icon-fa-home
-            h5 = t('.who.neighborhood-organizations')
+          - unless channel
+            h2 = t('.who.title')
+            .large-4.columns
+              .large-8.columns.large-centered
+                i.icon-fa-building
+                h5 = t('.who.local-governments')
+            .large-4.columns
+              .large-10.columns.large-centered
+                i.icon-fa-heart
+                h5 = t('.who.nonprofits')
+            .large-4.columns
+              .large-10.columns.large-centered
+                i.icon-fa-home
+                h5 = t('.who.neighborhood-organizations')
         .large-11.columns.large-centered
           .row
             .large-12.columns
-              p = t('.who.description')
+              - if channel
+                = channel.start_primary_content_html
+              - else
+                p = t('.who.description')
           .row
             = link_to t('.get-started'), new_project_path, class: 'button large large-5 columns large-centered'
+
+            - if channel
+              .large-10.columns.large-centered
+                hr
+
+              .large-12.columns
+                = channel.start_secondary_content_html
+
     .row
       .large-10.columns.large-centered
         hr
+
+
 
     section.work
       .row
