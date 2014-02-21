@@ -88,4 +88,11 @@
       = fs.input :start_primary_content, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
       = fs.input :start_secondary_content, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
 
+  fieldset
+    h3 = t('.success_content')
+    = form.simple_fields_for :success_content, OpenStruct.new(resource.success_content) do |fs|
+      = fs.input :main_text, as: :text, input_html: {rows: 20, class: 'markdown-editor'}
+      = fs.input :button_text
+      = fs.input :button_link
+
   = form.button :submit, class: 'button', data: { disable_with: t('words.sending') }
