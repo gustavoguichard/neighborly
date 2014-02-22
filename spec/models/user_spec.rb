@@ -396,4 +396,29 @@ describe User do
       end
     end
   end
+
+  describe "#total_led" do
+    let(:user){ create(:user) }
+    subject { user.total_led }
+
+    context "not visible projects" do
+      before { create(:project, user: user, state: 'rejected') }
+
+      it { expect(subject).to be_zero }
+    end
+
+    context "visible projects" do
+      context "soon projects" do
+        before { create(:project, user: user, state: 'soon') }
+
+        it { expect(subject).to be_zero }
+      end
+
+      context "not soon projects" do
+        before { create(:project, user: user, state: 'online') }
+
+        it { expect(subject).to eq(1) }
+      end
+    end
+  end
 end

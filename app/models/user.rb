@@ -227,7 +227,7 @@ class User < ActiveRecord::Base
   end
 
   def total_led
-    projects_led.length
+    projects_led.count
   end
 
   def contributed_projects
