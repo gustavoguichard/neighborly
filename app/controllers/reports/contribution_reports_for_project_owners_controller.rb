@@ -1,13 +1,6 @@
 class Reports::ContributionReportsForProjectOwnersController < Reports::BaseController
   before_filter :check_if_project_belongs_to_user
 
-  def index
-    @report = end_of_association_chain.to_xls( columns: I18n.t('contribution_report_to_project_owner').values )
-    super do |format|
-      format.xls { send_data @report, :filename => 'apoiadores.xls' }
-    end
-  end
-
   def end_of_association_chain
     conditions = { project_id: params[:project_id] }
 
