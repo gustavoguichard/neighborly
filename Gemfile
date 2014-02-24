@@ -39,9 +39,6 @@ gem 'slim-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'browser'
 
-# Static pages
-gem 'high_voltage'
-
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
