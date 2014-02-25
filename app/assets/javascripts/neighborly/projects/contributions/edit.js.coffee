@@ -27,6 +27,7 @@ Neighborly.Projects.Contributions.Edit =
         this.togglePaymentFee()
 
       showContent: (e)->
+        this.$('.container .loading').addClass('show')
         this.togglePaymentFee()
         this.$('.payment-method').addClass('loading-section')
         $payment = $("##{$(e.currentTarget).val()}-payment.payment-method")
@@ -39,6 +40,7 @@ Neighborly.Projects.Contributions.Edit =
             $payment.show()
             this.$('.payment-method').removeClass('loading-section')
             this.updatePaymentFeeInformationOnEngine()
+            this.$('.container .loading').removeClass('show')
 
       togglePaymentFee: =>
         $input = $('.create-contribution-page header .total-value input')
@@ -57,4 +59,3 @@ Neighborly.Projects.Contributions.Edit =
           $('[data-pay-payment-fee]').val('1')
         else
           $('[data-pay-payment-fee]').val('0')
-

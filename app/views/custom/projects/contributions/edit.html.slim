@@ -33,7 +33,9 @@
         .subtile
           = t('.payment.subtile')
 
-        section.conteiner
+        section.container
+          .loading
+            = image_tag 'logo-icon.png', class: "loader-img"
           - PaymentEngines.engines.each do |engine|
             div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
 
