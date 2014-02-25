@@ -33,7 +33,7 @@ Neighborly.Projects.Contributions.Edit =
 
         if $payment.data('path')
           $.get($payment.data('path')).success (data) =>
-            this.$('.payment-method').hide()
+            this.$('.payment-method').html('')
             $payment.html data
             Initjs.initializePartial()
             $payment.show()
