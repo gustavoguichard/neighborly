@@ -38,6 +38,7 @@ Neighborly.Projects.Contributions.Edit =
             Initjs.initializePartial()
             $payment.show()
             this.$('.payment-method').removeClass('loading-section')
+            this.updatePaymentFeeInformationOnEngine()
 
       togglePaymentFee: =>
         $input = $('.create-contribution-page header .total-value input')
@@ -50,3 +51,10 @@ Neighborly.Projects.Contributions.Edit =
           $('[data-pay-payment-fee]').val('0')
 
         $input.val("#{$input.data('total-text')} #{value}") if value
+
+      updatePaymentFeeInformationOnEngine: ->
+        if $('.create-contribution-page #pay_payment_fees').is(':checked')
+          $('[data-pay-payment-fee]').val('1')
+        else
+          $('[data-pay-payment-fee]').val('0')
+
