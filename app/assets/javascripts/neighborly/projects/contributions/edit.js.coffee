@@ -43,8 +43,8 @@ Neighborly.Projects.Contributions.Edit =
         $input = $('.create-contribution-page header .total-value input')
         $target = this.$('.methods input:checked')
         if $('.create-contribution-page #pay_payment_fees').is(':checked')
-          value = $($target).data('value-total-with-fees')
+          value = $($target).data('value-with-fees')
         else
-          value = $($target).data('value-total-without-fees')
+          value = $($target).data('value-without-fees')
 
         $input.val("#{$input.data('total-text')} #{value}") if value

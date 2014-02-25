@@ -25,7 +25,7 @@
         .methods
           - PaymentEngines.engines.each do |engine|
             label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-total-without-fees' => @contribution.value, :'data-value-total-with-fees' => engine[:total_with_fees].call(@contribution.value)
+              = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => @contribution.value, :'data-value-with-fees' => engine[:value_with_fees].call(@contribution.value)
               | &nbsp;
               = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix
