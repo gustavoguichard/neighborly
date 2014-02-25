@@ -53,27 +53,3 @@ task :check_echeck => [:environment] do
     end
   end
 end
-
-desc "Update routing number table"
-task :update_routing_numbers => :environment do
-  url = URI.parse('http://www.fededirectory.frb.org/fpddir.txt');
-  http = Net::HTTP.new(url.host, url.port);
-  response = http.request(Net::HTTP::Get.new(url.request_uri));
-
-  puts "Criando arquivo temporario"
-  tmp_file = Tempfile.new("routing_numbers_#{DateTime.now.to_i}")
-  tmp_file.write response.body
-  tmp_file.rewind
-  puts "temp file --> #{tmp_file.inspect}"
-
-  tmp_file.each_line do |line|
-    rn = line[0..8]
-    bn = line[27...63]
-    puts "#{rn} -- #{bn}"
-
-    resource = RoutingNumber.find_or_create_by_number(rn)
-    resource.bank_name = bn
-    resource.save
-  end
-  tmp_file.unlink
-end
