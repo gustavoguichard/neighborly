@@ -18,14 +18,17 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 7301ed40d0af44d3c5c8246587cc7dcf6af2b62c
+  revision: fecef4f81525ef5005f8dc86c6d1214750a96b49
   branch: master
   specs:
     neighborly-balanced-bankaccount (0.0.1)
+      neighborly-balanced (~> 0)
+      rails
+      slim
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: de53804ddda75b88c9b63436fa193583939a6bbe
+  revision: e6b013e90172ce495a9cf834a099a5c33b75355c
   branch: master
   specs:
     neighborly-balanced-creditcard (0.0.1)
@@ -34,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: 1c3a5dd3ad840db7c8d42783eab061c579ee3431
+  revision: 202f90d004140dd083167fb1e0faa330a2c935d6
   branch: master
   specs:
     neighborly-balanced (0.0.1)
