@@ -21,12 +21,15 @@
             .large-6.columns
               = link_to t('.follow'), channels_subscriber_path, class: [:button, :success]
 
-    section.more.animated.fadeIn
+    section.more
       .row
         - if @profile.accepts_projects?
           .large-3.small-4.columns.submit-your-project
             h4 = t('.submit_your_project.title')
-            p = t('.submit_your_project.text')
+            - if @profile.submit_your_project_text.present?
+              p = @profile.submit_your_project_text_html.html_safe
+            - else
+              p = t('.submit_your_project.text')
             = link_to t('.submit_your_project.button'), start_path, class: 'button'
         .small-8.columns[class="large-#{ @profile.accepts_projects? ? '9' : '12' }"]
           .about-us
@@ -65,7 +68,7 @@
       .row
         h3 
           i.icon-et-home
-          = t('.our_projects')
+          = t('.projects_we_support')
         .row
           - @projects.each do |project|
             = render partial: 'projects/project', locals: { project: project }

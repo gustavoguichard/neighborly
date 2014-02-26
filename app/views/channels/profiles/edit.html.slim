@@ -44,6 +44,7 @@
               = form.fields_for :user do |uf|
                 = uf.input :other_url, input_html: { class: "with-prefix" }, label: false, as: :string
 
+      = form.input :submit_your_project_text, as: :text, input_html: {rows: 20, class: 'small'}
       = form.input :how_it_works, as: :text, input_html: {rows: 20}
       = form.button :submit, t('.submit'), class: 'button', data: { disable_with: t('words.sending') }
 

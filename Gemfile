@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.0'
 
-gem 'rails',    '4.0.2'
+gem 'rails',    '4.0.3'
 
 gem 'protected_attributes', '~> 1.0.5' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
@@ -38,9 +38,6 @@ gem 'slim-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'browser'
 
-# Static pages
-gem 'high_voltage'
-
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
@@ -69,7 +66,6 @@ gem 'dropzonejs-rails', '~> 0.4.10'
 
 # Other Tools
 gem 'has_permalink'
-gem 'to_xls'
 gem 'ranked-model'
 gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
@@ -103,6 +99,7 @@ group :production do
 end
 
 group :development do
+  gem 'ffaker'
   gem "letter_opener"
   gem 'thin'
   gem 'better_errors'

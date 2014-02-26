@@ -11,7 +11,7 @@ Neighborly.Users.Edit =
 
     initialize: ->
       _.bindAll this, 'changedProfile'
-      this.$('#user_channel_attributes_how_it_works').markItUp(Neighborly.markdownSettings) if this.$('#user_channel_attributes_how_it_works').length > 0
+      this.$('#user_channel_attributes_how_it_works, #user_channel_attributes_submit_your_project_text').markItUp(Neighborly.markdownSettings) if this.$('#user_channel_attributes_how_it_works').length > 0
       if window.File && window.FileReader && window.FileList && window.Blob
         this.prepareToDropzone()
         this.uploaders = []

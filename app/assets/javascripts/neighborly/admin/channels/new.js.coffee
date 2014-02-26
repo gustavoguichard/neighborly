@@ -6,7 +6,7 @@ Neighborly.Admin.Channels.New =
     el: '.admin'
 
     initialize: ->
-      this.$('#channel_how_it_works').markItUp(Neighborly.markdownSettings)
+      this.$('.markdown-editor').markItUp(Neighborly.markdownSettings)
 
 
 Neighborly.Admin.Channels.Edit =

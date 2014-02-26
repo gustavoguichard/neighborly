@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def complete_profile
-    if current_user && current_user.completeness_progress < 100
+    if current_user && current_user.completeness_progress.to_i < 100
       flash[:notice_completeness_progress] = { message: t('controllers.users.completeness_progress', link: edit_user_path(current_user)), dismissible: false }
     end
   end

@@ -359,4 +359,66 @@ describe User do
       it{ should == nil }
     end
   end
+
+  describe "#total_contributions" do
+    let(:user){ create(:user) }
+    subject { user.total_contributions }
+
+    context "without contributions" do
+      it { expect(subject).to be_zero }
+    end
+
+    context "with not anonymous contributions" do
+      context "with confirmed status" do
+        before { create(:contribution, user: user, state: 'confirmed', anonymous: false) }
+
+        it { expect(subject).to eq(1) }
+      end
+
+      context "with pending status" do
+        before { create(:contribution, user: user, state: 'pending', anonymous: false) }
+
+        it { expect(subject).to be_zero }
+      end
+    end
+
+    context "with anonymous contributions" do
+      context "with confirmed status" do
+        before { create(:contribution, user: user, state: 'confirmed', anonymous: true) }
+
+        it { expect(subject).to be_zero }
+      end
+
+      context "with pending status" do
+        before { create(:contribution, user: user, state: 'pending', anonymous: true) }
+
+        it { expect(subject).to be_zero }
+      end
+    end
+  end
+
+  describe "#total_led" do
+    let(:user){ create(:user) }
+    subject { user.total_led }
+
+    context "not visible projects" do
+      before { create(:project, user: user, state: 'rejected') }
+
+      it { expect(subject).to be_zero }
+    end
+
+    context "visible projects" do
+      context "soon projects" do
+        before { create(:project, user: user, state: 'soon') }
+
+        it { expect(subject).to be_zero }
+      end
+
+      context "not soon projects" do
+        before { create(:project, user: user, state: 'online') }
+
+        it { expect(subject).to eq(1) }
+      end
+    end
+  end
 end

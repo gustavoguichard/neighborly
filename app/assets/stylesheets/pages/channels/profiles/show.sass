@@ -3,12 +3,27 @@
     @extend .white
     padding: +emCalc(25px, 0)
 
+    h2
+      font-size: 200%
+
     .button
       width: 100%
+      font-size: 99%
+
+    .video
+      margin-top: +emCalc(20px)
+
+    &.expanded
+      section.more
+        opacity: 1
+        height: auto
 
     section.more
-      display: none
       margin-top: +emCalc(50px)
+      +single-transition(all, 800ms, ease-in-out)
+      overflow: hidden
+      opacity: 0
+      height: 0
       .submit-your-project
         border-right: 1px solid $border-color
       .social
@@ -20,14 +35,11 @@
             @extend .icon-et-mail:before
 
     .see-more-wrapper
+      padding-top: +emCalc(20px)
       text-align: right
       a
         font-size: 150%
         text-transform: uppercase
-    &.expanded
-      section.more
-        display: block
-
 
   section.projects
     padding-top: +emCalc(25px)
