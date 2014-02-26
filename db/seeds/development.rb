@@ -4,6 +4,47 @@ require 'ffaker'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 
+def lorem_pixel_url(size = '100/100', type = 'city')
+  "http://jpg-lorem-pixel.herokuapp.com/#{type}/#{size}/image.jpg"
+end
+
+def generate_user
+  u = User.new name: Faker::Name.name,
+               email: Faker::Internet.email,
+               remote_uploaded_image_url: lorem_pixel_url('150/150', 'people')
+  u.skip_confirmation!
+  u.save
+  u
+end
+
+def generate_project(fields = {})
+   p = Project.create!({ user: User.where(email: 'org@org.com').first,
+                     category: Category.order('RANDOM()').limit(1).first,
+                     name: Faker::Lorem.sentence(2),
+                     about: Faker::Lorem.paragraph(10),
+                     headline: Faker::Lorem.sentence,
+                     goal: [40000, 73000, 1000, 50000, 100000].shuffle.first,
+                     online_date: Time.now,
+                     online_days: [50, 90, 43, 87, 34].shuffle.first,
+                     how_know: Faker::Lorem.sentence,
+                     video_url: 'http://vimeo.com/79833901',
+                     home_page: true,
+                     address: "#{Faker::Address.city}, #{Faker::AddressUS.state_abbr}",
+                     remote_uploaded_image_url: lorem_pixel_url('500/400', 'city'),
+                     remote_hero_image_url: lorem_pixel_url('1280/600', 'city')
+    }.merge!(fields))
+
+   [3, 5, 7].shuffle.first.times { Reward.create! project: p, minimum_value: [10, 20, 30, 40, 50, 60, 70].shuffle.first, title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(2) }
+   p
+end
+
+def generate_contribution(project, fields: {}, reward: true)
+  r = project.rewards.order('RANDOM()').limit(1).first if reward
+  c = Contribution.create!( { project: project, user: generate_user, reward: r, value: r.minimum_value}.merge!(fields) )
+  c.update_column(:state, 'confirmed')
+  c
+end
+
 puts 'Creating Configuration entries...'
 
   {
@@ -29,6 +70,8 @@ puts 'Creating Configuration entries...'
     email_projects: 'ideas@neighbor.ly',
     timezone: 'US/Central',
     devise_secret_key: SecureRandom.hex(64),
+    balanced_api_key_secret: 'YOUR_API_KEY_SECRET_HERE',
+    balanced_marketplace_id: 'YOUR_MARKETPLACE_ID_HERE'
     #secure_review_host: nil,
     #uservoice_key: nil,
     #mailchimp_api_key: nil,
@@ -137,9 +180,9 @@ puts 'Done!'
 
 puts 'Creating Admin user...'
   u = User.new name: 'Admin',
-                   email: 'admin@admin.com',
-                   password: 'password',
-                   remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/people/150/150/project.jpg'
+               email: 'admin@admin.com',
+               password: 'password',
+               remote_uploaded_image_url: lorem_pixel_url('150/150', 'people')
   u.admin = true
   u.skip_confirmation!
   u.confirm!
@@ -151,10 +194,10 @@ puts 'Done!'
 puts 'Creating Test user...'
 
   User.new admin: false,
-               name: 'Test',
-               email: 'test@test.com',
-               password: 'password',
-               remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/people/150/150/project.jpg'
+           name: 'Test',
+           email: 'test@test.com',
+           password: 'password',
+           remote_uploaded_image_url: lorem_pixel_url('150/150', 'people')
   u.admin = true
   u.skip_confirmation!
   u.confirm!
@@ -168,7 +211,7 @@ puts 'Creating Organization user...'
   u = User.new email: 'org@org.com',
                password: 'password',
                profile_type: 'organization',
-               organization_attributes: { name: 'Organization Name', remote_image_url: 'http://jpg-lorem-pixel.herokuapp.com/transport/300/150/project.jpg' }
+               organization_attributes: { name: 'Organization Name', remote_image_url: lorem_pixel_url('300/150', 'bussines') }
   u.admin = true
   u.confirm!
   u.save
@@ -179,9 +222,9 @@ puts 'Done!'
 puts 'Creating Channel user...'
 
   u = User.new name: 'Channel',
-                   email: 'channel@channel.com',
-                   password: 'password',
-                   profile_type: 'channel'
+               email: 'channel@channel.com',
+               password: 'password',
+               profile_type: 'channel'
   u.admin = true
   u.skip_confirmation!
   u.confirm!
@@ -212,47 +255,93 @@ puts 'Creating channel...'
   c = Channel.create! user: User.where(email: 'channel@channel.com').first,
                       name: 'Channel Name',
                       permalink: 'channel',
-                      description: Faker::Lorem.sentence,
-                      remote_image_url: 'http://jpg-lorem-pixel.herokuapp.com/business/600/300/project.jpg'
+                      description: Faker::Lorem.paragraph,
+                      remote_image_url: lorem_pixel_url('600/300', 'bussines')
   c.push_to_online!
 
 puts '---------------------------------------------'
 puts 'Done!'
 
-puts 'Creating channel project...'
+puts 'Creating channel projects...... It can take a while... You can go and get a coffee now!'
 
-  channel_project = Project.create! user: User.where(email: 'org@org.com').first,
-                                    category: Category.first,
-                                    channels: [Channel.first],
-                                    name: "Foo bar",
-                                    permalink: 'foo_bar_channel',
-                                    about: "Foo bar",
-                                    headline: "Foo bar",
-                                    goal: 10000,
-                                    online_date: Time.now,
-                                    online_days: 90,
-                                    how_know: 'Lorem ipsum',
-                                    more_links: 'Ipsum dolor',
-                                    video_url: 'http://vimeo.com/17298435',
-                                    home_page: true,
-                                    recommended: true,
-                                    address: 'Kansas City, MO',
-                                    remote_uploaded_image_url: 'http://jpg-lorem-pixel.herokuapp.com/city/500/400/project.jpg',
-                                    remote_hero_image_url: 'http://jpg-lorem-pixel.herokuapp.com/city/1600/800/project.jpg'
+  3.times do
+    p = generate_project(channels: [Channel.order('RANDOM()').limit(1).first])
+    p.approve!
+  end
 
-puts '---------------------------------------------'
-puts 'Done!'
-
-
-puts 'Creating channel project notifications...'
-
-  channel_project.approve!
+  channel_project = Project.first
   channel_project.push_to_draft!
   channel_project.reject!
   channel_project.push_to_draft!
   channel_project.approve!
+  channel_project.update_column(:recommended, true)
 
 puts '---------------------------------------------'
 puts 'Done!'
 
 
+puts 'Creating successfull projects...... It can take a while...'
+
+  6.times do
+    p = generate_project(state: 'online', goal: 1000, online_days: [30, 45, 12].shuffle.first)
+    [4, 7, 15, 30].shuffle.first.times { generate_contribution(p) }
+    p.update_attributes( { state: :successful, online_date: (Time.now - 50.days) })
+  end
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+
+puts 'Creating failed projects...... It can take a while...'
+
+  2.times do
+    p = generate_project(state: 'online', goal: 100000, campaign_type: 'all_or_none')
+    [4, 7, 15, 30].shuffle.first.times { generate_contribution(p) }
+    p.update_column(:state, :failed)
+  end
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+puts 'Creating online projects all_or_none...... It can take a while...'
+
+  2.times do
+    p = generate_project(state: 'online', campaign_type: 'all_or_none')
+    [4, 7].shuffle.first.times { generate_contribution(p) }
+  end
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+
+
+puts 'Creating online projects...... It can take a while...'
+
+  5.times do
+    p = generate_project(state: 'online')
+    [4, 3, 5, 23].shuffle.first.times { generate_contribution(p) }
+  end
+  p = Project.last
+  p.update_column(:featured, true)
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+puts 'Creating soon projects ...... It can take a while...'
+
+  4.times do
+    generate_project(state: 'soon')
+  end
+
+puts '---------------------------------------------'
+puts 'Done!'
+
+puts 'Creating ending soon projects ...... It can take a while...'
+
+  2.times do
+    p = generate_project(state: 'online', online_days: 14)
+    p.update_column(:online_date, Time.now - 10.days)
+  end
+
+puts '---------------------------------------------'
+puts 'Done!'
