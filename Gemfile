@@ -100,6 +100,7 @@ group :production do
 end
 
 group :development do
+  gem 'ffaker'
   gem "letter_opener"
   gem 'thin'
   gem 'better_errors'
