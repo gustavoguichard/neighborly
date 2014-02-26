@@ -49,6 +49,20 @@ We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
 * Try to isolate models from controllers as best as you can.
 * Regard the existing tests for a style guide, we try to use implicit spec subjects and lazy evaluation as often as we can.
 
+## Quick Installation
+
+**IMPORTANT**: Make sure you have postgresql-contrib ([Aditional Modules](http://www.postgresql.org/docs/9.3/static/contrib.html)) installed on your system.
+
+```bash
+$ git clone https://github.com/neighborly/neighborly
+$ cd neighborly
+$ cp config/database.sample.yml config/database.yml
+$ vim config/database.yml
+# change username/password and save
+$ bundle install
+$ rake db:create db:migrate db:seed
+$ rails server
+```
 
 ## Credits
 
