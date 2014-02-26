@@ -54,7 +54,7 @@ We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
 **IMPORTANT**: Make sure you have postgresql-contrib ([Aditional Modules](http://www.postgresql.org/docs/9.3/static/contrib.html)) installed on your system.
 
 ```bash
-$ git clone https://github.com/neighborly/neighborly
+$ git clone https://github.com/neighborly/neighborly.git
 $ cd neighborly
 $ cp config/database.sample.yml config/database.yml
 $ vim config/database.yml
