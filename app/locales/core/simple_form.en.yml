@@ -61,12 +61,12 @@ en:
         address_zip_code: 'Zip code'
         other_url: 'Your website'
       project:
-        name: 'Campaign Title'
-        campaign_type: 'Campaign Type'
+        name: 'Project Title'
+        campaign_type: 'Project Type'
         category_id: 'Category'
         category: 'Category'
         permalink: 'Permalink'
-        goal: 'Campaign Goal'
+        goal: 'Project Budget'
         headline: 'Summary'
         about: 'The Story'
         expires_at: 'Duration'
@@ -85,7 +85,7 @@ en:
         tag_list: 'Keywords'
         street_address: 'Street Address'
         new:
-          category_id: 'Campaign Category'
+          category_id: 'Project Category'
       contribution:
         new:
           anonymous: 'I want to contribute anonymously.'
@@ -129,5 +129,5 @@ en:
       user:
         update: 'Save Changes'
       project:
-        create: 'Submit Campaign'
-        update: 'Update Campaign'
+        create: 'Submit Project'
+        update: 'Update Project'

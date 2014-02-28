@@ -13,15 +13,15 @@ en:
           description: 'Information provided here can be changed later.'
         category:
           title: 'Choose Category'
-          description: 'Which category best describes your campaign? You can change this later.'
+          description: 'Which category best describes your project? You can change this later.'
         name:
-          title: 'Campaign Title'
+          title: 'Project Title'
           description: 'What would you like to call it? A short, catchy, shareable title works best!'
         campaign_type:
-          title: 'Campaign Type'
-          description: 'What funding model would you like to use? <br /><br/> <strong>Every Dollar Counts:</strong> The project is funded whether or not the goal is reached. <br /> <strong>All or None:</strong> You must reach your goal by the end of your campaign to receive funds.'
+          title: 'Project Type'
+          description: 'What funding model would you like to use? <br /><br/> <strong>Every Dollar Counts:</strong> The project is funded whether or not the goal is reached. <br /> <strong>All or None:</strong> You must reach your goal by the end of your project to receive funds.'
         goal:
-          title: 'Campaign Goal'
+          title: 'Project Goal'
           description: 'How much do you need to raise in order to complete your project? Please enter a number without commas.'
         address:
           title: 'City, State'
