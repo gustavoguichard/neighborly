@@ -50,6 +50,8 @@
                     span.postfix .00
                 -  if @project.errors[:goal].present?
                   small.error = @project.errors[:goal].to_sentence
+
+              = f.input :street_address
               .address.address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-image-url=image_url('pin.png')]
                 = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
                 .map-canvas

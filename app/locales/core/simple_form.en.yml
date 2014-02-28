@@ -83,6 +83,7 @@ en:
         address_state: 'State'
         budget: 'Budget Detail'
         tag_list: 'Keywords'
+        street_address: 'Street Address'
         new:
           category_id: 'Campaign Category'
       contribution:
