@@ -651,7 +651,7 @@ describe Project do
   end
 
   describe "campaign types" do
-    let(:project) { create(:project) }
+    let(:project) { create(:project, campaign_type: 'all_or_none') }
 
     describe "#all_or_none?" do
       subject { project.all_or_none? }

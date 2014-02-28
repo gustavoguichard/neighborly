@@ -42,6 +42,7 @@ FactoryGirl.define do
 
   factory :project do |f|
     f.name "Foo bar"
+    f.campaign_type { :flexible }
     f.permalink { generate(:permalink) }
     f.association :user, factory: :user
     f.association :category, factory: :category
