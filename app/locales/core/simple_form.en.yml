@@ -88,8 +88,8 @@ en:
           category_id: 'Project Category'
       contribution:
         new:
-          anonymous: 'I want to contribute anonymously.'
-          short_note: 'Optional: Add a short note to accompany your contribution. This will be displayed with your name on the "Neighbors" tab.'
+          anonymous: 'Optional: Make your contribution anonymous.'
+          short_note: 'Optional: Add a short message. This will display with your name on the "Neighbors" tab.'
     hints:
       project:
         edit:
