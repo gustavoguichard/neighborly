@@ -17,22 +17,24 @@
   .row
     section.content.large-8.medium-8.columns
       .payment
-        h3.title = t('.payment.title')
+        /h3.title = t('.payment.title')
 
-        .methods
+        .methods.hide
           - PaymentEngines.engines.each do |engine|
-            label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
-              | &nbsp;
-              = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
+            - if engine[:name] == 'credit_card_net'
+              label
+                = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
+                | &nbsp;
+                = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix
 
-        .subtile
-          = t('.payment.subtile')
+        /.subtile
+          /= t('.payment.subtile')
 
         section.conteiner
           - PaymentEngines.engines.each do |engine|
-            div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
+            - if engine[:name] == 'credit_card_net'
+              div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
 
     aside.large-4.medium-4.columns
       .project-image

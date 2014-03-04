@@ -17,7 +17,7 @@ en:
         account_number: 'Account Number'
     credit-card-net:
       title: 'Credit Card Information'
-      subtile: 'Your card information will be sent securely to our payment processor.'
+      subtitle: 'Your card information will be sent securely to our payment processor.'
       labels:
         billing_first_name: 'First Name'
         billing_last_name: 'Last Name'
