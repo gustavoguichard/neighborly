@@ -14,5 +14,6 @@ en:
       cid_bid: 'CID / BID'
       registered_nonprofit: 'Registered Nonprofit'
       public_private_partnership: 'Public-Private Partnership'
+      nonprofit_501c3: '501c3 Nonprofit'
       other: 'Other'
       not_sure: "I'm Not Sure"

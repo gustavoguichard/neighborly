@@ -62,12 +62,12 @@ en:
         other_url: 'Your website'
         update_address: "Update my address on my profile."
       project:
-        name: 'Campaign Title'
-        campaign_type: 'Campaign Type'
+        name: 'Project Title'
+        campaign_type: 'Project Type'
         category_id: 'Category'
         category: 'Category'
         permalink: 'Permalink'
-        goal: 'Campaign Goal'
+        goal: 'Project Budget'
         headline: 'Summary'
         about: 'The Story'
         expires_at: 'Duration'
@@ -84,12 +84,13 @@ en:
         address_state: 'State'
         budget: 'Budget Detail'
         tag_list: 'Keywords'
+        street_address: 'Street Address'
         new:
-          category_id: 'Campaign Category'
+          category_id: 'Project Category'
       contribution:
         new:
-          anonymous: 'I want to contribute anonymously.'
-          short_note: 'Optional: Add a short note to accompany your contribution. This will be displayed with your name on the "Neighbors" tab.'
+          anonymous: 'Optional: Make your contribution anonymous.'
+          short_note: 'Optional: Add a short message. This will display with your name on the "Neighbors" tab.'
     hints:
       project:
         edit:
@@ -129,5 +130,5 @@ en:
       user:
         update: 'Save Changes'
       project:
-        create: 'Submit Campaign'
-        update: 'Update Campaign'
+        create: 'Submit Project'
+        update: 'Update Project'

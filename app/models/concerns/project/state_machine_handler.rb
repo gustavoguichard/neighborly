@@ -4,7 +4,7 @@ module Project::StateMachineHandler
   included do
     #NOTE: state machine things
     #
-     state_machine :campaign_type, initial: :all_or_none do
+     state_machine :campaign_type, initial: :flexible do
       state :all_or_none, value: 'all_or_none'
       state :flexible, value: 'flexible'
     end
