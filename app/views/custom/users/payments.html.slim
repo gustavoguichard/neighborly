@@ -1,0 +1,12 @@
+- content_for :title, "Payment Info: #{@user.display_name}"
+
+- content_for :page_content do
+  .user-payments-content.row
+    .large-12.columns
+      h3 Payments here
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'users/edit'
+
