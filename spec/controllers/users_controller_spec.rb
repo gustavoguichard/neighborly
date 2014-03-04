@@ -237,6 +237,43 @@ describe UsersController do
     end
   end
 
+  describe "GET payments" do
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        get :payments, id: user
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm loggedn" do
+
+      context 'as normal request' do
+        before { get :payments, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:edit) }
+      end
+
+      context 'as xhr request' do
+        before { xhr :get, :payments, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:payments) }
+      end
+    end
+  end
+
   describe "GET set_email" do
     context "when I'm not logged in" do
       let(:current_user){ nil }

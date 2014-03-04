@@ -147,6 +147,7 @@ Neighborly::Application.routes.draw do
       get :profile,   to: 'users#edit'
       get :settings
       get :credits
+      get :payments
       get :edit
       put 'unsubscribe_update'
       put 'update_email'
