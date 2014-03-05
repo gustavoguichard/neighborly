@@ -1,8 +1,11 @@
-.neighborly-balanced-creditcard-form
+.neighborly-balanced-creditcard-form,
+.neighborly-balanced-bankaccount-form
 
-  .use-previously-card
+  .use-previously-card,
+  .use-previously-bank,
     margin-bottom: +emCalc(25px)
-  .card-box:not(.new-card)
+  .card-box:not(.new-card),
+  .bank-box:not(.new-bank)
     border: 1px solid $border-color
     border-radius: $global-radius
     padding: +emCalc(15px)
@@ -11,10 +14,10 @@
     .columns.expiration
       padding-left: +emCalc(20px)
 
-  .add-new-creditcard-form.with-others-cards
+  .add-new-creditcard-form.with-others-cards,
+  .add-new-bankaccount-form.with-other-bank
     margin-top: +emCalc(25px)
 
-.neighborly-balanced-creditcard-form, .neighborly-balanced-bankaccount-form
   span.checkbox
     margin-right: +emCalc(5px)
   .balanced-seal
