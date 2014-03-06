@@ -1,9 +1,12 @@
 .create-contribution-page
   .hero
+    min-height: +emCalc(200px)
+    padding: +emCalc(10px) 0
     h3
       text-align: center
-      font-weight: bold
-
+      padding-top: 0
+    form
+      margin-bottom: +emCalc(10px)
 
   .total-value
     margin-top: +emCalc(25px)
@@ -11,7 +14,9 @@
     text-align: center
     input
       text-align: center
-      width: 80%
+      width: 76%
+      font-size: 120%
+      height: +emCalc(35px)
       display: inline-block
       margin: 0
     .custom-tooltip
@@ -44,18 +49,16 @@
             margin-right: +emCalc(5px)
 
   .payment
+    .title
+      margin-top: 0
     .methods
       label
         float: left
         margin-right: +emCalc(40px)
         img
           margin-left: +emCalc(5px)
-          &.echeck_net-payment-method
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40)
-            opacity: 0.4
 
     section.container
-      margin-top: +emCalc(50px)
       margin-bottom: +emCalc(30px)
       min-height: +emCalc(300px)
       //border-top: 1px solid $border-color
