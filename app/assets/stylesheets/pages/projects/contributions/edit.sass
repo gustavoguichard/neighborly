@@ -66,7 +66,7 @@
         $img-width: 80px
         $img-height: 66px
         position: relative
-        top: 0
+        top: +emCalc(150px)
         bottom: 0
         left: 0
         right: 0
@@ -78,9 +78,4 @@
           z-index: 201
           +opacity(1)
         .loader-img
-          position: absolute
-          left: 50%
-          top: 50%
-          margin-left: -$img-width/2
-          margin-top: -$img-height/2
-          +experimental(animation, pulsing-heart 1s linear infinite)
+          @include beating-heart($img-width, $img-height)
