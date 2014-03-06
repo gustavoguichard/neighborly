@@ -11,8 +11,6 @@ Neighborly.Users.Payments =
       for account in $accounts
         $account = $(account)
         if $account.data('path')
-          $account.html('loading...')
           $.get($account.data('path')).success (data) =>
-            this.$('.account-method').html('')
             $account.html data
             Initjs.initializePartial()
