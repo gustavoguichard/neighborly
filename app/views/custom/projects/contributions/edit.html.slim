@@ -25,15 +25,16 @@
       .payment
         h3.title = t('.payment.title')
 
-        .methods
+        section.row.methods
           - PaymentEngines.engines.each do |engine|
-            label
-              = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => @contribution.value, :'data-value-with-fees' => engine[:value_with_fees].call(@contribution.value)
-              | &nbsp;
-              = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
+            .large-5.columns
+              label.payment-method-option
+                = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => @contribution.value, :'data-value-with-fees' => engine[:value_with_fees].call(@contribution.value)
+                | &nbsp;
+                = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: 'payment-method-option-icon')
           .clearfix
 
-        section.container
+        .container
           .loading
             = image_tag 'logo-icon.png', class: "loader-img"
           - PaymentEngines.engines.each do |engine|
