@@ -33,9 +33,6 @@
               = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
           .clearfix
 
-        .subtile
-          = t('.payment.subtile')
-
         section.container
           .loading
             = image_tag 'logo-icon.png', class: "loader-img"
