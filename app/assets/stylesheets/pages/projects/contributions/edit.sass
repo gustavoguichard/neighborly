@@ -49,6 +49,13 @@
             margin-right: +emCalc(5px)
 
   .payment
+    section
+      margin-bottom: +emCalc(15px)
+      &.highlighted
+        border-top: 1px solid $border-color
+        padding-top: +emCalc(20px)
+      &.use-existing-item
+        margin-bottom: 0
     .title
       margin-top: 0
     .methods
@@ -58,11 +65,8 @@
         img
           margin-left: +emCalc(5px)
 
-    section.container
-      margin-bottom: +emCalc(30px)
+    .container
       min-height: +emCalc(300px)
-      border-top: 1px solid $border-color
-      padding-top: +emCalc(5px)
       position: relative
 
       .loading
@@ -82,6 +86,15 @@
           +opacity(1)
         .loader-img
           @include beating-heart($img-width, $img-height)
+
+#add-new-creditcard-form
+  margin-bottom: +emCalc(-5px)
+
+.payment-method-option
+  height: +emCalc(50px)
+
+.payment-method-option-icon
+  height: +emCalc(40px)
 
 // IE fixes
 .ie9, .no-ie8compat
