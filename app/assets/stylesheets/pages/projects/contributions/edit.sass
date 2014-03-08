@@ -82,3 +82,11 @@
           +opacity(1)
         .loader-img
           @include beating-heart($img-width, $img-height)
+
+// IE fixes
+.ie9, .no-ie8compat
+  .create-contribution-page
+    .total-value
+      input
+        font-size: 100%
+        height: auto
