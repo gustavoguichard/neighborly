@@ -10,7 +10,7 @@
         form.total-value.custom
           .row
             .large-5.small-5.columns.large-centered.small-centered
-              input[type='text' disabled=true value="#{t('.total')}#{@contribution.display_value}" data-total-text=t('.total')]
+              input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
               .who-pay-fees
                 = check_box_tag 'pay_payment_fees', 1, true
                 = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
@@ -29,7 +29,7 @@
           - PaymentEngines.engines.each do |engine|
             .large-5.columns
               label.payment-method-option
-                = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => @contribution.value, :'data-value-with-fees' => engine[:value_with_fees].call(@contribution.value)
+                = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine[:value_with_fees].call(@contribution.value))
                 | &nbsp;
                 = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: 'payment-method-option-icon')
           .clearfix
