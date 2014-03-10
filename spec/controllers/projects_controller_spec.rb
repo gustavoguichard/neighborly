@@ -159,7 +159,7 @@ describe ProjectsController do
       end
 
       it { ActionMailer::Base.deliveries.should_not be_empty }
-      it { expect(flash[:notice]).to eq 'We\'ve received your request and will be in touch shortly.' }
+      it { expect(flash.notice).to eq 'We\'ve received your request and will be in touch shortly.' }
       it { should redirect_to(project_path(project)) }
     end
 

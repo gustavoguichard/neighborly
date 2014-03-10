@@ -8,7 +8,7 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
     @channels_subscriber = ChannelsSubscriber.new subscription_attributes
     authorize! :create, @channels_subscriber
     create! do |format|
-      flash[:notice] = I18n.t('controllers.channels_subscribers.created', channel: channel.name)
+      flash.notice = I18n.t('controllers.channels_subscribers.created', channel: channel.name)
       return redirect_to root_path
     end
   # This is needed when you press the follow channel button without being signed in
@@ -18,7 +18,7 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
 
   def destroy
     destroy! do |format|
-      flash[:notice] = I18n.t('controllers.channels_subscribers.deleted', channel: channel.name)
+      flash.notice = I18n.t('controllers.channels_subscribers.deleted', channel: channel.name)
       return redirect_to root_path
     end
   end
@@ -32,4 +32,3 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
     { channel_id: channel.id, user_id: current_user.id }
   end
 end
-

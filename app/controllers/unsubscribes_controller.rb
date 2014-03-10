@@ -10,7 +10,7 @@ class UnsubscribesController < ApplicationController
         parent.unsubscribes.create!(project_id: subscription[:project_id])
       end
     end
-    flash[:notice] = t('controllers.unsubscribes.create.success')
+    flash.notice = t('controllers.unsubscribes.create.success')
     return redirect_to settings_user_path(parent)
   end
 

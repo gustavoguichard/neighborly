@@ -39,12 +39,12 @@ class UsersController < ApplicationController
   def update_email
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('devise.confirmations.send_instructions')
+        flash.notice = t('devise.confirmations.send_instructions')
         sign_out current_user
         redirect_to root_path
       end
       failure.html do
-        flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
+        flash.notice = @user.errors[:email].to_sentence if @user.errors[:email].present?
         return render :set_email, layout: 'devise'
       end
     end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        flash[:notice] = update_success_flash_message
+        flash.notice = update_success_flash_message
         return redirect_to settings_user_path(@user) if params[:settings]
         return redirect_to edit_user_path(@user)
       end
@@ -75,9 +75,9 @@ class UsersController < ApplicationController
   def update_password
     @user = User.find(params[:id])
     if @user.update_with_password(params[:user])
-      flash[:notice] = t('controllers.users.update.success')
+      flash.notice = t('controllers.users.update.success')
     else
-      flash.alert = @user.errors.full_messages.to_sentence
+      flash.alert  = @user.errors.full_messages.to_sentence
     end
     return redirect_to settings_user_path(@user)
   end

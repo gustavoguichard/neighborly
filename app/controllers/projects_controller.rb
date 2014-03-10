@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 
   def send_to_analysis
     resource.send_to_analysis
-    flash[:notice] = t('projects.send_to_analysis')
+    flash.notice = t('projects.send_to_analysis')
     redirect_to project_path(@project)
   end
 
@@ -108,9 +108,9 @@ class ProjectsController < ApplicationController
   def send_reward_email
     if simple_captcha_valid?
       ProjectsMailer.contact_about_reward_email(params, resource).deliver
-      flash[:notice] = 'We\'ve received your request and will be in touch shortly.'
+      flash.notice = 'We\'ve received your request and will be in touch shortly.'
     else
-      flash.alert = 'The code is not valid. Try again.'
+      flash.alert  = 'The code is not valid. Try again.'
     end
     redirect_to project_path(resource)
   end

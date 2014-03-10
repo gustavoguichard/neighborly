@@ -10,7 +10,7 @@ class Users::ContributionsController < ApplicationController
       flash.alert = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
     elsif can?(:request_refund, resource) && resource.can_request_refund?
       resource.request_refund!
-      flash[:notice] = I18n.t('controllers.users.contributions.request_refund.refunded')
+      flash.notice = I18n.t('controllers.users.contributions.request_refund.refunded')
     end
 
     redirect_to credits_user_path(parent)
