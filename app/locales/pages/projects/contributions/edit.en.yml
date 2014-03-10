@@ -5,7 +5,7 @@ en:
         title: 'You are contributing to %{project_name}'
         you_are_contributing_to: 'You are contributing to'
         total: 'Total: '
-        i_want_pay_fees: 'I wish to pay transaction fees'
+        i_want_pay_fees: "I'll cover the transaction fees"
         payment:
           title: 'Please select a payment method'
         reward:
