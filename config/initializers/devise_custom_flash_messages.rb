@@ -1,7 +1,7 @@
 module DeviseCustomFlashMessage
   def self.included klass
     klass.class_eval do
-      alias :orifinal_find_message :find_message
+      alias :original_find_message :find_message
       remove_method :find_message
     end
   end
@@ -13,7 +13,7 @@ module DeviseCustomFlashMessage
     end
     kind = :signed_in_custom if kind == :signed_in && resource.completeness_progress < 100
 
-    orifinal_find_message kind, options
+    original_find_message kind, options
   end
 end
 
