@@ -9,11 +9,11 @@ ul
     a href="#"
       i.icon-et-down-circled
       | When is the payment processed?
-    p.hide Shortly after you complete checkout. Usually you will receive confirmation in less than five minutes. If you use eCheck, please allow up to 5 business days for your payment to be confirmed.
+    p.hide Shortly after you complete checkout. Usually you will receive confirmation by email in less than five minutes. If you use ACH (bank account), please allow up to 3 business days for your payment to be confirmed.
   li
     a href="#"
       i.icon-et-down-circled
-      | Am I refunded if the project doesn't get the greenlight?
+      | Am I refunded if the project isn't successful?
     p.hide Yes. Your account will automatically receive 100% credits to apply towards other projects on #{Configuration[:company_name]}.
   li
     a href="#"
@@ -23,5 +23,5 @@ ul
   li
     a href="#"
       i.icon-et-down-circled
-      | How and when do I get my reward?
-    p.hide Shortly after the project is greenlit, #{link_to @project.user.display_name, user_path(@project.user)} will contact you to arrange delivery.
+      | When and how do I get my reward?
+    p.hide Shortly after the project completes, #{link_to @project.user.display_name, user_path(@project.user)} will contact you to arrange delivery.

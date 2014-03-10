@@ -5,9 +5,9 @@ en:
         title: 'You are contributing to %{project_name}'
         you_are_contributing_to: 'You are contributing to'
         total: 'Total: '
-        i_want_pay_fees: 'I wish to pay transaction fees'
+        i_want_pay_fees: "I'll cover the transaction fees"
         payment:
           title: 'Please select a payment method'
         reward:
           title: 'Your perk'
-        tooltip-text: "Your support of <strong>%{project_name}</strong> makes a world of difference. In order to make the most of your contribution we ask that you please cover costs associated with the electronic transaction. Thank you for understanding and we are actively working on payment methods with lower fees."
+        tooltip-text: "Thank you for supporting <strong>%{project_name}</strong>! In order to make the most of your contribution, we ask that you please consider covering the electronic transaction fees. Though entirely optional, doing so makes a big difference and is greatly appreciated."
