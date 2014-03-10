@@ -7,5 +7,5 @@ en:
         recommended_projects: 'You may like these others projects:'
         share: 'You can still help %{project_owner_name} by spreading the word! <br/> Let others know what you just did.'
         twitter-text: 'I just contributed %{value} to %{name} on @Neighborly: %{project_url}'
-        facebook: 'Facebook'
-        twitter: 'Twitter'
+        facebook: 'Share'
+        twitter: 'Tweet'
