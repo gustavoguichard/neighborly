@@ -110,7 +110,7 @@ class ProjectsController < ApplicationController
       ProjectsMailer.contact_about_reward_email(params, resource).deliver
       flash[:notice] = 'We\'ve received your request and will be in touch shortly.'
     else
-      flash[:error] = 'The code is not valid. Try again.'
+      flash.alert = 'The code is not valid. Try again.'
     end
     redirect_to project_path(resource)
   end

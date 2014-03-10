@@ -65,13 +65,13 @@ describe UsersController do
 
     context "with wrong current password" do
       let(:current_password){ 'wrong_password' }
-      it{ flash[:error].should_not be_empty }
+      it{ flash.alert.should_not be_empty }
       it{ should redirect_to settings_user_path(user) }
     end
 
     context "with right current password and right confirmation" do
       it{ flash[:notice].should_not be_empty }
-      it{ flash[:error].should be_nil }
+      it{ flash.alert.should be_nil }
       it{ should redirect_to settings_user_path(user) }
     end
   end

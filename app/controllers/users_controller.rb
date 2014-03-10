@@ -58,7 +58,7 @@ class UsersController < ApplicationController
         return redirect_to edit_user_path(@user)
       end
       failure.html do
-        flash[:error] = @user.errors.full_messages.to_sentence
+        flash.alert = @user.errors.full_messages.to_sentence
         return redirect_to settings_user_path(@user) if params[:settings]
         @user.build_organization unless @user.organization
         return render 'edit'
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     if @user.update_with_password(params[:user])
       flash[:notice] = t('controllers.users.update.success')
     else
-      flash[:error] = @user.errors.full_messages.to_sentence
+      flash.alert = @user.errors.full_messages.to_sentence
     end
     return redirect_to settings_user_path(@user)
   end
