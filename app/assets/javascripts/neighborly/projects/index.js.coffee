@@ -4,11 +4,14 @@ Neighborly.Projects.Index = Backbone.View.extend
   el: '.home-page'
 
   initialize: ->
-    $('.change-city').change(this.changeCity)
+    $('.locations-dropdown a').click(this.changeCity)
 
-  changeCity: ->
-    city = $('.change-city').val()
-    url = "#{$('.change-city').data('projects-path')}?location=#{city}"
+  changeCity: (event)->
+    event.preventDefault()
+    $el = $(event.currentTarget)
+    url = $el.attr('href')
+    $('a.change-city').html($el.html())
+    $el.parents('[data-dropdown-content]').foundation('dropdown', 'close', $el.parents('[data-dropdown-content]'))
 
     $.ajax(
       url: url
