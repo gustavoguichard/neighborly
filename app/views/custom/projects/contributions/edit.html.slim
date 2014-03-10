@@ -7,7 +7,7 @@
           = t('.you_are_contributing_to')
           br/
           strong = @project.name
-        form.total-value.custom
+        form.total-value
           .row
             .large-5.small-5.columns.large-centered.small-centered
               input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
