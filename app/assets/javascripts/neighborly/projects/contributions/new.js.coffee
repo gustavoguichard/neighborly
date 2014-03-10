@@ -1,4 +1,3 @@
-Neighborly.Projects = {} if Neighborly.Projects is undefined
 Neighborly.Projects.Contributions = {} if Neighborly.Projects.Contributions is undefined
 
 Neighborly.Projects.Contributions.New =
@@ -37,7 +36,6 @@ Neighborly.Projects.Contributions.New =
       this.$choices.removeClass('selected')
       option = this.$(event.currentTarget)
       reward = this.reward()
-      this.$('.custom.radio.checked').not(option.find('~ span')).removeClass('checked')
       this.selectReward option
       this.$value.val(reward.minimum_value) if this.$value.val() == '' || parseInt(this.$value.val()) < parseInt(reward.minimum_value)
       option.parents('.reward-option:first').addClass('selected')
@@ -54,8 +52,6 @@ Neighborly.Projects.Contributions.New =
 
     selectReward: ($reward) ->
       $reward.prop 'checked', true
-      this.$('.custom.radio.checked').removeClass('checked')
-      $reward.find('~ span').addClass('checked')
 
     resetReward: (event) ->
       reward = this.reward()
