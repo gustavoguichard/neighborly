@@ -55,14 +55,18 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def credits_checkout
-    return redirect_to new_project_contribution_path(@contribution.project), flash: { failure: t('controllers.projects.contributions.credits_checkout.no_credits') } if current_user.credits < @contribution.value
+    if current_user.credits < @contribution.value
+      flash.alert = t('controllers.projects.contributions.credits_checkout.no_credits')
+      return redirect_to new_project_contribution_path(@contribution.project)
+    end
 
     unless @contribution.confirmed?
       @contribution.update_attributes({ payment_method: 'Credits' })
       @contribution.confirm!
     end
 
-    redirect_to project_contribution_path(parent, resource), flash: { success: t('controllers.projects.contributions.credits_checkout.success') }
+    flash.notice = t('controllers.projects.contributions.credits_checkout.success')
+    redirect_to project_contribution_path(parent, resource)
   end
 
   protected
