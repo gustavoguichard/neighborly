@@ -75,7 +75,7 @@ describe Admin::Channels::MembersController do
           expect(channel.members).to eq [user]
         end
 
-        it { expect(flash[:success]).to eq(I18n.t('admin.channels.members.messages.success')) }
+        it { expect(flash.notice).to eq(I18n.t('admin.channels.members.messages.success')) }
         it { should redirect_to admin_channel_members_path(channel) }
       end
 

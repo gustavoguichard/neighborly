@@ -14,7 +14,7 @@ class Admin::Channels::MembersController < Admin::BaseController
         else
           parent.members << user
           parent.save
-          flash[:success] = t('admin.channels.members.messages.success')
+          flash.notice = t('admin.channels.members.messages.success')
         end
       else
         flash.alert = t('admin.channels.members.messages.user_not_found')
