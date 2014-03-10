@@ -7,7 +7,7 @@ class Users::ContributionsController < ApplicationController
   def request_refund
     authorize! :request_refund, resource
     if resource.value > resource.user.user_total.credits
-      flash[:failure] = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
+      flash.alert = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
     elsif can?(:request_refund, resource) && resource.can_request_refund?
       resource.request_refund!
       flash[:notice] = I18n.t('controllers.users.contributions.request_refund.refunded')

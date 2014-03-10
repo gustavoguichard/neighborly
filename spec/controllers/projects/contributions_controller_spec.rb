@@ -28,7 +28,7 @@ describe Projects::ContributionsController do
     context "when contribution don't exist in current_user" do
       let(:user){ create(:user) }
       it{ should redirect_to(root_path) }
-      it('should set flash failure'){ request.flash.alert.should_not be_empty }
+      it('should set alert flash'){ request.flash.alert.should_not be_empty }
     end
 
     context "when we have the right user" do
@@ -63,7 +63,7 @@ describe Projects::ContributionsController do
     context "with correct user but insufficient credits" do
       let(:user){ contribution.user }
       it('should not confirm contribution'){ contribution.reload.confirmed?.should be_false }
-      it('should set flash failure'){ request.flash[:failure].should == I18n.t('controllers.projects.contributions.credits_checkout.no_credits') }
+      it('should set flash failure'){ request.flash.alert.should == I18n.t('controllers.projects.contributions.credits_checkout.no_credits') }
       it{ should redirect_to(new_project_contribution_path(project)) }
     end
 
