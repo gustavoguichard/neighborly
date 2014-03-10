@@ -8,7 +8,7 @@ Neighborly.Projects.Contributions.New =
     el: '.new-contribution-page'
 
     initialize: ->
-      _.bindAll this, 'resetReward', 'clickReward', 'clickAnonymous'
+      _.bindAll this, 'resetReward', 'clickReward', 'clickAnonymous', 'submitButtonHandler'
 
       # bind change event (support for ie8 )
       this.$('#contribution_value').change this.resetReward
@@ -21,6 +21,7 @@ Neighborly.Projects.Contributions.New =
       this.selectReward(this.$('input[type=radio]:checked'))
       this.$value.focus()
       this.submitButtonHandler()
+      this.$value.on('keyup', this.submitButtonHandler)
 
     submitButtonHandler: ->
       if this.$value[0].checkValidity()
