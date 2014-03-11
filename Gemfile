@@ -22,7 +22,6 @@ gem 'postgres-copy'
 gem 'pg_search'
 
 gem 'schema_plus'
-gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
