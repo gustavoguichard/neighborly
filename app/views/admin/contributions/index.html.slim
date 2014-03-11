@@ -24,15 +24,12 @@
             .large-6.columns
               = label_tag :project_name_contains, t('.project')
               = text_field_tag :project_name_contains, params[:project_name_contains]
-            .large-4.columns
+            .large-6.columns
               = label_tag :user_name_contains, t('.user')
               = text_field_tag :user_name_contains, params[:user_name_contains], class: 'input-medium'
-            .large-4.columns
+            .large-6.columns
               = label_tag :user_email_contains, t('.user_email')
               = text_field_tag :user_email_contains, params[:user_email_contains], class: 'input-medium'
-            .large-4.columns
-              = label_tag :payer_email_contains, t('.payer_email')
-              = text_field_tag :payer_email_contains, params[:payer_email_contains], class: 'input-medium'
             .large-6.columns.text-left
               = check_box_tag :credits, :true, params[:credits]
               = label_tag :credits, t('.credits')
@@ -81,21 +78,17 @@
                         | &nbsp;
                         = number_to_currency contribution.payment_service_fee
                       p
+                        strong= t('.fee_paid_by_user')
+                        | &nbsp;
+                        = contribution.payment_service_fee_paid_by_user ? t('words._yes') : t('words._no')
+                      p
                         strong= t('.payment_id')
                         | &nbsp;
                         = contribution.payment_id
                       p
-                        strong= t('.payer_email')
-                        | &nbsp;
-                        = contribution.payer_email
-                      p
                         strong= t('.user_email')
                         | &nbsp;
                         = contribution.user.email
-                      p
-                        strong= t('.payment_choice')
-                        | &nbsp;
-                        = contribution.payment_choice
                       p
                         strong= t('.created_at')
                         | &nbsp;
