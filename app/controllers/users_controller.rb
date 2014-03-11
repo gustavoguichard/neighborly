@@ -20,13 +20,14 @@ class UsersController < ApplicationController
 
   def credits
     @title = "Credits: #{@user.display_name}"
-    @user = User.find params[:id]
     @credits = @user.contributions.can_refund
+  end
+
+  def payments
   end
 
   def settings
     @title = "Settings: #{@user.display_name}"
-    @user = User.find params[:id]
     @subscribed_to_updates = @user.updates_subscription
     @unsubscribes = @user.project_unsubscribes
   end

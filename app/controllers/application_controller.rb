@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_return_to, if: -> { !current_user && params[:redirect_to].present? }
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  helper_method :channel, :referal_link, :total_with_fee
+  helper_method :channel, :referal_link
 
   before_filter :force_http
   before_action :referal_it!
@@ -21,21 +21,6 @@ class ApplicationController < ActionController::Base
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
       redirect_to set_email_users_path unless controller_name =~ /users|confirmations/
     end
-  end
-  #
-  # TODO: REFACTOR
-  include ActionView::Helpers::NumberHelper
-  def total_with_fee(contribution, payment_method)
-    if payment_method == 'paypal'
-      value = (contribution.value * 1.029)+0.30
-    elsif payment_method == 'credit_card_net'
-      value = (contribution.value * 1.029)+0.30
-    elsif payment_method == 'echeck_net'
-      value = (contribution.value * 1.010)+0.30
-    else
-      value = contribution.value
-    end
-    number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
   end
 
   def channel

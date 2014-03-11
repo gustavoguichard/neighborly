@@ -60,6 +60,7 @@ en:
         address_neighborhood: 'Neighborhood Name'
         address_zip_code: 'Zip code'
         other_url: 'Your website'
+        update_address: "Update my address on my profile."
       project:
         name: 'Project Title'
         campaign_type: 'Project Type'

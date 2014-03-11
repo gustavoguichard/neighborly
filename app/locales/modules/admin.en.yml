@@ -225,9 +225,8 @@ en:
         payment_id: 'Payment ID'
         payment_method: 'Payment method'
         payment_fee: 'Payment method fee'
-        payment_choice: 'Payment choice'
-        payer_email: 'Payer email'
-        user_email: 'Catarse user email'
+        fee_paid_by_user: 'Fee paid by user?'
+        user_email: 'User email'
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
         title: "Contributions management"

@@ -1,0 +1,55 @@
+.neighborly-balanced-creditcard-form,
+.neighborly-balanced-bankaccount-form
+  .card-box:not(.new-card),
+  .bank-box:not(.new-bank)
+    border: 1px solid $border-color
+    border-radius: $global-radius
+    padding: +emCalc(15px)
+    background: white
+    margin-bottom: +emCalc(5px)
+    dt,
+    dd
+      display: inline
+    .expiration dt
+      margin-left: +emCalc(15px)
+    .expiration dd
+      margin-left: +emCalc(40px)
+    &.selected
+      border: 1px solid $primary-color
+
+    input[type="radio"]
+      margin-bottom: +emCalc(5px)
+
+  .add-new-creditcard-form.with-others-cards,
+  .add-new-bankaccount-form.with-other-bank
+    margin-top: +emCalc(25px)
+
+  span.checkbox
+    margin-right: +emCalc(5px)
+  .balanced-seal
+    padding-top: +emCalc(5px)
+  .button
+    margin-top: +emCalc(5px)
+  .terms
+    margin-bottom: +emCalc(15px)
+  .update-address
+    margin-bottom: +emCalc(15px)
+    margin-top: +emCalc(-15px)
+
+  .divider
+    font-size: 185%
+    margin-top: +emCalc(2px)
+    color: $secondary-color
+    font-weight: 200
+
+.neighborly-balanced-bankaccount-form
+  .check-numbers
+    margin-bottom: +emCalc(20px)
+    text-align: center
+  .radio_buttons
+    label.radio
+      float: left
+      padding-right: +emCalc(15px)
+      padding-top: +emCalc(15px)
+      span
+        margin-right: +emCalc(5px)

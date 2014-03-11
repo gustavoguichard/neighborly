@@ -1,0 +1,17 @@
+- content_for :title, "Payment Info: #{@user.display_name}"
+
+- content_for :page_content do
+  .user-payments-content.row
+    .large-12.columns
+      - PaymentEngines.engines.each do |engine|
+        - if engine[:account_path].present?
+          div[id="#{engine[:name]}-account" class="account-method" data-path=engine[:account_path].call]
+            .loading
+              = image_tag 'logo-icon.png', class: "loader-img"
+
+- if request.xhr?
+  = initjs_tag app_name: 'Neighborly', partial: true
+  = yield :page_content
+- else
+  = render template: 'users/edit'
+

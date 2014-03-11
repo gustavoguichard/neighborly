@@ -147,6 +147,13 @@
     aside.large-3.columns.sidebar
       .call-to-action
         - if @project.online?
+          noscript
+            .alert-box
+              strong
+                | We're sorry, but you won't be able to contribute without JavaScript enabled.
+                br
+                br
+                | Do you need some #{mail_to t('site.email.contact'), 'help'}?
           = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
         - else
           .alert-box.secondary.status-description

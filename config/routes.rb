@@ -22,10 +22,8 @@ Neighborly::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount CatarseCreditCardNet::Engine => "/", as: :catarse_credit_card_net
-  mount CatarseEcheckNet::Engine => "/", as: :catarse_echeck_net
-  mount CatarsePaypalExpress::Engine => "/", as: :catarse_paypal_express
-  #mount CatarseMoip::Engine => "/", as: :catarse_moip
+  mount Neighborly::Balanced::Creditcard::Engine => "/balanced/creditcard/", as: :neighborly_balanced_creditcard
+  mount Neighborly::Balanced::Bankaccount::Engine => "/balanced/bankaccount/", as: :neighborly_balanced_bankaccount
 
   # Non production routes
   if Rails.env.development?
@@ -149,6 +147,7 @@ Neighborly::Application.routes.draw do
       get :profile,   to: 'users#edit'
       get :settings
       get :credits
+      get :payments
       get :edit
       put 'unsubscribe_update'
       put 'update_email'

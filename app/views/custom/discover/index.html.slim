@@ -28,7 +28,7 @@
       .row
         .large-12.columns
           h2 = t('.title')
-          = form_tag discover_path, method: 'GET', class: 'discover-form row custom' do
+          = form_tag discover_path, method: 'GET', class: 'discover-form row' do
             .large-3.small-6.columns
               = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near'), class: 'near-input'
             .large-3.small-6.columns
