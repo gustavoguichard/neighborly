@@ -419,8 +419,6 @@ GEM
       railties (>= 3.0, < 4.1)
       slim (~> 2.0)
     slop (3.4.7)
-    spectator-validates_email (0.2.0)
-      activemodel (>= 3.0.0)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -551,7 +549,6 @@ DEPENDENCIES
   simple_form (~> 3.0.1)
   sinatra (~> 1.4.3)
   slim-rails
-  spectator-validates_email
   state_machine
   thin
   turbolinks (~> 2.2.1)
