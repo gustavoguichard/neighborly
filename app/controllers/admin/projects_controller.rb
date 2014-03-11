@@ -30,8 +30,8 @@ class Admin::ProjectsController < Admin::BaseController
       @contribution.save!
       redirect_to populate_contribution_admin_project_path(resource), flash: { success: 'Success!' }
     else
-      flash[:alert] = @user.errors.full_messages.to_sentence
-      flash[:error] = @contribution.errors.full_messages.to_sentence
+      flash.alert = (@user.errors.full_messages +
+                     @contribution.errors.full_messages).to_sentence
       render :populate_contribution
     end
   end

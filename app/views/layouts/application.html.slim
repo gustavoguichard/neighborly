@@ -49,7 +49,7 @@ body
   = render_facebook_sdk
   = render 'layouts/loader'
   = render 'layouts/header'
-  = render 'layouts/flash', flash: flash if flash.present?
+  = flash_messages
   /.row.content
   = yield
   = render 'layouts/footer'
