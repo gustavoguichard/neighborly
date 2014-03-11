@@ -69,34 +69,18 @@
       +clearfix
     h3
       float: left
-    form.custom
-      float: left
-      margin-bottom: 0
-      .custom.dropdown.change-city
-        margin-left: +emCalc(8px)
-        background: transparent
-        box-shadow: none
-        border: none
-        margin-top: +emCalc(9px)
-        margin-bottom: 0
-        .current
-          text-decoration: underline
-          color: $secondary-font-color
-          margin: 0
-          font-size: +emCalc(28px)
-          font-weight: 200
-          line-height: normal
-          text-transform: uppercase
-          &:after
-            @extend [class^="icon-et-"]:before
-            @extend .icon-et-down-open-mini:before
-            margin-left: +emCalc(5px)
-            text-decoration: none
 
-        .selector
-          display: none
-        ul
-          font-size: 110%
+    a.change-city
+      text-decoration: underline
+      text-transform: uppercase
+      &:after
+        @extend [class^="icon-et-"]:before
+        @extend .icon-et-down-open-mini:before
+        margin-left: +emCalc(5px)
+        text-decoration: none
+
+    .locations-dropdown
+      font-size: 75%
 
     section.start-one
       width: 100%

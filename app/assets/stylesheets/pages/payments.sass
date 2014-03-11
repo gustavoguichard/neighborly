@@ -14,6 +14,11 @@
       margin-left: +emCalc(15px)
     .expiration dd
       margin-left: +emCalc(40px)
+    &.selected
+      border: 1px solid $primary-color
+
+    input[type="radio"]
+      margin-bottom: +emCalc(5px)
 
   .add-new-creditcard-form.with-others-cards,
   .add-new-bankaccount-form.with-other-bank
@@ -30,6 +35,12 @@
   .update-address
     margin-bottom: +emCalc(15px)
     margin-top: +emCalc(-15px)
+
+  .divider
+    font-size: 185%
+    margin-top: +emCalc(2px)
+    color: $secondary-color
+    font-weight: 200
 
 .neighborly-balanced-bankaccount-form
   .check-numbers
