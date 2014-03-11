@@ -9,7 +9,7 @@ module Concerns
       helper_method :fb_admins, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso
 
       before_filter do
-        @fb_admins = [100000428222603, 547955110]
+        @fb_admins = []
       end
     end
 
