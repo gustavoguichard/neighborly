@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe Update do
-  describe "validations" do
+  describe 'validations' do
     it{ should validate_presence_of :project_id }
     it{ should validate_presence_of :user_id }
     it{ should validate_presence_of :comment }
     it{ should validate_presence_of :comment_html }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it{ should belong_to :user }
     it{ should belong_to :project }
   end
 
-  describe ".visible_to" do
+  describe '.visible_to' do
     let(:project) { create(:project) }
     let(:user) {}
 
@@ -24,47 +24,47 @@ describe Update do
 
     subject { Update.visible_to(user) }
 
-    context "when user is a contribution" do
+    context 'when user is a contribution' do
       let(:user) { create(:contribution, state: 'confirmed', project: project).user }
 
       it { should have(2).itens }
     end
 
-    context "when user is not a contribution" do
+    context 'when user is not a contribution' do
       let(:user) { create(:contribution, state: 'pending', project: project).user }
 
       it { should eq([@update]) }
     end
 
-    context "when user is a project owner" do
+    context 'when user is a project owner' do
       let(:user) { project.user }
 
       it { should have(2).itens }
     end
 
-    context "when user is an admin" do
+    context 'when user is an admin' do
       let(:user) { create(:user, admin: true) }
 
       it { should have(2).itens }
     end
 
-    context "when user is a guest" do
+    context 'when user is a guest' do
       it { should eq([@update]) }
     end
   end
 
 
-  describe ".create" do
+  describe '.create' do
     subject{ create(:update, comment: "this is a comment\n") }
     its(:comment_html){ should == "<p>this is a comment</p>\n" }
   end
 
-  describe "#email_comment_html" do
+  describe '#email_comment_html' do
     subject{ create(:update, comment: "this is a comment\nhttp://vimeo.com/6944344\n![](http://catarse.me/assets/catarse/logo164x54.png)").email_comment_html }
     it{ should == "<p>this is a comment\n<a href=\"http://vimeo.com/6944344\">http://vimeo.com/6944344</a>\n<img src=\"http://catarse.me/assets/catarse/logo164x54.png\" alt=\"\"></p>\n" }
   end
 
-  describe "#update_number" do
+  describe '#update_number' do
     let(:project){ create(:project) }
     let(:update){ create(:update, project: project) }
     subject{ update.update_number }
@@ -76,7 +76,7 @@ describe Update do
     it{ should == 2 }
   end
 
-  describe "#notify_contributors" do
+  describe '#notify_contributors' do
     before do
       Notification.unstub(:notify)
       Notification.unstub(:notify_once)

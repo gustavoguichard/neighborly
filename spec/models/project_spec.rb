@@ -11,13 +11,14 @@ describe Project do
     it{ should belong_to :user }
     it{ should belong_to :category }
     it{ should have_many :contributions }
-    it{ should have_one  :project_total }
     it{ should have_many :rewards }
     it{ should have_many :updates }
     it{ should have_many :notifications }
     it{ should have_many :project_faqs }
     it{ should have_many :project_documents }
     it{ should have_and_belong_to_many :channels }
+    it{ should have_many :unsubscribes }
+    it{ should have_one  :project_total }
   end
 
   describe "validations" do

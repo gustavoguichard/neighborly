@@ -5,22 +5,22 @@ require 'spec_helper'
 describe Reward do
   let(:reward){ create(:reward, description: 'envie um email para foo@bar.com') }
 
-  describe "Associations" do
+  describe 'associations' do
     it{ should belong_to :project }
     it{ should have_many :contributions }
   end
 
-  it "should have a minimum value" do
+  it 'should have a minimum value' do
     r = build(:reward, minimum_value: nil)
     r.should_not be_valid
   end
 
-  it "should have a title" do
+  it 'should have a title' do
     r = build(:reward, title: nil)
     r.should_not be_valid
   end
 
-  it "should have a greater than 10.00 minimum value" do
+  it 'should have a greater than 10.00 minimum value' do
     r = build(:reward)
     r.minimum_value = -0.01
     r.should_not be_valid
@@ -32,12 +32,12 @@ describe Reward do
     r.should be_valid
   end
 
-  it "should have a description" do
+  it 'should have a description' do
     r = build(:reward, description: nil)
     r.should_not be_valid
   end
 
-  it "should have integer maximum contributions" do
+  it 'should have integer maximum contributions' do
     r = build(:reward)
     r.maximum_contributions = 10.01
     r.should_not be_valid
@@ -45,7 +45,7 @@ describe Reward do
     r.should be_valid
   end
 
-  it "should have maximum contributions > 0" do
+  it 'should have maximum contributions > 0' do
     r = build(:reward)
     r.maximum_contributions = -1
     r.should_not be_valid

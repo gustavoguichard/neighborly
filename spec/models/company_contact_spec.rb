@@ -7,4 +7,8 @@ describe CompanyContact do
     it { should validate_presence_of :email }
     it { should validate_presence_of :company_name }
   end
+
+  describe 'associations' do
+    it { should have_many :notifications }
+  end
 end
