@@ -10,7 +10,7 @@ module FlashMessagesHelper
   private
 
   def build_flash_message(name, message)
-    content = message.is_a?(String) ? message : message.try(:[], :message)
+    content = message.is_a?(Hash) ? message[:message] : message
 
     content_tag(:div, class: 'row') do
       concat(content_tag(:div,
@@ -25,7 +25,7 @@ module FlashMessagesHelper
 
   def html_classes_for_msg(name, message)
     html_classes  = "#{name} alert-box large-10 columns large-centered animated fadeIn"
-    html_classes << ' dismissible' if !!message.try(:dismissible)
+    html_classes << ' dismissible' if message.is_a?(Hash) && message[:dismissible]
     html_classes
   end
 
