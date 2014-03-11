@@ -225,7 +225,7 @@ en:
         payment_id: 'Payment ID'
         payment_method: 'Payment method'
         payment_fee: 'Payment method fee'
-        fee_paid_by_user: 'Fee paid by user'
+        fee_paid_by_user: 'Fee paid by user?'
         user_email: 'User email'
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
