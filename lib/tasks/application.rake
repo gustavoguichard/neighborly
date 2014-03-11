@@ -32,24 +32,3 @@ desc "Cancel all waiting_confirmation contributions that is passed 4 weekdays"
 task :cancel_expired_waiting_confirmation_contributions => :environment do
   Contribution.can_cancel.update_all(state: 'canceled')
 end
-
-desc "Checking echeck payments"
-task :check_echeck => [:environment] do
-  Contribution.where(%Q{
-    state <> 'confirmed' AND payment_method = 'eCheckNet' AND payment_id IS NOT NULL
-  }).each do |contribution|
-    _test = (Configuration[:test_payments] == 'true')
-
-    an_login_id = ::Configuration[:authorizenet_login_id]
-    an_transaction_key = ::Configuration[:authorizenet_transaction_key]
-    an_gateway = _test ? :sandbox : :production
-
-    reporting = AuthorizeNet::Reporting::Transaction.new(an_login_id, an_transaction_key, :gateway => an_gateway)
-    details = reporting.get_transaction_details(contribution.payment_id)
-
-    if details and details.transaction.present?
-      transaction = details.transaction
-      contribution.confirm! if transaction.status == 'settledSuccessfully'
-    end
-  end
-end
