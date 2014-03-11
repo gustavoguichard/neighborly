@@ -10,14 +10,14 @@ class Admin::Channels::MembersController < Admin::BaseController
 
       if user.present?
         if parent.members.include?(user)
-          flash[:error] = t('admin.channels.members.messages.already_a_member')
+          flash.alert = t('admin.channels.members.messages.already_a_member')
         else
           parent.members << user
           parent.save
-          flash[:success] = t('admin.channels.members.messages.success')
+          flash.notice = t('admin.channels.members.messages.success')
         end
       else
-        flash[:error] = t('admin.channels.members.messages.user_not_found')
+        flash.alert = t('admin.channels.members.messages.user_not_found')
       end
     end
 

@@ -1,8 +1,8 @@
-- if flash[:alert].present?
+- if flash.alert.present?
   .alert-box.alert.animated.shake
     .large-12.large-centered.columns
       h4 = t('words.fix-errors-below')
-      p.text-center = flash[:alert]
+      p.text-center = flash.alert
 - elsif resource.errors.present?
   .alert-box.alert.animated.shake
     .large-12.large-centered.columns

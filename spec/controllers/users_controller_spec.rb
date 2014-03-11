@@ -24,14 +24,14 @@ describe UsersController do
         user.twitter_url.should ==  'http://twitter.com/test'
       end
       it{ should redirect_to edit_user_path(user) }
-      it { expect(flash[:notice]).to eq(I18n.t('controllers.users.update.success')) }
+      it { expect(flash.notice).to eq(I18n.t('controllers.users.update.success')) }
     end
 
     context 'when does update the email' do
       before do
         put :update, id: user.id, locale: 'pt', user: { email: 'test-foobar@barfoo.com' }
       end
-      it { expect(flash[:notice]).to eq(I18n.t('devise.confirmations.send_instructions')) }
+      it { expect(flash.notice).to eq(I18n.t('devise.confirmations.send_instructions')) }
       it{ should redirect_to edit_user_path(user) }
     end
 
@@ -65,13 +65,13 @@ describe UsersController do
 
     context "with wrong current password" do
       let(:current_password){ 'wrong_password' }
-      it{ flash[:error].should_not be_empty }
+      it{ flash.alert.should_not be_empty }
       it{ should redirect_to settings_user_path(user) }
     end
 
     context "with right current password and right confirmation" do
-      it{ flash[:notice].should_not be_empty }
-      it{ flash[:error].should be_nil }
+      it{ flash.notice.should_not be_empty }
+      it{ flash.alert.should      be_nil }
       it{ should redirect_to settings_user_path(user) }
     end
   end

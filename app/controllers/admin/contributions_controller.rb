@@ -7,7 +7,7 @@ class Admin::ContributionsController < Admin::BaseController
     %w[confirm pendent refund hide cancel push_to_trash].each do |action|
       define_method action do
         resource.send(action)
-        flash[:notice] = I18n.t("admin.contributions.messages.successful.#{action}")
+        flash.notice = I18n.t("admin.contributions.messages.successful.#{action}")
         redirect_to admin_contributions_path(params[:local_params])
       end
     end
@@ -16,7 +16,7 @@ class Admin::ContributionsController < Admin::BaseController
 
   def change_reward
     resource.change_reward! params[:reward_id]
-    flash[:notice] = I18n.t('admin.contributions.messages.successful.change_reward')
+    flash.notice = I18n.t('admin.contributions.messages.successful.change_reward')
     redirect_to admin_contributions_path(params[:local_params])
   end
 
