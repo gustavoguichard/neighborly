@@ -61,12 +61,6 @@
         margin-bottom: 0
     .title
       margin-top: 0
-    .methods
-      label
-        float: left
-        margin-right: +emCalc(40px)
-        img
-          margin-left: +emCalc(5px)
 
     .container
       min-height: +emCalc(300px)
@@ -94,10 +88,30 @@
   margin-bottom: +emCalc(-5px)
 
 .payment-method-option
-  height: +emCalc(50px)
-
-.payment-method-option-icon
-  height: +emCalc(40px)
+  float: left
+  width: 100%
+  border: 1px solid $border-color
+  border-radius: $global-radius
+  padding: +emCalc(15px)
+  margin-bottom: +emCalc(15px)
+  background: white
+  &.selected
+    border: 1px solid $primary-color
+  input
+    margin-bottom: 0
+    margin-right: +emCalc(15px)
+    margin-left: +emCalc(5px)
+  .description
+    margin-left: +emCalc(15px)
+    h6
+      margin-top: 0
+      margin-bottom: +emCalc(12px)
+      font-weight: 500
+      text-transform: uppercase
+    small
+      display: block
+      font-size: 85%
+      color: $secondary-color
 
 // IE fixes
 .ie9, .no-ie8compat

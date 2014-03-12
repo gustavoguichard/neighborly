@@ -11,3 +11,10 @@ en:
         reward:
           title: 'Your perk'
         tooltip-text: "Thank you for supporting <strong>%{project_name}</strong>! In order to make the most of your contribution, we ask that you please consider covering the electronic transaction fees. Though entirely optional, doing so makes a big difference and is greatly appreciated."
+        payment-method:
+          balanced-creditcard:
+            title: 'Credit / Debit Card'
+            fees: '2.9% + 30¢'
+          balanced-bankaccount:
+            title: 'Bank Account'
+            fees: '1% + 30¢ / $5 cap'
