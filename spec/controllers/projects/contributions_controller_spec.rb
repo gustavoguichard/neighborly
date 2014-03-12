@@ -42,6 +42,15 @@ describe Projects::ContributionsController do
 
       it { should be_redirect }
     end
+
+    describe 'persistent warnings' do
+      let(:set_expectations) do
+        expect(controller).to_not receive(:set_persistent_warning)
+      end
+
+      it 'skips its setter method call' do
+      end
+    end
   end
 
   describe "PUT credits_checkout" do
@@ -103,6 +112,15 @@ describe Projects::ContributionsController do
       its(:body){ should =~ /#{project.name}/ }
       its(:body){ should =~ /\$10/ }
     end
+
+    describe 'persistent warnings' do
+      let(:set_expectations) do
+        expect(controller).to_not receive(:set_persistent_warning)
+      end
+
+      it 'skips its setter method call' do
+      end
+    end
   end
 
   describe "POST create" do
@@ -136,6 +154,15 @@ describe Projects::ContributionsController do
       let(:value) { 2.0 }
 
       it{ should redirect_to new_project_contribution_path(project) }
+    end
+
+    describe 'persistent warnings' do
+      let(:set_expectations) do
+        expect(controller).to_not receive(:set_persistent_warning)
+      end
+
+      it 'skips its setter method call' do
+      end
     end
   end
 
@@ -176,6 +203,15 @@ describe Projects::ContributionsController do
       its(:body) { should =~ /#{I18n.t('projects.contributions.new.title')}/ }
       its(:body) { should =~ /#{I18n.t('controllers.projects.contributions.new.no_reward')}/ }
       its(:body) { should =~ /#{project.name}/ }
+    end
+
+    describe 'persistent warnings' do
+      let(:set_expectations) do
+        expect(controller).to_not receive(:set_persistent_warning)
+      end
+
+      it 'skips its setter method call' do
+      end
     end
   end
 

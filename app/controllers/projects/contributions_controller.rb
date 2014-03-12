@@ -3,6 +3,7 @@ class Projects::ContributionsController < ApplicationController
   actions :show, :new, :edit, :update, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :edit, :update, :credits_checkout]
   skip_before_filter :verify_authenticity_token, only: [:moip]
+  skip_before_filter :set_persistent_warning
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
   has_scope :page, default: 1
