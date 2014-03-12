@@ -14,8 +14,6 @@ module Neighborly
       Devise::Mailer.layout "email" # email.haml or email.erb
     end
 
-    config.paths['app/views'].unshift("#{Rails.root}/app/views/custom")
-
     config.active_record.schema_format = :sql
 
     # Since Rails 3.1, all folders inside app/ will be loaded automatically
@@ -59,7 +57,6 @@ module Neighborly
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
 
     # TODO: remove
     config.active_record.whitelist_attributes = false
