@@ -3,7 +3,7 @@ module Concerns
     extend ActiveSupport::Concern
 
     included do
-      after_action :set_persistent_warning, unless: -> { request.xhr? }
+      before_action :set_persistent_warning, unless: -> { request.xhr? }
     end
 
     def set_persistent_warning
