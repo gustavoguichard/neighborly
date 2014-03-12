@@ -1,7 +1,5 @@
 # coding: utf-8
 class Project < ActiveRecord::Base
-  schema_associations
-
   include ActionView::Helpers::TextHelper
   include PgSearch
   include Taggable
@@ -23,8 +21,8 @@ class Project < ActiveRecord::Base
     :display_organization_type,
     to: :decorator
 
-  schema_associations
   belongs_to :user
+  belongs_to :category
   has_many :contributions, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
@@ -32,8 +30,9 @@ class Project < ActiveRecord::Base
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_and_belongs_to_many :channels
+  has_many :unsubscribes
   has_one :project_total
-  has_many :rewards
+
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
 

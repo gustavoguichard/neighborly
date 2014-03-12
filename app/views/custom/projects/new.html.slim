@@ -7,14 +7,14 @@
       h5 = t('.joyride.start.title')
       p = t('.joyride.start.description')
 
-    - joyride = [{id: 'joyride-project-category',       name: :category},
+    - joyride = [{id: 'project_category_id',            name: :category},
                  {id: 'project_name',                   name: :name},
-                 {id: 'joyride-project-campaign-type',  name: :campaign_type},
+                 {id: 'project_campaign_type',          name: :campaign_type},
                  {id: 'project_goal',                   name: :goal},
                  {id: 'project_address',                name: :address},
                  {id: 'project_headline',               name: :headline},
                  {id: 'project_about',                  name: :about},
-                 {id: 'joyride-organization-type',      name: :organization_type}]
+                 {id: 'project_organization_type',      name: :organization_type}]
 
     - for joy in joyride
       li data-id=joy[:id] data-text=t('.joyride.next')
@@ -30,14 +30,11 @@
           hr
         .row
           .large-10.small-11.columns.large-centered.small-centered
-            = simple_form_for @project, html: { class: 'custom' } do |f|
-              #joyride-project-category
-                = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
-
+            = simple_form_for @project do |f|
+              = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
               = f.input :name, as: :string, maxlength: 100
               = f.label :campaign_type
-              #joyride-project-campaign-type
-                = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
+              = f.select :campaign_type, [['All or None', 'all_or_none'],['Every Dollar Counts', 'flexible']]
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
@@ -58,10 +55,7 @@
 
               = f.input :headline, as: :string, maxlength: 140
               = f.input :about
-
-              #joyride-organization-type
-                = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
+              = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
 
               p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
-
               = f.button :submit

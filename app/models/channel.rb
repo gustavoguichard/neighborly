@@ -1,6 +1,4 @@
 class Channel < ActiveRecord::Base
-  schema_associations
-
   extend CatarseAutoHtml
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
@@ -9,17 +7,24 @@ class Channel < ActiveRecord::Base
 
   attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :accepts_projects, :submit_your_project_text, :user, :user_id, :user_attributes, :start_hero_image, :start_primary_content, :start_content, :success_content
 
-  validates_presence_of :name, :description, :permalink, :user
-  validates_uniqueness_of :permalink
-  after_validation :update_video_embed_url
-
+  has_many :subscriber_reports
+  has_many :channels_subscribers
+  belongs_to :user
+  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :subscribers
+  has_many :channel_members
   has_and_belongs_to_many :projects, -> { order("online_date desc") }
   has_and_belongs_to_many :subscribers, class_name: 'User', join_table: :channels_subscribers
   has_many :subscriber_reports
   has_many :channel_members, dependent: :destroy
   has_many :members, through: :channel_members, source: :user
   belongs_to :user, autosave: true
+
   accepts_nested_attributes_for :user
+
+  validates_presence_of :name, :description, :permalink, :user
+  validates_uniqueness_of :permalink
+  after_validation :update_video_embed_url
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340
   catarse_auto_html_for field: :submit_your_project_text

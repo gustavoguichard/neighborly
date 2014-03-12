@@ -1,8 +1,10 @@
 class Update < ActiveRecord::Base
   extend CatarseAutoHtml
 
-  schema_associations
+  belongs_to :user
+  belongs_to :project
   has_many :notifications, dependent: :destroy
+
   validates_presence_of :user_id, :project_id, :comment, :comment_html
   #remove all whitespace from the start of the line so auto_html won't go crazy
   before_save -> {self.comment = comment.gsub(/^[^\S\n]+/, "")}

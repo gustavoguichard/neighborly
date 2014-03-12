@@ -22,14 +22,12 @@ gem 'postgres-copy'
 gem 'pg_search'
 
 gem 'schema_plus'
-gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '1297c623f0f3b52551cead50e939dd961a0401ad'
-gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: 'ee1c0d417f1523920e5d9fd775c480b1bf986da5'
-gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: '18042ae7da233dc08860cbb96882f9166a854ac8'
-gem "authorize-net", "~> 1.5.2"
+gem 'neighborly-balanced-creditcard',  github: 'neighborly/neighborly-balanced-creditcard',  branch: :master
+gem 'neighborly-balanced-bankaccount', github: 'neighborly/neighborly-balanced-bankaccount', branch: :master
+gem 'neighborly-balanced',             github: 'neighborly/neighborly-balanced',             branch: :master
 
 # Decorators
 gem 'draper'
@@ -70,7 +68,6 @@ gem 'has_permalink'
 gem 'ranked-model'
 gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
-gem 'spectator-validates_email',  require: 'validates_email'
 gem 'video_info', '~> 2.0.2'
 gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'

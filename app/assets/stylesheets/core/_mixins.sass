@@ -232,3 +232,19 @@
   *display: inline
   zoom: 1
 
++keyframes('pulsing-heart')
+  0%
+    +transform(scale(1.05))
+  50%
+    +transform(scale(.8))
+  100%
+    +transform(scale(1))
+
+= beating-heart($img-width: 80px, $img-height: 66px)
+  position: absolute
+  left: 50%
+  top: 50%
+  margin-left: -$img-width/2
+  margin-top: -$img-height/2
+  +experimental(animation, pulsing-heart 1s linear infinite)
+  @content

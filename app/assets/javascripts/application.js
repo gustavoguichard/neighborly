@@ -14,3 +14,5 @@
 //= require nprogress-turbolinks
 //= require nprogress-pjax
 //= require nprogress-ajax
+//= require neighborly-balanced-creditcard
+//= require neighborly-balanced-bankaccount

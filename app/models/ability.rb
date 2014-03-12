@@ -75,7 +75,7 @@ class Ability
       authorization.user == current_user || current_user.admin?
     end
 
-    can [:edit, :update, :credits, :manage, :update_password, :update_email, :settings], :users  do |user|
+    can [:edit, :update, :credits, :manage, :update_password, :update_email, :settings, :payments], :users  do |user|
       current_user == user || current_user.admin?
     end
 

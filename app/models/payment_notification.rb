@@ -1,4 +1,4 @@
 class PaymentNotification < ActiveRecord::Base
-  schema_associations
+  belongs_to :contribution
   serialize :extra_data, JSON
 end

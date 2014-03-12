@@ -2,7 +2,7 @@
   = initjs_tag app_name: 'Neighborly', partial: true
 
   .edit-project-page
-    = simple_form_for @project, html: { class: 'custom' } do |form|
+    = simple_form_for @project do |form|
       - if current_user.admin
         .admin-fields
           .section-header Admin fields

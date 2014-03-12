@@ -1,40 +1,44 @@
-- content_for :title, t('.title')
+- content_for :title, t('.title', project_name: @project.name)
 .create-contribution-page[data-thank-you-path=project_contribution_path(project_id: @project, id: @contribution.id)]
   = hero_header_tag @project do
     .row
       .large-10.columns.large-centered
-        h3 = t('.you_are_about', project_name: @project.name)
-        .total-with-fee
+        h3
+          = t('.you_are_contributing_to')
+          br/
+          strong = @project.name
+        form.total-value
           .row
-            .large-4.small-4.columns.large-centered.small-centered
-              input[type='text' disabled=true value="#{t('.total')}#{@contribution.display_value}" data-total-text=t('.total')]
-              .custom-tooltip
-                = link_to '#' do
-                  i.icon-et-info-circled
-                .tooltip-content.hide
-                  p = t('.tooltip-text', project_name: @project.name).html_safe
+            .large-5.small-5.columns.large-centered.small-centered
+              input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
+              .who-pay-fees
+                = check_box_tag 'pay_payment_fees', 1, true
+                = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
+                .custom-tooltip
+                  = link_to '#' do
+                    i.icon-et-info-circled
+                  .tooltip-content.hide
+                    p = t('.tooltip-text', project_name: @project.name).html_safe
 
   .row
     section.content.large-8.medium-8.columns
       .payment
-        /h3.title = t('.payment.title')
+        h3.title.hide = t('.payment.title')
 
-        .methods.hide
+        section.row.methods.hide
           - PaymentEngines.engines.each do |engine|
-            - if engine[:name] == 'credit_card_net'
-              label
-                = radio_button_tag :payment_method, engine[:name], false, :'data-value-with-taxes' => total_with_fee(@contribution, engine[:name])
+            .large-5.columns
+              label.payment-method-option
+                = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine[:value_with_fees].call(@contribution.value))
                 | &nbsp;
-                = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: "#{engine[:name]}-payment-method")
+                = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: 'payment-method-option-icon')
           .clearfix
 
-        /.subtile
-          /= t('.payment.subtile')
-
-        section.conteiner
+        .container
+          .loading
+            = image_tag 'logo-icon.png', class: "loader-img"
           - PaymentEngines.engines.each do |engine|
-            - if engine[:name] == 'credit_card_net'
-              div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
+            div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
 
     aside.large-4.medium-4.columns
       .project-image
@@ -44,40 +48,8 @@
       - if @contribution.reward
         .selected-reward
           h4 = t('.reward.title')
-          p.description
+          .description
             h5 = @contribution.reward.title
-            = @contribution.reward.description
+            p = @contribution.reward.description
       .faqs
         = render 'faqs'
-
-  .seal-original.hide
-    / (c) 2005, 2012. Authorize.Net is a registered trademark of CyberSource Corporation 
-    div class="AuthorizeNetSeal"
-      javascript:
-        var ANS_customer_id="dbe7fb76-0492-4501-aac8-8bb3f2da5039"
-      script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js"
-      a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank" Merchant Services
-
-
-
-
-/= check_box_tag 'accept'
-/= label_tag 'accept', t('accept_terms_html', link: link_to(t('terms'), '#termsModal', class: 'termsModalLink', :"data-toggle" => 'modal', :"data-url" => terms_path)), class: 'inline'
-
-/- unless @contribution.credits
-/- if @contribution.credits
-    /= form.submit (@contribution.credits ? t('.submit.credits') : t('.submit.moip')), disabled: true, class: 'btn', id: 'user_submit'
-
-/- if @contribution.credits
-  /#back_with_credits
-    /.bootstrap-alert
-      /.alert
-        /#credits_notice= t('.credits_notice_html', credits: number_to_currency((current_user.credits - @contribution.value), unit: 'R$', precision: 0, delimiter: '.'))
-/.bootstrap-form
-  /= simple_form_for current_user, url: credits_checkout_project_contribution_path(@contribution.project, @contribution), html: { data: { update_info_path: update_info_project_contribution_path(project_id: @contribution.project.id, id: @contribution.id) }, id: 'review_form', class: "form-horizontal #{('dont_align' if @contribution.credits)}" } do |form|
-    /= hidden_field_tag 'project_id', @contribution.project.id
-    /= hidden_field_tag 'contribution_id', @contribution.id
-    /= hidden_field_tag 'contribution_credits', @contribution.credits
-    /= hidden_field_tag 'payment_method_url', nil
-
-

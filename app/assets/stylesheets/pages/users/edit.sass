@@ -9,7 +9,7 @@
   #dropzone-preview-image
     display: none
 
-  .input.radio_buttons
+  .input.radio_buttons.user_profile_type
     @extend .clearfix
     .radio
       float: left
@@ -93,3 +93,18 @@
   table
     width: 100%
     border: none
+
+.user-payments-content
+  min-height: +emCalc(350px)
+  position: relative
+
+  .loading
+    $img-width: 80px
+    $img-height: 66px
+    position: relative
+    top: +emCalc(175px)
+    bottom: 0
+    left: 0
+    right: 0
+    .loader-img
+      @include beating-heart($img-width, $img-height)

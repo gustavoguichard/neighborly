@@ -47,8 +47,11 @@
           h3
             i.icon-et-location
             = t('.near')
-          form.custom
-            = select_tag :city, options_for_select(@project_locations, @city), class: 'change-city', id: 'customDropdown', data: { 'projects-path' => near_projects_path }
+            | &nbsp;
+            = link_to @city, '#', class: 'change-city', data: { dropdown: 'drop-locations' }
+            ul[id="drop-locations" class="f-dropdown locations-dropdown" data-dropdown-content]
+              - for location in @project_locations
+                li = link_to location, near_projects_path(location: location)
 
         .row.content
           - for project in @near_projects

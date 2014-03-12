@@ -1,25 +1,43 @@
 .create-contribution-page
   .hero
+    min-height: +emCalc(200px)
+    padding: +emCalc(10px) 0
     h3
       text-align: center
-      font-weight: bold
+      padding-top: 0
+    form
+      margin-bottom: +emCalc(10px)
 
-
-  .total-with-fee
+  .total-value
     margin-top: +emCalc(25px)
     font-size: 125%
-    input
+    text-align: center
+    input[type="text"]
       text-align: center
-      width: 80%
+      width: 76%
+      font-size: 120%
+      height: +emCalc(35px)
       display: inline-block
       margin: 0
+    input[type="checkbox"]
+      margin-bottom: 0
     .custom-tooltip
       margin-left: +emCalc(5px)
       display: inline-block
       .tooltip-content
-        font-size: 75%
+        text-align: left
+        font-size: 85%
         color: $body-font-color
         min-width: +emCalc(425px)
+    .who-pay-fees
+      margin-top: 15px
+      margin-bottom: 5px
+      font-size: 88%
+      span
+        margin-right: +emCalc(5px)
+      label
+        color: white
+        display: inline-block
 
   section.content, aside
     margin-top: +emCalc(50px)
@@ -34,35 +52,57 @@
             margin-right: +emCalc(5px)
 
   .payment
+    section
+      margin-bottom: +emCalc(15px)
+      &.highlighted
+        border-top: 1px solid $border-color
+        padding-top: +emCalc(20px)
+      &.use-existing-item
+        margin-bottom: 0
+    .title
+      margin-top: 0
     .methods
       label
         float: left
         margin-right: +emCalc(40px)
         img
           margin-left: +emCalc(5px)
-          &.echeck_net-payment-method
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40)
-            opacity: 0.4
 
-    section.conteiner
-      //margin-top: +emCalc(50px)
-      margin-bottom: +emCalc(30px)
+    .container
       min-height: +emCalc(300px)
-      //border-top: 1px solid $border-color
-      padding-top: +emCalc(5px)
+      position: relative
 
-      .AuthorizeNetSeal
-        float: right
-        margin-top: +emCalc(15px)
-      .catarse-credit-card-net-form, .catarse-echeck-net-form, .catarse-paypal-express-form
-        .button
-          margin-top: +emCalc(25px)
-      .catarse-echeck-net-form
-        .check-numbers
-          img
-            display: block
-            margin: auto
-            margin-bottom: +emCalc(25px)
-      .catarse-paypal-express-form
-        .terms
-          margin-top: +emCalc(25px)
+      .loading
+        $img-width: 80px
+        $img-height: 66px
+        position: relative
+        top: +emCalc(150px)
+        bottom: 0
+        left: 0
+        right: 0
+        background-color: rgba(white, .75)
+        z-index: -1
+        +opacity(0)
+        +transition(opacity .2s)
+        &.show
+          z-index: 201
+          +opacity(1)
+        .loader-img
+          @include beating-heart($img-width, $img-height)
+
+#add-new-creditcard-form
+  margin-bottom: +emCalc(-5px)
+
+.payment-method-option
+  height: +emCalc(50px)
+
+.payment-method-option-icon
+  height: +emCalc(40px)
+
+// IE fixes
+.ie9, .no-ie8compat
+  .create-contribution-page
+    .total-value
+      input
+        font-size: 100%
+        height: auto

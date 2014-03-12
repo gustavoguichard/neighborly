@@ -1,5 +1,8 @@
 # coding: utf-8
 require 'state_machine'
+
+require Neighborly::Balanced::Engine.root.join('app', 'models', 'user') if defined?(Neighborly::Balanced)
+
 class User < ActiveRecord::Base
   include User::Completeness
   # Include default devise modules. Others available are:
@@ -74,21 +77,24 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_confirmation_required?
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
-  schema_associations
+  has_many :contributions
+  has_many :projects
+  has_many :notifications
+  has_many :updates
+  has_many :unsubscribes
+  has_many :authorizations
   has_many :oauth_providers, through: :authorizations
+  has_many :channels_subscribers
   has_one :user_total
-  has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
-  has_one :organization, dependent: :destroy
-  accepts_nested_attributes_for :organization
-
-
-  # Channels relation
   has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
   has_one :channel
+  has_one :organization, dependent: :destroy
   has_many :channel_members, dependent: :destroy
   has_many :channels, through: :channel_members, source: :channel
-  accepts_nested_attributes_for :channel
+  has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
 
+  accepts_nested_attributes_for :channel
+  accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
 
   scope :contributions, -> {

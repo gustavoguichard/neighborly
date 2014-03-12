@@ -27,9 +27,7 @@ class Configuration < ActiveRecord::Base
     private
 
     def get key
-      Rails.cache.fetch("/configurations/#{key}") do
-        find_by_name(key).value rescue nil
-      end
+      find_by(name: key).try(:value)
     end
 
     def set key, value
