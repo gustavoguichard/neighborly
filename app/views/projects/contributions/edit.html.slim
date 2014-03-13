@@ -23,9 +23,9 @@
   .row
     section.content.large-8.medium-8.columns
       .payment
-        h3.title.hide = t('.payment.title')
+        h3.title = t('.payment.title')
 
-        section.row.methods.hide
+        section.row.methods
           - PaymentEngines.engines.each do |engine|
             .large-5.columns
               label.payment-method-option
