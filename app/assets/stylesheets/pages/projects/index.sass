@@ -64,53 +64,26 @@
         float: right
         margin-right: 0
 
-  section.near
-    header
-      +clearfix
-    h3
-      float: left
-
-    a.change-city
-      text-decoration: underline
-      text-transform: uppercase
-      &:after
-        @extend [class^="icon-et-"]:before
-        @extend .icon-et-down-open-mini:before
-        margin-left: +emCalc(5px)
-        text-decoration: none
-
-    .locations-dropdown
-      font-size: 75%
-
-    section.start-one
-      width: 100%
+  section.start-one
+    a
+      display: block
       background: white
       padding: +emCalc(15px)
       text-align: center
-      height: +emCalc(335px)
+      height: +emCalc(290px)
       border: 1px solid transparent
       +single-transition(all, 0.6s)
-      h3
-        font-size: 180%
-        font-weight: bold
-        float: none
       .button
         margin-top: +emCalc(15px)
         margin-bottom: +emCalc(5px)
       .button.with-icon:after
         @extend .icon-et-right-circled:before
-      &.n-columns-6, &.n-columns-9, &.n-columns-12
-        h3
-          font-size: 220%
-      &.n-columns-9
-        h3
-          margin-top: +emCalc(15px)
-      &.n-columns-12
-        h3
-          width: +emCalc(270px)
-          margin-left: auto
-          margin-right: auto
-          margin-top: +emCalc(15px)
+      h3
+        width: +emCalc(270px)
+        font-weight: bold
+        margin-left: auto
+        margin-right: auto
+        margin-top: +emCalc(15px)
       &:hover
         background: $box-hover-background-color
         border: 1px solid white

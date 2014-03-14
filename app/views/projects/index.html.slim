@@ -35,28 +35,17 @@
 
         .row
           = render 'project', project: @featured, large: true if @featured
-          = render 'project', project: @recommended if @recommended
+          = render 'project', project: @recommended.shift if @recommended.any?
+
+        - if @recommended.any?
+          .row
+            - for project in @recommended
+              = render 'project', project: project
 
         .text-right
           = link_to discover_path(filter: 'recommended'), class: 'see-more' do
             = t('words.see_more')
             i.icon-et-right-circled
-
-      section.near
-        header
-          h3
-            i.icon-et-location
-            = t('.near')
-            | &nbsp;
-            = link_to @city, '#', class: 'change-city', data: { dropdown: 'drop-locations' }
-            ul[id="drop-locations" class="f-dropdown locations-dropdown" data-dropdown-content]
-              - for location in @project_locations
-                li = link_to location, near_projects_path(location: location)
-
-        .row.content
-          - for project in @near_projects
-            = render 'project', project: project
-          = render 'projects/start_one', projects: @near_projects.size if @near_projects.size < 4
 
       - if @ending_soon.any?
         section.ending-soon
@@ -107,6 +96,14 @@
               = link_to discover_path(filter: 'soon'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
+
+      section.start-one
+        = link_to start_path do
+          .row
+            .large-12.columns
+              h3 = t('.start-one.title')
+              span.button.custom.with-icon.large = t('.start-one.button')
+
   - if @channels.any?
     section.channels.default-list
       .row
