@@ -101,7 +101,6 @@ Neighborly::Application.routes.draw do
     resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
 
     collection do
-      get :near
       get 'video'
     end
 

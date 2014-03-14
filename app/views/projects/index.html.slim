@@ -42,22 +42,6 @@
             = t('words.see_more')
             i.icon-et-right-circled
 
-      section.near
-        header
-          h3
-            i.icon-et-location
-            = t('.near')
-            | &nbsp;
-            = link_to @city, '#', class: 'change-city', data: { dropdown: 'drop-locations' }
-            ul[id="drop-locations" class="f-dropdown locations-dropdown" data-dropdown-content]
-              - for location in @project_locations
-                li = link_to location, near_projects_path(location: location)
-
-        .row.content
-          - for project in @near_projects
-            = render 'project', project: project
-          = render 'projects/start_one', projects: @near_projects.size if @near_projects.size < 4
-
       - if @ending_soon.any?
         section.ending-soon
           h3

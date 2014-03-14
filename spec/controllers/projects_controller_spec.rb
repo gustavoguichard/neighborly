@@ -175,20 +175,6 @@ describe ProjectsController do
     end
   end
 
-  describe 'GET near' do
-    describe 'html format' do
-      before { get :near, location: 'Kansas City, MO' }
-
-      it { expect(response.status).to eq(404) }
-    end
-
-    describe 'xhr request' do
-      before { xhr :get, :near, location: 'Kansas City, MO' }
-
-      it { expect(response).to be_success }
-    end
-  end
-
   describe "GET index" do
     it { should be_success }
 
