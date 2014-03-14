@@ -28,7 +28,6 @@ en:
           headline: 'For Citizens'
           text: 'Want to earn perks while enhancing cities? What you do matters. Welcome to the neighborhood.'
           button: 'Find Projects'
-    start_one:
-      title: 'Have a community project in need of funding?'
-      button: 'Start one in your area'
-      small_button: 'Start one'
+      start-one:
+        title: 'Have a community project in need of funding?'
+        button: 'Start one in your area'

@@ -96,6 +96,14 @@
               = link_to discover_path(filter: 'soon'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
+
+      section.start-one
+        = link_to start_path do
+          .row
+            .large-12.columns
+              h3 = t('.start-one.title')
+              = link_to t('.start-one.button'), start_path, class: 'button custom with-icon large'
+
   - if @channels.any?
     section.channels.default-list
       .row
