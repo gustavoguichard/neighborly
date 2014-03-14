@@ -17,8 +17,8 @@ class ProjectsController < ApplicationController
     @featured = Project.with_state('online').featured.limit(1).first
     used_ids << @featured.id if @featured
 
-    @recommended = Project.with_state('online').recommended.home_page.limit(1).where('id NOT IN (?)', used_ids).first
-    used_ids << @recommended.id if @recommended
+    @recommended = Project.with_state('online').recommended.home_page.limit(5).where('id NOT IN (?)', used_ids)
+    used_ids += @recommended.map(&:id) if @recommended
 
     @successful = Project.visible.successful.home_page.limit(4)
     @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)

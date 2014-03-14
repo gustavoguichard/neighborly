@@ -35,7 +35,12 @@
 
         .row
           = render 'project', project: @featured, large: true if @featured
-          = render 'project', project: @recommended if @recommended
+          = render 'project', project: @recommended.shift if @recommended.any?
+
+        - if @recommended.any?
+          .row
+            - for project in @recommended
+              = render 'project', project: project
 
         .text-right
           = link_to discover_path(filter: 'recommended'), class: 'see-more' do
