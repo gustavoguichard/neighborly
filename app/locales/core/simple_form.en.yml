@@ -122,7 +122,6 @@ en:
         image: "Upload a minimum 300x150 image(.jpg or .png)."
       user:
         uploaded_image: "Upload a minimum 150x150 image(.jpg or .png)."
-        hero_image: "Upload a minimum 1600x350 image(.jpg or .png)."
   helpers:
     submit:
       company_contact:
