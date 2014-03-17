@@ -4,17 +4,17 @@
       .large-12.columns
         .contribution[class="#{contribution.user.try(:profile_type)} #{'with-note' if contribution.short_note.present?}"]
           .row.collapse
-            .columns[class="large-#{ contribution.user.organization? ? 7 : 4 }"]
+            .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 7 : 4 }"]
               - if contribution.anonymous
                 figure.profile-image.personal
                   = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
               - else
                 = link_to user_path(contribution.user) do
-                  - if contribution.user.organization?
+                  - if contribution.user.organization? || contribution.user.channel?
                     = contribution.user.display_image_html width: 181, height: 85
                   - else
                     = contribution.user.display_image_html width: 85, height: 85
-            .columns[class="large-#{ contribution.user.organization? ? 5 : 8 }"]
+            .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 5 : 8 }"]
               .name
                 - if contribution.anonymous
                   = " #{t('.anonymous_contribution')}"
