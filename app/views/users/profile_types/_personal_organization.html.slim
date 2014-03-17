@@ -10,15 +10,12 @@
       i = t('simple_form.hints.user.uploaded_image')
 
   .large-4.columns
-    - if @user.organization.persisted?
-     = f.fields_for :organization do |o|
-       = o.input :id, as: :hidden
     #organization-images.profile-type-images style="#{"display: none;" unless @user.organization?}"
       .usr-upld-img.usr-upld-cp data-param="organization_attributes[image]"
         span.info Drop an image here
         = image_tag @user.organization.image_url(:thumb), class: "uploaded-image"
 
-      = f.fields_for :organization do |o|
+      = f.fields_for :organization, include_id: true do |o|
         = o.input :image, as: :file, input_html: { class: 'fallback' }
       i = t('simple_form.hints.organization.image')
 
@@ -26,7 +23,7 @@
     #personal-name.profile-type-name style="#{"display: none;" unless @user.personal?}"
       = f.input :name, as: :string
     #organization-name.profile-type-name style="#{"display: none;" unless @user.organization?}"
-      = f.fields_for :organization do |o|
+      = f.fields_for :organization, include_id: false do |o|
         = o.input :name, as: :string
     = f.input :email, as: :string
 
