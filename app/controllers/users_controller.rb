@@ -65,7 +65,7 @@ class UsersController < ApplicationController
         return render 'edit'
       end
       success.json do
-        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
+        return render json: { status: :success, uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
       end
       failure.json do
         return render json: { status: :error }

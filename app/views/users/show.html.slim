@@ -14,13 +14,13 @@
     - else
       = @user.display_image_html width: 150, height: 150, class: 'large'
 
-  - if @user.address.present? && !@user.hero_image.present?
+  - if @user.address.present?
     header.map
       .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
       .map-canvas
       = yield :user_image
   - else
-    = hero_header_tag @user do
+    header.hero
       = yield :user_image
 
   .hero-bio
