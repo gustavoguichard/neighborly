@@ -6,7 +6,6 @@ module Channel::StateMachineHandler
       state :draft
       state :online
 
-
       event :push_to_draft do
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
       end
