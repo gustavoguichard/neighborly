@@ -43,23 +43,23 @@ module Project::StateMachineHandler
       end
 
       event :finish do
-        transition online: :failed,             if: ->(project) {
+        transition online: :failed,               if: ->(project) {
           !project.flexible? && project.expired? && !project.pending_contributions_reached_the_goal?
         }
 
-        transition online: :waiting_funds,      if: ->(project) {
+        transition online: :waiting_funds,        if: ->(project) {
           project.expired? && (project.pending_contributions_reached_the_goal? || project.flexible?)
         }
 
-        transition waiting_funds: :successful,  if: ->(project) {
+        transition waiting_funds: :successful,    if: ->(project) {
           (project.reached_goal? || project.flexible?) && !project.in_time_to_wait?
         }
 
-        transition waiting_funds: :failed,      if: ->(project) {
+        transition waiting_funds: :failed,        if: ->(project) {
           !project.flexible? && project.expired? && !project.reached_goal? && !project.in_time_to_wait?
         }
 
-        transition waiting_funds: :waiting_funds,      if: ->(project) {
+        transition waiting_funds: :waiting_funds, if: ->(project) {
           project.expired? && !project.reached_goal? && (project.in_time_to_wait?)
         }
       end
