@@ -58,7 +58,6 @@ class User < ActiveRecord::Base
     :new_project,
     :profile_type,
     :address,
-    :hero_image,
     :remote_uploaded_image_url,
     :organization_attributes,
     :channel_attributes
@@ -66,7 +65,6 @@ class User < ActiveRecord::Base
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
-  mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
 
   validates_length_of :bio, maximum: 140
   validates_presence_of :email

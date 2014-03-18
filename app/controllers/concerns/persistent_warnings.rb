@@ -7,7 +7,8 @@ module Concerns
     end
 
     def set_persistent_warning
-      flash.notice = persistent_warning
+      current_warning = persistent_warning
+      flash.notice = current_warning if current_warning
     end
 
     def persistent_warning

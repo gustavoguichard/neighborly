@@ -17,10 +17,18 @@ describe Concerns::PersistentWarnings do
     subject.stub(:url_for)
   end
 
-  it 'sets notice flash with the warning' do
-    subject.stub(:persistent_warning).and_return('foobar')
-    expect(flash).to receive(:notice=).with('foobar')
-    subject.set_persistent_warning
+  describe 'setter of warning with highest priority' do
+    it 'sets notice flash with the warning when one exists' do
+      subject.stub(:persistent_warning).and_return(nil)
+      expect(flash).to_not receive(:notice=)
+      subject.set_persistent_warning
+    end
+
+    it 'sets notice flash with the warning when one is available' do
+      subject.stub(:persistent_warning).and_return('foobar')
+      expect(flash).to receive(:notice=).with('foobar')
+      subject.set_persistent_warning
+    end
   end
 
   describe 'current persistent warning' do

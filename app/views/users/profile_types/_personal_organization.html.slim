@@ -1,0 +1,37 @@
+= f.input :profile_type, collection: {' Person'=> 'personal', 'Organization (Company, Foundation, etc...)'=> 'organization'}, as: :radio_buttons
+.row
+  .large-4.columns
+    #personal-images.profile-type-images style="#{"display: none;" unless @user.personal?}"
+      .usr-upld-img.usr-upld-pctr data-param="uploaded_image"
+        span.info Drop an image here
+        = image_tag @user.uploaded_image_url(:thumb_avatar), class: "uploaded-image"
+
+      = f.input :uploaded_image, as: :file, input_html: { class: 'fallback' }
+      i = t('simple_form.hints.user.uploaded_image')
+
+  .large-4.columns
+    #organization-images.profile-type-images style="#{"display: none;" unless @user.organization?}"
+      .usr-upld-img.usr-upld-cp data-param="organization_attributes[image]"
+        span.info Drop an image here
+        = image_tag @user.organization.image_url(:thumb), class: "uploaded-image"
+
+      = f.fields_for :organization, include_id: true do |o|
+        = o.input :image, as: :file, input_html: { class: 'fallback' }
+      i = t('simple_form.hints.organization.image')
+
+  .large-8.columns
+    #personal-name.profile-type-name style="#{"display: none;" unless @user.personal?}"
+      = f.input :name, as: :string
+    #organization-name.profile-type-name style="#{"display: none;" unless @user.organization?}"
+      = f.fields_for :organization, include_id: false do |o|
+        = o.input :name, as: :string
+    = f.input :email, as: :string
+
+  .large-12.columns
+    = f.input :bio
+
+  .large-6.columns
+    = f.input :phone_number, as: :string
+
+  .large-6.columns
+    = f.input :other_url
