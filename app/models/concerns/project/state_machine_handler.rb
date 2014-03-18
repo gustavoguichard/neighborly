@@ -5,20 +5,20 @@ module Project::StateMachineHandler
     #NOTE: state machine things
     #
      state_machine :campaign_type, initial: :flexible do
-      state :all_or_none, value: 'all_or_none'
-      state :flexible, value: 'flexible'
+      state :all_or_none
+      state :flexible
     end
 
     state_machine :state, initial: :draft do
-      state :draft, value: 'draft'
-      state :soon, value: 'soon'
-      state :rejected, value: 'rejected'
-      state :online, value: 'online'
-      state :successful, value: 'successful'
-      state :waiting_funds, value: 'waiting_funds'
-      state :failed, value: 'failed'
-      state :deleted, value: 'deleted'
-      state :in_analysis, value: 'in_analysis'
+      state :draft
+      state :soon
+      state :rejected
+      state :online
+      state :successful
+      state :waiting_funds
+      state :failed
+      state :deleted
+      state :in_analysis
 
       event :push_to_draft do
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(

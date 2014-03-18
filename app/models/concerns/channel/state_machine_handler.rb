@@ -3,8 +3,8 @@ module Channel::StateMachineHandler
 
   included do
     state_machine :state, initial: :draft do
-      state :draft, value: 'draft'
-      state :online, value: 'online'
+      state :draft
+      state :online
 
 
       event :push_to_draft do
