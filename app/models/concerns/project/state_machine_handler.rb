@@ -2,8 +2,6 @@ module Project::StateMachineHandler
   extend ActiveSupport::Concern
 
   included do
-    #NOTE: state machine things
-    #
      state_machine :campaign_type, initial: :flexible do
       state :all_or_none
       state :flexible
