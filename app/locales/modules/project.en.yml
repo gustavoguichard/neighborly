@@ -7,7 +7,7 @@ en:
       waiting_confirmation: 'waiting'
       waiting_funds: 'waiting'
       not_reached_goal: 'waiting'
-      draf: 'draft'
+      draft: 'draft'
     organization_type:
       municipality: 'Municipality'
       neighborhood_organization: 'Neighborhood Organization'
