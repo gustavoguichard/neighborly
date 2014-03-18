@@ -3,14 +3,15 @@ module Contribution::StateMachineHandler
 
   included do
     state_machine :state, initial: :pending do
-      state :pending, value: 'pending'
-      state :waiting_confirmation, value: 'waiting_confirmation'
-      state :confirmed, value: 'confirmed'
-      state :canceled, value: 'canceled'
-      state :refunded, value: 'refunded'
-      state :requested_refund, value: 'requested_refund'
+      state :pending,               value: 'pending'
+      state :payment_authorized,    value: 'payment_authorized'
+      state :waiting_confirmation,  value: 'waiting_confirmation'
+      state :confirmed,             value: 'confirmed'
+      state :canceled,              value: 'canceled'
+      state :refunded,              value: 'refunded'
+      state :requested_refund,      value: 'requested_refund'
       state :refunded_and_canceled, value: 'refunded_and_canceled'
-      state :deleted, value: 'deleted'
+      state :deleted,               value: 'deleted'
 
       event :push_to_trash do
         transition all => :deleted
@@ -18,6 +19,10 @@ module Contribution::StateMachineHandler
 
       event :pendent do
         transition all => :pending
+      end
+
+      event :authorize_payment do
+        transition all => :payment_authorized
       end
 
       event :waiting do
