@@ -3,7 +3,11 @@ class ContributionDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def display_value
-    number_to_currency source.value
+    amount  = source.value
+    if source.payment_service_fee_paid_by_user
+      amount += source.payment_service_fee
+    end
+    number_to_currency(amount)
   end
 
   def display_confirmed_at
