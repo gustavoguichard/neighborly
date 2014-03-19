@@ -26,7 +26,7 @@
         h3.title = t('.payment.title')
 
         section.row.methods
-          - PaymentEngines.engines.each do |engine|
+          - PaymentEngine.engines.each do |engine|
             .large-5.columns
               label.payment-method-option
                 = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine[:value_with_fees].call(@contribution.value))
@@ -37,7 +37,7 @@
         .container
           .loading
             = image_tag 'logo-icon.png', class: "loader-img"
-          - PaymentEngines.engines.each do |engine|
+          - PaymentEngine.engines.each do |engine|
             div[id="#{engine[:name]}-payment" class="payment-method hide" data-path=engine[:review_path].call(@contribution)]
 
     aside.large-4.medium-4.columns
