@@ -2,47 +2,47 @@
 
 require 'spec_helper'
 
-describe PaymentEngines do
+describe PaymentEngine do
   let(:engine){ {name: 'test', review_path: ->(contribution){ "/#{contribution}" }, locale: 'en'} }
   let(:engine_pt){ {name: 'test pt', review_path: ->(contribution){ "/#{contribution}" }, locale: 'pt'} }
   let(:contribution){ FactoryGirl.create(:contribution) }
-  before{ PaymentEngines.clear }
+  before{ PaymentEngine.clear }
 
   describe ".register" do
-    before{ PaymentEngines.register engine }
-    subject{ PaymentEngines.engines }
+    before{ PaymentEngine.register engine }
+    subject{ PaymentEngine.engines }
     it{ should == [engine] }
   end
 
   describe ".clear" do
     before do
-      PaymentEngines.register engine
-      PaymentEngines.clear
+      PaymentEngine.register engine
+      PaymentEngine.clear
     end
-    subject{ PaymentEngines.engines }
+    subject{ PaymentEngine.engines }
     it{ should be_empty }
   end
 
   describe ".configuration" do
-    subject{ PaymentEngines.configuration }
+    subject{ PaymentEngine.configuration }
     it{ should == ::Configuration }
   end
 
   describe ".create_payment_notification" do
-    subject{ PaymentEngines.create_payment_notification({ contribution_id: contribution.id, extra_data: { test: true } }) }
+    subject{ PaymentEngine.create_payment_notification({ contribution_id: contribution.id, extra_data: { test: true } }) }
     it{ should == PaymentNotification.where(contribution_id: contribution.id).first }
   end
 
   describe ".find_payment" do
-    subject{ PaymentEngines.find_payment({ id: contribution.id }) }
+    subject{ PaymentEngine.find_payment({ id: contribution.id }) }
     it{ should == contribution }
   end
 
   describe ".engines" do
-    subject{ PaymentEngines.engines }
+    subject{ PaymentEngine.engines }
     before do
-      PaymentEngines.register engine
-      PaymentEngines.register engine_pt
+      PaymentEngine.register engine
+      PaymentEngine.register engine_pt
     end
 
     context "when locale is en" do

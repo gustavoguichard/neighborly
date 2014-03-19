@@ -1,4 +1,4 @@
-class PaymentEngines
+class PaymentEngine
   @@engines = []
 
   def self.register options
