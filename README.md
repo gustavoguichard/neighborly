@@ -71,4 +71,4 @@ Adapted by [devton](https://github.com/devton), [josemarluedke](https://github.c
 
 ## License
 
-Copyright (c) 2013 Neighbor.ly. Licensed as free and open source under the [MIT License](MIT-LICENSE)
+Copyright (c) 2012 - 2014 Neighbor.ly. Licensed as free and open source under the [MIT License](MIT-LICENSE)
