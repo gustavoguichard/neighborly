@@ -22,8 +22,9 @@ Neighborly::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount Neighborly::Balanced::Creditcard::Engine => "/balanced/creditcard/", as: :neighborly_balanced_creditcard
-  mount Neighborly::Balanced::Bankaccount::Engine => "/balanced/bankaccount/", as: :neighborly_balanced_bankaccount
+  mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
+  mount Neighborly::Balanced::Bankaccount::Engine => '/balanced/bankaccount/', as: :neighborly_balanced_bankaccount
+  mount Neighborly::Balanced::Engine => '/balanced/', as: :neighborly_balanced
 
   # Non production routes
   if Rails.env.development?
