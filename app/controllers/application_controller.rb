@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   include Concerns::SocialHelpersHandler
   include Concerns::PersistentWarnings
 
-  layout :application
   protect_from_forgery
   before_filter :require_basic_auth
 
