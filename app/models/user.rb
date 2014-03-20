@@ -1,8 +1,6 @@
 # coding: utf-8
 require 'state_machine'
 
-require Neighborly::Balanced::Engine.root.join('app', 'models', 'user') if defined?(Neighborly::Balanced)
-
 class User < ActiveRecord::Base
   include User::Completeness
   # Include default devise modules. Others available are:
