@@ -11,6 +11,16 @@
                 span.meter[style="width: #{@project.display_progress}%"]
               .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
 
+  - if @contribution.payment_method == 'balanced-bankaccount' && @contribution.payment_authorized?
+    section.bankaccount
+      .row
+        .large-12.columns
+          h3 = t('.bankaccount.title')
+          ol
+            li = t('.bankaccount.steps.first')
+            li = t('.bankaccount.steps.second')
+            li = t('.bankaccount.steps.third')
+
   section.share
     .row
       .large-12.columns
