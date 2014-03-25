@@ -1,27 +1,34 @@
 class PaymentEngine
-  @@engines = []
+  mattr_accessor :engines
+  self.engines = []
 
-  def self.register options
-    @@engines.push(options)
+  def initialize(engine)
+    @engine = engine
   end
 
-  def self.clear
-    @@engines.clear
+  def save
+    self.engines.push @engine
   end
 
-  def self.engines
-    @@engines.sort{|a,b| (a[:locale] == I18n.locale.to_s ? -1 : 1) }
-  end
+  class << self
+    def all
+      engines
+    end
 
-  def self.create_payment_notification attributes
-    PaymentNotification.create! attributes
-  end
+    def destroy_all
+      engines.clear
+    end
 
-  def self.configuration
-    ::Configuration
-  end
+    def create_payment_notification attributes
+      PaymentNotification.create! attributes
+    end
 
-  def self.find_payment filter
-    Contribution.where(filter).first
+    def configuration
+      ::Configuration
+    end
+
+    def find_payment filter
+      Contribution.where(filter).first
+    end
   end
 end
