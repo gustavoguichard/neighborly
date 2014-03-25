@@ -11,7 +11,7 @@ describe Contribution do
   let(:valid_refund){ create(:contribution, state: 'confirmed', user: user, project: failed_project) }
 
 
-  describe "Associations" do
+  describe 'associations' do
     it { should have_many(:payment_notifications) }
     it { should have_many(:notifications) }
     it { should belong_to(:project) }
@@ -19,7 +19,7 @@ describe Contribution do
     it { should belong_to(:reward) }
   end
 
-  describe "Validations" do
+  describe 'validations' do
     it{ should validate_presence_of(:project) }
     it{ should validate_presence_of(:user) }
     it{ should validate_presence_of(:value) }
@@ -28,7 +28,7 @@ describe Contribution do
     it{ should allow_value(20).for(:value) }
   end
 
-  pending ".confirmed_today" do
+  pending '.confirmed_today' do
     before do
       3.times { create(:contribution, state: 'confirmed', confirmed_at: 2.days.ago) }
       4.times { create(:contribution, state: 'confirmed', confirmed_at: 6.days.ago) }
@@ -43,7 +43,7 @@ describe Contribution do
     it { should have(7).items }
   end
 
-  describe ".between_values" do
+  describe '.between_values' do
     let(:start_at) { 10 }
     let(:ends_at) { 20 }
     subject { Contribution.between_values(start_at, ends_at) }
@@ -56,34 +56,26 @@ describe Contribution do
     it { should have(3).itens }
   end
 
-  describe ".can_cancel" do
+  describe '.can_cancel' do
     subject { Contribution.can_cancel}
 
-    context "when contribution is in time to wait the confirmation" do
+    context 'when contribution is in time to wait the confirmation' do
       before do
         create(:contribution, state: 'waiting_confirmation', created_at: 3.weekdays_ago)
       end
       it { should have(0).item }
     end
 
-    context "when contribution is by bank transfer and is passed the confirmation time" do
-      before do
-        create(:contribution, state: 'waiting_confirmation', payment_choice: 'DebitoBancario', created_at: 2.weekdays_ago)
-        create(:contribution, state: 'waiting_confirmation', payment_choice: 'DebitoBancario', created_at: 0.weekdays_ago)
-      end
-      it { should have(1).item }
-    end
-
-    context "when we have contributions that is passed the confirmation time" do
+    context 'when we have contributions that is passed the confirmation time' do
       before do
         create(:contribution, state: 'waiting_confirmation', created_at: 3.weekdays_ago)
-        create(:contribution, state: 'waiting_confirmation', created_at: 6.weekdays_ago)
+        create(:contribution, state: 'waiting_confirmation', created_at: 7.weekdays_ago)
       end
       it { should have(1).itens }
     end
   end
 
-  describe "#update_current_billing_info" do
+  describe '#update_current_billing_info' do
     let(:contribution) { build(:contribution, user: user) }
     let(:user) {
       build(:user, {
@@ -111,7 +103,7 @@ describe Contribution do
     its(:payer_document){ should eq(user.cpf) }
   end
 
-  describe "#update_user_billing_info" do
+  describe '#update_user_billing_info' do
     let(:contribution) { create(:contribution) }
     let(:user) { contribution.user }
     let(:contribution_attributes) {
@@ -131,14 +123,14 @@ describe Contribution do
       user.should_receive(:update_attributes).with(contribution_attributes)
     end
 
-    it("should update user billing info attributes") { contribution.update_user_billing_info}
+    it('should update user billing info attributes') { contribution.update_user_billing_info}
   end
 
   describe '#recommended_projects' do
     subject{ contribution.recommended_projects }
     let(:contribution){ create(:contribution) }
 
-    context "when we have another projects in the same category" do
+    context 'when we have another projects in the same category' do
       before do
         @recommended = create(:project, category: contribution.project.category)
         # add a project successful that should not apear as recommended
@@ -147,7 +139,7 @@ describe Contribution do
       it{ should eq [@recommended] }
     end
 
-    context "when another user has contributed the same project" do
+    context 'when another user has contributed the same project' do
       before do
         @another_contribution = create(:contribution, project: contribution.project)
         @recommended = create(:contribution, user: @another_contribution.user).project
@@ -160,7 +152,7 @@ describe Contribution do
   end
 
 
-  describe ".can_refund" do
+  describe '.can_refund' do
     subject{ Contribution.can_refund.load }
     before do
       create(:contribution, state: 'confirmed', credits: true, project: failed_project)
@@ -174,7 +166,7 @@ describe Contribution do
     it{ should == [valid_refund] }
   end
 
-  describe "#can_refund?" do
+  describe '#can_refund?' do
     subject{ contribution.can_refund? }
     before do
       valid_refund
@@ -183,30 +175,30 @@ describe Contribution do
       failed_project.update_attributes state: 'failed'
     end
 
-    context "when project is successful" do
+    context 'when project is successful' do
       let(:contribution){ sucessful_project_contribution }
       it{ should be_false }
     end
 
-    context "when project is not finished" do
+    context 'when project is not finished' do
       let(:contribution){ unfinished_project_contribution }
       it{ should be_false }
     end
 
-    context "when contribution is not confirmed" do
+    context 'when contribution is not confirmed' do
       let(:contribution){ not_confirmed_contribution }
       it{ should be_false }
     end
 
-    context "when it's a valid refund" do
+    context'when it is a valid refund' do
       let(:contribution){ valid_refund }
       it{ should be_true }
     end
   end
 
-  describe "#credits" do
+  describe '#credits' do
     subject{ user.credits.to_f }
-    context "when contributions are confirmed and not done with credits but project is successful" do
+    context 'when contributions are confirmed and not done with credits but project is successful' do
       before do
         create(:contribution, state: 'confirmed', user: user, project: successful_project)
         successful_project.update_attributes state: 'successful'
@@ -214,7 +206,7 @@ describe Contribution do
       it{ should == 0 }
     end
 
-    context "when contributions are confirmed and not done with credits" do
+    context 'when contributions are confirmed and not done with credits' do
       before do
         create(:contribution, state: 'confirmed', user: user, project: failed_project)
         failed_project.update_attributes state: 'failed'
@@ -222,7 +214,7 @@ describe Contribution do
       it{ should == 10 }
     end
 
-    context "when contributions are done with credits" do
+    context 'when contributions are done with credits' do
       before do
         create(:contribution, credits: true, state: 'confirmed', user: user, project: failed_project)
         failed_project.update_attributes state: 'failed'
@@ -230,7 +222,7 @@ describe Contribution do
       it{ should == 0 }
     end
 
-    context "when contributions are not confirmed" do
+    context 'when contributions are not confirmed' do
       before do
         create(:contribution, user: user, project: failed_project, state: 'pending')
         failed_project.update_attributes state: 'failed'
@@ -239,15 +231,15 @@ describe Contribution do
     end
   end
 
-  describe "#display_value" do
-    context "when the value has decimal places" do
+  describe '#display_value' do
+    context 'when the value has decimal places' do
       subject{ build(:contribution, value: 99.99).display_value }
-      it{ should == "$99.99" }
+      it{ should == '$99.99' }
     end
 
-    context "when the value does not have decimal places" do
+    context 'when the value does not have decimal places' do
       subject{ build(:contribution, value: 1).display_value }
-      it{ should == "$1.00" }
+      it{ should == '$1.00' }
     end
   end
 end
