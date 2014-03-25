@@ -4,8 +4,8 @@
   .user-payments-content.row
     .large-12.columns
       - PaymentEngine.engines.each do |engine|
-        - if engine[:account_path].present?
-          div[id="#{engine[:name]}-account" class="account-method" data-path=engine[:account_path].call]
+        - if engine.account_path.present?
+          div[id="#{engine.name}-account" class="account-method" data-path=engine.account_path]
             .loading
               = image_tag 'logo-icon.png', class: "loader-img"
 
