@@ -1,52 +1,61 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
 describe PaymentEngine do
-  let(:engine){ {name: 'test', review_path: ->(contribution){ "/#{contribution}" }, locale: 'en'} }
-  let(:engine_pt){ {name: 'test pt', review_path: ->(contribution){ "/#{contribution}" }, locale: 'pt'} }
-  let(:contribution){ FactoryGirl.create(:contribution) }
-  before{ PaymentEngine.clear }
+  let(:creditcard)   { double('Balanced::Creditcard',  name: 'creditcard') }
+  let(:bankaccount)  { double('Balanced::Bankaccount', name: 'bankaccount') }
+  let(:contribution) { FactoryGirl.create(:contribution) }
 
-  describe ".register" do
-    before{ PaymentEngine.register engine }
-    subject{ PaymentEngine.engines }
-    it{ should == [engine] }
-  end
+  before { PaymentEngine.destroy_all }
 
-  describe ".clear" do
-    before do
-      PaymentEngine.register engine
-      PaymentEngine.clear
+  describe '.save' do
+    it 'should save the engine' do
+      PaymentEngine.new(creditcard).save
+      expect(PaymentEngine.all).to eq [creditcard]
     end
-    subject{ PaymentEngine.engines }
-    it{ should be_empty }
   end
 
-  describe ".configuration" do
-    subject{ PaymentEngine.configuration }
-    it{ should == ::Configuration }
+  describe '.destroy_all' do
+    before { PaymentEngine.new(creditcard).save  }
+
+    it 'should destroy all engines' do
+      PaymentEngine.destroy_all
+      expect(PaymentEngine.all).to be_empty
+    end
   end
 
-  describe ".create_payment_notification" do
-    subject{ PaymentEngine.create_payment_notification({ contribution_id: contribution.id, extra_data: { test: true } }) }
-    it{ should == PaymentNotification.where(contribution_id: contribution.id).first }
+  describe '.configuration' do
+    it 'should turn configuration class' do
+      expect(PaymentEngine.configuration).to eq ::Configuration
+    end
   end
 
-  describe ".find_payment" do
-    subject{ PaymentEngine.find_payment({ id: contribution.id }) }
-    it{ should == contribution }
-  end
-
-  describe ".engines" do
-    subject{ PaymentEngine.engines }
-    before do
-      PaymentEngine.register engine
-      PaymentEngine.register engine_pt
+  describe '.create_payment_notification' do
+    subject do
+      PaymentEngine.create_payment_notification({ contribution_id: contribution.id,
+                                                  extra_data: { test: true } })
     end
 
-    context "when locale is en" do
-      it{ should == [engine, engine_pt] }
+    it 'should create payment notification' do
+      should == PaymentNotification.where(contribution_id: contribution.id).first
+    end
+  end
+
+  describe '.find_payment' do
+    subject { PaymentEngine.find_payment({ id: contribution.id }) }
+
+    it 'should return the correct contribution' do
+      should == contribution
+    end
+  end
+
+  describe '.all' do
+    before do
+      PaymentEngine.new(creditcard).save
+      PaymentEngine.new(bankaccount).save
+    end
+
+    it 'should return all engines' do
+      expect(PaymentEngine.all).to eq [creditcard, bankaccount]
     end
   end
 end
