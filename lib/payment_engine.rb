@@ -19,16 +19,16 @@ class PaymentEngine
       engines.clear
     end
 
-    def create_payment_notification attributes
-      PaymentNotification.create! attributes
+    def create_payment_notification(attributes)
+      PaymentNotification.create!(attributes)
     end
 
     def configuration
       ::Configuration
     end
 
-    def find_payment filter
-      Contribution.where(filter).first
+    def find_payment(filter)
+      Contribution.find_by(filter)
     end
   end
 end
