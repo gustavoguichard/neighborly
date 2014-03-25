@@ -11,7 +11,7 @@
                 span.meter[style="width: #{@project.display_progress}%"]
               .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
 
-  - if @contribution.payment_method == 'balanced-bankaccount' && @contribution.payment_authorized?
+  - if @contribution.payment_method == 'balanced-bankaccount' && @contribution.waiting_confirmation?
     section.bankaccount
       .row
         .large-12.columns
