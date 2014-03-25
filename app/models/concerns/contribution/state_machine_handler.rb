@@ -4,7 +4,6 @@ module Contribution::StateMachineHandler
   included do
     state_machine :state, initial: :pending do
       state :pending
-      state :payment_authorized
       state :waiting_confirmation
       state :confirmed
       state :canceled
@@ -19,10 +18,6 @@ module Contribution::StateMachineHandler
 
       event :pendent do
         transition all => :pending
-      end
-
-      event :authorize_payment do
-        transition all => :payment_authorized
       end
 
       event :waiting do
