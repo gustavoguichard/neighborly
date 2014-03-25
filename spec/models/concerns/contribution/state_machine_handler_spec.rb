@@ -28,8 +28,8 @@ describe Contribution::StateMachineHandler do
       it("switch to deleted state") { contribution.deleted?.should be_true }
     end
 
-    describe '#waiting' do
-      before { contribution.waiting }
+    describe '#wait_confirmation' do
+      before { contribution.wait_confirmation }
       context "when in peding state" do
         it("should switch to waiting_confirmation state") { contribution.waiting_confirmation?.should be_true }
       end

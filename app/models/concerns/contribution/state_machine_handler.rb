@@ -20,7 +20,7 @@ module Contribution::StateMachineHandler
         transition all => :pending
       end
 
-      event :waiting do
+      event :wait_confirmation do
         transition pending: :waiting_confirmation
       end
 
