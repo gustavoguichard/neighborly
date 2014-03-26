@@ -18,16 +18,17 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 24e9b95bd38951619f199906f0b3ecf75406439d
+  revision: d9ce738d840d675b8cd70522d760c16e33601691
   branch: master
   specs:
     neighborly-balanced-bankaccount (0.0.1)
       rails (~> 4.0)
+      sidekiq (~> 2.0)
       slim (~> 2.0)
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: e78193b61eca127ef7c515e45ce8e9b9b0e2829e
+  revision: bf3c53ef11ae1ef0b7591eb3de97e4a3b1e9ee61
   branch: master
   specs:
     neighborly-balanced-creditcard (1.0.0)
@@ -37,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: b1fce439f205d7781d0121a52081d2f915c10af2
+  revision: ec5438ba656c1890f068c6d5f03b28af48db995d
   branch: master
   specs:
     neighborly-balanced (1.0.0)
@@ -96,7 +97,7 @@ GEM
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
     arel (4.0.2)
-    atomic (1.1.15)
+    atomic (1.1.16)
     auto_html (1.6.1)
       redcarpet (~> 2.0)
       rinku (~> 1.5.0)
@@ -247,7 +248,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    multi_json (1.9.0)
+    multi_json (1.9.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -331,7 +332,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
-    rake (10.1.1)
+    rake (10.2.1)
     ranked-model (0.3)
       activerecord (>= 3.1.12)
     redcarpet (2.3.0)
@@ -405,7 +406,7 @@ GEM
       railties (>= 3.0, < 4.1)
       slim (~> 2.0)
     slop (3.4.7)
-    sprockets (2.11.0)
+    sprockets (2.12.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -424,8 +425,8 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thor (0.18.1)
-    thread_safe (0.2.0)
+    thor (0.19.1)
+    thread_safe (0.3.1)
       atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
     timers (1.1.0)
