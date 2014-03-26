@@ -31,26 +31,22 @@ describe ProjectsController do
   describe 'GET success' do
     let(:project){ create(:project) }
 
-    context 'when has successful_created session' do
-      before do
-        session[:successful_created] = project.id
+    context 'when current user is the owner' do
+      let(:current_user){ project.user }
+
+      it 'response should be success' do
         get :success, id: project
-      end
-
-      it { expect(response).to be_success }
-
-      it 'should set successful_created session as false' do
-        expect(session[:successful_created]).to be_false
+        expect(response).to be_success
       end
     end
 
-    context 'when does not have successful_created session' do
-      before do
-        session[:sucessful_created] = false
-        get :success, id: project
-      end
+    context 'when current user is not the project owner' do
+      let(:current_user){ create(:user) }
 
-      it { expect(response).to redirect_to project_path(project) }
+      it 'should redirect to root path' do
+        get :success, id: project
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -129,6 +125,7 @@ describe ProjectsController do
     end
 
     context "when user is not logged in" do
+      let(:current_user){ nil }
       it { expect(response).to redirect_to new_user_session_path }
     end
   end
@@ -205,6 +202,21 @@ describe ProjectsController do
     end
   end
 
+  describe "GET edit" do
+    let(:project) { create(:project) }
+    before { get :edit, id: project }
+
+    context "when user is a guest" do
+      let(:current_user){ nil }
+      it { should_not be_success }
+    end
+
+    context "when user is a registered user" do
+      let(:current_user){ create(:user, admin: true) }
+      it { should be_success }
+    end
+  end
+
   describe "PUT update" do
     shared_examples_for "updatable project" do
       before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
@@ -242,12 +254,11 @@ describe ProjectsController do
           controller.stub(:current_user).and_return(project.user)
         end
 
-        context "when I try to update the project name and the about field" do
-          before{ put :update, id: project, project: { name: 'new_title', about: 'new_description' } }
+        context "when I try to update the project name field" do
+          before{ put :update, id: project, project: { name: 'new_title' } }
           it "should not update neither" do
             project.reload
             project.name.should_not == 'new_title'
-            project.about.should_not == 'new_description'
           end
         end
 
@@ -288,6 +299,7 @@ describe ProjectsController do
 
   describe "GET show" do
     context 'when the project is on draft' do
+      let(:current_user){ create(:user, admin: false) }
       before do
         get :show, id: project
       end

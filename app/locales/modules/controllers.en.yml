@@ -4,6 +4,9 @@ en:
       create:
         success: 'Your information has been updated!'
     projects:
+      send_reward_email:
+        success: "We've received your request and will be in touch shortly."
+        error: 'The code is not valid. Try again.'
       contributions:
         new:
           cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
