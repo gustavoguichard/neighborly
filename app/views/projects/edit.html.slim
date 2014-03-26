@@ -11,58 +11,58 @@
           = form.input :campaign_type, as: :select, collection: [['All or None', 'all_or_none'], ['Flexible', 'flexible']], include_blank: false
           = form.input :foundation_widget, as: :boolean
       .section-header #1. Project Overview
-      - if can? :update, @project, :name
+      - if policy(@project).permitted_for?(:name, :update)
         = form.input :name, as: :string
-      - if can? :update, @project, :category
+      - if policy(@project).permitted_for?(:category, :update)
         = form.association :category, include_blank: false
-      - if can? :update, @project, :headline
+      - if policy(@project).permitted_for?(:headline, :update)
         = form.input :headline, as: :string
-      - if can? :update, @project, :about
+      - if policy(@project).permitted_for?(:about, :update)
         = form.input :about
-      - if can? :update, @project, :tag_list
+      - if policy(@project).permitted_for?(:tag_list, :update)
         .tags-path[data-url=tags_path]
         = form.input :tag_list, as: :string
 
       .section-header #2. Project Location
-      - if can? :update, @project, :address
+      - if policy(@project).permitted_for?(:address, :update)
         .address
           .address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png')]
           = form.input :address, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
           .map-canvas
-      - if can? :update, @project, :address_neighborhood
+      - if policy(@project).permitted_for?(:address_neighborhood, :update)
         = form.input :address_neighborhood
       .section-header #3. Supporting Media
-      - if can? :update, @project, :video_url
+      - if policy(@project).permitted_for?(:video_url, :update)
         = form.input :video_url, as: :string
       .row
-        - if can? :update, @project, :uploaded_image
+        p
+        - if policy(@project).permitted_for?(:uploaded_image, :update)
           .large-6.small-6.columns.image-uploader
             = form.input :uploaded_image, as: :file
             - if @project.uploaded_image.present?
               .image-preview
                 = image_tag(@project.uploaded_image.project_thumb.url, size: '220x172')
-        - if can? :update, @project, :hero_image
+        - if policy(@project).permitted_for?(:hero_image, :update)
           .large-6.small-6.columns.image-uploader
             = form.input :hero_image, as: :file
             - if @project.hero_image.present?
               .image-preview
                 = image_tag(@project.hero_image_url(:blur), size: '220')
-      - if can? :update, @project, :site
+      - if policy(@project).permitted_for?(:site, :update)
         = form.input :site
-      - if can? :update, @project, :hash_tag
+      - if policy(@project).permitted_for?(:site, :update)
         = form.input :hash_tag
       .section-header #4. Budget & Timeline
-      - if can? :update, @project, :goal
+      - if policy(@project).permitted_for?(:goal, :update)
         = form.input :goal, as: :integer
-      - if can? :update, @project, :online_days
+      - if policy(@project).permitted_for?(:online_days, :update)
         = form.input :online_days, as: :integer
-      - if can? :update, @project, :budget
+      - if policy(@project).permitted_for?(:budget, :update)
         = form.input :budget
-      - if can? :update, @project, :terms
+      - if policy(@project).permitted_for?(:terms, :update)
         = form.input :terms
 
       = form.button :submit, data: { disable_with: t('words.sending') }
-
 
 - if request.xhr?
   = yield :page_content

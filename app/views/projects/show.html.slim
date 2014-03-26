@@ -85,7 +85,7 @@
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
-        - if can? :update, @project || @project.updates.size > 0
+        - if policy(@project).update? || @project.updates.size > 0
           = tab_link_to project_updates_path(@project) do
             = t('.tabs.updates')
             span.count=" #{@project.updates.size}"
@@ -100,10 +100,10 @@
           span.commentsCount.count style="display: none;"
             span#countNumber
 
-        = tab_link_to t('.tabs.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || can?(:update, @project)
+        = tab_link_to t('.tabs.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
         = tab_link_to t('.tabs.budget'), budget_project_path(@project) if @project.budget.present?
-        = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || can?(:update, @project)
-        - if can? :update, @project
+        = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
+        - if policy(@project).update?
           = tab_link_to t('.tabs.reports'), reports_project_path(@project), 'private'
 
       section.content
@@ -159,7 +159,7 @@
           .alert-box.secondary.status-description
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
-        = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if can? :update, @project
+        = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if policy(@project).update?
 
       - if @project.last_channel
         section.channel
@@ -181,7 +181,7 @@
           .more
             = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
 
-      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
+      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{policy(@project).update?}"]
 
 - content_for :modals do
   #reward-contact.reveal-modal.small.fixed
