@@ -1,15 +1,15 @@
 class ProjectPolicy < ApplicationPolicy
   def create?
-    done_by_onwer_or_admin?
+    done_by_onwer_or_admin? || is_channel_admin?
   end
 
   def update?
-    done_by_onwer_or_admin? || is_channel_admin?
+    create?
   end
 
   def show?
     if record.draft? || record.in_analysis? || record.soon?
-      done_by_onwer_or_admin? || is_channel_admin?
+      create?
     else
       true
     end
@@ -31,9 +31,11 @@ class ProjectPolicy < ApplicationPolicy
     if user.present? && (!record.instance_of?(Project) || fully_editable?)
       { project: record.attribute_names.map(&:to_sym) + [:address] }
     else
-      { project: [:about,         :video_url,     :uploaded_image, :hero_image, :headline,
-                  :budget,        :terms,         :address_neighborhood, :address,
-                  :address_city,  :address_state, :hash_tag, :site, :tag_list] }
+      { project: [:about,         :video_url,            :uploaded_image,
+                  :hero_image,    :headline,             :budget,
+                  :terms,         :address_neighborhood, :address,
+                  :address_city,  :address_state,        :hash_tag,
+                  :site, :tag_list] }
 
 
     end
