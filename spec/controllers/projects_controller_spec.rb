@@ -217,6 +217,21 @@ describe ProjectsController do
     end
   end
 
+  describe "GET edit" do
+    let(:project) { create(:project) }
+    before { get :edit, id: project }
+
+    context "when user is a guest" do
+      let(:current_user){ nil }
+      it { should_not be_success }
+    end
+
+    context "when user is a registered user" do
+      let(:current_user){ create(:user, admin: true) }
+      it { should be_success }
+    end
+  end
+
   describe "PUT update" do
     shared_examples_for "updatable project" do
       before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
