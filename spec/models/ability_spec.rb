@@ -15,30 +15,11 @@ describe Ability do
     let(:user) { create(:user, admin: false) }
     let(:channel) { create(:channel, user: user) }
 
-    context 'when user is not the channel owner' do
-      let(:channel) { create(:channel, user: create(:user)) }
-      it { should_not be_able_to(:update, project) }
-    end
-
-    context 'when user is the channel' do
-      it { should be_able_to(:update, project) }
-    end
-
-    context 'when user is other channel' do
-      let(:channel) { create(:channel, user: create(:user)) }
-      it { should_not be_able_to(:update, project) }
-    end
-
     describe 'channel members' do
       let(:channel) { create(:channel, user: create(:user)) }
       let(:reward) { FactoryGirl.create(:reward, project: project) }
       before { channel.members << user; channel.save }
 
-      it { should be_able_to(:update, project) }
-      it { should be_able_to(:update, project, :about) }
-      it { should be_able_to(:update, project, :video_url) }
-      it { should be_able_to(:update, project, :headline) }
-      it { should be_able_to(:update, project, :uploaded_image) }
       it { should be_able_to(:destroy, reward) }
       it { should be_able_to(:update, reward, :days_to_delivery) }
       it { should be_able_to(:update, reward, :description) }
@@ -53,20 +34,11 @@ describe Ability do
     let(:reward) { FactoryGirl.create(:reward, project: project) }
 
     it { should_not be_able_to(:access, :all) }
-    it { should be_able_to(:update, project) }
-    it { should be_able_to(:create, :projects) }
     it { should be_able_to(:update, reward)}
 
     describe "when project is approved" do
       before { project.approve }
 
-      it { should_not be_able_to(:update, project, :name) }
-      it { should_not be_able_to(:update, project, :goal) }
-      it { should_not be_able_to(:update, project, :online_days) }
-      it { should be_able_to(:update, project, :about) }
-      it { should be_able_to(:update, project, :video_url) }
-      it { should be_able_to(:update, project, :headline) }
-      it { should be_able_to(:update, project, :uploaded_image) }
       it { should be_able_to(:destroy, reward) }
       it { should be_able_to(:update, reward, :days_to_delivery) }
       it { should be_able_to(:update, reward, :description) }
@@ -105,36 +77,6 @@ describe Ability do
         end
       end
     end
-
-    describe 'When project is waiting funds' do
-      let(:project) { FactoryGirl.create(:project, user: user, state: 'waiting_funds') }
-
-      it { should be_able_to(:update, project, :video_url) }
-      it { should be_able_to(:update, project, :uploaded_image) }
-      it { should be_able_to(:update, project, :about) }
-      it { should be_able_to(:update, project, :headline) }
-      it { should be_able_to(:update, reward, :days_to_delivery) }
-    end
-
-    describe "when project is failed" do
-      let(:project) { FactoryGirl.create(:project, user: user, state: 'failed') }
-
-      it { should be_able_to(:update, project, :video_url) }
-      it { should be_able_to(:update, project, :uploaded_image) }
-      it { should be_able_to(:update, project, :about) }
-      it { should be_able_to(:update, project, :headline) }
-      it { should_not be_able_to(:update, reward, :days_to_delivery) }
-    end
-
-    describe "when project is successful" do
-      let(:project) { FactoryGirl.create(:project, user: user, state: 'successful') }
-
-      it { should be_able_to(:update, project, :video_url) }
-      it { should be_able_to(:update, project, :uploaded_image) }
-      it { should be_able_to(:update, project, :about) }
-      it { should be_able_to(:update, project, :headline) }
-      it { should_not be_able_to(:update, reward, :days_to_delivery) }
-    end
   end
 
   context "When is regular user" do
@@ -144,8 +86,6 @@ describe Ability do
     let(:authorization) { FactoryGirl.create(:authorization, user: user) }
 
     it { should_not be_able_to(:access, :all) }
-    it { should_not be_able_to(:update, project) }
-    it { should be_able_to(:create, :projects) }
     it { should_not be_able_to(:update, reward)}
     it { should be_able_to(:destroy, authorization)}
   end
@@ -156,8 +96,6 @@ describe Ability do
     let(:reward) { FactoryGirl.create(:reward, project: project) }
 
     it { should_not be_able_to(:access, :all) }
-    it { should_not be_able_to(:update, project) }
-    it { should_not be_able_to(:create, :projects) }
     it { should_not be_able_to(:update, reward)}
   end
 end
