@@ -38,7 +38,7 @@
       .days-to-delivery
         p = "#{t('.reward_deliver_time', prevision: reward.display_deliver_prevision)}".html_safe
 
-- if can?(:update, parent)
+- if policy(@project).update?
 
   .reward.new-reward-form
     .loading.hide
