@@ -19,7 +19,7 @@
         - if @user.contributions.any?
           = tab_link_to t('.tabs.ive_contributed'), user_contributions_path(@user)
         = tab_link_to t('.tabs.credits'), credits_user_path(@user)
-        = tab_link_to t('.tabs.payments'), payments_user_path(@user)
+        = tab_link_to t('.tabs.payments'), payments_user_path(@user), "#{'hide' unless current_user.admin?}"
         = tab_link_to t('.tabs.settings'), settings_user_path(@user)
 
       section.content
