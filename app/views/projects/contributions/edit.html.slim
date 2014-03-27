@@ -29,13 +29,13 @@
         h3.title[class=klass] = t('.payment.title')
 
         section.row.methods[class=klass]
-          - PaymentEngines.all.each do |engine|
+          - PaymentEngine.all.each do |engine|
             .large-6.columns
               label.payment-method-option
                 .left
-                  = radio_button_tag :payment_method, engine[:name], false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine[:value_with_fees].call(@contribution.value))
+                  = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(@contribution.value).gross_amount)
                   | &nbsp;
-                  = image_tag("payments/#{engine[:name]}.png", alt: engine[:name].humanize, class: 'payment-method-option-icon')
+                  = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
                 .left.description
                   h6 = t(".payment-method.#{engine[:name]}.title")
                   small = t(".payment-method.#{engine[:name]}.fees")
