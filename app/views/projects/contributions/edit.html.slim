@@ -37,8 +37,11 @@
                   | &nbsp;
                   = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
                 .left.description
-                  h6 = t(".payment-method.#{engine[:name]}.title")
-                  small = t(".payment-method.#{engine[:name]}.fees")
+                  h6 = t(".payment-method.#{engine.name}.title")
+                  small
+                    strong = t('.payment-method.fees')
+                    | &nbsp;
+                    = number_to_currency(engine.fee_calculator(@contribution.value).fees)
 
         .container
           .loading
