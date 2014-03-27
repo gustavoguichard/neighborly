@@ -13,7 +13,6 @@ module Concerns
 
     def auth_error(exception)
       session[:return_to] = request.env['REQUEST_URI']
-      message = exception.message
 
       # Clear the previous response body to avoid a DoubleRenderError
       # when redirecting or rendering another view
@@ -22,9 +21,9 @@ module Concerns
       if current_user.nil?
         redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
       elsif request.env["HTTP_REFERER"]
-        redirect_to :back, alert: message
+        redirect_to :back, alert: I18n.t('controllers.unauthorized')
       else
-        redirect_to root_path, alert: message
+        redirect_to root_path, alert: I18n.t('controllers.unauthorized')
       end
     end
 
