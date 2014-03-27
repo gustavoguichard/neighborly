@@ -26,7 +26,7 @@
         h3.title = t('.payment.title')
 
         section.row.methods
-          - PaymentEngine.engines.each do |engine|
+          - PaymentEngine.all.each do |engine|
             .large-5.columns
               label.payment-method-option
                 = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(@contribution.value).gross_amount)
