@@ -23,9 +23,11 @@
   .row
     section.content.large-8.medium-8.columns
       .payment
-        h3.title = t('.payment.title')
+        - unless current_user.admin?
+          - klass = 'hide'
+        h3.title[class=klass] = t('.payment.title')
 
-        section.row.methods
+        section.row.methods[class=klass]
           - PaymentEngine.all.each do |engine|
             .large-5.columns
               label.payment-method-option
