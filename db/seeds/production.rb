@@ -17,7 +17,7 @@ puts 'Creating Configuration entries...'
     facebook_url: 'http://www.facebook.com/NEIGHBORdotLY',
     facebook_app_id: 255971384512404,
     twitter_username: 'Neighborly',
-    catarse_fee: 0.05,
+    platform_fee: 0.05,
     support_forum: 'http://neighborly.uservoice.com/',
     project_finish_time: '02:59:59',
     secret_token: SecureRandom.hex(64),
