@@ -85,6 +85,23 @@ describe ProjectsController do
 
       it { should redirect_to set_email_users_path }
     end
+
+    context 'with referal link' do
+      subject { controller.session[:referal_link] }
+      before { get :index, ref: 'referal' }
+
+      it { should == 'referal' }
+    end
+
+    context 'project variables' do
+      vars = [:featured, :recommended, :successful, :ending_soon, :coming_soon]
+
+      vars.each do |var|
+          it "should set #{var} as a instance variable" do
+            expect(assigns(var)).to eq []
+          end
+        end
+    end
   end
 
   describe 'GET comments' do
@@ -172,20 +189,6 @@ describe ProjectsController do
       it { ActionMailer::Base.deliveries.should be_empty }
       it { expect(flash.alert).to eq 'The code is not valid. Try again.' }
       it { should redirect_to(project_path(project)) }
-    end
-  end
-
-  describe "GET index" do
-    it { should be_success }
-
-    context "with referal link" do
-      subject { controller.session[:referal_link] }
-
-      before do
-        get :index, locale: :pt, ref: 'referal'
-      end
-
-      it { should == 'referal' }
     end
   end
 
