@@ -25,16 +25,23 @@
       .payment
         - unless current_user.admin?
           - klass = 'hide'
+
         h3.title[class=klass] = t('.payment.title')
 
         section.row.methods[class=klass]
           - PaymentEngine.all.each do |engine|
-            .large-5.columns
+            .large-6.columns
               label.payment-method-option
-                = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(@contribution.value).gross_amount)
-                | &nbsp;
-                = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
-          .clearfix
+                .left
+                  = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(@contribution.value).gross_amount)
+                  | &nbsp;
+                  = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
+                .left.description
+                  h6 = t(".payment-method.#{engine.name}.title")
+                  small
+                    strong = t('.payment-method.fees')
+                    | &nbsp;
+                    = number_to_currency(engine.fee_calculator(@contribution.value).fees)
 
         .container
           .loading

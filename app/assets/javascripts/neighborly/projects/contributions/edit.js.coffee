@@ -27,6 +27,8 @@ Neighborly.Projects.Contributions.Edit =
         this.togglePaymentFee()
 
       showContent: (e)->
+        this.$('.payment-method-option').removeClass('selected')
+        $(e.currentTarget).parents('.payment-method-option').addClass('selected')
         this.$('.container .loading').addClass('show')
         this.togglePaymentFee()
         this.$('.payment-method').addClass('loading-section')
