@@ -34,7 +34,7 @@
             = t('.recommended')
 
         .row
-          = render 'project', project: @featured, large: true if @featured
+          = render 'project', project: @featured.first, large: true if @featured.first.present?
           = render 'project', project: @recommended.shift if @recommended.any?
 
         - if @recommended.any?
