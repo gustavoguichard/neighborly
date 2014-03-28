@@ -1,4 +1,4 @@
-class Channels::Admin::FollowersController < Admin::BaseController
+class Channels::Admin::FollowersController < Channels::Admin::BaseController
   actions :index
 
   before_filter do

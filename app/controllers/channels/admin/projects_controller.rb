@@ -1,4 +1,4 @@
-class Channels::Admin::ProjectsController < Admin::BaseController
+class Channels::Admin::ProjectsController < Channels::Admin::BaseController
   has_scope :by_id, :pg_search, :user_name_contains, :order_by, :with_state
   has_scope :between_created_at, using: [ :start_at, :ends_at ], allow_blank: true
 
