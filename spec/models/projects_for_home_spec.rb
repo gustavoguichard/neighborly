@@ -33,7 +33,10 @@ describe ProjectsForHome do
     end
 
     let(:not_home_page) do
-
+      create(:project,
+             recommended: true,
+             state: 'online',
+             home_page: false)
     end
 
     it 'should return only 5 recommended projects' do
