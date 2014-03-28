@@ -1,11 +1,14 @@
-class ProjectsForHome < Project
+class ProjectsForHome < ActiveRecord::Base
   self.table_name = 'projects_for_home'
 
-  scope :recommends, -> { where(origin: 'recommended') }
-  scope :recents, -> { where(origin: 'recents') }
-  scope :expiring, -> { where(origin: 'expiring') }
+  scope :featured,    -> { becomes_project where(origin: 'featured') }
+  scope :recommends,  -> { becomes_project where(origin: 'recommended') }
+  scope :expiring,    -> { becomes_project where(origin: 'expiring') }
+  scope :soon,        -> { becomes_project where(origin: 'soon') }
+  scope :successful,  -> { becomes_project where(origin: 'successful') }
 
-  def to_partial_path
-    "projects/project"
+  private
+  def self.becomes_project(projects)
+    projects.map { |p| p.becomes(Project) }
   end
 end

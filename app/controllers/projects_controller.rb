@@ -13,16 +13,16 @@ class ProjectsController < ApplicationController
   respond_to :json, only: [:index, :show, :update]
 
   def index
-    used_ids = [0]
-    @featured = Project.with_state('online').featured.limit(1).first
-    used_ids << @featured.id if @featured
+    projects_vars = { featured:    :featured,
+                      recommended: :recommends,
+                      successful:  :successful,
+                      ending_soon: :expiring,
+                      coming_soon: :soon }
 
-    @recommended = Project.with_state('online').recommended.home_page.limit(5).where('id NOT IN (?)', used_ids)
-    used_ids += @recommended.map(&:id) if @recommended
+    projects_vars.each do |var_name, scope|
+      instance_variable_set "@#{var_name}", ProjectsForHome.send(scope)
+    end
 
-    @successful = Project.visible.successful.home_page.limit(4)
-    @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)
-    @coming_soon = Project.soon.home_page.limit(4)
     @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
   end
