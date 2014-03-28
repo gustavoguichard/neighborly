@@ -97,10 +97,10 @@ describe ProjectsController do
       vars = [:featured, :recommended, :successful, :ending_soon, :coming_soon]
 
       vars.each do |var|
-          it "should set #{var} as a instance variable" do
-            expect(assigns(var)).to eq []
-          end
+        it "should set #{var} as a instance variable" do
+          expect(assigns(var)).to eq []
         end
+      end
     end
   end
 
