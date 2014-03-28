@@ -25,5 +25,12 @@ describe ChannelPolicy do
       channel.members << user
       should permit(user, channel)
     end
+
+    it 'should permit access to admin if user is adminl' do
+      user = User.new
+      user.admin = true
+      channel = Channel.new
+      should permit(user, channel)
+    end
   end
 end
