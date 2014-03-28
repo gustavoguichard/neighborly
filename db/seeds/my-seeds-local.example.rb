@@ -24,7 +24,7 @@ puts "Adding OauthProvider settings..."
 puts "Creating Configuration entries..."
 {
   
-  catarse_fee: '0.13',
+  platform_fee: '0.13',
   company_name: 'Catarse',
 
   host: 'YOUR_HOST',

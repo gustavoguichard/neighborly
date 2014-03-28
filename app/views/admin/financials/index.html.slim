@@ -52,7 +52,7 @@
                 th= t('.goal')
                 th= t('.pledged')
                 th= t('.total_payment_service_fee')
-                th= t('.total_catarse_fee')
+                th= t('.total_platform_fee')
                 th= t('.repass_value')
                 th= t('.expires_at')
                 th= t('.reports')
@@ -65,9 +65,9 @@
                   td= project.display_goal
                   td= project.display_pledged
                   td= number_to_currency project.total_payment_service_fee, precision: 2
-                  - catarse_fee = Configuration[:catarse_fee].to_f * project.pledged
+                  - platform_fee = Configuration[:platform_fee].to_f * project.pledged
                   td
-                    = number_to_currency catarse_fee, precision: 2
+                    = number_to_currency platform_fee, precision: 2
                   td
                     = number_to_currency ((project.pledged*0.87)), precistion: 2
                   td
