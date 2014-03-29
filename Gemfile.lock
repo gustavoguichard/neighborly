@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 2434f191873fe4cc0f8faf19c33fb95daef65f9b
+  revision: a51e382bdcecc18f67bc4d5d7508d57f8499ef29
   branch: master
   specs:
     neighborly-balanced-bankaccount (0.0.1)
