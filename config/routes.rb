@@ -25,7 +25,7 @@ Neighborly::Application.routes.draw do
   mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
   mount Neighborly::Balanced::Bankaccount::Engine => '/balanced/bankaccount/', as: :neighborly_balanced_bankaccount
   mount Neighborly::Balanced::Engine => '/balanced/', as: :neighborly_balanced
-  mount Neighborly::Admin::Engine => '/new_admin/', as: :neighborly_admin
+  mount Neighborly::Admin::Engine => '/admin/', as: :neighborly_admin
 
   # Non production routes
   if Rails.env.development?
