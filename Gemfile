@@ -29,6 +29,10 @@ gem 'neighborly-balanced-creditcard',  github: 'neighborly/neighborly-balanced-c
 gem 'neighborly-balanced-bankaccount', github: 'neighborly/neighborly-balanced-bankaccount', branch: :master
 gem 'neighborly-balanced',             github: 'neighborly/neighborly-balanced',             branch: :master
 
+
+# Neigbhor.ly Engines
+gem 'neighborly-admin', github: 'neighborly/neighborly-admin', branch: :master
+
 # Decorators
 gem 'draper'
 

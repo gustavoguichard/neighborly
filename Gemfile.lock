@@ -17,6 +17,14 @@ GIT
       supermodel
 
 GIT
+  remote: git://github.com/neighborly/neighborly-admin.git
+  revision: 4f0b7832a431d596e3041980235df823ec049620
+  branch: master
+  specs:
+    neighborly-admin (0.0.1)
+      rails (~> 4.0)
+
+GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
   revision: 6346de40061d67125c0bc1822fc603754e0d44af
   branch: master
@@ -510,6 +518,7 @@ DEPENDENCIES
   kaminari
   launchy
   letter_opener
+  neighborly-admin!
   neighborly-balanced!
   neighborly-balanced-bankaccount!
   neighborly-balanced-creditcard!
