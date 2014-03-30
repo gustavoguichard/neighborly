@@ -25,6 +25,7 @@ Neighborly::Application.routes.draw do
   mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
   mount Neighborly::Balanced::Bankaccount::Engine => '/balanced/bankaccount/', as: :neighborly_balanced_bankaccount
   mount Neighborly::Balanced::Engine => '/balanced/', as: :neighborly_balanced
+  mount Neighborly::Admin::Engine => '/new_admin/', as: :neighborly_admin
 
   # Non production routes
   if Rails.env.development?
@@ -148,56 +149,6 @@ Neighborly::Application.routes.draw do
       get :edit
       put :update_email
       put :update_password
-    end
-  end
-
-  namespace :admin do
-    get '/', to: 'dashboard#index', as: :dashboard
-    resources :tags, except: [:show]
-    resources :press_assets, except: [:show]
-    resources :financials, only: [ :index ]
-    resources :users, only: [ :index ]
-
-    resources :channels, except: [:show] do
-      member do
-        put 'push_to_draft'
-        put 'push_to_online'
-      end
-
-      resources :members, only: [:index, :new, :create, :destroy], controller: 'channels/members'
-    end
-
-    resources :projects, only: [ :index, :update, :destroy ] do
-      member do
-        put 'approve'
-        put 'reject'
-        put 'push_to_draft'
-        put 'push_to_soon'
-        get 'populate_contribution'
-        post 'populate'
-      end
-    end
-
-    resources :contributions, only: [ :index, :update ] do
-      member do
-        put 'confirm'
-        put 'pendent'
-        put 'change_reward'
-        put 'refund'
-        put 'hide'
-        put 'cancel'
-        put 'push_to_trash'
-      end
-    end
-
-    namespace :reports do
-      resources :contribution_reports, only: [ :index ]
-      resources :funding_raised_per_project_reports, only: [ :index ]
-      resources :statistics, only: [ :index ]
-    end
-
-    namespace :companies do
-      resources :contacts, only: [:index, :show]
     end
   end
 
