@@ -19,12 +19,12 @@ describe ProjectsController do
     end
 
     context "when no user is logged in" do
-      it{ should redirect_to new_user_session_path }
+      it{ expect(response).to redirect_to new_user_session_path }
     end
 
     context "when user is logged in" do
       let(:current_user){ create(:user) }
-      it{ should redirect_to success_project_path(project) }
+      it{ expect(response).to redirect_to success_project_path(project) }
     end
   end
 
@@ -34,7 +34,7 @@ describe ProjectsController do
     context 'when current user is the owner' do
       let(:current_user){ project.user }
 
-      it 'response should be success' do
+      it 'responds with successful response' do
         get :success, id: project
         expect(response).to be_success
       end
@@ -43,7 +43,7 @@ describe ProjectsController do
     context 'when current user is not the project owner' do
       let(:current_user){ create(:user) }
 
-      it 'should redirect to root path' do
+      it 'denies access for the page' do
         get :success, id: project
         expect(response).to redirect_to(root_path)
       end
@@ -55,7 +55,7 @@ describe ProjectsController do
       controller.stub(:last_tweets).and_return([])
       get :index
     end
-    it { should be_success }
+    it { expect(response).to be_success }
 
     describe 'staging env' do
       before do
@@ -79,14 +79,14 @@ describe ProjectsController do
         get :index
       end
 
-      it { should redirect_to set_email_users_path }
+      it { expect(response).to redirect_to set_email_users_path }
     end
 
     context 'with referal link' do
       subject { controller.session[:referal_link] }
       before { get :index, ref: 'referal' }
 
-      it { should == 'referal' }
+      it { expect(subject).to eq 'referal' }
     end
 
     context 'project variables' do
@@ -104,14 +104,14 @@ describe ProjectsController do
     before do
       get :comments, id: project
     end
-    it { should be_success }
+    it { expect(response).to be_success }
   end
 
   describe 'GET budget' do
     before do
       get :budget, id: project
     end
-    it { should be_success }
+    it { expect(response).to be_success }
   end
 
   describe 'GET reports' do
@@ -135,16 +135,16 @@ describe ProjectsController do
       before do
         get :reward_contact, id: project
       end
-      it { should render_template layout: true }
-      it { should be_success }
+      it { expect(response).to render_template layout: true }
+      it { expect(response).to be_success }
     end
 
     context 'when request is xhr' do
       before do
         xhr :get, :reward_contact, id: project
       end
-      it { should render_template layout: false }
-      it { should be_success }
+      it { expect(response).to render_template layout: false }
+      it { expect(response).to be_success }
     end
   end
 
@@ -156,7 +156,7 @@ describe ProjectsController do
       project.reload
     end
 
-    it { project.in_analysis?.should be_true }
+    it { expect(project.in_analysis?).to be_true }
   end
 
 
@@ -172,9 +172,9 @@ describe ProjectsController do
         post :send_reward_email, @send_reward_email_params
       end
 
-      it { ActionMailer::Base.deliveries.should_not be_empty }
+      it { expect(ActionMailer::Base.deliveries).not_to be_empty }
       it { expect(flash.notice).to eq 'We\'ve received your request and will be in touch shortly.' }
-      it { should redirect_to(project_path(project)) }
+      it { expect(response).to redirect_to(project_path(project)) }
     end
 
     context 'when simple captcha not is valid' do
@@ -183,9 +183,9 @@ describe ProjectsController do
         post :send_reward_email, @send_reward_email_params
       end
 
-      it { ActionMailer::Base.deliveries.should be_empty }
+      it { expect(ActionMailer::Base.deliveries).to be_empty }
       it { expect(flash.alert).to eq 'The code is not valid. Try again.' }
-      it { should redirect_to(project_path(project)) }
+      it { expect(response).to redirect_to(project_path(project)) }
     end
   end
 
@@ -193,12 +193,12 @@ describe ProjectsController do
     before { get :new }
 
     context "when user is a guest" do
-      it { should_not be_success }
+      it { expect(response).not_to be_success }
     end
 
     context "when user is a registered user" do
       let(:current_user){ create(:user, admin: false) }
-      it { should be_success }
+      it { expect(response).to be_success }
     end
   end
 
@@ -208,12 +208,12 @@ describe ProjectsController do
 
     context "when user is a guest" do
       let(:current_user){ nil }
-      it { should_not be_success }
+      it { expect(response).not_to be_success }
     end
 
     context "when user is a registered user" do
       let(:current_user){ create(:user, admin: true) }
-      it { should be_success }
+      it {  expect(response).to be_success }
     end
   end
 
@@ -222,17 +222,17 @@ describe ProjectsController do
       before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
       it {
         project.reload
-        project.name.should == 'My Updated Title'
+        expect(project.name).to eq 'My Updated Title'
       }
 
-      it{ should redirect_to edit_project_path(project) }
+      it{ expect(response).to redirect_to edit_project_path(project) }
     end
 
     shared_examples_for "protected project" do
       before { put :update, id: project, project: { name: 'My Updated Title' },locale: :pt }
       it {
         project.reload
-        project.name.should == 'Foo bar'
+        expect(project.name).to eq 'Foo bar'
       }
     end
 
@@ -258,7 +258,7 @@ describe ProjectsController do
           before{ put :update, id: project, project: { name: 'new_title' } }
           it "should not update neither" do
             project.reload
-            project.name.should_not == 'new_title'
+            expect(project.name).not_to eq 'new_title'
           end
         end
 
@@ -266,7 +266,7 @@ describe ProjectsController do
           before{ put :update, id: project, project: { about: 'new_description' } }
           it "should update it" do
             project.reload
-            project.about.should == 'new_description'
+            expect(project.about).to eq 'new_description'
           end
         end
       end
@@ -287,14 +287,14 @@ describe ProjectsController do
     before do
       get :embed, id: project
     end
-    its(:status){ should == 200 }
+    it { expect(response).to be_success }
   end
 
   describe "GET embed_panel" do
     before do
       get :embed_panel, id: project
     end
-    its(:status){ should == 200 }
+    it { expect(response).to be_success }
   end
 
   describe "GET show" do
@@ -303,7 +303,7 @@ describe ProjectsController do
       before do
         get :show, id: project
       end
-      its(:status){ should redirect_to(root_path) }
+      it { expect(response).to redirect_to(root_path) }
     end
 
     context 'when the project is not on draft' do
@@ -312,7 +312,7 @@ describe ProjectsController do
         project.reload
         get :show, id: project
       end
-      its(:status){ should == 200 }
+      it { expect(response).to be_success }
     end
   end
 
@@ -324,13 +324,13 @@ describe ProjectsController do
         get :video, url: video_url
       end
 
-      its(:body){ should == VideoInfo.get(video_url).to_json }
+      it { expect(response.body).to eq VideoInfo.get(video_url).to_json }
     end
 
     context 'url is not a valid video' do
       before { get :video, url: 'http://????' }
 
-      its(:body){ should == nil.to_json }
+      it { expect(response.body).to eq nil.to_json }
     end
   end
 end
