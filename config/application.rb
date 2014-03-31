@@ -61,8 +61,6 @@ module Neighborly
     # TODO: remove
     config.active_record.whitelist_attributes = false
 
-    config.middleware.use "WwwDitcher" if Rails.env.production?
-
     config.to_prepare do
       Devise::SessionsController.layout 'devise'
       Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? 'application' : 'devise' }
