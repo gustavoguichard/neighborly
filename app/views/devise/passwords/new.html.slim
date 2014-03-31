@@ -13,7 +13,7 @@
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: password_path(resource_name)) do |f|
           = render 'devise/shared/alert'
-          = f.input :email, as: :email, placeholder: t('.form.labels.email'), required: true, label: false, class: [:login, :email]
+          = f.input :email, as: :email, placeholder: t('.form.labels.email'), required: true, class: [:login, :email], label_html: { class: 'hidden-label' }
 
           .large-centered
             = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']

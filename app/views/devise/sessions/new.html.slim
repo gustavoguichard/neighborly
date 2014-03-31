@@ -23,8 +23,8 @@
 
           = render 'devise/shared/alert'
 
-          = f.input :email, as: :email, required: true, label: false
-          = f.input :password, as: :password, class: [:login], required: true, tabindex: 2, required: true, label: false
+          = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }
+          = f.input :password, required: true, class: [:login], tabindex: 2, label_html: { class: 'hidden-label' }
           i = link_to t('.links.forgot_password'), new_password_path(resource_name), class: 'right text-right forget-password'
 
           .text-left

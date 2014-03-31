@@ -12,10 +12,10 @@
         = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f|
           = render 'devise/shared/alert'
           = f.hidden_field :reset_password_token
-          = f.input :password, as: :password, label: false, placeholder: t('.form.labels.password'), class: [:login, :password], required: true
+          = f.input :password, as: :password, placeholder: t('.form.labels.password'), class: [:login, :password], required: true, label_html: { class: 'hidden-label' }
           span.right.text-right.inline-hint.password-hint
             = t('.form.hint.password_length')
-          = f.input :password_confirmation, as: :password, label: false, placeholder: t('.form.labels.password_confirmation'), required: true
+          = f.input :password_confirmation, as: :password, placeholder: t('.form.labels.password_confirmation'), required: true, label_html: { class: 'hidden-label' }
 
           .large-centered
             = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']
