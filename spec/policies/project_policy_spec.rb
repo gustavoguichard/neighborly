@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectPolicy do
-  subject{ ProjectPolicy }
+  subject{ described_class }
 
   shared_examples_for 'create permissions' do
     let(:project_state) { 'draft' }
@@ -110,14 +110,14 @@ describe ProjectPolicy do
 
   describe '#permitted_for?' do
     context 'when user is nil and I want to update about' do
-      let(:policy){ ProjectPolicy.new(nil, Project.new) }
+      let(:policy){ described_class.new(nil, Project.new) }
       subject{ policy.permitted_for?(:about, :update) }
       it{ should be_false }
     end
 
     context 'when user is project owner and I want to update about' do
       let(:project){ create(:project) }
-      let(:policy){ ProjectPolicy.new(project.user, project) }
+      let(:policy){ described_class.new(project.user, project) }
       subject{ policy.permitted_for?(:about, :update) }
       it{ should be_true }
     end
@@ -125,14 +125,14 @@ describe ProjectPolicy do
 
   describe '#permitted_for?' do
     context 'when user is nil and I want to update about' do
-      let(:policy){ ProjectPolicy.new(nil, Project.new) }
+      let(:policy){ described_class.new(nil, Project.new) }
       subject{ policy.permitted_for?(:about, :update) }
       it{ should be_false }
     end
 
     context 'when user is project owner and I want to update about' do
       let(:project){ create(:project) }
-      let(:policy){ ProjectPolicy.new(project.user, project) }
+      let(:policy){ described_class.new(project.user, project) }
       subject{ policy.permitted_for?(:about, :update) }
       it{ should be_true }
     end
@@ -140,7 +140,7 @@ describe ProjectPolicy do
 
   describe '#permitted?' do
     context 'when user is nil' do
-      let(:policy){ ProjectPolicy.new(nil, Project.new) }
+      let(:policy){ described_class.new(nil, Project.new) }
 
       [:about,         :video_url,            :uploaded_image,
        :hero_image,    :headline,             :budget,
@@ -162,7 +162,7 @@ describe ProjectPolicy do
     context 'when user is admin' do
       let(:user){ create(:user, admin: true) }
       let(:project){ create(:project) }
-      let(:policy){ ProjectPolicy.new(user, project) }
+      let(:policy){ described_class.new(user, project) }
 
       (Project.attribute_names + ['address']).each do |field|
         context "when field is #{field}" do
