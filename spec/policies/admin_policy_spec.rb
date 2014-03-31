@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe AdminPolicy do
-  subject{ AdminPolicy }
+  subject { described_class }
 
   permissions :access? do
     it 'should deny access if user is nil' do

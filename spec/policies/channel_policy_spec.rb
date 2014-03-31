@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ChannelPolicy do
-  subject { ChannelPolicy }
+  subject { described_class }
 
   permissions :admin? do
     it 'should deny access to admin if user is nil' do
