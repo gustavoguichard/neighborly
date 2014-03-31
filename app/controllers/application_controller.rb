@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include Concerns::ExceptionHandler
   include Concerns::SocialHelpersHandler
   include Concerns::PersistentWarnings
+  include Pundit
 
   protect_from_forgery
   before_filter :require_basic_auth

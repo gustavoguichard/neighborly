@@ -1,6 +1,6 @@
 - content_for :page_content do
   .terms
-    - if can? :update, @project
+    - if policy(@project).update?
       = render template: 'projects/terms/new'
 
     - if @project.terms.present?
@@ -19,7 +19,7 @@
                 = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
                   i.icon-et-download.icon-white
                 | &nbsp;
-                - if can? :update, @project
+                - if policy(@project).update?
                   = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', confirm: 'Are you sure?' do 
                     i.icon-et-trash.icon-white
 

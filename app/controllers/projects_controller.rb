@@ -2,15 +2,20 @@
 class ProjectsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  load_and_authorize_resource only: [ :new, :create, :edit, :update, :send_to_analysis]
-  inherit_resources
-  actions :new, :create, :edit, :update
-  defaults finder: :find_by_permalink!
-  has_scope :pg_search, :by_category_id
-  has_scope :recent, :expiring, :successful, :recommended, :not_expired, :not_soon, :soon, type: :boolean
+  after_filter :verify_authorized, except: [:index, :video, :video_embed, :embed,
+                                            :embed_panel, :comments, :budget,
+                                            :reward_contact, :send_reward_email,
+                                            :start]
 
+  inherit_resources
+  defaults finder: :find_by_permalink!
+  actions :create, :edit, :update
   respond_to :html
-  respond_to :json, only: [:index, :show, :update]
+
+  def new
+    @project = Project.new(user: current_user)
+    authorize @project
+  end
 
   def index
     projects_vars = { featured:    :featured,
@@ -28,35 +33,34 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = current_user.projects.new(params[:project])
-    create! do |success, failure|
-      success.html do
-        session[:successful_created] = resource.id
-        return redirect_to success_project_path(@project)
-      end
-    end
+    @project = Project.new(permitted_params[:project].merge(user: current_user))
+    authorize @project
+    create! { success_project_path(@project) }
   end
 
   def send_to_analysis
+    authorize resource
     resource.send_to_analysis
     flash.notice = t('projects.send_to_analysis')
     redirect_to project_path(@project)
   end
 
   def success
-    redirect_to project_path(resource) unless session[:successful_created] == resource.id
-    session[:successful_created] = false
+    authorize resource
+  end
+
+  def edit
+    authorize resource
+    edit!
   end
 
   def update
-    update! do |success, failure|
-      success.html{ return redirect_to edit_project_path(@project) }
-      failure.html{ return redirect_to edit_project_path(@project) }
-    end
+    authorize resource
+    update! { edit_project_path(@project) }
   end
 
   def show
-    redirect_to(root_path) unless can? :show_project, resource
+    authorize resource
     fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
     render :about if request.xhr?
   end
@@ -66,8 +70,7 @@ class ProjectsController < ApplicationController
   end
 
   def reports
-    redirect_to(new_user_session_path) unless can? :update, resource
-    @project = resource
+    authorize resource
   end
 
   def budget
@@ -96,9 +99,9 @@ class ProjectsController < ApplicationController
   def send_reward_email
     if simple_captcha_valid?
       ProjectsMailer.contact_about_reward_email(params, resource).deliver
-      flash.notice = 'We\'ve received your request and will be in touch shortly.'
+      flash.notice = I18n.t('controllers.projects.send_reward_email.success')
     else
-      flash.alert  = 'The code is not valid. Try again.'
+      flash.alert  = I18n.t('controllers.projects.send_reward_email.error')
     end
     redirect_to project_path(resource)
   end
@@ -109,5 +112,10 @@ class ProjectsController < ApplicationController
 
   def start
     @projects = Project.visible.successful.home_page.limit(3)
+  end
+
+  protected
+  def permitted_params
+    params.permit(policy(@project || Project).permitted_attributes)
   end
 end
