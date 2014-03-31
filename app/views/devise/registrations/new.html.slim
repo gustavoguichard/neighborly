@@ -24,8 +24,8 @@
 
           .text-left
             = check_box_tag :show_password
-          .text-right
-            = f.label :show_password, t('.form.labels.show_password')
+          .show-password-label.text-right
+            = label_tag :show_password, t('.form.labels.show_password')
 
           .large-centered
             = f.submit t('.form.inputs.submit'), class: [:button, 'small-12 large-12', 'large-centered']
