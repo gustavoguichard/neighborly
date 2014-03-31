@@ -18,10 +18,10 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 4f0b7832a431d596e3041980235df823ec049620
+  revision: 1956c365c2ad69301896c88dfb9b400889b78f04
   branch: master
   specs:
-    neighborly-admin (0.0.1)
+    neighborly-admin (1.0.0)
       rails (~> 4.0)
 
 GIT
