@@ -3,15 +3,15 @@ module Concerns
     extend ActiveSupport::Concern
 
     included do
-      rescue_from ActionController::RoutingError, with: :render_404
-      rescue_from ActionController::UnknownController, with: :render_404
-      rescue_from ActiveRecord::RecordNotFound, with: :render_404
+      rescue_from ActionController::RoutingError,       with: :render_404
+      rescue_from ActionController::UnknownController,  with: :render_404
+      rescue_from ActiveRecord::RecordNotFound,         with: :render_404
 
-      rescue_from Pundit::NotAuthorizedError, with: :auth_error
-      rescue_from CanCan::Unauthorized, with: :auth_error
+      rescue_from Pundit::NotAuthorizedError,  with: :deny_access
+      rescue_from CanCan::Unauthorized,        with: :deny_access
     end
 
-    def auth_error(exception)
+    def deny_access(exception)
       session[:return_to] = request.env['REQUEST_URI']
 
       # Clear the previous response body to avoid a DoubleRenderError
@@ -20,7 +20,7 @@ module Concerns
 
       if current_user.nil?
         redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
-      elsif request.env["HTTP_REFERER"]
+      elsif request.env['HTTP_REFERER']
         redirect_to :back, alert: I18n.t('controllers.unauthorized')
       else
         redirect_to root_path, alert: I18n.t('controllers.unauthorized')
