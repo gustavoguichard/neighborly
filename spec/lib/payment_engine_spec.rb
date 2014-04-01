@@ -58,4 +58,8 @@ describe PaymentEngine do
       expect(PaymentEngine.all).to eq [creditcard, bankaccount]
     end
   end
+
+  after(:all) do
+    PaymentEngine.destroy_all
+  end
 end
