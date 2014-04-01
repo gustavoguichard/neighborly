@@ -1,7 +1,5 @@
 # coding: utf-8
 class ProjectsController < ApplicationController
-  include SimpleCaptcha::ControllerHelpers
-
   after_filter :verify_authorized, except: [:index, :video, :video_embed, :embed,
                                             :embed_panel, :comments, :budget,
                                             :reward_contact, :send_reward_email,
