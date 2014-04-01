@@ -1,22 +1,22 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def action_missing(method_name, *args, &block)
+    @auth_providers ||= OauthProvider.pluck(:name)
+    return super unless @auth_providers.include? method_name.to_s
 
-  def self.add_providers
-    OauthProvider.all.each do |p|
-      define_method p.name.downcase do
-        omniauth = request.env['omniauth.auth']
-        @auth = authorization(omniauth)
-        update_informations(@auth, omniauth)
-
-        sign_in @auth.user, event: :authentication unless current_user
-        redirect_to(session[:return_to] || root_path, flash: { notice: flash_message(@auth.user, p.name.capitalize) })
-        session[:return_to] = nil
-      end
-    end
+    oauth_callback_for(method_name.to_s)
   end
 
-  add_providers if Rails.env.development?
-
   protected
+
+  def oauth_callback_for(oauth_provider)
+    omniauth = request.env['omniauth.auth']
+    @auth    = authorization(omniauth)
+    update_informations(@auth, omniauth)
+
+    sign_in @auth.user, event: :authentication unless current_user
+    redirect_to(session[:return_to] || root_path, flash: { notice: flash_message(@auth.user, oauth_provider.capitalize) })
+    session[:return_to] = nil
+  end
 
   def update_informations(auth, omniauth)
     auth = Authorization.find(auth.id)
