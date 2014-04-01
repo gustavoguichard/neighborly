@@ -96,20 +96,6 @@ class ProjectsController < ApplicationController
     render layout: !request.xhr?
   end
 
-  def send_reward_email
-    if simple_captcha_valid?
-      ProjectsMailer.contact_about_reward_email(params, resource).deliver
-      flash.notice = I18n.t('controllers.projects.send_reward_email.success')
-    else
-      flash.alert  = I18n.t('controllers.projects.send_reward_email.error')
-    end
-    redirect_to project_path(resource)
-  end
-
-  def reward_contact
-    render layout: !request.xhr?
-  end
-
   def start
     @projects = Project.visible.successful.home_page.limit(3)
   end

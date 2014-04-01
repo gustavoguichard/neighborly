@@ -130,24 +130,6 @@ describe ProjectsController do
     end
   end
 
-  describe 'GET reward_contact' do
-    context 'when request is not xhr' do
-      before do
-        get :reward_contact, id: project
-      end
-      it { expect(response).to render_template layout: true }
-      it { expect(response).to be_success }
-    end
-
-    context 'when request is xhr' do
-      before do
-        xhr :get, :reward_contact, id: project
-      end
-      it { expect(response).to render_template layout: false }
-      it { expect(response).to be_success }
-    end
-  end
-
   describe "GET send_to_analysis" do
     let(:current_user){ project.user }
 
@@ -157,36 +139,6 @@ describe ProjectsController do
     end
 
     it { expect(project.in_analysis?).to be_true }
-  end
-
-
-  describe 'POST send_reward_email' do
-    before do
-      @send_reward_email_params = { id: project, name: 'some guy', email: 'some@emal.com', phone_number: '123456789', message: 'message' }
-      ActionMailer::Base.deliveries.clear
-    end
-
-    context 'when simple captcha is valid' do
-      before do
-        controller.stub(:simple_captcha_valid?).and_return(true)
-        post :send_reward_email, @send_reward_email_params
-      end
-
-      it { expect(ActionMailer::Base.deliveries).not_to be_empty }
-      it { expect(flash.notice).to eq 'We\'ve received your request and will be in touch shortly.' }
-      it { expect(response).to redirect_to(project_path(project)) }
-    end
-
-    context 'when simple captcha not is valid' do
-      before do
-        controller.stub(:simple_captcha_valid?).and_return(false)
-        post :send_reward_email, @send_reward_email_params
-      end
-
-      it { expect(ActionMailer::Base.deliveries).to be_empty }
-      it { expect(flash.alert).to eq 'The code is not valid. Try again.' }
-      it { expect(response).to redirect_to(project_path(project)) }
-    end
   end
 
   describe "GET new" do
