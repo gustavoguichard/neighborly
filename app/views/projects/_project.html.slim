@@ -59,8 +59,9 @@
     - if defined?(contribution)
       .back-informations.large-3.columns
         h5
-          i.icon-et-calendar
-          = l contribution.confirmed_at.to_date, format: :long
+          - contribution.confirmed_at.present?
+            i.icon-et-calendar
+            = l contribution.confirmed_at.to_date, format: :long
 
         - if contribution.display_value
           h5
