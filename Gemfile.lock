@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: 76786b416f3d70e6568ca793ef11d2bf604f69b4
+  revision: da18b8e9df7902703e07d696bd4e401aa75b99a6
   branch: master
   specs:
     neighborly-balanced (1.0.0)
