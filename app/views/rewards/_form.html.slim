@@ -19,7 +19,6 @@
     = f.input :maximum_contributions
 
   = f.input :soon, as: :boolean
-  = f.input :show_contact_button, as: :boolean
 
   = f.button :submit, data: { disable_with: t('words.sending') }
   - if resource.persisted? && can?(:destroy, resource)
