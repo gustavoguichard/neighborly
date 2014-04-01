@@ -10,4 +10,3 @@ en:
         minimum_value: "The minimum amount contributors must give to select this perk."
         days_to_delivery: "An estimate of the total number of days it will take for a contributor to receive their perk after the campaign has ended."
         soon: 'Coming soon perk?'
-        show_contact_button: 'Show contact button?'
