@@ -31,6 +31,6 @@ class Reports::ContributionReportsForProjectOwnersController < Reports::BaseCont
   end
 
   def check_if_project_belongs_to_user
-    redirect_to root_path unless can? :update, Project.find(params[:project_id])
+    redirect_to root_path unless policy(Project.find(params[:project_id])).update?
   end
 end

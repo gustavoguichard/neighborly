@@ -1,6 +1,6 @@
 - content_for :page_content do
   .faqs
-    - if can? :update, @project
+    - if policy(@project).update?
       = render template: 'projects/faqs/new'
 
     .list
