@@ -5,8 +5,15 @@ Neighborly::Application.routes.draw do
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
   devise_for :users, path: '',
-    path_names:   { sign_in: :login, sign_out: :logout, sign_up: :sign_up },
-    controllers:  { omniauth_callbacks: :omniauth_callbacks }
+    path_names:  {
+      sign_in:  :login,
+      sign_out: :logout,
+      sign_up:  :sign_up
+    },
+    controllers: {
+      omniauth_callbacks: :omniauth_callbacks,
+      sessions:           :sessions
+    }
 
 
   devise_scope :user do
