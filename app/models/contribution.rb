@@ -16,7 +16,7 @@ class Contribution < ActiveRecord::Base
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
 
   scope :available_to_count, ->{ with_states(['confirmed', 'requested_refund', 'refunded']) }
-  scope :available_to_display, ->{ with_states(['confirmed', 'requested_refund', 'refunded', 'waiting_confirmation']) }
+  scope :available_to_display, ->{ with_states(['confirmed', 'requested_refund', 'refunded']) }
   scope :by_id, ->(id) { where(id: id) }
   scope :by_key, ->(key) { where(key: key) }
   scope :by_user_id, ->(user_id) { where(user_id: user_id) }
