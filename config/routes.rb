@@ -25,7 +25,6 @@ Neighborly::Application.routes.draw do
   mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
   mount Neighborly::Balanced::Bankaccount::Engine => '/balanced/bankaccount/', as: :neighborly_balanced_bankaccount
   mount Neighborly::Balanced::Engine => '/balanced/', as: :neighborly_balanced
-  mount Neighborly::Admin::Engine => '/admin/', as: :neighborly_admin
 
   # Non production routes
   if Rails.env.development?
@@ -68,6 +67,8 @@ Neighborly::Application.routes.draw do
       resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
     end
   end
+
+  mount Neighborly::Admin::Engine => '/admin/', as: :neighborly_admin
 
   # Root path should be after channel constraints
   root to: 'projects#index'

@@ -10,9 +10,6 @@ gem 'rails-observers', '~> 0.1.2'
 gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
-# Turns every field on a editable one
-gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
-
 # State machine for attributes on models
 gem 'state_machine', require: 'state_machine/core'
 
@@ -22,16 +19,18 @@ gem 'postgres-copy'
 gem 'pg_search'
 
 gem 'schema_plus'
-gem 'chartkick', '1.2.0'
 
 # Payment engines
 gem 'neighborly-balanced-creditcard',  github: 'neighborly/neighborly-balanced-creditcard',  branch: :master
 gem 'neighborly-balanced-bankaccount', github: 'neighborly/neighborly-balanced-bankaccount', branch: :master
 gem 'neighborly-balanced',             github: 'neighborly/neighborly-balanced',             branch: :master
 
-
 # Neigbhor.ly Engines
 gem 'neighborly-admin', github: 'neighborly/neighborly-admin', branch: :master
+
+# Turns every field on a editable one - Admin dependencies
+gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
+gem 'chartkick', '1.2.0'
 
 # Decorators
 gem 'draper'

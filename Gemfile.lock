@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 1956c365c2ad69301896c88dfb9b400889b78f04
+  revision: ec33f0796fa75816b67f151587a1439fa5e4669a
   branch: master
   specs:
     neighborly-admin (1.0.0)
