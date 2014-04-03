@@ -47,13 +47,6 @@ GIT
       rails (~> 4.0)
 
 GIT
-  remote: git://github.com/pludoni/simple-captcha.git
-  revision: cd38d1b5342d7ac62511d8520331ff9d84c462f7
-  branch: rails-4
-  specs:
-    pludoni-simple_captcha (0.1.6)
-
-GIT
   remote: git://github.com/ryanb/cancan.git
   revision: f1cebde51a87be149b4970a3287826bb63c0ac0b
   ref: f1cebde51a87be149b4970a3287826bb63c0ac0b
@@ -530,7 +523,6 @@ DEPENDENCIES
   pg
   pg_search
   pjax_rails
-  pludoni-simple_captcha!
   postgres-copy
   protected_attributes (~> 1.0.5)
   pry

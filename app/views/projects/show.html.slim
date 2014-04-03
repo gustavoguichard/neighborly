@@ -182,6 +182,3 @@
             = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{policy(@project).update?}"]
-
-- content_for :modals do
-  #reward-contact.reveal-modal.small.fixed

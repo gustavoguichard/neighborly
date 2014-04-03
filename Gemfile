@@ -70,7 +70,6 @@ gem 'ranked-model'
 gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'video_info', '~> 2.0.2'
-gem 'pludoni-simple_captcha', require: 'simple_captcha', github: 'pludoni/simple-captcha', branch: 'rails-4'
 gem 'geocoder'
 
 # Payment

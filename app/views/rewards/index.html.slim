@@ -30,10 +30,6 @@
     .title = reward.title
     .description = reward.display_description
 
-    - if reward.show_contact_button
-      .contact
-        = link_to t('.contact'), reward_contact_project_path(parent), class: 'button btn-contact', data: { 'reveal-id' => 'reward-contact', 'reveal-ajax' => true }
-
     - if reward.days_to_delivery.present?
       .days-to-delivery
         p = "#{t('.reward_deliver_time', prevision: reward.display_deliver_prevision)}".html_safe

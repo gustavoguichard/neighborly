@@ -106,7 +106,6 @@ Neighborly::Application.routes.draw do
     end
 
     member do
-      post :send_reward_email
       put 'pay'
       get 'embed'
       get 'video_embed'
@@ -114,7 +113,6 @@ Neighborly::Application.routes.draw do
       get 'comments'
       get 'reports'
       get 'budget'
-      get 'reward_contact'
       get 'success'
       get 'send_to_analysis'
     end
