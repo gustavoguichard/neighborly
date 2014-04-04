@@ -20,9 +20,12 @@ class OmniauthUserSerializer
 
   def authorization
     {
-      uid:               uid,
-      oauth_provider_id: oauth_provider_id
-    }
+      access_token:            access_token,
+      access_token_expires_at: access_token_expires_at,
+      access_token_secret:     access_token_secret,
+      oauth_provider_id:       oauth_provider_id,
+      uid:                     uid
+    }.reject { |_key, value| value.blank? }
   end
 
   def name
@@ -49,7 +52,27 @@ class OmniauthUserSerializer
     @omniauth_data['uid']
   end
 
+  def access_token
+    @omniauth_data['credentials']['token']
+  end
+
+  def access_token_secret
+    unless provider == 'facebook'
+      @omniauth_data['credentials']['secret']
+    end
+  end
+
+  def access_token_expires_at
+    if %w(facebook google_oauth2).include? provider
+      Time.at(@omniauth_data['credentials']['expires_at'].to_i)
+    end
+  end
+
   def oauth_provider_id
     OauthProvider.find_by(name: @omniauth_data['provider']).id
+  end
+
+  def provider
+    @omniauth_data['provider']
   end
 end
