@@ -72,6 +72,7 @@ Neighborly::Application.routes.draw do
 
   # Root path should be after channel constraints
   root to: 'projects#index'
+  get :test, to: 'projects#test'
 
   # Static Pages
   get '/sitemap',               to: 'static#sitemap',             as: :sitemap
@@ -155,6 +156,8 @@ Neighborly::Application.routes.draw do
     get :contact, to: 'contacts#new'
     resources :contacts, only: [:create]
   end
+
+  resources :images, only: [:new, :create]
 
   # Redirect from old users url to the new
   get "/users/:id", to: redirect('neighbors/%{id}')
