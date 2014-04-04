@@ -165,18 +165,6 @@ class User < ActiveRecord::Base
     "#{self.id}-#{self.display_name.parameterize}"
   end
 
-  def self.create_from_hash(hash)
-    create!(
-      {
-        name: hash['info']['name'],
-        email: hash['info']['email'],
-        nickname: hash["info"]["nickname"],
-        bio: (hash["info"]["description"][0..139] rescue nil),
-        locale: I18n.locale.to_s
-      }
-    )
-  end
-
   def total_contributions
     contributions.with_state('confirmed').not_anonymous.count
   end

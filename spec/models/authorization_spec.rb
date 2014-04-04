@@ -82,54 +82,6 @@ describe Authorization do
     end
   end
 
-  describe ".create_from_hash" do
-    before do
-      create(:oauth_provider, name: oauth_data[:provider])
-    end
-
-    subject{ Authorization.create_from_hash(oauth_data, user) }
-
-    context "when user exists" do
-      let(:user){ create(:user, email: oauth_data['info']['email']) }
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should == user }
-    end
-
-    context "when user is new" do
-      let(:user){}
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should be_persisted }
-    end
-  end
-
-  describe ".create_without_email_from_hash" do
-    before do
-      create(:oauth_provider, name: oauth_data[:provider])
-      @oauth_data = oauth_data
-      @oauth_data['info']['email'] = nil
-    end
-
-    subject{ Authorization.create_without_email_from_hash(@oauth_data, user) }
-
-    context "when user exists" do
-      let(:user){ create(:user) }
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should == user }
-    end
-
-    context "when user is new" do
-      let(:user){ nil }
-      it{ should be_persisted }
-      its(:uid){ should == oauth_data['uid'] }
-      its(:user){ should be_persisted }
-      it { expect(subject.user.email).to match(/change-your-email\+[0-9]+@neighbor\.ly/) }
-      it { expect(subject.user.confirmed?).to be_true }
-    end
-  end
-
   describe '#update_uid_from_hash' do
     let(:authorization) { create(:authorization, oauth_provider: create(:oauth_provider, name: oauth_data[:provider]), uid: 'other uid') }
 

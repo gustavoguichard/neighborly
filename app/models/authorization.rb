@@ -16,20 +16,6 @@ class Authorization < ActiveRecord::Base
     hash['provider'] == 'google_oauth2' ? from_hash_without_uid(hash).first : from_hash(hash).first
   end
 
-  def self.create_from_hash(hash, user = nil)
-    user ||= User.create_from_hash(hash)
-    create!(user: user, uid: hash['uid'], oauth_provider: OauthProvider.find_by_name(hash['provider']))
-  end
-
-  def self.create_without_email_from_hash(hash, user = nil)
-    return create_from_hash(hash, user) if user.present?
-
-    hash['info']['email'] = "change-your-email+#{Time.now.to_i}@neighbor.ly"
-    auth = create_from_hash(hash)
-    auth.user.confirm!
-    auth
-  end
-
   def update_uid_from_hash(hash)
     self.update_attribute(:uid, hash['uid'])
   end

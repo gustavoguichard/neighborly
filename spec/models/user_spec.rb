@@ -191,24 +191,6 @@ describe User do
     end
   end
 
-  describe ".create_from_hash" do
-    let(:auth)  do {
-      'provider' => "facebook",
-      'uid' => "foobar",
-      'info' => {
-        'name' => "Foo bar",
-        'email' => 'another_email@anotherdomain.com',
-        'nickname' => "foobar",
-        'description' => "Foo bar's bio".ljust(200),
-        'image' => "https://graph.facebook.com/foobar/picture?type=large"
-      }
-    }
-    end
-    subject{ User.create_from_hash(auth) }
-    it{ should be_persisted }
-    its(:email){ should == auth['info']['email'] }
-  end
-
   describe ".create" do
     subject do
       User.create! do |u|
