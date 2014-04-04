@@ -214,21 +214,4 @@ class User < ActiveRecord::Base
   def confirmation_required?
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
-
-  def update_social_info(hash)
-    self.update_attributes(social_info_from_hash(hash))
-  end
-
-  protected
-  def social_info_from_hash(hash)
-    info = {}
-    info[:twitter_url] = "http://twitter.com/#{hash['info']['nickname']}" if hash['provider'] == 'twitter'
-    info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
-    info[:facebook_url] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
-    unless self.uploaded_image.present?
-      info[:remote_uploaded_image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
-      info[:remote_uploaded_image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
-    end
-    info
-  end
 end

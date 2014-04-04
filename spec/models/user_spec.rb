@@ -222,47 +222,6 @@ describe User do
     its(:facebook_url){ should == 'http://facebook.com/test' }
   end
 
-  describe '#update_social_info' do
-    let(:base_auth)  do {
-      'uid' => "foobar",
-      'info' => {
-        'name' => "Foo bar",
-        'email' => 'another_email@anotherdomain.com',
-        'nickname' => "foobar",
-        'description' => "Foo bar's bio".ljust(200),
-        'image' => "https://graph.facebook.com/foobar/picture?type=large",
-        'urls' => {
-          'public_profile' => 'http://linkedin.com/in/foo_bar'
-        }
-      }
-    }
-    end
-    let(:user) { create(:user) }
-    subject { user.reload }
-    before { user.update_social_info(auth) }
-
-    context 'when provider is facebook' do
-      let(:auth) { base_auth.merge({ 'provider' => 'facebook' }) }
-      its(:twitter_url) { should be_nil }
-      its(:linkedin_url) { should be_nil }
-      its(:facebook_url) { should eq 'http://facebook.com/foobar' }
-    end
-
-    context 'when provider is twiiter' do
-      let(:auth) { base_auth.merge({ 'provider' => 'twitter' }) }
-      its(:twitter_url) { should eq 'http://twitter.com/foobar' }
-      its(:linkedin_url) { should be_nil }
-      its(:facebook_url) { should be_nil }
-    end
-
-    context 'when provider is linkedin' do
-      let(:auth) { base_auth.merge({ 'provider' => 'linkedin' }) }
-      its(:twitter_url) { should be_nil }
-      its(:linkedin_url) { should eq 'http://linkedin.com/in/foo_bar' }
-      its(:facebook_url) { should be_nil }
-    end
-  end
-
   describe "#total_contributed_projects" do
     let(:user) { create(:user) }
     let(:project) { create(:project) }
