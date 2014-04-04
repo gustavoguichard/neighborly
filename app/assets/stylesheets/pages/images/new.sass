@@ -1,0 +1,48 @@
+.new-image-page
+  .new-image-upload-dropzone
+    padding: 10px
+    width: 100%
+    min-height: 200px
+    cursor: pointer
+    +transition(.2s)
+    text-align: center
+
+    .uploaded-image
+      max-width: 70%
+      margin-top: +emCalc(20px)
+      margin-bottom: +emCalc(20px)
+
+    .info
+      text:
+        align: center
+        shadow: 1px 1px 0 white
+      display: block
+      width: 90%
+      margin: auto
+      font-weight: 600
+
+    .dz-preview
+      display: none
+
+    &.dz-clickable
+      border: 2px dashed $border-color
+    &.usr-upld-pctr
+      background-image: image-url('user/usr-upld-pctr.png')
+    &.dz-drag-hover, &.dragging, &.upload-started
+      background-color: #ffffe0
+      border-color: #e6db55
+    &.dz-drag-hover, &.dragging, &.dz-max-files-reached, &.upload-fail
+      .info
+        +opacity(1)
+    &.dz-max-files-reached, &.upload-fail
+      background-color: #FEE
+      border-color: #D84D4D
+    &.upload-complete
+      border: 2px solid #86AC4D
+
+  form
+    margin-bottom: 0
+  .insert-image-wrapper
+    padding-top: +emCalc(15px)
+    .button
+      margin-bottom: 0

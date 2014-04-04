@@ -1,0 +1,18 @@
+.new-image-page.row
+  = initjs_tag app_name: 'Neighborly', partial: true
+  - if request.xhr?
+    a.close-reveal-modal ×
+
+  .large-12.columns
+    h3.text-center = t('.title')
+    
+    = simple_form_for Image.new do |f|
+      .new-image-upload-dropzone data-param="image[file]"
+        span.info = t('.description')
+        = image_tag 'http://placehold.it/150x150', class: "uploaded-image"
+
+      .hide
+        = f.input :file, as: :string, input_html: { class: 'uploaded-image-url' }
+
+      .insert-image-wrapper.text-right
+        = link_to t('.insert'), '#', class: 'insert-image button'
