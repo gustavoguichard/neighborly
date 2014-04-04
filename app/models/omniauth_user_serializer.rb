@@ -75,4 +75,24 @@ class OmniauthUserSerializer
   def provider
     @omniauth_data['provider']
   end
+
+  def twitter_url
+    "http://twitter.com/#{nickname}" if provider == 'twitter'
+  end
+
+  def linkedin_url
+    @omniauth_data['info']['urls']['public_profile'] if provider == 'linkedin'
+  end
+
+  def facebook_url
+    "http://facebook.com/#{nickname}" if provider == 'facebook'
+  end
+
+  def remote_uploaded_image_url
+    if provider == 'facebook'
+      "https://graph.facebook.com/#{uid}/picture?type=large"
+    elsif @omniauth_data['info']['image'].present?
+      @omniauth_data['info']['image']
+    end
+  end
 end
