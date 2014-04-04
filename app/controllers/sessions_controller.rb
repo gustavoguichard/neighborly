@@ -15,13 +15,8 @@ class SessionsController < Devise::SessionsController
   protected
 
   def attach_omniauth_authorization
-    authorization_email = session.delete(:orphan_authorization_email)
-    authorization_id    = session.delete(:orphan_authorization)
-    unless authorization_id && current_user.email.eql?(authorization_email)
-      return
-    end
-
-    authorization = Authorization.find(authorization_id)
-    authorization.update_attributes(user: current_user)
+    omniauth_sign_in = OmniauthSignIn.new(current_user)
+    omniauth_sign_in.complete(session.delete(:new_user_attrs))
+    omniauth_sign_in
   end
 end
