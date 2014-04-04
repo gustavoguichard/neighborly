@@ -1,5 +1,16 @@
 class SessionsController < Devise::SessionsController
-  after_filter :attach_omniauth_authorization, only: :create
+  include OmniauthAuthenticationControllerHelpers
+
+  after_filter :attach_omniauth_authorization,
+    only: :create,
+    if: -> { session.has_key?(:new_user_attrs) }
+
+  def confirm_new_user_email
+    session[:new_user_attrs]       ||= {}
+    session[:new_user_attrs][:email] = params.fetch(:user).fetch(:email)
+
+    complete_request_with(attach_omniauth_authorization)
+  end
 
   protected
 
