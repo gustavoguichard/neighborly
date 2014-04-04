@@ -176,8 +176,9 @@ Neighborly.MarkdownPreviewer =
       $("##{@id}").remove()
 
   bindEventsToView: ->
+    that = this
     $("##{@id} .close.button").unbind('click')
     $("##{@id} .close.button").on 'click', (e)->
       e.preventDefault()
-      $("##{@id}").foundation('reveal', 'close')
+      $("##{that.id}").foundation('reveal', 'close')
       return false
