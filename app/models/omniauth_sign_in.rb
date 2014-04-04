@@ -13,7 +13,13 @@ class OmniauthSignIn
     @user_initializer.setup
   end
 
-  def user_email
-    @user_initializer.try(:email)
+  def status
+    if already_signed_in? || authorization_exists?
+      :success
+    elsif empty_email?
+      :needs_email
+    else
+      :needs_ownership_confirmation
+    end
   end
 end
