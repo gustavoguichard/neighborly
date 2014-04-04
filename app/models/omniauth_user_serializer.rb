@@ -10,6 +10,10 @@ class OmniauthUserSerializer
       nickname:                  nickname,
       bio:                       bio,
       locale:                    locale,
+      twitter_url:               twitter_url,
+      linkedin_url:              linkedin_url,
+      facebook_url:              facebook_url,
+      remote_uploaded_image_url: remote_uploaded_image_url,
       authorizations_attributes: [authorization]
     }.reject { |_key, value| value.blank? }
   end
