@@ -1,46 +1,65 @@
 class UserInitializer
-  attr_reader :authorization, :omniauth_data, :provider, :email
+  attr_reader :authorization, :email, :omniauth_data
 
-  def initialize(provider, omniauth_data)
-    @provider, @omniauth_data = provider, omniauth_data
+  delegate :provider, to: :@omniauth_data
 
-    check_required_attributes
+  def initialize(omniauth_data, user)
+    @omniauth_data = omniauth_data
+    @user          = user
   end
 
-  def setup
-    update_authorization_attributes
-    update_user_attributes
+  def authorization_data
+    omniauth_data[:authorizations_attributes].first
   end
 
-  def user
-    @authorization.try(:user)
-  end
-
-  def no_account_conflicts?
-    @has_no_account_conflicts ||= @email && !User.find_by(email: @email)
-  end
-
-  protected
-
-  def fill_required_attributes
-    @omniauth_data['info']          = {}
-    @omniauth_data['info']['email'] = "change-your-email+#{Time.now.to_i}@neighbor.ly"
-  end
-
-  def update_authorization_attributes
-    @authorization = Authorization.find_from_hash(omniauth_data)
-
-    if @authorization.blank?
-      @authorization = Authorization.create_from_hash(omniauth_data)
-    else
-      @authorization.update_access_token_from_hash(omniauth_data)
-      if provider.eql? 'google_oauth2'
-        @authorization.update_uid_from_hash(omniauth_data)
-      end
+  def omniauth_urls_data
+    omniauth_data.select do |key, _value|
+      %i(twitter_url
+         linkedin_url
+         facebook_url
+         remote_uploaded_image_url).include? key
     end
   end
 
-  def update_user_attributes
-    user.update_social_info(omniauth_data)
+  def setup
+    return false unless can_setup?
+
+    if user
+      user.update_attributes(omniauth_urls_data)
+      user.authorizations.
+        find_or_initialize_by(oauth_provider_id: authorization_data[:oauth_provider_id]).
+        update_attributes(authorization_data)
+    else
+      if user.try(:uploaded_image).try(:present?)
+        omniauth_data.delete(:remote_uploaded_image_url)
+      end
+
+      @user = User.create(omniauth_data)
+    end
+  end
+
+  def can_setup?
+    authorization_exists? || already_signed_in? || (!empty_email? && !data_matches_with_user?)
+  end
+
+  def authorization_exists?
+    @authorization ||= Authorization.find_by(authorization_data)
+    !!@authorization
+  end
+
+  def already_signed_in?
+    !!@user
+  end
+
+  def data_matches_with_user?
+    User.exists?(email: @omniauth_data[:email])
+  end
+
+  def empty_email?
+    @omniauth_data[:email].blank?
+  end
+
+  def user
+    @user || authorization.user
   end
 end
