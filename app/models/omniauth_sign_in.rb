@@ -1,15 +1,16 @@
 class OmniauthSignIn
-  attr_accessor :provider
+  attr_accessor :current_user, :data
 
-  delegate :authorization, :user, :no_account_conflicts?,
+  delegate :user, :provider, :already_signed_in?, :authorization_exists?, :empty_email?,
     to: :@user_initializer, allow_nil: true
 
-  def initialize(user, provider)
-    @user, @provider = user, provider
+  def initialize(current_user)
+    @current_user = current_user
   end
 
   def complete(omniauth_data)
-    @user_initializer = UserInitializer.new(provider, omniauth_data)
+    @data             = omniauth_data
+    @user_initializer = UserInitializer.new(@data, @current_user)
     @user_initializer.setup
   end
 
