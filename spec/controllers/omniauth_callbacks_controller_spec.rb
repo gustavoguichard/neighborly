@@ -73,11 +73,6 @@ describe OmniauthCallbacksController do
         it { subject.authorizations.reload.should have(1).item }
       end
 
-      describe 'update access token' do
-        let(:set_expectations) { Authorization.any_instance.should_receive(:update_access_token_from_hash).once }
-        it "should satisfy expectations" do; end
-      end
-
       it{ should redirect_to root_path }
     end
 
@@ -110,11 +105,6 @@ describe OmniauthCallbacksController do
       context "when there is a valid user with this provider and uid and session return_to is nil" do
         it{ assigns(:auth).user.should == user }
         it{ should redirect_to root_path }
-      end
-
-      describe 'update access token' do
-        let(:set_expectations) { Authorization.any_instance.should_receive(:update_access_token_from_hash).once }
-        it "should satisfy expectations" do; end
       end
     end
   end
