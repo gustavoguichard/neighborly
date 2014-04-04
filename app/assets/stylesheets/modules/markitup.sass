@@ -9,10 +9,6 @@ words.sending.markItUp
       text-decoration: none
   margin: emCalc(5px, 0)
 
-.markItUpEditor
-  padding: emCalc(15px)
-  margin-bottom: emCalc(25px)
-
 
 .markItUpPreviewFrame
   overflow: auto
@@ -23,9 +19,6 @@ words.sending.markItUp
 
 .markItUpFooter
   width: 100%
-
-.markItUpHeader
-  +clearfix
 
 .markItUpHeader ul
   li
@@ -88,21 +81,46 @@ words.sending.markItUp
       color: #FFF
       background-color: #000
 
+.markdown .markItUpContainer
+  position: relative
+
+.markdown .markItUpHeader
+  width: calc(100% - 2px)
+  position: absolute
+  padding: +emCalc(15px)
+  border-bottom: 1px solid $border-color
+  background: white
+  margin: 1px
+
+.markdown .markItUpEditor
+  padding: emCalc(15px)
+  padding-top: +emCalc(75px)
+  margin-bottom: emCalc(25px)
+  min-height: +emCalc(300px)
 
 .markdown .markItUpButton
   margin-right: emCalc(5px)
+  margin-bottom: 0
+  a
+    display: none
+  &:before
+    @extend [class^="icon-fa-"]:before
 
-.markdown .markItUpButton1 a
-  background-image: image-url('markitup/h1.png')
+.markdown .markItUpButton1
+  &:before
+    content: 'H1'
 
-.markdown .markItUpButton2 a
-  background-image: image-url('markitup/h2.png')
+.markdown .markItUpButton2
+  &:before
+    content: 'H2'
 
-.markdown .markItUpButton3 a
-  background-image: image-url('markitup/h3.png')
+.markdown .markItUpButton3
+  &:before
+    content: 'H3'
 
-.markdown .markItUpButton4 a
-  background-image: image-url('markitup/h4.png')
+.markdown .markItUpButton4
+  &:before
+    content: 'H4'
 
 .markdown .markItUpButton5 a
   background-image: image-url('markitup/bold.png')
@@ -113,17 +131,31 @@ words.sending.markItUp
 .markdown .markItUpButton7 a
   background-image: image-url('markitup/list-bullet.png')
 
-.markdown .markItUpButton8 a
-  background-image: image-url('markitup/list-numeric.png')
+.markdown .markItUpButton6
+  &:before
+    @extend .icon-fa-italic
 
-.markdown .markItUpButton9 a
-  background-image: image-url('markitup/picture.png')
+.markdown .markItUpButton7
+  &:before
+    @extend .icon-fa-list-ul
 
-.markdown .markItUpButton10 a
-  background-image: image-url('markitup/link.png')
+.markdown .markItUpButton8
+  &:before
+    @extend .icon-fa-list-ol
 
-.markdown .markItUpButton11 a
-  background-image: image-url('markitup/quotes.png')
+.markdown .markItUpButton9
+  &:before
+    @extend .icon-fa-picture
 
-.markdown .preview a
-  background-image: image-url('markitup/preview.png')
+.markdown .markItUpButton10
+  &:before
+    @extend .icon-fa-link
+
+.markdown .markItUpButton11
+  &:before
+    @extend .icon-fa-quote-left
+
+.markdown .markItUpButton12 a
+  display: inline
+  text-indent: initial
+  color: white
