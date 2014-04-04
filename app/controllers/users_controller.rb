@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def update_email
     authorize resource
-    update! do |success,failure|
+    update! do |success, failure|
       success.html do
         flash.notice = t('devise.confirmations.send_instructions')
         sign_out current_user
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
   def update
     authorize resource
-    update! do |success,failure|
+    update! do |success, failure|
       success.html do
         flash.notice = update_success_flash_message
         return redirect_to settings_user_path(@user) if params[:settings]
@@ -92,6 +92,7 @@ class UsersController < ApplicationController
   end
 
   protected
+
   def update_success_flash_message
     if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
       t('devise.confirmations.send_instructions')
