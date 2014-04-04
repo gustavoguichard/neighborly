@@ -16,21 +16,25 @@ Neighborly.markdownSettings =
     key: "1"
     openWith: "# "
     placeHolder: "Your title here..."
+    className: 'button secondary tiny'
   ,
     name: "Heading 2"
     key: "2"
     openWith: "## "
     placeHolder: "Your title here..."
+    className: 'button secondary tiny'
   ,
     name: "Heading 3"
     key: "3"
     openWith: "### "
     placeHolder: "Your title here..."
+    className: 'button secondary tiny'
   ,
     name: "Heading 4"
     key: "4"
     openWith: "#### "
     placeHolder: "Your title here..."
+    className: 'button secondary tiny'
   ,
     separator: "---------------"
   ,
@@ -38,42 +42,56 @@ Neighborly.markdownSettings =
     key: "B"
     openWith: "**"
     closeWith: "**"
+    className: 'button secondary tiny'
   ,
     name: "Italic"
     key: "I"
     openWith: "_"
     closeWith: "_"
+    className: 'button secondary tiny'
   ,
     separator: "---------------"
   ,
     name: "Bulleted List"
     openWith: "- "
+    className: 'button secondary tiny'
   ,
     name: "Numeric List"
     openWith: (markItUp) ->
       markItUp.line + ". "
+    className: 'button secondary tiny'
   ,
     separator: "---------------"
   ,
     name: "Picture"
     key: "P"
-    replaceWith: "![]([![Url:!:http://]!] \"[![Title]!]\")"
+    replaceWith: (markItUp)->
+      Neighborly.MarkdownUploadModal.init(markItUp)
+    className: 'button secondary tiny'
   ,
     name: "Link"
     key: "L"
     openWith: "["
     closeWith: "]([![Url:!:http://]!] \"[![Title]!]\")"
     placeHolder: "Your text to link here..."
+    className: 'button secondary tiny'
   ,
     separator: "---------------"
   ,
     name: "Quotes"
     openWith: "> "
+    className: 'button secondary tiny'
+  #,
+    #separator: "---------------"
+  #,
+    #name: 'Preview'
+    #call: 'preview'
+    #className: 'button tiny'
   ]
 
 
 #{separator:'---------------'},
-#{name:'Preview', call:'preview', className:"preview"}
+#{}
 
 # mIu nameSpace to avoid conflict.
 miu = markdownTitle: (markItUp, char) ->
@@ -84,3 +102,46 @@ miu = markdownTitle: (markItUp, char) ->
     heading += char
     i++
   "\n" + heading + "\n"
+
+
+Neighborly.MarkdownUploadModal =
+  init: (markItUp)->
+    @markItUp = markItUp
+    @id = "markItUpPictureUpload_#{markItUp.textarea.id}"
+    this.createHtmlModal()
+    this.attashEvents(markItUp)
+
+    $("##{@id}").foundation 'reveal', 'open',
+      'url': '<%= Rails.application.routes.url_helpers.new_image_url %>'
+
+    return false
+
+  createHtmlModal: ->
+    html = $('<div>').attr('id', @id).
+                    attr('data-reveal', '').
+                    addClass('reveal-modal small')
+    $('body').append(html)
+
+  insertMarkdownImage: ->
+    image_url = $("##{@id} .uploaded-image-url").val()
+    $(@markItUp.textarea).trigger 'insertion',
+      [{replaceWith: "![Image title](#{image_url})\n"}]
+
+    $("##{@id}").foundation('reveal', 'close')
+
+  attashEvents: ->
+    that = this
+    $(document).on 'opened', "##{@id}", ->
+      Initjs.initializePartial()
+      that.attashEventsToView()
+
+    $(document).on 'closed', "##{@id}", ->
+      $("##{@id}").remove()
+
+  attashEventsToView: ->
+    that = this
+    $("##{@id} .insert-image.button").unbind('click')
+    $("##{@id} .insert-image.button").on 'click', (e)->
+      e.preventDefault()
+      that.insertMarkdownImage()
+      return false
