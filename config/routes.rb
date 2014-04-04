@@ -72,7 +72,6 @@ Neighborly::Application.routes.draw do
 
   # Root path should be after channel constraints
   root to: 'projects#index'
-  get :test, to: 'projects#test'
 
   # Static Pages
   get '/sitemap',               to: 'static#sitemap',             as: :sitemap
