@@ -52,43 +52,7 @@ describe Authorization do
 
   describe "Validations" do
     it{ should validate_presence_of :oauth_provider }
-    it{ should validate_presence_of :user }
     it{ should validate_presence_of :uid }
-  end
-
-  describe ".find_from_hash" do
-    context 'when the provider is google_oauth2' do
-      let(:user){ create(:user, email: oauth_data['info']['email']) }
-      before do
-        provider = create(:oauth_provider, name: 'google_oauth2')
-        @oauth_data = oauth_data
-        @oauth_data['provider'] = 'google_oauth2'
-        @authotization = create(:authorization, oauth_provider: provider, uid: 'some other random uid', user: user)
-        create(:authorization, oauth_provider: provider)
-      end
-      subject{ Authorization.find_from_hash(@oauth_data) }
-      it{ should == @authotization }
-      it{ expect(subject.user).to eq user }
-    end
-
-    context 'when the provider is not google_oauth2' do
-      before do
-        provider = create(:oauth_provider, name: oauth_data[:provider])
-        @authotization = create(:authorization, oauth_provider: provider, uid: oauth_data[:uid])
-        create(:authorization, oauth_provider: provider)
-      end
-      subject{ Authorization.find_from_hash(oauth_data) }
-      it{ should == @authotization }
-    end
-  end
-
-  describe '#update_uid_from_hash' do
-    let(:authorization) { create(:authorization, oauth_provider: create(:oauth_provider, name: oauth_data[:provider]), uid: 'other uid') }
-
-    describe 'should update uid from hash' do
-      before { authorization.update_uid_from_hash(oauth_data) }
-      it { expect(authorization.reload.uid).to eq oauth_data['uid'] }
-    end
   end
 
   describe '#update_access_token_from_hash' do

@@ -12,14 +12,6 @@ class Authorization < ActiveRecord::Base
     joins(:oauth_provider).where("oauth_providers.name = :name", { name: hash['provider'] }).joins(:user).where('users.email = :email', { email: hash['info']['email'] })
   }
 
-  def self.find_from_hash(hash)
-    hash['provider'] == 'google_oauth2' ? from_hash_without_uid(hash).first : from_hash(hash).first
-  end
-
-  def update_uid_from_hash(hash)
-    self.update_attribute(:uid, hash['uid'])
-  end
-
   def update_access_token_from_hash(hash)
     send("update_access_token_from_hash_for_#{hash['provider']}", hash)
   rescue Exception => e
