@@ -27,21 +27,21 @@
       .clearfix
 
       .large-12.large-centered.columns
+        - @form_submition ||= {}
         - if @user
           - url = update_email_user_path(@user)
           - method = 'put'
           - submit_text = t('.submit')
         - else
-          - @user = User.new
           - url = sign_up_path
           - method = 'post'
           - submit_text = t('.create')
 
-        = form_for @user, url: url, html: { method: method } do |f|
-          = render 'devise/shared/alert' if @user.persisted?
+        = form_for :user, url: @form_submition.fetch(:url, url), html: { method: @form_submition.fetch(:method, method) } do |f|
+          = render 'devise/shared/alert' if @user.try(:persisted?)
           p
-            = f.label :email
+            = f.label :email, input_html: { value: @user.try(:email) }
             = f.text_field :email, required: true
 
-          = f.submit submit_text, class: [:button, :success, 'large-12', 'columns', 'large-centered']
+          = f.submit @form_submition.fetch(:submit_text, submit_text), class: [:button, :success, 'large-12', 'columns', 'large-centered']
       .clearfix

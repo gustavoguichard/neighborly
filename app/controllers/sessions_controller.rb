@@ -5,6 +5,16 @@ class SessionsController < Devise::SessionsController
     only: :create,
     if: -> { session.has_key?(:new_user_attrs) }
 
+  def set_new_user_email
+    @form_submition = {
+      url:         confirm_new_user_email_path,
+      method:      :patch,
+      submit_text: t('submit', scope: 'sessions.set_new_user_email')
+    }
+
+    render 'users/set_email'
+  end
+
   def confirm_new_user_email
     session[:new_user_attrs]       ||= {}
     session[:new_user_attrs][:email] = params.fetch(:user).fetch(:email)

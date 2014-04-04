@@ -138,6 +138,13 @@ Neighborly::Application.routes.draw do
     end
   end
 
+  scope :login, controller: :sessions do
+    devise_scope :user do
+      get   :set_new_user_email
+      patch :confirm_new_user_email
+    end
+  end
+
   resources :users, path: 'neighbors' do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
