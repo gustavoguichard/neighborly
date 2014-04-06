@@ -28,10 +28,6 @@ describe OmniauthUserSerializer do
     expect(subject[:nickname]).to eql('juquinhadasilva')
   end
 
-  it 'defines a nickname' do
-    expect(subject[:nickname]).to eql('juquinhadasilva')
-  end
-
   describe 'bio' do
     it 'defines one' do
       expect(subject[:bio]).to eql('Lorem ipsum dolor sit amet, consectetur adipisicing elit')
