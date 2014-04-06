@@ -6,7 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @auth_providers.include? method_name.to_s
       oauth_callback_for(method_name.to_s)
     else
-      render_404
+      raise ActionController::UrlGenerationError.new(nil)
     end
   end
 
