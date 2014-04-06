@@ -6,14 +6,14 @@ module OmniauthAuthenticationControllerHelpers
       success: -> do
         sign_in omniauth_sign_in.user, event: :authentication
 
-        flash.notice = flash_message(omniauth_sign_in.user, omniauth_sign_in.provider.capitalize)
+        flash.notice = flash_message(omniauth_sign_in.user, omniauth_sign_in.provider_name.capitalize)
         redirect_to after_sign_in_path_for(:user)
       end,
       needs_ownership_confirmation: -> do
         session[:new_user_attrs] = omniauth_sign_in.data
 
         flash[:devise_error] = t('needs_ownership_confirmation', scope: 'controllers.omniauth_authentication')
-        flash[:user_email]   = session[:new_user_attrs][:email]
+        flash[:user_email]   = session[:new_user_attrs].try(:[], :email)
         redirect_to new_user_session_path
       end,
       needs_email: -> do

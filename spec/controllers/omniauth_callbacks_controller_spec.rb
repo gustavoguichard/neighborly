@@ -1,111 +1,103 @@
 require 'spec_helper'
 
 describe OmniauthCallbacksController do
+  let(:omniauth_data) do
+    fixture = Rails.root.join('spec',
+      'fixtures',
+      'omniauth_data.yml'
+    )
+    YAML.load(File.read(fixture)).with_indifferent_access
+  end
+  let(:oauth_data) { Hashie::Mash.new(omniauth_data) }
+
   before do
-    facebook_provider
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    request.env['devise.mapping'] = Devise.mappings[:user]
+    request.env['omniauth.auth']  = oauth_data
   end
 
-  let(:return_to){ nil }
-  let(:user){ FactoryGirl.create(:user, authorizations: [ FactoryGirl.create(:authorization, uid: oauth_data[:uid], oauth_provider: facebook_provider ) ]) }
-  let(:facebook_provider){ FactoryGirl.create :oauth_provider, name: 'facebook' }
-  let(:oauth_data){
-    Hashie::Mash.new({
-      credentials: {
-        expires: true,
-        expires_at: 1366644101,
-        token: "AAAHuZCwF61OkBAOmLTwrhv52pZCriPnTGIasdasdasdascNhZCZApsZCSg6POZCQqolxYjnqLSVH67TaRDONx72fXXXB7N7ZBByLZCV7ldvagm"
-      },
-      extra: {
-        raw_info: {
-          bio: "I, simply am not there",
-          email: "diogob@gmail.com",
-          first_name: "Diogo",
-          gender: "male",
-          id: "547955110",
-          last_name: "Biazus",
-          link: "http://www.facebook.com/diogo.biazus",
-          locale: "pt_BR",
-          name: "Diogo, Biazus",
-          timezone: -3,
-          updated_time: "2012-08-01T18:22:50+0000",
-          username: "diogo.biazus",
-          verified: true
-        },
-      },
-      info: {
-        description: "I, simply am not there",
-        email: "diogob@gmail.com",
-        first_name: "Diogo",
-        image: "http://graph.facebook.com/547955110/picture?type:, square",
-        last_name: "Biazus",
-        name: "Diogo, Biazus",
-        nickname: "diogo.biazus",
-        urls: {
-          Facebook: "http://www.facebook.com/diogo.biazus"
-        },
-        verified: true
-      },
-      provider: "facebook",
-      uid: "547955110"
-    })
-  }
-
-  subject{ response }
-
-  describe "GET facebook" do
-
-    describe "when user already loged in" do
-      let(:set_expectations) { }
-      let(:user) { FactoryGirl.create(:user, name: 'Foo') }
-
-      before do
-        set_expectations
-        controller.stub(:current_user).and_return(user)
-        session[:return_to] = return_to
-        request.env['omniauth.auth'] = oauth_data
-        get :facebook
-      end
-
-      describe "assigned user" do
-        subject{ assigns(:auth).user }
-        its(:name){ should == "Foo" }
-        it { subject.authorizations.reload.should have(1).item }
-      end
-
-      it{ should redirect_to root_path }
+  context 'on callback to existing Oauth Provider' do
+    let(:authorization) do
+      FactoryGirl.create(:authorization,
+        uid:            oauth_data[:uid],
+        oauth_provider: provider
+      )
+    end
+    let(:user) { FactoryGirl.create(:user, authorizations: [authorization]) }
+    let(:provider) { FactoryGirl.create(:oauth_provider, name: :facebook) }
+    let(:serialized_user) { { email: 'juquinha@neighbor.ly' } }
+    before do
+      controller.stub(:current_user).and_return(user)
     end
 
-    describe 'when user not loged in' do
-      let(:set_expectations) { }
-      before do
-        set_expectations
-        user
-        session[:return_to] = return_to
-        request.env['omniauth.auth'] = oauth_data
+    describe 'GET \'facebook\'' do
+      it 'completes an omniauth signin with serialized omniauth user' do
+        OmniauthUserSerializer.any_instance.stub(:to_h).and_return(serialized_user)
+        expect_any_instance_of(OmniauthSignIn).to receive(:complete).
+          with(serialized_user)
         get :facebook
       end
 
-      context "when there is no such user but we retrieve the email from omniauth" do
-        let(:user){ nil }
-        describe "assigned user" do
-          subject{ assigns(:auth).user }
-          its(:email){ should == "diogob@gmail.com" }
-          its(:name){ should == "Diogo, Biazus" }
+      describe 'response' do
+        context 'on OmniauthSignIn with status :success' do
+          before do
+            OmniauthSignIn.any_instance.stub(:status).and_return(:success)
+          end
+
+          it 'sign in user' do
+            expect(controller).to receive(:sign_in)
+            get :facebook
+          end
+
+          it 'redirects to default path of Devise\'s logins' do
+            path = 'http://example.com/foobar'
+            controller.stub(:after_sign_in_path_for).and_return(path)
+            get :facebook
+            expect(response).to redirect_to(path)
+          end
         end
-        it{ should redirect_to root_path }
-      end
 
-      context "when there is a valid user with this provider and uid and session return_to is /foo" do
-        let(:return_to){ '/foo' }
-        it{ assigns(:auth).user.should == user }
-        it{ should redirect_to '/foo' }
-      end
+        context 'on OmniauthSignIn with status :needs_ownership_confirmation' do
+          before do
+            OmniauthSignIn.any_instance.stub(:status).and_return(:needs_ownership_confirmation)
+          end
 
-      context "when there is a valid user with this provider and uid and session return_to is nil" do
-        it{ assigns(:auth).user.should == user }
-        it{ should redirect_to root_path }
+          it 'stores omniauth sign in data in session' do
+            OmniauthSignIn.any_instance.stub(:data).and_return(serialized_user)
+            get :facebook
+            expect(session[:new_user_attrs]).to eql(serialized_user)
+          end
+
+          it 'redirects to new session path' do
+            get :facebook
+            expect(response).to redirect_to(new_user_session_path)
+          end
+        end
+
+        context 'on OmniauthSignIn with status :needs_email' do
+          before do
+            OmniauthSignIn.any_instance.stub(:status).and_return(:needs_email)
+          end
+
+          it 'stores omniauth sign in data in session' do
+            OmniauthSignIn.any_instance.stub(:data).and_return(serialized_user)
+            get :facebook
+            expect(session[:new_user_attrs]).to eql(serialized_user)
+          end
+
+          it 'redirects to set new user email path' do
+            get :facebook
+            expect(response).to redirect_to(set_new_user_email_path)
+          end
+        end
       end
+    end
+  end
+
+  context 'on callback to non existing Oauth Provider' do
+    it 'responds with error on url generation' do
+      expect {
+        get :my_new_provider
+      }.to raise_error(ActionController::UrlGenerationError)
     end
   end
 end

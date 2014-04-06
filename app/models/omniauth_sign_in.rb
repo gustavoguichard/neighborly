@@ -1,7 +1,7 @@
 class OmniauthSignIn
   attr_accessor :current_user, :data
 
-  delegate :user, :provider, :already_signed_in?, :authorization_exists?, :empty_email?,
+  delegate :user, :provider_name, :already_signed_in?, :authorization_exists?, :empty_email?,
     to: :@user_initializer, allow_nil: true
 
   def initialize(current_user)

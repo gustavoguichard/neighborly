@@ -1,11 +1,13 @@
 class UserInitializer
   attr_reader :authorization, :email, :omniauth_data
 
-  delegate :provider, to: :@omniauth_data
-
   def initialize(omniauth_data, user)
     @omniauth_data = omniauth_data
     @user          = user
+  end
+
+  def provider_name
+    OauthProvider.find(authorization_data[:oauth_provider_id]).name
   end
 
   def authorization_data
@@ -43,7 +45,9 @@ class UserInitializer
   end
 
   def authorization_exists?
-    @authorization ||= Authorization.find_by(authorization_data)
+    @authorization ||= Authorization.find_by(
+      authorization_data.slice(:oauth_provider_id, :uid)
+    )
     !!@authorization
   end
 
