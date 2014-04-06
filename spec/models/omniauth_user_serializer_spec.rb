@@ -64,11 +64,21 @@ describe OmniauthUserSerializer do
 
   describe 'authorization' do
     it 'defines an uid' do
-      expect(subject[:authorizations_attributes][0][:uid]).to eql('1327651586')
+      expect(
+        subject[:authorizations_attributes][0][:uid]
+      ).to eql('1327651586')
     end
 
     it 'defines an oauth_provider_id' do
-      expect(subject[:authorizations_attributes][0][:oauth_provider_id]).to eql(oauth_provider.id)
+      expect(
+        subject[:authorizations_attributes][0][:oauth_provider_id]
+      ).to eql(oauth_provider.id)
+    end
+
+    it 'defines an access_token' do
+      expect(
+        subject[:authorizations_attributes][0][:access_token]
+      ).to eql(omniauth_data['credentials']['token'])
     end
   end
 end
