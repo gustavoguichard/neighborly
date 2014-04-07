@@ -64,6 +64,6 @@ class UserInitializer
   end
 
   def user
-    @user || authorization.user
+    @user || @authorization.try(:user)
   end
 end
