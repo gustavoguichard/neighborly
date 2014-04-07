@@ -176,5 +176,10 @@ FactoryGirl.define do
     email 'some@email.com'
     company_name 'Test'
   end
+
+  factory :image do |f|
+    f.association :user
+    f.file File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
 end
 
