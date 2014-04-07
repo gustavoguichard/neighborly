@@ -144,11 +144,11 @@ describe ProjectsController do
   describe "GET new" do
     before { get :new }
 
-    context "when user is a guest" do
+    context "when acessing without be logged in" do
       it { expect(response).not_to be_success }
     end
 
-    context "when user is a registered user" do
+    context "when acessing as logged in" do
       let(:current_user){ create(:user, admin: false) }
       it { expect(response).to be_success }
     end
@@ -158,14 +158,29 @@ describe ProjectsController do
     let(:project) { create(:project) }
     before { get :edit, id: project }
 
-    context "when user is a guest" do
+    context "when acessing without be logged in" do
       let(:current_user){ nil }
       it { expect(response).not_to be_success }
     end
 
-    context "when user is a registered user" do
+    context "when acessing as logged in" do
       let(:current_user){ create(:user, admin: true) }
       it {  expect(response).to be_success }
+    end
+  end
+
+  describe "GET edit" do
+    let(:project) { create(:project) }
+    before { get :edit, id: project }
+
+    context "when acessing without be logged in" do
+      let(:current_user){ nil }
+      it { should_not be_success }
+    end
+
+    context "when acessing as logged in" do
+      let(:current_user){ create(:user, admin: true) }
+      it { should be_success }
     end
   end
 
@@ -188,7 +203,7 @@ describe ProjectsController do
       }
     end
 
-    context "when user is a guest" do
+    context "when acessing without be logged in" do
       it_should_behave_like "protected project"
     end
 
@@ -224,7 +239,7 @@ describe ProjectsController do
       end
     end
 
-    context "when user is a registered user" do
+    context "when acessing as logged in" do
       let(:current_user){ create(:user, admin: false) }
       it_should_behave_like "protected project"
     end
