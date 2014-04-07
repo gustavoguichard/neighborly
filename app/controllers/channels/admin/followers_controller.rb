@@ -1,11 +1,13 @@
-class Channels::Admin::FollowersController < Channels::Admin::BaseController
-  actions :index
+module Channels::Admin
+  class FollowersController < BaseController
+    actions :index
 
-  before_filter do
-    @channel = Channel.find_by_permalink!(request.subdomain.to_s)
-  end
+    before_filter do
+      @channel = Channel.find_by_permalink!(request.subdomain.to_s)
+    end
 
-  def index
-    @total_subscribers = @channel.subscribers.count
+    def index
+      @total_subscribers = @channel.subscribers.count
+    end
   end
 end

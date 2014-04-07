@@ -1,7 +1,9 @@
-class Channels::Admin::BaseController < ApplicationController
-  inherit_resources
+module Channels::Admin
+  class BaseController < ApplicationController
+    inherit_resources
 
-  before_filter do
-    authorize channel, :admin?
+    before_filter do
+      authorize channel, :admin?
+    end
   end
 end
