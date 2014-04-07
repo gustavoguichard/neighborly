@@ -83,7 +83,12 @@ describe ContributionPolicy do
     let(:policy) { described_class.new(user, build(:contribution)) }
     subject{ policy }
 
-    %i[user_attributes user_id user payment_service_fee payment_id].each do |field|
+    %i[user_attributes
+       user_id
+       user
+       payment_service_fee
+       payment_id
+       payment_service_fee_paid_by_user].each do |field|
       it { expect(subject).not_to be_permitted(field) }
     end
 

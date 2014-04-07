@@ -33,6 +33,11 @@ class ContributionPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    {contribution: record.attribute_names.map(&:to_sym) - %i[user_attributes user_id user payment_service_fee payment_id]}
+    {contribution: record.attribute_names.map(&:to_sym) - %i[user_attributes
+                                                             user_id
+                                                             user
+                                                             payment_service_fee
+                                                             payment_id
+                                                             payment_service_fee_paid_by_user]}
   end
 end
