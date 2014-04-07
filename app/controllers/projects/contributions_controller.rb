@@ -1,4 +1,5 @@
 class Projects::ContributionsController < ApplicationController
+  after_filter :verify_authorized, except: [:index]
   inherit_resources
   actions :show, :new, :edit, :update, :review, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :edit, :update, :credits_checkout]
@@ -7,7 +8,6 @@ class Projects::ContributionsController < ApplicationController
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
   has_scope :page, default: 1
-  load_and_authorize_resource except: [:index]
   belongs_to :project, finder: :find_by_permalink!
 
   def index
@@ -17,19 +17,26 @@ class Projects::ContributionsController < ApplicationController
     end
   end
 
+  def edit
+    authorize resource
+  end
+
   def update
+    authorize resource
     resource.update_attributes(params[:contribution])
     resource.update_user_billing_info
     render json: { message: 'updated' }
   end
 
-  def show; end
+  def show
+    authorize resource
+  end
 
   def new
-    return redirect_to :root, flash: { error: t('controllers.projects.contributions.new.cannot_back') } unless parent.online?
+    @contribution = Contribution.new(project: parent, user: current_user)
+    authorize @contribution
 
     @create_url = create_url
-    @contribution = @project.contributions.new(user: current_user)
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
     if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
@@ -39,8 +46,12 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def create
-    @contribution.user = current_user
+    @contribution = Contribution.new(permitted_params[:contribution].
+                                     merge(user: current_user,
+                                           project: parent))
+
     @contribution.reward_id = nil if params[:contribution][:reward_id].to_i == 0
+    authorize @contribution
 
     create! do |success, failure|
       success.html do
@@ -56,6 +67,7 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def credits_checkout
+    authorize resource
     if current_user.credits < @contribution.value
       flash.alert = t('controllers.projects.contributions.credits_checkout.no_credits')
       return redirect_to new_project_contribution_path(@contribution.project)
@@ -71,6 +83,10 @@ class Projects::ContributionsController < ApplicationController
   end
 
   protected
+  def permitted_params
+    params.permit(policy(@contribution || Contribution).permitted_attributes)
+  end
+
   def collection
     @contributions ||= apply_scopes(end_of_association_chain).available_to_display.order("confirmed_at DESC").per(10)
   end
