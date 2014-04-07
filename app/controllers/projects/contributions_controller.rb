@@ -1,7 +1,7 @@
 class Projects::ContributionsController < ApplicationController
   after_filter :verify_authorized, except: [:index]
   inherit_resources
-  actions :show, :new, :edit, :update, :review, :create, :credits_checkout
+  actions :show, :new, :edit, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :edit, :update, :credits_checkout]
   skip_before_filter :verify_authenticity_token, only: [:moip]
   skip_before_filter :set_persistent_warning
@@ -19,13 +19,6 @@ class Projects::ContributionsController < ApplicationController
 
   def edit
     authorize resource
-  end
-
-  def update
-    authorize resource
-    resource.update_attributes(params[:contribution])
-    resource.update_user_billing_info
-    render json: { message: 'updated' }
   end
 
   def show

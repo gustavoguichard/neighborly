@@ -123,7 +123,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :contributions, controller: 'projects/contributions' do
+    resources :contributions, controller: 'projects/contributions', except: :update do
       member do
         put 'credits_checkout'
       end
