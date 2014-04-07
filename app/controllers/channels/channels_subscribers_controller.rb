@@ -1,12 +1,12 @@
 class Channels::ChannelsSubscribersController < Channels::BaseController
+  after_filter :verify_authorized, except: [:create]
   inherit_resources
-  load_and_authorize_resource
   actions :show, :destroy, :create
 
   # We use show as create to redirect to this action after auth
   def show
     @channels_subscriber = ChannelsSubscriber.new subscription_attributes
-    authorize! :create, @channels_subscriber
+    authorize @channels_subscriber
     create! do |format|
       flash.notice = I18n.t('controllers.channels_subscribers.created', channel: channel.name)
       return redirect_to root_path
@@ -17,6 +17,7 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
   end
 
   def destroy
+    authorize resource
     destroy! do |format|
       flash.notice = I18n.t('controllers.channels_subscribers.deleted', channel: channel.name)
       return redirect_to root_path
