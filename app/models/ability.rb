@@ -67,21 +67,8 @@ class Ability
       contribution.user == current_user
     end
 
-    # Channel authorizations
-    # Due to previous abilities, first I activate all things
-    # and in the final I deactivate unnecessary abilities.
-    can :create, :channels_subscribers if current_user.persisted?
-    can :destroy, :channels_subscribers do |cs|
-      cs.user == current_user
-    end
-
-    can [:update, :edit], :channels do |c|
-      c == current_user.channel || c.members.include?(current_user)
-    end
-
     if options[:channel]  && (options[:channel] == current_user.channel || options[:channel].members.include?(current_user))
-      can :access, :admin_projects_path
-      can :access, :channels_admin_followers_path
+      can :access, :admin
     end
 
     # NOTE: admin can access everything.
