@@ -1,58 +1,58 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe ContributionPolicy do
-  subject{ ContributionPolicy }
+  subject{ described_class }
 
-  let(:project){ create(:project) }
-  let(:contribution){ create(:contribution) }
-  let(:user){ contribution.user }
+  let(:project) { create(:project) }
+  let(:contribution) { create(:contribution) }
+  let(:user) { contribution.user }
 
-  shared_examples_for "update permissions" do
-    it "should deny access if user is nil" do
-      should_not permit(nil, contribution)
+  shared_examples_for 'update permissions' do
+    it 'should deny access if user is nil' do
+      expect(subject).not_to permit(nil, contribution)
     end
 
-    it "should deny access if user is not updating his contribution" do
-      should_not permit(User.new, contribution)
+    it 'should deny access if user is not updating his contribution' do
+      expect(subject).not_to permit(User.new, contribution)
     end
 
-    it "should permit access if user is contribution owner" do
-      should permit(user, contribution)
+    it 'should permit access if user is contribution owner' do
+      expect(subject).to permit(user, contribution)
     end
 
-    it "should permit access if user is admin" do
+    it 'should permit access if user is admin' do
       admin = build(:user, admin: true)
-      should permit(admin, contribution)
+      expect(subject).to permit(admin, contribution)
     end
   end
 
-  shared_examples_for "create permissions" do
-    it_should_behave_like "update permissions"
+  shared_examples_for 'create permissions' do
+    it_should_behave_like 'update permissions'
 
     ['draft', 'deleted', 'rejected', 'successful', 'failed', 'waiting_funds', 'in_analysis'].each do |state|
       it "should deny access if project is #{state}" do
         contribution.project.update_attributes state: state
-        should_not permit(user, contribution)
+        expect(subject).not_to permit(user, contribution)
       end
     end
   end
 
-  permissions(:new?){ it_should_behave_like "create permissions" }
+  permissions(:new?) { it_should_behave_like 'create permissions' }
 
-  permissions(:create?){ it_should_behave_like "create permissions" }
+  permissions(:create?) { it_should_behave_like 'create permissions' }
 
-  permissions(:show?){ it_should_behave_like "update permissions" }
+  permissions(:show?) { it_should_behave_like 'update permissions' }
 
-  permissions(:update?){ it_should_behave_like "update permissions" }
+  permissions(:update?) { it_should_behave_like 'update permissions' }
 
-  permissions(:edit?){ it_should_behave_like "update permissions" }
+  permissions(:edit?) { it_should_behave_like 'update permissions' }
 
-  permissions(:credits_checkout?){ it_should_behave_like "update permissions" }
+  permissions(:credits_checkout?) { it_should_behave_like 'update permissions' }
 
-  permissions(:request_refund?){ it_should_behave_like "update permissions" }
+  permissions(:request_refund?) { it_should_behave_like 'update permissions' }
 
   describe 'UserScope' do
-    describe ".resolve" do
+    describe '.resolve' do
       let(:current_user) { create(:user, admin: false) }
       let(:user) { nil }
       before do
@@ -60,35 +60,35 @@ describe ContributionPolicy do
         @anon_contribution = create(:contribution, anonymous: true, state: 'confirmed', project: project)
       end
 
-      subject { ContributionPolicy::UserScope.new(current_user, user, project.contributions).resolve.order('created_at desc') }
+      subject { described_class::UserScope.new(current_user, user, project.contributions).resolve.order('created_at desc') }
 
-      context "when user is admin" do
+      context 'when user is admin' do
         let(:current_user) { create(:user, admin: true) }
 
-        it { should have(2).itens }
+        it { expect(subject).to have(2).itens }
       end
 
-      context "when user is a contributor" do
+      context 'when user is a contributor' do
         let(:current_user) { user }
-        it { should eq [@anon_contribution, @contribution] }
+        it { expect(subject).to eq [@anon_contribution, @contribution] }
       end
 
-      context "when user is not an admin" do
-        it { should eq [@contribution] }
+      context 'when user is not an admin' do
+        it { expect(subject).to eq [@contribution] }
       end
     end
   end
 
-  describe "#permitted?" do
-    let(:policy){ ContributionPolicy.new(user, build(:contribution)) }
+  describe '#permitted?' do
+    let(:policy) { described_class.new(user, build(:contribution)) }
     subject{ policy }
 
     %i[user_attributes user_id user payment_service_fee payment_id].each do |field|
-      it{ should_not be_permitted(field) }
+      it { expect(subject).not_to be_permitted(field) }
     end
 
     %i[value].each do |field|
-      it{ should be_permitted(field) }
+      it { expect(subject).to be_permitted(field) }
     end
   end
 
