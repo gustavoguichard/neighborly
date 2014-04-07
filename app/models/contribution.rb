@@ -84,30 +84,6 @@ class Contribution < ActiveRecord::Base
     Reward.where(project_id: self.project_id).where('minimum_value <= ?', self.value).order(:minimum_value)
   end
 
-  def update_current_billing_info
-    self.address_street = user.address_street
-    self.address_number = user.address_number
-    self.address_neighborhood = user.address_neighborhood
-    self.address_zip_code = user.address_zip_code
-    self.address_city = user.address_city
-    self.address_state = user.address_state
-    self.address_phone_number = user.phone_number
-    self.payer_document = user.cpf
-  end
-
-  def update_user_billing_info
-    user.update_attributes({
-      address_street: address_street,
-      address_number: address_number,
-      address_neighborhood: address_neighborhood,
-      address_zip_code: address_zip_code,
-      address_city: address_city,
-      address_state: address_state,
-      phone_number: address_phone_number,
-      cpf: payer_document
-    })
-  end
-
   # Used in payment engines
   def price_in_cents
     (self.value * 100).round
