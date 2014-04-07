@@ -33,7 +33,7 @@ describe UserInitializer do
             FactoryGirl.create(
               :authorization,
               oauth_provider: oauth_provider,
-              uid:            omniauth_data[:uid],
+              uid:            omniauth_user_data[:authorizations_attributes].first[:uid],
               user:           user
             )
           end
@@ -106,6 +106,37 @@ describe UserInitializer do
         expect {
           subject.setup
         }.to_not change(Authorization, :count)
+      end
+    end
+  end
+
+  describe 'ability to setup' do
+    let(:authorization) do
+      FactoryGirl.create(
+        :authorization,
+        oauth_provider_id: oauth_provider.id,
+        uid:               omniauth_user_data[:authorizations_attributes].first[:uid]
+      )
+    end
+    let(:user) { authorization.user }
+
+    context 'when related authorization already exists' do
+      it 'returns true' do
+        expect(subject.can_setup?).to be_true
+      end
+    end
+
+    context 'when an user was given in the initialization' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it 'returns true' do
+        expect(subject.can_setup?).to be_true
+      end
+    end
+
+    context 'when has omniauth has email and no user is found with it' do
+      it 'returns true' do
+        expect(subject.can_setup?).to be_true
       end
     end
   end
