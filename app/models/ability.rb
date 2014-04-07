@@ -67,10 +67,6 @@ class Ability
       contribution.user == current_user
     end
 
-    if options[:channel]  && (options[:channel] == current_user.channel || options[:channel].members.include?(current_user))
-      can :access, :admin
-    end
-
     # NOTE: admin can access everything.
     # It's the last ability to override all previous abilities.
     can :access, :all if current_user.admin?
