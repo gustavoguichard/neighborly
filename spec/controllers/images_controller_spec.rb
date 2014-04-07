@@ -42,7 +42,7 @@ describe ImagesController do
 
         it 'returns a json with image url' do
           json = { status: :success,
-                   :"image[file]" => assigns(:image).file_url }.to_json
+                   :"image[file]" => assigns(:image).file_url(:medium) }.to_json
 
           expect(response.body).to eq json
         end

@@ -15,7 +15,7 @@ class ImagesController < ApplicationController
     create! do |success, failure|
       success.json do
         return render json: { status: :success,
-                              :"image[file]" => @image.file_url }
+                              :"image[file]" => @image.file_url(:medium) }
       end
 
       failure.json do
