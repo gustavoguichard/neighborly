@@ -57,7 +57,7 @@ Neighborly::Application.routes.draw do
         end
       end
 
-      resource :profile
+      resource :profile, only: [:show]
       resources :projects, only: [:new, :create] do
         collection do
           get 'video'

@@ -81,7 +81,6 @@ class Ability
 
     if options[:channel]  && (options[:channel] == current_user.channel || options[:channel].members.include?(current_user))
       can :access, :admin_projects_path
-      can :access, :edit_channels_profile_path
       can :access, :channels_admin_followers_path
     end
 

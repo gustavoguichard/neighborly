@@ -4,7 +4,7 @@
     = render 'layouts/admin/menu'
     section.content.large-12.columns
       .text-right
-        = link_to t('channels.admin.profile.menu'), edit_channels_profile_path, class: 'button'
+        = link_to t('channels.admin.profile.menu'), edit_user_path(channel.user), class: 'button'
       .row.collapse
         .large-6.small-6.columns
           .box

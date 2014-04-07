@@ -1,7 +1,7 @@
 class Channels::ProfilesController < Channels::BaseController
   inherit_resources
 
-  actions :show, :edit, :update
+  actions :show
   custom_actions resource: [:how_it_works]
 
   before_action only: [:edit, :update] do
