@@ -19,12 +19,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     complete_request_with(omniauth_sign_in)
   end
-
-  def flash_message(user, kind)
-    if user.confirmed?
-      t('devise.omniauth_callbacks.success', kind: kind)
-    else
-      t('devise.confirmations.send_instructions')
-    end
-  end
 end

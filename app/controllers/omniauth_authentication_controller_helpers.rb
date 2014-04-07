@@ -6,7 +6,7 @@ module OmniauthAuthenticationControllerHelpers
       success: -> do
         sign_in omniauth_sign_in.user, event: :authentication
 
-        flash.notice = flash_message(omniauth_sign_in.user, omniauth_sign_in.provider_name.capitalize)
+        flash.notice = login_flash_message(omniauth_sign_in.user, omniauth_sign_in.provider_name.capitalize)
         redirect_to after_sign_in_path_for(:user)
       end,
       needs_ownership_confirmation: -> do
@@ -22,5 +22,13 @@ module OmniauthAuthenticationControllerHelpers
         redirect_to set_new_user_email_path
       end
     }.fetch(omniauth_sign_in.status).call
+  end
+
+  def login_flash_message(user, kind)
+    if user.confirmed?
+      t('devise.omniauth_callbacks.success', kind: kind)
+    else
+      t('devise.confirmations.send_instructions')
+    end
   end
 end
