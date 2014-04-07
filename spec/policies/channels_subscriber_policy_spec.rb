@@ -1,31 +1,31 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe ChannelsSubscriberPolicy do
-  subject{ ChannelsSubscriberPolicy }
+  subject { described_class }
 
-  let(:subscription){ create(:channels_subscriber) }
-  let(:user){ subscription.user }
+  let(:subscription) { create(:channels_subscriber) }
+  let(:user) { subscription.user }
 
-  shared_examples_for "show permissions" do
-    it "should deny access if user is nil" do
-      should_not permit(nil, subscription)
+  shared_examples_for 'show permissions' do
+    it 'should deny access if user is nil' do
+      expect(subject).not_to permit(nil, subscription)
     end
 
-    it "should deny access if user is not updating his subscription" do
-      should_not permit(User.new, subscription)
+    it 'should deny access if user is not updating his subscription' do
+      expect(subject).not_to permit(User.new, subscription)
     end
 
-    it "should permit access if user is subscription owner" do
-      should permit(user, subscription)
+    it 'should permit access if user is subscription owner' do
+      expect(subject).to permit(user, subscription)
     end
 
-    it "should permit access if user is admin" do
+    it 'should permit access if user is admin' do
       admin = build(:user, admin: true)
-      should permit(admin, subscription)
+      expect(subject).to permit(admin, subscription)
     end
   end
 
-  permissions(:show?){ it_should_behave_like "show permissions" }
+  permissions(:show?) { it_should_behave_like 'show permissions' }
 
-  permissions(:destroy?){ it_should_behave_like "show permissions" }
+  permissions(:destroy?) { it_should_behave_like 'show permissions' }
 end
