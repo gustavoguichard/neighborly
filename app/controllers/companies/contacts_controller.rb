@@ -9,4 +9,9 @@ class Companies::ContactsController < ApplicationController
       return redirect_to companies_contact_path
     end
   end
+
+  protected
+  def permitted_params
+    params.permit({ company_contact: CompanyContact.attribute_names.map(&:to_sym) })
+  end
 end
