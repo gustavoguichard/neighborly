@@ -3,19 +3,19 @@
     a.cancel.button.secondary href="#" = t('words.cancel')
   .clearfix
 
-  - if resource.new_record? || policy(resource).permitted_for?(:title, :update)
+  - if policy(resource).permitted_for?(:title, :update)
     = f.input :title
 
-  - if resource.new_record? || policy(resource).permitted_for?(:minimum_value, :update)
+  - if policy(resource).permitted_for?(:minimum_value, :update)
     = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
 
-  - if resource.new_record? || policy(resource).permitted_for?(:days_to_delivery, :update)
+  - if policy(resource).permitted_for?(:days_to_delivery, :update)
     = f.input :days_to_delivery
 
-  - if resource.new_record? || policy(resource).permitted_for?(:description, :update)
+  - if policy(resource).permitted_for?(:description, :update)
     = f.input :description
 
-  - if resource.new_record? || policy(resource).permitted_for?(:maximum_contributions, :update)
+  - if policy(resource).permitted_for?(:maximum_contributions, :update)
     = f.input :maximum_contributions
 
   = f.input :soon, as: :boolean
