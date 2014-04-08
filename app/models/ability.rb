@@ -15,11 +15,6 @@ class Ability
       !update.exclusive || !current_user.contributions.with_state('confirmed').where(project_id: update.project.id).empty?
     end
 
-    # NOTE: Project Document authorizations
-    can :access, :project_documents do |project_document|
-      project_document.project.user_id == current_user.id
-    end
-
     # NOTE: Reward authorizations
     can :create, :rewards do |reward|
       reward.project.user == current_user
