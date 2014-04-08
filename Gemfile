@@ -45,10 +45,6 @@ gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.5.1'
 gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
-
-# See https://github.com/ryanb/cancan/tree/2.0 for help about this
-# In resume: this version of cancan allow checking for authorization on specific fields on the model
-gem 'cancan', github: 'ryanb/cancan', branch: '2.0', ref: 'f1cebde51a87be149b4970a3287826bb63c0ac0b'
 gem 'pundit', '~> 0.2.2'
 
 # Email marketing
