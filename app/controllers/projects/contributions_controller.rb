@@ -1,5 +1,5 @@
 class Projects::ContributionsController < ApplicationController
-  after_filter :verify_authorized, except: [:index]
+  after_filter :verify_authorized, except: :index
   inherit_resources
   actions :show, :new, :edit, :create, :credits_checkout
   skip_before_filter :force_http, only: [:create, :edit, :update, :credits_checkout]

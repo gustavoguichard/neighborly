@@ -1,6 +1,6 @@
 class Users::ContributionsController < ApplicationController
-  after_filter :verify_authorized, except: [:index]
-  after_filter :verify_policy_scoped, only: [:index]
+  after_filter :verify_authorized, except: :index
+  after_filter :verify_policy_scoped, only: :index
   inherit_resources
   defaults resource_class: Contribution
   belongs_to :user

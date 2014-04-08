@@ -8,19 +8,19 @@ describe ContributionPolicy do
   let(:user) { contribution.user }
 
   shared_examples_for 'update permissions' do
-    it 'should deny access if user is nil' do
+    it 'denies access if user is nil' do
       expect(subject).not_to permit(nil, contribution)
     end
 
-    it 'should deny access if user is not updating his contribution' do
+    it 'denies access if user is not updating his contribution' do
       expect(subject).not_to permit(User.new, contribution)
     end
 
-    it 'should permit access if user is contribution owner' do
+    it 'authorizes access if user is contribution owner' do
       expect(subject).to permit(user, contribution)
     end
 
-    it 'should permit access if user is admin' do
+    it 'authorizes access if user is admin' do
       admin = build(:user, admin: true)
       expect(subject).to permit(admin, contribution)
     end
@@ -30,7 +30,7 @@ describe ContributionPolicy do
     it_should_behave_like 'update permissions'
 
     ['draft', 'deleted', 'rejected', 'successful', 'failed', 'waiting_funds', 'in_analysis'].each do |state|
-      it "should deny access if project is #{state}" do
+      it "denies access if project is on #{state}" do
         contribution.project.update_attributes state: state
         expect(subject).not_to permit(user, contribution)
       end
