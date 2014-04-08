@@ -138,6 +138,11 @@ FactoryGirl.define do
     sequence(:permalink) { |n| "#{n}-test-page" }
   end
 
+  factory :channels_subscriber do |f|
+    f.association :user
+    f.association :channel
+  end
+
   factory :state do
     name "RJ"
     acronym "RJ"

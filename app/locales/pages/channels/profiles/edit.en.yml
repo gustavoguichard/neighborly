@@ -1,6 +1,0 @@
-en:
-  channels:
-    profiles:
-      edit:
-        title: 'Editing %{channel_name} channel'
-        submit: 'Save changes'
