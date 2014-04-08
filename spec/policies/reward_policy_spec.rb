@@ -32,7 +32,7 @@ describe RewardPolicy do
       user.channels = [channel]
       project = Project.new
       project.channels = [channel]
-      should permit(user, Reward.new(project: project))
+       expect(subject).to  permit(user, Reward.new(project: project))
     end
 
     it 'should permit access if user is the channel owner' do
@@ -40,7 +40,7 @@ describe RewardPolicy do
       channel = Channel.new(user: user)
       project = Project.new
       project.channels = [channel]
-      should permit(user, Reward.new(project: project))
+       expect(subject).to  permit(user, Reward.new(project: project))
     end
   end
 

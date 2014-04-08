@@ -1,5 +1,5 @@
 class RewardsController < ApplicationController
-  after_filter :verify_authorized, except: %i[index]
+  after_filter :verify_authorized, except: :index
   inherit_resources
   belongs_to :project, finder: :find_by_permalink!
   respond_to :html, :json
