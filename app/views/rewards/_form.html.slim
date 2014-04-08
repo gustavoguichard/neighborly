@@ -3,25 +3,25 @@
     a.cancel.button.secondary href="#" = t('words.cancel')
   .clearfix
 
-  - if resource.new_record? || can?(:update, resource, :title)
+  - if policy(resource).permitted_for?(:title, :update)
     = f.input :title
 
-  - if resource.new_record? || can?(:update, resource, :minimum_value)
+  - if policy(resource).permitted_for?(:minimum_value, :update)
     = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
 
-  - if resource.new_record? || can?(:update, resource, :days_to_delivery)
+  - if policy(resource).permitted_for?(:days_to_delivery, :update)
     = f.input :days_to_delivery
 
-  - if resource.new_record? || can?(:update, resource, :description)
+  - if policy(resource).permitted_for?(:description, :update)
     = f.input :description
 
-  - if resource.new_record? || can?(:update, resource, :maximum_contributions)
+  - if policy(resource).permitted_for?(:maximum_contributions, :update)
     = f.input :maximum_contributions
 
   = f.input :soon, as: :boolean
 
   = f.button :submit, data: { disable_with: t('words.sending') }
-  - if resource.persisted? && can?(:destroy, resource)
+  - if resource.persisted? && policy(resource).destroy?
     span.or = t('words.or')
     = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do
       i.icon-et-trash.icon-white

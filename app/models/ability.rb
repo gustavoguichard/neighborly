@@ -15,27 +15,6 @@ class Ability
       !update.exclusive || !current_user.contributions.with_state('confirmed').where(project_id: update.project.id).empty?
     end
 
-    # NOTE: Reward authorizations
-    can :create, :rewards do |reward|
-      reward.project.user == current_user
-    end
-
-    can [:update, :destroy], :rewards do |reward|
-      reward.contributions.with_state('waiting_confirmation').empty? && reward.contributions.with_state('confirmed').empty? && (reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel))
-    end
-
-    can [:update, :sort], :rewards, [:title, :description, :maximum_contributions] do |reward|
-      reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel)
-    end
-
-    can :update, :rewards, :days_to_delivery do |reward|
-      (reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel)) && !reward.project.successful? && !reward.project.failed?
-    end
-
-    can :destroy, :authorizations do |authorization|
-      authorization.user == current_user || current_user.admin?
-    end
-
     # NOTE: Contribution authorizations
     cannot :show, :contributions
     can :create, :contributions if current_user.persisted?
