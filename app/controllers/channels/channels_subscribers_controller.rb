@@ -1,5 +1,5 @@
 class Channels::ChannelsSubscribersController < Channels::BaseController
-  after_filter :verify_authorized, except: [:create]
+  after_filter :verify_authorized, except: :create
   inherit_resources
   actions :show, :destroy, :create
 

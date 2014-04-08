@@ -7,19 +7,19 @@ describe ChannelsSubscriberPolicy do
   let(:user) { subscription.user }
 
   shared_examples_for 'show permissions' do
-    it 'should deny access if user is nil' do
+    it 'denies access if user is nil' do
       expect(subject).not_to permit(nil, subscription)
     end
 
-    it 'should deny access if user is not updating his subscription' do
+    it 'denies access if user is not updating his subscription' do
       expect(subject).not_to permit(User.new, subscription)
     end
 
-    it 'should permit access if user is subscription owner' do
+    it 'authorizes access if user is subscription owner' do
       expect(subject).to permit(user, subscription)
     end
 
-    it 'should permit access if user is admin' do
+    it 'authorizes access if user is admin' do
       admin = build(:user, admin: true)
       expect(subject).to permit(admin, subscription)
     end
