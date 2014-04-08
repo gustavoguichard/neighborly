@@ -75,57 +75,6 @@ describe Contribution do
     end
   end
 
-  describe '#update_current_billing_info' do
-    let(:contribution) { build(:contribution, user: user) }
-    let(:user) {
-      build(:user, {
-        address_street: 'test stret',
-        address_number: '123',
-        address_neighborhood: 'test area',
-        address_zip_code: 'test zipcode',
-        address_city: 'test city',
-        address_state: 'test state',
-        phone_number: 'test phone',
-        cpf: 'test doc number'
-      })
-    }
-    subject{ contribution }
-    before do
-      contribution.update_current_billing_info
-    end
-    its(:address_street){ should eq(user.address_street) }
-    its(:address_number){ should eq(user.address_number) }
-    its(:address_neighborhood){ should eq(user.address_neighborhood) }
-    its(:address_zip_code){ should eq(user.address_zip_code) }
-    its(:address_city){ should eq(user.address_city) }
-    its(:address_state){ should eq(user.address_state) }
-    its(:address_phone_number){ should eq(user.phone_number) }
-    its(:payer_document){ should eq(user.cpf) }
-  end
-
-  describe '#update_user_billing_info' do
-    let(:contribution) { create(:contribution) }
-    let(:user) { contribution.user }
-    let(:contribution_attributes) {
-      {
-        address_street: contribution.address_street,
-        address_number: contribution.address_number,
-        address_neighborhood: contribution.address_neighborhood,
-        address_zip_code: contribution.address_zip_code,
-        address_city: contribution.address_city,
-        address_state: contribution.address_state,
-        phone_number: contribution.address_phone_number,
-        cpf: contribution.payer_document
-      }
-    }
-
-    before do
-      user.should_receive(:update_attributes).with(contribution_attributes)
-    end
-
-    it('should update user billing info attributes') { contribution.update_user_billing_info}
-  end
-
   describe '#recommended_projects' do
     subject{ contribution.recommended_projects }
     let(:contribution){ create(:contribution) }

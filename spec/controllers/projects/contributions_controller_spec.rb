@@ -13,46 +13,6 @@ describe Projects::ContributionsController do
     controller.stub(:current_user).and_return(user)
   end
 
-  describe "PUT update" do
-    let(:set_expectations) {}
-
-    before do
-      set_expectations
-      put :update, { locale: :pt, project_id: project, id: contribution.id, contribution: contribution_info, format: :json }
-    end
-
-    context "when no user is logged in" do
-      it{ should redirect_to(new_user_session_path) }
-    end
-
-    context "when contribution don't exist in current_user" do
-      let(:user){ create(:user) }
-      it{ should redirect_to(root_path) }
-      it('should set alert flash'){ request.flash.alert.should_not be_empty }
-    end
-
-    context "when we have the right user" do
-      let(:set_expectations) { Contribution.any_instance.should_receive(:update_user_billing_info) }
-      let(:user){ contribution.user }
-      its(:body){ should == { message: "updated" }.to_json  }
-    end
-
-    context "when try pass unpermitted attributes" do
-      let(:contribution_info) { { payment_service_fee: 1000, value: 1000,  address_city: 'Porto Alegre', address_complement: '24', address_neighborhood: 'Rio Branco', address_number: '1004', address_phone_number: '(51)2112-8397', address_state: 'RS', address_street: 'Rua Mariante', address_zip_code: '90430-180', payer_email: 'diogo@biazus.me', payer_name: 'Diogo de Oliveira Biazus'  } }
-
-      it { should be_redirect }
-    end
-
-    describe 'persistent warnings' do
-      let(:set_expectations) do
-        expect(controller).to_not receive(:set_persistent_warning)
-      end
-
-      it 'skips its setter method call' do
-      end
-    end
-  end
-
   describe "PUT credits_checkout" do
     let(:failed_project) { create(:project, state: 'online') }
     before do
