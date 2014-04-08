@@ -26,40 +26,6 @@ class User < ActiveRecord::Base
     :medium_name, :display_credits, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
-  attr_accessible :email,
-    :password,
-    :password_confirmation,
-    :remember_me,
-    :name,
-    :nickname,
-    :image_url,
-    :uploaded_image,
-    :bio,
-    :newsletter,
-    :full_name,
-    :address_street,
-    :address_number,
-    :address_complement,
-    :address_neighborhood,
-    :address_city,
-    :address_state,
-    :address_zip_code,
-    :phone_number,
-    :cpf,
-    :state_inscription,
-    :locale,
-    :twitter_url,
-    :facebook_url,
-    :linkedin_url,
-    :other_url,
-    :moip_login,
-    :new_project,
-    :profile_type,
-    :address,
-    :remote_uploaded_image_url,
-    :organization_attributes,
-    :channel_attributes
-
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image

@@ -5,8 +5,6 @@ class Channel < ActiveRecord::Base
   include Channel::StartContent
   include Channel::SuccessContent
 
-  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :accepts_projects, :submit_your_project_text, :user, :user_id, :user_attributes, :start_hero_image, :start_primary_content, :start_content, :success_content
-
   has_many :subscriber_reports
   has_many :channels_subscribers
   belongs_to :user
