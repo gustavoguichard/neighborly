@@ -1,5 +1,5 @@
 class Projects::FaqsController < ApplicationController
-  after_filter :verify_authorized, except: %i[index]
+  after_filter :verify_authorized, except: :index
   inherit_resources
   defaults resource_class: ProjectFaq, collection_name: :project_faqs
 
