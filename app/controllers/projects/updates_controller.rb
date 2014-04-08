@@ -1,22 +1,26 @@
 class Projects::UpdatesController < ApplicationController
+  after_filter :verify_authorized, except: :index
   inherit_resources
-  load_and_authorize_resource
-
   actions :destroy
   belongs_to :project, finder: :find_by_permalink!
 
   def index
+    @project = parent
     if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
     end
   end
 
   def create
-    @update = parent.updates.create(params[:update].merge!(user: current_user))
+    @update = Update.new(permitted_params[:update].
+                         merge(project: parent, user: current_user))
+    authorize @update
+    @update.save
     render @update
   end
 
   def destroy
+    authorize resource
     destroy! do
       if request.xhr?
         return render nothing: true
@@ -24,6 +28,11 @@ class Projects::UpdatesController < ApplicationController
         project_updates_path(parent)
       end
     end
+  end
+
+  private
+  def permitted_params
+    params.permit(policy(@update || Update).permitted_attributes)
   end
 
   def collection
