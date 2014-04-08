@@ -1,8 +1,9 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  load_and_authorize_resource new: [ :set_email ]
+  after_filter :verify_authorized, except: :show
+
   inherit_resources
-  actions :show, :edit, :update, :unsubscribe_update, :set_email, :update_email
+  actions :show, :edit, :update
   respond_to :html, :json
 
   def show
@@ -14,30 +15,36 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize resource
     @user.build_organization unless @user.organization
     render :profile if request.xhr?
   end
 
   def credits
+    authorize resource
     @title = "Credits: #{@user.display_name}"
     @credits = @user.contributions.can_refund
   end
 
   def payments
+    authorize resource
   end
 
   def settings
+    authorize resource
     @title = "Settings: #{@user.display_name}"
     @subscribed_to_updates = @user.updates_subscription
     @unsubscribes = @user.project_unsubscribes
   end
 
   def set_email
+    authorize current_user || User.new
     @user = current_user
     render layout: 'devise'
   end
 
   def update_email
+    authorize resource
     update! do |success,failure|
       success.html do
         flash.notice = t('devise.confirmations.send_instructions')
@@ -52,6 +59,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorize resource
     update! do |success,failure|
       success.html do
         flash.notice = update_success_flash_message
@@ -74,7 +82,7 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    @user = User.find(params[:id])
+    authorize resource
     if @user.update_with_password(params[:user])
       flash.notice = t('controllers.users.update.success')
     else
@@ -90,5 +98,9 @@ class UsersController < ApplicationController
     else
       t('controllers.users.update.success')
     end
+  end
+
+  def permitted_params
+    params.permit(policy(@user || User).permitted_attributes)
   end
 end

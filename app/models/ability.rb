@@ -37,13 +37,8 @@ class Ability
       (reward.project.user == current_user || reward.project.last_channel.try(:user) == current_user || current_user.channels.include?(reward.project.last_channel)) && !reward.project.successful? && !reward.project.failed?
     end
 
-    # NOTE: User authorizations
-    can :set_email, :users do |user|
-      current_user.persisted?
-    end
-
-    can [:edit, :update, :credits, :manage, :update_password, :update_email, :settings, :payments], :users  do |user|
-      current_user == user || current_user.admin?
+    can :destroy, :authorizations do |authorization|
+      authorization.user == current_user || current_user.admin?
     end
 
     # NOTE: Contribution authorizations

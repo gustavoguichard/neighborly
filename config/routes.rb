@@ -142,14 +142,12 @@ Neighborly::Application.routes.draw do
     resources :authorizations, controller: 'users/authorizations', only: [:destroy]
     resources :unsubscribes, only: [:create]
     member do
-      get :profile,   to: 'users#edit'
       get :settings
       get :credits
       get :payments
       get :edit
-      put 'unsubscribe_update'
-      put 'update_email'
-      put 'update_password'
+      put :update_email
+      put :update_password
     end
   end
 
