@@ -113,7 +113,7 @@ Neighborly.MarkdownUploadModal =
     this.bindEvents(markItUp)
 
     $("##{@id}").foundation 'reveal', 'open',
-      'url': '<%= Rails.application.routes.url_helpers.new_image_url %>'
+      'url': '<%= Rails.application.routes.url_helpers.new_image_path %>'
 
     return false
 
@@ -155,7 +155,7 @@ Neighborly.MarkdownPreviewer =
     this.bindEvents(markItUp)
 
     $("##{@id}").foundation 'reveal', 'open',
-      url: '<%= Rails.application.routes.url_helpers.markdown_previewer_index_url %>'
+      url: '<%= Rails.application.routes.url_helpers.markdown_previewer_index_path %>'
       method: 'POST'
       data: { markdown: markItUp.textarea.value }
 
