@@ -4,7 +4,6 @@ ruby '2.1.1'
 
 gem 'rails',    '4.0.4'
 
-gem 'protected_attributes', '~> 1.0.5' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
 
 gem 'sidekiq',  '~> 2.17.0'
