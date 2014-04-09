@@ -45,24 +45,6 @@ class Contribution < ActiveRecord::Base
     @decorator ||= ContributionDecorator.new(self)
   end
 
-  def price_with_tax
-    if self.payment_method.to_s.downcase == 'authorizenet'
-      (self.value * 1.029)+0.30
-    elsif self.payment_method.to_s.downcase == 'echecknet'
-      (self.value * 1.010)+0.35
-    else
-      self.value + 1.029 * (0.029 * self.value + 0.30)
-    end
-  end
-
-  def price_in_cents_with_tax
-    (self.price_with_tax * 100).round
-  end
-
-  def price_in_cents
-    (self.value * 100).round
-  end
-
   def recommended_projects
     user.recommended_projects.where("projects.id <> ?", project.id).order("count DESC")
   end
