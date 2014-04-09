@@ -55,14 +55,6 @@ GIT
       rails (~> 4.0)
 
 GIT
-  remote: git://github.com/ryanb/cancan.git
-  revision: f1cebde51a87be149b4970a3287826bb63c0ac0b
-  ref: f1cebde51a87be149b4970a3287826bb63c0ac0b
-  branch: 2.0
-  specs:
-    cancan (2.0.0.alpha)
-
-GIT
   remote: git://github.com/shorelabs/font-icons-rails.git
   revision: 19da71315862d54f766645444accd4e9f5dab6e7
   ref: 19da71315862d54f766645444accd4e9f5dab6e7
@@ -485,7 +477,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
-  cancan!
   capybara (~> 2.2.1)
   carrierwave (~> 0.9.0)
   catarse_mailchimp!
