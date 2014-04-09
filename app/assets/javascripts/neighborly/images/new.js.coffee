@@ -17,7 +17,7 @@ Neighborly.Images.New =
       initialize: ->
         _.bindAll this, 'onFileAdded', 'onUploadProgress', 'onUploadComplete', 'onUploadFail', 'mouseEnter', 'mouseLeave', 'openFileChooser'
         this.action_url = this.$el.closest('form')[0].getAttribute("action")
-        this.param_name = this.$el[0].dataset.param
+        this.param_name = this.$el.data('param')
         this.$image_previewer = this.$('.uploaded-image')
         this.$uploaded_image_url = $('.uploaded-image-url')
         this.initializeDropzone()
