@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
-gem 'rails',    '4.0.4'
+gem 'rails',    '4.1.0'
 
 gem 'rails-observers', '~> 0.1.2'
 
@@ -10,7 +10,7 @@ gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # State machine for attributes on models
-gem 'state_machine', require: 'state_machine/core'
+gem 'state_machine', require: 'state_machine/core', github: 'lukeroberts1990/state_machine'
 
 # Database and data related
 gem 'pg'
@@ -47,13 +47,13 @@ gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.5.1'
 gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
-gem 'pundit', '~> 0.2.2'
+gem 'pundit', '~> 0.2.3'
 
 # Email marketing
 gem 'catarse_mailchimp', github: 'catarse/catarse_mailchimp', ref: '2ed4f39'
 
 # HTML manipulation and formatting
-gem 'simple_form', '~> 3.0.1'
+gem 'simple_form', '~> 3.0.2'
 gem 'auto_html', '~> 1.6.1'
 gem 'kaminari'
 
@@ -95,6 +95,7 @@ group :production do
 end
 
 group :development do
+  gem 'spring'
   gem 'ffaker'
   gem "letter_opener"
   gem 'thin'
@@ -104,6 +105,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'minitest'
   gem 'rspec-rails', '~> 2.14.1'
   gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
@@ -121,13 +123,13 @@ group :test do
   gem 'selenium-webdriver', '~> 2.39.0'
 end
 
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
 gem 'zurb-foundation', '~> 4.3.2'
-gem 'turbolinks', '~> 2.2.1'
+gem 'turbolinks', '~> 2.2.2'
 gem 'nprogress-rails'
 gem 'pjax_rails'
 gem 'initjs', '~> 2.1.2'
