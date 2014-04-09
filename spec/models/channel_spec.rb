@@ -5,7 +5,6 @@ describe Channel do
 
     [:name, :description, :permalink, :user].each do |attribute|
       it { should validate_presence_of      attribute }
-      it { should allow_mass_assignment_of  attribute }
     end
 
     it "validates uniqueness of permalink" do
