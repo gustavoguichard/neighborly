@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
   def update_password
     authorize resource
-    if @user.update_with_password(params[:user])
+    if @user.update_with_password(permitted_params[:user])
       flash.notice = t('controllers.users.update.success')
     else
       flash.alert  = @user.errors.full_messages.to_sentence

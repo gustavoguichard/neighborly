@@ -303,8 +303,6 @@ GEM
       pg
       rails (~> 4.0)
       responders
-    protected_attributes (1.0.7)
-      activemodel (>= 4.0.1, < 5.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -522,7 +520,6 @@ DEPENDENCIES
   pg_search
   pjax_rails
   postgres-copy
-  protected_attributes (~> 1.0.5)
   pry
   pundit (~> 0.2.2)
   quiet_assets

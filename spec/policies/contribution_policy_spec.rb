@@ -85,6 +85,7 @@ describe ContributionPolicy do
 
     %i[user_attributes
        user_id
+       state
        user
        payment_service_fee
        payment_id
