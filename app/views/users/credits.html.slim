@@ -22,7 +22,7 @@
             - elsif credit.refunded?
               = t('.refunded')
             - else
-              - if can? :request_refund, credit
+              - if policy(credit).request_refund?
                 .reveal-modal.small.fixed[id="request-refund-modal-#{credit.id}"]
                   h4 = t('.modal.title')
                   a.close-reveal-modal ×
