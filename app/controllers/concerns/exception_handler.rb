@@ -18,11 +18,11 @@ module Concerns
       self.response_body = nil
 
       if current_user.nil?
-        redirect_to new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
+        redirect_to main_app.new_user_session_path, alert: I18n.t('devise.failure.unauthenticated')
       elsif request.env['HTTP_REFERER']
         redirect_to :back, alert: I18n.t('controllers.unauthorized')
       else
-        redirect_to root_path, alert: I18n.t('controllers.unauthorized')
+        redirect_to main_app.root_path, alert: I18n.t('controllers.unauthorized')
       end
     end
 
