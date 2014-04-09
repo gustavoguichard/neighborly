@@ -17,6 +17,7 @@ Neighborly.Projects.Updates.Index =
       $(e.currentTarget).remove()
 
     initialize: ->
+      this.$('#update_comment').markItUp(Neighborly.markdownSettings)
       _.bindAll(this, 'parseXFBML')
       this.$loader = this.$('.updates-loading img')
       this.$loaderDiv = this.$('.updates-loading')
