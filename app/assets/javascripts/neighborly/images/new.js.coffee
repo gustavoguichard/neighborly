@@ -90,7 +90,7 @@ Neighborly.Images.New =
         $('.new-image-page .will-hide').addClass('hide')
 
       onUploadFail: (file, error)->
-        this.$('.info').text error
+        this.$('.info').text 'Error uploading, try it again. Click here to select the image again or just drag and drop it.'
         this.$el.removeClass('upload-started').addClass 'upload-fail'
 
       openFileChooser: (e)->
