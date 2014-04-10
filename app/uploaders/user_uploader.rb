@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class UserUploader < ImageUploader
+  process convert: :jpg
 
   version :thumb_avatar do
     process quality: 100
