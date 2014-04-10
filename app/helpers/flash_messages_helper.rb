@@ -25,7 +25,7 @@ module FlashMessagesHelper
 
   def html_classes_for_msg(name, message)
     html_classes  = "#{name} alert-box large-10 columns large-centered animated fadeIn"
-    html_classes << ' dismissible' if message.is_a?(Hash) && message[:dismissible]
+    html_classes << ' dismissible' unless message.is_a?(Hash) && !message[:dismissible]
     html_classes
   end
 
