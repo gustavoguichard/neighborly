@@ -19,7 +19,7 @@
       - else
         .use-dropzone
           .new-image-upload-dropzone data-param="image[file]"
-            span.info = t('.description')
+            span.info.will-hide = t('.description')
             = image_tag 'image-placeholder.jpg', class: 'uploaded-image'
 
       .hide
@@ -29,5 +29,5 @@
         .submit.text-right.will-hide
           = f.button :submit, t('.upload'), data: { disable_with: t('.uploading') }
 
-      .insert-image-wrapper.text-right[class="#{'hide will-show' if use_simple_uploader}"]
+      .insert-image-wrapper.text-right.hide.will-show
         = link_to t('.insert'), '#', class: 'insert-image button'

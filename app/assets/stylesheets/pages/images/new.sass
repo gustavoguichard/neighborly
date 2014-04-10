@@ -10,6 +10,7 @@
     width: 90%
     margin: auto
     font-weight: 600
+    padding: 0
 
   .uploaded-image
     margin-top: +emCalc(20px)
@@ -18,12 +19,18 @@
       border: 2px solid #86AC4D
 
   .new-image-upload-dropzone
-    padding: 10px
     width: 100%
     min-height: 200px
     cursor: pointer
     +transition(.2s)
     text-align: center
+
+    .uploaded-image
+      margin: 0
+
+    .info
+      padding: 20px
+      position: absolute
 
     .dz-preview
       display: none

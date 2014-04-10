@@ -33,6 +33,7 @@ Neighborly.Images.New =
         this.$('.will-show').removeClass('hide')
         this.$('.will-hide').addClass('hide')
         this.$('.title').html('Upload complete!')
+        this.$('.info').text ''
 
       onUploadFail: ->
         this.$('.info').html('Error uploading, try it again.')
@@ -50,7 +51,8 @@ Neighborly.Images.New =
         this.action_url = this.$el.closest('form')[0].getAttribute("action")
         this.param_name = this.$el.data('param')
         this.$image_previewer = this.$('.uploaded-image')
-        this.$uploaded_image_url = $('.uploaded-image-url')
+        this.$uploaded_image_url = $('.new-image-page .uploaded-image-url')
+        this.$title = $('.new-image-page .title')
         this.initializeDropzone()
         this.listenDropzoneEvents()
 
@@ -73,17 +75,19 @@ Neighborly.Images.New =
           this.dropzone.on "error", this.onUploadFail
 
       onFileAdded: (file)->
-        this.$('.info').text 'Sorry, something went wrong, try it again.'
+        this.$('.info').text ''
         this.$el.removeClass('upload-complete upload-fail').addClass 'upload-started'
 
       onUploadProgress: (file, progress)->
-        this.$('.info').text 'Uploading...'
+        this.$title.html 'Uploading...'
 
       onUploadComplete: (file, response)->
-        this.$('.info').text 'Upload complete!'
+        this.$title.html 'Upload complete!'
         this.$el.removeClass('upload-started').addClass 'upload-complete'
         this.$image_previewer.attr 'src', response[this.param_name]
         this.$uploaded_image_url.val(response[this.param_name])
+        $('.new-image-page .will-show').removeClass('hide')
+        $('.new-image-page .will-hide').addClass('hide')
 
       onUploadFail: (file, error)->
         this.$('.info').text error
