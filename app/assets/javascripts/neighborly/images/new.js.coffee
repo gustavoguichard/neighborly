@@ -5,7 +5,39 @@ Neighborly.Images.New =
     el: '.new-image-page'
 
     initialize: ->
-      dropzone = new this.DragDropUploader { el: '.new-image-upload-dropzone' }
+      if this.$('.use-simple-uploader').length > 0
+        new this.SimpleUploader { el: '.new-image-page' }
+      else
+        new this.DragDropUploader { el: '.new-image-upload-dropzone' }
+
+    SimpleUploader: Backbone.View.extend
+      initialize: ->
+        that = this
+        this.$image_previewer = this.$('.uploaded-image')
+        this.$uploaded_image_url = this.$('.uploaded-image-url')
+
+        this.$('form').on 'ajax:complete', (xhr, response)->
+          if response.status == '200'
+            that.onUploadSuccess(response.responseText)
+          else
+            that.onUploadFail()
+
+      onUploadSuccess: (responseText)->
+        json = jQuery.parseJSON(responseText)
+        this.$image_previewer.
+          attr('src', json['image[file]']).
+          addClass('upload-complete')
+
+        this.$uploaded_image_url.val json['image[file]']
+
+        this.$('.will-show').removeClass('hide')
+        this.$('.will-hide').addClass('hide')
+        this.$('.title').html('Upload complete!')
+
+      onUploadFail: ->
+        this.$('.info').html('Error uploading, try it again.')
+        this.$image_previewer.addClass('upload-fail')
+
 
     DragDropUploader: Backbone.View.extend
       events:
@@ -13,7 +45,6 @@ Neighborly.Images.New =
         'mouseleave': 'mouseLeave'
         'click *': 'openFileChooser'
 
-      # TODO: Uploader functionality
       initialize: ->
         _.bindAll this, 'onFileAdded', 'onUploadProgress', 'onUploadComplete', 'onUploadFail', 'mouseEnter', 'mouseLeave', 'openFileChooser'
         this.action_url = this.$el.closest('form')[0].getAttribute("action")
