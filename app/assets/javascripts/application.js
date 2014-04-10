@@ -1,5 +1,6 @@
 //= require jquery.js
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require jquery.pjax
 //= require foundation

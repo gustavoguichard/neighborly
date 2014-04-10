@@ -344,6 +344,7 @@ GEM
     redis (3.0.7)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
+    remotipart (1.2.1)
     request_store (1.0.5)
     responders (1.0.0)
       railties (>= 3.2, < 5)
@@ -527,6 +528,7 @@ DEPENDENCIES
   rails-observers (~> 0.1.2)
   rails_12factor
   ranked-model
+  remotipart (~> 1.2.1)
   rmagick
   rspec-rails (~> 2.14.1)
   sass-rails (~> 4.0.2)
