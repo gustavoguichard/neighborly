@@ -45,7 +45,8 @@ class ContributionObserver < ActiveRecord::Observer
       contribution.user,
       {contribution_id: contribution.id},
       contribution: contribution,
-      project: contribution.project
+      project: contribution.project,
+      bcc: ::Configuration[:email_payments]
     )
 
     if (Time.now > contribution.project.expires_at  + 7.days) && (user = User.where(email: ::Configuration[:email_payments]).first)
