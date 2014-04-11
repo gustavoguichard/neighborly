@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     return redirect_to root_url(subdomain: resource.channel.permalink) if resource.channel? && resource.channel.present?
     show!{
-      fb_admins_add(@user.facebook_id) if @user.facebook_id
+      set_facebook_url_admin(@user)
       @title = "#{@user.display_name}"
     }
   end

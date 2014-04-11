@@ -14,15 +14,11 @@ module Concerns
     end
 
     def fb_admins
-      @fb_admins.join(',')
+      @facebook_url_admin.to_s
     end
 
-    def fb_admins_add(ids)
-      if ids.kind_of?(Array)
-        ids.each {|id| @fb_admins << id.to_i}
-      else
-        @fb_admins << ids.to_i
-      end
+    def set_facebook_url_admin(user)
+      @facebook_url_admin = user.facebook_id
     end
 
     def render_facebook_sdk

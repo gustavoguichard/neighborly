@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
 
   def show
     authorize resource
-    fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
+    set_facebook_url_admin(resource.user)
     render :about if request.xhr?
   end
 
