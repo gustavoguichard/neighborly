@@ -16,7 +16,6 @@ module Project::StateMachineHandler
       state :waiting_funds
       state :failed
       state :deleted
-      state :in_analysis
 
       event :push_to_draft do
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
@@ -27,19 +26,15 @@ module Project::StateMachineHandler
       end
 
       event :push_to_trash do
-        transition [:draft, :rejected, :in_analysis] => :deleted
-      end
-
-      event :send_to_analysis do
-        transition draft: :in_analysis
+        transition [:draft, :rejected] => :deleted
       end
 
       event :reject do
-        transition [:draft, :in_analysis] =>  :rejected
+        transition [:draft] =>  :rejected
       end
 
       event :approve do
-        transition [:draft, :soon, :in_analysis] => :online
+        transition [:draft, :soon] => :online
       end
 
       event :finish do

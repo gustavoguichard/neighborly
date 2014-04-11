@@ -6,20 +6,6 @@ describe Project::StateMachineHandler do
   describe "state machine" do
     let(:project) { create(:project, state: 'draft', online_date: nil) }
 
-    describe "#send_to_analysis" do
-      subject { project.in_analysis? }
-      before do
-        project.should_receive(:notify_observers).with(:from_draft_to_in_analysis).and_call_original
-        project.send_to_analysis
-      end
-
-      it { should be_true }
-
-      it "should store sent_to_analysis_at" do
-        expect(project.sent_to_analysis_at).to_not be_nil
-      end
-    end
-
     describe '#draft?' do
       subject { project.draft? }
       context "when project is new" do
@@ -39,7 +25,7 @@ describe Project::StateMachineHandler do
     describe '#rejected?' do
       subject { project.rejected? }
       before do
-        project.send_to_analysis
+        project.push_to_draft
         project.reject
       end
       context 'when project is not accepted' do
@@ -48,9 +34,9 @@ describe Project::StateMachineHandler do
     end
 
     describe '#reject' do
-      before { project.update_attributes state: 'in_analysis' }
+      before { project.update_attributes state: 'draft' }
       subject do
-        project.should_receive(:notify_observers).with(:from_in_analysis_to_rejected)
+        project.should_receive(:notify_observers).with(:from_draft_to_rejected)
         project.reject
         project
       end
@@ -70,10 +56,10 @@ describe Project::StateMachineHandler do
     end
 
     describe '#approve' do
-      before { project.send_to_analysis }
+      before { project.push_to_draft }
 
       subject do
-        project.should_receive(:notify_observers).with(:from_in_analysis_to_online)
+        project.should_receive(:notify_observers).with(:from_draft_to_online)
         project.approve
         project
       end
@@ -88,7 +74,7 @@ describe Project::StateMachineHandler do
 
     describe '#online?' do
       before do
-        project.send_to_analysis
+        project.push_to_draft
         project.approve
       end
       subject { project.online? }

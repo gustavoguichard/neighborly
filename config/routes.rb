@@ -116,7 +116,6 @@ Neighborly::Application.routes.draw do
       get 'reports'
       get 'budget'
       get 'success'
-      get 'send_to_analysis'
     end
 
     resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do

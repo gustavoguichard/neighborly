@@ -77,7 +77,7 @@ describe Project do
 
   describe ".visible" do
     before do
-      [:draft, :rejected, :deleted, :in_analysis].each do |state|
+      [:draft, :rejected, :deleted].each do |state|
         create(:project, state: state)
       end
       @project = create(:project, state: :online)
@@ -87,7 +87,7 @@ describe Project do
   end
 
   describe '.state_names' do
-    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds, :failed, :in_analysis] }
+    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds, :failed] }
 
     subject { Project.state_names }
 
