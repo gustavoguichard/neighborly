@@ -64,10 +64,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_ability
-    @current_ability ||= Ability.new(current_user, { channel: channel })
-  end
-
   def require_basic_auth
     black_list = ['neighborly-staging.herokuapp.com', 'staging.neighbor.ly', 'channel.staging.neighbor.ly', 'kaboom.neighbor.ly', 'cfg.neighbor.ly', 'makeitright.neighbor.ly']
 
