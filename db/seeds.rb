@@ -266,14 +266,14 @@ puts 'Creating channel projects...... It can take a while... You can go and get 
 
   3.times do
     p = generate_project(channels: [Channel.order('RANDOM()').limit(1).first])
-    p.approve!
+    p.launch!
   end
 
   channel_project = Project.first
   channel_project.push_to_draft!
   channel_project.reject!
   channel_project.push_to_draft!
-  channel_project.approve!
+  channel_project.launch!
   channel_project.update_column(:recommended, true)
 
 puts '---------------------------------------------'

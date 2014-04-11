@@ -33,7 +33,7 @@ module Project::StateMachineHandler
         transition [:draft] =>  :rejected
       end
 
-      event :approve do
+      event :launch do
         transition [:draft, :soon] => :online
       end
 

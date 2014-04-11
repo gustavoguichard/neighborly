@@ -39,7 +39,7 @@ describe ProjectObserver do
     let(:channel){ create(:channel) }
     let(:project){ create(:project, video_url: 'http://vimeo.com/11198435', state: 'draft')}
 
-    context "when project is approved and belongs to a channel" do
+    context "when project is launched and belongs to a channel" do
       let(:project){ create(:project, video_url: 'http://vimeo.com/11198435', state: 'draft', channels: [channel])}
       before do
         project.update_attributes state: 'draft'
@@ -57,11 +57,11 @@ describe ProjectObserver do
             origin_name: channel.name
           }
         )
-        project.approve
+        project.launch!
       end
     end
 
-    context "when project is approved" do
+    context "when project is launched" do
       before do
         project.update_attributes state: 'draft'
         ProjectDownloaderWorker.should_receive(:perform_async).with(project.id).never
@@ -79,7 +79,7 @@ describe ProjectObserver do
             origin_name: Configuration[:company_name]
           }
         )
-        project.approve
+        project.launch!
       end
     end
 
@@ -216,7 +216,7 @@ describe ProjectObserver do
 
     context "when project don't belong to any channel" do
       before do
-        project.approve
+        project.launch!
       end
 
       it "should create notification for project owner" do
@@ -227,7 +227,7 @@ describe ProjectObserver do
     context "when project belong to a channel" do
       before do
         project.channels << channel
-        project.approve
+        project.launch!
       end
 
       it "should create notification for project owner" do
