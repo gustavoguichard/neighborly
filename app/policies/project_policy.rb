@@ -8,15 +8,11 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    if record.draft? || record.in_analysis? || record.soon?
+    if record.draft? || record.soon?
       create?
     else
       true
     end
-  end
-
-  def send_to_analysis?
-    update?
   end
 
   def success?
@@ -46,8 +42,9 @@ class ProjectPolicy < ApplicationPolicy
   def fully_editable?
     record.instance_of?(Project) && ( !record.persisted? ||
                                       user.admin? ||
-                                      (record.draft? || record.rejected? ||
-                                      record.in_analysis? || record.soon?) )
+                                      (record.draft? ||
+                                       record.rejected? ||
+                                       record.soon?) )
   end
 
   def is_channel_admin?

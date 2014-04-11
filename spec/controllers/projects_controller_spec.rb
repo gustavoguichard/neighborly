@@ -130,17 +130,6 @@ describe ProjectsController do
     end
   end
 
-  describe "GET send_to_analysis" do
-    let(:current_user){ project.user }
-
-    before do
-      get :send_to_analysis, id: project, locale: :pt
-      project.reload
-    end
-
-    it { expect(project.in_analysis?).to be_true }
-  end
-
   describe "GET new" do
     before { get :new }
 

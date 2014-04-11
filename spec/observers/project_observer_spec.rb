@@ -35,21 +35,6 @@ describe ProjectObserver do
     end
   end
 
-  describe "when project is sent to curator" do
-    let(:project) { create(:project, goal: 3000, state: 'draft') }
-    let(:user) { create(:user, email: ::Configuration[:email_projects])}
-
-    before do
-      user
-      project
-      project.send_to_analysis!
-    end
-
-    it "should create notification for catarse admin" do
-      Notification.where(user_id: user.id, template_name: :new_draft_project, project_id: project.id).first.should_not be_nil
-    end
-  end
-
   describe "before_save" do
     let(:channel){ create(:channel) }
     let(:project){ create(:project, video_url: 'http://vimeo.com/11198435', state: 'draft')}
@@ -57,7 +42,7 @@ describe ProjectObserver do
     context "when project is approved and belongs to a channel" do
       let(:project){ create(:project, video_url: 'http://vimeo.com/11198435', state: 'draft', channels: [channel])}
       before do
-        project.update_attributes state: 'in_analysis'
+        project.update_attributes state: 'draft'
       end
 
       it "should call notify using channel data" do
@@ -78,7 +63,7 @@ describe ProjectObserver do
 
     context "when project is approved" do
       before do
-        project.update_attributes state: 'in_analysis'
+        project.update_attributes state: 'draft'
         ProjectDownloaderWorker.should_receive(:perform_async).with(project.id).never
       end
 
@@ -227,7 +212,7 @@ describe ProjectObserver do
   end
 
   describe "#notify_owner_that_project_is_online" do
-    let(:project) { create(:project, state: 'in_analysis') }
+    let(:project) { create(:project, state: 'draft') }
 
     context "when project don't belong to any channel" do
       before do
@@ -252,7 +237,7 @@ describe ProjectObserver do
   end
 
   describe "#notify_owner_that_project_is_rejected" do
-    let(:project){ create(:project, state: 'in_analysis') }
+    let(:project){ create(:project, state: 'draft') }
 
     context "when project don't belong to any channel" do
       before do

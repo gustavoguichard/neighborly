@@ -70,22 +70,9 @@ describe ProjectPolicy do
     it_should_behave_like 'create permissions'
   end
 
-  permissions :send_to_analysis? do
-    it_should_behave_like 'create permissions'
-  end
-
-  permissions :send_to_analysis? do
-    it_should_behave_like 'create permissions'
-  end
-
   permissions :show? do
     context 'when project is in draft' do
       let(:project_state) { 'draft' }
-      it_should_behave_like 'create permissions'
-    end
-
-    context 'when project is in in_analysis' do
-      let(:project_state) { 'in_analysis' }
       it_should_behave_like 'create permissions'
     end
 

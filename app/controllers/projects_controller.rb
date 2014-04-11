@@ -36,13 +36,6 @@ class ProjectsController < ApplicationController
     create! { success_project_path(@project) }
   end
 
-  def send_to_analysis
-    authorize resource
-    resource.send_to_analysis
-    flash.notice = t('projects.send_to_analysis')
-    redirect_to project_path(@project)
-  end
-
   def success
     authorize resource
   end

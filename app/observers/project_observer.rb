@@ -12,12 +12,6 @@ class ProjectObserver < ActiveRecord::Observer
     notify_new_draft_project(project)
   end
 
-  def from_draft_to_in_analysis(project)
-    notify_new_draft_project(project)
-    deliver_default_notification_for(project, :in_analysis_project)
-    project.update_attributes({ sent_to_analysis_at: DateTime.now })
-  end
-
   def from_online_to_waiting_funds(project)
     Notification.notify_once(
       :project_in_wainting_funds,
@@ -57,27 +51,19 @@ class ProjectObserver < ActiveRecord::Observer
     end
   end
 
-  def from_in_analysis_to_rejected(project)
-    deliver_default_notification_for(project, :project_rejected)
-  end
-
   def from_draft_to_rejected(project)
     deliver_default_notification_for(project, :project_rejected)
   end
 
 
-  def from_in_analysis_to_online(project)
+  def from_draft_to_online(project)
     deliver_default_notification_for(project, :project_visible)
     notify_users_that_a_new_project_is_online(project)
     project.update_attributes({ online_date: DateTime.now })
   end
 
-  def from_draft_to_online(project)
-    from_in_analysis_to_online(project)
-  end
-
   def from_soon_to_online(project)
-    from_in_analysis_to_online(project)
+    from_draft_to_online
   end
 
   def from_online_to_failed(project)

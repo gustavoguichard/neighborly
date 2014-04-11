@@ -10,7 +10,6 @@ class EmailsController < ApplicationController
       :contribution_project_successful,
       :contribution_project_unsuccessful,
       :credits_warning,
-      :in_analysis_project,
       :new_draft_project,
       :new_draft_project_channel,
       :new_project_visible,
