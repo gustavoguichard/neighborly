@@ -16,10 +16,10 @@ describe Concerns::SocialHelpersHandler do
     end
   end
 
-  describe '#fb_adminsd' do
+  describe '#facebook_url_admin' do
     before { @controller.instance_variable_set(:@facebook_url_admin, 3) }
 
-    it { expect(@controller.fb_admins).to eq('3') }
+    it { expect(@controller.facebook_url_admin).to eq('3') }
   end
 
   describe '#render_facebook_sdk' do
