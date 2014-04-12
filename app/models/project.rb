@@ -9,12 +9,11 @@ class Project < ActiveRecord::Base
   include Project::VideoHandler
   include Project::CustomValidators
   include Project::OrganizationType
+  include Shared::LocationHandler
 
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
   has_permalink :name, true
-  geocoded_by :location
-  after_validation :geocode # auto-fetch coordinates
 
   delegate :display_status,
            :display_progress,
@@ -106,20 +105,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def location=(location)
-    array = location.split(',')
-    self.address_city = array[0].lstrip.titleize if array[0]
-    self.address_state = array[1].lstrip.upcase if array[1]
-
-    if not location.present?
-      self.address_city = self.address_state = nil
-    end
-  end
-
-  def location
-    [address_city, address_state].select { |a| a.present? }.compact.join(', ')
-  end
-
   def self.between_created_at(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
@@ -196,11 +181,11 @@ class Project < ActiveRecord::Base
     channels.first ? "#{type}_channel".to_sym : type
   end
 
-  private
   def self.locations
     visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:location)
   end
 
+  private
   def self.get_routes
     routes = Rails.application.routes.routes.map do |r|
       r.path.spec.to_s.split('/').second.to_s.gsub(/\(.*?\)/, '')
