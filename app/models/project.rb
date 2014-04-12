@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
   has_permalink :name, true
-  geocoded_by :address
+  geocoded_by :location
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_status,
@@ -93,7 +93,7 @@ class Project < ActiveRecord::Base
   }
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
+  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :location
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
   validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update
@@ -106,17 +106,17 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def address=(address)
-    array = address.split(',')
+  def location=(location)
+    array = location.split(',')
     self.address_city = array[0].lstrip.titleize if array[0]
     self.address_state = array[1].lstrip.upcase if array[1]
 
-    if not address.present?
+    if not location.present?
       self.address_city = self.address_state = nil
     end
   end
 
-  def address
+  def location
     [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
@@ -198,7 +198,7 @@ class Project < ActiveRecord::Base
 
   private
   def self.locations
-    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
+    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:location)
   end
 
   def self.get_routes

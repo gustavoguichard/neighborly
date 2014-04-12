@@ -95,7 +95,7 @@ class ProjectsController < ApplicationController
   end
 
   def start
-    @projects = Project.visible.successful.home_page.limit(3)
+    @projects = ProjectsForHome.successful[0..2]
   end
 
   protected

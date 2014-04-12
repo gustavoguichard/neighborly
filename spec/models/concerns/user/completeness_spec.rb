@@ -5,7 +5,7 @@ describe User::Completeness do
   subject { User::Completeness::Calculator.new(user).progress }
 
   context 'when the profile type is personal' do
-    let(:user) { create(:user, name: 'Some name', bio: nil, address: '', uploaded_image: nil, authorizations: [], profile_type: 'personal') }
+    let(:user) { create(:user, name: 'Some name', bio: nil, location: '', uploaded_image: nil, authorizations: [], profile_type: 'personal') }
 
     it 'completeness progress should be 20' do
       expect(subject).to eq 20
@@ -13,7 +13,7 @@ describe User::Completeness do
   end
 
   context 'when the profile type is organization' do
-    let(:user) { create(:user, bio: 'Some Bio', address: '', authorizations: [], organization: create(:organization, name: 'Some Org', image: nil), profile_type: 'organization') }
+    let(:user) { create(:user, bio: 'Some Bio', location: '', authorizations: [], organization: create(:organization, name: 'Some Org', image: nil), profile_type: 'organization') }
 
     it 'completeness progress should be 40' do
       expect(subject).to eq 40
@@ -21,7 +21,7 @@ describe User::Completeness do
   end
 
   pending 'when the profile type is channel' do
-    let(:user) {  create(:channel, name: 'Some Channel', description: 'Some other text here', user: create(:user, name: nil, other_url: nil, address: 'Kansas City, MO', profile_type: 'channel')).user.reload }
+    let(:user) {  create(:channel, name: 'Some Channel', description: 'Some other text here', user: create(:user, name: nil, other_url: nil, location: 'Kansas City, MO', profile_type: 'channel')).user.reload }
 
     it 'completeness progress should be 42' do
       expect(subject).to eq 42

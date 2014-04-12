@@ -19,14 +19,14 @@ class User < ActiveRecord::Base
     Rails.logger.info "-----> #{e.inspect}"
   end
 
-  geocoded_by :address
+  geocoded_by :location
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
     :medium_name, :display_credits, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
-  attr_accessor :address
+  attr_accessor :location
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
 
@@ -128,17 +128,17 @@ class User < ActiveRecord::Base
     ).reduce({}){|memo,el| memo.merge({ el[0].to_sym => BigDecimal.new(el[1] || '0') }) }
   end
 
-  def address=(address)
-    array = address.split(',')
+  def location=(location)
+    array = location.split(',')
     self.address_city = array[0].lstrip.titleize if array[0]
     self.address_state = array[1].lstrip.upcase if array[1]
 
-    if not address.present?
+    if not location.present?
       self.address_city = self.address_state = self.longitude = self.latitude = nil
     end
   end
 
-  def address
+  def location
     [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 

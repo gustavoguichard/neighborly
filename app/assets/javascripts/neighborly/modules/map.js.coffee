@@ -8,7 +8,7 @@ Neighborly.Map = (mapCanvasSelector) ->
     mapCanvas = $(mapCanvasSelector)[0]
     mapOptions =
       zoom: 14
-      center: new google.maps.LatLng($('.address-coordinates').data('latitude'), $('.address-coordinates').data('longitude'))
+      center: new google.maps.LatLng($('.location-coordinates').data('latitude'), $('.location-coordinates').data('longitude'))
       disableDefaultUI: true
       mapTypeId: 'terrain'
     map = new google.maps.Map(mapCanvas, mapOptions)

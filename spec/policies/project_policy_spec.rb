@@ -144,7 +144,7 @@ describe ProjectPolicy do
 
       [:about,         :video_url,            :uploaded_image,
        :hero_image,    :headline,             :budget,
-       :terms,         :address_neighborhood, :address,
+       :terms,         :address_neighborhood, :location,
        :address_city,  :address_state,        :hash_tag,
        :site, :tag_list].each do |field|
         context "when field is #{field}" do
@@ -164,7 +164,7 @@ describe ProjectPolicy do
       let(:project){ create(:project) }
       let(:policy){ described_class.new(user, project) }
 
-      (Project.attribute_names + ['address']).each do |field|
+      (Project.attribute_names + ['location']).each do |field|
         context "when field is #{field}" do
           subject{ policy.permitted?(field.to_sym) }
           it{ should be_true }
