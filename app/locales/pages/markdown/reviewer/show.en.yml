@@ -4,4 +4,4 @@ en:
       show:
         title: 'Previewer'
         nothing_to_preview: 'Nothing to preview.'
-        close: "I'm done previewing it!"
+        close: 'Close Preview'
