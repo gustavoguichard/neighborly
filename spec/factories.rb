@@ -35,6 +35,10 @@ FactoryGirl.define do
     f.confirmed_at { Time.now }
   end
 
+  factory :user_with_uploaded_image, parent: :user do |f|
+    f.uploaded_image File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
+
   factory :category do |f|
     f.name_pt { generate(:name) }
     f.name_en { generate(:name) }

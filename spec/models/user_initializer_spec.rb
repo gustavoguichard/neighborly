@@ -25,6 +25,26 @@ describe UserInitializer do
     context 'when allowed to setup' do
       before { subject.stub(:can_setup?).and_return(true) }
 
+      shared_examples 'trying to update user\'s image' do
+        context 'when the user has no image' do
+          it 'changes his uploaded_image' do
+            expect {
+              subject.setup
+            }.to change(user, :uploaded_image_url)
+          end
+        end
+
+        context 'when the user already has image' do
+          let(:user) { FactoryGirl.create(:user_with_uploaded_image) }
+
+          it 'skips its change' do
+            expect {
+              subject.setup
+            }.to_not change(user, :uploaded_image_url)
+          end
+        end
+      end
+
       context 'when receiving a valid user in the initialization' do
         let(:user) { FactoryGirl.create(:user) }
 
@@ -50,6 +70,8 @@ describe UserInitializer do
               subject.setup
             }.to change { authorization.reload.access_token }
           end
+
+          it_behaves_like 'trying to update user\'s image'
         end
 
         context 'when no related authorization exists' do
@@ -64,6 +86,8 @@ describe UserInitializer do
               )
             ).to be_true
           end
+
+          it_behaves_like 'trying to update user\'s image'
         end
       end
 
