@@ -8,17 +8,20 @@ module Shared
     end
 
     def location=(location)
-      array = location.split(',')
-      self.address_city = array[0].lstrip.titleize if array[0]
-      self.address_state = array[1].lstrip.upcase if array[1]
+      self.address_city, self.address_state = location.split(', ').
+        compact.map(&:lstrip) if location.present?
+    end
 
-      if not location.present?
-        self.address_city = self.address_state = nil
-      end
+    def address_city=(city)
+      write_attribute(:address_city, city.to_s.titleize)
+    end
+
+    def address_state=(state)
+      write_attribute(:address_state, state.to_s.upcase)
     end
 
     def location
-      [address_city, address_state].select { |a| a.present? }.compact.join(', ')
+      [address_city, address_state].select(&:present?).compact.join(', ')
     end
   end
 end
