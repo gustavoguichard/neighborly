@@ -1,14 +1,7 @@
 require 'spec_helper'
 
 describe OmniauthCallbacksController do
-  let(:omniauth_data) do
-    fixture = Rails.root.join('spec',
-      'fixtures',
-      'omniauth_data.yml'
-    )
-    YAML.load(File.read(fixture)).with_indifferent_access
-  end
-  let(:oauth_data) { Hashie::Mash.new(omniauth_data) }
+  let(:oauth_data) { OmniAuth.config.mock_auth[:default] }
 
   before do
     request.env['devise.mapping'] = Devise.mappings[:user]
