@@ -82,6 +82,12 @@
                   = link_to 'javascript:void(0);', class: 'button tiny secondary', data: {dropdown: "dropdown-#{project.id}"} do
                     i.icon-et-down-dir
                   ul[id="dropdown-#{project.id}" data-dropdown-content class="f-dropdown"]
+                    - if project.can_approve?
+                      li
+                        = link_to  approve_channels_admin_project_path(project), method: :put  do
+                          i.icon-trash
+                          = t('channels.admin.projects.index.approve')
+
                     - if project.can_launch?
                       li
                         = link_to launch_channels_admin_project_path(project), method: :put do

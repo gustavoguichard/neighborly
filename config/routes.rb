@@ -52,7 +52,7 @@ Neighborly::Application.routes.draw do
             put 'launch'
             put 'reject'
             put 'push_to_draft'
-            put 'push_to_soon'
+            put 'approve'
           end
         end
       end
