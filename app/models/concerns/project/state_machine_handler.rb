@@ -21,8 +21,8 @@ module Project::StateMachineHandler
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
       end
 
-      event :push_to_soon do
-        transition all => :soon #NOTE: when use 'all' we can't use new hash style ;(
+      event :approve do
+        transition [:draft, :rejected] => :soon
       end
 
       event :push_to_trash do
