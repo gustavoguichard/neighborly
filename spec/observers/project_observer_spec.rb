@@ -83,6 +83,25 @@ describe ProjectObserver do
       end
     end
 
+    context 'when project is approved' do
+      before do
+        project.update_attributes state: 'draft'
+      end
+
+      it 'should call notify_once with project_approved template' do
+        expect(Notification).to receive(:notify_once).with(
+          :project_approved,
+          project.user,
+          { project_id: project.id},
+          {
+            project: project,
+            origin_email: Configuration[:email_contact]
+          }
+        )
+        project.approve!
+      end
+    end
+
     context 'when video_url changes' do
       before do
         expect(ProjectDownloaderWorker).to receive(:perform_async).with(project.id).at_least(1)
