@@ -264,7 +264,7 @@ describe ProjectsController do
 
     context 'when the project is not on draft' do
       before do
-        project.approve
+        project.launch
         project.reload
         get :show, id: project
       end
