@@ -27,4 +27,3 @@ Neighborly.Projects.Contributions.Index =
         itemSelector: '.contribution-wrapper'
 
     , Neighborly.InfiniteScroll)
-
