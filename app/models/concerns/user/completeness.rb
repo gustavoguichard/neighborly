@@ -25,8 +25,6 @@ module User::Completeness
 
     def calc_channel_progress
       100
-      # Temporary removed, sorry.
-      #calc_progress %w[location other_url], %w[name description video_url image how_it_works], :channel
     end
 
     def calc_progress(user_fields, association_fields = [], association_name = nil)
