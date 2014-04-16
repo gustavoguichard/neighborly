@@ -12,15 +12,7 @@ puts "Adding OauthProvider settings..."
     secret: '5b3a847321b426f9dabd011359a21400',
     path: 'facebook'
   )
-  
-    
-  #OauthProvider.create :name => 'Twitter', :key => 'myconsumerkey', :secret => 'myconsumersecret', :strategy => 'Twitter', :path => 'twitter'
-  #OauthProvider.create :name => 'LinkedIn', :key => 'myconsumerkey', :secret => 'myconsumersecret', :strategy => 'LinkedIn', :path => 'linked_in'
 
-###
-## Uservoice.com seetings
-## at YOURDOMAIN.uservoice.com/admin/settings#/channels
-## Sendgrid Heroku Plugin Settings
 puts "Creating Configuration entries..."
 {
   
