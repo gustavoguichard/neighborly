@@ -15,7 +15,7 @@ describe "Projects" do
     before do
       create(:project, state: 'online', recommended: true, online_days: 30, online_date: Time.now, home_page: true)
       create(:project, state: 'online', featured: true, online_days: 30, online_date: Time.now)
-      create(:project, state: 'soon', online_days: 30, home_page: true)
+      create(:project, state: 'soon', online_days: 30, home_page: true, uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"))
       create(:project, state: 'online', online_days: 30, online_date: 29.days.ago, home_page: true)
       visit root_path
     end
