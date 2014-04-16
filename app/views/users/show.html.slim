@@ -14,9 +14,9 @@
     - else
       = @user.display_image_html width: 150, height: 150, class: 'large'
 
-  - if @user.address.present?
+  - if @user.location.present?
     header.map
-      .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
+      .location.location-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
       .map-canvas
       = yield :user_image
   - else
@@ -29,7 +29,7 @@
         h2.profile
           = @user.display_name
         h3.city
-          = @user.address
+          = @user.location
         p.bio
           = @user.bio
         

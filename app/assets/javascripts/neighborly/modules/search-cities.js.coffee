@@ -57,8 +57,8 @@ Neighborly.SearchCities = (searchInputSelctor, mapCanvasSelector) ->
           event.preventDefault()
           false
 
-      if $('.address-coordinates').data('longitude') isnt `undefined` and $('.address-coordinates').data('latitude') isnt `undefined`
-        lat_lng = new google.maps.LatLng($('.address-coordinates').data('latitude'), $('.address-coordinates').data('longitude'))
+      if $('.location-coordinates').data('longitude') isnt `undefined` and $('.location-coordinates').data('latitude') isnt `undefined`
+        lat_lng = new google.maps.LatLng($('.location-coordinates').data('latitude'), $('.location-coordinates').data('longitude'))
         map.setCenter lat_lng
         map.setZoom 12
         marker.setIcon (

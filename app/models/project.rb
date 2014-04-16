@@ -9,12 +9,11 @@ class Project < ActiveRecord::Base
   include Project::VideoHandler
   include Project::CustomValidators
   include Project::OrganizationType
+  include Shared::LocationHandler
 
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
   has_permalink :name, true
-  geocoded_by :address
-  after_validation :geocode # auto-fetch coordinates
 
   delegate :display_status,
            :display_progress,
@@ -93,7 +92,7 @@ class Project < ActiveRecord::Base
   }
 
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :address
+  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :location
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
   validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update
@@ -104,20 +103,6 @@ class Project < ActiveRecord::Base
     if self.site.present?
       self.site = "http://#{self.site}" if not self.site[0..6] == 'http://' and not self.site[0..7] == 'https://'
     end
-  end
-
-  def address=(address)
-    array = address.split(',')
-    self.address_city = array[0].lstrip.titleize if array[0]
-    self.address_state = array[1].lstrip.upcase if array[1]
-
-    if not address.present?
-      self.address_city = self.address_state = nil
-    end
-  end
-
-  def address
-    [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
   def self.between_created_at(start_at, ends_at)
@@ -196,11 +181,11 @@ class Project < ActiveRecord::Base
     channels.first ? "#{type}_channel".to_sym : type
   end
 
-  private
   def self.locations
-    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
+    visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:location)
   end
 
+  private
   def self.get_routes
     routes = Rails.application.routes.routes.map do |r|
       r.path.spec.to_s.split('/').second.to_s.gsub(/\(.*?\)/, '')

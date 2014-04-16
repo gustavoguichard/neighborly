@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DiscoverController do
   before do
     @recommended = create(:project, recommended: true)
-    @near = create(:project, address: 'Kansas City, MO', latitude: 40.7143528, longitude: -74.0059731)
+    @near = create(:project, location: 'Kansas City, MO', latitude: 40.7143528, longitude: -74.0059731)
     @category = create(:category)
     @category_project = create(:project, category: @category)
     @tag = create(:project, tag_list: 'test')

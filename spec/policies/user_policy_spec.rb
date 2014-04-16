@@ -105,7 +105,7 @@ describe UserPolicy do
 
     (User.attribute_names.map(&:to_sym) -
      user_attributes_black_list +
-     [:address, :current_password]
+     [:location, :current_password]
     ).each do |field|
       it "permit when field is #{field}" do
         expect(policy.permitted?(field.to_sym)).to be_true

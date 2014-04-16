@@ -23,7 +23,7 @@ en:
         goal:
           title: 'Project Goal'
           description: 'How much do you need to raise in order to complete your project? Please enter a number without commas.'
-        address:
+        location:
           title: 'City, State'
           description: 'In what city is your project based?'
         headline:

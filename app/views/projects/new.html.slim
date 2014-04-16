@@ -11,7 +11,7 @@
                  {id: 'project_name',                   name: :name},
                  {id: 'project_campaign_type',          name: :campaign_type},
                  {id: 'project_goal',                   name: :goal},
-                 {id: 'project_address',                name: :address},
+                 {id: 'project_location',               name: :location},
                  {id: 'project_headline',               name: :headline},
                  {id: 'project_about',                  name: :about},
                  {id: 'project_organization_type',      name: :organization_type}]
@@ -49,8 +49,9 @@
                   small.error = @project.errors[:goal].to_sentence
 
               = f.input :street_address
-              .address.address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-image-url=image_url('pin.png')]
-                = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
+
+              .location.location-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-image-url=image_url('pin.png')]
+                = f.input :location, input_html: { class: 'search-cities-with-google', autocomplete: :off }
                 .map-canvas
 
               = f.input :headline, as: :string, maxlength: 140
