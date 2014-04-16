@@ -103,13 +103,10 @@ describe ProjectObserver do
     end
 
     context 'when video_url changes' do
-      before do
+      it 'should call project downloader service and do not call create_notification' do
         expect(ProjectDownloaderWorker).to receive(:perform_async).with(project.id).at_least(1)
         expect(Notification).to receive(:notify).never
         expect(Notification).to receive(:notify_once).never
-      end
-
-      it 'should call project downloader service and do not call create_notification' do
         project.video_url = 'http://vimeo.com/66698435'
         project.save!
       end
