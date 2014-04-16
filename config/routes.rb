@@ -108,7 +108,6 @@ Neighborly::Application.routes.draw do
     end
 
     member do
-      put 'pay'
       get 'embed'
       get 'video_embed'
       get 'embed_panel'
