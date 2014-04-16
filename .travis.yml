@@ -16,3 +16,14 @@ env:
 
 script:
   - "bundle exec rspec spec"
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: t3BCcO2UHJ20lfJEgBqn82Jz8xlof9bsHBJ9ELSEdKQUvRNq/j2mqHMy/EEoE7FgV57FG4jzeHXQqMn39LfQzryLhBuw5cR6a/cu7i0bCwP407CwvVhMCYgIu+eyFx3gXQv0RmfbGdAfrawcA63lSYM6R1eKziX1qFfwYW4W6wI=
+  app: neighborly-staging
+  run:
+    - "rake db:migrate"
+    - restart
+  on:
+    repo: neighborly/neighborly
