@@ -40,6 +40,7 @@ en:
           online_date: 'Online date'
           expires_at: 'Expires at'
           state: 'State'
+          approve: 'Approve!'
           launch: 'Launch!'
           reject: 'Reject!'
           send_to_draft: 'Send to DRAFT!'

@@ -13,6 +13,22 @@ describe Project::StateMachineHandler do
       end
     end
 
+    describe '#approve' do
+      before { project.push_to_draft }
+
+      subject do
+        expect(project).to receive(:notify_observers).with(:from_draft_to_soon)
+        project.approve!
+        project
+      end
+
+      it 'changes the state to soon' do
+        expect(subject.soon?).to be_true
+      end
+
+      it('should call after transition method to notify the project owner'){ subject }
+    end
+
     describe '.push_to_draft' do
       subject do
         project.reject
