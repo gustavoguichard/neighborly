@@ -21,4 +21,3 @@ describe UserUploader do
   end
 
 end
-

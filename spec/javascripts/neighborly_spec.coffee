@@ -32,4 +32,3 @@ describe "Neighborly", ->
         Neighborly.Loading.hide()
 
         expect($('#loading').hasClass('show')).toBe(false)
-
