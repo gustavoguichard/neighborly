@@ -105,17 +105,6 @@ describe Project do
     it { should have(2).items }
   end
 
-  describe '.featured' do
-    before do
-      @p1 = create(:project, featured: true, state: 'online')
-      create(:project, featured: false, state: 'online')
-    end
-
-    subject { Project.featured }
-
-    it { should == [@p1] }
-  end
-
   describe ".find_by_permalink!" do
     context "when project is deleted" do
       before do
@@ -132,58 +121,6 @@ describe Project do
       subject{ Project.find_by_permalink!('foo') }
       it{ should == @p }
     end
-  end
-
-  describe '.by_progress' do
-    subject { Project.by_progress(20) }
-
-    before do
-      @project_01 = create(:project, goal: 100)
-      @project_02 = create(:project, goal: 100)
-      @project_03 = create(:project, goal: 100)
-
-      create(:contribution, value: 10, project: @project_01)
-      create(:contribution, value: 10, project: @project_01)
-      create(:contribution, value: 30, project: @project_02)
-      create(:contribution, value: 10, project: @project_03)
-    end
-
-    it { should have(2).itens }
-  end
-
-  describe '.by_goal' do
-    subject { Project.by_goal(200) }
-
-    before do
-      @project_01 = create(:project, goal: 100)
-      @project_02 = create(:project, goal: 200)
-
-    end
-
-    it { should = [@project_02] }
-  end
-
-  describe '.by_online_date' do
-    subject { Project.by_online_date(Time.now.to_date.to_s) }
-
-    before do
-      @project_01 = create(:project, online_date: Time.now.to_s)
-      @project_02 = create(:project, online_date: 2.weeks.ago)
-
-    end
-
-    it { should = [@project_01] }
-  end
-
-  describe '.by_expires_at' do
-    subject { Project.by_expires_at('10/10/2013') }
-
-    before do
-      @project_01 = create(:project, online_date: '10/10/2013', online_days: 0)
-      @project_02 = create(:project, online_date: '09/10/2013', online_days: 0)
-    end
-
-    it { should = [@project_01] }
   end
 
   describe '.order_by' do
@@ -210,39 +147,6 @@ describe Project do
     end
 
     it { should == [@project_01] }
-  end
-
-  describe '.goal_between' do
-    let(:start_at) { 100 }
-    let(:ends_at) { 200 }
-    subject { Project.goal_between(start_at, ends_at).order('goal asc') }
-
-    before do
-      @project_01 = create(:project, goal: 100)
-      @project_02 = create(:project, goal: 200)
-      @project_03 = create(:project, created_at: 300)
-    end
-
-    it { expect(subject.to_a).to eq [@project_01, @project_02] }
-  end
-
-
-  describe '.between_expires_at' do
-    let(:start_at) { '17/01/2013' }
-    let(:ends_at) { '21/01/2013' }
-    subject { Project.between_expires_at(start_at, ends_at).order("id desc") }
-
-    let(:project_01) { create(:project) }
-    let(:project_02) { create(:project) }
-    let(:project_03) { create(:project) }
-
-    before do
-      project_01.update_attributes({ online_date: '17/01/2013'.to_time, online_days: 0 })
-      project_02.update_attributes({ online_date: '21/01/2013'.to_time, online_days: 0 })
-      project_03.update_attributes({ online_date: '23/01/2013'.to_time, online_days: 0 })
-    end
-
-    it { should == [project_02, project_01] }
   end
 
   describe '.to_finish' do
@@ -316,40 +220,12 @@ describe Project do
     it{ should == [@p] }
   end
 
-  describe ".home_page" do
-    before do
-      @p = create(:project, home_page: true)
-      create(:project, home_page: false)
-    end
-    subject{ Project.home_page}
-    it{ should == [@p] }
-  end
-
-  describe ".soon" do
-    before do
-      @p = create(:project, state: 'soon')
-      create(:project, state: 'draft')
-    end
-    subject{ Project.soon}
-    it{ should == [@p] }
-  end
-
   describe ".not_soon" do
     before do
       @p = create(:project, state: 'online')
       create(:project, state: 'soon')
     end
     subject{ Project.not_soon}
-  end
-
-  describe ".from_channels" do
-    let(:channel){create(:channel)}
-    before do
-      @p = create(:project, channels: [channel])
-      create(:project, channels: [])
-    end
-    subject{ Project.from_channels([channel.id]) }
-    it{ should == [@p] }
   end
 
   describe '#reached_goal?' do

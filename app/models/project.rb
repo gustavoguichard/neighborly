@@ -16,10 +16,20 @@ class Project < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode # auto-fetch coordinates
 
-  delegate :display_status, :display_progress, :display_image, :display_expires_at, :remaining_text, :time_to_go,
-    :display_pledged, :display_goal, :remaining_days, :progress_bar, :successful_flag, :display_address_formated,
-    :display_organization_type,
-    to: :decorator
+  delegate :display_status,
+           :display_progress,
+           :display_image,
+           :display_expires_at,
+           :remaining_text,
+           :time_to_go,
+           :display_pledged,
+           :display_goal,
+           :remaining_days,
+           :progress_bar,
+           :successful_flag,
+           :display_address_formated,
+           :display_organization_type,
+           to: :decorator
 
   belongs_to :user
   belongs_to :category
@@ -51,25 +61,14 @@ class Project < ActiveRecord::Base
 
   # Used to simplify a has_scope
   scope :successful, ->{ with_state('successful') }
-  scope :with_project_totals, -> { joins('LEFT OUTER JOIN project_totals pt ON pt.project_id = projects.id') }
-  scope :by_progress, ->(progress) { joins(:project_total).where("project_totals.pledged >= projects.goal*?", progress.to_i/100.to_f) }
-  scope :by_user_email, ->(email) { joins('JOIN users as u ON u.id = projects.user_id').where("u.email = ?", email) }
   scope :by_id, ->(id) { where(id: id) }
   scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
-  scope :by_category_id, ->(id) { where(category_id: id) }
-  scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
-  scope :featured, -> { not_soon.visible.where(featured: true).limit(1) }
-  scope :by_goal, ->(goal) { where(goal: goal) }
-  scope :by_online_date, ->(online_date) { where("online_date::date = ?", online_date.to_date) }
-  scope :by_expires_at, ->(expires_at) { where("projects.expires_at::date = ?", expires_at.to_date) }
-  scope :by_updated_at, ->(updated_at) { where("updated_at::date = ?", updated_at.to_date) }
   scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
   scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
   scope :visible, -> { without_states(['draft', 'rejected', 'deleted']) }
   scope :financial, -> { with_states(['online', 'successful', 'waiting_funds']).where("projects.expires_at > (current_timestamp - '15 days'::interval)") }
   scope :recommended, -> { where(recommended: true) }
-  scope :home_page, -> { where(home_page: true) }
   scope :expired, -> { where("projects.expires_at < current_timestamp") }
   scope :not_expired, -> { where("projects.expires_at >= current_timestamp") }
   scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
@@ -87,10 +86,6 @@ class Project < ActiveRecord::Base
 
   scope :contributed_by, ->(user_id){
     where("id IN (SELECT project_id FROM contributions b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
-  }
-
-  scope :from_channels, ->(channels){
-    where("EXISTS (SELECT true FROM channels_projects cp WHERE cp.project_id = projects.id AND cp.channel_id = ?)", channels)
   }
 
   scope :with_contributions_confirmed_today, -> {
@@ -130,28 +125,9 @@ class Project < ActiveRecord::Base
     where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
   end
 
-  def self.between_expires_at(start_at, ends_at)
-    return scoped unless start_at.present? && ends_at.present?
-    where("projects.expires_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
-  end
-
-  [:between_created_at, :between_expires_at, :between_online_date, :between_updated_at].each do |name|
-    define_singleton_method name do |starts_at, ends_at|
-      between_dates name.to_s.gsub('between_',''), starts_at, ends_at
-    end
-  end
-
-  def self.goal_between(starts_at, ends_at)
-    where("goal BETWEEN ? AND ?", starts_at, ends_at)
-  end
-
   def self.order_by(sort_field)
     return scoped unless sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
     order(sort_field)
-  end
-
-  def self.campaign_type_names
-    ["flexible", "all_or_none"]
   end
 
   def subscribed_users
@@ -221,16 +197,10 @@ class Project < ActiveRecord::Base
   end
 
   private
-  def self.between_dates(attribute, starts_at, ends_at)
-    return scoped unless starts_at.present? && ends_at.present?
-    where("projects.#{attribute}::date between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", starts_at, ends_at)
-  end
-
   def self.locations
     visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:address)
   end
 
-  private
   def self.get_routes
     routes = Rails.application.routes.routes.map do |r|
       r.path.spec.to_s.split('/').second.to_s.gsub(/\(.*?\)/, '')
