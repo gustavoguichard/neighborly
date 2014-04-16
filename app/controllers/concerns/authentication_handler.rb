@@ -6,8 +6,15 @@ module Concerns::AuthenticationHandler
     before_filter :set_return_to, if: -> { !current_user && params[:redirect_to].present? }
     before_filter :redirect_user_back_after_login, unless: :devise_controller?
     before_filter :configure_permitted_parameters, if: :devise_controller?
+    before_filter :force_base_domain_with_ssl, if: :devise_controller?
 
     private
+    def force_base_domain_with_ssl
+      if Rails.env.production? && request.subdomain.present? && !ENV['IS_STAGING']
+        redirect_to(protocol: 'https', host: ::Configuration[:base_domain])
+      end
+    end
+
     def set_return_to
       if params[:redirect_to].present?
         session[:return_to] = params[:redirect_to]
