@@ -41,11 +41,11 @@ header.fixed
                   = image_tag current_user.display_image, size: "18x18", class: 'profile-picture', alt: ''
                   |  Howdy, #{ current_user.first_name }!
                 span.divider |
-                = link_to t('.sign-out'), destroy_user_session_path, method: :delete, class: 'sign-out'
+                = link_to t('.sign-out'), destroy_user_session_url(base_domain_with_https_url_params), method: :delete, class: 'sign-out'
               - else
-                = link_to t('.sign-up'), new_user_registration_path, class: 'sign-up'
+                = link_to t('.sign-up'), new_user_registration_url(base_domain_with_https_url_params), class: 'sign-up'
                 span.divider |
-                = link_to t('.sign-in'), new_user_session_path, class: 'sign-in'
+                = link_to t('.sign-in'), new_user_session_url(base_domain_with_https_url_params), class: 'sign-in'
           li.search
             span.search-box
               = form_tag discover_path, method: 'GET', class: 'discover-form' do
