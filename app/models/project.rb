@@ -73,7 +73,7 @@ class Project < ActiveRecord::Base
   scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
   scope :not_expiring, -> { not_expired.where("NOT (projects.expires_at <= (current_timestamp + interval '2 weeks'))") }
   scope :recent, -> { where("(current_timestamp - projects.online_date) <= '5 days'::interval") }
-  scope :soon, -> { with_state('soon') }
+  scope :soon, -> { with_state('soon').where('uploaded_image IS NOT NULL') }
   scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
                                      CASE projects.state
