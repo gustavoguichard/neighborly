@@ -9,6 +9,7 @@ describe Concerns::AuthenticationHandler do
       before do
         Rails.env.stub(:production?).and_return(true)
         ::Configuration[:base_domain] = 'neighbor.ly'
+        ENV['IS_STAGING'] = nil
       end
 
       it 'returns a hash with protocol and host' do
