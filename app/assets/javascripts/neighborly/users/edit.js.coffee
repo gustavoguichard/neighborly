@@ -42,7 +42,6 @@ Neighborly.Users.Edit =
       'mouseleave': 'mouseLeave'
       'click *': 'openFileChooser'
 
-    # TODO: Uploader functionality
     initialize: ->
       _.bindAll this, 'onFileAdded', 'onUploadProgress', 'onUploadComplete', 'onUploadFail', 'mouseEnter', 'mouseLeave', 'openFileChooser'
       this.action_url = this.$el.closest('form')[0].getAttribute("action")

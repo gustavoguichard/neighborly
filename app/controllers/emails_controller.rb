@@ -36,7 +36,6 @@ class EmailsController < ApplicationController
 
   def show
     @notification = Notification.find params[:id]
-    #header = render_to_string(template: "notifications_mailer/subjects/#{@notification.template_name}", formats: [:text, :html])
     message = OpenStruct.new
     message.subject = ''
     render "notifications_mailer/#{@notification.template_name}", layout: 'email', locals: { message: message }

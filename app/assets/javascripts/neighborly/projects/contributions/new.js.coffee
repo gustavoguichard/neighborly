@@ -59,4 +59,3 @@ Neighborly.Projects.Contributions.New =
         value = this.$value.val()
         this.selectReward(this.$('#contribution_reward_id')) if (!(/^(\d+)$/.test(value))) || (parseInt(value) < parseInt(reward.minimum_value))
       this.submitButtonHandler()
-
