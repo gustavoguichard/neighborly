@@ -6,7 +6,11 @@ module Concerns
     # We use this method only to make stubing easier
     # and remove FB templates from acceptance tests
     included do
-      helper_method :facebook_url_admin, :render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso
+      helper_method :facebook_url_admin,
+                    :render_facebook_sdk,
+                    :render_facebook_like,
+                    :render_twitter,
+                    :display_uservoice_sso
     end
 
     def facebook_url_admin
