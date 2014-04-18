@@ -8,7 +8,8 @@ class CreateProjectFinancialsByServices < ActiveRecord::Migration
              sum(contributions.value) * (SELECT value::numeric FROM configurations WHERE name = 'platform_fee') AS platform_fee,
              sum(contributions.payment_service_fee) AS payment_service_fee,
              count(*) AS total_contributions
-      FROM (contributions JOIN projects ON ((contributions.project_id = projects.id)))
+      FROM (contributions JOIN projects ON (contributions.project_id = projects.id))
+      WHERE contributions.state = 'confirmed'
       GROUP BY contributions.project_id, contributions.payment_method
       HAVING contributions.payment_method IS NOT NULL;"
   end
