@@ -548,4 +548,27 @@ describe Project do
       end
     end
   end
+
+  describe 'paid?' do
+    subject { create(:project, state: 'online') }
+    before { Configuration[:platform_fee] = 0.1 }
+
+    it 'returns false when no payouts are recorded for the contributions' do
+      create(:contribution, project: subject, payment_method: 'paypal')
+      expect(subject).to_not be_paid
+    end
+
+    it 'returns false when amount already paid to project owner doesnt match the net amount of contributions' do
+      create(:contribution, project: subject, payment_method: 'paypal',       value: 100)
+      create(:contribution, project: subject, payment_method: 'authorizenet', value: 200)
+      create(:payout, value: 90, project: subject)
+      expect(subject).to_not be_paid
+    end
+
+    it 'returns true when payout amount matches the net amount of contributions' do
+      create(:contribution, project: subject, payment_method: 'paypal', value: 100)
+      create(:payout, value: 90, project: subject)
+      expect(subject).to be_paid
+    end
+  end
 end
