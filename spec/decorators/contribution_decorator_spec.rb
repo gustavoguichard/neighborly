@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe ContributionDecorator do
-  let(:contribution) { Contribution.new }
-  subject { described_class.new(contribution) }
-
   describe "#display_confirmed_at" do
     subject{ contribution.display_confirmed_at }
     context "when confirmet_at is not nil" do
@@ -17,34 +14,16 @@ describe ContributionDecorator do
     end
   end
 
-  describe 'display value' do
-    before do
-      contribution.value               = 9
-      contribution.payment_service_fee = 1
+  describe "#display_value" do
+
+    context "when the value has decimal places" do
+      subject{ build(:contribution, value: 99.99).display_value }
+      it{ should == "$99.99" }
     end
 
-    context 'when project paid the fees' do
-      before do
-        contribution.payment_service_fee_paid_by_user = false
-      end
-
-      it 'returns value as currency' do
-        displayed_value = '$9.00'
-        subject.stub(:number_to_currency).with(9).and_return(displayed_value)
-        expect(subject.display_value).to eql(displayed_value)
-      end
-    end
-
-    context 'when user paid the fees' do
-      before do
-        contribution.payment_service_fee_paid_by_user = true
-      end
-
-      it 'sums payment service fee with contribution\'s value' do
-        displayed_value = '$10.00'
-        subject.stub(:number_to_currency).with(10).and_return(displayed_value)
-        expect(subject.display_value).to eql(displayed_value)
-      end
+    context "when the value does not have decimal places" do
+      subject{ build(:contribution, value: 1).display_value }
+      it{ should == "$1.00" }
     end
   end
 end
