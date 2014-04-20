@@ -9,22 +9,17 @@ describe Concerns::SocialHelpersHandler do
     @controller = ApplicationController.new
   end
 
-  describe '#fb_admins_add' do
-    before { @controller.instance_variable_set(:@fb_admins, []) }
-
-    context 'when is not an array' do
-      it { expect(@controller.fb_admins_add(1)).to eq [1] }
-    end
-
-    context 'when is an array' do
-      it { expect(@controller.fb_admins_add([1, 2])).to eq [1, 2] }
+  describe '#set_facebook_url_admin' do
+    it 'assigns facebook_id\'s of the user in @facebook_url_admin' do
+      @controller.set_facebook_url_admin(double('User', facebook_id: 1))
+      expect(@controller.instance_variable_get(:@facebook_url_admin)).to eq(1)
     end
   end
 
-  describe '#fb_adminsd' do
-    before { @controller.instance_variable_set(:@fb_admins, [1, 2, 3]) }
+  describe '#facebook_url_admin' do
+    before { @controller.instance_variable_set(:@facebook_url_admin, 3) }
 
-    it { expect(@controller.fb_admins).to eq '1,2,3' }
+    it { expect(@controller.facebook_url_admin).to eq('3') }
   end
 
   describe '#render_facebook_sdk' do

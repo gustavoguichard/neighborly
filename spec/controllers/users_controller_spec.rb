@@ -114,7 +114,7 @@ describe UsersController do
         get :show, id: user.id, locale: 'pt'
       end
 
-      it{ assigns(:fb_admins).should include(user.facebook_id.to_i) }
+      it{ assigns(:facebook_url_admin).should include(user.facebook_id) }
     end
 
     context 'as a channel' do
