@@ -14,5 +14,5 @@ en:
           title: 'You contributed using a new bank account. Please verify your account to complete your contribution.'
           steps:
             first: 'We will make two small deposits (each less than $1.00) to this account. Deposits may take 1-2 business days to appear.'
-            second: 'You will receive an email with a link to verify your account using the two deposit amounts.'
+            second: 'Once the deposits have been made, you will receive an email with a link to verify your account using the two deposit amounts.'
             third: 'Once your account has been verified, your contribution will be processed and automatically reflected in the campaign you contributed to.'
