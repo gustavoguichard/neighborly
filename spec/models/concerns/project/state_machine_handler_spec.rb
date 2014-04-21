@@ -13,6 +13,22 @@ describe Project::StateMachineHandler do
       end
     end
 
+    describe '#approve' do
+      before { project.push_to_draft }
+
+      subject do
+        expect(project).to receive(:notify_observers).with(:from_draft_to_soon)
+        project.approve!
+        project
+      end
+
+      it 'changes the state to soon' do
+        expect(subject.soon?).to be_true
+      end
+
+      it('should call after transition method to notify the project owner'){ subject }
+    end
+
     describe '.push_to_draft' do
       subject do
         project.reject
@@ -55,19 +71,19 @@ describe Project::StateMachineHandler do
       its(:permalink) { should == "deleted_project_#{project.id}" }
     end
 
-    describe '#approve' do
+    describe '#launch' do
       before { project.push_to_draft }
 
       subject do
         project.should_receive(:notify_observers).with(:from_draft_to_online)
-        project.approve
+        project.launch
         project
       end
 
       its(:online?){ should be_true }
       it('should call after transition method to notify the project owner'){ subject }
       it 'should persist the online_date' do
-        project.approve
+        project.launch
         expect(project.online_date).to_not be_nil
       end
     end
@@ -75,7 +91,7 @@ describe Project::StateMachineHandler do
     describe '#online?' do
       before do
         project.push_to_draft
-        project.approve
+        project.launch
       end
       subject { project.online? }
       it { should be_true }
@@ -85,7 +101,7 @@ describe Project::StateMachineHandler do
       let(:main_project) { create(:project, goal: 30_000, online_days: -1) }
       subject { main_project }
 
-      context 'when project is not approved' do
+      context 'when project is not online' do
         before do
           main_project.update_attributes state: 'draft'
         end

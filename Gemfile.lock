@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: b137b86b484a90a5e1d484da2961a9c45a3e8ce2
+  revision: efae4e603117322addf1503b80156848ad553244
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 7e519f302a85c3273dccdfde9a69055ef25930fa
+  revision: 40d762ab9d3379b623906df38be89b919c71323d
   branch: master
   specs:
     neighborly-balanced-bankaccount (0.0.1)
@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: 926d452100d88c0c85e53a13be728caa1c2685ab
+  revision: 82e0bcc284467f937cfe7093a56dad32625f91e9
   branch: master
   specs:
     neighborly-balanced-creditcard (1.0.0)
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: ace4e6074cd16409e7dd260c84583783a6c5d737
+  revision: b90f5393acd2702af1200651f26b661d6c0483af
   branch: master
   specs:
     neighborly-balanced (1.0.0)
@@ -95,8 +95,8 @@ GEM
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
     awesome_print (1.2.0)
-    balanced (0.8.1)
-      faraday (>= 0.8.6)
+    balanced (0.7.5)
+      faraday (~> 0.8.6)
       faraday_middleware (~> 0.9.0)
     bcrypt (3.1.7)
     bcrypt-ruby (3.1.5)
@@ -211,7 +211,7 @@ GEM
       rack (>= 1.4.5)
     hike (1.2.3)
     htmlentities (4.3.1)
-    httparty (0.13.0)
+    httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
@@ -337,7 +337,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
-    rake (10.2.2)
+    rake (10.3.0)
     ranked-model (0.4.0)
       activerecord (>= 3.1.12)
     redcarpet (3.1.1)

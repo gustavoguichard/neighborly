@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
 
   def show
     authorize resource
-    fb_admins_add(resource.user.facebook_id) if resource.user.facebook_id
+    set_facebook_url_admin(resource.user)
     render :about if request.xhr?
   end
 
@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
   end
 
   def start
-    @projects = Project.visible.successful.home_page.limit(3)
+    @projects = ProjectsForHome.successful[0..2]
   end
 
   protected

@@ -4,13 +4,13 @@
       = t('.title')
       br/
       small= t('.subtitle')
-.row    
+.row
   .large-12.columns
     = f.input :address_street, as: :string
 .row
   .large-8.columns
-    .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
-    = f.input :address, input_html: { class: 'search-cities-with-google', autocomplete: :off }
+    .location.location-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
+    = f.input :location, input_html: { class: 'search-cities-with-google', autocomplete: :off }
   .large-4.columns
     = f.input :address_zip_code, as: :string
 .row

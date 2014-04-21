@@ -7,7 +7,7 @@ module Channels::Admin
       @total_projects =  channel.projects.size
     end
 
-    [:approve, :reject, :push_to_draft].each do |name|
+    [:approve, :launch, :reject, :push_to_draft].each do |name|
       define_method name do
         @project    = channel.projects.find_by_permalink!(params[:id])
         @project.send("#{name.to_s}!")

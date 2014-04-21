@@ -34,4 +34,3 @@ describe "Projects.Show.StatusBar", ->
       @view.initialize()
       $(document).trigger('scroll')
       expect($('.status-bar').hasClass('show')).toBeFalsy()
-

@@ -25,8 +25,5 @@ Neighborly.Projects.Contributions.Index =
     masonry: ->
       this.$('.list').masonry ->
         itemSelector: '.contribution-wrapper'
-        #columnWidth : 230
-
 
     , Neighborly.InfiniteScroll)
-

@@ -56,10 +56,10 @@ Neighborly::Application.routes.draw do
 
         resources :projects, only: [ :index, :update] do
           member do
-            put 'approve'
+            put 'launch'
             put 'reject'
             put 'push_to_draft'
-            put 'push_to_soon'
+            put 'approve'
           end
         end
       end
@@ -115,7 +115,6 @@ Neighborly::Application.routes.draw do
     end
 
     member do
-      put 'pay'
       get 'embed'
       get 'video_embed'
       get 'embed_panel'

@@ -40,10 +40,6 @@ class Channel < ActiveRecord::Base
     user && subscribers.where(id: user.id).first.present?
   end
 
-  def to_s
-    self.name
-  end
-
   def video
     @video ||= VideoInfo.get(self.video_url) if self.video_url.present?
   end

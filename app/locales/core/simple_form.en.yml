@@ -5,9 +5,6 @@ en:
     required:
       text: 'required'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
     placeholders:
@@ -48,7 +45,7 @@ en:
         new_project: 'Email me when new projects are added to Neighbor.ly'
         profile_type: 'Display me as a'
         phone_number: 'Phone number'
-        address: 'City, State'
+        location: 'City, State'
         address_street: 'Street Address'
         address_neighborhood: 'Neighborhood Name'
         address_zip_code: 'Zip code'
@@ -72,7 +69,7 @@ en:
         hash_tag: 'Hashtag'
         foundation_widget: 'Use new foundation widget?'
         address_neighborhood: 'Neighborhood Name'
-        address: 'City, State'
+        location: 'City, State'
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'

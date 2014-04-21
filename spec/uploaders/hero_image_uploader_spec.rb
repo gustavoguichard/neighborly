@@ -21,5 +21,3 @@ describe HeroImageUploader do
   end
 
 end
-
-

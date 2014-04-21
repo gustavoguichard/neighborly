@@ -21,7 +21,7 @@ class DiscoverController < ApplicationController
     if params[:category].present?
       category = Category.where('name_en ILIKE ?', params[:category]).first
       if category.present?
-        @projects = @projects.by_category_id(category.id)
+        @projects = @projects.where(category_id: category.id)
         @filters.merge! category: category.name_en
       end
     end

@@ -1,11 +1,10 @@
 = content_for :meta_tags do
-  -# Meta tags for facebook social graph
   meta property="og:title" content=@user.display_image
   meta property="og:url" content=="#{Configuration[:base_url]}#{user_path(@user)}"
   meta property="og:image" content==@user.display_image
   meta property="og:site_name" content=::Configuration[:company_name]
   meta property="og:description" content=@user.bio
-  meta property="fb:admins" content="#{fb_admins}"
+  meta property="fb:admins" content=facebook_url_admin
 
 .user-profile-page
   - content_for :user_image do
@@ -14,9 +13,9 @@
     - else
       = @user.display_image_html width: 150, height: 150, class: 'large'
 
-  - if @user.address.present?
+  - if @user.location.present?
     header.map
-      .address.address-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
+      .location.location-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
       .map-canvas
       = yield :user_image
   - else
@@ -29,7 +28,7 @@
         h2.profile
           = @user.display_name
         h3.city
-          = @user.address
+          = @user.location
         p.bio
           = @user.bio
         

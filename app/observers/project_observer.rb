@@ -55,11 +55,22 @@ class ProjectObserver < ActiveRecord::Observer
     deliver_default_notification_for(project, :project_rejected)
   end
 
-
   def from_draft_to_online(project)
     deliver_default_notification_for(project, :project_visible)
     notify_users_that_a_new_project_is_online(project)
     project.update_attributes({ online_date: DateTime.now })
+  end
+
+  def from_draft_to_soon(project)
+    Notification.notify_once(
+      :project_approved,
+      project.user,
+      {project_id: project.id},
+      {
+        project: project,
+        origin_email: Configuration[:email_contact]
+      }
+    )
   end
 
   def from_soon_to_online(project)

@@ -142,19 +142,28 @@ describe ProjectsForHome do
     let(:not_soon) do
       create(:project,
              state: 'online',
+             uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"),
              home_page: true)
     end
 
     let(:not_home_page) do
       create(:project,
              state: 'soon',
+             uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"),
              home_page: false)
+    end
+
+    let(:without_image) do
+      create(:project,
+             state: 'soon',
+             home_page: true)
     end
 
     it 'should return only 4 soon projects' do
       5.times do
         create(:project,
                state: 'soon',
+               uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"),
                home_page: true)
       end
       expect(subject.size).to eq 4
@@ -163,6 +172,7 @@ describe ProjectsForHome do
     it 'should return a project object' do
       create(:project,
              state: 'soon',
+             uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"),
              home_page: true)
 
       expect(subject.first).to be_instance_of(Project)
@@ -176,6 +186,11 @@ describe ProjectsForHome do
     it 'should not include not home page project' do
       not_home_page
       expect(subject).not_to include(not_home_page)
+    end
+
+    it 'should not include projects without images' do
+      not_home_page
+      expect(subject).not_to include(without_image)
     end
   end
 

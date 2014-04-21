@@ -9,8 +9,6 @@ describe StaticController do
   describe 'GET guidelines' do
     before{ get :how_it_works, {locale: :pt} }
     it{ should be_success }
-    #its(:body){ should =~ /#{I18n.t('static.guidelines.title')}/ }
-    #its(:body){ should =~ /#{I18n.t('static.guidelines.subtitle')}/ }
   end
 
   describe "GET sitemap" do

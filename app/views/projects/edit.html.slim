@@ -24,10 +24,10 @@
         = form.input :tag_list, as: :string
 
       .section-header #2. Project Location
-      - if policy(@project).permitted_for?(:address, :update)
-        .address
-          .address-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png')]
-          = form.input :address, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
+      - if policy(@project).permitted_for?(:location, :update)
+        .location
+          .location-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png')]
+          = form.input :location, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
           .map-canvas
       - if policy(@project).permitted_for?(:address_neighborhood, :update)
         = form.input :address_neighborhood
@@ -68,4 +68,3 @@
   = yield :page_content
 - else
   = render template: 'projects/show'
-
