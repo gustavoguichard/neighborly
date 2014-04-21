@@ -25,8 +25,9 @@ describe OmniauthCallbacksController do
     describe 'GET \'facebook\'' do
       it 'completes an omniauth signin with serialized omniauth user' do
         OmniauthUserSerializer.any_instance.stub(:to_h).and_return(serialized_user)
+        session[:new_user_attrs] = { email: 'foobar@example.com' }
         expect_any_instance_of(OmniauthSignIn).to receive(:complete).
-          with(serialized_user)
+          with(serialized_user, session[:new_user_attrs])
         get :facebook
       end
 

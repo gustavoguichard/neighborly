@@ -27,15 +27,19 @@ class UserInitializer
     return false unless can_setup?
 
     if user
-      user.uploaded_image? and omniauth_data.delete(:remote_uploaded_image_url)
-
-      user.update_attributes(omniauth_urls_data)
-      user.authorizations.
-        find_or_initialize_by(oauth_provider_id: authorization_data[:oauth_provider_id]).
-        update_attributes(authorization_data)
+      attach_authorization
     else
       @user = User.create(omniauth_data)
     end
+  end
+
+  def attach_authorization
+    user.uploaded_image? and omniauth_data.delete(:remote_uploaded_image_url)
+
+    user.update_attributes(omniauth_urls_data)
+    user.authorizations.
+      find_or_initialize_by(oauth_provider_id: authorization_data[:oauth_provider_id]).
+      update_attributes(authorization_data)
   end
 
   def can_setup?

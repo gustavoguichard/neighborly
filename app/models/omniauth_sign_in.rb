@@ -8,10 +8,14 @@ class OmniauthSignIn
     @current_user = current_user
   end
 
-  def complete(omniauth_data)
+  def complete(omniauth_data, new_omniauth_data = {})
     @data             = omniauth_data
     @user_initializer = UserInitializer.new(@data, @current_user)
     @user_initializer.setup
+    if signed_in? && new_omniauth_data.present?
+      @user_initializer = UserInitializer.new(new_omniauth_data, @user_initializer.user)
+      @user_initializer.attach_authorization
+    end
   end
 
   def status
@@ -22,5 +26,9 @@ class OmniauthSignIn
     else
       :needs_ownership_confirmation
     end
+  end
+
+  def signed_in?
+    status.eql? :success
   end
 end
