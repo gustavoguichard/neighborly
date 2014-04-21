@@ -122,14 +122,9 @@ words.sending.markItUp
   &:before
     content: 'H4'
 
-.markdown .markItUpButton5 a
-  background-image: image-url('markitup/bold.png')
-
-.markdown .markItUpButton6 a
-  background-image: image-url('markitup/italic.png')
-
-.markdown .markItUpButton7 a
-  background-image: image-url('markitup/list-bullet.png')
+.markdown .markItUpButton5
+  &:before
+    @extend .icon-fa-bold
 
 .markdown .markItUpButton6
   &:before
