@@ -1,0 +1,16 @@
+.markdown-previewer-page
+  - if request.xhr?
+    a.close-reveal-modal ×
+
+  .row
+    .large-12.columns
+      h3 = t('.title')
+      hr
+
+      - if @html.present?
+        .scroll-section
+          .user-content = @html
+        .modal-footer.text-right
+          = link_to t('.close'), '#', class: 'button close'
+      - else
+        = t('.nothing_to_preview')

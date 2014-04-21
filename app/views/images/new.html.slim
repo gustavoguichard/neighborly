@@ -1,0 +1,33 @@
+- use_simple_uploader = (browser.ie8? || browser.ie9?)
+
+.new-image-page.row
+  = initjs_tag app_name: 'Neighborly', partial: true
+  - if request.xhr?
+    a.close-reveal-modal ×
+
+  .large-12.columns
+    h3.title.text-center = t('.title')
+
+    = simple_form_for Image.new, remote: true, format: :json do |f|
+      - if use_simple_uploader
+        .use-simple-uploader
+          .will-hide
+            = f.input :file, as: :file
+          .info
+          .image-wrapper
+            = image_tag 'image-placeholder.jpg', class: 'uploaded-image'
+      - else
+        .use-dropzone
+          .new-image-upload-dropzone data-param="image[file]"
+            span.info.will-hide = t('.description')
+            = image_tag 'image-placeholder.jpg', class: 'uploaded-image'
+
+      .hide
+        = f.input :file_url, as: :string, input_html: { class: 'uploaded-image-url' }
+
+      - if use_simple_uploader
+        .submit.text-right.will-hide
+          = f.button :submit, t('.upload'), data: { disable_with: t('.uploading') }
+
+      .insert-image-wrapper.text-right.hide.will-show
+        = link_to t('.insert'), '#', class: 'insert-image button'

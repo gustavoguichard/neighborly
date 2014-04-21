@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 Neighborly::Application.routes.draw do
-
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
   devise_for :users, path: '',
@@ -168,6 +167,12 @@ Neighborly::Application.routes.draw do
   namespace :companies do
     get :contact, to: 'contacts#new'
     resources :contacts, only: [:create]
+  end
+
+  resources :images, only: [:new, :create]
+
+  namespace :markdown do
+    resources :previewer, only: :create
   end
 
   # Redirect from old users url to the new

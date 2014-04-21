@@ -1,0 +1,8 @@
+en:
+  images:
+    new:
+      title: 'Upload an image'
+      description: 'Drop an image here or click to select one.'
+      insert: 'Insert image'
+      upload: 'Start Upload'
+      uploading: 'Uploading...'

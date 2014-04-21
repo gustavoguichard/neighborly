@@ -70,6 +70,7 @@ class UserPolicy < ApplicationPolicy
 
   def organization_attributes
     [{organization_attributes: [
+        :id,
         :name,
         :image
         ]

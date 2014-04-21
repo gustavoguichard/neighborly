@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class HeroImageUploader < ImageUploader
+  process convert: :jpg
 
   version :blur do
     process resize_to_limit: [2000, 0]

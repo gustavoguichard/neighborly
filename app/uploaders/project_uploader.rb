@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class ProjectUploader < ImageUploader
+  process convert: :jpg
 
   version :project_thumb do
     process resize_to_fill: [228,178]

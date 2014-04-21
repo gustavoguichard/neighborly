@@ -1,0 +1,184 @@
+# ----------------------------------------------------------------------------
+# markItUp!
+# ----------------------------------------------------------------------------
+# Copyright (C) 2008 Jay Salvat
+# http://markitup.jaysalvat.com/
+# ----------------------------------------------------------------------------
+Neighborly.markdownSettings =
+  nameSpace: "markdown" # Useful to prevent multi-instances CSS conflict
+  #previewParserPath:  '~/sets/markdown/preview.php',
+  onShiftEnter:
+    keepDefault: false
+    openWith: "\n\n"
+
+  markupSet: [
+    name: "Heading 1"
+    key: "1"
+    openWith: "# "
+    placeHolder: "Your title here..."
+    className: 'button secondary tiny'
+  ,
+    name: "Heading 2"
+    key: "2"
+    openWith: "## "
+    placeHolder: "Your title here..."
+    className: 'button secondary tiny'
+  ,
+    name: "Heading 3"
+    key: "3"
+    openWith: "### "
+    placeHolder: "Your title here..."
+    className: 'button secondary tiny'
+  ,
+    name: "Heading 4"
+    key: "4"
+    openWith: "#### "
+    placeHolder: "Your title here..."
+    className: 'button secondary tiny'
+  ,
+    separator: "---------------"
+  ,
+    name: "Bold"
+    key: "B"
+    openWith: "**"
+    closeWith: "**"
+    className: 'button secondary tiny'
+  ,
+    name: "Italic"
+    key: "I"
+    openWith: "_"
+    closeWith: "_"
+    className: 'button secondary tiny'
+  ,
+    separator: "---------------"
+  ,
+    name: "Bulleted List"
+    openWith: "- "
+    className: 'button secondary tiny'
+  ,
+    name: "Numeric List"
+    openWith: (markItUp) ->
+      markItUp.line + ". "
+    className: 'button secondary tiny'
+  ,
+    separator: "---------------"
+  ,
+    name: "Picture"
+    key: "P"
+    replaceWith: (markItUp)->
+      Neighborly.MarkdownUploadModal.init(markItUp)
+    className: 'button secondary tiny'
+  ,
+    name: "Link"
+    key: "L"
+    openWith: "["
+    closeWith: "]([![Url:!:http://]!] \"[![Title]!]\")"
+    placeHolder: "Your text to link here..."
+    className: 'button secondary tiny'
+  ,
+    separator: "---------------"
+  ,
+    name: "Quotes"
+    openWith: "> "
+    className: 'button secondary tiny'
+  ,
+    separator: "---------------"
+  ,
+    name: 'Preview'
+    replaceWith: (markItUp)->
+      Neighborly.MarkdownPreviewer.init(markItUp)
+    className: 'button tiny'
+  ]
+
+
+#{separator:'---------------'},
+#{}
+
+# mIu nameSpace to avoid conflict.
+miu = markdownTitle: (markItUp, char) ->
+  heading = ""
+  n = $.trim(markItUp.selection or markItUp.placeHolder).length
+  i = 0
+  while i < n
+    heading += char
+    i++
+  "\n" + heading + "\n"
+
+
+Neighborly.MarkdownUploadModal =
+  init: (markItUp)->
+    @markItUp = markItUp
+    @id = "markItUpPictureUpload_#{markItUp.textarea.id}"
+    this.createHtmlModal()
+    this.bindEvents(markItUp)
+
+    $("##{@id}").foundation 'reveal', 'open',
+      'url': '<%= Rails.application.routes.url_helpers.new_image_path %>'
+
+    return false
+
+  createHtmlModal: ->
+    html = $('<div>').attr('id', @id).
+                    attr('data-reveal', '').
+                    addClass('reveal-modal small')
+    $('body').append(html)
+
+  insertMarkdownImage: ->
+    image_url = $("##{@id} .uploaded-image-url").val()
+    $(@markItUp.textarea).trigger 'insertion',
+      [{replaceWith: "![Image title](#{image_url})\n"}]
+
+    $("##{@id}").foundation('reveal', 'close')
+
+  bindEvents: ->
+    that = this
+    $(document).on 'opened', "##{@id}", ->
+      Initjs.initializePartial()
+      that.bindEventsToView()
+
+    $(document).on 'closed', "##{@id}", ->
+      $("##{@id}").remove()
+
+  bindEventsToView: ->
+    that = this
+    $("##{@id} .insert-image.button").unbind('click')
+    $("##{@id} .insert-image.button").on 'click', (e)->
+      e.preventDefault()
+      that.insertMarkdownImage()
+      return false
+
+Neighborly.MarkdownPreviewer =
+  init: (markItUp)->
+    @markItUp = markItUp
+    @id = "markItUpMarkdownPreviewer_#{markItUp.textarea.id}"
+    this.createHtmlModal()
+    this.bindEvents(markItUp)
+
+    $("##{@id}").foundation 'reveal', 'open',
+      url: '<%= Rails.application.routes.url_helpers.markdown_previewer_index_path %>'
+      method: 'POST'
+      data: { markdown: markItUp.textarea.value }
+
+    return false
+
+  createHtmlModal: ->
+    html = $('<div>').attr('id', @id).
+                    attr('data-reveal', '').
+                    addClass('reveal-modal medium')
+    $('body').append(html)
+
+  bindEvents: ->
+    that = this
+    $(document).on 'opened', "##{@id}", ->
+      that.bindEventsToView()
+
+    $(document).on 'closed', "##{@id}", ->
+      $("##{@id}").remove()
+
+  bindEventsToView: ->
+    that = this
+    $("##{@id} .close.button").unbind('click')
+    $("##{@id} .close.button").on 'click', (e)->
+      e.preventDefault()
+      $("##{that.id}").foundation('reveal', 'close')
+      return false

@@ -113,7 +113,7 @@ describe UserPolicy do
     end
 
     it 'permit organization fields' do
-      attrs = { organization_attributes: [ :name, :image ] }
+      attrs = { organization_attributes: [ :id, :name, :image ] }
       expect(policy.permitted?(attrs)).to be_true
     end
 

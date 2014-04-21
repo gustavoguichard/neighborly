@@ -10,18 +10,13 @@
       p.text-center.register_link
         = t '.no_account_html', link: link_to(t('.links.register').html_safe, new_user_registration_path)
 
-      - if flash[:devise_error].present?
-        .row
-          .large-10.columns.large-centered
-            .alert-box.devise-error.animated.shake
-              h4 = flash[:devise_error]
       hr
+
+      = render 'devise/shared/alert'
       = render 'devise/shared/omniauth'
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-
-          = render 'devise/shared/alert'
 
           = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }, input_html: { value: (flash[:user_email] || resource.email) }
           = f.input :password, required: true, class: [:login], tabindex: 2, label_html: { class: 'hidden-label' }

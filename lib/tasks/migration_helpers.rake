@@ -164,3 +164,78 @@ desc "Send notification about credits 1 month after the project failed"
 task send_credits_notification: :environment do
   User.send_credits_notification
 end
+
+desc "Upload images from markdown"
+task migrate_markdown_images: :environment do
+
+  regex = /(!\[.*?\]\()(.*?)(( ?\".*?\")?\))/
+
+  def upload_image(url, user)
+    img = Image.new(remote_file_url: url, user: user)
+    if img.save
+      img.file_url(:medium)
+    else
+      url
+    end
+  end
+
+  Project.all.each do |project|
+    puts "Applying to Project: #{project.name} - #{project.permalink}"
+
+    content = project.about
+    if content.present?
+      project.about = content.gsub(regex) do
+        $1 + upload_image($2, project.user) + $3
+      end
+    end
+
+    content = project.budget
+    if content.present?
+      project.budget = content.gsub(regex) do
+        $1 + upload_image($2, project.user) + $3
+      end
+    end
+
+    content = project.terms
+    if content.present?
+      project.terms = content.gsub(regex) do
+        $1 + upload_image($2, project.user) + $3
+      end
+    end
+
+    puts "Completed as #{project.save}"
+  end
+
+  Update.all.each do |update|
+    puts "Applying to Update: #{update.id}"
+
+    content = update.comment
+    if content.present?
+      update.comment = content.gsub(regex) do
+        $1 + upload_image($2, update.user) + $3
+      end
+    end
+
+    puts "Completed as #{update.save}"
+  end
+
+  Channel.all.each do |channel|
+    puts "Applying to Channel: #{channel.id}"
+
+    content = channel.how_it_works
+    if content.present?
+      channel.how_it_works = content.gsub(regex) do
+        $1 + upload_image($2, channel.user || User.firsts) + $3
+      end
+    end
+
+    content = channel.submit_your_project_text
+    if content.present?
+      channel.submit_your_project_text = content.gsub(regex) do
+        $1 + upload_image($2, channel.user || User.first) + $3
+      end
+    end
+
+    puts "Completed as #{channel.save}"
+  end
+end

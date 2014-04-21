@@ -1,5 +1,6 @@
 class OrganizationUploader < ImageUploader
 
+  process convert: :jpg
   process quality: 100
 
   version :thumb do

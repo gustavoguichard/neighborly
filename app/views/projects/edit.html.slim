@@ -1,5 +1,5 @@
 - content_for :page_content do
-  = initjs_tag app_name: 'Neighborly', partial: true
+  = initjs_tag app_name: 'Neighborly', partial: true if request.xhr?
 
   .edit-project-page
     = simple_form_for @project do |form|
