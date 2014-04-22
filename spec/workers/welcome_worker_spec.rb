@@ -2,16 +2,26 @@ require 'spec_helper'
 
 describe WelcomeWorker do
   let(:user) { create(:user)}
-  let(:perform_async) { WelcomeWorker.perform_async(user.id)}
 
   before do
     Sidekiq::Testing.inline!
-
-    Notification.should_receive(:notify_once)
-    User.any_instance.should_receive(:update_attribute)
   end
 
-  it "should satisfy expectations" do
-    perform_async
+  context 'when user exists' do
+    let(:perform_async) { described_class.perform_async(user.id)}
+
+    it 'satisfies expectations' do
+      expect(Notification).to receive(:notify_once)
+      expect_any_instance_of(User).to receive(:update_attribute)
+      perform_async
+    end
+  end
+
+  context 'when user does not exists' do
+    let(:perform_async) { described_class.perform_async(42)}
+
+    it 'raises a error' do
+      expect { perform_async }.to raise_error
+    end
   end
 end
