@@ -12,7 +12,8 @@ module OmniauthAuthenticationControllerHelpers
       needs_ownership_confirmation: -> do
         session[:new_user_attrs] = omniauth_sign_in.data
 
-        flash[:devise_error] = t('needs_ownership_confirmation', scope: 'controllers.omniauth_authentication')
+        flash.alert = t('needs_ownership_confirmation',
+          scope: 'controllers.omniauth_authentication')
         flash[:user_email]   = session[:new_user_attrs].try(:[], :email)
         redirect_to new_user_session_path
       end,

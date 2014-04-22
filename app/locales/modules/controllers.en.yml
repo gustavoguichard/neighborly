@@ -1,7 +1,7 @@
 en:
   controllers:
     omniauth_authentication:
-      needs_ownership_confirmation: 'We need you to confirm your password before proceed.'
+      needs_ownership_confirmation: 'Please login with your existing account before proceed.'
     unsubscribes:
       create:
         success: 'Your information has been updated!'
