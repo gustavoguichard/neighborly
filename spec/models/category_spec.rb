@@ -14,10 +14,9 @@ describe Category do
     let(:category) { create(:category) }
 
     context 'when category has a project' do
-      let(:project) { create(:project, category: category) }
+      let!(:project) { create(:project, category: category) }
 
       it 'returns categories with projects' do
-        project
         expect(described_class.with_projects).to eq [category]
       end
     end
