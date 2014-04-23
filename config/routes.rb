@@ -134,6 +134,8 @@ Neighborly::Application.routes.draw do
         put 'credits_checkout'
       end
     end
+
+    resources :matches, controller: 'projects/challenges/matches', only: %i(new create)
   end
 
   scope :login, controller: :sessions do

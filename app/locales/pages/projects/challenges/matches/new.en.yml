@@ -1,0 +1,19 @@
+en:
+  projects:
+    challenges:
+      matches:
+        new:
+          title_html: "Looking to make a big impact?<br>Matching is the right tool for you"
+          steps:
+            first:
+              title: "Multiply your giving"
+              description: "By creating a challenge match, you give other users the opportunity to double their impact."
+            second:
+              title: "Increase engagement"
+              description: "Challenge matches help to increase user engagement and encourage contributors to act quickly."
+            third:
+              title: "Earn media views"
+              description: "Engage a whole new audience and get recognized for contributing to a worthy project."
+          form:
+            inputs:
+              submit: "Preview your match"
