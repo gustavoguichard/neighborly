@@ -1,0 +1,32 @@
+- content_for :title, strip_tags(t('.title_html'))
+
+.start-page
+  header.hero data-image-url=image_path('start/hero.jpg')
+    .row
+      .large-8.columns.large-centered.text-center
+        h2 = t('.title_html')
+  .white
+    section.steps
+      .row
+        - steps = OpenStruct.new first_step_icon: 'et-paper-plane', first_step_title: t('.steps.first.title'), first_step_description: t('.steps.first.description'),
+                                 second_step_icon: 'et-clock', second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
+                                 third_step_icon: 'et-rocket', third_step_title: t('.steps.third.title'), third_step_description: t('.steps.third.description')
+
+        - for step in [:first, :second, :third]
+          .large-4.columns
+            .large-11.columns.large-centered.rounded-top
+              .step
+                i[class="icon-#{steps.send("#{step}_step_icon")}"]
+                h5 = steps.send("#{step}_step_title")
+                p = steps.send("#{step}_step_description")
+
+    .row
+      .large-10.columns.large-centered
+        hr
+
+        = simple_form_for resource, url: '#' do |f|
+          = f.input :value,       required: true, label_html: { class: 'hidden-label' }
+          = f.input :starts_at,   required: true, label_html: { class: 'hidden-label' }
+          = f.input :finishes_at, required: true, label_html: { class: 'hidden-label' }
+          = f.input :maximum_value, required: true, label_html: { class: 'hidden-label' }
+          = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']
