@@ -2,16 +2,26 @@ require 'spec_helper'
 
 describe NotificationWorker do
   let(:notification) { create(:notification, dismissed: false)}
-  let(:perform_async) { NotificationWorker.perform_async(notification.id)}
 
   before do
     Sidekiq::Testing.inline!
-
-    NotificationsMailer.should_receive(:notify).with(notification).and_call_original
-    Notification.any_instance.should_receive(:update_attributes)
   end
 
-  it "should satisfy expectations" do
-    perform_async
+  context 'when notification exists' do
+    let(:perform_async) { described_class.perform_async(notification.id)}
+
+    it 'satisfies expectations' do
+      expect(NotificationsMailer).to receive(:notify).with(notification).and_call_original
+      expect_any_instance_of(Notification).to receive(:update_attributes)
+      perform_async
+    end
+  end
+
+  context 'when user does not exists' do
+    let(:perform_async) { described_class.perform_async('aaa')}
+
+    it 'raises a error' do
+      expect { perform_async }.to raise_error
+    end
   end
 end

@@ -25,7 +25,7 @@ module Concerns
     def confirm_account
       if user_signed_in? && !current_user.confirmed?
         { message:     t('devise.confirmations.confirm',
-                         link: new_user_confirmation_path),
+                         link: main_app.new_user_confirmation_path),
           dismissible: false }
       end
     end
@@ -33,7 +33,7 @@ module Concerns
     def complete_profile
       if user_signed_in? && current_user.completeness_progress.to_i < 100
         { message: t('controllers.users.completeness_progress',
-                     link: edit_user_path(current_user)),
+                     link: main_app.edit_user_path(current_user)),
           dismissible: false }
       end
     end

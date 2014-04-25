@@ -45,7 +45,7 @@ describe Concerns::PersistentWarnings do
 
           it 'shows message asking to confirm account' do
             link    = 'http://example.com'
-            subject.stub(:new_user_confirmation_path).and_return(link)
+            subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
             warning = I18n.t('devise.confirmations.confirm', link: link)
             expect(subject.persistent_warning[:message]).to eql(warning)
           end
@@ -58,7 +58,8 @@ describe Concerns::PersistentWarnings do
 
           it 'shows message asking to confirm account' do
             link    = 'http://example.com'
-            subject.stub(:new_user_confirmation_path).and_return(link)
+            subject.stub_chain(:main_app, :edit_user_path)
+            subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
             warning = I18n.t('devise.confirmations.confirm', link: link)
             expect(subject.persistent_warning[:message]).to eql(warning)
           end
@@ -87,7 +88,7 @@ describe Concerns::PersistentWarnings do
 
           it 'shows message asking to complete profile' do
             link    = 'http://example.com'
-            subject.stub(:edit_user_path).and_return(link)
+            subject.stub_chain(:main_app, :edit_user_path).and_return(link)
             warning = I18n.t('controllers.users.completeness_progress', link: link)
             expect(subject.persistent_warning[:message]).to eql(warning)
           end
