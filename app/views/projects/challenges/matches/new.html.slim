@@ -24,9 +24,24 @@
       .large-10.columns.large-centered
         hr
 
+        h3 Configurate your challenge match.
+
         = simple_form_for resource, url: '#' do |f|
-          = f.input :value,       required: true, label_html: { class: 'hidden-label' }
-          = f.input :starts_at,   required: true, label_html: { class: 'hidden-label' }
-          = f.input :finishes_at, required: true, label_html: { class: 'hidden-label' }
-          = f.input :maximum_value, required: true, label_html: { class: 'hidden-label' }
-          = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']
+          .row
+            #match-form.large-8.large-offset-2.columns
+              p I pledge to match
+              .input-money-wrapper
+                span.prefix $
+                = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, class: 'with-prefix with-postfix input-money'
+              p for each $1 raised between
+              - date = Time.now.strftime('%m/%d/%y')
+              = f.input_field :starts_at,   as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
+              p and
+              - date = parent.expires_at.strftime('%m/%d/%y')
+              = f.input_field :finishes_at, as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
+              p up to
+              .input-money-wrapper.input-money-wrapper-match-maximum-value
+                span.prefix $
+                = f.number_field :maximum_value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money input-money-match-maximum-value'
+          .row
+            = f.submit t('.form.inputs.submit'), class: 'submit-match-form button large-8 large-offset-2 columns'
