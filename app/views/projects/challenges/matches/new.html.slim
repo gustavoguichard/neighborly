@@ -8,9 +8,9 @@
   .white
     section.steps
       .row
-        - steps = OpenStruct.new first_step_icon: 'et-paper-plane', first_step_title: t('.steps.first.title'), first_step_description: t('.steps.first.description'),
-                                 second_step_icon: 'et-clock', second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
-                                 third_step_icon: 'et-rocket', third_step_title: t('.steps.third.title'), third_step_description: t('.steps.third.description')
+        - steps = OpenStruct.new first_step_icon:  'et-paper-plane', first_step_title:  t('.steps.first.title'),  first_step_description:  t('.steps.first.description'),
+                                 second_step_icon: 'et-clock',       second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
+                                 third_step_icon:  'fa-eye-open',    third_step_title:  t('.steps.third.title'),  third_step_description:  t('.steps.third.description')
 
         - for step in [:first, :second, :third]
           .large-4.columns
