@@ -1,4 +1,5 @@
 class Projects::Challenges::MatchesController < ApplicationController
+  before_filter :authenticate_user!
   inherit_resources
   actions :new, :create
   helper_method :parent
