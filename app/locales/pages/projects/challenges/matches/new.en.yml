@@ -3,7 +3,8 @@ en:
     challenges:
       matches:
         new:
-          title_html: "Looking to make a big impact?<br>Matching is the right tool for you"
+          hero_call_html: "Looking to make a big impact?<br>Matching is the right tool for you"
+          title: "Configurate your challenge match."
           steps:
             first:
               title: "Multiply your giving"

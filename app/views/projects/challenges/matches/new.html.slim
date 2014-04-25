@@ -1,10 +1,10 @@
-- content_for :title, strip_tags(t('.title_html'))
+- content_for :title, t('.title')
 
 .start-page
   header.hero data-image-url=image_path('start/hero.jpg')
     .row
       .large-8.columns.large-centered.text-center
-        h2 = t('.title_html')
+        h2 = t('.hero_call_html')
   .white
     section.steps
       .row
@@ -24,15 +24,17 @@
       .large-10.columns.large-centered
         hr
 
-        h3 Configurate your challenge match.
+        h2.title-for-hero-page = t('.title')
 
-        = simple_form_for resource, url: '#' do |f|
+    .row
+      .large-10.columns.large-centered
+        = simple_form_for resource, url: project_matches_path do |f|
           .row
             #match-form.large-8.large-offset-2.columns
               p I pledge to match
               .input-money-wrapper
                 span.prefix $
-                = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, class: 'with-prefix with-postfix input-money'
+                = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
               p for each $1 raised between
               - date = Time.now.strftime('%m/%d/%y')
               = f.input_field :starts_at,   as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
