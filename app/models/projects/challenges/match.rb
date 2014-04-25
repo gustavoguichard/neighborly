@@ -15,7 +15,8 @@ class Projects::Challenges::Match < ActiveRecord::Base
 
   def ensure_starts_at_in_active_period_of_project
     unless project &&
-      (Time.zone.now.to_i..project.expires_at.to_i).include?(starts_at.to_i)
+      (DateTime.now.utc.beginning_of_day.to_i..project.expires_at.utc.to_i).
+        include?(starts_at.to_time.utc.to_i)
 
       errors.add(
         :starts_at,
@@ -26,7 +27,8 @@ class Projects::Challenges::Match < ActiveRecord::Base
 
   def ensure_finishes_at_after_starts_at_and_in_active_period_of_project
     unless project &&
-      (starts_at.to_i..project.expires_at.to_i).include?(finishes_at.to_i)
+      (starts_at.to_time.utc.to_i..project.expires_at.utc.to_i).
+        include?(finishes_at.to_time.utc.to_i)
 
       errors.add(
         :finishes_at,
