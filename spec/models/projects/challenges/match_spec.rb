@@ -21,7 +21,8 @@ describe Projects::Challenges::Match do
         project.stub(:expires_at).and_return(10.days.from_now)
         subject.project   = project
 
-        subject.starts_at = project.expires_at - 3.days
+        subject.starts_at   = project.expires_at - 3.days
+        subject.finishes_at = subject.starts_at + 1.day
         expect(subject).to have(:no).errors_on(:starts_at)
       end
 
@@ -33,10 +34,11 @@ describe Projects::Challenges::Match do
 
       it 'returns error with finishes_at after project\'s expiration date' do
         project = Project.new
-        project.stub(:expires_at).and_return(1.day.from_now)
+        project.stub(:expires_at).and_return(2.days.from_now)
         subject.project     = project
 
-        subject.finishes_at = project.expires_at + 1.day
+        subject.finishes_at = project.expires_at + 3.days
+        subject.starts_at   = project.expires_at + 1.day
         expect(subject).to have(1).errors_on(:finishes_at)
       end
 
