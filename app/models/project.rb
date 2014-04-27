@@ -181,6 +181,11 @@ class Project < ActiveRecord::Base
     channels.first ? "#{type}_channel".to_sym : type
   end
 
+  def paid?
+    @is_paid ||= Payout.where(project_id: id).sum(:value) ==
+      ProjectFinancialsByService.where(project_id: id).sum(:net_amount)
+  end
+
   def self.locations
     visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:location)
   end
