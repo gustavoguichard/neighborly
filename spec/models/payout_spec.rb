@@ -14,4 +14,6 @@ describe Payout do
       Payout.complete(1, 3)
     end
   end
+
+  after(:all) { PaymentEngine.destroy_all }
 end
