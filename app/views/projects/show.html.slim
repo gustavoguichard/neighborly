@@ -70,12 +70,14 @@
               - else
                 = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
 
-          - unless @project.online?
-            .large-3.columns.status-description
-              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
-          - else
+          - if @project.online?
             .large-3.columns.contribute
               = link_to t('.status-bar.contribute'), new_project_contribution_url(@project), class: 'button small'
+            .large-3.columns.contribute
+              = link_to t('.status-bar.match'), new_project_match_url(@project), class: 'button small'
+          - else
+            .large-3.columns.status-description
+              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
   .row.page-main-content
     section.large-9.columns.main
