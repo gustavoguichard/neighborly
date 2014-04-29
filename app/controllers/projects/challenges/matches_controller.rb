@@ -1,7 +1,7 @@
 class Projects::Challenges::MatchesController < ApplicationController
   before_filter :authenticate_user!
   inherit_resources
-  actions :new, :create
+  actions :new
   helper_method :parent
 
   def create
@@ -16,7 +16,12 @@ class Projects::Challenges::MatchesController < ApplicationController
       match_params[:finishes_at], '%m/%d/%y'
     ).in_time_zone
 
-    create! { parent }
+    if @match.save
+      redirect_to parent
+    else
+      flash.alert = @match.errors.full_messages.to_sentence
+      render 'new'
+    end
   end
 
   def parent
