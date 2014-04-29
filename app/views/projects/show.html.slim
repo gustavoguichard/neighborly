@@ -155,6 +155,7 @@
                 br
                 | Do you need some #{mail_to t('site.email.contact'), 'help'}?
           = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
+          = link_to t('.match'), new_project_match_url(@project), class: "button with-icon contribute"
         - else
           .alert-box.secondary.status-description
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))

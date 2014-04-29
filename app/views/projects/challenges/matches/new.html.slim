@@ -36,10 +36,10 @@
                 span.prefix $
                 = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
               p for each $1 raised between
-              - date = Time.now.strftime('%m/%d/%y')
+              - date = (resource.starts_at || Time.now).strftime('%m/%d/%y')
               = f.input_field :starts_at,   as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
               p and
-              - date = parent.expires_at.strftime('%m/%d/%y')
+              - date = (resource.finishes_at || parent.expires_at).strftime('%m/%d/%y')
               = f.input_field :finishes_at, as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
               p up to
               .input-money-wrapper.input-money-wrapper-match-maximum-value
