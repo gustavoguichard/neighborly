@@ -1,59 +1,59 @@
 .title-for-hero-page
   text-align: center
-  margin: 50px 0
+  margin: +emCalc(50px) 0
 
 #match-form
   background: $body-bg
   border: 1px solid $border-color
   border-radius: $global-radius
-  padding: 30px 50px
+  padding: +emCalc(30px) +emCalc(50px)
   font-size: emCalc(38px)
   letter-spacing: 0.006em
 
   .input-money-wrapper
     display: inline-block
-    width: 140px
-    height: 70px
-    margin-left: 18px
+    width: +emCalc(140px)
+    height: +emCalc(70px)
+    margin-left: +emCalc(18px)
     &.input-money-wrapper-match-maximum-value
-      width: 342px
+      width: +emCalc(342px)
 
   span.prefix, .input-money
     display: inline-block
-    height: 65px
+    height: +emCalc(65px)
 
   span.prefix
     font-size: 100%
     line-height: 170%
     text-shadow: none
-    width: 60px
+    width: +emCalc(60px)
     color: $primary-color
     display: inline-block
-    top: 16px
+    top: +emCalc(16px)
     border-top-left-radius: $global-radius
     border-bottom-left-radius: $global-radius
 
   .input-money
-    width: 75px
-    top: -4px
+    width: +emCalc(75px)
+    top: +emCalc(-4px)
     position: relative
-    padding: 0 18px
+    padding: 0 +emCalc(18px)
     border-top-right-radius: $global-radius
     border-bottom-right-radius: $global-radius
 
     &.input-money-match-maximum-value
-      width: 282px
+      width: +emCalc(282px)
 
   p
     line-height: 0.7
     display: inline-block
 
   .input-date-match-form
-    width: 188px
-    height: 65px
+    width: +emCalc(188px)
+    height: +emCalc(65px)
     display: inline-block
     margin-bottom: 0
-    padding: 0 22px
+    padding: 0 +emCalc(22px)
 
 .submit-match-form
-  margin-top: 20px
+  margin-top: +emCalc(20px)
