@@ -3,7 +3,7 @@ class Match < ActiveRecord::Base
   belongs_to :user
 
   validates :project, :user, presence: true
-  validates :maximum_value, numericality: { greater_than_or_equal_to: 1_000 }
+  validates :value, numericality: { greater_than_or_equal_to: 1_000 }
   validate :start_and_finish_dates
 
   private

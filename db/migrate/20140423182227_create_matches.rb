@@ -5,8 +5,8 @@ class CreateMatches < ActiveRecord::Migration
       t.references :user,                       index: true
       t.date       :starts_at,     null: false
       t.date       :finishes_at,   null: false
-      t.decimal    :value,         null: false
-      t.decimal    :maximum_value
+      t.decimal    :value_unit,    null: false
+      t.decimal    :value
 
       t.string     :state
       t.string     :payment_id,                       foreign_key: false

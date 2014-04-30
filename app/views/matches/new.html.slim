@@ -39,7 +39,7 @@
                     .large-3.small-2.columns
                       span.prefix $
                     .large-6.small-8.columns
-                      = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
+                      = f.number_field :value_unit, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
                     .large-3.small-2.columns
                       span.postfix .00
               .row
@@ -62,7 +62,7 @@
                     .large-2.small-2.columns
                       span.prefix $
                     .large-8.small-8.columns
-                      = f.number_field :maximum_value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money'
+                      = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money'
                     .large-2.small-2.columns
                       span.postfix .00
         .row.collapse
