@@ -5,11 +5,11 @@ describe Projects::Challenges::MatchesController do
   let(:user)    { create(:user) }
   let(:create_params) do
     {
-      "projects_challenges_match" => {
-        "value"         => "3",
-        "starts_at"     => Date.tomorrow.to_time.strftime('%m/%d/%y'),
-        "finishes_at"   => (Date.tomorrow + 2.days).to_time.strftime('%m/%d/%y'),
-        "maximum_value" => "9999"
+      'projects_challenges_match' => {
+        'value'         => '3',
+        'starts_at'     => Date.tomorrow.to_time.strftime('%m/%d/%y'),
+        'finishes_at'   => (Date.tomorrow + 2.days).to_time.strftime('%m/%d/%y'),
+        'maximum_value' => '9999'
       }
     }
   end
