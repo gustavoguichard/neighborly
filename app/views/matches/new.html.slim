@@ -27,23 +27,44 @@
         h2.title-for-hero-page = t('.title')
 
     .row
-      .large-10.columns.large-centered
-        = simple_form_for [parent, resource] do |f|
+      = simple_form_for [parent, resource] do |f|
+        #match-form.large-7.columns.large-centered
           .row
-            #match-form.large-8.large-offset-2.columns
-              p = t('.i_pledge_to_match')
-              .input-money-wrapper
-                span.prefix $
-                = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
-              p = t('.for_each_1_raised_between')
-              - date = (resource.starts_at || Time.now).strftime('%m/%d/%y')
-              = f.input_field :starts_at,   as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
-              p = t('.and')
-              - date = (resource.finishes_at || parent.expires_at).strftime('%m/%d/%y')
-              = f.input_field :finishes_at, as: :string, required: true, class: 'input-date-match-form', value: date, placeholder: date, maxlength: 8
-              p = t('.up_to')
-              .input-money-wrapper.input-money-wrapper-match-maximum-value
-                span.prefix $
-                = f.number_field :maximum_value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money input-money-match-maximum-value'
-          .row
-            = f.submit t('.form.inputs.submit'), class: 'submit-match-form button large-8 large-offset-2 columns'
+            .large-10.columns.large-centered
+              .row
+                .large-7.columns
+                  p = t('.i_pledge_to_match')
+                .large-5.columns
+                  .row.collapse.input-money-wrapper
+                    .large-3.small-2.columns
+                      span.prefix $
+                    .large-6.small-8.columns
+                      = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
+                    .large-3.small-2.columns
+                      span.postfix .00
+              .row
+                .large-12.columns.text-center
+                  p = t('.for_each_1_raised_between')
+              .row
+                .large-5.columns
+                  - date = (resource.starts_at || Time.now).strftime('%m/%d/%y')
+                  = f.input_field :starts_at,   as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
+                .large-2.columns
+                  p = t('.and')
+                .large-5.columns
+                  - date = (resource.finishes_at || parent.expires_at).strftime('%m/%d/%y')
+                  = f.input_field :finishes_at, as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
+              .row
+                .large-3.columns
+                  p = t('.up_to')
+                .large-9.columns
+                  .row.collapse.input-money-wrapper
+                    .large-2.small-2.columns
+                      span.prefix $
+                    .large-8.small-8.columns
+                      = f.number_field :maximum_value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money'
+                    .large-2.small-2.columns
+                      span.postfix .00
+        .row.collapse
+          .large-7.columns.large-centered
+            = f.submit t('.form.inputs.submit'), class: 'submit-match-form button large-12 columns'
