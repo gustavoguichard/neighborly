@@ -6,54 +6,17 @@
   background: $body-bg
   border: 1px solid $border-color
   border-radius: $global-radius
-  padding: +emCalc(30px) +emCalc(50px)
-  font-size: emCalc(38px)
-  letter-spacing: 0.006em
-
-  .input-money-wrapper
-    display: inline-block
-    width: +emCalc(140px)
-    height: +emCalc(70px)
-    margin-left: +emCalc(18px)
-    &.input-money-wrapper-match-maximum-value
-      width: +emCalc(342px)
-
-  span.prefix, .input-money
-    display: inline-block
-    height: +emCalc(65px)
-
-  span.prefix
-    font-size: 100%
-    line-height: 170%
-    text-shadow: none
-    width: +emCalc(60px)
-    color: $primary-color
-    display: inline-block
-    top: +emCalc(16px)
-    border-top-left-radius: $global-radius
-    border-bottom-left-radius: $global-radius
-
-  .input-money
-    width: +emCalc(75px)
-    top: +emCalc(-4px)
-    position: relative
-    padding: 0 +emCalc(18px)
-    border-top-right-radius: $global-radius
-    border-bottom-right-radius: $global-radius
-
-    &.input-money-match-maximum-value
-      width: +emCalc(282px)
+  padding-top: +emCalc(25px)
 
   p
-    line-height: 0.7
-    display: inline-block
+    font-size: 200%
+    padding-top: 5px
 
-  .input-date-match-form
-    width: +emCalc(188px)
-    height: +emCalc(65px)
-    display: inline-block
-    margin-bottom: 0
-    padding: 0 +emCalc(22px)
+  .prefix
+    color: $primary-color
+
+  .input-money-wrapper, .input-date
+    font-size: 150%
 
 .submit-match-form
   margin-top: +emCalc(20px)
