@@ -15,6 +15,10 @@ en:
             third:
               title: "Earn media views"
               description: "Engage a whole new audience and get recognized for contributing to a worthy project."
+          i_pledge_to_match: "I pledge to match"
+          for_each_1_raised_between: "for each $1 raised between"
+          and: "and"
+          up_to: "up to"
           form:
             inputs:
               submit: "Preview your match"
