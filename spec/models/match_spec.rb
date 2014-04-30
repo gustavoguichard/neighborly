@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Projects::Challenges::Match do
+describe Match do
   describe 'associations' do
     it { should belong_to(:project) }
     it { should belong_to(:user) }

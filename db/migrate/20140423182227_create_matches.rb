@@ -1,6 +1,6 @@
-class CreateProjectsChallengesMatches < ActiveRecord::Migration
+class CreateMatches < ActiveRecord::Migration
   def change
-    create_table :projects_challenges_matches do |t|
+    create_table :matches do |t|
       t.references :project,       null: false, index: true
       t.references :user,                       index: true
       t.date       :starts_at,     null: false

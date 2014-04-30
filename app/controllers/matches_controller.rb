@@ -1,11 +1,11 @@
-class Projects::Challenges::MatchesController < ApplicationController
+class MatchesController < ApplicationController
   before_filter :authenticate_user!
   inherit_resources
   actions :new
   helper_method :parent
 
   def create
-    @match = Projects::Challenges::Match.new(
+    @match = Match.new(
       match_params.except(:starts_at, :finishes_at).
         merge(project: parent, user: current_user)
     )
@@ -31,7 +31,7 @@ class Projects::Challenges::MatchesController < ApplicationController
   protected
 
   def match_params
-    params.require(:projects_challenges_match).permit(
+    params.require(:match).permit(
       %i(
         starts_at
         finishes_at

@@ -28,7 +28,7 @@
 
     .row
       .large-10.columns.large-centered
-        = simple_form_for resource, url: project_matches_path do |f|
+        = simple_form_for [parent, resource] do |f|
           .row
             #match-form.large-8.large-offset-2.columns
               p = t('.i_pledge_to_match')
