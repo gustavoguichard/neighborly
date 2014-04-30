@@ -9,6 +9,8 @@ class MatchesController < ApplicationController
       match_params.except(:starts_at, :finishes_at).
         merge(project: parent, user: current_user)
     )
+    authorize @match
+
     @match.starts_at   = Date.strptime(
       match_params[:starts_at], '%m/%d/%y'
     ).in_time_zone
