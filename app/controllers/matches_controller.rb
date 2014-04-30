@@ -37,8 +37,8 @@ class MatchesController < ApplicationController
       %i(
         starts_at
         finishes_at
+        value_unit
         value
-        maximum_value
       )
     )
   end

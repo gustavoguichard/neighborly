@@ -7,7 +7,7 @@ describe Match do
   end
 
   describe 'validations' do
-    it { should validate_numericality_of(:maximum_value).is_greater_than_or_equal_to(1_000) }
+    it { should validate_numericality_of(:value).is_greater_than_or_equal_to(1_000) }
 
     it { should validate_presence_of(:project) }
     it { should validate_presence_of(:user) }
