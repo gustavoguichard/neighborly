@@ -14,7 +14,7 @@ describe MatchesController do
     }
   end
 
-  context 'signed in' do
+  context 'authorized' do
     before { sign_in(user) }
 
     describe 'GET \'new\'' do
