@@ -128,7 +128,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :matches, controller: 'projects/challenges/matches', only: %i(new create)
+    resources :matches, only: %i(new create)
   end
 
   resources :users, path: 'neighbors' do
