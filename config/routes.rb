@@ -127,6 +127,8 @@ Neighborly::Application.routes.draw do
         put 'credits_checkout'
       end
     end
+
+    resources :matches, only: %i(new create)
   end
 
   resources :users, path: 'neighbors' do
