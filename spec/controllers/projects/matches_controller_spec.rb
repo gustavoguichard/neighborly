@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MatchesController do
+describe Projects::MatchesController do
   let(:project) { create(:project, state: :online, online_date: Date.current, online_days: 30) }
   let(:user)    { create(:user) }
   let(:create_params) do
@@ -25,7 +25,7 @@ describe MatchesController do
 
       it 'renders match template' do
         get :new, project_id: project.to_param
-        expect(response).to render_template('matches/new')
+        expect(response).to render_template('projects/matches/new')
       end
     end
 

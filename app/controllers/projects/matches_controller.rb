@@ -1,4 +1,4 @@
-class MatchesController < ApplicationController
+class Projects::MatchesController < ApplicationController
   before_filter :authenticate_user!
   after_filter :verify_authorized
   inherit_resources
