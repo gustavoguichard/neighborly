@@ -18,7 +18,7 @@ Neighborly::Application.routes.draw do
 
   # Mountable engines
   constraints check_user_admin do
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => '/sidekiqedit update'
   end
 
   mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
@@ -128,7 +128,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :matches, only: %i(new create)
+    resources :matches, except: %i(index destroy)
   end
 
   resources :users, path: 'neighbors' do

@@ -41,6 +41,19 @@ describe MatchesController do
         expect(response).to redirect_to(project)
       end
     end
+
+    describe 'GET \'edit\'' do
+      let(:match) { create(:match, project: project) }
+      it 'assigns match variable' do
+        get :edit, project_id: project, id: match.id
+        expect(assigns(:match)).to_not be_nil
+      end
+
+      it 'assigns project variable' do
+        get :edit, project_id: project, id: match.id
+        expect(assigns(:project)).to_not be_nil
+      end
+    end
   end
 
   context 'unsigned in' do
@@ -54,6 +67,13 @@ describe MatchesController do
     describe 'POST \'create\'' do
       it 'asks for user to login' do
         post :create, create_params.merge(project_id: project.to_param)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe 'GET \'edit\'' do
+      it 'asks for user to login' do
+        get :edit, project_id: project, id: 1
         expect(response).to redirect_to(new_user_session_path)
       end
     end

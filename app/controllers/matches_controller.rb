@@ -1,8 +1,9 @@
 class MatchesController < ApplicationController
   before_filter :authenticate_user!
+  after_filter :verify_authorized
   inherit_resources
-  actions :new
-  helper_method :parent
+  actions :all, except: %i(index destroy)
+  belongs_to :project, finder: :find_by_permalink!
 
   def create
     @match = Match.new(
@@ -26,8 +27,8 @@ class MatchesController < ApplicationController
     end
   end
 
-  def parent
-    @project ||= Project.find_by(permalink: params[:project_id])
+  def edit
+    authorize resource
   end
 
   protected
