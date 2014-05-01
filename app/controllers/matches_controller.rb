@@ -5,6 +5,11 @@ class MatchesController < ApplicationController
   actions :all, except: %i(index destroy)
   belongs_to :project, finder: :find_by_permalink!
 
+  def new
+    @match = parent.matches.build
+    authorize @match
+  end
+
   def create
     @match = Match.new(
       match_params.except(:starts_at, :finishes_at).
