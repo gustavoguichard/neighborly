@@ -11,6 +11,7 @@ describe Project do
     it{ should belong_to :user }
     it{ should belong_to :category }
     it{ should have_many :contributions }
+    it{ should have_many :matches }
     it{ should have_many :rewards }
     it{ should have_many :updates }
     it{ should have_many :notifications }
