@@ -29,7 +29,8 @@ def generate_project(fields = {})
                      how_know: Faker::Lorem.sentence,
                      video_url: 'http://vimeo.com/79833901',
                      home_page: true,
-                     address: "#{Faker::Address.city}, #{Faker::AddressUS.state_abbr}",
+                     address_city: Faker::Address.city,
+                     address_state: Faker::AddressUS.state_abbr,
                      remote_uploaded_image_url: lorem_pixel_url('500/400', 'city'),
                      remote_hero_image_url: lorem_pixel_url('1280/600', 'city')
     }.merge!(fields))
