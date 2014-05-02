@@ -191,4 +191,16 @@ describe Contribution do
       it{ should == '$1.00' }
     end
   end
+
+  describe 'when saving' do
+    it 'generates matched contributions' do
+      expect_any_instance_of(MatchedContributionGenerator).to receive(:create)
+      create(:contribution)
+    end
+
+    it 'skips matched contributions generation when is already a match' do
+      expect_any_instance_of(MatchedContributionGenerator).to_not receive(:create)
+      create(:contribution, payment_method: :matched)
+    end
+  end
 end
