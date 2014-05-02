@@ -186,19 +186,17 @@ FactoryGirl.define do
     f.file File.open("#{Rails.root}/spec/fixtures/image.png")
   end
 
-  factory :match do |f|
-    f.association :project, factory: :project
-    f.association :user, factory: :user
-    f.value 1000
-    f.starts_at { Date.tomorrow.to_time }
-    f.finishes_at { Date.tomorrow + 2.days }
-    f.value_unit { 1 }
-    f.state 'confirmed'
-  end
-
   factory :payout do
     payment_service 'balanced'
     project
     value           100
+  end
+
+  factory :match do |f|
+    finishes_at   { project.expires_at }
+    value         1_500
+    value_unit    2
+    starts_at     { Date.current }
+    state         :confirmed
   end
 end
