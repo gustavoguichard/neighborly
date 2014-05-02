@@ -14,9 +14,18 @@ class CreateMatches < ActiveRecord::Migration
       t.text       :payment_method
       t.text       :payment_token
       t.decimal    :payment_service_fee,              default: 0.0
-      t.boolean    :payment_service_fee_paid_by_user
+      t.boolean    :payment_service_fee_paid_by_user, default: true
 
       t.timestamps
     end
+
+    create_table :matchings do |t|
+      t.references :match,        index: true
+      t.references :contribution, index: true
+
+      t.timestamps
+    end
+
+    add_column :contributions, :matching_id, :integer, index: true
   end
 end
