@@ -8,7 +8,6 @@ class CreateMatches < ActiveRecord::Migration
       t.decimal    :value_unit,    null: false
       t.decimal    :value
 
-      t.string     :state
       t.string     :payment_id,                       foreign_key: false
       t.text       :payment_choice
       t.text       :payment_method

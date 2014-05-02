@@ -7,6 +7,11 @@ class Match < ActiveRecord::Base
   validates :value, numericality: { greater_than_or_equal_to: 1_000 }
   validate :start_and_finish_dates
 
+  scope :active, ->(project) do
+    where(project_id: project.id).
+      where('starts_at <= :today AND finishes_at >= :today', today: Date.current)
+  end
+
   private
 
   def start_and_finish_dates
