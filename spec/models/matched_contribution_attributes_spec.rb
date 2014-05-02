@@ -1,0 +1,38 @@
+require 'spec_helper'
+
+describe MatchedContributionAttributes do
+  subject { described_class.new(contribution, match) }
+  let(:contribution) do
+    Contribution.new(
+      project_id: 100,
+      state:      :canceled,
+      value:      50
+    )
+  end
+
+  let(:match) do
+    Match.new(
+      user_id:    200,
+      value_unit: 3
+    )
+  end
+
+  describe 'attributes' do
+    it 'gets specific attributes from contribution object' do
+      expect(subject.attributes[:project_id]).to eql(100)
+      expect(subject.attributes[:state]).to      eql(:canceled)
+    end
+
+    it 'gets specific attributes from match object' do
+      expect(subject.attributes[:user_id]).to eql(200)
+    end
+
+    it 'sets payment_method as matched' do
+      expect(subject.attributes[:payment_method]).to eql(:matched)
+    end
+
+    it 'defines its value as contribution times match\'s value unit' do
+      expect(subject.attributes[:value]).to eql(150)
+    end
+  end
+end
