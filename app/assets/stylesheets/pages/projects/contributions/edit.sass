@@ -51,68 +51,6 @@
           i
             margin-right: +emCalc(5px)
 
-  .payment
-    section
-      margin-bottom: +emCalc(15px)
-      &.highlighted
-        border-top: 1px solid $border-color
-        padding-top: +emCalc(20px)
-      &.use-existing-item
-        margin-bottom: 0
-    .title
-      margin-top: 0
-
-    .container
-      min-height: +emCalc(300px)
-      position: relative
-
-      .loading
-        $img-width: 80px
-        $img-height: 66px
-        position: relative
-        top: +emCalc(150px)
-        bottom: 0
-        left: 0
-        right: 0
-        background-color: rgba(white, .75)
-        z-index: -1
-        +opacity(0)
-        +transition(opacity .2s)
-        &.show
-          z-index: 201
-          +opacity(1)
-        .loader-img
-          @include beating-heart($img-width, $img-height)
-
-#add-new-creditcard-form
-  margin-bottom: +emCalc(-5px)
-
-.payment-method-option
-  float: left
-  width: 100%
-  border: 1px solid $border-color
-  border-radius: $global-radius
-  padding: +emCalc(15px)
-  margin-bottom: +emCalc(15px)
-  background: white
-  &.selected
-    border: 1px solid $primary-color
-  input
-    margin-bottom: 0
-    margin-right: +emCalc(15px)
-    margin-left: +emCalc(5px)
-  .description
-    margin-left: +emCalc(15px)
-    h6
-      margin-top: 0
-      margin-bottom: +emCalc(12px)
-      font-weight: 500
-      text-transform: uppercase
-    small
-      display: block
-      font-size: 85%
-      color: $secondary-color
-
 // IE fixes
 .ie9, .no-ie8compat
   .create-contribution-page
