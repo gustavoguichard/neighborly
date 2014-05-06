@@ -6,4 +6,8 @@ class MatchPolicy < ApplicationPolicy
   def update?
     record.user == user && record.project.online?
   end
+
+  def show?
+    record.user == user
+  end
 end

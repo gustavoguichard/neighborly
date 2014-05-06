@@ -58,4 +58,22 @@ describe MatchPolicy do
       end
     end
   end
+
+  permissions :show? do
+    context 'when user is the match creator' do
+      let(:project_state) { 'online' }
+
+      it 'should permit access to match creator' do
+        expect(subject).to permit(match_user, match)
+      end
+    end
+
+    context 'when user is not the match creator' do
+      let(:project_state) { 'online' }
+
+      it 'should permit access to match creator' do
+        expect(subject).not_to permit(user, match)
+      end
+    end
+  end
 end

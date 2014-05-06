@@ -2,7 +2,7 @@ class Projects::MatchesController < ApplicationController
   before_filter :authenticate_user!
   after_filter :verify_authorized
   inherit_resources
-  actions :all, except: %i(index destroy)
+  actions :all, except: %i(index update destroy)
   belongs_to :project, finder: :find_by_permalink!
 
   def new
@@ -25,7 +25,7 @@ class Projects::MatchesController < ApplicationController
     ).in_time_zone
 
     if @match.save
-      redirect_to parent
+      redirect_to edit_project_match_path(parent, @match)
     else
       flash.alert = @match.errors.full_messages.to_sentence
       render 'new'
@@ -36,8 +36,11 @@ class Projects::MatchesController < ApplicationController
     authorize resource
   end
 
-  protected
+  def show
+    authorize resource
+  end
 
+  protected
   def match_params
     params.require(:match).permit(
       %i(

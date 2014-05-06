@@ -128,7 +128,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :matches, controller: 'projects/matches', except: %i(index destroy)
+    resources :matches, controller: 'projects/matches', except: %i(index update destroy)
   end
 
   resources :users, path: 'neighbors' do
