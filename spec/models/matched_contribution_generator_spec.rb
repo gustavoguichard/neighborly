@@ -44,4 +44,34 @@ describe MatchedContributionGenerator do
       described_class.new(contribution).create
     end
   end
+
+  describe '#update' do
+    before do
+      create(:match, project: contribution.project)
+      subject.create
+    end
+
+    it 'updates state of each matched contribution' do
+      contribution.push_to_trash
+      expect(
+        contribution.matched_contributions.pluck(:state).uniq
+      ).to eql([contribution.state])
+    end
+
+    it 'ensures that not update non related contributions' do
+      unrelated_contribution = create(:contribution)
+      contribution.push_to_trash
+      expect(unrelated_contribution.state).to_not eql(contribution.state)
+    end
+
+    it 'ensures that not update non related matched contributions' do
+      unrelated_contribution = create(:contribution)
+      described_class.new(unrelated_contribution).create
+
+      contribution.push_to_trash
+      expect(
+        unrelated_contribution.matched_contributions.pluck(:state).uniq
+      ).to_not eql([contribution.state])
+    end
+  end
 end

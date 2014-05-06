@@ -14,6 +14,7 @@ class CreateMatches < ActiveRecord::Migration
       t.text       :payment_token
       t.decimal    :payment_service_fee,              default: 0.0
       t.boolean    :payment_service_fee_paid_by_user, default: true
+      t.string     :state
 
       t.timestamps
     end

@@ -142,6 +142,18 @@ describe Shared::PaymentStateMachineHandler do
     let(:resource_class)          { Contribution }
     let(:resource_observer_class) { ContributionObserver }
     it_should_behave_like 'payment state machine'
+
+    describe 'after state transitions' do
+      it 'updates a MatchedContributionGenerator instance' do
+        contribution.state_transitions.map(&:event).each do |event|
+          generator = double('MatchedContributionGenerator')
+          MatchedContributionGenerator.stub(:new).and_return(generator)
+          expect(generator).to receive(:update)
+
+          contribution.public_send(event)
+        end
+      end
+    end
   end
 
   context 'when resource is Match' do

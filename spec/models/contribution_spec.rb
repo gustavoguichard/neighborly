@@ -203,4 +203,12 @@ describe Contribution do
       create(:contribution, payment_method: :matched)
     end
   end
+
+  describe 'when updating status' do
+    it 'updates matched contributions\' statuses' do
+      subject = create(:contribution)
+      expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
+      subject.confirm
+    end
+  end
 end
