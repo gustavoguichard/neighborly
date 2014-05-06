@@ -14,7 +14,6 @@ class EmailsController < ApplicationController
       :new_draft_project_channel,
       :new_project_visible,
       :new_user_registration,
-      :payment_slip,
       :pending_contribution_project_unsuccessful,
       :project_in_wainting_funds,
       :project_owner_contribution_confirmed,
