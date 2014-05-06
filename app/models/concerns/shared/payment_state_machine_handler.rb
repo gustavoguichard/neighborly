@@ -1,4 +1,4 @@
-module Contribution::StateMachineHandler
+module Shared::PaymentStateMachineHandler
   extend ActiveSupport::Concern
 
   included do

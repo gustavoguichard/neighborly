@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Contribution::StateMachineHandler do
+describe Shared::PaymentStateMachineHandler do
   describe 'state_machine' do
     let(:contribution) { create(:contribution, state: initial_state) }
     let(:initial_state){ 'pending' }
