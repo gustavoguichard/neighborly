@@ -12,8 +12,9 @@ describe MatchedContributionAttributes do
 
   let(:match) do
     Match.new(
-      user_id:    200,
-      value_unit: 3
+      payment_service_fee_paid_by_user: true,
+      user_id:                          200,
+      value_unit:                       3
     )
   end
 
@@ -24,7 +25,8 @@ describe MatchedContributionAttributes do
     end
 
     it 'gets specific attributes from match object' do
-      expect(subject.attributes[:user_id]).to eql(200)
+      expect(subject.attributes[:payment_service_fee_paid_by_user]).to be_true
+      expect(subject.attributes[:user_id]).to                          eql(200)
     end
 
     it 'sets payment_method as matched' do

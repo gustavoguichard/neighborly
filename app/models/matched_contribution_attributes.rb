@@ -31,7 +31,7 @@ class MatchedContributionAttributes
 
   def build_attributes_from_match
     @attributes.merge!(
-      match.attributes.slice('user_id')
+      match.attributes.slice('user_id', 'payment_service_fee_paid_by_user')
     )
   end
 end
