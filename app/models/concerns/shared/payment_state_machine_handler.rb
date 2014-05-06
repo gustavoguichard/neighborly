@@ -1,4 +1,4 @@
-module Contribution::StateMachineHandler
+module Shared::PaymentStateMachineHandler
   extend ActiveSupport::Concern
 
   included do
@@ -33,8 +33,8 @@ module Contribution::StateMachineHandler
       end
 
       event :request_refund do
-        transition confirmed: :requested_refund, if: ->(contribution){
-          contribution.user.credits >= contribution.value && !contribution.credits
+        transition confirmed: :requested_refund, if: ->(resource){
+          resource.user.credits >= resource.value && !resource.try(:credits)
         }
       end
 

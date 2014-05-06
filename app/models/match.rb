@@ -1,4 +1,5 @@
 class Match < ActiveRecord::Base
+  include Shared::PaymentStateMachineHandler
   belongs_to :project
   belongs_to :user
 

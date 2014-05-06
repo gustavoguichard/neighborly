@@ -1,7 +1,7 @@
 # coding: utf-8
 class Contribution < ActiveRecord::Base
   include Shared::StateMachineHelpers
-  include Contribution::StateMachineHandler
+  include Shared::PaymentStateMachineHandler
   include Contribution::CustomValidators
 
   delegate :display_value, :display_confirmed_at, to: :decorator
