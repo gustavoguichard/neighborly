@@ -41,7 +41,10 @@ describe MatchedContributionGenerator do
         starts_at:   1.day.from_now,
         finishes_at: project.expires_at
       )
-      described_class.new(contribution).create
+
+      expect {
+        subject.create
+      }.to_not change(Contribution, :count)
     end
   end
 
