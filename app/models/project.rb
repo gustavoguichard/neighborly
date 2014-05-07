@@ -91,6 +91,10 @@ class Project < ActiveRecord::Base
     joins(:contributions).merge(Contribution.confirmed_today).uniq
   }
 
+  scope :order_by, ->(sort_field) do
+    order(sort_field) if sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
+  end
+
   validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
   validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :location
   validates_length_of :headline, maximum: 140
@@ -108,11 +112,6 @@ class Project < ActiveRecord::Base
   def self.between_created_at(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
-  end
-
-  def self.order_by(sort_field)
-    return scoped unless sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
-    order(sort_field)
   end
 
   def subscribed_users
