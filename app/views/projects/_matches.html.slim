@@ -1,0 +1,22 @@
+.row.matches
+  .large-12.columns.match-title
+    h3 = t('.match_title',
+          base_value: number_to_currency(1, precision: 0),
+          worth_value: number_to_currency(3, precision: 0),
+          date: l(Date.today))
+
+  .large-12.columns.match-description
+    span
+      = t('.match_description',
+          user_name: 'Spring',
+          value_unit: number_to_currency(2, precision: 0),
+          base_value: number_to_currency(1, precision: 0),
+          date: l(Date.today, format: :long))
+
+  .large-12.columns.match-description
+    span
+      = t('.match_description',
+          user_name: 'Cerner',
+          value_unit: number_to_currency(1, precision: 0),
+          base_value: number_to_currency(1, precision: 0),
+          date: l(Date.today, format: :long))
