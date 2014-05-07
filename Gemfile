@@ -116,7 +116,7 @@ group :test do
   gem 'fakeweb'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'capybara',   '~> 2.2.1'
   gem 'coveralls', require: false
