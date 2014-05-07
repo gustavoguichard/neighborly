@@ -17,8 +17,16 @@ GIT
       supermodel
 
 GIT
-  remote: git://github.com/lukeroberts1990/state_machine.git
-  revision: dc493bc88d837c705ac8b06dee9baca23aa1109b
+  remote: git://github.com/josemarluedke/font-icons-rails.git
+  revision: e9e43dd325e4e6fe552b362bb8b42a64775833ea
+  branch: fix-svgz
+  specs:
+    font-icons-rails (0.0.5)
+      sass-rails (>= 3.1.1)
+
+GIT
+  remote: git://github.com/josemarluedke/state_machine.git
+  revision: 6dde2b81d046ea92de6d066d26a2bcfb0ba6b608
   specs:
     state_machine (1.2.0)
 
@@ -63,45 +71,37 @@ GIT
       faraday_middleware (= 0.9.0)
       rails (~> 4.0)
 
-GIT
-  remote: git://github.com/shorelabs/font-icons-rails.git
-  revision: 19da71315862d54f766645444accd4e9f5dab6e7
-  ref: 19da71315862d54f766645444accd4e9f5dab6e7
-  specs:
-    font-icons-rails (0.0.5)
-      sass-rails (>= 3.1.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.1.0)
-      actionpack (= 4.1.0)
-      actionview (= 4.1.0)
+    actionmailer (4.1.1)
+      actionpack (= 4.1.1)
+      actionview (= 4.1.1)
       mail (~> 2.5.4)
-    actionpack (4.1.0)
-      actionview (= 4.1.0)
-      activesupport (= 4.1.0)
+    actionpack (4.1.1)
+      actionview (= 4.1.1)
+      activesupport (= 4.1.1)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.0)
-      activesupport (= 4.1.0)
+    actionview (4.1.1)
+      activesupport (= 4.1.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
-    activemodel (4.1.0)
-      activesupport (= 4.1.0)
+    activemodel (4.1.1)
+      activesupport (= 4.1.1)
       builder (~> 3.1)
-    activerecord (4.1.0)
-      activemodel (= 4.1.0)
-      activesupport (= 4.1.0)
+    activerecord (4.1.1)
+      activemodel (= 4.1.1)
+      activesupport (= 4.1.1)
       arel (~> 5.0.0)
-    activesupport (4.1.0)
+    activesupport (4.1.1)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    arel (5.0.0)
+    arel (5.0.1.20140414130214)
     auto_html (1.6.3)
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
@@ -260,8 +260,8 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    minitest (5.3.2)
-    multi_json (1.9.2)
+    minitest (5.3.3)
+    multi_json (1.10.0)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -327,15 +327,15 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.1.0)
-      actionmailer (= 4.1.0)
-      actionpack (= 4.1.0)
-      actionview (= 4.1.0)
-      activemodel (= 4.1.0)
-      activerecord (= 4.1.0)
-      activesupport (= 4.1.0)
+    rails (4.1.1)
+      actionmailer (= 4.1.1)
+      actionpack (= 4.1.1)
+      actionview (= 4.1.1)
+      activemodel (= 4.1.1)
+      activerecord (= 4.1.1)
+      activesupport (= 4.1.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.0)
+      railties (= 4.1.1)
       sprockets-rails (~> 2.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
@@ -344,9 +344,9 @@ GEM
       rails_stdout_logging
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
-    railties (4.1.0)
-      actionpack (= 4.1.0)
-      activesupport (= 4.1.0)
+    railties (4.1.1)
+      actionpack (= 4.1.1)
+      activesupport (= 4.1.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
@@ -431,7 +431,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.1.1)
+    sprockets-rails (2.1.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
@@ -539,7 +539,7 @@ DEPENDENCIES
   pry
   pundit (~> 0.2.3)
   quiet_assets
-  rails (= 4.1.0)
+  rails (= 4.1.1)
   rails-observers (~> 0.1.2)
   rails_12factor
   ranked-model
