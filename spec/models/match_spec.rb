@@ -76,6 +76,12 @@ describe Match do
         expect(described_class.active(match.project)).to_not include(match)
       end
 
+      it 'excludes those with non confirmed state' do
+        match = build(:match, starts_at: -5.days.from_now, finishes_at: -3.days.from_now, state: :pending)
+        match.save(validate: false)
+        expect(described_class.active(match.project)).to_not include(match)
+      end
+
       it 'returns those active and related to the given project' do
         expect(described_class.active(match.project)).to include(match)
       end

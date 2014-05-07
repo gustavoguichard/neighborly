@@ -8,7 +8,8 @@ class Match < ActiveRecord::Base
   validate :start_and_finish_dates
 
   scope :active, ->(project) do
-    where(project_id: project.id).
+    with_state(:confirmed).
+      where(project_id: project.id).
       where('starts_at <= :today AND finishes_at >= :today', today: Date.current)
   end
 
