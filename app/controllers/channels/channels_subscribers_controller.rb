@@ -11,9 +11,6 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
       flash.notice = I18n.t('controllers.channels_subscribers.created', channel: channel.name)
       return redirect_to root_path
     end
-  # This is needed when you press the follow channel button without being signed in
-  rescue
-    return redirect_to new_user_session_path
   end
 
   def destroy
@@ -30,6 +27,6 @@ class Channels::ChannelsSubscribersController < Channels::BaseController
 
   private
   def subscription_attributes
-    { channel_id: channel.id, user_id: current_user.id }
+    { channel_id: channel.id, user_id: current_user.try(:id) }
   end
 end
