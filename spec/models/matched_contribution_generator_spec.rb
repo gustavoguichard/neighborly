@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe MatchedContributionGenerator do
   subject { described_class.new(contribution) }
-  let(:contribution) { create(:contribution) }
+  let!(:contribution) { create(:contribution) }
 
   describe '#create' do
     it 'generates a new contribution for each active match for the related project' do
       create_list(:match, 2, project: contribution.project)
       expect {
-        described_class.new(contribution).create
+        subject.create
       }.to change(Contribution, :count).by(2)
     end
 
@@ -20,7 +20,7 @@ describe MatchedContributionGenerator do
       create(:match, project: contribution.project)
 
       expect(Contribution).to receive(:create).with(attrs).and_return(build(:contribution))
-      described_class.new(contribution).create
+      subject.create
     end
 
     it 'ensures no matching of inactive matches' do
@@ -30,7 +30,7 @@ describe MatchedContributionGenerator do
         finishes_at: contribution.project.expires_at
       )
       expect {
-        described_class.new(contribution).create
+        subject.create
       }.to_not change(Contribution, :count)
     end
 
