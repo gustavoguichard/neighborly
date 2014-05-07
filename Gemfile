@@ -10,7 +10,7 @@ gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
 
 # State machine for attributes on models
-gem 'state_machine', require: 'state_machine/core', github: 'lukeroberts1990/state_machine'
+gem 'state_machine', require: 'state_machine/core', github: 'josemarluedke/state_machine'
 
 # Database and data related
 gem 'pg'
