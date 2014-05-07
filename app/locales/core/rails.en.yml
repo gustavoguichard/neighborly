@@ -31,7 +31,7 @@ en:
     - Friday
     - Saturday
     formats:
-      default: ! '%Y-%m-%d'
+      default: ! '%m/%d/%y'
       with_time: ! "%Y/%m/%d - %H:%M"
       long: ! '%B %d, %Y'
       short: ! '%b %d'
