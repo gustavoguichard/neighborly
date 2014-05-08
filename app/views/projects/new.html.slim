@@ -56,7 +56,7 @@
 
               = f.input :headline, as: :string, maxlength: 140
               = f.input :about
-              = f.input :organization_type, as: :select, collection: Project.organization_type_array, include_blank: false, required: true
+              = f.input :organization_type, as: :select, collection: Project.organization_type_array, prompt: :translate, input_html: { required: true }
 
               p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))
               = f.button :submit

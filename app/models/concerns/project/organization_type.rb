@@ -4,7 +4,7 @@ module Project::OrganizationType
   included do
     class << self
       def organization_type_array
-        [['Select an option', '']].concat organization_types.collect { |type| [I18n.t("project.organization_type.#{type}"), type] }
+        organization_types.collect { |type| [I18n.t("project.organization_type.#{type}"), type] }
       end
 
       def organization_types
