@@ -1,22 +1,16 @@
-.row.matches
-  .large-12.columns.match-title
-    h3 = t('.match_title',
-          base_value: number_to_currency(1, precision: 0),
-          worth_value: number_to_currency(3, precision: 0),
-          date: l(Date.today))
+- if @project.matches.active.any?
+  .row.matches
+    .large-12.columns.match-summary
+      h3 = t('.match_summary',
+            base_value: number_to_currency(1, precision: 0),
+            worth_value: number_to_currency(@project.matches.active.sum(:value_unit), precision: 0),
+            date: l(@project.matches.active.minimum(:finishes_at)))
 
-  .large-12.columns.match-description
-    span
-      = t('.match_description',
-          user_name: 'Spring',
-          value_unit: number_to_currency(2, precision: 0),
-          base_value: number_to_currency(1, precision: 0),
-          date: l(Date.today, format: :long))
-
-  .large-12.columns.match-description
-    span
-      = t('.match_description',
-          user_name: 'Cerner',
-          value_unit: number_to_currency(1, precision: 0),
-          base_value: number_to_currency(1, precision: 0),
-          date: l(Date.today, format: :long))
+    - for match in @project.matches.active.order(:finishes_at)
+      .large-12.columns.match-description
+        span
+          = t('.match_description',
+              user_name: link_to(match.user.display_name, match.user),
+              value_unit: number_to_currency(match.value_unit, precision: 0),
+              base_value: number_to_currency(1, precision: 0),
+              date: l(match.finishes_at, format: :long)).html_safe
