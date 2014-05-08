@@ -7,7 +7,7 @@ class MatchedContributionGenerator
 
   def create
     active_matches.each do |match|
-      matched_contribution = Contribution.create(attrs_for_match(match))
+      matched_contribution = Contribution.create(attributes(match))
       matching             = Matching.create(
         match_id:        match.id,
         contribution_id: contribution.id
@@ -28,7 +28,7 @@ class MatchedContributionGenerator
     Match.active(contribution.project)
   end
 
-  def attrs_for_match(match)
+  def attributes(match)
     MatchedContributionAttributes.new(contribution, match).attributes
   end
 end
