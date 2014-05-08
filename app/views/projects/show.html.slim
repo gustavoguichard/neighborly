@@ -164,6 +164,8 @@
 
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if policy(@project).update?
 
+        = render 'projects/matches_aside'
+
       - if @project.last_channel
         section.channel
           = link_to root_url(subdomain: @project.last_channel.permalink) do
