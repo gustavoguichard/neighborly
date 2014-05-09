@@ -1,6 +1,7 @@
 en:
   controllers:
-    unauthorized: 'You are not authorized to access this page.'
+    omniauth_authentication:
+      needs_ownership_confirmation: 'Please login with your existing account before proceed.'
     unsubscribes:
       create:
         success: 'Your information has been updated!'

@@ -4,8 +4,15 @@ Neighborly::Application.routes.draw do
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
   devise_for :users, path: '',
-    path_names:   { sign_in: :login, sign_out: :logout, sign_up: :sign_up },
-    controllers:  { omniauth_callbacks: :omniauth_callbacks }
+    path_names:  {
+      sign_in:  :login,
+      sign_out: :logout,
+      sign_up:  :sign_up
+    },
+    controllers: {
+      omniauth_callbacks: :omniauth_callbacks,
+      sessions:           :sessions
+    }
 
 
   devise_scope :user do
@@ -129,6 +136,13 @@ Neighborly::Application.routes.draw do
     end
 
     resources :matches, controller: 'projects/matches', except: %i(index update destroy)
+  end
+
+  scope :login, controller: :sessions do
+    devise_scope :user do
+      get   :set_new_user_email
+      patch :confirm_new_user_email
+    end
   end
 
   resources :users, path: 'neighbors' do

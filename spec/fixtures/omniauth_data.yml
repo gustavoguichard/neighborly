@@ -1,0 +1,93 @@
+---
+provider: facebook
+uid: '1327651586'
+info: !ruby/hash:OmniAuth::AuthHash::InfoHash
+  nickname: juquinhadasilva
+  email: juquinha@neighbor.ly
+  name: Juquinha da Silva
+  first_name: Juquinha
+  last_name: da Silva
+  image: http://graph.facebook.com/1327651586/picture?type=square
+  description: Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  urls: !ruby/hash:OmniAuth::AuthHash
+    Facebook: https://www.facebook.com/juquinhadasilva
+  verified: true
+credentials: !ruby/hash:OmniAuth::AuthHash
+  token: CAADozftyT5QBAAljGQcViZAHVgMfYIbScjlrXvfgkEdIjcTwbwthwxZA4z2RPpZAodiL8vuVkSTpufEwUWq5lZBIAAd4qbi0lDfuNfJx3D0rkt0uDzaewjtHXSzbZAu0q8RcqhDrFdx5aOMoZAv61IE16W0aXBCD0x69TypF3djoh5gUlZCGPUZC
+  expires_at: 1401717940
+  expires: true
+extra: !ruby/hash:OmniAuth::AuthHash
+  raw_info: !ruby/hash:OmniAuth::AuthHash
+    id: '1327651586'
+    name: Juquinha da Silva
+    first_name: Juquinha
+    last_name: da Silva
+    link: https://www.facebook.com/juquinhadasilva
+    work:
+    - !ruby/hash:OmniAuth::AuthHash
+      employer: !ruby/hash:OmniAuth::AuthHash
+        id: '216642795096314'
+        name: Neighbor.ly
+      location: !ruby/hash:OmniAuth::AuthHash
+        id: '108591349161413'
+        name: Kansas City, Missouri
+      position: !ruby/hash:OmniAuth::AuthHash
+        id: '109542932398298'
+        name: Software Engineer
+      start_date: '2014-02-03'
+    - !ruby/hash:OmniAuth::AuthHash
+      employer: !ruby/hash:OmniAuth::AuthHash
+        id: '215624711825811'
+        name: Code Miner
+      location: !ruby/hash:OmniAuth::AuthHash
+        id: '112047398814697'
+        name: São Paulo, Brazil
+      position: !ruby/hash:OmniAuth::AuthHash
+        id: '104952756225469'
+        name: Consultant/Developer
+      start_date: '2013-06-17'
+      end_date: '2014-02-07'
+    - !ruby/hash:OmniAuth::AuthHash
+      employer: !ruby/hash:OmniAuth::AuthHash
+        id: '89888524723'
+        name: CAIXA DE IDEIAS
+      location: !ruby/hash:OmniAuth::AuthHash
+        id: '111072692249998'
+        name: Porto Alegre
+      position: !ruby/hash:OmniAuth::AuthHash
+        id: '109542932398298'
+        name: Software Engineer
+      start_date: '2012-05-29'
+      end_date: '2013-06-14'
+    inspirational_people:
+    - !ruby/hash:OmniAuth::AuthHash
+      id: '33416011787'
+      name: Robert Kiyosaki
+    - !ruby/hash:OmniAuth::AuthHash
+      id: '103864656318694'
+      name: Linus Torvalds
+    education:
+    - !ruby/hash:OmniAuth::AuthHash
+      school: !ruby/hash:OmniAuth::AuthHash
+        id: '178405515542264'
+        name: IFSul - Campus Sapucaia do Sul
+      year: !ruby/hash:OmniAuth::AuthHash
+        id: '201638419856163'
+        name: '2011'
+      type: High School
+    - !ruby/hash:OmniAuth::AuthHash
+      school: !ruby/hash:OmniAuth::AuthHash
+        id: '109057239113645'
+        name: Universidade Federal do Rio Grande do Sul
+      concentration:
+      - !ruby/hash:OmniAuth::AuthHash
+        id: '107638212592128'
+        name: Applied Mathematics
+      type: College
+    gender: male
+    email: juquinha@neighbor.ly
+    timezone: -3
+    locale: en_US
+    verified: true
+    updated_time: '2014-03-28T10:55:34+0000'
+    username: juquinhadasilva

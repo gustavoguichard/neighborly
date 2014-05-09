@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   has_many :channels, through: :channel_members, source: :channel
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
 
+  accepts_nested_attributes_for :authorizations
   accepts_nested_attributes_for :channel
   accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
@@ -146,18 +147,6 @@ class User < ActiveRecord::Base
     "#{self.id}-#{self.display_name.parameterize}"
   end
 
-  def self.create_from_hash(hash)
-    create!(
-      {
-        name: hash['info']['name'],
-        email: hash['info']['email'],
-        nickname: hash["info"]["nickname"],
-        bio: (hash["info"]["description"][0..139] rescue nil),
-        locale: I18n.locale.to_s
-      }
-    )
-  end
-
   def total_contributions
     contributions.with_state('confirmed').not_anonymous.count
   end
@@ -194,22 +183,5 @@ class User < ActiveRecord::Base
 
   def confirmation_required?
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
-  end
-
-  def update_social_info(hash)
-    self.update_attributes(social_info_from_hash(hash))
-  end
-
-  protected
-  def social_info_from_hash(hash)
-    info = {}
-    info[:twitter_url] = "http://twitter.com/#{hash['info']['nickname']}" if hash['provider'] == 'twitter'
-    info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
-    info[:facebook_url] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
-    unless self.uploaded_image.present?
-      info[:remote_uploaded_image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
-      info[:remote_uploaded_image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
-    end
-    info
   end
 end

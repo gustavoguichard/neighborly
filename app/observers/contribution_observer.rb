@@ -7,7 +7,6 @@ class ContributionObserver < ActiveRecord::Observer
 
   def before_save(contribution)
     notify_confirmation(contribution) if contribution.confirmed? && contribution.confirmed_at.nil?
-    notify_payment_slip(contribution) if contribution.payment_choice_was.nil? && contribution.payment_choice == 'BoletoBancario'
   end
 
   def after_save(contribution)
@@ -59,15 +58,4 @@ class ContributionObserver < ActiveRecord::Observer
       )
     end
   end
-
-  def notify_payment_slip(contribution)
-    Notification.notify_once(
-      :payment_slip,
-      contribution.user,
-      {contribution_id: contribution.id},
-      contribution: contribution,
-      project: contribution.project
-    )
-  end
-
 end

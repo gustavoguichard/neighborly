@@ -15,16 +15,6 @@ describe ContributionObserver do
   end
 
   describe "before_save" do
-    context "when payment_choice is updated to BoletoBancario" do
-      let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now) }
-      before do
-        Notification.should_receive(:notify_once).with(:payment_slip, contribution.user, {contribution_id: contribution.id}, contribution: contribution, project: contribution.project)
-        contribution.payment_choice = 'BoletoBancario'
-        contribution.save!
-      end
-      it("should notify the contribution"){ subject }
-    end
-
     context "when project reached the goal" do
       let(:project){ create(:project, state: 'failed', goal: 20) }
       let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now, value: 20) }

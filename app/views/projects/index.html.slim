@@ -37,10 +37,10 @@
           = render 'project', project: @featured.first, large: true if @featured.any?
           = render 'project', project: @recommended.shift if @recommended.any?
 
-        - if @recommended.any?
-          .row
-            - for project in @recommended
-              = render 'project', project: project
+        /- if @recommended.any?
+          /.row
+            /- for project in @recommended
+              /= render 'project', project: project
 
         .text-right
           = link_to discover_path(filter: 'recommended'), class: 'see-more' do

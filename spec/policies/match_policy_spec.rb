@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe MatchPolicy do
-  subject { described_class }
-  let(:user)    { User.new }
-  let(:project) { Project.new(state: project_state) }
+  subject          { described_class }
+  let(:user)       { User.new }
+  let(:project)    { Project.new(state: project_state) }
   let(:match_user) { User.new }
-  let(:match)   { Match.new(project: project, user: match_user) }
+  let(:match)      { Match.new(project: project, user: match_user) }
 
   permissions :new?, :create? do
     context 'when project is online' do
