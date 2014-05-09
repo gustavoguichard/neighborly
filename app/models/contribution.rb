@@ -35,8 +35,6 @@ class Contribution < ActiveRecord::Base
   # Contributions already refunded or with requested_refund should appear so that the user can see their status on the refunds list
   scope :can_refund, ->{ where("contributions.can_refund") }
 
-  after_create :generate_matches
-
   def self.between_values(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("value between ? and ?", start_at, ends_at)
@@ -80,13 +78,5 @@ class Contribution < ActiveRecord::Base
 
   def define_key
     self.update_attributes({ key: Digest::MD5.new.update("#{self.id}###{self.created_at}###{Kernel.rand}").to_s })
-  end
-
-  protected
-
-  def generate_matches
-    unless payment_method.eql?(:matched)
-      MatchedContributionGenerator.new(self).create
-    end
   end
 end

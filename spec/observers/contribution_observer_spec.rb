@@ -12,6 +12,14 @@ describe ContributionObserver do
   describe "after_create" do
     before{ Kernel.stub(:rand).and_return(1) }
     its(:key){ should == Digest::MD5.new.update("#{contribution.id}###{contribution.created_at}##1").to_s }
+
+    describe 'when updating status' do
+      it 'updates matched contributions\' statuses' do
+        subject = create(:contribution)
+        expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
+        subject.confirm
+      end
+    end
   end
 
   describe "before_save" do
