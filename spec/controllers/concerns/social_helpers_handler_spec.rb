@@ -7,6 +7,7 @@ describe Concerns::SocialHelpersHandler do
       ApplicationController.any_instance.unstub(method)
     end
     @controller = ApplicationController.new
+    @controller.request.stub(:variant)
   end
 
   describe '#set_facebook_url_admin' do
