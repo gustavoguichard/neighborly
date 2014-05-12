@@ -31,7 +31,7 @@ module FlashMessagesHelper
 
   def filtered_flash_messages
     flash.select do |message|
-      %i(alert notice).include? message.first
+      %w(alert notice).include? message.first
     end.to_h
   end
 end
