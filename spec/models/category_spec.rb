@@ -7,7 +7,10 @@ describe Category do
 
   describe 'validations' do
     it { should validate_presence_of :name_pt }
-    it { should validate_uniqueness_of :name_pt }
+    it do
+      create(:category)
+      should validate_uniqueness_of :name_pt
+    end
   end
 
   describe '.with_projects' do
