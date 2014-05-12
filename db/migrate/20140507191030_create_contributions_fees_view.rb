@@ -62,7 +62,7 @@ class CreateContributionsFeesView < ActiveRecord::Migration
                 (SELECT (configurations.value)::numeric AS value
                  FROM configurations
                  WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee,
-             (sum(contributions.value) - sum(contributions_fees.payment_service_fee) -
+             (sum(contributions.value) - sum(CASE WHEN payment_service_fee_paid_by_user then 0 else contributions_fees.payment_service_fee end) -
               sum(contributions.value) * (SELECT (configurations.value)::numeric AS value
                                           FROM configurations
                                           WHERE (configurations.name = 'platform_fee'::text))) AS net_amount
