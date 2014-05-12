@@ -135,7 +135,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :matches, only: %i(new create)
+    resources :matches, controller: 'projects/matches', except: %i(index update destroy)
   end
 
   scope :login, controller: :sessions do

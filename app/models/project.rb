@@ -33,6 +33,7 @@ class Project < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :contributions, dependent: :destroy
+  has_many :matches, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
   has_many :notifications, dependent: :destroy
