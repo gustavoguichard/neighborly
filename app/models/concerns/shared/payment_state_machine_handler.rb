@@ -46,8 +46,10 @@ module Shared::PaymentStateMachineHandler
         transition all => :refunded_and_canceled
       end
 
-      after_transition do |contribution, transition|
-        MatchedContributionGenerator.new(contribution).update
+      after_transition do |resource, transition|
+        if resource.is_a? Contribution
+          MatchedContributionGenerator.new(resource).update
+        end
       end
       after_transition confirmed: :requested_refund, do: :after_transition_from_confirmed_to_requested_refund
       after_transition confirmed: :canceled, do: :after_transition_from_confirmed_to_canceled
