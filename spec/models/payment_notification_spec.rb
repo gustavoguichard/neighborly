@@ -3,6 +3,7 @@ require 'spec_helper'
 describe PaymentNotification do
   describe 'associations' do
     it { should belong_to :contribution }
+    it { should belong_to :match }
   end
 
   describe '#extra_data' do
