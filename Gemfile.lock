@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: b0ed0f4e46cb1b9dfaaa80231ca0bfa7494f0b47
+  revision: 13cada4af31f10dae4c74d2d722ad5b8ab6e397b
   branch: master
   specs:
     neighborly-balanced-bankaccount (1.0.0)
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: de9166b4cf5fd66cd8807ba2540269832abbb3d5
+  revision: 0d48246ea5076177702b38f6a39a3d6eec32fb3b
   branch: master
   specs:
     neighborly-balanced-creditcard (1.1.0)
