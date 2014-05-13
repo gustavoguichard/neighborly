@@ -25,7 +25,7 @@ class MatchedContributionGenerator
   protected
 
   def active_matches
-    Match.active(contribution.project)
+    contribution.project.matches.active
   end
 
   def attributes(match)
