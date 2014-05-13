@@ -194,7 +194,7 @@ FactoryGirl.define do
 
   factory :match do |f|
     finishes_at { project.expires_at }
-    starts_at   { Date.current }
+    starts_at   { Time.now.utc.to_date }
     state       :confirmed
     value       1_500
     value_unit  2

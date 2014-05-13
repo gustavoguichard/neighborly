@@ -66,7 +66,7 @@ describe Match do
       end
 
       it 'excludes those not yet started' do
-        match = create(:match, starts_at: 1.day.from_now, finishes_at: 3.days.from_now)
+        match = create(:match, starts_at: 2.days.from_now, finishes_at: 3.days.from_now)
         expect(described_class.active(match.project)).to_not include(match)
       end
 
@@ -84,6 +84,16 @@ describe Match do
 
       it 'returns those active and related to the given project' do
         expect(described_class.active(match.project)).to include(match)
+      end
+
+      it 'uses UTC\'s day as definition of today for starts_at attribute' do
+        current_time = Time.new(2014, 5, 10, 2, 0, 0, 5.hours)
+        Time.stub(:now).and_return(current_time)
+        Date.stub(:current).and_return(Date.new(2014, 5, 10))
+
+        match = build(:match, starts_at: Date.current)
+        match.save(validate: false)
+        expect(described_class.active(match.project)).to_not include(match)
       end
     end
   end

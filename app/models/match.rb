@@ -10,7 +10,7 @@ class Match < ActiveRecord::Base
   scope :active, ->(project) do
     with_state(:confirmed).
       where(project_id: project.id).
-      where('starts_at <= :today AND finishes_at >= :today', today: Date.current)
+      where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
   end
 
   private
@@ -22,7 +22,7 @@ class Match < ActiveRecord::Base
 
   def ensure_starts_at_in_active_period_of_project
     unless project &&
-      (DateTime.now.utc.beginning_of_day.to_i..project.expires_at.utc.to_i).
+      (Time.now.utc.beginning_of_day.to_i..project.expires_at.utc.to_i).
         include?(starts_at.to_time.utc.to_i)
 
       errors.add(

@@ -26,7 +26,7 @@ describe MatchedContributionGenerator do
     it 'ensures no matching of inactive matches' do
       create(:match,
         project:     contribution.project,
-        starts_at:   1.day.from_now,
+        starts_at:   2.days.from_now,
         finishes_at: contribution.project.expires_at
       )
       expect {
