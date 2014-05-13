@@ -105,12 +105,13 @@ group :development do
   gem 'quiet_assets'
 end
 
-group :test, :development do
-  gem 'minitest'
-  gem 'rspec-rails', '~> 2.14.2'
-  gem 'jasmine-rails', '~> 0.4.6'
-  gem 'pry'
+group :development, :test do
   gem 'awesome_print'
+  gem 'dotenv-rails'
+  gem 'jasmine-rails', '~> 0.4.6'
+  gem 'minitest'
+  gem 'pry'
+  gem 'rspec-rails', '~> 2.14.2'
 end
 
 group :test do
