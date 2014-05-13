@@ -5,7 +5,6 @@ en:
         title: 'Thank you'
         one_more_step: 'One more step, neighbor! Please verify your account to enable your match.'
         thank_you: 'Thank you, Neighbor! Your match for %{project_name} will be live and enable others to multiply their impact.'
-        recommended_projects: 'You may like these others projects:'
         share: 'You can still help %{project_owner_name} by telling others about your match!'
         twitter-text: "I'll match up to %{value} for contributions to %{name} from %{starts_at} until %{finishes_at}. %{project_url}"
         bankaccount:

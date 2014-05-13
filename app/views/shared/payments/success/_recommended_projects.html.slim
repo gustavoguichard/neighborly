@@ -1,0 +1,5 @@
+section.recommended-projects
+  .row
+    h3 = t('.title')
+    - user.recommended_projects.limit(4).each do |project|
+      = render partial: 'projects/project', locals: {project: project }

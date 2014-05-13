@@ -21,7 +21,7 @@
             li = t('.bankaccount.steps.second')
             li = t('.bankaccount.steps.third')
             li = t('.bankaccount.steps.fourth')
-
   - else
     = render 'shared/payments/success/share', i18n_scope: 'projects.matches.show', tweet_text: t('.twitter-text', value: number_to_currency(@match.value, precision: 0), name: @project.name, project_url: project_url(@project), starts_at: l(@match.starts_at), finishes_at: l(@match.finishes_at))
 
+  = render 'shared/payments/success/recommended_projects', user: @match.user
