@@ -64,9 +64,13 @@ describe ProjectTotal do
     end
 
     it 'takes payment service fees of matches in count' do
-      create(:match, project: project, payment_service_fee: 100)
-      contribution = create(:contribution, project: project, payment_service_fee: 1)
-      expect(subject.total_payment_service_fee).to be > contribution.payment_service_fee
+      create(:match, project: project, payment_service_fee: 10, value: 1_000, value_unit: 10)
+      create(:contribution,
+        payment_service_fee: 1,
+        value: 50,
+        project: project
+      )
+      expect(subject.total_payment_service_fee).to eql(6) # 1 + 5 from matched contribution
     end
   end
 

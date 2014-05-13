@@ -73,7 +73,7 @@ class CreateContributionsFeesView < ActiveRecord::Migration
                 (SELECT (configurations.value)::numeric AS value
                  FROM configurations
                  WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee,
-             (contributions_fees.net_payment -
+             (sum(contributions_fees.net_payment) -
               sum(contributions.value) * (SELECT (configurations.value)::numeric AS value
                                           FROM configurations
                                           WHERE (configurations.name = 'platform_fee'::text))) AS net_amount
@@ -82,8 +82,7 @@ class CreateContributionsFeesView < ActiveRecord::Migration
             JOIN contributions_fees ON (contributions_fees.id = contributions.id))
       WHERE ((contributions.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]))
       GROUP BY contributions.project_id,
-               projects.goal,
-               contributions_fees.net_payment
+               projects.goal
     SQL
 
     create_project_financials_view
