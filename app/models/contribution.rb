@@ -11,6 +11,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :reward
   has_many :notifications
   has_many :payment_notifications
+  has_many :matchings
 
   validates_presence_of :project, :user, :value
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
@@ -37,6 +38,10 @@ class Contribution < ActiveRecord::Base
   def self.between_values(start_at, ends_at)
     return scoped unless start_at.present? && ends_at.present?
     where("value between ? and ?", start_at, ends_at)
+  end
+
+  def matched_contributions
+    self.class.where(matching_id: matchings)
   end
 
   def decorator

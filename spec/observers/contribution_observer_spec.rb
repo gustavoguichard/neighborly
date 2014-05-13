@@ -12,6 +12,14 @@ describe ContributionObserver do
   describe "after_create" do
     before{ Kernel.stub(:rand).and_return(1) }
     its(:key){ should == Digest::MD5.new.update("#{contribution.id}###{contribution.created_at}##1").to_s }
+
+    describe 'when updating status' do
+      it 'updates matched contributions\' statuses' do
+        subject = create(:contribution)
+        expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
+        subject.confirm
+      end
+    end
   end
 
   describe "before_save" do
@@ -19,7 +27,7 @@ describe ContributionObserver do
       let(:project){ create(:project, state: 'failed', goal: 20) }
       let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now, value: 20) }
       before do
-        project_total = mock()
+        project_total = double
         project_total.stub(:pledged).and_return(20.0)
         project_total.stub(:total_contributions).and_return(1)
         project.stub(:project_total).and_return(project_total)

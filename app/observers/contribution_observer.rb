@@ -3,6 +3,7 @@ class ContributionObserver < ActiveRecord::Observer
 
   def after_create(contribution)
     contribution.define_key
+    generate_matches(contribution)
   end
 
   def before_save(contribution)
@@ -37,6 +38,13 @@ class ContributionObserver < ActiveRecord::Observer
   end
 
   private
+
+  def generate_matches(contribution)
+    unless contribution.payment_method.eql?(:matched)
+      MatchedContributionGenerator.new(contribution).create
+    end
+  end
+
   def notify_confirmation(contribution)
     contribution.confirmed_at = Time.now
     Notification.notify_once(

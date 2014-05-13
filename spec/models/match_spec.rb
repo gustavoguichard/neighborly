@@ -56,4 +56,46 @@ describe Match do
       end
     end
   end
+
+  describe 'scopes' do
+    describe 'active' do
+      let(:match) { create(:match) }
+
+      it 'returns an empty collection when the project has no matches' do
+        match.save
+        expect(described_class.active(create(:project))).to be_empty
+      end
+
+      it 'excludes those not yet started' do
+        match = create(:match, starts_at: 2.days.from_now, finishes_at: 3.days.from_now)
+        expect(described_class.active(match.project)).to_not include(match)
+      end
+
+      it 'excludes those already finished' do
+        match = build(:match, starts_at: -5.days.from_now, finishes_at: -3.days.from_now)
+        match.save(validate: false)
+        expect(described_class.active(match.project)).to_not include(match)
+      end
+
+      it 'excludes those with non confirmed state' do
+        match = build(:match, starts_at: -5.days.from_now, finishes_at: -3.days.from_now, state: :pending)
+        match.save(validate: false)
+        expect(described_class.active(match.project)).to_not include(match)
+      end
+
+      it 'returns those active and related to the given project' do
+        expect(described_class.active(match.project)).to include(match)
+      end
+
+      it 'uses UTC\'s day as definition of today for starts_at attribute' do
+        current_time = Time.new(2014, 5, 10, 2, 0, 0, 5.hours)
+        Time.stub(:now).and_return(current_time)
+        Date.stub(:current).and_return(Date.new(2014, 5, 10))
+
+        match = build(:match, starts_at: Date.current)
+        match.save(validate: false)
+        expect(described_class.active(match.project)).to_not include(match)
+      end
+    end
+  end
 end
