@@ -8,8 +8,6 @@ en:
         recommended_projects: 'You may like these others projects:'
         share: 'You can still help %{project_owner_name} by telling others about your match!'
         twitter-text: "I'll match up to %{value} for contributions to %{name} from %{starts_at} until %{finishes_at}. %{project_url}"
-        facebook: 'Share'
-        twitter: 'Tweet'
         bankaccount:
           title:  "You've pledged a match using a new bank account. Please verify your account to begin matching contributions."
           steps:
