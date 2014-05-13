@@ -39,6 +39,12 @@ class Contribution < ActiveRecord::Base
     where("value between ? and ?", start_at, ends_at)
   end
 
+  def as_json(options = {})
+    return super unless options.empty?
+
+    PayableResourceSerializer.new(self).to_json
+  end
+
   def decorator
     @decorator ||= ContributionDecorator.new(self)
   end
