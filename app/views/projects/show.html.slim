@@ -82,6 +82,8 @@
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
 
+      = render 'projects/matches'
+
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
@@ -161,6 +163,8 @@
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if policy(@project).update?
+
+        = render 'projects/matches_aside'
 
       - if @project.last_channel
         section.channel

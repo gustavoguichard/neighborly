@@ -1,0 +1,9 @@
+- if @project.matches.active.any?
+  .row
+    .large-12.columns
+      .matches-aside
+        h5 = t('.title')
+
+        - for match in @project.matches.active.order(:finishes_at)
+          = link_to match.user do
+            = image_tag match.user.display_image, title: match.user.display_name
