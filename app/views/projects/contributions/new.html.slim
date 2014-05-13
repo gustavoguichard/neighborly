@@ -5,7 +5,11 @@
       .row
         .large-10.columns.large-centered
           .name
-            h3 = t('.contribute', project_name: @project.name).html_safe
+            - if @project.matches.active.any?
+              - matchers = @project.matches.active.map { |m| m.user.display_name }.uniq.to_sentence
+              h3 = t('.contribution_with_matches', project_name: @project.name, matchers: matchers).html_safe
+            - else
+              h3 = t('.contribute', project_name: @project.name).html_safe
       .row.value-wrapper
         .large-8.columns.large-centered
           .row.collapse

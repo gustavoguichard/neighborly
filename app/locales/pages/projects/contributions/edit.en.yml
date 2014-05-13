@@ -9,3 +9,4 @@ en:
         reward:
           title: 'Your perk'
         tooltip-text: "Thank you for supporting <strong>%{project_name}</strong>! In order to make the most of your contribution, we ask that you please consider covering the electronic transaction fees. Though entirely optional, doing so makes a big difference and is greatly appreciated.<br /><strong>Note that ACH debit fees cap at $5.</strong>"
+        to_be_matched_by: 'To be matched by:'
