@@ -30,17 +30,17 @@ describe Channels::ChannelsSubscribersController do
 
   describe "DELETE destroy" do
     let(:channel_subscriber){ ChannelsSubscriber.create!(channel: channel, user: user) }
-    before do
-      delete :destroy, id: channel_subscriber.id
-    end
 
     context "when signed in user owns the subscription" do
-      it{ should redirect_to root_path }
+      it do
+        delete :destroy, id: channel_subscriber.id
+        should redirect_to root_path
+      end
     end
 
     context "when signed in user does not own the subscription" do
       let(:current_user){ FactoryGirl.create(:user) }
-      it{ should_not be_successful }
+      it { expect { delete :destroy, id: channel_subscriber.id }.to raise_error }
     end
   end
 end
