@@ -6,6 +6,10 @@ describe Match do
     it { should belong_to(:user) }
     it { should have_many(:payment_notifications) }
     it { should have_many(:matchings) }
+    it do
+      should have_many(:matched_contributions).through(:matchings).
+                                               source(:contribution)
+    end
   end
 
   describe 'validations' do
