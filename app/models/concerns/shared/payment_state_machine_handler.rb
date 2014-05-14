@@ -57,6 +57,7 @@ module Shared::PaymentStateMachineHandler
 
     def after_transition_from_confirmed_to_canceled
       notify_observers :notify_backoffice_about_canceled
+      notify_observers :cancel_matched_contributions
     end
 
     def after_transition_from_confirmed_to_requested_refund
