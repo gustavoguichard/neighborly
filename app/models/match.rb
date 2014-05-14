@@ -3,6 +3,7 @@ class Match < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
   has_many :payment_notifications
+  has_many :matchings
 
   validates :project, :user, presence: true
   validates :value, numericality: { greater_than_or_equal_to: 1_000 }
