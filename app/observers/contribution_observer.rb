@@ -22,7 +22,15 @@ class ContributionObserver < ActiveRecord::Observer
   end
 
   def notify_backoffice(contribution)
-    CreditsMailer.request_refund_from(contribution).deliver
+    user = User.where(email: Configuration[:email_payments]).first
+    if user.present?
+      Notification.notify_once(
+        :refund_request,
+        user,
+        {contribution_id: contribution.id},
+        contribution: contribution
+      )
+    end
   end
 
   def notify_backoffice_about_canceled(contribution)

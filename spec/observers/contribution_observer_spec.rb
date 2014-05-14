@@ -72,6 +72,24 @@ describe ContributionObserver do
     end
   end
 
+  describe '.notify_backoffice' do
+    before do
+      Configuration[:email_payments] = 'finan@c.me'
+    end
+
+    let(:contribution) { create(:contribution, state: :confirmed, value: 10) }
+    let(:user) { create(:user, email: 'finan@c.me') }
+
+    context "when contribution is confirmed and change to requested_refund" do
+      before do
+        contribution.user.stub(:credits).and_return(10)
+        Notification.should_receive(:notify_once).with(:refund_request, user, {contribution_id: contribution.id}, contribution: contribution)
+      end
+
+      it { contribution.request_refund! }
+    end
+  end
+
   describe '.notify_backoffice_about_canceled' do
     before do
       Configuration[:email_payments] = 'finan@c.me'
