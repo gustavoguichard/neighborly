@@ -201,4 +201,9 @@ FactoryGirl.define do
     project
     user
   end
+
+  factory :matching do |f|
+    match
+    contribution
+  end
 end
