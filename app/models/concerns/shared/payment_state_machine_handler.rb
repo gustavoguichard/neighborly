@@ -47,21 +47,12 @@ module Shared::PaymentStateMachineHandler
       end
 
       after_transition do |resource, transition|
+        resource.notify_observers "from_#{transition.from}_to_#{transition.to}".to_sym
+
         if resource.is_a? Contribution
           MatchedContributionGenerator.new(resource).update
         end
       end
-      after_transition confirmed: :requested_refund, do: :after_transition_from_confirmed_to_requested_refund
-      after_transition confirmed: :canceled, do: :after_transition_from_confirmed_to_canceled
-    end
-
-    def after_transition_from_confirmed_to_canceled
-      notify_observers :notify_backoffice_about_canceled
-      notify_observers :cancel_matched_contributions
-    end
-
-    def after_transition_from_confirmed_to_requested_refund
-      notify_observers :notify_backoffice
     end
   end
 end

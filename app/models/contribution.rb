@@ -1,15 +1,14 @@
-# coding: utf-8
 class Contribution < ActiveRecord::Base
-  include Shared::StateMachineHelpers
-  include Shared::PaymentStateMachineHandler
-  include Contribution::CustomValidators
+  include Shared::StateMachineHelpers,
+          Shared::PaymentStateMachineHandler,
+          Contribution::CustomValidators,
+          Shared::Notifiable
 
   delegate :display_value, :display_confirmed_at, to: :decorator
 
   belongs_to :user
   belongs_to :project
   belongs_to :reward
-  has_many :notifications
   has_many :payment_notifications
   has_many :matchings
 

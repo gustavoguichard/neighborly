@@ -12,40 +12,30 @@ class ContributionObserver < ActiveRecord::Observer
 
   def after_save(contribution)
     if contribution.project.reached_goal?
-      Notification.notify_once(
-        :project_success,
-        contribution.project.user,
-        {project_id: contribution.project.id},
-        project: contribution.project
-      )
+       contribution.project.notify_owner(:project_success)
     end
   end
 
-  def notify_backoffice(contribution)
-    user = User.where(email: Configuration[:email_payments]).first
-    if user.present?
-      Notification.notify_once(
-        :refund_request,
-        user,
-        {contribution_id: contribution.id},
-        contribution: contribution
-      )
-    end
+  def from_confirmed_to_canceled(resource)
+    notification_for_backoffice(resource, :contribution_canceled_after_confirmed)
   end
 
-  def notify_backoffice_about_canceled(contribution)
-    user = User.where(email: Configuration[:email_payments]).first
-    if user.present?
-      Notification.notify_once(
-        :contribution_canceled_after_confirmed,
-        user,
-        {contribution_id: contribution.id},
-        contribution: contribution
-      )
-    end
+  def from_confirmed_to_requested_refund(resource)
+    notification_for_backoffice(resource, :refund_request)
   end
 
   private
+  def notify_confirmation(contribution)
+    contribution.update(confirmed_at: Time.now)
+    contribution.notify_owner(:confirm_contribution,
+                              { },
+                              { project: contribution.project,
+                                bcc: Configuration[:email_payments] })
+
+    if contribution.project.expires_at < 7.days.ago
+      notification_for_backoffice(contribution, :contribution_confirmed_after_project_was_closed)
+    end
+  end
 
   def generate_matches(contribution)
     unless contribution.payment_method.eql?(:matched)
@@ -53,24 +43,14 @@ class ContributionObserver < ActiveRecord::Observer
     end
   end
 
-  def notify_confirmation(contribution)
-    contribution.confirmed_at = Time.now
-    Notification.notify_once(
-      :confirm_contribution,
-      contribution.user,
-      {contribution_id: contribution.id},
-      contribution: contribution,
-      project: contribution.project,
-      bcc: ::Configuration[:email_payments]
-    )
+  def notification_for_backoffice(resource, template_name, options = {})
+    user = User.find_by(email: Configuration[:email_payments])
 
-    if (Time.now > contribution.project.expires_at  + 7.days) && (user = User.where(email: ::Configuration[:email_payments]).first)
-      Notification.notify_once(
-        :contribution_confirmed_after_project_was_closed,
-        user,
-        {contribution_id: contribution.id},
-        contribution: contribution,
-        project: contribution.project
+    if user
+      Notification.notify_once(template_name,
+                               user,
+                               { contribution_id: resource.id },
+                               { contribution:    resource }.merge(options)
       )
     end
   end
