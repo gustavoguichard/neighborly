@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   include Project::CustomValidators
   include Project::OrganizationType
   include Shared::LocationHandler
+  include Shared::Notifiable
 
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
@@ -36,7 +37,6 @@ class Project < ActiveRecord::Base
   has_many :matches, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_and_belongs_to_many :channels
