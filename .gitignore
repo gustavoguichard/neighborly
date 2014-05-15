@@ -1,7 +1,9 @@
 .bundle
 db/*.sqlite3
+log/
 log/*.log
 tmp/**/*
+tmp/restart.txt
 config/database.yml
 db/seeds/my-seeds-local.rb
 db/seeds/my-seeds-heroku.rb
@@ -29,3 +31,4 @@ spec/tmp/
 *.sublime-workspace
 *.dot
 .ruby-version
+./log
