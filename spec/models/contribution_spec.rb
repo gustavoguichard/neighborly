@@ -12,7 +12,6 @@ describe Contribution do
 
 
   describe 'associations' do
-    it { should have_many(:payment_notifications) }
     it { should have_many(:notifications) }
     it { should belong_to(:project) }
     it { should belong_to(:user) }

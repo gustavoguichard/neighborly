@@ -1,8 +1,9 @@
 class Match < ActiveRecord::Base
-  include Shared::PaymentStateMachineHandler
+  include Shared::PaymentStateMachineHandler,
+          Shared::Payable
+
   belongs_to :project
   belongs_to :user
-  has_many :payment_notifications
   has_many :matchings
   has_many :matched_contributions, through: :matchings, source: :contribution
 

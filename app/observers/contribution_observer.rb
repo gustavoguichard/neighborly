@@ -2,7 +2,7 @@ class ContributionObserver < ActiveRecord::Observer
   observe :contribution
 
   def after_create(contribution)
-    contribution.define_key
+    contribution.define_key!
     generate_matches(contribution)
   end
 
