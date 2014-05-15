@@ -49,7 +49,7 @@ class ContributionObserver < ActiveRecord::Observer
       Notification.notify_once(template_name,
                                user,
                                { contribution_id: resource.id },
-                               { contribution:    resource }.merge!(options)
+                               { contribution:    resource }.merge(options)
       )
     end
   end

@@ -8,8 +8,8 @@ module Shared::Notifiable
       key = self.class.model_name.param_key
       Notification.notify_once(template_name,
                                self.user,
-                               { "#{key}_id".to_sym => self.id }.merge!(filter),
-                               { key.to_sym         => self }.merge!(options))
+                               { "#{key}_id".to_sym => self.id }.merge(filter),
+                               { key.to_sym         => self }.merge(options))
     end
   end
 end
