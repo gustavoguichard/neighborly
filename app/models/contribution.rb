@@ -2,8 +2,6 @@ class Contribution < ActiveRecord::Base
   include Shared::StateMachineHelpers,
           Shared::PaymentStateMachineHandler,
           Contribution::CustomValidators,
-
-  delegate :display_value, :display_confirmed_at, to: :decorator
           Shared::Notifiable,
           Shared::Payable
 
@@ -41,10 +39,6 @@ class Contribution < ActiveRecord::Base
 
   def matched_contributions
     self.class.where(matching_id: matchings)
-  end
-
-  def decorator
-    @decorator ||= ContributionDecorator.new(self)
   end
 
   def recommended_projects
