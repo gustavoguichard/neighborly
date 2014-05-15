@@ -99,7 +99,9 @@ class ProjectObserver < ActiveRecord::Observer
   def notify_users(project)
     project.contributions.with_state('confirmed').each do |contribution|
       unless contribution.notified_finish
-        contribution.notify_owner((project.successful? ? :contribution_project_successful : :contribution_project_unsuccessful))
+        contribution.notify_owner((project.successful? ? :contribution_project_successful : :contribution_project_unsuccessful),
+                                  { },
+                                  { project: project })
 
         contribution.update_attributes({ notified_finish: true })
       end
