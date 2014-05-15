@@ -31,7 +31,7 @@ class ContributionObserver < ActiveRecord::Observer
                               { },
                               { bcc: ::Configuration[:email_payments] })
 
-    if Time.now > contribution.project.expires_at + 7.days
+    if contribution.project.expires_at < 7.days.ago
       notification_for_backoffice(contribution, :contribution_confirmed_after_project_was_closed)
     end
   end
