@@ -1,6 +1,7 @@
 class Match < ActiveRecord::Base
   include Shared::PaymentStateMachineHandler,
-          Shared::Payable
+          Shared::Payable,
+          Shared::Notifiable
 
   belongs_to :project
   belongs_to :user
