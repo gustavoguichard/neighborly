@@ -1,20 +1,19 @@
-# coding: utf-8
 class Project < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
-  include PgSearch
-  include Taggable
-  extend CatarseAutoHtml
-  include Shared::StateMachineHelpers
-  include Project::StateMachineHandler
-  include Project::VideoHandler
-  include Project::CustomValidators
-  include Project::OrganizationType
-  include Shared::LocationHandler
-  include Shared::Notifiable
+  extend  CatarseAutoHtml
+  include ActionView::Helpers::TextHelper,
+          PgSearch,
+          Taggable,
+          Shared::StateMachineHelpers,
+          Project::StateMachineHandler,
+          Project::VideoHandler,
+          Project::CustomValidators,
+          Project::OrganizationType,
+          Shared::LocationHandler,
+          Shared::Notifiable
 
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
-  has_permalink :name, true
+  has_permalink  :name, true
 
   delegate :display_status,
            :display_progress,
