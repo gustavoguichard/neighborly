@@ -12,7 +12,7 @@ class PaymentObserver < ActiveRecord::Observer
   end
 
   def from_confirmed_to_canceled(resource)
-    notification_for_backoffice(resource, :contribution_canceled_after_confirmed)
+    notification_for_backoffice(resource, :payment_canceled_after_confirmed)
   end
 
   def from_confirmed_to_requested_refund(resource)
@@ -23,13 +23,13 @@ class PaymentObserver < ActiveRecord::Observer
 
   def notify_confirmation(resource)
     resource.update(confirmed_at: Time.now)
-    resource.notify_owner(:confirm_contribution,
+    resource.notify_owner(:payment_confirmed,
                               { },
                               { project: resource.project,
                                 bcc: Configuration[:email_payments] })
 
     if resource.project.expires_at < 7.days.ago
-      notification_for_backoffice(resource, :contribution_confirmed_after_project_was_closed)
+      notification_for_backoffice(resource, :payment_confirmed_after_finished_project)
     end
   end
 

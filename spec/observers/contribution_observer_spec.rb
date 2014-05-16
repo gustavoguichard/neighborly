@@ -74,7 +74,7 @@ describe ContributionObserver do
         Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me')
 
         expect(Notification).to receive(:notify_once).
-          with(:confirm_contribution,
+          with(:payment_confirmed,
                resource.user,
                { resource_id_name =>  resource.id },
                { resource_name    => resource,
@@ -91,7 +91,7 @@ describe ContributionObserver do
     end
 
     context 'when is already confirmed' do
-      it 'does not send confirm_contribution notification again' do
+      it 'does not send payment_confirmed notification again' do
         expect(Notification).not_to receive(:notify_once)
         resource
       end
@@ -104,7 +104,7 @@ describe ContributionObserver do
 
     it 'notifies backoffice about cancelation' do
       expect(Notification).to receive(:notify_once).
-        with(:contribution_canceled_after_confirmed,
+        with(:payment_canceled_after_confirmed,
              user,
              { resource_id_name => resource.id },
              resource_name      => resource)
