@@ -10,13 +10,14 @@ describe Notification do
     ActionMailer::Base.deliveries.clear
   end
 
-  describe "Associations" do
-    it{ should belong_to :user }
-    it{ should belong_to :project }
-    it{ should belong_to :channel }
-    it{ should belong_to :contribution }
-    it{ should belong_to :company_contact }
-    it{ should belong_to :project_update }
+  describe 'associations' do
+    it { should belong_to :user }
+    it { should belong_to :project }
+    it { should belong_to :channel }
+    it { should belong_to :contribution }
+    it { should belong_to :match }
+    it { should belong_to :company_contact }
+    it { should belong_to :project_update }
   end
 
   describe "#deliver" do
