@@ -1,19 +1,18 @@
 require 'spec_helper'
 
 describe ContributionObserver do
-  let(:default_state) { 'confirmed' }
-  let(:confirmed_at) { Time.now }
-
   let(:resource) do
     create(:contribution,
            state: default_state,
            confirmed_at: confirmed_at,
            value: 1000)
   end
+  let(:resource_class)   { Contribution }
 
-  let(:resource_class) { Contribution }
-  let(:resource_name) { resource_class.model_name.param_key.to_sym }
+  let(:resource_name)    { resource_class.model_name.param_key.to_sym }
   let(:resource_id_name) { "#{resource_name}_id".to_sym }
+  let(:default_state)    { 'confirmed' }
+  let(:confirmed_at)     { Time.now }
 
   before do
     Notification.unstub(:notify)
@@ -59,7 +58,7 @@ describe ContributionObserver do
 
     context 'when project is already successful' do
       let(:project) { create(:project, state: 'successful') }
-      before { resource.project = project }
+      before        { resource.project = project }
 
       it 'does not send project_successful notification again' do
         expect(Notification).not_to receive(:notify_once)
@@ -96,11 +95,34 @@ describe ContributionObserver do
         resource
       end
     end
+
+    context 'when project is already finished' do
+      let(:user)          { create(:user, email: 'finan@c.me') }
+      let(:default_state) { 'pending' }
+      let(:confirmed_at)  { nil }
+
+      before do
+        Configuration.stub(:[]).and_return('finan@c.me')
+        resource.project.stub(:expires_at).and_return(8.days.ago)
+      end
+
+      it 'notifies backoffice about confirmation' do
+        allow(Notification).to receive(:notify_once)
+
+        expect(Notification).to receive(:notify_once).at_least(:once).
+          with(:payment_confirmed_after_finished_project,
+               user,
+               { resource_id_name => resource.id },
+               resource_name      => resource)
+
+        resource.confirm!
+      end
+    end
   end
 
   describe '#from_confirmed_to_canceled' do
     let(:user) { create(:user, email: 'finan@c.me') }
-    before { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
+    before     { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
 
     it 'notifies backoffice about cancelation' do
       expect(Notification).to receive(:notify_once).
@@ -115,7 +137,7 @@ describe ContributionObserver do
 
   describe '#from_confirmed_to_requested_refund' do
     let(:user) { create(:user, email: 'finan@c.me') }
-    before { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
+    before     { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
 
     it 'notifies backoffice about the refund request' do
       resource.user.stub(:credits).and_return(1000)
