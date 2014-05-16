@@ -22,6 +22,14 @@ describe MatchFinisher do
           create(:contribution, project: match.project, state: :confirmed)
           expect(subject.matches).to_not include(match)
         end
+
+        it 'doesn\'t include non confirmed matches' do
+          match = travel_to(10.days.ago) do
+            create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now, state: :waiting_confirmation)
+          end
+          create(:contribution, project: match.project, state: :confirmed)
+          expect(subject.matches).to_not include(match)
+        end
       end
 
       context 'with completed matches' do
