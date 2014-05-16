@@ -22,6 +22,10 @@ class Match < ActiveRecord::Base
     Contribution.available_to_count.where(matching_id: matchings).sum(:value)
   end
 
+  def complete!
+    update_attributes(completed: true)
+  end
+
   private
 
   def start_and_finish_dates

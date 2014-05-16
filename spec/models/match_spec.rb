@@ -108,4 +108,12 @@ describe Match do
       expect(subject.reload.pledged).to be_zero
     end
   end
+
+  describe 'completion' do
+    it 'changes its completed value to a truthy value' do
+      subject = build(:match)
+      subject.complete!
+      expect(subject).to be_completed
+    end
+  end
 end
