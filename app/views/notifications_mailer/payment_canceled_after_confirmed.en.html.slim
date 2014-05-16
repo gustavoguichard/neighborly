@@ -1,17 +1,21 @@
-- contribution = @notification.contribution
-|Project: #{contribution.project.name}
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Project: #{resource.project.name}
 br/
-|Contribution Key: 
-strong #{contribution.key}
+|Key: 
+strong #{resource.key}
 br/
 |Payment ID #: 
-strong #{contribution.payment_id}
+strong #{resource.payment_id}
 br/
 |Payment Method: 
-strong #{contribution.payment_method} 
+strong #{resource.payment_method} 
 br/
 br/
-|This contribution has been cancelled, either by the contributor or by the credit card company.
+|This #{resource.class.model_name.human} has been cancelled, either by the contributor or by the credit card company.
 br/
 |Check with payment website for means of payment and transaction status.
 

@@ -1,1 +1,6 @@
-|Neighbor.ly Admin: A confirmed contribution was cancelled
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Neighbor.ly Admin: A confirmed #{resource.class.model_name.human} was cancelled
