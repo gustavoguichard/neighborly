@@ -2,7 +2,8 @@ class MatchFinisher
   def complete!
     matches.each do |match|
       refund = Neighborly::Balanced::Refund.new(match)
-      refund.complete!(:match_automatic, refund_value_for(match))
+      refund.complete!(:match_automatic, remaining_amount_of(match))
+      match.complete!
     end
   end
 

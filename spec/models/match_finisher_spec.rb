@@ -3,14 +3,54 @@ require 'spec_helper'
 describe MatchFinisher do
   include ActiveSupport::Testing::TimeHelpers
 
+  let(:match) do
+    travel_to(10.days.ago) do
+      create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now)
+    end
+  end
+
+  describe 'completion' do
+    it 'does a refund to appropriate matches' do
+      refund = double('Neighborly::Balanced::Refund')
+      Neighborly::Balanced::Refund.stub(:new).with(match).and_return(refund)
+      expect(refund).to receive(:complete!).with(:match_automatic, anything)
+      subject.complete!
+    end
+
+    it 'refunds just remaining amount of matches' do
+      match = travel_to(10.days.ago) do
+        m = create(:match, starts_at: Time.now, finishes_at: 5.days.from_now)
+        create(:contribution, project: m.project, state: :confirmed, value: 25)
+        m
+      end
+      expect_any_instance_of(
+        Neighborly::Balanced::Refund
+      ).to receive(:complete!).with(anything, match.value - 25)
+      subject.complete!
+    end
+
+    context 'with successful refund' do
+      it 'completes match' do
+        Neighborly::Balanced::Refund.any_instance.stub(:complete!)
+        subject.stub(:matches).and_return([match])
+        expect(match).to receive(:complete!)
+        subject.complete!
+      end
+    end
+
+    context 'with unsuccessful refund' do
+      it 'ensures that match wasn\'t set as completed' do
+        Neighborly::Balanced::Refund.any_instance.stub(:complete!).
+          and_raise { Exception }
+        subject.stub(:matches).and_return([match])
+        expect(match).to_not receive(:complete!)
+        subject.complete! rescue nil
+      end
+    end
+  end
+
   describe 'matches' do
     context 'with already finished matches' do
-      let(:match) do
-        travel_to(10.days.ago) do
-          create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now)
-        end
-      end
-
       context 'with not completed matches' do
         it 'includes matches with contributions on terminated statuses' do
           create(:contribution, project: match.project, state: :confirmed)
@@ -60,7 +100,7 @@ describe MatchFinisher do
 
       it 'it does not include matches started and not finished yet' do
         match = travel_to(10.days.ago) do
-          create(:match, starts_at: 5.days.from_now, finishes_at: 12.days.from_now)
+          create(:match, starts_at: 5.days.from_now, finishes_at: 13.days.from_now)
         end
         create(:contribution, project: match.project)
         expect(subject.matches).to_not include(match)
