@@ -2,7 +2,7 @@
 
 - content_for :page_content do
   .row
-    - if @projects.any?
+    - if @projects.present?
       .row = render @projects
     - else
       p = t('.empty')
