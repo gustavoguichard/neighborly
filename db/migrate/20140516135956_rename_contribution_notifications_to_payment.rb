@@ -1,4 +1,4 @@
-class RenameContributionNotifiationsToPayment < ActiveRecord::Migration
+class RenameContributionNotificationsToPayment < ActiveRecord::Migration
   def up
     Notification.where(template_name: 'confirm_contribution').update_all(template_name: 'payment_confirmed')
     Notification.where(template_name: 'contribution_canceled_after_confirmed').update_all(template_name: 'payment_canceled_after_confirmed')
