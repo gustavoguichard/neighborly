@@ -3,14 +3,14 @@ require 'spec_helper'
 describe ContributionObserver do
   let(:resource) do
     create(:contribution,
-           state: default_state,
+           state:        resource_state,
            confirmed_at: confirmed_at,
-           value: 1000)
+           value:        1000)
   end
   let(:resource_class)   { Contribution }
   let(:resource_name)    { resource_class.model_name.param_key.to_sym }
   let(:resource_id_name) { "#{resource_name}_id".to_sym }
-  let(:default_state)    { 'confirmed' }
+  let(:resource_state)   { 'confirmed' }
   let(:confirmed_at)     { Time.now }
 
   before do
@@ -20,7 +20,7 @@ describe ContributionObserver do
 
   describe '#after_create' do
     describe 'when updating status' do
-      let(:default_state) { 'pending' }
+      let(:resource_state) { 'pending' }
 
       it 'updates matched contributions\' statuses' do
         expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
@@ -61,9 +61,9 @@ describe ContributionObserver do
     end
 
     context 'when project is already finished' do
-      let(:user)          { create(:user, email: 'finan@c.me') }
-      let(:default_state) { 'pending' }
-      let(:confirmed_at)  { nil }
+      let(:user)           { create(:user, email: 'finan@c.me') }
+      let(:resource_state) { 'pending' }
+      let(:confirmed_at)   { nil }
 
       before do
         Configuration.stub(:[]).and_return('finan@c.me')
