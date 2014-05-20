@@ -1,0 +1,6 @@
+en:
+  shared:
+    payments:
+      success:
+        recommended_projects:
+          title: 'You may like these others projects:'

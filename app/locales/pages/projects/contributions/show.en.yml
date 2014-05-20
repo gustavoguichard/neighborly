@@ -5,11 +5,8 @@ en:
         title: 'Thank you'
         one_more_step: 'One more step, neighbor! Please verify your account to complete your contribution.'
         thank_you: 'thank you, neighbor! %{project_name} is only possible with the support of people like you.'
-        recommended_projects: 'You may like these others projects:'
         share: 'You can still help %{project_owner_name} by telling others about your contribution!'
         twitter-text: 'I just contributed %{value} to %{name} on @Neighborly: %{project_url}'
-        facebook: 'Share'
-        twitter: 'Tweet'
         bankaccount:
           title: 'You contributed using a new bank account. Please verify your account to complete your contribution.'
           steps:
