@@ -17,7 +17,7 @@ class MatchFinisher
       Contribution.with_state(:waiting_confirmation).
         group(:project_id).pluck(:project_id)
     Match.with_state(:confirmed).
-      not_completed.
+      uncompleted.
       where('finishes_at < ?', Time.now.utc).
       where.not(project_id: projects_waiting_contributions)
   end
