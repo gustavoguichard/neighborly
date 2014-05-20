@@ -27,7 +27,7 @@ class Projects::MatchesController < ApplicationController
     if @match.save
       redirect_to edit_project_match_path(parent, @match)
     else
-      flash.alert = @match.errors.full_messages.to_sentence
+      flash.alert = @match.errors.messages.values.flatten.to_sentence
       render 'new'
     end
   end
