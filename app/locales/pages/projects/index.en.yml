@@ -18,19 +18,6 @@ en:
         email_label: 'Curious? Be among the first to know:'
         email_placeholder: 'YOUR EMAIL'
         submit: 'Submit'
-      how-it-works:
-        one:
-          headline: 'For Companies'
-          text: 'Neighbor.ly is the best way to earn golden impressions while doing good in customer communities.'
-          button: 'Request a Demo'
-        two:
-          headline: 'For Communities'
-          text: "If you have civic projects in need of new funding sources, you've come to the right place."
-          button: 'Raise Money'
-        three:
-          headline: 'For Citizens'
-          text: 'Want to earn perks while enhancing cities? What you do matters. Welcome to the neighborhood.'
-          button: 'Find Projects'
       start-one:
         title: 'Have a community project in need of funding?'
         button: 'Start one in your area'
