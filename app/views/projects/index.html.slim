@@ -1,11 +1,22 @@
 - content_for :title, t('.title')
 
 .home-page
-  header.hero.center[data-image-url=image_path('home-hero.jpg')]
+  header.hero[data-image-url=image_path('home-hero.jpg')]
     .row
       .large-12.columns.large-centered
-        h2 = t('.hero.title').html_safe
-        h3 = t('.hero.subtitle')
+        h2.text-center = t('.hero.title').html_safe
+        #home-subtitle.row
+          .large-10.large-offset-1.columns
+            strong = t('.hero.subtitle_html')
+        #home-newsletter.row
+          .large-8.large-offset-2.columns
+            strong = t('.hero.email_label')
+            = form_tag Configuration['mailchimp_url'], method: 'post', class: 'header-newsletter' do
+              = email_field_tag 'mce-EMAIL', nil, name: 'EMAIL', placeholder: t('.hero.email_placeholder'), label: 'email', class: 'header-newsletter-input'
+              = submit_tag t('.hero.submit'), class: 'header-newsletter-submit button'
+    .row
+      .large-12.columns.text-center
+        i.scroll-down.icon-fa-chevron-down alt='Scroll down!'
 
   section.how-it-works.white
     .row

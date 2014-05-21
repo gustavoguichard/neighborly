@@ -13,8 +13,11 @@ en:
         already_joined: 'Already joined? %{link}.'
         sign_in: 'Sign in'
       hero:
-        title: 'Invest in the places and civic projects <strong>you</strong> care about.'
-        subtitle: "You're the solution you've been waiting for."
+        title: 'Invest in the places you care about.'
+        subtitle_html: "Howdy, Neighbor! Exciting things happening here at Neighbor.ly. For two years, we've been developing a way that will make it easy and fun to <span>invest</span> in communities. In preparation, at this time we are not accepting new individual project proposals."
+        email_label: 'Curious? Be among the first to know:'
+        email_placeholder: 'YOUR EMAIL'
+        submit: 'Submit'
       how-it-works:
         one:
           headline: 'For Companies'
