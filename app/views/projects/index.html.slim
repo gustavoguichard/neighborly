@@ -14,9 +14,10 @@
             = form_tag Configuration['mailchimp_headline_list_url'], method: 'post', class: 'header-newsletter' do
               = email_field_tag 'mce-EMAIL', nil, name: 'EMAIL', placeholder: t('.hero.email_placeholder'), label: 'email', class: 'header-newsletter-input'
               = submit_tag t('.hero.submit'), class: 'header-newsletter-submit button'
-    .row
+    .row#first-title
       .large-12.columns.text-center
-        i.scroll-down.icon-fa-chevron-down alt='Scroll down!'
+        = link_to '#first-title' do
+          i.scroll-down.icon-fa-chevron-down alt='Scroll down!'
 
   section.projects
     .row
