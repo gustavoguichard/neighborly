@@ -11,7 +11,7 @@
         #home-newsletter.row
           .large-8.large-offset-2.columns
             strong = t('.hero.email_label')
-            = form_tag Configuration['mailchimp_url'], method: 'post', class: 'header-newsletter' do
+            = form_tag Configuration['mailchimp_headline_list_url'], method: 'post', class: 'header-newsletter' do
               = email_field_tag 'mce-EMAIL', nil, name: 'EMAIL', placeholder: t('.hero.email_placeholder'), label: 'email', class: 'header-newsletter-input'
               = submit_tag t('.hero.submit'), class: 'header-newsletter-submit button'
     .row

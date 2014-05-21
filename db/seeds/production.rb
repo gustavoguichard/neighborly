@@ -34,6 +34,7 @@ puts 'Creating Configuration entries...'
     #mailchimp_api_key: nil,
     #mailchimp_list_id: nil,
     #mailchimp_url: nil,
+    #mailchimp_headline_list_url: nil,
     #mandrill_user_name: nil,
     #mandrill: nil,
     #aws_bucket: nil,
