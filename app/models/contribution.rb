@@ -2,14 +2,12 @@ class Contribution < ActiveRecord::Base
   include Shared::StateMachineHelpers,
           Shared::PaymentStateMachineHandler,
           Contribution::CustomValidators,
-          Shared::Notifiable
-
-  delegate :display_value, :display_confirmed_at, to: :decorator
+          Shared::Notifiable,
+          Shared::Payable
 
   belongs_to :user
   belongs_to :project
   belongs_to :reward
-  has_many :payment_notifications
   has_many :matchings
 
   validates_presence_of :project, :user, :value
@@ -43,10 +41,6 @@ class Contribution < ActiveRecord::Base
     self.class.where(matching_id: matchings)
   end
 
-  def decorator
-    @decorator ||= ContributionDecorator.new(self)
-  end
-
   def recommended_projects
     user.recommended_projects.where("projects.id <> ?", project.id).order("count DESC")
   end
@@ -66,16 +60,5 @@ class Contribution < ActiveRecord::Base
 
   def available_rewards
     Reward.where(project_id: self.project_id).where('minimum_value <= ?', self.value).order(:minimum_value)
-  end
-
-  # Used in payment engines
-  def price_in_cents
-    (self.value * 100).round
-  end
-
-  #==== Used on before and after callbacks
-
-  def define_key
-    self.update_attributes({ key: Digest::MD5.new.update("#{self.id}###{self.created_at}###{Kernel.rand}").to_s })
   end
 end

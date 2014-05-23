@@ -260,7 +260,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    minitest (5.3.3)
+    minitest (5.3.4)
     multi_json (1.10.0)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
@@ -541,7 +541,7 @@ DEPENDENCIES
   ranked-model
   remotipart (~> 1.2.1)
   rmagick
-  rspec-rails (~> 2.14.1)
+  rspec-rails (~> 2.14.2)
   sass-rails (~> 4.0.3)
   schema_plus
   selenium-webdriver (~> 2.39.0)

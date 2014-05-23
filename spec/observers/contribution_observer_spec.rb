@@ -1,118 +1,86 @@
 require 'spec_helper'
 
 describe ContributionObserver do
-  let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: nil) }
-  subject{ contribution }
+  let(:resource) do
+    create(:contribution,
+           state:        resource_state,
+           confirmed_at: confirmed_at,
+           value:        1000)
+  end
+  let(:resource_class)   { Contribution }
+  let(:resource_name)    { resource_class.model_name.param_key.to_sym }
+  let(:resource_id_name) { "#{resource_name}_id".to_sym }
+  let(:resource_state)   { 'confirmed' }
+  let(:confirmed_at)     { Time.now }
 
   before do
     Notification.unstub(:notify)
     Notification.unstub(:notify_once)
   end
 
-  describe "after_create" do
-    before{ Kernel.stub(:rand).and_return(1) }
-    its(:key){ should == Digest::MD5.new.update("#{contribution.id}###{contribution.created_at}##1").to_s }
-
+  describe '#after_create' do
     describe 'when updating status' do
+      let(:resource_state) { 'pending' }
+
       it 'updates matched contributions\' statuses' do
-        subject = create(:contribution)
         expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
-        subject.confirm
+        resource.confirm!
       end
     end
   end
 
-  describe "before_save" do
-    context "when project reached the goal" do
-      let(:project){ create(:project, state: 'failed', goal: 20) }
-      let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now, value: 20) }
+  describe '#before_save' do
+    context 'when project reached the goal' do
+      let(:project){ create(:project, state: 'failed', goal: 1000) }
+
       before do
-        project_total = double
-        project_total.stub(:pledged).and_return(20.0)
-        project_total.stub(:total_contributions).and_return(1)
-        project.stub(:project_total).and_return(project_total)
-        contribution.project = project
-        Notification.should_receive(:notify).with(:project_success, contribution.project.user, project: contribution.project)
-        contribution.save!
+        project.stub(:project_total).and_return(
+          double('ProjectTotal', pledged: 1000.0, total_contributions: 1)
+        )
+        resource.project = project
       end
-      it("should notify the project owner"){ subject }
+
+      it 'notifies the project owner' do
+        expect(Notification).to receive(:notify).
+          with(:project_success,
+               resource.project.user,
+               project: resource.project)
+
+        resource.save!
+      end
     end
 
-    context "when project is already successful" do
-      let(:project){ create(:project, state: 'online') }
-      let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now, project: project) }
+    context 'when project is already successful' do
+      let(:project) { create(:project, state: 'successful') }
+      before        { resource.project = project }
+
+      it 'does not send project_successful notification again' do
+        expect(Notification).not_to receive(:notify_once)
+        resource.save!
+      end
+    end
+
+    context 'when project is already finished' do
+      let(:user)           { create(:user, email: 'finan@c.me') }
+      let(:resource_state) { 'pending' }
+      let(:confirmed_at)   { nil }
+
       before do
-        contribution
-        project.update_attributes state: 'successful'
-        Notification.should_receive(:notify).never
-        contribution.save!
-      end
-      it("should not send project_successful notification again"){ subject }
-    end
-
-    context "when is not yet confirmed" do
-      context 'notify the contribution' do
-        before do
-          Notification.should_receive(:notify).at_least(:once).with(:confirm_contribution,
-            contribution.user, contribution: contribution,  project_name: contribution.project.name)
-        end
-
-        it("should send confirm_contribution notification"){ subject }
-        its(:confirmed_at) { should_not be_nil }
-      end
-    end
-
-    context "when is already confirmed" do
-      let(:contribution){ create(:contribution, key: 'should be updated', payment_method: 'should be updated', state: 'confirmed', confirmed_at: Time.now) }
-      before do
-        Notification.should_receive(:notify).never
+        Configuration.stub(:[]).and_return('finan@c.me')
+        resource.project.stub(:expires_at).and_return(8.days.ago)
       end
 
-      it("should not send confirm_contribution notification again"){ subject }
-    end
-  end
+      it 'notifies backoffice about confirmation' do
+        allow(Notification).to receive(:notify_once)
 
-  describe '.notify_backoffice' do
-    before do
-      Configuration[:email_payments] = 'finan@c.me'
-    end
+        expect(Notification).to receive(:notify_once).at_least(:once).
+          with(:payment_confirmed_after_finished_project,
+               user,
+               { resource_id_name => resource.id },
+               resource_name      => resource)
 
-    let(:contribution) { create(:contribution, state: :confirmed, value: 10) }
-    let(:user) { create(:user, email: 'finan@c.me') }
-
-    context "when contribution is confirmed and change to requested_refund" do
-      before do
-        contribution.user.stub(:credits).and_return(10)
-        Notification.should_receive(:notify_once).with(:refund_request, user, {contribution_id: contribution.id}, contribution: contribution)
+        resource.confirm!
       end
-
-      it { contribution.request_refund! }
-    end
-  end
-
-  describe '.notify_backoffice_about_canceled' do
-    before do
-      Configuration[:email_payments] = 'finan@c.me'
-    end
-
-    let(:contribution) { create(:contribution) }
-    let(:user) { create(:user, email: 'finan@c.me') }
-
-    context "when contribution is confirmed and change to canceled" do
-      before do
-        contribution.confirm
-        Notification.should_receive(:notify_once).with(:contribution_canceled_after_confirmed, user, {contribution_id: contribution.id}, contribution: contribution)
-      end
-
-      it { contribution.cancel }
-    end
-
-    context "when contribution change to confirmed" do
-      before do
-        Notification.should_not_receive(:notify).with(:contribution_canceled_after_confirmed)
-      end
-
-      it { contribution.confirm }
     end
   end
 end

@@ -1,5 +1,4 @@
-class ContributionDecorator < Draper::Decorator
-  decorates :contribution
+class PayableDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def display_value
@@ -10,4 +9,3 @@ class ContributionDecorator < Draper::Decorator
     I18n.l(source.confirmed_at.to_date) if source.confirmed_at
   end
 end
-

@@ -1,0 +1,6 @@
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Thank you for your contribution to #{resource.project.name}!

@@ -4,9 +4,9 @@ class EmailsController < ApplicationController
     types = [
       :adm_project_deadline,
       :company_contact,
-      :confirm_contribution,
-      :contribution_canceled_after_confirmed,
-      :contribution_confirmed_after_project_was_closed,
+      :payment_confirmed,
+      :payment_canceled_after_confirmed,
+      :payment_confirmed_after_finished_project,
       :contribution_project_successful,
       :contribution_project_unsuccessful,
       :credits_warning,

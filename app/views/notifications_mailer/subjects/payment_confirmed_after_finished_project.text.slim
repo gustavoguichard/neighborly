@@ -1,0 +1,6 @@
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Neighbor.ly admin: #{resource.class.model_name.human} confirmed on closed project '#{resource.project.name}'
