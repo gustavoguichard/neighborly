@@ -204,8 +204,11 @@ describe Projects::ContributionsController do
               reward: create(:reward, project: project, description: 'Test Reward'),
               project: project,
               user: create(:user, name: 'Foo Bar'))
-      get :index, { locale: :pt, project_id: project }
     end
-    its(:status){ should eq 200 }
+
+    it 'responds with 200 HTTP status' do
+      get :index, locale: :pt, project_id: project
+      expect(subject.status).to eq(200)
+    end
   end
 end
