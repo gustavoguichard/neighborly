@@ -19,7 +19,61 @@
           margin-right: +emCalc(5px)
           font-size: 150%
 
+    h3
+      font-size: 1.1em
+      margin-bottom: 0
+      text-transform: uppercase
+
     .contributions-loading
       text-align: center
       img
         display: none
+
+    .active-match-wrapper
+      float: left
+
+    .active-match-progress-wrapper
+      padding: +emCalc(15px)
+
+    .active-match-progress
+      border: 2px solid $special-highlighted-color
+      padding: +emCalc(20px)
+
+    .profile-image
+      display: inline
+
+    .active-match-name
+      color: $primary-color
+      display: inline-block
+      margin-left: +emCalc(30px)
+      margin-right: +emCalc(30px)
+      vertical-align: middle
+      width: +emCalc(68px)
+
+    .active-match-progress-bar
+      background-color: $special-highlighted-color
+      color: $box-hover-background-color
+      font-size: +emCalc(17px)
+      padding: +emCalc(15px)
+      position: relative
+
+      .active-match-pending-progress,
+      .active-match-done-progress
+        display: inline-block
+        height: +emCalc(25px)
+        +radius(+emCalc(50px))
+
+      .active-match-pending-progress
+        background-color: $body-font-color
+        width: 100%
+        margin-bottom: +emCalc(10px)
+
+      .active-match-done-progress
+        background-color: $box-hover-background-color
+        position: absolute
+        top: +emCalc(15px)
+        width: 50%
+        z-index: 1
+
+    hr
+      margin-top: +emCalc(5px)
