@@ -39,16 +39,23 @@
       border: 2px solid $special-highlighted-color
       padding: +emCalc(20px)
 
-    .profile-image
-      display: inline
+      .profile-image
+        display: inline-block
 
     .active-match-name
       color: $primary-color
       display: inline-block
       margin-left: +emCalc(30px)
-      margin-right: +emCalc(30px)
+      margin-top: +emCalc(-75px)
       vertical-align: middle
-      width: +emCalc(68px)
+      width: +emCalc(150px)
+
+    .organization
+      .profile-image
+        display: inline
+      .active-match-name
+        width: +emCalc(68px)
+        margin-top: 0
 
     .active-match-progress-bar
       background-color: $special-highlighted-color
