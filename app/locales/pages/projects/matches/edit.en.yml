@@ -3,4 +3,4 @@ en:
     matches:
       edit:
         title: 'Match to %{project_name}'
-        description_html: 'This is how your match will appear within the campaign.<br />Please enter your billing information below to confirm the match.'
+        description_html: 'This is an example of how your match will appear within the campaign.<br />Please enter your billing information below to confirm the match.'
