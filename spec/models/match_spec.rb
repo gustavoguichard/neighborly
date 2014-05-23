@@ -94,4 +94,12 @@ describe Match do
       end
     end
   end
+
+  describe 'pledged amount' do
+    it 'sums matched contributions values' do
+      subject = create(:match, value_unit: 2)
+      create(:contribution, project: subject.project, value: 11)
+      expect(subject.reload.pledged).to eql(22)
+    end
+  end
 end
