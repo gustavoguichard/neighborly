@@ -10,6 +10,10 @@
     .row
       .large-12.columns
         h3 = t('.description_html')
+    form.total-value
+      .row
+        .large-3.small-3.columns.large-centered.small-centered
+          input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@match.value)}" data-total-text=t('.total')]
 
   .row
     section.content.large-10.columns.large-centered
