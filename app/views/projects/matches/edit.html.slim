@@ -12,10 +12,14 @@
         h3 = t('.description_html')
     form.total-value
       .row
-        .large-3.small-3.columns.large-centered.small-centered
+        .large-3.columns.large-centered
           input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@match.value)}" data-total-text=t('.total')]
+          .custom-tooltip
+            = link_to '#' do
+              i.icon-et-info-circled
+            .tooltip-content.hide
+              p = t('.tooltip-text_html')
 
   .row
     section.content.large-10.columns.large-centered
       = render 'shared/payments/form', resource: @match
-

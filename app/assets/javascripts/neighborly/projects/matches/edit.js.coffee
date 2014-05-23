@@ -2,7 +2,7 @@ Neighborly.Projects ?= {}
 Neighborly.Projects.Matches ?= {}
 
 Neighborly.Projects.Matches.Edit =
-  modules: ->
+  modules: -> [Neighborly.CustomTooltip]
 
   init: Backbone.View.extend
     el: '.edit-match-page'
