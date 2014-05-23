@@ -11,7 +11,7 @@ class Projects::ContributionsController < ApplicationController
 
   def index
     @project        = parent
-    @active_matches = Match.active
+    @active_matches = parent.matches.active
     if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
     end
