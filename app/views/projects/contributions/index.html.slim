@@ -1,29 +1,7 @@
 - content_for :page_content do
   = initjs_tag app_name: 'Neighborly', partial: true
   .contributions-page[data-path=project_contributions_path(@project)]
-    - if @active_matches.present?
-      .row
-        .large-12.columns
-          h3 = t('.active_matches')
-      .row
-        - @active_matches.each do |match|
-          .large-6.small-6.columns.contribution-wrapper.active-match-wrapper
-            .active-match-progress-wrapper
-              .row
-                .active-match-progress class=('organization' if match.user.organization? || match.user.channel?)
-                  = link_to user_path(match.user) do
-                    - if match.user.organization? || match.user.channel?
-                      = match.user.display_image_html width: 170, height: 85
-                    - else
-                      = match.user.display_image_html width: 85, height: 85
-                  .active-match-name
-                    = link_to match.user.display_name, user_path(match.user)
-              .row
-                .active-match-progress-bar
-                  span.active-match-pending-progress
-                  span.active-match-done-progress style="width: #{match.pledged / match.value * 100}%"
-                  span = t('.match_progress', pledged: number_to_currency(match.pledged, precision: 0), ceil: number_to_currency(match.value, precision: 0))
-      hr
+    = render 'active_matches'
     .row
       .list
         - if collection.any?
