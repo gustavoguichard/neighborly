@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Projects::ContributionsController do
-  render_views
   let(:project) { create(:project) }
   let(:contribution){ create(:contribution, value: 10.00, credits: true, project: project, state: 'pending') }
   let(:user){ nil }
@@ -66,6 +65,8 @@ describe Projects::ContributionsController do
     end
 
     context "when user is logged in" do
+      render_views
+
       let(:user){ create(:user) }
       let(:contribution){ create(:contribution, value: 10.00, credits: true, project: project, state: 'pending', user: user) }
       its(:body){ should =~ /#{I18n.t('projects.contributions.edit.title', project_name: project.name)}/ }
@@ -156,6 +157,8 @@ describe Projects::ContributionsController do
     end
 
     context "when project.online? is true and we have not configured a secure create url" do
+      render_views
+
       it{ should render_template("projects/contributions/new") }
       it "should assign review_project_contributions_path to @create_url" do
         assigns(:create_url).should == project_contributions_path(project)
@@ -192,6 +195,8 @@ describe Projects::ContributionsController do
     end
 
     context "when contribution is logged in" do
+      render_views
+
       let(:user){ contribution.user }
       it{ should be_successful }
       its(:body){ should =~ /#{I18n.t('projects.contributions.show.title')}/ }
