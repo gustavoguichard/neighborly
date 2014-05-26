@@ -13,7 +13,7 @@
     form.total-value
       .row
         .large-3.columns.large-centered
-          input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@match.value)}" data-total-text=t('.total')]
+          input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@match.value)}" data-total-text=t('.total') is-paying-fees]
           .custom-tooltip
             = link_to '#' do
               i.icon-et-info-circled

@@ -12,3 +12,4 @@ Neighborly.Projects.Matches.Edit =
         this.$('.payment-method-option-balanced-creditcard')
       )
       @payment_view = new Neighborly.Payment()
+      @payment_view.togglePaymentFee()

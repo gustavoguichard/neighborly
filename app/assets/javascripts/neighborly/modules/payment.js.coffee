@@ -26,9 +26,9 @@ Neighborly.Payment = Backbone.View.extend
         this.$('.container .loading').removeClass('show')
 
   togglePaymentFee: (e)->
-    $input = $('.create-contribution-page header .total-value input')
+    $input = $('.total-value input')
     $target = this.$('.methods input:checked')
-    if $('.create-contribution-page #pay_payment_fees').is(':checked')
+    if $('[is-paying-fees]').length || $('#pay_payment_fees').is(':checked')
       value = $($target).data('value-with-fees')
       $('[data-pay-payment-fee]').val('1')
     else
