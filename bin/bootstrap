@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+system 'cp config/database.sample.yml config/database.yml'
+system 'bundle exec rake db:migrate'
