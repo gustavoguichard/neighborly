@@ -16,7 +16,7 @@ class Match < ActiveRecord::Base
   end
 
   def pledged
-    Contribution.where(matching_id: matchings).sum(:value)
+    Contribution.available_to_count.where(matching_id: matchings).sum(:value)
   end
 
   private
