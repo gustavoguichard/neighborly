@@ -7,6 +7,7 @@ class CreateMatches < ActiveRecord::Migration
       t.date       :finishes_at,   null: false
       t.decimal    :value_unit,    null: false
       t.decimal    :value
+      t.boolean    :completed,     null: false, default: false
 
       t.string     :payment_id,                       foreign_key: false
       t.text       :payment_choice

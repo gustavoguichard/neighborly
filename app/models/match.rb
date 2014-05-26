@@ -12,6 +12,7 @@ class Match < ActiveRecord::Base
   validates :value, numericality: { greater_than_or_equal_to: 1_000 }
   validate :start_and_finish_dates
 
+  scope :uncompleted, -> { where(completed: false) }
   scope :active, -> do
     with_state(:confirmed).
       where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
@@ -19,6 +20,10 @@ class Match < ActiveRecord::Base
 
   def pledged
     Contribution.available_to_count.where(matching_id: matchings).sum(:value)
+  end
+
+  def complete!
+    update_attributes(completed: true)
   end
 
   private
