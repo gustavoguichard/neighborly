@@ -93,4 +93,19 @@ describe Match do
       end
     end
   end
+
+  describe 'pledged amount' do
+    subject { create(:match, value_unit: 2) }
+
+    it 'sums matched contributions values' do
+      create(:contribution, project: subject.project, value: 11)
+      expect(subject.reload.pledged).to eql(22)
+    end
+
+    it 'skips contributions out of available_to_count scope' do
+      create(:contribution, project: subject.project, value: 11, state: :canceled)
+      Contribution.stub(:available_to_count).and_return(Contribution.none)
+      expect(subject.reload.pledged).to be_zero
+    end
+  end
 end

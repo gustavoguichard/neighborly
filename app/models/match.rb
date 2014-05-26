@@ -17,6 +17,10 @@ class Match < ActiveRecord::Base
       where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
   end
 
+  def pledged
+    Contribution.available_to_count.where(matching_id: matchings).sum(:value)
+  end
+
   private
 
   def start_and_finish_dates

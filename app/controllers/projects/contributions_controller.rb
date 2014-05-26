@@ -10,7 +10,8 @@ class Projects::ContributionsController < ApplicationController
   belongs_to :project, finder: :find_by_permalink!
 
   def index
-    @project = parent
+    @project        = parent
+    @active_matches = parent.matches.active
     if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
     end
