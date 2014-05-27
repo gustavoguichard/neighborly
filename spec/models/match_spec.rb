@@ -94,7 +94,6 @@ describe Match do
     end
   end
 
-  describe 'pledged amount' do
   describe '#matched_contributions' do
     subject { create(:match, value_unit: 2) }
 
@@ -110,6 +109,7 @@ describe Match do
 
   end
 
+  describe '#pledged' do
     subject { create(:match, value_unit: 2) }
 
     it 'sums matched contributions values' do
@@ -124,7 +124,22 @@ describe Match do
     end
   end
 
-  describe 'completion' do
+  describe '#total_pledged' do
+    subject { create(:match, value_unit: 2) }
+
+    it 'sums matched contributions values and origianl contributions values' do
+      create(:contribution, project: subject.project, value: 11)
+      expect(subject.reload.total_pledged).to eql(33)
+    end
+
+    it 'skips contributions out of available_to_count scope' do
+      create(:contribution, project: subject.project, value: 11, state: :canceled)
+      Contribution.stub(:available_to_count).and_return(Contribution.none)
+      expect(subject.reload.total_pledged).to be_zero
+    end
+  end
+
+  describe '#complete!' do
     it 'changes its completed value to a truthy value' do
       subject = build(:match)
       subject.complete!

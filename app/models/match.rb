@@ -26,6 +26,10 @@ class Match < ActiveRecord::Base
     Contribution.available_to_count.where(matching_id: matchings).sum(:value)
   end
 
+  def total_pledged
+    pledged + original_contributions.available_to_count.sum(:value)
+  end
+
   def complete!
     update_attributes(completed: true)
   end
