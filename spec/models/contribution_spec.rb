@@ -202,4 +202,18 @@ describe Contribution do
       create(:contribution, payment_method: :matched)
     end
   end
+
+  describe 'as json' do
+    subject { build(:contribution) }
+
+    it 'returns ActiveRecord\'s implementation when an option is given' do
+      expect(subject).to receive(:serializable_hash)
+      subject.as_json(only: :name)
+    end
+
+    it 'returns PayableResourceSerializer\'s implementation when an option is given' do
+      expect_any_instance_of(PayableResourceSerializer).to receive(:to_json)
+      subject.as_json
+    end
+  end
 end

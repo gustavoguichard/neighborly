@@ -41,6 +41,12 @@ class Contribution < ActiveRecord::Base
     self.class.where(matching_id: matchings)
   end
 
+  def as_json(options = {})
+    return super unless options.empty?
+
+    PayableResourceSerializer.new(self).to_json
+  end
+
   def recommended_projects
     user.recommended_projects.where("projects.id <> ?", project.id).order("count DESC")
   end

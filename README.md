@@ -24,10 +24,9 @@ We hope to offer many languages in the future. So if you decide to implement Nei
 
 Neighbor.ly supports payment gateways through payment engines. Payment engines are extensions to Neighbor.ly that implement a specific payment gateway logic.
 The two current supported payment gateways are:
-* Authorize.net for credit cards and e-checks
-* PayPal
 
-We're implementing [Balanced](http://balancedpayments.com/) on [balanced-payments](https://github.com/neighborly/neighborly/tree/balanced_payments) branch.
+* Balanced Credit Card
+* Balanced Bank Account (ACH)
 
 If you have created another payment engine, please contact us so we can link your engine here.
 
@@ -63,6 +62,26 @@ $ bundle install
 $ rake db:create db:migrate db:seed
 $ rails server
 ```
+
+## Other Repositories
+
+Neighbor.ly consists of many separate services/gems, each with their own source code repository.
+
+### [Neighborly::Admin](https://github.com/neighborly/neighborly-admin) [![Build Status](https://travis-ci.org/neighborly/neighborly-admin.png?branch=master)](https://travis-ci.org/neighborly/neighborly-admin) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-admin.png)](https://codeclimate.com/github/neighborly/neighborly-admin)
+
+A Rails Engine that deal with all the admin section for Neighbor.ly.
+
+### [Neighborly::Balanced](https://github.com/neighborly/neighborly-balanced) [![Build Status](https://travis-ci.org/neighborly/neighborly-balanced.png?branch=master)](https://travis-ci.org/neighborly/neighborly-balanced) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-balanced.png)](https://codeclimate.com/github/neighborly/neighborly-balanced)
+
+A Rails Engine that contains the base to integrate Neighbor.ly with Balanced Payments.
+
+### [Neighborly::Balanced::Creditcard](https://github.com/neighborly/neighborly-balanced-creditcard) [![Build Status](https://travis-ci.org/neighborly/neighborly-balanced-creditcard.png?branch=master)](https://travis-ci.org/neighborly/neighborly-balanced-creditcard) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-balanced-creditcard.png)](https://codeclimate.com/github/neighborly/neighborly-balanced-creditcard)
+
+A Rails Engine that integrate Neighbor.ly to Credit Card on Balanced Payments.
+
+### [Neighborly::Balanced::Bankaccount](https://github.com/neighborly/neighborly-balanced-bankaccount) [![Build Status](https://travis-ci.org/neighborly/neighborly-balanced-bankaccount.png?branch=jl-setup-test-env)](https://travis-ci.org/neighborly/neighborly-balanced-bankaccount) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-balanced-bankaccount.png)](https://codeclimate.com/github/neighborly/neighborly-balanced-bankaccount)
+
+A Rails Engine that integrate Neighbor.ly to Bank Account (ACH) on Balanced Payments.
 
 ## Credits
 
