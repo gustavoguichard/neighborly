@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
 
-system 'cp config/database.sample.yml config/database.yml'
-system 'bundle exec rake db:migrate'
+db_init_tasks = ENV['CI'] ? 'db:create db:migrate' : 'db:setup db:test:load'
+
+system 'cp config/database.yml.example config/database.yml'
+system 'bundle install'
+system "bundle exec rake #{db_init_tasks}"
+
+system 'gem install foreman'
