@@ -7,8 +7,8 @@ describe MatchObserver do
   before do
     Notification.unstub(:notify)
     Notification.unstub(:notify_once)
-    create_list(:matching, 2, match: match)
-    create(:matching)
+    matching = create(:matching, match: match, contribution: contribution)
+    create(:contribution, matching_id: matching.id)
   end
 
   describe '#cancel_matched_contributions' do
@@ -30,6 +30,25 @@ describe MatchObserver do
                { match: match })
 
       match.notify_observers :completed
+    end
+  end
+
+  describe '#match_been_met' do
+    it 'notifies match owner about match been met and contributors' do
+      expect(Notification).to receive(:notify_once).
+          with(:match_been_met,
+               match.user,
+               { match_id: match.id },
+               { match: match }).ordered
+
+      expect(Notification).to receive(:notify_once).
+          with(:contribution_match_was_met,
+               contribution.user,
+               { contribution_id: contribution.id },
+               { contribution: contribution }).ordered
+
+
+      match.notify_observers :match_been_met
     end
   end
 end
