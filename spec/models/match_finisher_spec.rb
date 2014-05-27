@@ -124,13 +124,13 @@ describe MatchFinisher do
     end
 
     it 'subtracts amount used in generated contributions from match value' do
-      expect(subject.remaining_amount_of(match)).to eql(750)
+      expect(described_class.remaining_amount_of(match)).to eql(750)
     end
 
     Contribution.state_machine.states.map(&:name).delete_if { |name| name.eql? :confirmed }.each do |state|
       it "doesn't take #{state} contributions in count" do
         create(:contribution, project: match.project, value: 250, state: state)
-        expect(subject.remaining_amount_of(match)).to eql(750)
+        expect(described_class.remaining_amount_of(match)).to eql(750)
       end
     end
   end
