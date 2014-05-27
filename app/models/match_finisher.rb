@@ -4,6 +4,7 @@ class MatchFinisher
       refund = Neighborly::Balanced::Refund.new(match)
       refund.complete!(:match_automatic, remaining_amount_of(match))
       match.complete!
+      match.notify_observers :completed
     end
   end
 
