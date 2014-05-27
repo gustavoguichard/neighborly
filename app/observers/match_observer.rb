@@ -6,4 +6,8 @@ class MatchObserver < ActiveRecord::Observer
       contribution.cancel!
     end
   end
+
+  def completed(match)
+    match.notify_owner(:match_ended)
+  end
 end
