@@ -6,7 +6,7 @@ describe Match do
     it { should belong_to(:user) }
     it { should have_many(:matchings) }
     it do
-      should have_many(:matched_contributions).through(:matchings).
+      should have_many(:original_contributions).through(:matchings).
                                                source(:contribution)
     end
   end
@@ -95,6 +95,21 @@ describe Match do
   end
 
   describe 'pledged amount' do
+  describe '#matched_contributions' do
+    subject { create(:match, value_unit: 2) }
+
+    it 'returns the matched contribution' do
+      original_contribution = create(:contribution,
+                                     project: subject.project,
+                                     value:   11)
+      matched_contributions = Contribution.where(
+        matching_id: original_contribution.matchings
+      )
+      expect(subject.matched_contributions).to include(matched_contributions.first)
+    end
+
+  end
+
     subject { create(:match, value_unit: 2) }
 
     it 'sums matched contributions values' do

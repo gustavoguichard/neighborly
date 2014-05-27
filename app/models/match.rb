@@ -6,7 +6,7 @@ class Match < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
   has_many :matchings
-  has_many :matched_contributions, through: :matchings, source: :contribution
+  has_many :original_contributions, through: :matchings, source: :contribution
 
   validates :project, :user, presence: true
   validates :value, numericality: { greater_than_or_equal_to: 1_000 }
@@ -16,6 +16,10 @@ class Match < ActiveRecord::Base
   scope :active, -> do
     with_state(:confirmed).
       where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
+  end
+
+  def matched_contributions
+    Contribution.where(matching_id: matchings)
   end
 
   def pledged
