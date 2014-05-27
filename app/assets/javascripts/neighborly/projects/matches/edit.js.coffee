@@ -2,7 +2,7 @@ Neighborly.Projects ?= {}
 Neighborly.Projects.Matches ?= {}
 
 Neighborly.Projects.Matches.Edit =
-  modules: ->
+  modules: -> [Neighborly.CustomTooltip]
 
   init: Backbone.View.extend
     el: '.edit-match-page'
@@ -12,3 +12,4 @@ Neighborly.Projects.Matches.Edit =
         this.$('.payment-method-option-balanced-creditcard')
       )
       @payment_view = new Neighborly.Payment()
+      @payment_view.togglePaymentFee()
