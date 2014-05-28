@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe Project do
+  include ActiveSupport::Testing::TimeHelpers
+
   let(:project){ build(:project, goal: 3000) }
   let(:user){ create(:user) }
   let(:channel){ create(:channel, user: user) }
@@ -38,53 +40,156 @@ describe Project do
     it{ should_not allow_value('users').for(:permalink) }
   end
 
-  describe ".with_contributions_confirmed_today" do
-    let(:project_01) { create(:project, state: 'online') }
-    let(:project_02) { create(:project, state: 'online') }
-    let(:project_03) { create(:project, state: 'online') }
+  describe 'scopes' do
+    describe ".with_contributions_confirmed_today" do
+      let(:project_01) { create(:project, state: 'online') }
+      let(:project_02) { create(:project, state: 'online') }
+      let(:project_03) { create(:project, state: 'online') }
 
-    subject { Project.with_contributions_confirmed_today }
+      subject { Project.with_contributions_confirmed_today }
 
-    before do
-      project_01
-      project_02
-      project_03
-    end
-
-    pending "when have confirmed contributions today" do
       before do
-
-        #TODO: need to investigate this timestamp issue when
-        # use DateTime.now or Time.now
-        create(:contribution, state: 'confirmed', project: project_01, confirmed_at: 3.hours.from_now )
-        create(:contribution, state: 'confirmed', project: project_02, confirmed_at: 2.days.ago )
-        create(:contribution, state: 'confirmed', project: project_03, confirmed_at: 3.hours.from_now )
+        project_01
+        project_02
+        project_03
       end
 
-      it { should have(2).items }
-      it { subject.include?(project_02).should be_false }
+      pending "when have confirmed contributions today" do
+        before do
+
+          #TODO: need to investigate this timestamp issue when
+          # use DateTime.now or Time.now
+          create(:contribution, state: 'confirmed', project: project_01, confirmed_at: 3.hours.from_now )
+          create(:contribution, state: 'confirmed', project: project_02, confirmed_at: 2.days.ago )
+          create(:contribution, state: 'confirmed', project: project_03, confirmed_at: 3.hours.from_now )
+        end
+
+        it { should have(2).items }
+        it { subject.include?(project_02).should be_false }
+      end
+
+      context "when does not have any confirmed contribution today" do
+        before do
+          create(:contribution, state: 'confirmed', project: project_01, confirmed_at: 1.days.ago )
+          create(:contribution, state: 'confirmed', project: project_02, confirmed_at: 2.days.ago )
+          create(:contribution, state: 'confirmed', project: project_03, confirmed_at: 5.days.ago )
+        end
+
+        it { should have(0).items }
+      end
     end
 
-    context "when does not have any confirmed contribution today" do
+    describe ".visible" do
       before do
-        create(:contribution, state: 'confirmed', project: project_01, confirmed_at: 1.days.ago )
-        create(:contribution, state: 'confirmed', project: project_02, confirmed_at: 2.days.ago )
-        create(:contribution, state: 'confirmed', project: project_03, confirmed_at: 5.days.ago )
+        [:draft, :rejected, :deleted].each do |state|
+          create(:project, state: state)
+        end
+        @project = create(:project, state: :online)
+      end
+      subject{ Project.visible }
+      it{ should == [@project] }
+    end
+
+    describe '.between_created_at' do
+      let(:start_at) { '17/01/2013' }
+      let(:ends_at) { '20/01/2013' }
+      subject { Project.between_created_at(start_at, ends_at) }
+
+      before do
+        @project_01 = create(:project, created_at: '19/01/2013')
+        @project_02 = create(:project, created_at: '23/01/2013')
+        @project_03 = create(:project, created_at: '26/01/2013')
       end
 
-      it { should have(0).items }
+      it { should == [@project_01] }
     end
-  end
 
-  describe ".visible" do
-    before do
-      [:draft, :rejected, :deleted].each do |state|
-        create(:project, state: state)
+    describe '.to_finish' do
+      before do
+        Project.should_receive(:expired).and_call_original
+        Project.should_receive(:with_states).with(['online', 'waiting_funds']).and_call_original
       end
-      @project = create(:project, state: :online)
+      it "should call scope expired and filter states that can be finished" do
+        Project.to_finish
+      end
     end
-    subject{ Project.visible }
-    it{ should == [@project] }
+
+    describe ".contributed_by" do
+      before do
+        contribution = create(:contribution, state: 'confirmed')
+        @user = contribution.user
+        @project = contribution.project
+        # Another contribution with same project and user should not create duplicate results
+        create(:contribution, user: @user, project: @project, state: 'confirmed')
+        # Another contribution with other project and user should not be in result
+        create(:contribution, state: 'confirmed')
+        # Another contribution with different project and same user but not confirmed should not be in result
+        create(:contribution, user: @user, state: 'pending')
+      end
+      subject{ Project.contributed_by(@user.id) }
+      it{ should == [@project] }
+    end
+
+    describe ".expired" do
+      before do
+        @p = create(:project, online_days: -1)
+        create(:project, online_days: 1)
+      end
+      subject{ Project.expired}
+      it{ should == [@p] }
+    end
+
+    describe ".not_expired" do
+      before do
+        @p = create(:project, online_days: 1)
+        create(:project, online_days: -1)
+      end
+      subject{ Project.not_expired }
+      it{ should == [@p] }
+    end
+
+    describe ".expiring" do
+      before do
+        @p = create(:project, online_date: Time.now, online_days: 13)
+        create(:project, online_date: Time.now, online_days: -1)
+      end
+      subject{ Project.expiring }
+      it{ should == [@p] }
+    end
+
+    describe ".not_expiring" do
+      before do
+        @p = create(:project, online_days: 15)
+        create(:project, online_days: -1)
+      end
+      subject{ Project.not_expiring }
+      it{ should == [@p] }
+    end
+
+    describe ".recent" do
+      before do
+        @p = create(:project, online_date: (Time.now - 4.days))
+        create(:project, online_date: (Time.now - 15.days))
+      end
+      subject{ Project.recent }
+      it{ should == [@p] }
+    end
+
+    describe '.with_active_matches' do
+      it 'should include projects with active matches' do
+        project = create(:match).project
+
+        expect(described_class.with_active_matches).to include(project)
+      end
+
+      it 'should not include projects without active matches' do
+        project = travel_to(10.days.ago) do
+          create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now).project
+        end
+
+        expect(described_class.with_active_matches).not_to include(project)
+      end
+    end
   end
 
   describe '.state_names' do
@@ -134,91 +239,6 @@ describe Project do
     end
 
     it { should == 'lorem' }
-  end
-
-  describe '.between_created_at' do
-    let(:start_at) { '17/01/2013' }
-    let(:ends_at) { '20/01/2013' }
-    subject { Project.between_created_at(start_at, ends_at) }
-
-    before do
-      @project_01 = create(:project, created_at: '19/01/2013')
-      @project_02 = create(:project, created_at: '23/01/2013')
-      @project_03 = create(:project, created_at: '26/01/2013')
-    end
-
-    it { should == [@project_01] }
-  end
-
-  describe '.to_finish' do
-    before do
-      Project.should_receive(:expired).and_call_original
-      Project.should_receive(:with_states).with(['online', 'waiting_funds']).and_call_original
-    end
-    it "should call scope expired and filter states that can be finished" do
-      Project.to_finish
-    end
-  end
-
-  describe ".contributed_by" do
-    before do
-      contribution = create(:contribution, state: 'confirmed')
-      @user = contribution.user
-      @project = contribution.project
-      # Another contribution with same project and user should not create duplicate results
-      create(:contribution, user: @user, project: @project, state: 'confirmed')
-      # Another contribution with other project and user should not be in result
-      create(:contribution, state: 'confirmed')
-      # Another contribution with different project and same user but not confirmed should not be in result
-      create(:contribution, user: @user, state: 'pending')
-    end
-    subject{ Project.contributed_by(@user.id) }
-    it{ should == [@project] }
-  end
-
-  describe ".expired" do
-    before do
-      @p = create(:project, online_days: -1)
-      create(:project, online_days: 1)
-    end
-    subject{ Project.expired}
-    it{ should == [@p] }
-  end
-
-  describe ".not_expired" do
-    before do
-      @p = create(:project, online_days: 1)
-      create(:project, online_days: -1)
-    end
-    subject{ Project.not_expired }
-    it{ should == [@p] }
-  end
-
-  describe ".expiring" do
-    before do
-      @p = create(:project, online_date: Time.now, online_days: 13)
-      create(:project, online_date: Time.now, online_days: -1)
-    end
-    subject{ Project.expiring }
-    it{ should == [@p] }
-  end
-
-  describe ".not_expiring" do
-    before do
-      @p = create(:project, online_days: 15)
-      create(:project, online_days: -1)
-    end
-    subject{ Project.not_expiring }
-    it{ should == [@p] }
-  end
-
-  describe ".recent" do
-    before do
-      @p = create(:project, online_date: (Time.now - 4.days))
-      create(:project, online_date: (Time.now - 15.days))
-    end
-    subject{ Project.recent }
-    it{ should == [@p] }
   end
 
   describe ".not_soon" do

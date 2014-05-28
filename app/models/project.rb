@@ -60,6 +60,7 @@ class Project < ActiveRecord::Base
 
   # Used to simplify a has_scope
   scope :successful, ->{ with_state('successful') }
+  scope :with_active_matches, -> { includes(:matches).where(matches: { id: Match.active }).group('projects.id', 'matches.id') }
   scope :by_id, ->(id) { where(id: id) }
   scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
