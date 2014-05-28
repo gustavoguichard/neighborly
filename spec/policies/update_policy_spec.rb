@@ -61,4 +61,53 @@ describe UpdatePolicy do
       end
     end
   end
+
+  describe 'Scope' do
+    describe '.resolve' do
+      let(:project)           { create(:project) }
+      let(:user)              { }
+      let!(:exclusive_update) { create(:update, exclusive: true, project: project) }
+      let!(:update)           { create(:update, project: project) }
+
+      subject { UpdatePolicy::Scope.new(user, project.updates).resolve }
+
+      context 'when user is a contributor' do
+        let(:user) { create(:contribution, state: 'confirmed', project: project).user }
+
+        it 'includes all updates' do
+          expect(subject).to include(exclusive_update, update)
+        end
+      end
+
+      context 'when user is not a contributor' do
+        let(:user) { create(:contribution, state: 'pending', project: project).user }
+
+        it 'returns the non-exclusive update' do
+          expect(subject).to eq [update]
+        end
+      end
+
+      context 'when user is a project owner' do
+        let(:user) { project.user }
+
+        it 'includes all updates' do
+          expect(subject).to include(exclusive_update, update)
+        end
+      end
+
+      context 'when user is an admin' do
+        let(:user) { create(:user, admin: true) }
+
+        it 'includes all updates' do
+          expect(subject).to include(exclusive_update, update)
+        end
+      end
+
+      context 'when user is a guest' do
+        it 'returns the non-exclusive update' do
+          expect(subject).to eq [update]
+        end
+      end
+    end
+  end
 end
