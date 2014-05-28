@@ -5,8 +5,6 @@ describe MatchObserver do
   let(:contribution) { create(:contribution, state: :confirmed) }
 
   before do
-    Notification.unstub(:notify)
-    Notification.unstub(:notify_once)
     matching = create(:matching, match: match, contribution: contribution)
     create(:contribution, matching_id: matching.id)
   end
@@ -46,7 +44,6 @@ describe MatchObserver do
                contribution.user,
                { contribution_id: contribution.id },
                { contribution: contribution }).ordered
-
 
       match.notify_observers :match_been_met
     end
