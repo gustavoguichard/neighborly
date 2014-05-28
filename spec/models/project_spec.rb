@@ -241,14 +241,6 @@ describe Project do
     it { should == 'lorem' }
   end
 
-  describe ".not_soon" do
-    before do
-      @p = create(:project, state: 'online')
-      create(:project, state: 'soon')
-    end
-    subject{ Project.not_soon}
-  end
-
   describe '#reached_goal?' do
     let(:project) { create(:project, goal: 3000) }
     subject { project.reached_goal? }
