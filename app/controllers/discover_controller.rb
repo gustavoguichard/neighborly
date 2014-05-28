@@ -3,7 +3,7 @@ class DiscoverController < ApplicationController
   FILTERS = %w(recommended expiring recent successful soon with_active_matches)
 
   def index
-    @avaliable_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
+    @available_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
     @filters = {}
     @tags = Tag.popular
     @projects = Project.visible
