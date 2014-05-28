@@ -13,6 +13,10 @@ class MatchedContributionGenerator
         contribution_id: contribution.id
       )
       matched_contribution.update_attribute(:matching_id, matching.id)
+
+      if MatchFinisher.remaining_amount_of(match).zero?
+        match.notify_observers :match_been_met
+      end
     end
   end
 

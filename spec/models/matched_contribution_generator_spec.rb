@@ -46,6 +46,13 @@ describe MatchedContributionGenerator do
         subject.create
       }.to_not change(Contribution, :count)
     end
+
+    it 'notify observers when remaining amount of a mach is zero' do
+      match = create(:match, project: contribution.project)
+      MatchFinisher.stub(:remaining_amount_of).and_return(0)
+      expect(Match).to receive(:notify_observers).with(:match_been_met, match)
+      subject.create
+    end
   end
 
   describe '#update' do

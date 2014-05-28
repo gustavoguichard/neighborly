@@ -3,6 +3,10 @@ require 'spec_helper'
 describe MatchFinisher do
   include ActiveSupport::Testing::TimeHelpers
 
+  before do
+    Neighborly::Balanced::Refund.any_instance.stub(:complete!)
+  end
+
   let(:match) do
     travel_to(10.days.ago) do
       create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now)
@@ -19,19 +23,24 @@ describe MatchFinisher do
 
     it 'refunds just remaining amount of matches' do
       match = travel_to(10.days.ago) do
-        m = create(:match, starts_at: Time.now, finishes_at: 5.days.from_now)
+        m = create(:match, starts_at: Time.now, finishes_at: 5.days.from_now, value_unit: 2)
         create(:contribution, project: m.project, state: :confirmed, value: 25)
         m
       end
       expect_any_instance_of(
         Neighborly::Balanced::Refund
-      ).to receive(:complete!).with(anything, match.value - 25)
+      ).to receive(:complete!).with(anything, match.value - 50)
+      subject.complete!
+    end
+
+    it 'notifies observers' do
+      subject.stub(:matches).and_return([match])
+      expect(match).to receive(:notify_observers).with(:completed)
       subject.complete!
     end
 
     context 'with successful refund' do
       it 'completes match' do
-        Neighborly::Balanced::Refund.any_instance.stub(:complete!)
         subject.stub(:matches).and_return([match])
         expect(match).to receive(:complete!)
         subject.complete!
@@ -115,13 +124,13 @@ describe MatchFinisher do
     end
 
     it 'subtracts amount used in generated contributions from match value' do
-      expect(subject.remaining_amount_of(match)).to eql(750)
+      expect(described_class.remaining_amount_of(match)).to eql(750)
     end
 
     Contribution.state_machine.states.map(&:name).delete_if { |name| name.eql? :confirmed }.each do |state|
       it "doesn't take #{state} contributions in count" do
         create(:contribution, project: match.project, value: 250, state: state)
-        expect(subject.remaining_amount_of(match)).to eql(750)
+        expect(described_class.remaining_amount_of(match)).to eql(750)
       end
     end
   end
