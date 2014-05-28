@@ -10,12 +10,14 @@ module FlashMessagesHelper
   private
 
   def build_flash_message(name, message)
+    persistent = (message.is_a?(Hash) && !message[:dismissible])
+
     content = message.is_a?(Hash) ? message[:message] : message
 
-    content_tag(:div, class: 'row') do
+    content_tag(:div, class: persistent ? 'row' : 'fixed') do
       concat(content_tag(:div,
-                         class:          html_classes_for_msg(name, message),
-                         'data-alert' => 'true') do
+                         class: html_classes_for_msg(name, persistent),
+                         data: { alert: :true }) do
 
         concat(content.html_safe)
         concat(link_to('&times;'.html_safe, '#', class: 'close'))
@@ -23,9 +25,14 @@ module FlashMessagesHelper
     end
   end
 
-  def html_classes_for_msg(name, message)
-    html_classes  = "#{name} alert-box large-10 columns large-centered animated fadeIn"
-    html_classes << ' dismissible' unless message.is_a?(Hash) && !message[:dismissible]
+  def html_classes_for_msg(name, persistent)
+    html_classes = "#{name} alert-box animated fadeIn text-center"
+    if persistent
+      html_classes << ' persistent large-10 columns large-centered'
+    else
+      html_classes << ' dismissible'
+    end
+
     html_classes
   end
 

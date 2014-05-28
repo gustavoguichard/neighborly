@@ -72,14 +72,11 @@ window.Neighborly =
     init: ->
       clearTimeout(this.flash_time_out)
       if $('.flash').length > 0
-        this.flash_time_out = setTimeout(this.close, 5000) if $('.flash .alert-box.dismissible').length == $('.flash .alert-box').length
-        $('.flash a.close').click(this.close)
+        this.flash_time_out = setTimeout(this.close, 5000)
+        $('.flash .dismissible a.close').click(this.close)
 
     close: ->
-      $('.flash .alert-box').fadeOut('fast')
-      setTimeout (->
-        $('.flash').slideUp('slow')
-      ), 100
+      $('.flash .alert-box.dismissible').slideUp('slow')
 
   backstretch:
     init: ->

@@ -50,17 +50,26 @@ We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
 
 ## Quick Installation
 
-**IMPORTANT**: Make sure you have postgresql-contrib ([Aditional Modules](http://www.postgresql.org/docs/9.3/static/contrib.html)) installed on your system.
+To get everything working, you'll need to have these dependencies installed in your system:
+
+* ImageMagick >= 6.3.5
+* PostgreSQL >= 9.3 (with [postgresql-contrib](http://www.postgresql.org/docs/9.3/static/contrib.html))
+* Redis >= 2.4
+* Ruby 2.1.1
+
+Then, you can run the following commands:
 
 ```bash
 $ git clone https://github.com/neighborly/neighborly.git
 $ cd neighborly
-$ cp config/database.sample.yml config/database.yml
-$ vim config/database.yml
-# change username/password and save
-$ bundle install
-$ rake db:create db:migrate db:seed
-$ rails server
+$ ./bin/bootstrap
+$ foreman start
+```
+
+You are now running Neighborly on http://localhost:3000 with sample configuration. If you plan to use it more than just get it running, you should change configuration (check `db/seeds.rb` for examples) and maybe run development seeds:
+
+```bash
+$ rails runner db/development_seeds.rb
 ```
 
 ## Other Repositories

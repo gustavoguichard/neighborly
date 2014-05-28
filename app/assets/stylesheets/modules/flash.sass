@@ -1,21 +1,17 @@
 .flash
   background: image-url('default-flash-bg.jpg')
-  padding: +emCalc(20px)
-  padding-bottom: 0
+  padding: 0
+  margin: 0
+
   .alert-box
-    margin-bottom: 0
-    border-radius: $global-radius
     padding: +emCalc(20px)
-    margin-bottom: +emCalc(20px)
     font-size: 100%
     font-weight: normal
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
-    background: rgba($success-color, 0.75)
+    background: rgba($success-color, 0.80)
+
     a:not(.close)
       color: lighten($secondary-color, 30%)
       font-weight: bold
-    .close
-      font-size: 200%
 
     &.notice
       background: rgba($success-color, 0.75)
@@ -23,6 +19,21 @@
       background: rgba($alert-color, 0.75)
     &.secondary
       background: rgba($secondary-color, 0.75)
+
+    &.dismissible
+      margin: 0
+
+    &.persistent
+      margin-top: +emCalc(20px)
+      margin-bottom: +emCalc(20px)
+      border-radius: $global-radius
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
+
+      .close
+        font-size: 200%
+
+  .fixed
+    top: +emCalc(90px)
 
 #devise #devise-flash-message
   margin: +emCalc(15px)
