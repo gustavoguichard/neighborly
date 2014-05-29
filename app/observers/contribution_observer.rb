@@ -1,6 +1,4 @@
 class ContributionObserver < ActiveRecord::Observer
-  observe :contribution
-
   def after_create(contribution)
     generate_matches(contribution)
   end
