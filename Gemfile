@@ -116,7 +116,7 @@ group :test, :development do
 end
 
 group :test do
-  gem 'fakeweb'
+  gem 'fakeweb', require: false
   gem 'launchy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'

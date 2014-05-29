@@ -62,6 +62,7 @@ RSpec.configure do |config|
       ]
     )
 
+    FakeWeb.allow_net_connect = %r[^https?://127\.0\.0\.1|https?://coveralls\.io]
     FakeWeb.register_uri(:get, "http://vimeo.com/api/v2/video/17298435.json", response: fixture_path('vimeo_default_json_request.txt'))
     FakeWeb.register_uri(:get, "http://vimeo.com/17298435", response: fixture_path('vimeo_default_request.txt'))
     FakeWeb.register_uri(:get, "http://www.youtube.com/watch?v=Brw7bzU_t4c", response: fixture_path("youtube_request.txt"))
