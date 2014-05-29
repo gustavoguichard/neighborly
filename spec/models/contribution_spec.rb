@@ -16,6 +16,7 @@ describe Contribution do
     it { should belong_to(:project) }
     it { should belong_to(:user) }
     it { should belong_to(:reward) }
+    it { should belong_to(:matching) }
   end
 
   describe 'validations' do
