@@ -81,7 +81,7 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def collection
-    @contributions ||= apply_scopes(end_of_association_chain).available_to_display.order("confirmed_at DESC").per(10)
+    @contributions ||= apply_scopes(end_of_association_chain).available_to_display.where(matching_id: nil).order("confirmed_at DESC").per(10)
   end
 
   def empty_reward
