@@ -37,3 +37,8 @@ desc 'Refund remaining amount from matches already finished'
 task :complete_finished_matches => :environment do
   MatchFinisher.new.complete!
 end
+
+desc 'Activate new matches to start in the current day'
+task :active_new_matches => :environment do
+  MatchActivationWorker.perform_async
+end

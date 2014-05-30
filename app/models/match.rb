@@ -13,6 +13,7 @@ class Match < ActiveRecord::Base
   validate :start_and_finish_dates
 
   scope :uncompleted, -> { where(completed: false) }
+  scope :activating_today, -> { where(starts_at: Date.today) }
   scope :active, -> do
     with_state(:confirmed).
       where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
