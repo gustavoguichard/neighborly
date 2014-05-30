@@ -29,7 +29,6 @@ class Projects::ContributionsController < ApplicationController
     @contribution = Contribution.new(project: parent, user: current_user)
     authorize @contribution
 
-    @create_url = create_url
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
     if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
@@ -86,13 +85,5 @@ class Projects::ContributionsController < ApplicationController
 
   def empty_reward
     Reward.new(minimum_value: 0, description: t('controllers.projects.contributions.new.no_reward'))
-  end
-
-  def create_url
-    if ::Configuration[:secure_review_host]
-      return project_contributions_url(@project, {host: ::Configuration[:secure_review_host], protocol: 'https'})
-    else
-      return project_contributions_path(@project)
-    end
   end
 end

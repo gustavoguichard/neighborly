@@ -29,7 +29,6 @@ puts 'Creating Configuration entries...'
     devise_secret_key: SecureRandom.hex(64),
     balanced_api_key_secret: 'YOUR_API_KEY_SECRET_HERE',
     balanced_marketplace_id: 'YOUR_MARKETPLACE_ID_HERE',
-    #secure_review_host: nil,
     #uservoice_key: nil,
     #mailchimp_api_key: nil,
     #mailchimp_list_id: nil,

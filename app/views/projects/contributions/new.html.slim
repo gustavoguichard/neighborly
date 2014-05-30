@@ -1,6 +1,6 @@
 - content_for :title, t('projects.contributions.new.title', name: @project.name)
 .new-contribution-page
-  = simple_form_for @contribution, url: @create_url, html: { id: 'form-contribution' } do |form|
+  = simple_form_for @contribution, url: project_contributions_path(@project), html: { id: 'form-contribution' } do |form|
     = hero_header_tag @project do
       .row
         .large-10.columns.large-centered

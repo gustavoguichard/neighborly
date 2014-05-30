@@ -49,7 +49,6 @@ end
 puts 'Creating Configuration entries...'
 
   {
-    #secure_review_host: nil,
     #uservoice_key: nil,
     #mailchimp_api_key: nil,
     #mailchimp_list_id: nil,
