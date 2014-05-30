@@ -15,11 +15,11 @@ class Configuration
     private
 
     def get(key)
-      ENV[key.to_s]
+      ENV[key.to_s.upcase]
     end
 
     def set(key, value)
-      ENV[key.to_s] = value.to_s
+      ENV[key.to_s.upcase] = value.to_s
     end
   end
 end
