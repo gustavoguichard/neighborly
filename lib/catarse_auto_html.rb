@@ -9,6 +9,7 @@ module CatarseAutoHtml
           '"' => '"' }
       end
 
+      image
       twitter align: "center"
       iframe width: 720
       youtube width: options[:video_width], height: options[:video_height], wmode: "opaque"

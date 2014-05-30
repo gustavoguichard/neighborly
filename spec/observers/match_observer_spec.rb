@@ -48,4 +48,12 @@ describe MatchObserver do
       match.notify_observers :match_been_met
     end
   end
+
+  describe '#became_active' do
+    it 'generates a new update' do
+      expect {
+        match.notify_observers :became_active
+      }.to change(Update, :count).by(1)
+    end
+  end
 end
