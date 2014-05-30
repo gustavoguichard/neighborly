@@ -1,6 +1,27 @@
 #!/usr/bin/env ruby
 
-db_init_tasks = ENV['CI'] ? 'db:create db:migrate' : 'db:setup db:test:load'
+def check_dependencies!
+  executable_list = {
+    ImageMagick: 'convert',
+    PostgreSQL:  'postgres',
+    Redis:       'redis-server',
+  }
+
+  executable_list.each do |dependency, executable|
+    system "which #{executable} > /dev/null" or
+      raise "#{dependency} not installed"
+  end
+end
+
+# Travis CI has dependencies installed but don't expose executables.
+# By this fact, we don't need to check availability in CI.
+db_init_tasks = if ENV['CI']
+  'db:create db:migrate'
+else
+  check_dependencies!
+
+  'db:setup db:test:load'
+end
 
 system 'cp config/database.yml.example config/database.yml'
 system 'bundle install'
