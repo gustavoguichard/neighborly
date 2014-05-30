@@ -90,7 +90,7 @@ RSpec.configure do |config|
     end
   end
 
-  # Stubs and configuration
+  # Stubs
   config.before(:each) do
     result = OpenStruct.new 'latitude'     => 40.7143528,
                             'longitude'    => -74.0059731,
@@ -110,9 +110,5 @@ RSpec.configure do |config|
     Project.any_instance.stub(:download_video_thumbnail)
     Notification.stub(:notify)
     Notification.stub(:notify_once)
-    Configuration[:base_domain] = 'localhost'
-    Configuration[:email_contact] = 'foo@bar.com'
-    Configuration[:company_name] = 'Foo Bar Company'
-    Configuration[:timezone] = 'US/Central'
   end
 end
