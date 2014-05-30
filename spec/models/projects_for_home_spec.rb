@@ -241,9 +241,7 @@ describe ProjectsForHome do
   describe '.with_active_matches' do
     subject { ProjectsForHome.with_active_matches }
 
-    let(:with_match_active) do
-      create(:match).project
-    end
+    let(:with_match_active) { create(:match).project }
 
     let(:without_match_active) do
       travel_to(10.days.ago) do
