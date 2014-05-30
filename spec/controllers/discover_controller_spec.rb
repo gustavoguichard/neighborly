@@ -13,7 +13,8 @@ describe DiscoverController do
   end
 
   it 'should have the rights filters' do
-    expect(DiscoverController::FILTERS).to eq [ 'recommended', 'expiring', 'recent', 'successful', 'soon' ]
+    expected_filters = %w(recommended expiring recent successful soon with_active_matches)
+    expect(DiscoverController::FILTERS).to eq(expected_filters)
   end
 
   shared_examples 'has filter' do
@@ -45,6 +46,12 @@ describe DiscoverController do
       it 'should only assigns the recommended project' do
         expect(assigns(:projects)).to eq [@recommended]
       end
+
+      it_behaves_like 'has filter'
+    end
+
+    context 'when filtering by with_active_matches' do
+      before { get :index, filter: :with_active_matches }
 
       it_behaves_like 'has filter'
     end
