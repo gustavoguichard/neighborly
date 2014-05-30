@@ -3,12 +3,6 @@ module Concerns
     extend ActiveSupport::Concern
 
     included do
-      if Rails.env.production?
-        rescue_from ActionController::RoutingError,       with: :render_404
-        rescue_from ActionController::UnknownController,  with: :render_404
-        rescue_from ActiveRecord::RecordNotFound,         with: :render_404
-      end
-
       rescue_from Pundit::NotAuthorizedError,  with: :deny_access
     end
 
