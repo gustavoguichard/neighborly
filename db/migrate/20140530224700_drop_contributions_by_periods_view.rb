@@ -1,0 +1,10 @@
+class DropContributionsByPeriodsView < ActiveRecord::Migration
+  def up
+    execute 'DROP VIEW contributions_by_periods'
+  end
+
+  def down
+    execute "CREATE VIEW contributions_by_periods AS
+                WITH weeks AS (SELECT (generate_series.generate_series * 7) AS days FROM generate_series(0, 7) generate_series(generate_series)), current_period AS (SELECT 'current_period'::text AS series, sum(b.value) AS sum, (w.days / 7) AS week FROM (contributions b RIGHT JOIN weeks w ON ((((b.confirmed_at)::date >= ((('now'::text)::date - w.days) - 7)) AND (b.confirmed_at < (('now'::text)::date - w.days))))) WHERE ((b.state)::text <> ALL ((ARRAY['pending'::character varying, 'canceled'::character varying, 'waiting_confirmation'::character varying, 'deleted'::character varying])::text[])) GROUP BY (w.days / 7)), previous_period AS (SELECT 'previous_period'::text AS series, sum(b.value) AS sum, (w.days / 7) AS week FROM (contributions b RIGHT JOIN weeks w ON ((((b.confirmed_at)::date >= (((('now'::text)::date - w.days) - 7) - 56)) AND (b.confirmed_at < ((('now'::text)::date - w.days) - 56))))) WHERE ((b.state)::text <> ALL ((ARRAY['pending'::character varying, 'canceled'::character varying, 'waiting_confirmation'::character varying, 'deleted'::character varying])::text[])) GROUP BY (w.days / 7)), last_year AS (SELECT 'last_year'::text AS series, sum(b.value) AS sum, (w.days / 7) AS week FROM (contributions b RIGHT JOIN weeks w ON ((((b.confirmed_at)::date >= (((('now'::text)::date - w.days) - 7) - 365)) AND (b.confirmed_at < ((('now'::text)::date - w.days) - 365))))) WHERE ((b.state)::text <> ALL ((ARRAY['pending'::character varying, 'canceled'::character varying, 'waiting_confirmation'::character varying, 'deleted'::character varying])::text[])) GROUP BY (w.days / 7)) (SELECT current_period.series, current_period.sum, current_period.week FROM current_period UNION ALL SELECT previous_period.series, previous_period.sum, previous_period.week FROM previous_period) UNION ALL SELECT last_year.series, last_year.sum, last_year.week FROM last_year ORDER BY 1, 3;"
+  end
+end
