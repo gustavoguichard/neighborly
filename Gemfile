@@ -32,7 +32,6 @@ gem 'neighborly-admin', github: 'neighborly/neighborly-admin', branch: :master
 
 # Turns every field on a editable one - Admin dependencies
 gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
-gem 'chartkick', '1.2.0'
 
 # Decorators
 gem 'draper'
