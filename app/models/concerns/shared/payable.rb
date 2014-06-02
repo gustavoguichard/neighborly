@@ -7,11 +7,7 @@ module Shared::Payable
   end
 
   def net_amount
-    if payment_service_fee_paid_by_user?
-      value
-    else
-      value - payment_service_fee
-    end
+    value - payment_service_fee
   end
 
   def price_in_cents
