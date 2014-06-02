@@ -19,7 +19,11 @@
         a
           background: lighten($topbar-bg, $topbar-link-hover-lightness)
     li.name
+      padding-left: 25px
       margin-right: 15px
+
+      @media #{$medium}
+        padding-left: 0
 
   .row
     +grid-row()
@@ -97,3 +101,13 @@
               display: inline
             &:focus
               box-shadow: none
+
+.f-topbar-fixed
+  padding-top: 0 !important
+  @media #{$medium}
+    padding-top: $topbar-height !important
+
+header.fixed
+  position: relative
+  @media #{$medium}
+    position: fixed
