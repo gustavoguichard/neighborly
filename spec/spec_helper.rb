@@ -102,8 +102,8 @@ RSpec.configure do |config|
     Geocoder.stub :search => [Geocoder::Result::Base.stub(:new).and_return(result)]
     Geocoder.stub :coordinates => [result.latitude, result.longitude]
 
-    CatarseMailchimp::API.stub(:subscribe).and_return(true)
-    CatarseMailchimp::API.stub(:unsubscribe).and_return(true)
+    User.any_instance.stub(:subscribe_to_newsletter_list).and_return(true)
+    User.any_instance.stub(:unsubscribe_to_newsletter_list).and_return(true)
     Project.any_instance.stub(:store_image_url).and_return('http://www.store_image_url.com')
     ProjectObserver.any_instance.stub(:after_create)
     UserObserver.any_instance.stub(:after_create)

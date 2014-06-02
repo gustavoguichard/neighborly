@@ -8,15 +8,6 @@ GIT
       rails (~> 4)
 
 GIT
-  remote: git://github.com/catarse/catarse_mailchimp.git
-  revision: 2ed4f3931dfa292e5c1c62619772f04e41c68629
-  ref: 2ed4f39
-  specs:
-    catarse_mailchimp (0.0.1)
-      mailchimp
-      supermodel
-
-GIT
   remote: git://github.com/josemarluedke/font-icons-rails.git
   revision: e9e43dd325e4e6fe552b362bb8b42a64775833ea
   branch: fix-svgz
@@ -129,6 +120,9 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
+    catarse_monkeymail (0.1.3)
+      mailchimp-api (~> 2.0.4)
+      rails (>= 4.0.3)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.5.2)
@@ -221,9 +215,6 @@ GEM
       rack (>= 1.4.5)
     hike (1.2.3)
     htmlentities (4.3.1)
-    httparty (0.13.1)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
     i18n (0.6.9)
     inherited_resources (1.4.1)
@@ -255,8 +246,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mailchimp (0.0.9)
-      httparty
+    mailchimp-api (2.0.4)
+      excon (>= 0.16.0)
+      json (>= 1.7.7)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
@@ -432,8 +424,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    supermodel (0.1.4)
-      activemodel (>= 3.0.0.beta)
     temple (0.6.7)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
@@ -492,7 +482,7 @@ DEPENDENCIES
   browser
   capybara (~> 2.2.1)
   carrierwave (~> 0.9.0)
-  catarse_mailchimp!
+  catarse_monkeymail (~> 0.1.3)
   coffee-rails (~> 4.0.1)
   compass-rails
   coveralls
