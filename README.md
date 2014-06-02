@@ -32,21 +32,11 @@ If you have created another payment engine, please contact us so we can link you
 
 ## How to contribute
 
-Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to [open issues](https://github.com/neighborly/neighborly/issues/new) with your concerns and [fix/implement](https://github.com/neighborly/neighborly/issues) something using pull requests. Probably the better way to do this is commenting on the issue so we can give you the responsibility of it. This will prevent more than one person to contribute with the same change.
+Please see the [CONTRIBUTING](CONTRIBUTING.md) file for information on contributing to Neighbor.ly's development.
 
-### Coding style
+### Style Guide
 
-* We prefer `{foo: 'bar'}` over `{:foo => 'bar'}`
-* We prefer `->(foo){ bar(foo) }` over `lambda{|foo| bar(foo) }`
-
-### Best practices (or how to get your pull request accepted faster)
-
-We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
-* Create one acceptance test for each scenario of the feature you are trying to implement.
-* Create model and controller tests to keep 100% of code coverage at least in the new parts that you are writing.
-* Feel free to add specs to the code that is already in the repository without the proper coverage ;)
-* Try to isolate models from controllers as best as you can.
-* Regard the existing tests for a style guide, we try to use implicit spec subjects and lazy evaluation as often as we can.
+Make sure you follow our [style guide](https://github.com/neighborly/guides/).
 
 ## Quick Installation
 
