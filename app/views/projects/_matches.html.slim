@@ -3,7 +3,7 @@
     .large-12.columns.match-summary
       h3 = t('.match_summary',
             base_value: number_to_currency(1, precision: 0),
-            worth_value: number_to_currency(@project.matches.active.sum(:value_unit), precision: 0),
+            worth_value: number_to_currency(@project.matches.active.sum(:value_unit) + 1, precision: 0),
             date: l(@project.matches.active.minimum(:finishes_at)))
 
     - for match in @project.matches.active.order(:finishes_at)
