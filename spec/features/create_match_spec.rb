@@ -8,7 +8,7 @@ feature 'Create match' do
 
   scenario 'generate new' do
     visit project_path(@project)
-    click_on 'Match'
+    click_on 'Create a Match'
 
     fill_in 'match_value_unit',  with: 2
     fill_in 'match_starts_at',   with: 1.day.from_now.strftime('%m/%d/%y')

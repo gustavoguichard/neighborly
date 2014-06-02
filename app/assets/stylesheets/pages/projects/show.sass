@@ -105,6 +105,20 @@
           font-weight: 200
           font-family: $body-font-family
           padding-top: 5px
+      &.create-match
+        text-align: left
+        padding: +emCalc(15px)
+        padding-left: +emCalc(8px)
+        font-size: 105%
+        &:after
+          text-align: center
+          font-size: 195%
+          content: ' '
+          background: image-url('icons/2x.png') center no-repeat
+          font-weight: 200
+          font-family: $body-font-family
+          padding-top: 5px
+
       &.edit
         background: $special-highlighted-color
         border-color: darken($special-highlighted-color, $button-border-color-darken)
