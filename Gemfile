@@ -19,7 +19,6 @@ gem 'state_machine', require: 'state_machine/core', github: 'josemarluedke/state
 gem 'pg'
 gem 'postgres-copy'
 gem 'pg_search'
-
 gem 'schema_plus'
 
 # Payment engines
@@ -52,7 +51,7 @@ gem 'ezcrypto'
 gem 'pundit', '~> 0.2.3'
 
 # Email marketing
-gem 'catarse_mailchimp', github: 'catarse/catarse_mailchimp', ref: '2ed4f39'
+gem 'catarse_monkeymail', '~> 0.1.3'
 
 # HTML manipulation and formatting
 gem 'simple_form', '~> 3.0.2'
