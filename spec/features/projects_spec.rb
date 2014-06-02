@@ -97,7 +97,7 @@ describe "Projects" do
     end
 
    context 'when is my project' do
-      let(:project) { create(:project, online_days: 10, state: 'online', user: current_user) }
+      let!(:project) { create(:project, online_days: 10, state: 'online', user: current_user) }
 
       describe '#updates' do
         it 'should be able to click on updates tab' do
@@ -145,7 +145,7 @@ describe "Projects" do
     end
 
     context 'when is not my project' do
-      let(:project) { create(:project, online_days: 10, state: 'online') }
+      let!(:project) { create(:project, online_days: 10, state: 'online') }
 
       it 'should not have reports tab' do
         page.should_not have_selector("a[href='#{reports_project_path(project)}']")
