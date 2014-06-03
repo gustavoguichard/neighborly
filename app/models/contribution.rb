@@ -9,6 +9,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :project
   belongs_to :reward
   has_many :matchings
+  belongs_to :matching
 
   validates_presence_of :project, :user, :value
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
@@ -39,6 +40,10 @@ class Contribution < ActiveRecord::Base
 
   def matched_contributions
     self.class.where(matching_id: matchings)
+  end
+
+  def matches
+    matched_contributions
   end
 
   def as_json(options = {})

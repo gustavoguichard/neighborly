@@ -6,6 +6,10 @@ module Shared::Payable
     delegate :display_value, :display_confirmed_at, to: :payable_decorator
   end
 
+  def net_amount
+    value - payment_service_fee
+  end
+
   def price_in_cents
     (self.value * 100).round
   end

@@ -30,6 +30,6 @@ feature 'Show active matches in project page' do
 
   scenario 'show summary of active matches' do
     visit project_path(@project)
-    expect(page).to have_text("Your $1 is worth $7 from now until #{I18n.l(2.days.from_now.to_date)}")
+    expect(page).to have_text("Your $1 is worth $8 from now until #{I18n.l(2.days.from_now.to_date)}")
   end
 end

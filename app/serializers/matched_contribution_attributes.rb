@@ -13,9 +13,16 @@ class MatchedContributionAttributes
 
   protected
 
+  def value
+    [
+      contribution.value * match.value_unit,
+      match.remaining_amount
+    ].min
+  end
+
   def build_attributes
     @attributes[:payment_method] = :matched
-    @attributes[:value]          = contribution.value * match.value_unit
+    @attributes[:value]          = value
 
     build_attributes_from_contribution
     build_attributes_from_match

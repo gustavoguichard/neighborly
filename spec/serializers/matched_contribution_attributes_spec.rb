@@ -14,6 +14,7 @@ describe MatchedContributionAttributes do
     Match.new(
       payment_service_fee_paid_by_user: true,
       user_id:                          200,
+      value:                            200,
       value_unit:                       3
     )
   end
@@ -33,8 +34,20 @@ describe MatchedContributionAttributes do
       expect(subject.attributes[:payment_method]).to eql(:matched)
     end
 
-    it 'defines its value as contribution times match\'s value unit' do
-      expect(subject.attributes[:value]).to eql(150)
+    context 'with remaining amount to complete match contribution' do
+      before { match.stub(:remaining_amount).and_return(160) }
+
+      it 'defines its value as contribution times match\'s value unit' do
+        expect(subject.attributes[:value]).to eql(150)
+      end
+    end
+
+    context 'with remaining amount to partially match contribution' do
+      before { match.stub(:remaining_amount).and_return(90) }
+
+      it 'defines its value limiting to remaining amount' do
+        expect(subject.attributes[:value]).to eql(90)
+      end
     end
   end
 end

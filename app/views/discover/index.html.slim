@@ -34,7 +34,7 @@
             .large-3.small-6.columns
               = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category'), class: 'category-input'
             .large-3.small-6.columns
-              = select_tag :filter, options_for_select(@avaliable_filters, @filters[:filter]), prompt: t('.filter'), class: 'filter-input'
+              = select_tag :filter, options_for_select(@available_filters, @filters[:filter]), prompt: t('.filter'), class: 'filter-input'
             .search.large-3.small-6.columns
               = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...', class: 'search-input'
               = link_to '#search', class: 'search-button' do
