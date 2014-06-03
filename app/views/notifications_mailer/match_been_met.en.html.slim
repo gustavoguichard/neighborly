@@ -1,0 +1,9 @@
+- match = @notification.match
+|Congratulations, #{@notification.user.display_name}!
+br/
+| Your challenge match has been met! Your generous contribution encouraged #{match.original_contributions.with_state(:confirmed).count} other neighbors to contribute to #{match.project.name} for a total of #{number_to_currency match.total_pledged}.
+br/
+br/
+| High fives all around,
+br
+|The #{Configuration[:company_name]} Team

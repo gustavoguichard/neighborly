@@ -1,16 +1,15 @@
-# coding: utf-8
 class Contribution < ActiveRecord::Base
-  include Shared::StateMachineHelpers
-  include Contribution::StateMachineHandler
-  include Contribution::CustomValidators
-
-  delegate :display_value, :display_confirmed_at, to: :decorator
+  include Shared::StateMachineHelpers,
+          Shared::PaymentStateMachineHandler,
+          Contribution::CustomValidators,
+          Shared::Notifiable,
+          Shared::Payable
 
   belongs_to :user
   belongs_to :project
   belongs_to :reward
-  has_many :notifications
-  has_many :payment_notifications
+  has_many :matchings
+  belongs_to :matching
 
   validates_presence_of :project, :user, :value
   validates_numericality_of :value, greater_than_or_equal_to: 10.00
@@ -39,14 +38,18 @@ class Contribution < ActiveRecord::Base
     where("value between ? and ?", start_at, ends_at)
   end
 
+  def matched_contributions
+    self.class.where(matching_id: matchings)
+  end
+
+  def matches
+    matched_contributions
+  end
+
   def as_json(options = {})
     return super unless options.empty?
 
     PayableResourceSerializer.new(self).to_json
-  end
-
-  def decorator
-    @decorator ||= ContributionDecorator.new(self)
   end
 
   def recommended_projects
@@ -68,16 +71,5 @@ class Contribution < ActiveRecord::Base
 
   def available_rewards
     Reward.where(project_id: self.project_id).where('minimum_value <= ?', self.value).order(:minimum_value)
-  end
-
-  # Used in payment engines
-  def price_in_cents
-    (self.value * 100).round
-  end
-
-  #==== Used on before and after callbacks
-
-  def define_key
-    self.update_attributes({ key: Digest::MD5.new.update("#{self.id}###{self.created_at}###{Kernel.rand}").to_s })
   end
 end

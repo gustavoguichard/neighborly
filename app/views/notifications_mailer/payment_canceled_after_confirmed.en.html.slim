@@ -1,0 +1,21 @@
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Project: #{resource.project.name}
+br/
+|Key: 
+strong #{resource.key}
+br/
+|Payment ID #: 
+strong #{resource.payment_id}
+br/
+|Payment Method: 
+strong #{resource.payment_method} 
+br/
+br/
+|This #{resource.class.model_name.human} has been cancelled, either by the contributor or by the financial company.
+br/
+|Check with payment website for means of payment and transaction status.
+

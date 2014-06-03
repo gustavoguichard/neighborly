@@ -1,0 +1,27 @@
+- content_for :title, t('.title')
+- is_waiting_confirmation = @match.payment_method == 'balanced-bankaccount' && @match.waiting_confirmation?
+
+.match-page[class="#{'waiting-bankaccount' if is_waiting_confirmation}"]
+  = hero_header_tag @project do
+    .row
+      .large-10.columns.large-centered
+        - if is_waiting_confirmation
+          h3 = t('.one_more_step')
+        - else
+          h3 = t('.thank_you', project_name: @project.name)
+          = render 'shared/payments/success/status'
+
+  - if is_waiting_confirmation
+    section.bankaccount
+      .row
+        .large-12.columns
+          h3 = t('.bankaccount.title')
+          ol
+            li = t('.bankaccount.steps.first')
+            li = t('.bankaccount.steps.second')
+            li = t('.bankaccount.steps.third')
+            li = t('.bankaccount.steps.fourth')
+  - else
+    = render 'shared/payments/success/share', i18n_scope: 'projects.matches.show', tweet_text: t('.twitter-text', value: number_to_currency(@match.value, precision: 0), name: @project.name, project_url: project_url(@project), starts_at: l(@match.starts_at), finishes_at: l(@match.finishes_at))
+
+  = render 'shared/payments/success/recommended_projects', user: @match.user

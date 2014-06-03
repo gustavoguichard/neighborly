@@ -11,6 +11,11 @@
           .row
             .large-5.small-5.columns.large-centered.small-centered
               input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
+              - if @project.matches.active.any?
+                .to-be-matched-by
+                  = t('.to_be_matched_by')
+                  br/
+                  = @project.matches.active.map { |m| m.user.display_name }.uniq.to_sentence
               .who-pay-fees
                 = check_box_tag 'pay_payment_fees', 1, true
                 = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
@@ -22,29 +27,7 @@
 
   .row
     section.content.large-8.medium-8.columns
-      .payment
-        h3.title = t('.payment.title')
-
-        section.row.methods
-          - PaymentEngine.all.each do |engine|
-            .large-6.columns
-              label.payment-method-option
-                .left
-                  = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(@contribution.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(@contribution.value).gross_amount)
-                  | &nbsp;
-                  = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
-                .left.description
-                  h6 = t(".payment-method.#{engine.name}.title")
-                  small
-                    strong = t('.payment-method.fees')
-                    | &nbsp;
-                    = number_to_currency(engine.fee_calculator(@contribution.value).fees)
-
-        .container
-          .loading
-            = image_tag 'logo-icon.png', class: "loader-img"
-          - PaymentEngine.engines.each do |engine|
-            div[id="#{engine.name}-payment" class="payment-method hide" data-path=engine.payment_path(@contribution)]
+      = render 'shared/payments/form', resource: @contribution
 
     aside.large-4.medium-4.columns
       .project-image

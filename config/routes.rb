@@ -134,6 +134,8 @@ Neighborly::Application.routes.draw do
         put 'credits_checkout'
       end
     end
+
+    resources :matches, controller: 'projects/matches', except: %i(index update destroy)
   end
 
   scope :login, controller: :sessions do

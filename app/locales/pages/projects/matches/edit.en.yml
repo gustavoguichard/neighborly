@@ -1,0 +1,8 @@
+en:
+  projects:
+    matches:
+      edit:
+        description_html: 'This is an example of how your match will appear within the campaign.<br />Please enter your billing information below to confirm the match.'
+        title: 'Match to %{project_name}'
+        total: 'Total: '
+        tooltip-text_html: 'Payment for a challenge match is collected up front. If for any reason the match is not fully met, you will be refunded the remaining amount less payment transaction fees.'

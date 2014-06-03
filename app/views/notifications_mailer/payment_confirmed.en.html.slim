@@ -1,0 +1,50 @@
+- if @notification.contribution.present?
+  - resource = @notification.contribution
+- else
+  - resource = @notification.match
+
+|Howdy, #{resource.user.display_name}!
+br
+br
+|This confirms your #{resource.class.model_name.human} to #{link_to(resource.project.name, project_url(resource.project))}. Please keep this email as a receipt. Also, note that if you paid using a credit card, the charge will appear on your statement as #{Configuration[:company_name]}.
+br
+br
+|#{resource.class.model_name.human} Amount: 
+strong #{number_to_currency resource.value, precision: 0}
+br
+- if resource.respond_to?(:reward)
+  br
+  |Reward Selected: 
+  - if resource.reward
+    strong #{number_to_currency resource.reward.minimum_value, precision: 0}
+    |  &mdash; #{resource.reward.description}
+  -else
+    |  No reward selected. If this was in error, please email &nbsp; #{mail_to Configuration[:email_contact]}
+  br
+br
+|#{resource.class.model_name.human} Created at: 
+strong #{l resource.created_at.to_date, format: :long}
+br
+br
+|Payment Key: 
+strong #{resource.key}
+br
+- if resource.is_a?(Contribution)
+  - if resource.project.flexible?
+    br
+    | This project will be funded on <strong>#{l resource.project.expires_at.to_date, format: :long}</strong>. Shortly after, #{resource.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
+  - else
+    br
+    |If the project is successfully funded by <strong>#{l resource.project.expires_at.to_date, format: :long}</strong>, #{resource.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
+    |  If the project doesn't reach it's goal, you will receive another email with instructions regarding a refund.
+  br
+br
+|If you want to contact #{resource.project.user.name}, send an email to #{mail_to resource.project.user.email}.
+br
+br
+|If you have any other questions, please access our #{link_to('FAQ', "#{Configuration[:base_url]}/faq")}.
+br
+br
+|High fives,
+br
+|The #{Configuration[:company_name]} Team

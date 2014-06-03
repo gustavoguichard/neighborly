@@ -1,6 +1,4 @@
 class AuthorizationObserver < ActiveRecord::Observer
-  observe :authorization
-
   def before_destroy(authorization)
     authorization.user.update_column column_name(authorization), nil
   end

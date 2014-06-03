@@ -1,0 +1,16 @@
+en:
+  projects:
+    matches:
+      show:
+        title: 'Thank you'
+        one_more_step: 'One more step, neighbor! Please verify your account to enable your match.'
+        thank_you: 'Thank you, Neighbor! Your match for %{project_name} will be live and enable others to multiply their impact.'
+        share: 'You can still help %{project_owner_name} by telling others about your match!'
+        twitter-text: "I'll match up to %{value} for contributions to %{name} from %{starts_at} until %{finishes_at}. %{project_url}"
+        bankaccount:
+          title:  "You've pledged a match using a new bank account. Please verify your account to begin matching contributions."
+          steps:
+            first: 'We will make two small deposits (each less than $1.00) to this account. Deposits may take 1-2 business days to appear.'
+            second: 'Once the deposits have been made, you will receive an email with a link to verify your account using the two deposit amounts.'
+            third: 'Once your account has been verified, the funds pledged will be withdrawn and your match will automatically be set live.'
+            fourth: 'If the total amount you pledged is not used by the challenge match end date specified, you will be refunded the remaining balance.'

@@ -70,17 +70,19 @@
               - else
                 = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
 
-          - unless @project.online?
-            .large-3.columns.status-description
-              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
-          - else
+          - if @project.online?
             .large-3.columns.contribute
               = link_to t('.status-bar.contribute'), new_project_contribution_url(@project), class: 'button small'
+          - else
+            .large-3.columns.status-description
+              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
   .row.page-main-content
     section.large-9.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
+
+      = render 'projects/matches'
 
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
@@ -155,11 +157,14 @@
                 br
                 | Do you need some #{mail_to t('site.email.contact'), 'help'}?
           = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
+          = link_to t('.create_match'), new_project_match_url(@project), class: "button with-icon create-match"
         - else
           .alert-box.secondary.status-description
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if policy(@project).update?
+
+        = render 'projects/matches_aside'
 
       - if @project.last_channel
         section.channel

@@ -1,0 +1,25 @@
+- content_for :title, t('.title', project_name: @project.name)
+.edit-match-page[data-thank-you-path=project_match_path(project_id: @project, id: @match.id)]
+  header.hero.no-image
+    .gradient
+    .row
+      .large-12.columns
+        = image_tag 'match-example.jpg'
+
+  section.white.text-center
+    .row
+      .large-12.columns
+        h3 = t('.description_html')
+    form.total-value
+      .row
+        .large-3.columns.large-centered
+          input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@match.value)}" data-total-text=t('.total') is-paying-fees]
+          .custom-tooltip
+            = link_to '#' do
+              i.icon-et-info-circled
+            .tooltip-content.hide
+              p = t('.tooltip-text_html')
+
+  .row
+    section.content.large-10.columns.large-centered
+      = render 'shared/payments/form', resource: @match

@@ -1,0 +1,70 @@
+- content_for :title, t('.title')
+
+.start-page
+  header.hero data-image-url=image_path('start/hero.jpg')
+    .row
+      .large-8.columns.large-centered.text-center
+        h2 = t('.hero_call_html')
+  .white
+    section.steps
+      .row
+        - steps = OpenStruct.new first_step_icon:  'et-chart-area', first_step_title:  t('.steps.first.title'),  first_step_description:  t('.steps.first.description'),
+                                 second_step_icon: 'et-gauge',       second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
+                                 third_step_icon:  'fa-eye-open',    third_step_title:  t('.steps.third.title'),  third_step_description:  t('.steps.third.description')
+
+        - for step in [:first, :second, :third]
+          .large-4.columns
+            .large-11.columns.large-centered.rounded-top
+              .step
+                i[class="icon-#{steps.send("#{step}_step_icon")}"]
+                h5 = steps.send("#{step}_step_title")
+                p = steps.send("#{step}_step_description")
+
+    .row
+      .large-10.columns.large-centered
+        hr
+
+        h2.text-center = t('.title')
+
+    .row
+      = simple_form_for [parent, resource] do |f|
+        #match-form.large-7.columns.large-centered
+          .row
+            .large-10.columns.large-centered
+              .row
+                .large-7.columns
+                  p = t('.i_pledge_to_match')
+                .large-5.columns
+                  .row.collapse.input-money-wrapper
+                    .large-3.small-2.columns
+                      span.prefix $
+                    .large-6.small-8.columns
+                      = f.number_field :value_unit, required: true, label: false, autocomplete: 'off', min: 1, class: 'with-prefix with-postfix input-money'
+                    .large-3.small-2.columns
+                      span.postfix .00
+              .row
+                .large-12.columns.text-center
+                  p = t('.for_each_1_raised_between')
+              .row
+                .large-5.columns
+                  - date = (resource.starts_at || Time.now).strftime('%m/%d/%y')
+                  = f.input_field :starts_at,   as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
+                .large-2.columns
+                  p = t('.and')
+                .large-5.columns
+                  - date = (resource.finishes_at || parent.expires_at).strftime('%m/%d/%y')
+                  = f.input_field :finishes_at, as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
+              .row
+                .large-3.columns
+                  p = t('.up_to')
+                .large-9.columns
+                  .row.collapse.input-money-wrapper
+                    .large-2.small-2.columns
+                      span.prefix $
+                    .large-8.small-8.columns
+                      = f.number_field :value, required: true, label: false, autocomplete: 'off', min: 1_000, class: 'with-prefix with-postfix input-money'
+                    .large-2.small-2.columns
+                      span.postfix .00
+        .row.collapse
+          .large-7.columns.large-centered
+            = f.submit t('.form.inputs.submit'), class: 'submit-match-form button large-12 columns'

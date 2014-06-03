@@ -6,7 +6,7 @@ describe NotificationsMailer do
   describe '.notify' do
     context 'when there is no bcc' do
       let(:notification){ create(:notification,
-                                 template_name: 'confirm_contribution',
+                                 template_name: 'payment_confirmed',
                                  user: create(:user, locale: 'pt'),
                                  origin_name: 'Catarse',
                                  origin_email: 'contact@foo.bar') }
@@ -18,7 +18,7 @@ describe NotificationsMailer do
           from: 'Catarse <contact@foo.bar>',
           to: notification.user.email,
           subject: 'Thank you for your contribution to Foo bar!',
-          template_name: 'confirm_contribution'
+          template_name: 'payment_confirmed'
         })
       end
 
@@ -27,7 +27,7 @@ describe NotificationsMailer do
 
     context 'when there is a bcc' do
       let(:notification){ create(:notification,
-                                 template_name: 'confirm_contribution',
+                                 template_name: 'payment_confirmed',
                                  user: create(:user, locale: 'pt'),
                                  origin_name: 'Catarse',
                                  origin_email: 'contact@foo.bar',
@@ -40,7 +40,7 @@ describe NotificationsMailer do
           from: 'Catarse <contact@foo.bar>',
           to: notification.user.email,
           subject: 'Thank you for your contribution to Foo bar!',
-          template_name: 'confirm_contribution',
+          template_name: 'payment_confirmed',
           bcc: 'test@bcc.com'
         })
       end

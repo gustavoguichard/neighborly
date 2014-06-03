@@ -94,8 +94,7 @@ describe ProjectObserver do
           project.user,
           { project_id: project.id},
           {
-            project: project,
-            origin_email: Configuration[:email_contact]
+            project: project
           }
         )
         project.approve!
@@ -124,8 +123,7 @@ describe ProjectObserver do
         project.user,
         {project_id: project.id},
         {
-          project: project,
-          origin_email: Configuration[:email_contact]
+          project: project
         }
       )
     end

@@ -1,19 +1,19 @@
-# coding: utf-8
 class Project < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
-  include PgSearch
-  include Taggable
-  extend CatarseAutoHtml
-  include Shared::StateMachineHelpers
-  include Project::StateMachineHandler
-  include Project::VideoHandler
-  include Project::CustomValidators
-  include Project::OrganizationType
-  include Shared::LocationHandler
+  extend  CatarseAutoHtml
+  include ActionView::Helpers::TextHelper,
+          PgSearch,
+          Taggable,
+          Shared::StateMachineHelpers,
+          Project::StateMachineHandler,
+          Project::VideoHandler,
+          Project::CustomValidators,
+          Project::OrganizationType,
+          Shared::LocationHandler,
+          Shared::Notifiable
 
   mount_uploader :uploaded_image, ProjectUploader, mount_on: :uploaded_image
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
-  has_permalink :name, true
+  has_permalink  :name, true
 
   delegate :display_status,
            :display_progress,
@@ -33,9 +33,9 @@ class Project < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :contributions, dependent: :destroy
+  has_many :matches, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_and_belongs_to_many :channels
@@ -60,6 +60,7 @@ class Project < ActiveRecord::Base
 
   # Used to simplify a has_scope
   scope :successful, ->{ with_state('successful') }
+  scope :with_active_matches, -> { includes(:matches).where(matches: { id: Match.active }).group('projects.id', 'matches.id') }
   scope :by_id, ->(id) { where(id: id) }
   scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }

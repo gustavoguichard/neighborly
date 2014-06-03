@@ -8,36 +8,16 @@
     form
       margin-bottom: +emCalc(10px)
 
-  .total-value
-    margin-top: +emCalc(25px)
-    font-size: 125%
-    text-align: center
-    input[type="text"]
-      text-align: center
-      width: 76%
-      font-size: 120%
-      height: +emCalc(35px)
-      display: inline-block
-      margin: 0
-    input[type="checkbox"]
-      margin-bottom: 0
-    .custom-tooltip
-      margin-left: +emCalc(5px)
-      display: inline-block
-      .tooltip-content
-        text-align: left
-        font-size: 85%
-        color: $body-font-color
-        min-width: +emCalc(425px)
-    .who-pay-fees
-      margin-top: 15px
-      margin-bottom: 5px
-      font-size: 88%
-      input
-        margin-right: +emCalc(5px)
-      label
-        color: white
-        display: inline-block
+  .to-be-matched-by
+    display: inline-block
+    width: 76%
+    margin: auto
+    margin-top: +emCalc(-3px)
+    padding: +emCalc(10px)
+    background: #888
+    font-size: 70%
+    border-radius: 0 0 $global-radius $global-radius
+    text-shadow: none
 
   section.content, aside
     margin-top: +emCalc(50px)
@@ -50,73 +30,3 @@
         a
           i
             margin-right: +emCalc(5px)
-
-  .payment
-    section
-      margin-bottom: +emCalc(15px)
-      &.highlighted
-        border-top: 1px solid $border-color
-        padding-top: +emCalc(20px)
-      &.use-existing-item
-        margin-bottom: 0
-    .title
-      margin-top: 0
-
-    .container
-      min-height: +emCalc(300px)
-      position: relative
-
-      .loading
-        $img-width: 80px
-        $img-height: 66px
-        position: relative
-        top: +emCalc(150px)
-        bottom: 0
-        left: 0
-        right: 0
-        background-color: rgba(white, .75)
-        z-index: -1
-        +opacity(0)
-        +transition(opacity .2s)
-        &.show
-          z-index: 201
-          +opacity(1)
-        .loader-img
-          @include beating-heart($img-width, $img-height)
-
-#add-new-creditcard-form
-  margin-bottom: +emCalc(-5px)
-
-.payment-method-option
-  float: left
-  width: 100%
-  border: 1px solid $border-color
-  border-radius: $global-radius
-  padding: +emCalc(15px)
-  margin-bottom: +emCalc(15px)
-  background: white
-  &.selected
-    border: 1px solid $primary-color
-  input
-    margin-bottom: 0
-    margin-right: +emCalc(15px)
-    margin-left: +emCalc(5px)
-  .description
-    margin-left: +emCalc(15px)
-    h6
-      margin-top: 0
-      margin-bottom: +emCalc(12px)
-      font-weight: 500
-      text-transform: uppercase
-    small
-      display: block
-      font-size: 85%
-      color: $secondary-color
-
-// IE fixes
-.ie9, .no-ie8compat
-  .create-contribution-page
-    .total-value
-      input
-        font-size: 100%
-        height: auto

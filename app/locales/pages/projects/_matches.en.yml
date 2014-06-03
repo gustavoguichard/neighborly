@@ -1,0 +1,5 @@
+en:
+  projects:
+    matches:
+      match_summary: 'Your %{base_value} is worth %{worth_value} from now until %{date}'
+      match_description: '%{user_name} has pledged to contribute %{value_unit} for every %{base_value} raised between now and %{date}.'
