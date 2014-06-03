@@ -1,6 +1,4 @@
 class CompanyContactObserver < ActiveRecord::Observer
-  observe :company_contact
-
   def after_create(company_contact)
     user = User.where(email: Configuration[:email_contact]).first
 

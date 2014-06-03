@@ -1,0 +1,3 @@
+en:
+  updates:
+    match_became_active: "![Match creator image](%{image})\n\nA new challenge match has been created by %{matcher_name} for %{project_name}. From %{match_start_date} to %{match_end_date}, %{matcher_name} will match %{value_unit} for every $1 contributed, up to %{value}! So get neighborly and spread the word!"

@@ -13,6 +13,7 @@ class Match < ActiveRecord::Base
   validate :start_and_finish_dates
 
   scope :uncompleted, -> { where(completed: false) }
+  scope :activating_today, -> { where(starts_at: Date.today) }
   scope :amount_not_reached, -> do
     all.reject { |match| match.remaining_amount.zero? }
   end

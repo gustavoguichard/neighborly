@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Match do
+  include ActiveSupport::Testing::TimeHelpers
+
+  let(:match) { create(:match) }
+
   describe 'associations' do
     it { should belong_to(:project) }
     it { should belong_to(:user) }
@@ -107,6 +111,28 @@ describe Match do
         match = build(:match, starts_at: Date.current)
         match.save(validate: false)
         expect(described_class.active).to_not include(match)
+      end
+    end
+
+    describe 'activating_today' do
+      it 'includes matches activating today' do
+        match
+
+        expect(described_class.activating_today).to include(match)
+      end
+
+      it 'excludes matches activated in previous days' do
+        match = travel_to(10.days.ago) do
+          create(:match, starts_at: 5.days.from_now)
+        end
+
+        expect(described_class.activating_today).to_not include(match)
+      end
+
+      it 'excludes matches activated in future days' do
+        match = create(:match, starts_at: 5.days.from_now)
+
+        expect(described_class.activating_today).to_not include(match)
       end
     end
   end
