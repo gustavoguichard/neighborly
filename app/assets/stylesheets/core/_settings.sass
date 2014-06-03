@@ -1303,10 +1303,10 @@ $topbar-dropdown-bg: $topbar-bg
 // $topbar-link-color: #fff
 // $topbar-link-color-hover: #fff
 // $topbar-link-color-active: #fff
-$topbar-link-weight: bold
+$topbar-link-weight: 400
 $topbar-link-font-size: emCalc(13)
 $topbar-link-hover-lightness: 5% // Darken by 30%
-$topbar-link-bg-hover: lighten($topbar-bg, 3%)
+$topbar-link-bg-hover: lighten($topbar-bg, $topbar-link-hover-lightness)
 // $topbar-link-bg-active: darken($topbar-bg, 3%)
 
 // $topbar-dropdown-label-color: #555
@@ -1322,7 +1322,7 @@ $topbar-link-bg-hover: lighten($topbar-bg, 3%)
 // $topbar-menu-link-color: #fff
 $topbar-menu-icon-color: $primary-color
 // $topbar-menu-link-color-toggled: #888
-// $topbar-menu-icon-color-toggled: #888
+$topbar-menu-icon-color-toggled: darken($primary-color, 15%)
 
 // Transitions and breakpoint styles
 
