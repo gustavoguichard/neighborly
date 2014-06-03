@@ -35,6 +35,7 @@ en:
           waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to contributors yet."
       contribute: 'Contribute'
+      create_match: 'Create a Match'
       edit: 'Edit campaign'
       share:
         title: 'Get your friends involved'
