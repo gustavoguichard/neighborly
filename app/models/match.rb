@@ -13,9 +13,13 @@ class Match < ActiveRecord::Base
   validate :start_and_finish_dates
 
   scope :uncompleted, -> { where(completed: false) }
+  scope :amount_not_reached, -> do
+    all.reject { |match| match.remaining_amount.zero? }
+  end
   scope :active, -> do
     with_state(:confirmed).
-      where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date)
+      where('starts_at <= :today AND finishes_at >= :today', today: Time.now.utc.to_date).
+      where(id: amount_not_reached)
   end
 
   def matched_contributions
@@ -24,6 +28,10 @@ class Match < ActiveRecord::Base
 
   def pledged
     Contribution.available_to_count.where(matching_id: matchings).sum(:value)
+  end
+
+  def remaining_amount
+    net_amount - pledged
   end
 
   def total_pledged

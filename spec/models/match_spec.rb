@@ -65,6 +65,17 @@ describe Match do
     describe 'active' do
       let(:match) { create(:match) }
 
+      it 'includes those with no matched contributions yet' do
+        match = create(:match, value: 1_000, value_unit: 1)
+        expect(described_class.active).to include(match)
+      end
+
+      it 'includes those with remaining amount' do
+        match = create(:match, value: 1_000, value_unit: 1)
+        create(:contribution, project: match.project, value: 50, state: :confirmed)
+        expect(described_class.active).to include(match)
+      end
+
       it 'excludes those not yet started' do
         match = create(:match, starts_at: 2.days.from_now, finishes_at: 3.days.from_now)
         expect(described_class.active).to_not include(match)
@@ -79,6 +90,12 @@ describe Match do
       it 'excludes those with non confirmed state' do
         match = build(:match, starts_at: -5.days.from_now, finishes_at: -3.days.from_now, state: :pending)
         match.save(validate: false)
+        expect(described_class.active).to_not include(match)
+      end
+
+      it 'excludes those with no remaining amount' do
+        match = create(:match, value: 1_000, value_unit: 1)
+        create(:contribution, project: match.project, value: 1_000, state: :confirmed)
         expect(described_class.active).to_not include(match)
       end
 
