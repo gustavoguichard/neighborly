@@ -3,7 +3,7 @@
 - content_for :page_content do
   .row
     - if @projects.present?
-      .row = render @projects
+      = render @projects
     - else
       p = t('.empty')
     .text-right

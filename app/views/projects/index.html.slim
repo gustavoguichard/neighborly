@@ -22,93 +22,92 @@
   section.projects
     .row
       section.recommended
-        h3
-          = link_to discover_path(filter: 'recommended') do
-            i.icon-et-heart
-            = t('.recommended')
+        .small-12.columns
+          h3
+            = link_to discover_path(filter: 'recommended') do
+              i.icon-et-heart
+              = t('.recommended')
 
-        .row
-          = render 'project', project: @featured.first, large: true if @featured.any?
-          = render 'project', project: @recommended.shift if @recommended.any?
+        = render 'project', project: @featured.first, large: true if @featured.any?
+        = render 'project', project: @recommended.shift if @recommended.any?
 
         /- if @recommended.any?
           /.row
             /- for project in @recommended
               /= render 'project', project: project
 
-        .text-right
+        .text-right.text-right.small-12.columns
           = link_to discover_path(filter: 'recommended'), class: 'see-more' do
             = t('words.see_more')
             i.icon-et-right-circled
 
       - if @ending_soon.any?
         section.ending-soon
-          h3
-            = link_to discover_path(filter: 'expiring') do
-              i.icon-et-hourglass
-              = t('.ending_soon')
+          .small-12.columns
+            h3
+              = link_to discover_path(filter: 'expiring') do
+                i.icon-et-hourglass
+                = t('.ending_soon')
 
-          .row
-            - for project in @ending_soon
-              = render 'project', project: project
+          - for project in @ending_soon
+            = render 'project', project: project
 
           - if @ending_soon.size >= 4
-            .text-right
+            .text-right.small-12.columns
               = link_to discover_path(filter: 'expiring'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
 
       - if @successful.any?
         section.successful
-          h3
-            = link_to discover_path(filter: 'successful') do
-              i.icon-et-thumbs-up
-              = t('.successful')
+          .small-12.columns
+            h3
+              = link_to discover_path(filter: 'successful') do
+                i.icon-et-thumbs-up
+                = t('.successful')
 
-          .row
-            - for project in @successful
-              = render 'project', project: project
+          - for project in @successful
+            = render 'project', project: project
 
           - if @successful.size >= 4
-            .text-right
+            .text-right.text-right.small-12.columns
               = link_to discover_path(filter: 'successful'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
 
       - if @coming_soon.any?
         section.coming-soon
-          h3
-            = link_to discover_path(filter: 'soon') do
-              i.icon-et-clock
-              = t('.coming_soon')
+          .small-12.columns
+            h3
+              = link_to discover_path(filter: 'soon') do
+                i.icon-et-clock
+                = t('.coming_soon')
 
-          .row
-            - for project in @coming_soon
-              = render 'project', project: project
+          - for project in @coming_soon
+            = render 'project', project: project
 
           - if @coming_soon.size >= 4
-            .text-right
+            .text-right.text-right.small-12.columns
               = link_to discover_path(filter: 'soon'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
 
       - if @projects_with_matches.any?
         section.with_active_matches
-          h3
-            = link_to discover_path(filter: 'with_active_matches') do
-              i.icon-et-thumbs-up
-              = t('.with_active_matches')
+          .small-12.columns
+            h3
+              = link_to discover_path(filter: 'with_active_matches') do
+                i.icon-et-thumbs-up
+                = t('.with_active_matches')
 
-          .row
-            - for project in @projects_with_matches
-              = render 'project', project: project
+          - for project in @projects_with_matches
+            = render 'project', project: project
 
       section.start-one
-        = link_to start_path do
-          .row
-            .large-12.columns
-              h3 = t('.start-one.title')
-              span.button.custom.with-icon.large = t('.start-one.button')
+        .small-12.columns
+          = link_to start_path do
+            h3 = t('.start-one.title')
+            span.button.custom.with-icon.large = t('.start-one.button')
 
   - if @channels.any?
     section.channels.default-list
