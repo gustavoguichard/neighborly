@@ -4,7 +4,7 @@ class DiscoverController < ApplicationController
 
   def index
     @must_show_all_projects = ActiveRecord::ConnectionAdapters::Column.
-      value_to_boolean(params[:show_all_projects])
+      value_to_boolean(params[:show_all_projects]) || params[:search].present?
     @available_filters      = FILTERS.map do |f|
       [I18n.t("discover.index.filters.#{f}"), f]
     end
