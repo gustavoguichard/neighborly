@@ -22,10 +22,10 @@
       .large-12.columns
         .name
           h3 = @project.name
-      .large-8.columns
+      .large-8.medium-8.columns.no-padding-for-small
         .flex-video.widescreen.vimeo
           iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
-        .row
+        .row.hide-for-medium-down
           .large-6.small-8.columns.share-small
             = render 'projects/share'
           .large-6.small-4.columns.time-remaining
@@ -38,7 +38,7 @@
               = " #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
 
 
-      .large-4.columns
+      .large-4.medium-4.columns
         .subtitle
           h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(category: @project.category.to_s.downcase)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
         hr
@@ -50,20 +50,23 @@
             = @project.display_pledged
             small = t('.so_far').html_safe
             = @project.display_goal
+        .show-for-small
+          .contribute-top
+            = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
 
   section.status-bar.fixed
     .row
       .large-12.columns.status
         .row
-          .large-3.columns.share-small
+          .large-3.columns.share-small.hide-for-small
             = render 'projects/share', embed: false
-          .large-2.columns.pledged
+          .large-2.columns.pledged.hide-for-small
             p = "#{@project.display_pledged} (#{@project.progress}%)"
-          .large-2.columns.contributions
+          .large-2.columns.contributions.hide-for-small
             p
               i.icon-et-user
               = t('.status-bar.total_contributions', value: @project.total_contributions)
-          .large-2.columns.time-remaining
+          .large-2.columns.time-remaining.hide-for-small
             p
               i.icon-et-clock
               - if @project.draft? || @project.rejected?
@@ -79,7 +82,7 @@
               span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
   .row.page-main-content
-    section.large-9.columns.main
+    section.large-9.medium-8.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
 
@@ -115,9 +118,9 @@
         - else
           = render template: 'projects/about', locals: { partial: true }
 
-      = render 'projects/author'
+      = render 'projects/author' unless browser.mobile?
 
-    aside.large-3.columns.sidebar
+    aside.large-3.medium-4.columns.sidebar
       .call-to-action
         - if @project.online?
           noscript
@@ -127,7 +130,7 @@
                 br
                 br
                 | Do you need some #{mail_to t('site.email.contact'), 'help'}?
-          = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
+          = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute hide-for-small"
           - if current_user && (current_user.organization? || current_user.channel? || current_user.admin?)
             = link_to t('.create_match'), new_project_match_url(@project), class: "button with-icon create-match"
         - else
@@ -147,7 +150,7 @@
                 = image_tag @project.last_channel.image.large.url
 
       - if @project.total_contributions > 0
-        section.custom.neighbors-behind-this
+        section.custom.neighbors-behind-this.hide-for-medium-down
           .title = t('.neighbors_behind_this')
           .list
             - for contribution in @project.contributions.available_to_display.order("RANDOM()").limit(15)
@@ -159,3 +162,5 @@
             = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
 
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{policy(@project).update?}"]
+
+      = render 'projects/author' if browser.mobile?
