@@ -6,6 +6,10 @@
       .row = render @projects
     - else
       p = t('.empty')
+    .text-right
+      = link_to url_for(show_all_projects: 1), class: 'see-more' do
+        = t('words.see_more')
+        i.icon-et-right-circled
 
   - unless @filters.any?
     - if @channels.any?
@@ -23,7 +27,7 @@
 - if request.xhr?
   = yield :page_content
 - else
-  .discover-page[data-path=discover_path]
+  .discover-page[data-path=discover_path show-all-projects=@must_show_all_projects]
     section.filters.white
       .row
         .large-12.columns
