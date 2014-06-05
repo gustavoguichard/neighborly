@@ -23,7 +23,8 @@
         .name
           h3 = @project.name
       .large-8.columns
-        iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+        .flex-video.widescreen.vimeo
+          iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
         .row
           .large-6.small-8.columns.share-small
             = render 'projects/share'
