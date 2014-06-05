@@ -69,10 +69,11 @@
             - for project in @successful
               = render 'project', project: project
 
-          .text-right
-            = link_to discover_path(filter: 'successful'), class: 'see-more' do
-              = t('words.see_more')
-              i.icon-et-right-circled
+          - if @successful.size >= 4
+            .text-right
+              = link_to discover_path(filter: 'successful'), class: 'see-more' do
+                = t('words.see_more')
+                i.icon-et-right-circled
 
       - if @coming_soon.any?
         section.coming-soon
