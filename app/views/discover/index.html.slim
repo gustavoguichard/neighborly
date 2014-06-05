@@ -40,7 +40,7 @@
               = link_to '#search', class: 'search-button' do
                 i.icon-et-search
 
-          .tags
+          .tags.hide-for-small
             strong = t('.tags')
             - for tag in @tags
               = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @filters[:tags].present? && @filters[:tags].include?(tag.name) }"
