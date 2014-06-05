@@ -115,37 +115,7 @@
         - else
           = render template: 'projects/about', locals: { partial: true }
 
-      section.author
-        .row
-          - if @project.user.organization?
-            .large-5.columns
-              = link_to @project.user.display_image_html(width: 300, height: 150, class: 'large'), @project.user
-          - else
-            .large-3.columns
-              = link_to @project.user.display_image_html(width: 150, height: 150, class: 'large'), @project.user
-
-          .columns[class="large-#{ @project.user.organization? ? 7 : 9}"]
-            h4 = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
-            p = @project.user.bio
-
-            .social
-              ul
-                - if @project.user.facebook_url.present?
-                  li = link_to @project.user.facebook_url, target: :blank, class: 'facebook' do
-                   i.icon-et-facebook-circled
-                - if @project.user.twitter_url.present?
-                  li = link_to @project.user.twitter_url, target: :blank, class: 'twitter' do
-                   i.icon-et-twitter-circled
-                - if @project.user.other_url.present?
-                  li = link_to @project.user.other_url, target: :blank, class: 'other' do
-                   i.icon-et-globe
-
-            - if current_user.present?
-              = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'
-            - else
-              = link_to t('.ask_a_question'), new_user_session_path(redirect_to: project_path(@project, anchor: 'open-new-user-question-modal')), class: 'button ask-a-question-button'
-            - content_for :modals do
-              #ask-a-question.reveal-modal.small.fixed
+      = render 'projects/author'
 
     aside.large-3.columns.sidebar
       .call-to-action
