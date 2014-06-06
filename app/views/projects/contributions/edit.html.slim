@@ -9,7 +9,7 @@
           strong = @project.name
         form.total-value
           .row
-            .large-5.small-5.columns.large-centered.small-centered
+            .large-5.columns.large-centered.small-centered
               input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
               - if @project.matches.active.any?
                 .to-be-matched-by
@@ -19,11 +19,20 @@
               .who-pay-fees
                 = check_box_tag 'pay_payment_fees', 1, true
                 = label_tag 'pay_payment_fees', t('.i_want_pay_fees')
-                .custom-tooltip
-                  = link_to '#' do
+                - if browser.mobile? || browser.tablet?
+                  = link_to '#', class: 'fees-info-button', data: { reveal_id: 'pay-fees-modal' } do
                     i.icon-et-info-circled
-                  .tooltip-content.hide
+
+                  #pay-fees-modal.reveal-modal.small
+                    a.close-reveal-modal ×
                     p = t('.tooltip-text', project_name: @project.name).html_safe
+                - else
+                  .custom-tooltip
+                    = link_to '#', class: 'fees-info-button' do
+                      i.icon-et-info-circled
+                    .tooltip-content.hide
+                      p = t('.tooltip-text', project_name: @project.name).html_safe
+
 
   .row
     section.content.large-8.medium-8.columns

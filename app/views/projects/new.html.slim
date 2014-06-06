@@ -2,24 +2,25 @@
 
 .new-project-page[class="category-#{resource.category.to_s.parameterize}"]
 
-  ol.joyride-list[data-joyride]
-    li data-id="joyride-start" data-text=t('.joyride.next') data-options='tipLocation: right; tip_animation: fade;'
-      h5 = t('.joyride.start.title')
-      p = t('.joyride.start.description')
+  - unless browser.mobile? || browser.tablet?
+    ol.joyride-list[data-joyride]
+      li data-id="joyride-start" data-text=t('.joyride.next') data-options='tipLocation: right; tip_animation: fade;'
+        h5 = t('.joyride.start.title')
+        p = t('.joyride.start.description')
 
-    - joyride = [{id: 'project_category_id',            name: :category},
-                 {id: 'project_name',                   name: :name},
-                 {id: 'project_campaign_type',          name: :campaign_type},
-                 {id: 'project_goal',                   name: :goal},
-                 {id: 'project_location',               name: :location},
-                 {id: 'project_headline',               name: :headline},
-                 {id: 'project_about',                  name: :about},
-                 {id: 'project_organization_type',      name: :organization_type}]
+      - joyride = [{id: 'project_category_id',            name: :category},
+                   {id: 'project_name',                   name: :name},
+                   {id: 'project_campaign_type',          name: :campaign_type},
+                   {id: 'project_goal',                   name: :goal},
+                   {id: 'project_location',               name: :location},
+                   {id: 'project_headline',               name: :headline},
+                   {id: 'project_about',                  name: :about},
+                   {id: 'project_organization_type',      name: :organization_type}]
 
-    - for joy in joyride
-      li data-id=joy[:id] data-text=t('.joyride.next')
-        h5 = t(".joyride.#{joy[:name]}.title")
-        p = t(".joyride.#{joy[:name]}.description").html_safe
+      - for joy in joyride
+        li data-id=joy[:id] data-text=t('.joyride.next')
+          h5 = t(".joyride.#{joy[:name]}.title")
+          p = t(".joyride.#{joy[:name]}.description").html_safe
 
   .row
     .large-6.columns.large-centered

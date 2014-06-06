@@ -3,9 +3,13 @@
 - content_for :page_content do
   .row
     - if @projects.present?
-      .row = render @projects
+      = render @projects
     - else
       p = t('.empty')
+    .text-right
+      = link_to url_for(show_all_projects: 1), class: 'see-more' do
+        = t('words.see_more')
+        i.icon-et-right-circled
 
   - unless @filters.any?
     - if @channels.any?
@@ -23,7 +27,7 @@
 - if request.xhr?
   = yield :page_content
 - else
-  .discover-page[data-path=discover_path]
+  .discover-page[data-path=discover_path show-all-projects=@must_show_all_projects]
     section.filters.white
       .row
         .large-12.columns
@@ -40,7 +44,7 @@
               = link_to '#search', class: 'search-button' do
                 i.icon-et-search
 
-          .tags
+          .tags.hide-for-small
             strong = t('.tags')
             - for tag in @tags
               = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @filters[:tags].present? && @filters[:tags].include?(tag.name) }"

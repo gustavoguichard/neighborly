@@ -3,10 +3,14 @@ class DiscoverController < ApplicationController
   FILTERS = %w(recommended expiring recent successful soon with_active_matches)
 
   def index
-    @available_filters = FILTERS.map { |f| [I18n.t("discover.index.filters.#{f}"), f] }
-    @filters = {}
-    @tags = Tag.popular
-    @projects = Project.visible
+    @must_show_all_projects = ActiveRecord::ConnectionAdapters::Column.
+      value_to_boolean(params[:show_all_projects]) || params[:search].present?
+    @available_filters      = FILTERS.map do |f|
+      [I18n.t("discover.index.filters.#{f}"), f]
+    end
+    @filters                = {}
+    @tags                   = Tag.popular
+    @projects               = Project.visible
 
     if params[:filter].present? && FILTERS.include?(params[:filter].downcase)
       @projects = @projects.send(params[:filter].downcase)

@@ -17,7 +17,9 @@ footer
 
 
   .quick-links, .now-acception-proposals, .stay-in-touch
-    padding-left: +emCalc(35px)
+    padding-left: +emCalc(60px)
+    @media #{$medium}
+      padding-left: +emCalc(45px)
     h6
       margin-left: +emCalc(-40px)
 
@@ -30,7 +32,6 @@ footer
         font-size: 90%
 
   .stay-in-touch
-    padding-left: +emCalc(40px)
     h6
       margin-left: +emCalc(-40px)
     p
@@ -45,7 +46,7 @@ footer
 
       .newsletter-input
         float: left
-        width: 190px
+        width: 160px
         height: 28px
         margin: 0
         box-shadow: none
@@ -53,6 +54,9 @@ footer
         top: 0px
         position: relative
         border-radius: $button-radius 0 0 $button-radius
+        @media #{$medium}
+          width: 190px
+
       .button
         float: left
         height: 28px
@@ -69,22 +73,29 @@ footer
         text-transform: uppercase
 
   .subfooter
+    text-align: center
     margin-top: +emCalc(20px)
     padding-top: +emCalc(20px)
     border-top: 1px dashed $footer-border-color
     color: $subfooter-color
-    .columns
-      padding: 0
 
     p
       font-size: 80%
-      text-align: right
 
     a.logo
-      display: block
+      display: inline-block
       width: 120px
       height: 31px
       text-indent: -99999em
       background: image-url('footer-logo@2x.png') center no-repeat
       background: image-url('footer-logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
       background-size: 120px
+      margin-bottom: +emCalc(20px)
+
+    @media #{$medium}
+      text-align: left
+      a.logo
+        margin-bottom: 0
+      p
+        text-align: right
+

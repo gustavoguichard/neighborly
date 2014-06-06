@@ -1,9 +1,14 @@
 .project-page
   header.hero
-    padding-top: +emCalc(25px)
+    padding-top: 0
+    padding-bottom: 0
+    @media #{$medium}
+      padding-top: +emCalc(25px)
+      padding-bottom: +emCalc(60px)
+      .name
+        padding-bottom: +emCalc(40px)
     .name
       text-align: center
-      padding-bottom: +emCalc(40px)
     .name, .subtitle, .headline, .status
       a
         color: lighten($primary-color, 30%)
@@ -45,14 +50,19 @@
           span
             border: 1px solid $border-color
             background: lighten($primary-color, 30%)
+    .contribute-top
+      margin-top: +emCalc(25px)
 
   section.status-bar
     display: none
     background: white
     padding: +emCalc(20px, 0)
-    top: +emCalc(90px)
     color: $secondary-color
     border-bottom: 1px solid $border-color
+
+    @media #{$medium}
+      top: +emCalc(90px)
+
     &.show
       display: block
     p
@@ -89,22 +99,31 @@
           color: $facebook-color
         &.twitter
           color: $twitter-color
+  .button
+    &.contribute
+      width: 100%
+      font-size: 125%
+      padding-left: 0
+      &:after
+        content: ' '
+        background: image-url('icons/dollar-heart.png') center no-repeat
+        font-weight: 200
+        font-family: $body-font-family
+        padding-top: 5px
 
+    &.edit
+      background: $special-highlighted-color
+      border-color: darken($special-highlighted-color, $button-border-color-darken)
   .call-to-action
+    margin-top: +emCalc(15px)
+    @media #{$medium}
+      margin-top: 0
     .button
       font-size: 80%
       width: 100%
       margin-bottom: +emCalc(10px)
       &.contribute
         font-size: 125%
-        padding-left: 0
-        padding-left: 0\9
-        &:after
-          content: ' '
-          background: image-url('icons/dollar-heart.png') center no-repeat
-          font-weight: 200
-          font-family: $body-font-family
-          padding-top: 5px
       &.create-match
         text-align: left
         padding: +emCalc(15px)
@@ -155,6 +174,9 @@
         left: +emCalc(-15px)
         right: +emCalc(-15px)
       padding: +emCalc(15px)
+      padding-bottom: 0
+      @media #{$medium}
+        padding-bottom: +emCalc(15px)
 
   section.author
     +clearfix
@@ -170,9 +192,12 @@
       width: 0
       height: 0
       line-height: 0
-      border-top: +emCalc(20px) solid white
+      border-top: +emCalc(20px) solid
+      border-top-color: $body-bg
       border-right: (+emCalc(20px)*.75) solid transparent
       border-left: (+emCalc(20px)*.75) solid transparent
+      @media #{$medium}
+        border-top-color: white
     h4
       color: white
       text-transform: uppercase

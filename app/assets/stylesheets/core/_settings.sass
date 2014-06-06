@@ -135,8 +135,8 @@ $tabs-hover-bg: white
 
 // Media Queries
 
-$small-screen: 1px
-$medium-screen: 1px
+// $small-screen: 768px
+// $medium-screen: 1280px
 // $large-screen: 1440px
 
 // $screen: "only screen"
@@ -145,6 +145,7 @@ $medium-screen: 1px
 // $large: "only screen and (min-width: #{$large-screen})"
 // $landscape: "only screen and (orientation: landscape)"
 // $portrait: "only screen and (orientation: portrait)"
+$small-only: "only screen and (max-width: 768px)"
 
 //// Cursors
 
@@ -174,7 +175,7 @@ $medium-screen: 1px
 
 // Enables media queries for block-grid classes. Set to false if writing semantic HTML.
 
-$block-grid-media-queries: false
+// $block-grid-media-queries: true
 
 //
 // Typography Variables
@@ -1303,10 +1304,10 @@ $topbar-dropdown-bg: $topbar-bg
 // $topbar-link-color: #fff
 // $topbar-link-color-hover: #fff
 // $topbar-link-color-active: #fff
-$topbar-link-weight: bold
+$topbar-link-weight: 400
 $topbar-link-font-size: emCalc(13)
 $topbar-link-hover-lightness: 5% // Darken by 30%
-$topbar-link-bg-hover: lighten($topbar-bg, 3%)
+$topbar-link-bg-hover: lighten($topbar-bg, $topbar-link-hover-lightness)
 // $topbar-link-bg-active: darken($topbar-bg, 3%)
 
 // $topbar-dropdown-label-color: #555
@@ -1320,14 +1321,14 @@ $topbar-link-bg-hover: lighten($topbar-bg, 3%)
 // $topbar-menu-link-font-size: emCalc(13)
 // $topbar-menu-link-weight: bold
 // $topbar-menu-link-color: #fff
-// $topbar-menu-icon-color: #fff
+$topbar-menu-icon-color: $primary-color
 // $topbar-menu-link-color-toggled: #888
-// $topbar-menu-icon-color-toggled: #888
+$topbar-menu-icon-color-toggled: darken($primary-color, 15%)
 
 // Transitions and breakpoint styles
 
 // $topbar-transition-speed: 300ms
-$topbar-breakpoint: emCalc(0) // Change to 9999px for always mobile layout
+// $topbar-breakpoint: 940 !default; // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})"
 
 // Divider Styles

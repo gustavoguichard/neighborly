@@ -4,7 +4,7 @@
       h3 = t('.active_matches')
   .row
     - @active_matches.each do |match|
-      .large-6.small-6.columns.contribution-wrapper.active-match-wrapper
+      .large-6.small-12.columns.contribution-wrapper.active-match-wrapper
         .active-match-progress-wrapper
           .row
             .active-match-progress class=('organization' if match.user.organization? || match.user.channel?)

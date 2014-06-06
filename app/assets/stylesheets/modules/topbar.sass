@@ -1,99 +1,153 @@
 .top-bar
   margin-bottom: 0
 
-  .top-bar-section li a:not(.button)
-    line-height: 88px
-  ul
-    li > a
-      font-weight: 400
-      text-transform: uppercase
-      &:not(.button)
-        line-height: 88px
-        padding: 0 20px
-      i
-        color: $topbar-icon-color
-        padding-right: 8px
-        font-size: 120%
-    li:not(.name):not(.toggle-topbar)
-      &:hover
-        a
-          background: lighten($topbar-bg, $topbar-link-hover-lightness)
-    li.name
-      margin-right: 15px
+  .name
+    padding-left: +emCalc(25px)
+    margin-right: +emCalc(15px)
 
-  .row
-    +grid-row()
-
-  .name h1
-    padding-top: 30px
-    a
-      display: block
-      text-indent: -99999em
-      width: 176px
-      height: 30px
-      background: image-url('logo@2x.png') center no-repeat
-      background: image-url('logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
-      background-size: cover
+    @media #{$medium}
       padding-left: 0
 
-  ul
+    h1
+      padding-top: +emCalc(30px)
+
+      a
+        display: block
+        text-indent: -99999em
+        width: 176px
+        height: 30px
+        background: image-url('logo@2x.png') center no-repeat
+        background: image-url('logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
+        background-size: cover
+        padding-left: 0
+
+  .top-bar-section
+    .main-menu a:not(.button)
+      @media #{$medium}
+        padding: +emCalc(0, 20px)
+
+      i
+        color: $topbar-icon-color
+        padding-right: +emCalc(8px)
+        font-size: 120%
+
     li
-      .user-actions, .search-box
-        font-size: 90%
-        background: $topbar-bg-highlight
-        padding: 5px 10px
+      a
+        text-transform: uppercase
+      i
+        display: none
+        @media #{$medium}
+          display: inline-block
+
+      &.search-box
+        i
+          display: inline-block
+
+      &.user-action, &.search-box
+        img.profile-picture
+          width: 13px
+          height: 13px
+          border-radius: 50%
+
+      &.search-box
+        +clearfix
+        margin: +emCalc(5px, 20px, 20px, 20px)
+        padding: 8px 9px 8px 13px
         border-radius: +emCalc(20px)
-        margin: 0 0 20px 20px
-        float: left
-        &.un-signed-in
-          padding: 5px 15px
+        background: $topbar-bg-highlight
+
         a
           padding: 0
           background: none
-          text-transform: uppercase
-          &.user-profile, &.sign-in
-            color: white
-            &:hover
-              color: darken(white, 10%)
-          &.user-profile
-            text-transform: none
+          display: block
+          float: right
 
-        .divider
-          border-top: none
-          color: white
-          margin: 0 5px
-          font-size: 85%
+        i
+          color: $primary-color
 
-        img.profile-picture
-          width: 18px
-          height: 18px
-          border-radius: 50%
-      @media #{$topbar-media-query}
-        .user-actions, .search-box
-          display: inline
-          float: none
-          margin-left: 0px
-      &:hover:not(.name)
-        .user-actions, .search-box
-          a
-            background: none
-      .search-box
-        margin-left: 10px
-        padding-right: 7px
         form
           display: inline
+
           input
-            width: 100px
-            display: none
-            top: -1px
+            display: inline-block
+            float: left
+            width: 93%
+            top: 0
             padding: 0
+            padding-top: +emCalc(5px)
             border: none
             background: none
             color: white
             box-shadow: none
             height: auto
-            font-size: 90%
+            font-size: 85%
+
             &.show
               display: inline
+
             &:focus
               box-shadow: none
+
+            &[type=submit]
+              display: none
+
+      @media #{$topbar-media-query}
+        &.search-box
+          margin-left: +emCalc(10px)
+          margin-right: 0
+
+          form input
+            width: +emCalc(100px)
+            display: none
+            padding-top: 0
+            line-height: +emCalc(14px)
+
+        &.user-action, &.search-box
+          margin-top: +emCalc(30px)
+          font-size: 90%
+          background: $topbar-bg-highlight
+
+          &.radius-left
+            border-radius: +emCalc(20px, 0, 0, 20px)
+            padding-right: 0
+            padding-left: +emCalc(15px)
+
+          &.radius-right
+            border-radius: +emCalc(0, 20px, 20px, 0)
+            padding-left: 0
+            padding-right: +emCalc(15px)
+
+          &.with-divider
+            a:after
+              content: '|'
+              color: white
+              margin: +emCalc(0, 7px)
+
+          a
+            line-height: normal !important
+            padding: 0
+            background: none
+
+            &.user-profile, &.sign-in
+              color: white
+              &:hover
+                color: darken(white, 10%)
+
+            &.sign-up, &.sign-out
+              color: $primary-color
+
+            &.user-profile
+              text-transform: none
+
+        &.user-action
+          padding: +emCalc(10px)
+
+.f-topbar-fixed
+  padding-top: 0 !important
+  @media #{$medium}
+    padding-top: $topbar-height !important
+
+header.fixed
+  position: relative
+  @media #{$medium}
+    position: fixed

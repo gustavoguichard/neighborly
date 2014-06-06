@@ -62,6 +62,12 @@ window.Neighborly =
 
       return false
 
+    # Disable zoom for iOS when clicking on inputs, selects and textareas
+    $('input, select, textarea').focus ->
+      $('meta[name=viewport]').attr('content', 'width=device-width,initial-scale=1,maximum-scale=1.0')
+    $('input, select, textarea').blur ->
+      $('meta[name=viewport]').attr('content', 'width=device-width,initial-scale=1,maximum-scale=10')
+
   Loading:
     show: ->
       $('#loading').addClass('show')

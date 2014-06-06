@@ -1,4 +1,23 @@
+@mixin show-all-projects
+  .projects .project-box
+    display: block
+  .see-more
+    display: none
+
 .discover-page
+  @media #{$medium}
+    @include show-all-projects
+  &[show-all-projects]
+    @include show-all-projects
+
+  .project-box
+    display: none
+
+  .project-box:nth-child(1),
+  .project-box:nth-child(2),
+  .project-box:nth-child(3)
+    display: block
+
   .discover-form
     margin-top: +emCalc(40px)
 

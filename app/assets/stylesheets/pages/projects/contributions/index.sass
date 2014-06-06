@@ -4,10 +4,14 @@
       padding: +emCalc(15px)
       border: 1px solid $border-color
       margin-bottom: +emCalc(20px)
+      text-align: center
+      @media #{$medium}
+        text-align: left
       p
         overflow: hidden
       .name
         margin-top: +emCalc(30px)
+
       &.with-note
         .name
           margin-top: 0
@@ -20,6 +24,9 @@
           font-size: 150%
       .matched-by
         font-size: 80%
+
+      figure
+        margin: auto
 
     h3
       font-size: 1.1em
