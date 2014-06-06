@@ -12,7 +12,10 @@ Neighborly.Projects.New =
     initialize: ->
       _.bindAll(this, 'changeCategoryImage')
       this.$('#project_category_id').change this.changeCategoryImage
-      $(document).foundation('joyride', 'start')
+
+      if $('[data-joyride]').length
+        $(document).foundation('joyride', 'start')
+
       this.$('#project_headline').characterCounter limit: '140'
 
     changeCategoryImage: (event)->
