@@ -1,4 +1,10 @@
 .home-page
+  @media #{$medium}
+    .header-newsletter-input
+      width: 80%
+    .header-newsletter-submit
+      width: 20%
+
   header.hero
     padding: +emCalc(45px) 0
     min-height: +emCalc(200px)
@@ -18,11 +24,9 @@
     .header-newsletter
       margin-top: +emCalc(10px)
     .header-newsletter-input
-      width: +emCalc(610px)
       float: left
     .header-newsletter-submit
       float: left
-      width: +emCalc(100px)
       padding-left: +emCalc(15px)
       padding-right: +emCalc(15px)
     .scroll-down
