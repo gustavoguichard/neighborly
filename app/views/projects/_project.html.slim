@@ -39,7 +39,7 @@
         = project.location
 
       - if (defined?(large) || !browser.ie8? || defined?(contribution))
-        .description[itemprop="description"]
+        .description.hide-for-small[itemprop='description']
           span = truncate(project.headline, length: 140, separator: ' ')
           a
 

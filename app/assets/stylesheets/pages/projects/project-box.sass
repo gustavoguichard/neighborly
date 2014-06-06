@@ -1,13 +1,11 @@
 .project-box
-  position: relative
-  overflow: hidden
-  margin-bottom: +emCalc(30px)
-  height: +emCalc(335px)
-  a
-    color: $body-font-color
+  @media #{$medium}
+    margin-bottom: +emCalc(30px)
 
-  &:not(.large)
-    &:hover
+    .cover
+      height: +emCalc(178px) !important
+
+    &:hover:not(.large)
       .description *
         +single-transition(opacity, 1s)
         opacity: 1
@@ -17,6 +15,13 @@
         transition: height 0.4s ease-out, margin-top 0.4s ease-out
         height: +emCalc(273px)
         margin-top: +emCalc(-115px)
+
+  height: +emCalc(335px)
+  position: relative
+  overflow: hidden
+  a
+    color: $body-font-color
+
   &.soon a
     cursor: default
 
@@ -50,7 +55,7 @@
     left: +emCalc(14px)
 
   .cover
-    height: +emCalc(178px)
+    height: +emCalc(140px)
     overflow: hidden
     img
       width: 100%
