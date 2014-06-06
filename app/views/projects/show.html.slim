@@ -88,6 +88,8 @@
 
       = render 'projects/matches'
 
+      = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
+
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
@@ -137,7 +139,7 @@
           .alert-box.secondary.status-description
             p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.display_expires_at.to_date, format: :long) rescue nil))
 
-        = link_to t('.edit'), edit_project_path(@project), class: 'button edit' if policy(@project).update?
+        = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small' if policy(@project).update?
 
         = render 'projects/matches_aside' unless browser.mobile?
 

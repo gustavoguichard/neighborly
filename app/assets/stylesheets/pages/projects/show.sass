@@ -99,16 +99,21 @@
           color: $facebook-color
         &.twitter
           color: $twitter-color
-  .button.contribute
-    width: 100%
-    font-size: 125%
-    padding-left: 0
-    &:after
-      content: ' '
-      background: image-url('icons/dollar-heart.png') center no-repeat
-      font-weight: 200
-      font-family: $body-font-family
-      padding-top: 5px
+  .button
+    &.contribute
+      width: 100%
+      font-size: 125%
+      padding-left: 0
+      &:after
+        content: ' '
+        background: image-url('icons/dollar-heart.png') center no-repeat
+        font-weight: 200
+        font-family: $body-font-family
+        padding-top: 5px
+
+    &.edit
+      background: $special-highlighted-color
+      border-color: darken($special-highlighted-color, $button-border-color-darken)
   .call-to-action
     margin-top: +emCalc(15px)
     @media #{$medium}
