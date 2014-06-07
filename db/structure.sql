@@ -37,6 +37,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -107,6 +121,7 @@ CREATE TABLE contributions (
     short_note text,
     referal_link text,
     payment_service_fee_paid_by_user boolean DEFAULT false,
+    matching_id integer,
     CONSTRAINT backers_value_positive CHECK ((value >= (0)::numeric))
 );
 
@@ -365,8 +380,8 @@ CREATE TABLE channels (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     image text,
-    video_url text,
     video_embed_url character varying(255),
+    video_url text,
     how_it_works text,
     how_it_works_html text,
     terms_url character varying(255),
@@ -531,6 +546,54 @@ ALTER SEQUENCE configurations_id_seq OWNED BY configurations.id;
 
 
 --
+-- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matches (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    user_id integer,
+    starts_at date NOT NULL,
+    finishes_at date NOT NULL,
+    value_unit numeric NOT NULL,
+    value numeric,
+    completed boolean DEFAULT false NOT NULL,
+    payment_id character varying(255),
+    payment_choice text,
+    payment_method text,
+    payment_token text,
+    payment_service_fee numeric DEFAULT 0.0,
+    payment_service_fee_paid_by_user boolean DEFAULT true,
+    state character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    key character varying(255),
+    confirmed_at timestamp without time zone
+);
+
+
+--
+-- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matchings (
+    id integer NOT NULL,
+    match_id integer,
+    contribution_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: contributions_fees; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW contributions_fees AS
+    SELECT contributions.id, contributions.value, (contributions.value - CASE WHEN contributions.payment_service_fee_paid_by_user THEN (0)::numeric ELSE COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) END) AS net_payment, COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) AS payment_service_fee FROM ((contributions LEFT JOIN matchings ON ((contributions.matching_id = matchings.id))) LEFT JOIN matches ON ((matchings.match_id = matches.id)));
+
+
+--
 -- Name: rewards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -612,7 +675,7 @@ CREATE TABLE users (
 --
 
 CREATE VIEW contribution_reports AS
-    SELECT b.project_id, u.name, b.value, r.minimum_value, r.description, b.payment_method, b.payment_choice, b.payment_service_fee, b.key, (b.created_at)::date AS created_at, (b.confirmed_at)::date AS confirmed_at, u.email, b.payer_email, b.payer_name, b.payer_document, u.address_street, u.address_complement, u.address_number, u.address_neighborhood AS address_neighbourhood, u.address_city, u.address_state, u.address_zip_code, b.state FROM ((contributions b JOIN users u ON ((u.id = b.user_id))) LEFT JOIN rewards r ON ((r.id = b.reward_id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]));
+    SELECT b.project_id, u.name, b.value, r.minimum_value, r.description, b.payment_method, b.payment_choice, fees.payment_service_fee, b.key, (b.created_at)::date AS created_at, (b.confirmed_at)::date AS confirmed_at, u.email, b.payer_email, b.payer_name, b.payer_document, u.address_street, u.address_complement, u.address_number, u.address_neighborhood AS address_neighbourhood, u.address_city, u.address_state, u.address_zip_code, b.state FROM (((contributions b JOIN users u ON ((u.id = b.user_id))) LEFT JOIN rewards r ON ((r.id = b.reward_id))) JOIN contributions_fees fees ON ((fees.id = b.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]));
 
 
 --
@@ -688,6 +751,44 @@ ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
+-- Name: matches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE matches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: matches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE matches_id_seq OWNED BY matches.id;
+
+
+--
+-- Name: matchings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE matchings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: matchings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE matchings_id_seq OWNED BY matchings.id;
+
+
+--
 -- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -706,7 +807,8 @@ CREATE TABLE notifications (
     locale text NOT NULL,
     channel_id integer,
     company_contact_id integer,
-    bcc character varying(255)
+    bcc character varying(255),
+    match_id integer
 );
 
 
@@ -811,7 +913,8 @@ CREATE TABLE payment_notifications (
     contribution_id integer NOT NULL,
     extra_data text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    match_id integer
 );
 
 
@@ -973,7 +1076,7 @@ ALTER SEQUENCE project_faqs_id_seq OWNED BY project_faqs.id;
 --
 
 CREATE VIEW project_totals AS
-    SELECT contributions.project_id, sum(contributions.value) AS pledged, ((sum(contributions.value) / projects.goal) * (100)::numeric) AS progress, sum(contributions.payment_service_fee) AS total_payment_service_fee, count(*) AS total_contributions, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, (sum((contributions.value - CASE WHEN contributions.payment_service_fee_paid_by_user THEN (0)::numeric ELSE contributions.payment_service_fee END)) - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount FROM (contributions JOIN projects ON ((contributions.project_id = projects.id))) WHERE ((contributions.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text])) GROUP BY contributions.project_id, projects.goal;
+    SELECT contributions.project_id, sum(contributions.value) AS pledged, ((sum(contributions.value) / projects.goal) * (100)::numeric) AS progress, sum(contributions_fees.payment_service_fee) AS total_payment_service_fee, count(*) AS total_contributions, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, (sum(contributions_fees.net_payment) - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount FROM ((contributions JOIN projects ON ((contributions.project_id = projects.id))) JOIN contributions_fees ON ((contributions_fees.id = contributions.id))) WHERE ((contributions.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text])) GROUP BY contributions.project_id, projects.goal;
 
 
 --
@@ -989,12 +1092,7 @@ CREATE VIEW project_financials AS
 --
 
 CREATE VIEW project_financials_by_services AS
-    SELECT contributions.project_id, contributions.payment_method, (sum((contributions.value - CASE WHEN contributions.payment_service_fee_paid_by_user THEN (0)::numeric ELSE contributions.payment_service_fee END)) - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, sum(contributions.payment_service_fee) AS payment_service_fee, count(*) AS total_contributions FROM (contributions JOIN projects ON ((contributions.project_id = projects.id))) WHERE ((contributions.state)::text = 'confirmed'::text) GROUP BY contributions.project_id, contributions.payment_method HAVING (contributions.payment_method IS NOT NULL);
-
-
---
---
-
+    SELECT contributions.project_id, contributions.payment_method, (contributions_fees.net_payment - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, sum(contributions.payment_service_fee) AS payment_service_fee, count(*) AS total_contributions FROM ((contributions JOIN projects ON ((contributions.project_id = projects.id))) JOIN contributions_fees ON ((contributions.id = contributions_fees.id))) WHERE ((contributions.state)::text = 'confirmed'::text) GROUP BY contributions.project_id, contributions.payment_method, contributions_fees.net_payment HAVING (contributions.payment_method IS NOT NULL);
 
 
 --
@@ -1291,7 +1389,7 @@ ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
 --
 
 CREATE VIEW user_totals AS
-    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[])) GROUP BY b.user_id;
+    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) GROUP BY b.user_id;
 
 
 --
@@ -1422,6 +1520,20 @@ ALTER TABLE ONLY contributions ALTER COLUMN id SET DEFAULT nextval('contribution
 --
 
 ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matches ALTER COLUMN id SET DEFAULT nextval('matches_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matchings ALTER COLUMN id SET DEFAULT nextval('matchings_id_seq'::regclass);
 
 
 --
@@ -1644,6 +1756,22 @@ ALTER TABLE ONLY configurations
 
 ALTER TABLE ONLY images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: matches_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY matches
+    ADD CONSTRAINT matches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: matchings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY matchings
+    ADD CONSTRAINT matchings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1878,6 +2006,34 @@ CREATE INDEX fk__images_user_id ON images USING btree (user_id);
 
 
 --
+-- Name: fk__matches_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__matches_project_id ON matches USING btree (project_id);
+
+
+--
+-- Name: fk__matches_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__matches_user_id ON matches USING btree (user_id);
+
+
+--
+-- Name: fk__matchings_contribution_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__matchings_contribution_id ON matchings USING btree (contribution_id);
+
+
+--
+-- Name: fk__matchings_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__matchings_match_id ON matchings USING btree (match_id);
+
+
+--
 -- Name: fk__notifications_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1892,10 +2048,24 @@ CREATE INDEX fk__notifications_company_contact_id ON notifications USING btree (
 
 
 --
+-- Name: fk__notifications_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__notifications_match_id ON notifications USING btree (match_id);
+
+
+--
 -- Name: fk__organizations_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX fk__organizations_user_id ON organizations USING btree (user_id);
+
+
+--
+-- Name: fk__payment_notifications_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__payment_notifications_match_id ON payment_notifications USING btree (match_id);
 
 
 --
@@ -2025,6 +2195,13 @@ CREATE INDEX index_contributions_on_key ON contributions USING btree (key);
 
 
 --
+-- Name: index_contributions_on_matching_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_contributions_on_matching_id ON contributions USING btree (matching_id);
+
+
+--
 -- Name: index_contributions_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2053,6 +2230,41 @@ CREATE INDEX index_images_on_user_id ON images USING btree (user_id);
 
 
 --
+-- Name: index_matches_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_matches_on_project_id ON matches USING btree (project_id);
+
+
+--
+-- Name: index_matches_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_matches_on_user_id ON matches USING btree (user_id);
+
+
+--
+-- Name: index_matchings_on_contribution_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_matchings_on_contribution_id ON matchings USING btree (contribution_id);
+
+
+--
+-- Name: index_matchings_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_matchings_on_match_id ON matchings USING btree (match_id);
+
+
+--
+-- Name: index_notifications_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_notifications_on_match_id ON notifications USING btree (match_id);
+
+
+--
 -- Name: index_notifications_on_update_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2071,6 +2283,13 @@ CREATE INDEX index_organizations_on_user_id ON organizations USING btree (user_i
 --
 
 CREATE INDEX index_payment_notifications_on_contribution_id ON payment_notifications USING btree (contribution_id);
+
+
+--
+-- Name: index_payment_notifications_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_payment_notifications_on_match_id ON payment_notifications USING btree (match_id);
 
 
 --
@@ -2339,11 +2558,51 @@ ALTER TABLE ONLY channels
 
 
 --
+-- Name: fk_contributions_matching_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contributions
+    ADD CONSTRAINT fk_contributions_matching_id FOREIGN KEY (matching_id) REFERENCES matchings(id);
+
+
+--
 -- Name: fk_images_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY images
     ADD CONSTRAINT fk_images_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_matches_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matches
+    ADD CONSTRAINT fk_matches_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- Name: fk_matches_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matches
+    ADD CONSTRAINT fk_matches_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_matchings_contribution_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matchings
+    ADD CONSTRAINT fk_matchings_contribution_id FOREIGN KEY (contribution_id) REFERENCES contributions(id);
+
+
+--
+-- Name: fk_matchings_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY matchings
+    ADD CONSTRAINT fk_matchings_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
 
 
 --
@@ -2363,11 +2622,27 @@ ALTER TABLE ONLY notifications
 
 
 --
+-- Name: fk_notifications_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_notifications_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
+
+
+--
 -- Name: fk_organizations_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY organizations
     ADD CONSTRAINT fk_organizations_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_payment_notifications_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payment_notifications
+    ADD CONSTRAINT fk_payment_notifications_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
 
 
 --
@@ -2518,7 +2793,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public, pg_catalog;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 
@@ -2958,7 +3233,25 @@ INSERT INTO schema_migrations (version) VALUES ('20140415170308');
 
 INSERT INTO schema_migrations (version) VALUES ('20140416171749');
 
+INSERT INTO schema_migrations (version) VALUES ('20140423182227');
+
 INSERT INTO schema_migrations (version) VALUES ('20140506164815');
 
 INSERT INTO schema_migrations (version) VALUES ('20140506171311');
+
+INSERT INTO schema_migrations (version) VALUES ('20140507191030');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509123001');
+
+INSERT INTO schema_migrations (version) VALUES ('20140515185046');
+
+INSERT INTO schema_migrations (version) VALUES ('20140516135956');
+
+INSERT INTO schema_migrations (version) VALUES ('20140516181346');
+
+INSERT INTO schema_migrations (version) VALUES ('20140527200930');
+
+INSERT INTO schema_migrations (version) VALUES ('20140530224700');
+
+INSERT INTO schema_migrations (version) VALUES ('20140530225038');
 
