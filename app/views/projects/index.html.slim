@@ -28,7 +28,7 @@
               i.icon-et-heart
               = t('.recommended')
 
-        = render 'project', project: @featured.first, large: true if @featured.any?
+        = render 'project', project: @featured.first, large: !browser.mobile? if @featured.any?
         = render 'project', project: @recommended.shift if @recommended.any?
 
         /- if @recommended.any?
@@ -103,7 +103,7 @@
           - for project in @projects_with_matches
             = render 'project', project: project
 
-      section.start-one
+      section.start-one.hide-for-small
         .small-12.columns
           = link_to start_path do
             h3 = t('.start-one.title')
