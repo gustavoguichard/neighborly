@@ -52,8 +52,8 @@ class Match < ActiveRecord::Base
 
   def ensure_starts_at_in_active_period_of_project
     unless project &&
-      (Time.now.utc.beginning_of_day.to_i..project.expires_at.utc.to_i).
-        include?(starts_at.to_time.utc.to_i)
+      (Time.now.in_time_zone.beginning_of_day.to_i..project.expires_at.in_time_zone.to_i).
+        include?(starts_at.in_time_zone.to_i)
 
       errors.add(
         :starts_at,
