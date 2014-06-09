@@ -11,6 +11,10 @@
         p = t('.empty')
 
     .updates-loading.loading= image_tag "loading.gif"
+    .text-center
+      = link_to '#', class: 'load-more js-load-more' do
+        = t('.load_more')
+        i.icon-et-down-circled
 
 - if request.xhr?
   = yield :page_content
