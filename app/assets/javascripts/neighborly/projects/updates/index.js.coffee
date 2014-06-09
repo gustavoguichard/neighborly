@@ -27,6 +27,10 @@ Neighborly.Projects.Updates.Index =
       this.setupScroll()
       this.$el.on 'scroll:success', this.parseXFBML
 
+      this.$('.js-load-more').click =>
+        this.fetchPage()
+        return false
+
     parseXFBML: ->
       FB.XFBML.parse() if this.$el.is(":visible")
 
