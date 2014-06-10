@@ -86,16 +86,6 @@ class User < ActiveRecord::Base
     state :channel, value: 'channel'
   end
 
-  def self.send_credits_notification
-    has_not_used_credits_last_month.find_each do |user|
-      Notification.notify_once(
-        :credits_warning,
-        user,
-        {user_id: user.id}
-      )
-    end
-  end
-
   def self.contribution_totals
     connection.select_one(
       self.all.

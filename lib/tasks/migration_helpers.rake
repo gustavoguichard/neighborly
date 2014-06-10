@@ -160,11 +160,6 @@ task :index_rewards_versions => :environment do
   end
 end
 
-desc "Send notification about credits 1 month after the project failed"
-task send_credits_notification: :environment do
-  User.send_credits_notification
-end
-
 desc "Upload images from markdown"
 task migrate_markdown_images: :environment do
 

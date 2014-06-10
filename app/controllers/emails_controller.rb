@@ -9,7 +9,6 @@ class EmailsController < ApplicationController
       :payment_confirmed_after_finished_project,
       :contribution_project_successful,
       :contribution_project_unsuccessful,
-      :credits_warning,
       :new_draft_project,
       :new_draft_project_channel,
       :new_project_visible,
