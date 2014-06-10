@@ -46,13 +46,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
 
-  scope :contributions, -> {
-    where("id IN (
-      SELECT DISTINCT user_id
-      FROM contributions
-      WHERE contributions.state <> ALL(ARRAY['pending'::character varying::text, 'canceled'::character varying::text]))")
-  }
-
   scope :who_contributed_project, ->(project_id) {
     where("id IN (SELECT user_id FROM contributions WHERE contributions.state = 'confirmed' AND project_id = ?)", project_id)
   }
