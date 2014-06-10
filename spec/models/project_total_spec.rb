@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe ProjectTotal do
   let!(:project) { create(:project) }
-  before { Configuration[:platform_fee] = 0.1 }
-  subject do
-    ProjectTotal.find_by(project_id: project)
+  before do
+    Configuration.stub(:[]).with(:platform_fee).and_return(0.1)
   end
+  subject { ProjectTotal.new(project) }
 
   def prepopulate_db
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'pending', project_id: project.id)
@@ -18,23 +18,27 @@ describe ProjectTotal do
   describe "#pledged" do
     before { prepopulate_db }
 
-    subject{ ProjectTotal.where(project_id: project.id).first.pledged }
-    it{ should == 30 }
+    subject { ProjectTotal.new(project).pledged }
+    it { should == 30 }
   end
 
   describe "#total_contributions" do
-    before { prepopulate_db }
-    subject{ ProjectTotal.where(project_id: project.id).first.total_contributions }
+    before  { prepopulate_db }
+    subject { ProjectTotal.new(project).total_contributions }
     it{ should == 3 }
   end
 
   describe "#total_payment_service_fee" do
-    before { prepopulate_db }
-    subject { ProjectTotal.where(project_id: project.id).first.total_payment_service_fee }
+    before  { prepopulate_db }
+    subject { ProjectTotal.new(project).total_payment_service_fee }
     it { should == 3 }
   end
 
   describe 'net amount' do
+    before do
+      Configuration.stub(:[]).with(:email_payments).and_return('books@neighbor.ly')
+    end
+
     context 'with payment service fees paid by project owner' do
       it 'sums contributions values taking platform_fee and payment_service_fee out' do
         create(

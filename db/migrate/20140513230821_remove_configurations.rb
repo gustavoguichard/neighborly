@@ -4,6 +4,7 @@ class RemoveConfigurations < ActiveRecord::Migration
     drop_view :project_financials_by_services
     drop_view :project_financials
     drop_view :project_totals
+    drop_view :contributions_fees
     drop_table :configurations
   end
 
@@ -17,6 +18,31 @@ class RemoveConfigurations < ActiveRecord::Migration
       t.text :name, null: false
       t.text :value
     end
+
+    create_view :contributions_fees, <<-SQL
+      SELECT
+        contributions.id,
+        contributions.value,
+        contributions.value -
+          (CASE WHEN contributions.payment_service_fee_paid_by_user then
+            0
+          else
+            COALESCE(
+              NULLIF(contributions.payment_service_fee, 0),
+              matches.payment_service_fee / matches.value * contributions.value,
+              0
+            )
+          end)
+          AS net_payment,
+        COALESCE(
+          NULLIF(contributions.payment_service_fee, 0),
+          matches.payment_service_fee / matches.value * contributions.value,
+          0
+        ) AS payment_service_fee
+      FROM contributions
+      LEFT JOIN matchings ON contributions.matching_id = matchings.id
+      LEFT JOIN matches   ON matchings.match_id        = matches.id
+    SQL
 
     create_view :contribution_reports_for_project_owners, <<-SQL
       SELECT b.project_id,
