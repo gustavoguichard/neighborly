@@ -1,7 +1,9 @@
 Neighborly.InfiniteScroll =
   setupScroll: ->
     _.bindAll(this, 'onScroll', 'onSuccess')
-    this.$window().scroll(this.onScroll)
+    if !jQuery.browser.mobile
+      this.$window().scroll(this.onScroll)
+      this.$('.js-load-more').hide()
 
   fetchPage: ->
     # the isLoaderDivVisible check if the div is already in the view pane to load more content
@@ -16,6 +18,8 @@ Neighborly.InfiniteScroll =
     this.$results.append data unless this.use_custom_append? && this.use_custom_append == true
     this.$loader.hide()
     this.$el.trigger "scroll:success", data
+    if this.EOF
+      this.$('.js-load-more').hide()
 
   $window: ->
     $(window)

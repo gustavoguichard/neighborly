@@ -15,6 +15,10 @@ Neighborly.Projects.Contributions.Index =
       this.filter = { page: 2 }
       this.setupScroll()
 
+      this.$('.js-load-more').click =>
+        this.fetchPage()
+        return false
+
       this.$masonry = this.masonry()
       this.$el.on 'scroll:success', (event, data) =>
         Neighborly.CustomTooltip()
