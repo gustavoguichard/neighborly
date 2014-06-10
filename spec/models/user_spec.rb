@@ -92,24 +92,6 @@ describe User do
     end
   end
 
-  describe ".by_payer_email" do
-    before do
-      p = create(:payment_notification)
-      contribution = p.contribution
-      @u = contribution.user
-      p.extra_data = {'payer_email' => 'foo@bar.com'}
-      p.save!
-      p = create(:payment_notification, contribution: contribution)
-      p.extra_data = {'payer_email' => 'another_email@bar.com'}
-      p.save!
-      p = create(:payment_notification)
-      p.extra_data = {'payer_email' => 'another_email@bar.com'}
-      p.save!
-    end
-    subject{ User.by_payer_email 'foo@bar.com' }
-    it{ should == [@u] }
-  end
-
   describe ".by_key" do
     before do
       b = create(:contribution)

@@ -70,13 +70,7 @@ class User < ActiveRecord::Base
   }
 
   scope :by_email, ->(email){ where('email ~* ?', email) }
-  scope :by_payer_email, ->(email) {
-    where('EXISTS(
-      SELECT true
-      FROM contributions
-      JOIN payment_notifications ON contributions.id = payment_notifications.contribution_id
-      WHERE contributions.user_id = users.id AND payment_notifications.extra_data ~* ?)', email)
-  }
+
   scope :by_name, ->(name){ where('users.name ~* ?', name) }
   scope :by_id, ->(id){ where(id: id) }
   scope :by_key, ->(key){ where('EXISTS(SELECT true FROM contributions WHERE contributions.user_id = users.id AND contributions.key ~* ?)', key) }
