@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def project_unsubscribes
-    contributed_projects.map do |p|
+    Project.contributed_by(self).map do |p|
       unsubscribes.updates_unsubscribe(p.id)
     end
   end
@@ -150,10 +150,6 @@ class User < ActiveRecord::Base
 
   def total_led
     projects_led.count
-  end
-
-  def contributed_projects
-    Project.contributed_by(self.id)
   end
 
   def password_required?

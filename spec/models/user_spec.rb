@@ -279,16 +279,6 @@ describe User do
     it{ should == [@u1]}
   end
 
-  describe "#contributed_projects" do
-    subject{user.contributed_projects}
-    before do
-      @p1 = create(:project)
-      create(:contribution, user: user, project: @p1)
-      create(:contribution, user: user, project: @p1)
-    end
-    it{should == [@p1]}
-  end
-
   describe "#facebook_id" do
     subject{ user.facebook_id }
     context "when user have a FB authorization" do
