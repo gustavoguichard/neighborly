@@ -121,7 +121,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara',   '~> 2.2.1'
   gem 'coveralls', require: false
-  gem 'selenium-webdriver', '~> 2.39.0'
+  gem 'capybara-webkit'
 end
 
 gem 'sass-rails', '~> 4.0.3'

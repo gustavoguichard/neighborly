@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe "Users" do
+describe "Users", js: true do
   before do
     OauthProvider.create! name: 'facebook', key: 'dummy_key', secret: 'dummy_secret'
   end
