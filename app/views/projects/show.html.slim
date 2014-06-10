@@ -17,7 +17,7 @@
   meta property="fb:admins" content=facebook_url_admin
 
 .project-page
-  = hero_header_tag @project do
+  = hero_header_tag @project, class: ('no-image' if browser.mobile?) do
     .row
       .large-12.columns
         .name
