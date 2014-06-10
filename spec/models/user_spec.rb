@@ -58,83 +58,6 @@ describe User do
     end
   end
 
-  describe ".has_credits" do
-    subject{ User.has_credits }
-
-    context "when he has credits in the user_total" do
-      before do
-        b = create(:contribution, state: 'confirmed', value: 100, project: failed_project)
-        failed_project.update_attributes state: 'failed'
-        @u = b.user
-        b = create(:contribution, state: 'confirmed', value: 100, project: successful_project)
-      end
-      it{ should == [@u] }
-    end
-  end
-
-  describe ".has_not_used_credits_last_month" do
-    subject{ User.has_not_used_credits_last_month }
-
-    context "when he has used credits in the last month" do
-      before do
-        b = create(:contribution, state: 'confirmed', value: 100, credits: true)
-        @u = b.user
-      end
-      it{ should == [] }
-    end
-    context "when he has not used credits in the last month" do
-      before do
-        b = create(:contribution, state: 'confirmed', value: 100, project: failed_project)
-        failed_project.update_attributes state: 'failed'
-        @u = b.user
-      end
-      it{ should == [@u] }
-    end
-  end
-
-  describe ".by_key" do
-    before do
-      b = create(:contribution)
-      @u = b.user
-      b.key = 'abc'
-      b.save!
-      b = create(:contribution, user: @u)
-      b.key = 'abcde'
-      b.save!
-      b = create(:contribution)
-      b.key = 'def'
-      b.save!
-    end
-    subject{ User.by_key 'abc' }
-    it{ should == [@u] }
-  end
-
-  describe ".by_id" do
-    before do
-      @u = create(:user)
-      create(:user)
-    end
-    subject{ User.by_id @u.id }
-    it{ should == [@u] }
-  end
-
-  describe ".by_name" do
-    before do
-      @u = create(:user, name: 'Foo Bar')
-      create(:user, name: 'Baz Qux')
-    end
-    subject{ User.by_name 'Bar' }
-    it{ should == [@u] }
-  end
-
-  describe ".by_email" do
-    before do
-      @u = create(:user, email: 'foo@bar.com')
-      create(:user, email: 'another_email@bar.com')
-    end
-    subject{ User.by_email 'foo@bar' }
-    it{ should == [@u] }
-  end
 
   describe ".who_contributed_project" do
     subject{ User.who_contributed_project(successful_project.id) }
@@ -150,10 +73,10 @@ describe User do
     before do
       create(:contribution, state: 'confirmed', value: 100, credits: false, project: successful_project)
       create(:contribution, state: 'confirmed', value: 50, credits: false, project: successful_project)
-      user = create(:contribution, state: 'confirmed', value: 25, project: failed_project).user
+      @user = create(:contribution, state: 'confirmed', value: 25, project: failed_project).user
       failed_project.update_attributes state: 'failed'
       successful_project.update_attributes state: 'successful'
-      user.save!
+      @user.save!
       @u = create(:user)
     end
 
@@ -168,7 +91,7 @@ describe User do
     end
 
     context "when we call with scopes" do
-      subject{ User.has_credits.contribution_totals }
+      subject{ User.where(id: @user.id).contribution_totals }
       it{ should == {users: 1.0, contributions: 1.0, contributed: 25.0, credits: 25.0} }
     end
   end
