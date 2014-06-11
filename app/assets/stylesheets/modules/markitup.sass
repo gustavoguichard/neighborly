@@ -21,10 +21,22 @@ words.sending.markItUp
   width: 100%
 
 .markItUpHeader ul
+  font-size: 96%
+  .markItUpSeparator
+    margin: emCalc(0, 2px)
+  @media #{$medium}
+    font-size: 100%
+    .markItUpSeparator
+      margin: emCalc(0, 10px)
+
+  @media #{$small-only}
+    li
+      margin-bottom: 5px !important
   li
     list-style: none
     float: left
     position: relative
+    height: emCalc(40px)
     &:hover > ul
       display: block
   .markItUpDropMenu
@@ -42,16 +54,11 @@ words.sending.markItUp
       float: none
       border-bottom: 1px solid #000
   .markItUpSeparator
-    margin: emCalc(0, 10px)
     width: emCalc(1px)
-    height: emCalc(22px)
+    height: emCalc(25px)
     overflow: hidden
     background-color: $border-color
   ul
-    .markItUpSeparator
-      width: auto
-      height: emCalc(1px)
-      margin: 0
     ul
       position: absolute
       top: -1px
@@ -94,6 +101,9 @@ words.sending.markItUp
   padding-top: +emCalc(75px)
   margin-bottom: emCalc(25px)
   min-height: +emCalc(300px)
+
+  @media #{$small-only}
+    padding-top: +emCalc(120px)
 
 .markdown .markItUpButton
   margin-right: emCalc(5px)
