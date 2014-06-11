@@ -57,7 +57,7 @@
         .large-12.columns
           h3.subtle-title.ive_contributed= t('.ive_contributed', number: @user.total_contributions)
           .row
-            = render @user.contributed_projects, columns: "large-4"
+            = render Project.contributed_by(@user), columns: "large-4"
     - if @user.total_led > 0
       .row
         .large-12.columns
