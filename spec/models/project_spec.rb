@@ -21,7 +21,6 @@ describe Project do
     it{ should have_many :project_documents }
     it{ should have_and_belong_to_many :channels }
     it{ should have_many :unsubscribes }
-    it{ should have_one  :project_total }
   end
 
   describe "validations" do
