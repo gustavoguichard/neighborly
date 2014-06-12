@@ -4,21 +4,44 @@ class RemoveConfigurations < ActiveRecord::Migration
     drop_view :project_financials_by_services
     drop_view :project_financials
     drop_view :project_totals
+    drop_view :contribution_reports
     drop_view :contributions_fees
+    drop_view :projects_for_home
     drop_table :configurations
+    execute <<-SQL
+      DROP FUNCTION expires_at(projects);
+
+      CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
+        LANGUAGE sql
+        AS $_$
+         SELECT ((($1.online_date AT TIME ZONE '#{Configuration[:timezone]}' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE '#{Configuration[:timezone]}')
+        $_$
+    SQL
+
+    create_projects_for_home_view
   end
 
   def down
-    drop_view :contribution_reports_for_project_owners
-    drop_view :project_financials_by_services
-    drop_view :project_financials
-    drop_view :project_totals
-
     create_table :configurations do |t|
       t.text :name, null: false
       t.text :value
     end
 
+    drop_view :projects_for_home
+
+    execute <<-SQL
+      DROP FUNCTION expires_at(projects);
+
+      CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
+        LANGUAGE sql
+        AS $_$
+         SELECT ((((($1.online_date AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo') + ($1.online_days || ' days')::interval)  )::date::text || ' 23:59:59')::timestamp AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo'))::timestamptz )               
+        $_$
+    SQL
+
+    create_projects_for_home_view
+
+    binding.pry
     create_view :contributions_fees, <<-SQL
       SELECT
         contributions.id,
@@ -81,19 +104,19 @@ class RemoveConfigurations < ActiveRecord::Migration
       SELECT contributions.project_id,
              sum(contributions.value) AS pledged,
              ((sum(contributions.value) / projects.goal) * (100)::numeric) AS progress,
-             sum(contribution_fees.payment_service_fee) AS total_payment_service_fee,
+             sum(contributions_fees.payment_service_fee) AS total_payment_service_fee,
              count(*) AS total_contributions,
              (sum(contributions.value) *
                 (SELECT (configurations.value)::numeric AS value
                  FROM configurations
                  WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee,
-             (sum(contribution_fees.net_payment) - (sum(contributions.value) *
+             (sum(contributions_fees.net_payment) - (sum(contributions.value) *
                                                       (SELECT (configurations.value)::numeric AS value
                                                        FROM configurations
                                                        WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount
       FROM ((contributions
              JOIN projects ON ((contributions.project_id = projects.id)))
-            JOIN contribution_fees ON ((contribution_fees.id = contributions.id)))
+            JOIN contributions_fees ON ((contributions_fees.id = contributions.id)))
       WHERE ((contributions.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]))
       GROUP BY contributions.project_id,
                projects.goal
@@ -130,7 +153,7 @@ class RemoveConfigurations < ActiveRecord::Migration
     create_view :project_financials_by_services, <<-SQL
       SELECT contributions.project_id,
              contributions.payment_method,
-             (contribution_fees.net_payment - (sum(contributions.value) *
+             (contributions_fees.net_payment - (sum(contributions.value) *
                                                  (SELECT (configurations.value)::numeric AS value
                                                   FROM configurations
                                                   WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount,
@@ -142,11 +165,110 @@ class RemoveConfigurations < ActiveRecord::Migration
              count(*) AS total_contributions
       FROM ((contributions
              JOIN projects ON ((contributions.project_id = projects.id)))
-            JOIN contribution_fees ON ((contributions.id = contribution_fees.id)))
+            JOIN contributions_fees ON ((contributions.id = contributions_fees.id)))
       WHERE ((contributions.state)::text = 'confirmed'::text)
       GROUP BY contributions.project_id,
                contributions.payment_method,
-               contribution_fees.net_payment HAVING (contributions.payment_method IS NOT NULL)
+               contributions_fees.net_payment HAVING (contributions.payment_method IS NOT NULL)
+    SQL
+
+    create_view :contribution_reports, <<-SQL
+      SELECT b.project_id,
+       u.name,
+       b.value,
+       r.minimum_value,
+       r.description,
+       b.payment_method,
+       b.payment_choice,
+       fees.payment_service_fee,
+       b.key,
+       (b.created_at)::date AS created_at,
+       (b.confirmed_at)::date AS confirmed_at,
+       u.email,
+       b.payer_email,
+       b.payer_name,
+       b.payer_document,
+       u.address_street,
+       u.address_complement,
+       u.address_number,
+       u.address_neighborhood AS address_neighbourhood,
+       u.address_city,
+       u.address_state,
+       u.address_zip_code,
+       b.state
+FROM (((contributions b
+        JOIN users u ON ((u.id = b.user_id)))
+       LEFT JOIN rewards r ON ((r.id = b.reward_id)))
+      JOIN contributions_fees fees ON ((fees.id = b.id)))
+WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]))
+    SQL
+  end
+
+  def create_projects_for_home_view
+    execute <<-SQL
+      CREATE VIEW projects_for_home AS WITH featured_projects AS
+        (SELECT 'featured'::text AS origin,
+                featureds.*
+         FROM projects featureds
+         WHERE (featureds.featured
+                AND ((featureds.state)::text = 'online'::text)) LIMIT 1),
+                  recommended_projects AS
+        (SELECT 'recommended'::text AS origin,
+                recommends.*
+         FROM projects recommends
+         WHERE (((recommends.recommended
+                  AND ((recommends.state)::text = 'online'::text))
+                 AND recommends.home_page)
+                AND (NOT (recommends.id IN
+                            (SELECT featureds.id
+                             FROM featured_projects featureds))))
+         ORDER BY random() LIMIT 5),
+                  expiring_projects AS
+        (SELECT 'expiring'::text AS origin,
+                expiring.*
+         FROM projects expiring
+         WHERE (((((expiring.state)::text = 'online'::text)
+                  AND (expires_at(expiring.*) <= (now() + '14 days'::interval)))
+                 AND expiring.home_page)
+                AND (NOT (expiring.id IN
+                            (SELECT recommends.id
+                             FROM recommended_projects recommends
+                             UNION SELECT featureds.id
+                             FROM featured_projects featureds))))
+         ORDER BY random() LIMIT 4),
+                  soon_projects AS
+        (SELECT 'soon'::text AS origin,
+                soon.*
+         FROM projects soon
+         WHERE ((((soon.state)::text = 'soon'::text)
+                 AND soon.home_page)
+                AND (soon.uploaded_image IS NOT NULL))
+         ORDER BY random() LIMIT 4),
+                  with_active_matches AS
+        (SELECT 'with_active_matches'::text AS origin,
+               with_active_matches.*
+        FROM projects with_active_matches
+        LEFT OUTER JOIN matches ON matches.project_id = with_active_matches.id
+        WHERE matches.id IN
+            (SELECT matches.id
+             FROM matches
+             WHERE (matches.state = 'confirmed')
+               AND (starts_at <= now()::date
+                    AND finishes_at >= now()::date))
+        ORDER BY random() LIMIT 4),
+                  successful_projects AS
+        (SELECT 'successful'::text AS origin,
+                successful.*
+         FROM projects successful
+         WHERE (((successful.state)::text = 'successful'::text)
+                AND successful.home_page)
+         ORDER BY random() LIMIT 4)
+         (SELECT * from featured_projects) UNION
+         (SELECT * from recommended_projects) UNION
+         (SELECT * from expiring_projects) UNION
+         (SELECT * from soon_projects) UNION
+         (SELECT * from with_active_matches) UNION
+         (SELECT * from successful_projects)
     SQL
   end
 end

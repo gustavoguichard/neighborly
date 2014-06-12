@@ -215,8 +215,8 @@ CREATE TABLE projects (
 CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     LANGUAGE sql
     AS $_$
-     SELECT ((((($1.online_date AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo') + ($1.online_days || ' days')::interval)  )::date::text || ' 23:59:59')::timestamp AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo'))::timestamptz )               
-    $_$;
+         SELECT ((($1.online_date AT TIME ZONE 'EST' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'EST')
+        $_$;
 
 
 --
@@ -499,139 +499,6 @@ ALTER SEQUENCE company_contacts_id_seq OWNED BY company_contacts.id;
 
 
 --
--- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matches (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    user_id integer,
-    starts_at date NOT NULL,
-    finishes_at date NOT NULL,
-    value_unit numeric NOT NULL,
-    value numeric,
-    completed boolean DEFAULT false NOT NULL,
-    payment_id character varying(255),
-    payment_choice text,
-    payment_method text,
-    payment_token text,
-    payment_service_fee numeric DEFAULT 0.0,
-    payment_service_fee_paid_by_user boolean DEFAULT true,
-    state character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    key character varying(255),
-    confirmed_at timestamp without time zone
-);
-
-
---
--- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matchings (
-    id integer NOT NULL,
-    match_id integer,
-    contribution_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: contributions_fees; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW contributions_fees AS
-    SELECT contributions.id, contributions.value, (contributions.value - CASE WHEN contributions.payment_service_fee_paid_by_user THEN (0)::numeric ELSE COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) END) AS net_payment, COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) AS payment_service_fee FROM ((contributions LEFT JOIN matchings ON ((contributions.matching_id = matchings.id))) LEFT JOIN matches ON ((matchings.match_id = matches.id)));
-
-
---
--- Name: rewards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE rewards (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    minimum_value numeric NOT NULL,
-    maximum_contributions integer,
-    description text NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    reindex_versions timestamp without time zone,
-    row_order integer,
-    days_to_delivery integer,
-    soon boolean DEFAULT false,
-    title character varying(255) DEFAULT ''::character varying NOT NULL,
-    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0)),
-    CONSTRAINT rewards_minimum_value_positive CHECK ((minimum_value >= (0)::numeric))
-);
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    email text,
-    name text,
-    nickname text,
-    bio text,
-    image_url text,
-    newsletter boolean DEFAULT false,
-    project_updates boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    admin boolean DEFAULT false,
-    full_name text,
-    address_street text,
-    address_number text,
-    address_complement text,
-    address_neighborhood text,
-    address_city text,
-    address_state text,
-    address_zip_code text,
-    phone_number text,
-    locale text DEFAULT 'pt'::text NOT NULL,
-    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    twitter_url character varying(255),
-    facebook_url character varying(255),
-    other_url character varying(255),
-    uploaded_image text,
-    moip_login character varying(255),
-    state_inscription character varying(255),
-    profile_type character varying(255),
-    linkedin_url character varying(255),
-    confirmation_token character varying(255),
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying(255),
-    new_project boolean DEFAULT false,
-    latitude double precision,
-    longitude double precision,
-    completeness_progress integer DEFAULT 0,
-    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
-);
-
-
---
--- Name: contribution_reports; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW contribution_reports AS
-    SELECT b.project_id, u.name, b.value, r.minimum_value, r.description, b.payment_method, b.payment_choice, fees.payment_service_fee, b.key, (b.created_at)::date AS created_at, (b.confirmed_at)::date AS confirmed_at, u.email, b.payer_email, b.payer_name, b.payer_document, u.address_street, u.address_complement, u.address_number, u.address_neighborhood AS address_neighbourhood, u.address_city, u.address_state, u.address_zip_code, b.state FROM (((contributions b JOIN users u ON ((u.id = b.user_id))) LEFT JOIN rewards r ON ((r.id = b.reward_id))) JOIN contributions_fees fees ON ((fees.id = b.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]));
-
-
---
 -- Name: contributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -696,6 +563,33 @@ ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
+-- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matches (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    user_id integer,
+    starts_at date NOT NULL,
+    finishes_at date NOT NULL,
+    value_unit numeric NOT NULL,
+    value numeric,
+    completed boolean DEFAULT false NOT NULL,
+    payment_id character varying(255),
+    payment_choice text,
+    payment_method text,
+    payment_token text,
+    payment_service_fee numeric DEFAULT 0.0,
+    payment_service_fee_paid_by_user boolean DEFAULT true,
+    state character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    key character varying(255),
+    confirmed_at timestamp without time zone
+);
+
+
+--
 -- Name: matches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -712,6 +606,19 @@ CREATE SEQUENCE matches_id_seq
 --
 
 ALTER SEQUENCE matches_id_seq OWNED BY matches.id;
+
+
+--
+-- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matchings (
+    id integer NOT NULL,
+    match_id integer,
+    contribution_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
 
 
 --
@@ -1052,6 +959,28 @@ CREATE VIEW recommendations AS
 
 
 --
+-- Name: rewards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rewards (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    minimum_value numeric NOT NULL,
+    maximum_contributions integer,
+    description text NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    reindex_versions timestamp without time zone,
+    row_order integer,
+    days_to_delivery integer,
+    soon boolean DEFAULT false,
+    title character varying(255) DEFAULT ''::character varying NOT NULL,
+    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0)),
+    CONSTRAINT rewards_minimum_value_positive CHECK ((minimum_value >= (0)::numeric))
+);
+
+
+--
 -- Name: rewards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1143,6 +1072,61 @@ CREATE SEQUENCE states_id_seq
 --
 
 ALTER SEQUENCE states_id_seq OWNED BY states.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email text,
+    name text,
+    nickname text,
+    bio text,
+    image_url text,
+    newsletter boolean DEFAULT false,
+    project_updates boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    admin boolean DEFAULT false,
+    full_name text,
+    address_street text,
+    address_number text,
+    address_complement text,
+    address_neighborhood text,
+    address_city text,
+    address_state text,
+    address_zip_code text,
+    phone_number text,
+    locale text DEFAULT 'pt'::text NOT NULL,
+    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    twitter_url character varying(255),
+    facebook_url character varying(255),
+    other_url character varying(255),
+    uploaded_image text,
+    moip_login character varying(255),
+    state_inscription character varying(255),
+    profile_type character varying(255),
+    linkedin_url character varying(255),
+    confirmation_token character varying(255),
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying(255),
+    new_project boolean DEFAULT false,
+    latitude double precision,
+    longitude double precision,
+    completeness_progress integer DEFAULT 0,
+    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
+);
 
 
 --
@@ -2692,7 +2676,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public, pg_catalog;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 
@@ -3142,8 +3126,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140507191030');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509123001');
 
-INSERT INTO schema_migrations (version) VALUES ('20140513230821');
-
 INSERT INTO schema_migrations (version) VALUES ('20140515185046');
 
 INSERT INTO schema_migrations (version) VALUES ('20140516135956');
@@ -3155,4 +3137,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140527200930');
 INSERT INTO schema_migrations (version) VALUES ('20140530224700');
 
 INSERT INTO schema_migrations (version) VALUES ('20140530225038');
+
+INSERT INTO schema_migrations (version) VALUES ('20140612230821');
 
