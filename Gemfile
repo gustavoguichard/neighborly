@@ -5,6 +5,7 @@ ruby '2.1.1'
 gem 'rails',    '4.1.1'
 
 gem 'rails-observers', '~> 0.1.2'
+gem 'active_model_serializers'
 
 gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq

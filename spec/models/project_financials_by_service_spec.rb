@@ -3,7 +3,9 @@ require 'spec_helper'
 describe ProjectFinancialsByService do
   subject { described_class.find_by(project_id: project) }
   let(:project) { create(:project, state: 'online') }
-  before { Configuration[:platform_fee] = 0.1 }
+  before do
+    Configuration.stub(:[]).with(:platform_fee).and_return(0.1)
+  end
 
   describe 'net amount' do
     it 'does not take non confirmed contributions in count' do
