@@ -40,11 +40,9 @@ describe Concerns::SocialHelpersHandler do
   describe '#display_uservoice_sso' do
     let(:current_user) { create(:user) }
     before do
-      @controller.request = OpenStruct.new(host: 'test.local')
+      @controller.request = OpenStruct.new(host: 'neighborly.local')
 
       controller.stub(:current_user).and_return(current_user)
-      ::Configuration[:uservoice_subdomain] = 'test'
-      ::Configuration[:uservoice_sso_key] = '12345'
     end
 
     it { expect(@controller.display_uservoice_sso).to_not be_nil }

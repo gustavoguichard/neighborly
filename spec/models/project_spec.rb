@@ -457,8 +457,7 @@ describe Project do
     subject { project.new_draft_recipient }
     context "when project does not belong to any channel" do
       before do
-        Configuration[:email_projects] = 'admin_projects@foor.bar'
-        @user = create(:user, email: Configuration[:email_projects])
+        @user = create(:user, email: Configuration[:email_projects].dup)
       end
       it{ should == @user }
     end
@@ -564,7 +563,7 @@ describe Project do
 
   describe 'paid?' do
     subject { create(:project, state: 'online') }
-    before { Configuration[:platform_fee] = 0.1 }
+    before { Configuration.stub(:[]).with(:platform_fee).and_return(0.1) }
 
     it 'returns false when no payouts are recorded for the contributions' do
       create(:contribution, project: subject, payment_method: 'paypal')
