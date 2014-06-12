@@ -62,9 +62,10 @@
 
               = link_to t('.get-started'), new_project_path, class: 'button large large-5 medium-5 columns large-centered'
 
-            - if channel
-              .large-10.columns.large-centered
-                hr
+              - if channel
+                .row
+                  .large-10.columns.large-centered
+                    hr
 
               .large-12.columns
                 = channel.start_secondary_content_html
