@@ -12,14 +12,15 @@
   .row.page-main-content
     section.large-12.columns.main
       nav.tabs[data-target-container=".user-edit-page section.content"]
-        = tab_link_to t('.tabs.edit'), edit_user_path(@user)
-        - if @user.projects.any?
-          = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
-        - if @user.contributions.any?
-          = tab_link_to t('.tabs.ive_contributed'), user_contributions_path(@user)
-        = tab_link_to t('.tabs.credits'), credits_user_path(@user)
-        = tab_link_to t('.tabs.payments'), payments_user_path(@user)
-        = tab_link_to t('.tabs.settings'), settings_user_path(@user)
+        ul
+          li = tab_link_to t('.tabs.edit'), edit_user_path(@user)
+          - if @user.projects.any?
+            li = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
+          - if @user.contributions.any?
+            li = tab_link_to t('.tabs.ive_contributed'), user_contributions_path(@user)
+          li = tab_link_to t('.tabs.credits'), credits_user_path(@user)
+          li = tab_link_to t('.tabs.payments'), payments_user_path(@user)
+          li = tab_link_to t('.tabs.settings'), settings_user_path(@user)
 
       section.content
         - if content_for? :page_content
