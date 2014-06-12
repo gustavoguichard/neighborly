@@ -1,20 +1,28 @@
 nav.tabs
   +clearfix
-  background: $tabs-bg
-  a
-    float: left
-    text-transform: uppercase
-    color: $body-font-color
-    font-size: 80%
-    padding: +emCalc(15px, 8px, 15px, 8px)
-    @media #{$medium}
-      font-size: 85%
-      padding: +emCalc(25px, 15px, 25px, 15px)
 
-    &.selected, &.private.selected
-      background: $tabs-selected-bg
-    &:hover, &.private:hover
-      background: $tabs-hover-bg
+  @media #{$medium}
+    background: $tabs-bg
+
+  ul:not(.f-dropdown)
+    li
+      float: left
+      list-style: none
+      a
+        display: inline-block
+        text-transform: uppercase
+        color: $body-font-color
+        font-size: 80%
+        padding: +emCalc(15px, 8px, 15px, 8px)
+        @media #{$medium}
+          font-size: 85%
+          padding: +emCalc(25px, 15px, 25px, 15px)
+
+        &.selected, &.private.selected
+          background: $tabs-selected-bg
+        &:hover, &.private:hover
+          background: $tabs-hover-bg
+  a
     .count
       @extend .label
       +radius(+emCalc(20px))
@@ -23,10 +31,12 @@ nav.tabs
       top: -1px
     &.private
       background: darken($tabs-bg, 5%)
+  .button
+    width: 100%
 
-
-.row
-  .columns
-    nav.tabs
-      margin-left: +emCalc(-15px)
-      margin-right: +emCalc(-15px)
+@media #{$medium}
+  .row
+    .columns
+      nav.tabs
+        margin-left: +emCalc(-15px)
+        margin-right: +emCalc(-15px)
