@@ -21,7 +21,7 @@ GROUP BY contributions.project_id,
          contribution_fees.net_payment HAVING (contributions.payment_method IS NOT NULL)
 =end
 
-  extend Enumerable
+  include Enumerable
 
   attr_accessor :project
 
@@ -29,25 +29,34 @@ GROUP BY contributions.project_id,
     @project = project
   end
 
-  def net_amount
+  def each(&block)
+    services.each do |service|
+      block.call(service)
+    end
   end
 
-  def payment_method
+  def net_amount
+    sum(&:net_amount)
   end
 
   def payment_service_fee
+    sum(&:payment_service_fee)
   end
 
   def platform_fee
+    sum(&:platform_fee)
   end
 
   def total_contributions
-    contributions.length
+    sum(&:total_contributions)
   end
 
   private
 
-  def contributions
-    @contributions ||= project.contributions.with_state(:confirmed)
+  def services
+    @services ||= Contribution.where(project: project).
+      uniq.pluck(:payment_method).map do |service|
+      ProjectFinancialByService.new(project, service)
+    end
   end
 end

@@ -186,7 +186,7 @@ class Project < ActiveRecord::Base
 
   def paid?
     @is_paid ||= Payout.where(project_id: id).sum(:value) ==
-      ProjectFinancialsByService.where(project_id: id).sum(:net_amount)
+      ProjectFinancialsByService.new(self).net_amount
   end
 
   def self.locations

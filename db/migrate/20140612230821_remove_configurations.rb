@@ -41,7 +41,6 @@ class RemoveConfigurations < ActiveRecord::Migration
 
     create_projects_for_home_view
 
-    binding.pry
     create_view :contributions_fees, <<-SQL
       SELECT
         contributions.id,
