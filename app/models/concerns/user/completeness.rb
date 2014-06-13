@@ -1,5 +1,4 @@
 module User::Completeness
-
   extend ActiveSupport::Concern
 
   class Calculator
@@ -44,10 +43,7 @@ module User::Completeness
 
   end
 
-  included do
-    def update_completeness_progress!
-      update_column :completeness_progress, User::Completeness::Calculator.new(self).progress
-    end
+  def update_completeness_progress!
+    update_column :completeness_progress, User::Completeness::Calculator.new(self).progress
   end
-
 end

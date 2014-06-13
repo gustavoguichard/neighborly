@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe User::Completeness do
-
   subject { User::Completeness::Calculator.new(user).progress }
 
   context 'when the profile type is personal' do
@@ -20,19 +19,20 @@ describe User::Completeness do
     end
   end
 
-  pending 'when the profile type is channel' do
+  context 'when the profile type is channel' do
     let(:user) {  create(:channel, name: 'Some Channel', description: 'Some other text here', user: create(:user, name: nil, other_url: nil, location: 'Kansas City, MO', profile_type: 'channel')).user.reload }
 
-    it 'completeness progress should be 42' do
-      expect(subject).to eq 42
+    it 'completeness progress should be 100' do
+      expect(subject).to eq 100
     end
   end
 
   describe '#update_completeness_progress' do
     let(:user) { create(:user, name: 'Some name', profile_type: 'personal') }
+    before     { user.update_completeness_progress! }
 
-    before { user.update_completeness_progress! }
-    it { expect(user.reload.completeness_progress).to_not eq 0 }
+    it 'updates the completeness progress' do
+      expect(user.reload.completeness_progress).to_not eq 0
+    end
   end
-
 end
