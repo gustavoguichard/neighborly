@@ -36,7 +36,7 @@
   height: 180px
   cursor: pointer
   position: relative
-  +transition(.2s)
+  +single-transition(.2s)
   &.usr-upld-pctr .uploaded-image
     margin-top: -75px
     margin-left: -75px
@@ -65,7 +65,7 @@
     position: absolute
     z-index: 10
     left: 0
-    +opacity(0)
+    opacity: 0
   &.dz-clickable
     border: 2px dashed $border-color
   &.usr-upld-pctr
@@ -75,7 +75,7 @@
     border-color: #e6db55
   &.dz-drag-hover, &.dragging, &.dz-max-files-reached, &.upload-fail
     .info
-      +opacity(1)
+      opacity: 1
   &.dz-max-files-reached, &.upload-fail
     background-color: #FEE
     border-color: #D84D4D
