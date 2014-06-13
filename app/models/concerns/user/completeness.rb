@@ -24,7 +24,7 @@ module User::Completeness
     end
 
     def calc_channel_progress
-      100
+      100 # Channels are always 100%
     end
 
     def calc_progress(user_fields, association_fields = [], association_name = nil)

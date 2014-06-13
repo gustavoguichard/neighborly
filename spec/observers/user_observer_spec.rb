@@ -1,47 +1,50 @@
 require 'spec_helper'
 
 describe UserObserver do
-
   describe '#before_validation' do
     let(:user) { build(:user, password: nil) }
-    before { user.valid? }
-    it { expect(user.password).to_not be_empty }
+
+    it 'creates a password' do
+      user.valid?
+      expect(user.password).to_not be_empty
+    end
   end
 
   describe '#after_create' do
     before { UserObserver.any_instance.unstub(:after_create) }
+
     context 'when the user is with temporary email' do
-      let(:user) { create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly") }
-      before { expect_any_instance_of(WelcomeWorker).to_not receive(:perform_async) }
-      it { user }
+      it 'does not send to worker' do
+        expect_any_instance_of(WelcomeWorker).to_not receive(:perform_async)
+        create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly")
+      end
     end
 
     context 'when the user is not with temporary email' do
-      before { expect(WelcomeWorker).to receive(:perform_async) }
-      it { create(:user) }
+      it 'sends to worker' do
+        expect(WelcomeWorker).to receive(:perform_async)
+        create(:user)
+      end
     end
   end
 
-  describe "#after_save" do
+  describe '#after_save' do
     context 'when profile is complete' do
-      before do
+      it 'does not send to worker' do
         @user = create(:user, completeness_progress: 100)
-        expect_any_instance_of(User).to_not receive(:update_completeness_progress!)
+        expect(UpdateCompletenessProgressWorker).to_not receive(:perform_async)
         @user.name = 'test'
+        @user.save
       end
-
-      it { @user.save }
     end
 
     context 'when profile is not complete' do
-      before do
+      it 'sends to worker' do
         @user = create(:user, completeness_progress: 50)
-        expect_any_instance_of(User).to receive(:update_completeness_progress!)
+        expect(UpdateCompletenessProgressWorker).to receive(:perform_async).with(@user.id)
         @user.name = 'test'
+        @user.save
       end
-
-      it { @user.save }
     end
   end
-
 end

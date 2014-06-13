@@ -9,6 +9,8 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_save(user)
-    user.update_completeness_progress! if user.completeness_progress.to_i < 100
+    if user.completeness_progress.to_i < 100
+      UpdateCompletenessProgressWorker.perform_async(user.id)
+    end
   end
 end
