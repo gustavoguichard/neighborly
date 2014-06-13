@@ -1,7 +1,7 @@
 - columns_n = if defined? columns then columns else 'large-3 medium-4' end
 - large = false unless defined?(large) && large == true
 
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 medium-8 columns' if large} #{'large large-12 medium-12 columns' if defined?(contribution)} #{columns_n + ' columns' unless large || defined?(contribution)} #{project.category.to_s.parameterize if project.category}"]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 medium-8 columns' if large} #{'large large-12 medium-12 columns' if defined?(contribution) && !browser.mobile?} #{columns_n + ' columns' unless large || defined?(contribution) && !browser.mobile?} #{project.category.to_s.parameterize if project.category}"]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'
@@ -21,18 +21,18 @@
       .status-image
         = image_tag "coming_soon.#{I18n.locale}.png"
 
-    .cover[class="#{'large-8 medium-8 columns' if large} #{'large-6 columns' if defined?(contribution)} "]
-      = image_tag project.display_image(large || defined?(contribution) ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
+    .cover[class="#{'large-8 medium-8 columns' if large} #{'large-6 medium-6 columns' if defined?(contribution) && !browser.mobile?} "]
+      = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
-    .content[class="#{'large-4 medium-4 columns' if large} #{'large-3 columns' if defined?(contribution)}"]
-      - if large || defined?(contribution)
+    .content[class="#{'large-4 medium-4 columns' if large} #{'large-3 medium-3 columns' if defined?(contribution) && !browser.mobile?}"]
+      - if large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
       .category
         i[title=project.category.to_s]
         span = project.category.to_s
 
-      - unless large || defined?(contribution)
+      - unless large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
       .location
@@ -40,7 +40,7 @@
         | &nbsp;
         = project.location
 
-      - if (large || !browser.ie8? || defined?(contribution))
+      - if (large || !browser.ie8? || defined?(contribution) && !browser.mobile?)
         .description.hide-for-small[itemprop='description']
           span = truncate(project.headline, length: 140, separator: ' ')
           a
@@ -58,8 +58,8 @@
               = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
         = project.progress_bar
 
-    - if defined?(contribution)
-      .back-informations.large-3.columns
+    - if defined?(contribution) && !browser.mobile?
+      .back-informations.large-3.medium-3.columns
         h5
           - contribution.confirmed_at.present?
             i.icon-et-calendar
