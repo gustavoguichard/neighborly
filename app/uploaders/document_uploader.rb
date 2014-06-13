@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class DocumentUploader < CarrierWave::Uploader::Base
 
   def store_dir

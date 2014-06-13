@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class PressUploader < ImageUploader
 
   process convert: :png

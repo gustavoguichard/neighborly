@@ -1,4 +1,3 @@
-# encoding: utf-8
 class RenameCategories < ActiveRecord::Migration
   def up
     execute "

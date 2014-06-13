@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class AddNewCategories < ActiveRecord::Migration
   def up
     execute "
