@@ -126,7 +126,6 @@ end
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
-gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'josemarluedke/font-icons-rails', branch: 'fix-svgz'
 gem 'zurb-foundation', '~> 4.3.2'

@@ -22,7 +22,7 @@
     width: 100%
     min-height: 200px
     cursor: pointer
-    +transition(.2s)
+    +single-transition(.2s)
     text-align: center
 
     .uploaded-image
@@ -44,7 +44,7 @@
       border-color: #e6db55
     &.dz-drag-hover, &.dragging, &.dz-max-files-reached, &.upload-fail
       .info
-        +opacity(1)
+        opacity: 1
     &.dz-max-files-reached, &.upload-fail
       background-color: #FEE
       border-color: #D84D4D

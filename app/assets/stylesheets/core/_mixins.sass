@@ -73,6 +73,11 @@
     font-weight: $weight
     font-style: $style
 
+= hide-text
+  text-indent: -999999em
+  overflow: hidden
+  text-align: left
+
 // IMAGE MIXINS
 // Before using this mixin you should put the images in a folder called sprites
 // and then import'em like so: @import "sprites/*.png"
@@ -234,11 +239,23 @@
 
 +keyframes('pulsing-heart')
   0%
-    +transform(scale(1.05))
+    -webkit-transform: scale(1.05)
+    -moz-transform: scale(1.05)
+    -ms-transform: scale(1.05)
+    -o-transform: scale(1.05)
+    transform: scale(1.05)
   50%
-    +transform(scale(.8))
+    -webkit-transform: scale(0.8)
+    -moz-transform: scale(0.8)
+    -ms-transform: scale(0.8)
+    -o-transform: scale(0.8)
+    transform: scale(0.8)
   100%
-    +transform(scale(1))
+    -webkit-transform: scale(1)
+    -moz-transform: scale(1)
+    -ms-transform: scale(1)
+    -o-transform: scale(1)
+    transform: scale(1)
 
 = beating-heart($img-width: 80px, $img-height: 66px)
   position: absolute
@@ -246,5 +263,10 @@
   top: 50%
   margin-left: -$img-width/2
   margin-top: -$img-height/2
-  +experimental(animation, pulsing-heart 1s linear infinite)
+  $beating-heart-animation: pulsing-heart 1s linear infinite
+  -webkit-animation: $beating-heart-animation
+  -moz-animation: $beating-heart-animation
+  -ms-animation: $beating-heart-animation
+  -o-animation: $beating-heart-animation
+  animation: $beating-heart-animation
   @content
