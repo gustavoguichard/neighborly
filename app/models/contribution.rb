@@ -34,7 +34,7 @@ class Contribution < ActiveRecord::Base
   scope :can_refund, ->{ where("contributions.can_refund") }
 
   def self.between_values(start_at, ends_at)
-    return scoped unless start_at.present? && ends_at.present?
+    return all unless start_at.present? && ends_at.present?
     where("value between ? and ?", start_at, ends_at)
   end
 

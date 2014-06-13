@@ -111,7 +111,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.between_created_at(start_at, ends_at)
-    return scoped unless start_at.present? && ends_at.present?
+    return all unless start_at.present? && ends_at.present?
     where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
   end
 
