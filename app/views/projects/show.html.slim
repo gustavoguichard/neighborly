@@ -50,9 +50,10 @@
             = @project.display_pledged
             small = t('.so_far').html_safe
             = @project.display_goal
-        .show-for-small
-          .contribute-top
-            = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
+        - if @project.online? && !@project.expired?
+          .show-for-small
+            .contribute-top
+              = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
 
   section.status-bar.fixed
     .row
@@ -74,7 +75,7 @@
               - else
                 = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
 
-          - if @project.online?
+          - if @project.online? && !@project.expired?
             .large-3.columns.contribute
               = link_to t('.status-bar.contribute'), new_project_contribution_url(@project), class: 'button small'
           - else
@@ -124,7 +125,7 @@
 
     aside.large-3.medium-4.columns.sidebar
       .call-to-action
-        - if @project.online?
+        - if @project.online? && !@project.expired?
           noscript
             .alert-box
               strong
