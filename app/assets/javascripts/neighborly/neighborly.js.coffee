@@ -68,6 +68,9 @@ window.Neighborly =
     $('input, select, textarea').blur ->
       $('meta[name=viewport]').attr('content', 'width=device-width,initial-scale=1,maximum-scale=10')
 
+    if jQuery.browser.mobile
+      Neighborly.TransformTabsToDropdown.init()
+
   Loading:
     show: ->
       $('#loading').addClass('show')

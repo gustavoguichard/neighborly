@@ -91,28 +91,29 @@
       = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
 
       nav.tabs[data-target-container=".project-page section.content"]
-        = tab_link_to t('.tabs.about'), project_path(@project)
+        ul
+          li = tab_link_to t('.tabs.about'), project_path(@project)
 
-        - if policy(@project).update? || @project.updates.size > 0
-          = tab_link_to project_updates_path(@project) do
-            = t('.tabs.updates')
-            span.count=" #{@project.updates.size}"
+          - if policy(@project).update? || @project.updates.size > 0
+            li = tab_link_to project_updates_path(@project) do
+              = t('.tabs.updates')
+              span.count=" #{@project.updates.size}"
 
-        - if @project.total_contributions > 0
-          = tab_link_to project_contributions_path(@project) do
-            = t('.tabs.contributions')
-            span.count=" #{@project.total_contributions}"
+          - if @project.total_contributions > 0
+            li = tab_link_to project_contributions_path(@project) do
+              = t('.tabs.contributions')
+              span.count=" #{@project.total_contributions}"
 
-        = tab_link_to comments_project_path(@project) do
-          = t('.tabs.comments')
-          span.commentsCount.count style="display: none;"
-            span#countNumber
+          li = tab_link_to comments_project_path(@project) do
+            = t('.tabs.comments')
+            span.commentsCount.count style="display: none;"
+              span#countNumber
 
-        = tab_link_to t('.tabs.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
-        = tab_link_to t('.tabs.budget'), budget_project_path(@project) if @project.budget.present?
-        = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
-        - if policy(@project).update?
-          = tab_link_to t('.tabs.reports'), reports_project_path(@project), 'private'
+          li = tab_link_to t('.tabs.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
+          li = tab_link_to t('.tabs.budget'), budget_project_path(@project) if @project.budget.present?
+          li = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
+          - if policy(@project).update?
+            li = tab_link_to t('.tabs.reports'), reports_project_path(@project), 'private'
 
       section.content
         - if content_for? :page_content
