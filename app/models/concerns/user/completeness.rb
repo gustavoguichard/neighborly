@@ -1,5 +1,4 @@
 module User::Completeness
-
   extend ActiveSupport::Concern
 
   class Calculator
@@ -24,7 +23,7 @@ module User::Completeness
     end
 
     def calc_channel_progress
-      100
+      100 # Channels are always 100%
     end
 
     def calc_progress(user_fields, association_fields = [], association_name = nil)
@@ -44,10 +43,7 @@ module User::Completeness
 
   end
 
-  included do
-    def update_completeness_progress!
-      update_column :completeness_progress, User::Completeness::Calculator.new(self).progress
-    end
+  def update_completeness_progress!
+    update_column :completeness_progress, User::Completeness::Calculator.new(self).progress
   end
-
 end
