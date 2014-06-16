@@ -114,6 +114,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'weekdays'
   gem 'fakeweb', require: false
   gem 'launchy'
   gem 'database_cleaner'
@@ -134,7 +135,3 @@ gem 'nprogress-rails'
 gem 'pjax_rails'
 gem 'initjs', '~> 2.1.2'
 gem 'remotipart', '~> 1.2.1'
-
-# FIXME: Not-anymore-on-development
-# Gems that are with 1 or more years on the vacuum
-gem 'weekdays'
