@@ -27,13 +27,32 @@ FROM ((((projects p
       CROSS JOIN platform_base_url)
 =end
 
-  delegate :id, :goal, :state, to: :project
-  delegate :platform_fee, to: :project_total
+  include ActiveModel::Serialization
 
   attr_accessor :project
 
+  delegate :user, :id, :goal, :name, :state, to: :project
+  delegate :platform_fee, to: :project_total
+
   def initialize(project)
     @project = project
+  end
+
+  def attributes
+    {
+      contribution_report: contribution_report,
+      expires_at: expires_at,
+      goal: goal,
+      moip: moip,
+      moip_tax: moip_tax,
+      name: name,
+      platform_base_url: platform_base_url,
+      platform_fee: platform_fee,
+      project_id: project_id,
+      reached: reached,
+      repass_value: repass_value,
+      state: state
+    }
   end
 
   def contribution_report
@@ -41,11 +60,11 @@ FROM ((((projects p
   end
 
   def expires_at
-    # ???
+    project.expires_at.to_date
   end
 
   def moip
-    project.moip_login
+    user.moip_login
   end
 
   def moip_tax

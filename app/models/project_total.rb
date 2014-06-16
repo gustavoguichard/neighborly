@@ -32,7 +32,7 @@ GROUP BY contributions.project_id,
   end
 
   def platform_fee
-    pledged * Configuration[:platform_fee]
+    pledged * Configuration[:platform_fee].to_f
   end
 
   def pledged
