@@ -215,7 +215,7 @@ CREATE TABLE projects (
 CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     LANGUAGE sql
     AS $_$
-         SELECT ((($1.online_date AT TIME ZONE 'EST' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'EST')
+         SELECT ((($1.online_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
         $_$;
 
 

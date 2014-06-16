@@ -28,12 +28,17 @@ WHERE ((b.STATE)::text = 'confirmed'::text)
 ORDER BY b.confirmed_at,
          b.id
 =end
+  include ActiveModel::Serialization
   include Enumerable
 
-  attr_accessor :project
+  attr_accessor :project, :conditions
 
-  def initialize(project)
-    @project = project
+  def initialize(project, conditions = {})
+    @project, @conditions = project, conditions
+  end
+
+  def all
+    contributions
   end
 
   def each(&block)
@@ -45,7 +50,7 @@ ORDER BY b.confirmed_at,
   private
 
   def contributions
-    @contributions ||= project.contributions.with_state(:confirmed).map do |c|
+    @contributions ||= project.contributions.with_state(:confirmed).where(conditions).map do |c|
       ContributionForProjectOwner.new(c)
     end
   end

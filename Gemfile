@@ -71,6 +71,7 @@ gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'video_info', '~> 2.0.2'
 gem 'geocoder'
+gem 'as_csv', require: 'as_csv'
 
 # Payment
 gem 'httpclient', '>= 2.2.5'

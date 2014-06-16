@@ -1,12 +1,11 @@
-class ContributionForProjectOwner < ActiveModel::Serializer
+class ContributionForProjectOwner
+  include ActiveModel::Serialization
+
   attr_accessor :contribution
 
-  attributes :user, :reward, :anonymous, :confirmed_at, :contribution_value,
-    :created_at, :payer_email, :payment_method, :short_note,
-    :reward_description, :reward_minimum_value, :user_email, :user_name
-
   delegate :user, :reward, :anonymous, :created_at, :confirmed_at,
-    :payer_email, :payment_method, :short_note, to: :contribution, allow_nil: true
+    :payer_email, :payment_method, :project_id, :short_note, to: :contribution,
+    allow_nil: true
   delegate :value, to: :contribution, prefix: true, allow_nil: true
   delegate :email, :name, to: :user, prefix: true, allow_nil: true
   delegate :description, :minimum_value, to: :reward, prefix: true, allow_nil: true
@@ -15,32 +14,49 @@ class ContributionForProjectOwner < ActiveModel::Serializer
     @contribution = contribution
   end
 
-  def reward_id
-    reward.id || 0
-  end
-
-  def street
-    contribution.address_street || user.address_street
-  end
-
-  def complement
-    contribution.address_complement || user.address_complement
+  def attributes
+    {
+      confirmed_at: confirmed_at,
+      contribution_value: contribution_value,
+      created_at: created_at,
+      payer_email: payer_email,
+      payment_method: payment_method,
+      project_id: project_id,
+      reward_description: reward_description,
+      reward_id:  reward_id,
+      reward_minimum_value: reward_minimum_value,
+      street: street,
+      user_email: user_email,
+      user_name: user_name,
+    }
   end
 
   def address_number
     contribution.address_number || user.address_number
   end
 
-  def neighborhood
-    contribution.address_neighborhood || user.address_neighborhood
+  def complement
+    contribution.address_complement || user.address_complement
   end
 
   def city
     contribution.address_city || user.address_city
   end
 
+  def neighborhood
+    contribution.address_neighborhood || user.address_neighborhood
+  end
+
+  def reward_id
+    reward.try(:id) || 0
+  end
+
   def state
     contribution.address_state || user.address_state
+  end
+
+  def street
+    contribution.address_street || user.address_street
   end
 
   def zip_code
