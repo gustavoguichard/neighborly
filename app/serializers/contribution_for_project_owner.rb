@@ -16,18 +16,26 @@ class ContributionForProjectOwner
 
   def attributes
     {
+      project_id:           project_id,
+      reward_id:            reward_id,
+      reward_description:   reward_description,
+      reward_minimum_value: reward_minimum_value,
+      created_at:           created_at,
       confirmed_at:         confirmed_at,
       contribution_value:   contribution_value,
-      created_at:           created_at,
-      payer_email:          payer_email,
-      payment_method:       payment_method,
-      project_id:           project_id,
-      reward_description:   reward_description,
-      reward_id:            reward_id,
-      reward_minimum_value: reward_minimum_value,
-      street:               street,
       user_email:           user_email,
       user_name:            user_name,
+      payer_email:          payer_email,
+      payment_method:       payment_method,
+      street:               street,
+      complement:           complement,
+      address_number:       address_number,
+      neighborhood:         neighborhood,
+      city:                 city,
+      state:                state,
+      zip_code:             zip_code,
+      anonymous:            anonymous,
+      short_note:           short_note
     }
   end
 

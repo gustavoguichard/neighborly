@@ -40,23 +40,22 @@ FROM ((((projects p
 
   def attributes
     {
+      project_id:          project_id,
+      name:                name,
+      moip:                moip,
+      goal:                goal,
+      reached:             reached,
+      moip_tax:            moip_tax,
+      platform_fee:        platform_fee,
+      repass_value:        repass_value,
+      expires_at:          expires_at,
       contribution_report: contribution_report,
-      expires_at: expires_at,
-      goal: goal,
-      moip: moip,
-      moip_tax: moip_tax,
-      name: name,
-      platform_base_url: platform_base_url,
-      platform_fee: platform_fee,
-      project_id: project_id,
-      reached: reached,
-      repass_value: repass_value,
-      state: state
+      state:               state
     }
   end
 
   def contribution_report
-    "#{platform_base_url}/admin/reports/contribution_reports.csv?project_id=#{id}"
+    "#{Configuration[:base_url]}/admin/reports/contribution_reports.csv?project_id=#{id}"
   end
 
   def expires_at
@@ -69,10 +68,6 @@ FROM ((((projects p
 
   def moip_tax
     project_total.total_payment_service_fee
-  end
-
-  def platform_base_url
-    Configuration[:base_url]
   end
 
   def project_id
