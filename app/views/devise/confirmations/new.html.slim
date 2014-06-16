@@ -12,7 +12,6 @@
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post}) do |f|
-          = render 'devise/shared/alert'
           = f.input :email, as: :email, placeholder: t('.form.labels.email'), class: [:login, :email], required: true, label_html: { class: 'hidden-label' }
 
           = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']
