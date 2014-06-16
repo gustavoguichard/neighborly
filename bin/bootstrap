@@ -4,7 +4,8 @@ def check_dependencies!
   executable_list = {
     ImageMagick: 'convert',
     PostgreSQL:  'postgres',
-    Redis:       'redis-server',
+    QT:          'qmake',
+    Redis:       'redis-server'
   }
 
   executable_list.each do |dependency, executable|
