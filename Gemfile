@@ -110,7 +110,6 @@ end
 group :development, :test do
   gem 'awesome_print'
   gem 'dotenv-rails'
-  gem 'jasmine-rails', '~> 0.4.6'
   gem 'minitest'
   gem 'pry'
   gem 'rspec-rails', '~> 2.14.2'
@@ -123,7 +122,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
-  gem 'capybara',   '~> 2.2.1'
+  gem 'capybara', '~> 2.2.1'
   gem 'coveralls', require: false
   gem 'capybara-webkit'
 end
