@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: cee5fc4e48ff36219a667d993f65a2a35c592af9
+  revision: b23567e765fcb4e7544868ff89db3c2c8cff5dc3
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: b00311fda553a2b6b867628bf3e6162f5aa89114
+  revision: 6d4d887cbfde8a6c8e303ea02162923820baa127
   branch: master
   specs:
     neighborly-balanced (1.1.0)
