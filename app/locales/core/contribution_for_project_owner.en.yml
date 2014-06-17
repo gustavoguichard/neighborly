@@ -1,0 +1,20 @@
+en:
+  models:
+    contribution_for_project_owner:
+      address_city: 'City'
+      address_neighborhood: 'Neighborhood'
+      address_state: 'State'
+      address_street: 'Street'
+      address_zip_code: 'Zip Code'
+      anonymous: 'Anonymous'
+      confirmed_at: 'Contribution Confirmed'
+      created_at: 'Contribution Made'
+      minimum_value: 'Reward Level'
+      payment_method: 'Payment Method'
+      project_id: 'Project'
+      reward_description: 'Reward Description'
+      service_fee: 'Neighbor.ly Fee'
+      short_note: 'Message'
+      user_email: 'Email'
+      user_name: 'Contributor'
+      value: 'Contribution Amount'

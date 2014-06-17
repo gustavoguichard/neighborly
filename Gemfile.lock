@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Irio/as_csv.git
+  revision: 66695a85648c6b22fbabdfc593a1b7034611bf02
+  branch: localization-of-headers
+  specs:
+    as_csv (1.0.2)
+
+GIT
   remote: git://github.com/bernat/best_in_place.git
   revision: 366413be357d65cdf47031e928aea969f72e3659
   branch: rails-4
@@ -95,7 +102,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    as_csv (1.0.2)
     auto_html (1.6.3)
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
@@ -462,7 +468,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  as_csv
+  as_csv!
   auto_html (~> 1.6.1)
   awesome_print
   best_in_place!
