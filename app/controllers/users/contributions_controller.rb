@@ -26,7 +26,7 @@ class Users::ContributionsController < ApplicationController
   def collection
     @contributions ||= policy_scope(end_of_association_chain).
       order("created_at DESC, confirmed_at DESC").
-      includes(:user, :reward, project: [:user, :category, :project_total]).
+      includes(:user, :reward, project: [:user, :category]).
       page(params[:page]).per(10)
   end
 end
