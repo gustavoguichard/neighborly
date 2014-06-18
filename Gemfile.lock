@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 29a9822cbf95dd316589f04341a8eb5deee2bfe6
+  revision: d04a11e6348d7bfc41820c7439ea439ea4eec183
   branch: master
   specs:
     neighborly-admin (1.0.0)
