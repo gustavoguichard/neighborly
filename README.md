@@ -67,6 +67,10 @@ $ rails runner db/development_seeds.rb
 
 Neighbor.ly consists of many separate services/gems, each with their own source code repository.
 
+### [Neighborly::Api](https://github.com/neighborly/neighborly-api) [![Build Status](https://travis-ci.org/neighborly/neighborly-api.png?branch=master)](https://travis-ci.org/neighborly/neighborly-api) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-api.png)](https://codeclimate.com/github/neighborly/neighborly-api)
+
+A Rails Engine that contains our API.
+
 ### [Neighborly::Admin](https://github.com/neighborly/neighborly-admin) [![Build Status](https://travis-ci.org/neighborly/neighborly-admin.png?branch=master)](https://travis-ci.org/neighborly/neighborly-admin) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-admin.png)](https://codeclimate.com/github/neighborly/neighborly-admin)
 
 A Rails Engine that deal with all the admin section for Neighbor.ly.
