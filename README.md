@@ -43,6 +43,7 @@ Make sure you follow our [style guide](https://github.com/neighborly/guides/).
 To get everything working, you'll need to have these dependencies installed in your system:
 
 * ImageMagick >= 6.3.5
+* Qt ([to compile capybara webkit](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit))
 * PostgreSQL >= 9.3 (with [postgresql-contrib](http://www.postgresql.org/docs/9.3/static/contrib.html))
 * Redis >= 2.4
 * Ruby 2.1.1
