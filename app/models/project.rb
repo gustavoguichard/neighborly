@@ -40,7 +40,6 @@ class Project < ActiveRecord::Base
   has_many :project_documents, dependent: :destroy
   has_and_belongs_to_many :channels
   has_many :unsubscribes
-  has_one :project_total
 
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
@@ -123,6 +122,10 @@ class Project < ActiveRecord::Base
     @decorator ||= ProjectDecorator.new(self)
   end
 
+  def project_total
+    @project_total ||= ProjectTotal.new(self)
+  end
+
   def expires_at
     online_date && (online_date + online_days.days).end_of_day
   end
@@ -183,7 +186,7 @@ class Project < ActiveRecord::Base
 
   def paid?
     @is_paid ||= Payout.where(project_id: id).sum(:value) ==
-      ProjectFinancialsByService.where(project_id: id).sum(:net_amount)
+      ProjectFinancialsByService.new(self).net_amount
   end
 
   def self.locations

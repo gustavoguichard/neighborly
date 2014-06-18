@@ -30,3 +30,6 @@ spec/tmp/
 *.dot
 .ruby-version
 ./log
+
+# Secrets
+.env

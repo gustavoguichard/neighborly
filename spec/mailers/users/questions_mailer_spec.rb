@@ -19,11 +19,11 @@ describe Users::QuestionsMailer do
   end
 
   it 'assigns @user.name' do
-    expect(mail.body.encoded).to match(user.display_name)
+    expect(mail.body).to match(user.display_name)
   end
 
   it 'assigns @question' do
-    expect(mail.body.encoded).to match('some question')
+    expect(mail.body).to match('some question')
   end
 
 end

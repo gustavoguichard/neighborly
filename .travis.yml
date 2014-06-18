@@ -4,7 +4,6 @@ rvm:
 cache: bundler
 env: RAILS_ENV=test DISPLAY=:99.0
 script:
-  - bundle exec rake spec:javascript
   - bundle exec rspec
 before_script:
   - 'sh -e /etc/init.d/xvfb start'

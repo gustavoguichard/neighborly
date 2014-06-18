@@ -128,13 +128,11 @@ describe Projects::ContributionsController do
   end
 
   describe "GET new" do
-    let(:secure_review_host){ nil }
     let(:user){ create(:user) }
     let(:online){ true }
     let(:browser){ double("browser", ie9?: false, modern?: true) }
 
     before do
-      ::Configuration[:secure_review_host] = secure_review_host
       Project.any_instance.stub(:online?).and_return(online)
       get :new, {locale: :pt, project_id: project}
     end
@@ -149,20 +147,12 @@ describe Projects::ContributionsController do
       it{ should redirect_to root_path }
     end
 
-    context "when project.online? is true and we have configured a secure create url" do
-      let(:secure_review_host){ 'secure.catarse.me' }
-      it "should assign the https url to @create_url" do
-        assigns(:create_url).should == project_contributions_url(project, host: ::Configuration[:secure_review_host], protocol: 'https')
-      end
-    end
 
     context "when project.online? is true and we have not configured a secure create url" do
       render_views
 
       it{ should render_template("projects/contributions/new") }
-      it "should assign review_project_contributions_path to @create_url" do
-        assigns(:create_url).should == project_contributions_path(project)
-      end
+
       its(:body) { should =~ /#{I18n.t('projects.contributions.new.title')}/ }
       its(:body) { should =~ /#{I18n.t('controllers.projects.contributions.new.no_reward')}/ }
       its(:body) { should =~ /#{project.name}/ }

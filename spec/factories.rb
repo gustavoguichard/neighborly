@@ -115,11 +115,6 @@ FactoryGirl.define do
     f.secret 'test_secret'
   end
 
-  factory :configuration do |f|
-    f.name 'Foo'
-    f.value 'Bar'
-  end
-
   factory :institutional_video do |f|
     f.title "My title"
     f.description "Some Description"

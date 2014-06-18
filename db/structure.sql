@@ -37,20 +37,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -229,8 +215,8 @@ CREATE TABLE projects (
 CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     LANGUAGE sql
     AS $_$
-     SELECT ((((($1.online_date AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo') + ($1.online_days || ' days')::interval)  )::date::text || ' 23:59:59')::timestamp AT TIME ZONE coalesce((SELECT value FROM configurations WHERE name = 'timezone'), 'America/Sao_Paulo'))::timestamptz )               
-    $_$;
+         SELECT ((($1.online_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
+        $_$;
 
 
 --
@@ -380,8 +366,8 @@ CREATE TABLE channels (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     image text,
-    video_embed_url character varying(255),
     video_url text,
+    video_embed_url character varying(255),
     how_it_works text,
     how_it_works_html text,
     terms_url character varying(255),
@@ -513,180 +499,6 @@ ALTER SEQUENCE company_contacts_id_seq OWNED BY company_contacts.id;
 
 
 --
--- Name: configurations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE configurations (
-    id integer NOT NULL,
-    name text NOT NULL,
-    value text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT configurations_name_not_blank CHECK ((length(btrim(name)) > 0))
-);
-
-
---
--- Name: configurations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE configurations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: configurations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE configurations_id_seq OWNED BY configurations.id;
-
-
---
--- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matches (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    user_id integer,
-    starts_at date NOT NULL,
-    finishes_at date NOT NULL,
-    value_unit numeric NOT NULL,
-    value numeric,
-    completed boolean DEFAULT false NOT NULL,
-    payment_id character varying(255),
-    payment_choice text,
-    payment_method text,
-    payment_token text,
-    payment_service_fee numeric DEFAULT 0.0,
-    payment_service_fee_paid_by_user boolean DEFAULT true,
-    state character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    key character varying(255),
-    confirmed_at timestamp without time zone
-);
-
-
---
--- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matchings (
-    id integer NOT NULL,
-    match_id integer,
-    contribution_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: contributions_fees; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW contributions_fees AS
-    SELECT contributions.id, contributions.value, (contributions.value - CASE WHEN contributions.payment_service_fee_paid_by_user THEN (0)::numeric ELSE COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) END) AS net_payment, COALESCE(NULLIF(contributions.payment_service_fee, (0)::numeric), ((matches.payment_service_fee / matches.value) * contributions.value), (0)::numeric) AS payment_service_fee FROM ((contributions LEFT JOIN matchings ON ((contributions.matching_id = matchings.id))) LEFT JOIN matches ON ((matchings.match_id = matches.id)));
-
-
---
--- Name: rewards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE rewards (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    minimum_value numeric NOT NULL,
-    maximum_contributions integer,
-    description text NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    reindex_versions timestamp without time zone,
-    row_order integer,
-    days_to_delivery integer,
-    soon boolean DEFAULT false,
-    title character varying(255) DEFAULT ''::character varying NOT NULL,
-    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0)),
-    CONSTRAINT rewards_minimum_value_positive CHECK ((minimum_value >= (0)::numeric))
-);
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    email text,
-    name text,
-    nickname text,
-    bio text,
-    image_url text,
-    newsletter boolean DEFAULT false,
-    project_updates boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    admin boolean DEFAULT false,
-    full_name text,
-    address_street text,
-    address_number text,
-    address_complement text,
-    address_neighborhood text,
-    address_city text,
-    address_state text,
-    address_zip_code text,
-    phone_number text,
-    locale text DEFAULT 'pt'::text NOT NULL,
-    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    twitter_url character varying(255),
-    facebook_url character varying(255),
-    other_url character varying(255),
-    uploaded_image text,
-    moip_login character varying(255),
-    state_inscription character varying(255),
-    profile_type character varying(255),
-    linkedin_url character varying(255),
-    confirmation_token character varying(255),
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying(255),
-    new_project boolean DEFAULT false,
-    latitude double precision,
-    longitude double precision,
-    completeness_progress integer DEFAULT 0,
-    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
-);
-
-
---
--- Name: contribution_reports; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW contribution_reports AS
-    SELECT b.project_id, u.name, b.value, r.minimum_value, r.description, b.payment_method, b.payment_choice, fees.payment_service_fee, b.key, (b.created_at)::date AS created_at, (b.confirmed_at)::date AS confirmed_at, u.email, b.payer_email, b.payer_name, b.payer_document, u.address_street, u.address_complement, u.address_number, u.address_neighborhood AS address_neighbourhood, u.address_city, u.address_state, u.address_zip_code, b.state FROM (((contributions b JOIN users u ON ((u.id = b.user_id))) LEFT JOIN rewards r ON ((r.id = b.reward_id))) JOIN contributions_fees fees ON ((fees.id = b.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text]));
-
-
---
--- Name: contribution_reports_for_project_owners; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW contribution_reports_for_project_owners AS
-    SELECT b.project_id, COALESCE(r.id, 0) AS reward_id, r.description AS reward_description, to_char(r.minimum_value, 'FM999999999'::text) AS reward_minimum_value, to_char(b.created_at, 'HH12:MIam DD Mon YY'::text) AS created_at, to_char(b.confirmed_at, 'HH12:MIam DD Mon YY'::text) AS confirmed_at, to_char(b.value, 'FM999999999'::text) AS contribution_value, to_char((b.value * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))), 'FM999999999.00'::text) AS service_fee, u.email AS user_email, u.name AS user_name, b.payer_email, b.payment_method, COALESCE(b.address_street, u.address_street) AS street, COALESCE(b.address_complement, u.address_complement) AS complement, COALESCE(b.address_number, u.address_number) AS address_number, COALESCE(b.address_neighborhood, u.address_neighborhood) AS neighborhood, COALESCE(b.address_city, u.address_city) AS city, COALESCE(b.address_state, u.address_state) AS state, COALESCE(b.address_zip_code, u.address_zip_code) AS zip_code, b.anonymous, b.short_note FROM ((contributions b JOIN users u ON ((u.id = b.user_id))) LEFT JOIN rewards r ON ((r.id = b.reward_id))) WHERE ((b.state)::text = 'confirmed'::text) ORDER BY b.confirmed_at, b.id;
-
-
---
 -- Name: contributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -751,6 +563,33 @@ ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
+-- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matches (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    user_id integer,
+    starts_at date NOT NULL,
+    finishes_at date NOT NULL,
+    value_unit numeric NOT NULL,
+    value numeric,
+    completed boolean DEFAULT false NOT NULL,
+    payment_id character varying(255),
+    payment_choice text,
+    payment_method text,
+    payment_token text,
+    payment_service_fee numeric DEFAULT 0.0,
+    payment_service_fee_paid_by_user boolean DEFAULT true,
+    state character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    key character varying(255),
+    confirmed_at timestamp without time zone
+);
+
+
+--
 -- Name: matches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -767,6 +606,19 @@ CREATE SEQUENCE matches_id_seq
 --
 
 ALTER SEQUENCE matches_id_seq OWNED BY matches.id;
+
+
+--
+-- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE matchings (
+    id integer NOT NULL,
+    match_id integer,
+    contribution_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
 
 
 --
@@ -1072,30 +924,6 @@ ALTER SEQUENCE project_faqs_id_seq OWNED BY project_faqs.id;
 
 
 --
--- Name: project_totals; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW project_totals AS
-    SELECT contributions.project_id, sum(contributions.value) AS pledged, ((sum(contributions.value) / projects.goal) * (100)::numeric) AS progress, sum(contributions_fees.payment_service_fee) AS total_payment_service_fee, count(*) AS total_contributions, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, (sum(contributions_fees.net_payment) - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount FROM ((contributions JOIN projects ON ((contributions.project_id = projects.id))) JOIN contributions_fees ON ((contributions_fees.id = contributions.id))) WHERE ((contributions.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('refunded'::character varying)::text, ('requested_refund'::character varying)::text])) GROUP BY contributions.project_id, projects.goal;
-
-
---
--- Name: project_financials; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW project_financials AS
-    WITH platform_fee_percentage AS (SELECT (c.value)::numeric AS total, ((1)::numeric - (c.value)::numeric) AS complement FROM configurations c WHERE (c.name = 'platform_fee'::text)), platform_base_url AS (SELECT c.value FROM configurations c WHERE (c.name = 'base_url'::text)) SELECT p.id AS project_id, p.name, u.moip_login AS moip, p.goal, pt.pledged AS reached, pt.total_payment_service_fee AS moip_tax, pt.platform_fee, pt.net_amount AS repass_value, to_char(expires_at(p.*), 'dd/mm/yyyy'::text) AS expires_at, ((platform_base_url.value || '/admin/reports/contribution_reports.csv?project_id='::text) || p.id) AS contribution_report, p.state FROM ((((projects p JOIN users u ON ((u.id = p.user_id))) JOIN project_totals pt ON ((pt.project_id = p.id))) CROSS JOIN platform_fee_percentage cp) CROSS JOIN platform_base_url);
-
-
---
--- Name: project_financials_by_services; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW project_financials_by_services AS
-    SELECT contributions.project_id, contributions.payment_method, (contributions_fees.net_payment - (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text)))) AS net_amount, (sum(contributions.value) * (SELECT (configurations.value)::numeric AS value FROM configurations WHERE (configurations.name = 'platform_fee'::text))) AS platform_fee, sum(contributions.payment_service_fee) AS payment_service_fee, count(*) AS total_contributions FROM ((contributions JOIN projects ON ((contributions.project_id = projects.id))) JOIN contributions_fees ON ((contributions.id = contributions_fees.id))) WHERE ((contributions.state)::text = 'confirmed'::text) GROUP BY contributions.project_id, contributions.payment_method, contributions_fees.net_payment HAVING (contributions.payment_method IS NOT NULL);
-
-
---
 -- Name: projects_for_home; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -1128,6 +956,28 @@ ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
 
 CREATE VIEW recommendations AS
     SELECT recommendations.user_id, recommendations.project_id, (sum(recommendations.count))::bigint AS count FROM (SELECT b.user_id, recommendations.id AS project_id, count(DISTINCT recommenders.user_id) AS count FROM ((((contributions b JOIN projects p ON ((p.id = b.project_id))) JOIN contributions backers_same_projects ON ((p.id = backers_same_projects.project_id))) JOIN contributions recommenders ON ((recommenders.user_id = backers_same_projects.user_id))) JOIN projects recommendations ON ((recommendations.id = recommenders.project_id))) WHERE ((((((((b.state)::text = 'confirmed'::text) AND ((backers_same_projects.state)::text = 'confirmed'::text)) AND ((recommenders.state)::text = 'confirmed'::text)) AND (b.user_id <> backers_same_projects.user_id)) AND (recommendations.id <> b.project_id)) AND ((recommendations.state)::text = 'online'::text)) AND (NOT (EXISTS (SELECT true AS bool FROM contributions b2 WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = b.user_id)) AND (b2.project_id = recommendations.id)))))) GROUP BY b.user_id, recommendations.id UNION SELECT b.user_id, recommendations.id AS project_id, 0 AS count FROM ((contributions b JOIN projects p ON ((b.project_id = p.id))) JOIN projects recommendations ON ((recommendations.category_id = p.category_id))) WHERE (((b.state)::text = 'confirmed'::text) AND ((recommendations.state)::text = 'online'::text))) recommendations WHERE (NOT (EXISTS (SELECT true AS bool FROM contributions b2 WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = recommendations.user_id)) AND (b2.project_id = recommendations.project_id))))) GROUP BY recommendations.user_id, recommendations.project_id ORDER BY (sum(recommendations.count))::bigint DESC;
+
+
+--
+-- Name: rewards; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rewards (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    minimum_value numeric NOT NULL,
+    maximum_contributions integer,
+    description text NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    reindex_versions timestamp without time zone,
+    row_order integer,
+    days_to_delivery integer,
+    soon boolean DEFAULT false,
+    title character varying(255) DEFAULT ''::character varying NOT NULL,
+    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0)),
+    CONSTRAINT rewards_minimum_value_positive CHECK ((minimum_value >= (0)::numeric))
+);
 
 
 --
@@ -1222,6 +1072,61 @@ CREATE SEQUENCE states_id_seq
 --
 
 ALTER SEQUENCE states_id_seq OWNED BY states.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email text,
+    name text,
+    nickname text,
+    bio text,
+    image_url text,
+    newsletter boolean DEFAULT false,
+    project_updates boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    admin boolean DEFAULT false,
+    full_name text,
+    address_street text,
+    address_number text,
+    address_complement text,
+    address_neighborhood text,
+    address_city text,
+    address_state text,
+    address_zip_code text,
+    phone_number text,
+    locale text DEFAULT 'pt'::text NOT NULL,
+    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    twitter_url character varying(255),
+    facebook_url character varying(255),
+    other_url character varying(255),
+    uploaded_image text,
+    moip_login character varying(255),
+    state_inscription character varying(255),
+    profile_type character varying(255),
+    linkedin_url character varying(255),
+    confirmation_token character varying(255),
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying(255),
+    new_project boolean DEFAULT false,
+    latitude double precision,
+    longitude double precision,
+    completeness_progress integer DEFAULT 0,
+    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
+);
 
 
 --
@@ -1389,7 +1294,7 @@ ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
 --
 
 CREATE VIEW user_totals AS
-    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) GROUP BY b.user_id;
+    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[])) GROUP BY b.user_id;
 
 
 --
@@ -1499,13 +1404,6 @@ ALTER TABLE ONLY channels_subscribers ALTER COLUMN id SET DEFAULT nextval('chann
 --
 
 ALTER TABLE ONLY company_contacts ALTER COLUMN id SET DEFAULT nextval('company_contacts_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY configurations ALTER COLUMN id SET DEFAULT nextval('configurations_id_seq'::regclass);
 
 
 --
@@ -1740,14 +1638,6 @@ ALTER TABLE ONLY channels_subscribers
 
 ALTER TABLE ONLY company_contacts
     ADD CONSTRAINT company_contacts_pkey PRIMARY KEY (id);
-
-
---
--- Name: configurations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY configurations
-    ADD CONSTRAINT configurations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2178,13 +2068,6 @@ CREATE INDEX index_channels_projects_on_project_id ON channels_projects USING bt
 --
 
 CREATE UNIQUE INDEX index_channels_subscribers_on_user_id_and_channel_id ON channels_subscribers USING btree (user_id, channel_id);
-
-
---
--- Name: index_configurations_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_configurations_on_name ON configurations USING btree (name);
 
 
 --
@@ -3254,4 +3137,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140527200930');
 INSERT INTO schema_migrations (version) VALUES ('20140530224700');
 
 INSERT INTO schema_migrations (version) VALUES ('20140530225038');
+
+INSERT INTO schema_migrations (version) VALUES ('20140612230821');
 

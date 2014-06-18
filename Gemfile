@@ -5,6 +5,7 @@ ruby '2.1.1'
 gem 'rails',    '4.1.1'
 
 gem 'rails-observers', '~> 0.1.2'
+gem 'active_model_serializers'
 
 gem 'sidekiq',  '~> 2.17.0'
 gem 'sinatra', '~> 1.4.3', require: false # required by sidekiq web interface mounted on /sidekiq
@@ -70,6 +71,8 @@ gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'video_info', '~> 2.0.2'
 gem 'geocoder'
+# Feature branch still to be merged by original gem author
+gem 'as_csv', require: 'as_csv', github: 'Irio/as_csv', branch: 'localization-of-headers'
 
 # Payment
 gem 'httpclient', '>= 2.2.5'
@@ -105,12 +108,12 @@ group :development do
   gem 'quiet_assets'
 end
 
-group :test, :development do
-  gem 'minitest'
-  gem 'rspec-rails', '~> 2.14.2'
-  gem 'jasmine-rails', '~> 0.4.6'
-  gem 'pry'
+group :development, :test do
   gem 'awesome_print'
+  gem 'dotenv-rails'
+  gem 'minitest'
+  gem 'pry'
+  gem 'rspec-rails', '~> 2.14.2'
 end
 
 group :test do
@@ -120,7 +123,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
-  gem 'capybara',   '~> 2.2.1'
+  gem 'capybara', '~> 2.2.1'
   gem 'coveralls', require: false
   gem 'capybara-webkit'
 end

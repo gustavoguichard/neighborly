@@ -48,7 +48,7 @@ describe Notification do
         template_name: notification.template_name,
         user: notification.user,
         locale: notification.user.locale,
-        origin_email: Configuration['email_contact'],
+        origin_email: Configuration[:email_contact],
         origin_name: Configuration[:company_name]
       }).and_return(notification)
       notification.should_receive(:deliver)

@@ -8,18 +8,12 @@ describe ProjectObserver do
   subject{ contribution }
 
   before do
-    Configuration[:support_forum] = 'http://support.com'
-    Configuration[:email_projects] = 'bar@foo.com'
-    Configuration[:email_contact] = 'foo@foo.com'
-    Configuration[:facebook_url] = 'http://facebook.com/foo'
-    Configuration[:blog_url] = 'http://blog.com/foo'
-    Configuration[:company_name] = 'Neighbor.ly'
     Notification.unstub(:notify)
     Notification.unstub(:notify_once)
   end
 
   describe 'after_create' do
-    let(:user) { create(:user, email: ::Configuration[:email_projects])}
+    let(:user) { create(:user, email: ::Configuration[:email_projects].dup)}
     before do
       ProjectObserver.any_instance.should_receive(:after_create).and_call_original
       user
@@ -244,11 +238,8 @@ describe ProjectObserver do
 
   describe '#notify_admin_that_project_reached_deadline' do
     let(:project){ create(:project, goal: 30, online_days: -7, state: 'waiting_funds') }
-    let(:user) { create(:user, email: 'foo@foo.com')}
+    let!(:user) { create(:user, email: Configuration[:email_payments].dup)}
     before do
-      Configuration[:email_payments] = 'foo@foo.com'
-      Configuration[:email_system] = 'foo2@foo.com'
-      user
       project.stub(:reached_goal?).and_return(true)
       project.stub(:in_time_to_wait?).and_return(false)
       project.finish

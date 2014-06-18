@@ -24,6 +24,7 @@ else
 end
 
 system 'cp config/database.yml.example config/database.yml'
+system 'cp .env.example .env'
 system 'bundle install'
 system "bundle exec rake #{db_init_tasks}"
 

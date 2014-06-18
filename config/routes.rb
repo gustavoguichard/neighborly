@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Neighborly::Application.routes.draw do
-  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
-
   devise_for :users, path: '',
     path_names:  {
       sign_in:  :login,

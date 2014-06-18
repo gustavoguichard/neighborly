@@ -46,28 +46,6 @@ def generate_contribution(project, fields: {}, reward: true)
   c
 end
 
-puts 'Creating Configuration entries...'
-
-  {
-    #secure_review_host: nil,
-    #uservoice_key: nil,
-    #mailchimp_api_key: nil,
-    #mailchimp_list_id: nil,
-    #mailchimp_url: nil,
-    #mailchimp_headline_list_url: nil,
-    #mandrill_user_name: nil,
-    #mandrill: nil,
-    #aws_bucket: nil,
-    #aws_access_key: nil,
-    #aws_secret_key: nil,
-  }.each do |name, value|
-     Configuration[name] = value
-  end
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-
 puts 'Setting image for admin user...'
 
   u = User.find_by(admin: true)

@@ -1,48 +1,42 @@
 require 'spec_helper'
 
 describe ::Configuration do
-  before do
-    @config = FactoryGirl.build(:configuration, name: 'a_config', value: 'a_value')
-  end
+  before { ENV.stub(:[]).with('SOME_CONFIG').and_return('some_value') }
 
-  it { should validate_presence_of :name }
-
-  it "should be valid from factory" do
-    expect(@config).to be_valid
-  end
-
-  context "#get" do
-    before do
-      @config.save
-      FactoryGirl.create(:configuration, name: 'other_config', value: 'another_value')
-    end
-
-    it "should get config" do
-      expect(described_class[:a_config]).to eql('a_value')
-    end
-
-    it "should return nil when not found" do
-      expect(described_class[:not_found_config]).to be_nil
-    end
-
-    it "should return array" do
-      expect(
-        described_class[:a_config, :other_config]
-      ).to eql(['a_value', 'another_value'])
-    end
-  end
-
-  describe "#fetch" do
-    context "with existing key" do
-      before { @config.save }
-
-      it "should return the predefined value" do
-        expect(described_class.fetch(:a_config)).to eql('a_value')
+  context '.get' do
+    context 'with existing key' do
+      it 'gets the config' do
+        expect(described_class[:some_config]).to eql('some_value')
       end
     end
 
-    context "with undefined key" do
-      it "should raise exception" do
+    context 'with undefined key' do
+      before { ENV.stub(:[]).with('NOT_FOUND_CONFIG').and_return(nil) }
+
+      it 'returns nil' do
+        expect(described_class[:not_found_config]).to be_nil
+      end
+    end
+  end
+
+  context '.set' do
+    it 'sets the config' do
+      expect(ENV).to receive(:[]=).with('NOT_FOUND_CONFIG', 'the_new_value')
+      described_class[:not_found_config] = 'the_new_value'
+    end
+  end
+
+  describe '.fetch' do
+    context 'with existing key' do
+      it 'returns the predefined value' do
+        expect(described_class.fetch(:some_config)).to eql('some_value')
+      end
+    end
+
+    context 'with undefined key' do
+      before { ENV.stub(:[]).with('NOT_FOUND_CONFIG').and_return(nil) }
+
+      it 'raises exception' do
         expect {
           described_class.fetch(:not_found_config)
         }.to raise_error
