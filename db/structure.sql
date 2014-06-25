@@ -215,8 +215,41 @@ CREATE TABLE projects (
 CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     LANGUAGE sql
     AS $_$
-         SELECT ((($1.online_date AT TIME ZONE 'US/Central' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'US/Central')
+         SELECT ((($1.online_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
         $_$;
+
+
+--
+-- Name: api_access_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_access_tokens (
+    id integer NOT NULL,
+    code character varying(255) NOT NULL,
+    expired boolean DEFAULT false NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: api_access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE api_access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: api_access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE api_access_tokens_id_seq OWNED BY api_access_tokens.id;
 
 
 --
@@ -1354,6 +1387,13 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY api_access_tokens ALTER COLUMN id SET DEFAULT nextval('api_access_tokens_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY authorizations ALTER COLUMN id SET DEFAULT nextval('authorizations_id_seq'::regclass);
 
 
@@ -1558,6 +1598,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: api_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_access_tokens
+    ADD CONSTRAINT api_access_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -1833,6 +1881,13 @@ ALTER TABLE ONLY versions
 
 
 --
+-- Name: fk__api_access_tokens_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__api_access_tokens_user_id ON api_access_tokens USING btree (user_id);
+
+
+--
 -- Name: fk__authorizations_oauth_provider_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1998,6 +2053,20 @@ CREATE INDEX fk__taggings_project_id ON taggings USING btree (project_id);
 --
 
 CREATE INDEX fk__taggings_tag_id ON taggings USING btree (tag_id);
+
+
+--
+-- Name: index_api_access_tokens_on_expired; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_api_access_tokens_on_expired ON api_access_tokens USING btree (expired);
+
+
+--
+-- Name: index_api_access_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_api_access_tokens_on_user_id ON api_access_tokens USING btree (user_id);
 
 
 --
@@ -2358,6 +2427,14 @@ ALTER TABLE ONLY contributions
 
 ALTER TABLE ONLY contributions
     ADD CONSTRAINT contributions_user_id_reference FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_api_access_tokens_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_access_tokens
+    ADD CONSTRAINT fk_api_access_tokens_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3139,4 +3216,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140530224700');
 INSERT INTO schema_migrations (version) VALUES ('20140530225038');
 
 INSERT INTO schema_migrations (version) VALUES ('20140612230821');
+
+INSERT INTO schema_migrations (version) VALUES ('20140626141415');
 
