@@ -90,7 +90,7 @@ A Rails Engine that integrate Neighbor.ly to Bank Account (ACH) on Balanced Paym
 ## Credits
 
 Originally forked from [Catarse](https://github.com/catarse/catarse).
-Adapted by [devton](https://github.com/devton), [josemarluedke](https://github.com/josemarluedke), and [luminopolis](https://github.com/luminopolis). Made possible by support from hundreds of code contributors, [financial support](http://www.knightfoundation.org/press-room/press-release/neighborly-expands-crowdfunding-service-civic-proj/) from Knight Foundation and Sunlight Foundation, plus lots of love & bbq sauce in downtown Kansas City, Missouri.
+Adapted by [devton](https://github.com/devton), [josemarluedke](https://github.com/josemarluedke), [irio](https://github.com/irio), and [luminopolis](https://github.com/luminopolis). Made possible by support from hundreds of code contributors, financial support from Knight Foundation and Sunlight Foundation, plus lots of love & bbq sauce in downtown Kansas City, Missouri.
 
 ## License
 
