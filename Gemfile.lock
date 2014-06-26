@@ -37,6 +37,14 @@ GIT
       rails (~> 4.0)
 
 GIT
+  remote: git://github.com/neighborly/neighborly-api.git
+  revision: 81f690beb49568a3a0c492090352cb48a15a9701
+  branch: master
+  specs:
+    neighborly-api (0.0.1)
+      rails (~> 4.0)
+
+GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
   revision: 13cada4af31f10dae4c74d2d722ad5b8ab6e397b
   branch: master
@@ -68,6 +76,20 @@ GIT
       faraday (= 0.8.9)
       faraday_middleware (= 0.9.0)
       rails (~> 4.0)
+
+GIT
+  remote: git://github.com/neighborly/neighborly-dashboard.git
+  revision: bbb5cfa076f63cf2760d715f59c3d50bb9a12104
+  branch: master
+  specs:
+    neighborly-dashboard (0.0.1)
+      bootstrap-sass
+      coffee-rails
+      ember-rails (~> 0.15.0)
+      emblem-rails (~> 0.2.1)
+      font-awesome-sass
+      rails (~> 4.0)
+      sass-rails
 
 GEM
   remote: https://rubygems.org/
@@ -109,6 +131,13 @@ GEM
     balanced (0.8.2)
       faraday (~> 0.8.6)
       faraday_middleware (~> 0.9.0)
+    barber (0.4.2)
+      ember-source
+      execjs
+      handlebars-source
+    barber-emblem (0.1.1)
+      barber (>= 0.4.1)
+      emblem-source
     bcrypt (3.1.7)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
@@ -117,6 +146,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
     browser (0.4.1)
     builder (3.2.2)
     capybara (2.2.1)
@@ -175,10 +206,27 @@ GEM
       request_store (~> 1.0.3)
     dropzonejs-rails (0.4.14)
       rails (> 3.1)
+    ember-data-source (1.0.0.beta.8)
+      ember-source
+    ember-rails (0.15.0)
+      active_model_serializers
+      barber (>= 0.4.1)
+      ember-data-source (>= 1.0.0.beta.5)
+      ember-source (>= 1.1.0)
+      execjs (>= 1.2)
+      handlebars-source (> 1.0.0)
+      jquery-rails (>= 1.0.17)
+      railties (>= 3.1)
+    ember-source (1.5.1.1)
+      handlebars-source (~> 1.0)
+    emblem-rails (0.2.1)
+      barber-emblem (~> 0.1.1)
+      ember-rails (>= 0.14.0)
+    emblem-source (0.3.16)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.32.1)
-    execjs (2.0.2)
+    execjs (2.2.0)
     ezcrypto (0.7.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -208,9 +256,12 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
+    font-awesome-sass (4.1.0)
+      sass (~> 3.2)
     formatador (0.2.4)
     geocoder (1.1.9)
     google-analytics-rails (0.0.5)
+    handlebars-source (1.3.0)
     has_permalink (0.1.6)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
@@ -506,9 +557,11 @@ DEPENDENCIES
   letter_opener
   minitest
   neighborly-admin!
+  neighborly-api!
   neighborly-balanced!
   neighborly-balanced-bankaccount!
   neighborly-balanced-creditcard!
+  neighborly-dashboard!
   newrelic_rpm (= 3.6.9.171)
   nprogress-rails
   omniauth

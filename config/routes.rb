@@ -24,6 +24,9 @@ Neighborly::Application.routes.draw do
   # Mountable engines
   constraints check_user_admin do
     mount Sidekiq::Web => '/sidekiq'
+
+    mount Neighborly::Api::Engine => '/api/', as: :neighborly_api
+    mount Neighborly::Dashboard::Engine => '/dashboard/', as: :neighborly_dashboard
   end
 
   mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
