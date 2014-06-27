@@ -14,21 +14,10 @@ en:
         already_joined: 'Already joined? %{link}.'
         sign_in: 'Sign in'
       hero:
-        title: 'Invest in the places and civic projects <strong>you</strong> care about.'
-        subtitle: "You're the solution you've been waiting for."
-      how-it-works:
-        one:
-          headline: 'For Companies'
-          text: 'Neighbor.ly is the best way to earn golden impressions while doing good in customer communities.'
-          button: 'Request a Demo'
-        two:
-          headline: 'For Communities'
-          text: "If you have civic projects in need of new funding sources, you've come to the right place."
-          button: 'Raise Money'
-        three:
-          headline: 'For Citizens'
-          text: 'Want to earn perks while enhancing cities? What you do matters. Welcome to the neighborhood.'
-          button: 'Find Projects'
+        title: 'Invest in the places you care about.'
+        subtitle_html: "Howdy, Neighbor! Exciting things happening here at Neighbor.ly. For two years, we've been developing a way that will make it easy and fun to <span>invest</span> in communities. Curious about what's next? Sign up below and be among the first to know."
+        email_placeholder: 'YOUR EMAIL'
+        submit: 'Submit'
       start-one:
         title: 'Have a community project in need of funding?'
         button: 'Start one in your area'
