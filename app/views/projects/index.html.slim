@@ -1,23 +1,29 @@
 - content_for :title, t('.title')
 
 .home-page
-  header.hero[data-image-url=image_path('home-hero.jpg')]
+  header.hero.center[data-image-url=image_path('home-hero.jpg')]
     .row
-      .small-12.medium-12.medium-centered.columns
-        h2.text-center = t('.hero.title').html_safe
-        #home-subtitle.row
-          .small-12.medium-10.medium-offset-1.columns
-            strong = t('.hero.subtitle_html')
-        #home-newsletter.row
-          .small-12.medium-8.medium-offset-2.columns
-            strong = t('.hero.email_label')
-            = form_tag Configuration['mailchimp_headline_list_url'], method: 'post', class: 'header-newsletter collapse' do
-              = email_field_tag 'mce-EMAIL', nil, name: 'EMAIL', placeholder: t('.hero.email_placeholder'), label: 'email', class: 'header-newsletter-input small-12 columns'
-              = submit_tag t('.hero.submit'), class: 'header-newsletter-submit button small-12 columns'
-    .row#first-title
-      .small-12.columns.text-center
-        = link_to '#first-title' do
-          i.scroll-down.icon-fa-chevron-down alt='Scroll down!'
+      .large-12.columns.large-centered
+        h2 = t('.hero.title').html_safe
+        h3 = t('.hero.subtitle')
+
+  section.how-it-works.white
+    .row
+      .large-4.medium-4.columns.one
+        h4 = t('.how-it-works.one.headline' )
+        p
+          = t('.how-it-works.one.text')
+          = link_to t('.how-it-works.one.button'), companies_contact_path, class: 'button'
+      .large-4.medium-4.columns.two
+        h4 = t('.how-it-works.two.headline' )
+        p
+          = t('.how-it-works.two.text')
+          = link_to t('.how-it-works.two.button'), start_path, class: 'button'
+      .large-4.medium-4.columns.three
+        h4 = t('.how-it-works.three.headline' )
+        p
+          = t('.how-it-works.three.text')
+          = link_to t('.how-it-works.three.button'), discover_path, class: 'button'
 
   section.projects
     .row
