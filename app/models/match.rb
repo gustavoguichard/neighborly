@@ -9,7 +9,7 @@ class Match < ActiveRecord::Base
   has_many :original_contributions, through: :matchings, source: :contribution
 
   validates :project, :user, presence: true
-  validates :value, numericality: { greater_than_or_equal_to: 1_000 }
+  validates :value, numericality: { greater_than_or_equal_to: 500 }
   validate :start_and_finish_dates
 
   scope :uncompleted, -> { where(completed: false) }
