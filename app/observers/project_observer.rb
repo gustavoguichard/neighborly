@@ -49,7 +49,7 @@ class ProjectObserver < ActiveRecord::Observer
   end
 
   def from_soon_to_online(project)
-    from_draft_to_online
+    from_draft_to_online(project)
   end
 
   def from_online_to_failed(project)
