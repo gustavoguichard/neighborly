@@ -8,6 +8,7 @@ describe Tag do
 
   describe 'associations' do
     it { should have_many :taggings }
+    it { should have_many :projects }
   end
 
   describe 'should save the name lowercase' do

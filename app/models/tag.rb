@@ -1,5 +1,7 @@
 class Tag < ActiveRecord::Base
   has_many :taggings, dependent: :destroy
+  has_many :projects, through: :taggings, counter_cache: true
+
   validates :name, presence: true, uniqueness: true
   delegate :display_name, to: :decorator
   before_save :lowercase_name
