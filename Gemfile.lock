@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: a3cbce98ba0a09713e322e8508f6fec8311839a3
+  revision: da4e577306c8e56a1caf1cac2fbea49003a1e720
   branch: master
   specs:
     neighborly-api (0.0.1)
@@ -79,7 +79,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: 846d6bfc3d415cad1b0005d655c82d69b40b13f8
+  revision: 44790ac1fa52317fab081b898bf41c578ae80106
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
