@@ -37,7 +37,7 @@ module Concerns
       if current_user && ::Configuration[:uservoice_subdomain] && ::Configuration[:uservoice_sso_key]
         Uservoice::Token.generate({
           guid: current_user.id, email: current_user.email, display_name: current_user.display_name,
-          url: user_url(current_user), avatar_url: current_user.display_image
+          url: main_app.user_url(current_user), avatar_url: current_user.display_image
         })
       end
     end
