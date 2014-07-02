@@ -6,13 +6,13 @@ footer
         = t('.quick_links')
 
       ul
-        li = link_to t('.discover'), discover_path
-        li = link_to t('.start_campaign'), start_path
-        li = link_to t('.about'), about_path
-        li = link_to t('.how_it_works'), how_it_works_path
-        li = link_to t('.faq'), faq_path
-        li = link_to t('.legal'), privacy_path
-        li = link_to t('.terms'), terms_path
+        li = link_to t('.discover'), main_app.discover_path
+        li = link_to t('.start_campaign'), main_app.start_path
+        li = link_to t('.about'), main_app.about_path
+        li = link_to t('.how_it_works'), main_app.how_it_works_path
+        li = link_to t('.faq'), main_app.faq_path
+        li = link_to t('.legal'), main_app.privacy_path
+        li = link_to t('.terms'), main_app.terms_path
         li = mail_to Configuration[:email_contact], t('.contact')
 
     .large-4.columns.now-acception-proposals
@@ -23,7 +23,7 @@ footer
       .row
         p.large-11.medium-5.small-11.columns
           = t('.now_accepting_proposals_text')
-          = link_to t('.we_want_to_help'), start_path, class: 'button'
+          = link_to t('.we_want_to_help'), main_app.start_path, class: 'button'
 
     .large-4.columns.stay-in-touch
       h6
@@ -38,6 +38,6 @@ footer
       = render 'layouts/newsletter'
   .row.subfooter.collapse
     .large-3.columns
-      = link_to Configuration[:company_name], root_url, title: Configuration[:company_name], class: 'logo'
+      = link_to Configuration[:company_name], main_app.root_url, title: Configuration[:company_name], class: 'logo'
     .large-9.columns
       p = t('.built_with_love').html_safe
