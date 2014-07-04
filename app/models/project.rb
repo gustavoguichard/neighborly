@@ -49,12 +49,18 @@ class Project < ActiveRecord::Base
   catarse_auto_html_for field: :terms, video_width: 720, video_height: 405
 
   pg_search_scope :pg_search, against: [
-      [:name, 'A'],
+      [:name,     'A'],
       [:headline, 'B'],
-      [:about, 'C']
+      [:about,    'C']
     ],
-    associated_against:  {user: [:name, :address_city ]},
-    using: {tsearch: {dictionary: "english"}},
+    associated_against: {
+      user: %i(name email address_city)
+    },
+    using: {
+      tsearch: {
+        dictionary: 'english'
+      }
+    },
     ignoring: :accents
 
   # Used to simplify a has_scope
