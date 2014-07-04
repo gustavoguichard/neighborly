@@ -6,7 +6,6 @@ class Channel < ActiveRecord::Base
   include Channel::SuccessContent
 
   has_many :subscriber_reports
-  has_many :channels_subscribers
   belongs_to :user
   has_many :channel_members
   has_and_belongs_to_many :projects, -> { order("online_date desc") }
