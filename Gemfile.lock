@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 427df8d2688637f2ce08f5ff7ebb1c225e49e968
+  revision: 883ad5af59f263c9ef4b473a5d4fbc7a9bc4c1f6
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -38,10 +38,13 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: da4e577306c8e56a1caf1cac2fbea49003a1e720
+  revision: d71678ce05ece9901e07ae437e9a494f42e120b5
   branch: master
   specs:
     neighborly-api (0.0.1)
+      active_model_serializers
+      has_scope
+      kaminari
       rails (~> 4.0)
 
 GIT
@@ -79,7 +82,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: 44790ac1fa52317fab081b898bf41c578ae80106
+  revision: 350fff1b1fb32bd21514b0f4479f2f8b32efaa71
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
@@ -155,7 +158,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.1.1.1)
+    bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
     browser (0.4.1)
     builder (3.2.2)
@@ -283,7 +286,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.32.1)
-    execjs (2.2.0)
+    execjs (2.2.1)
     ezcrypto (0.7.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -454,9 +457,9 @@ GEM
     ranked-model (0.4.0)
       activerecord (>= 3.1.12)
     redcarpet (3.1.1)
-    redis (3.0.7)
-    redis-namespace (1.4.1)
-      redis (~> 3.0.4)
+    redis (3.1.0)
+    redis-namespace (1.5.0)
+      redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
     remotipart (1.2.1)
     request_store (1.0.6)
