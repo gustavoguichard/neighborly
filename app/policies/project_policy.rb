@@ -51,4 +51,18 @@ class ProjectPolicy < ApplicationPolicy
     user.present? && ( record.last_channel.try(:user) == user ||
                        user.channels.include?(record.last_channel) )
   end
+
+  class Scope < Struct.new(:user, :scope)
+    def resolve
+      if user.admin?
+        scope
+      else
+        from_managed_channels = scope.joins(channels: :members).
+          where(channel_members: { user_id: user.id })
+        from_managed_directly = scope.where(user_id: user.id)
+        from_public_listing   = scope.visible
+        scope.from("(#{from_managed_channels.to_sql} UNION #{from_managed_directly.to_sql} UNION #{from_public_listing.to_sql}) as projects")
+      end
+    end
+  end
 end
