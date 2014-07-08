@@ -102,7 +102,7 @@ CREATE TABLE contributions (
     address_state text,
     address_phone_number text,
     payment_choice text,
-    payment_service_fee numeric DEFAULT 0,
+    payment_service_fee numeric DEFAULT 0 NOT NULL,
     state character varying(255),
     short_note text,
     referal_link text,
@@ -2753,7 +2753,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public, pg_catalog;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 
@@ -3218,4 +3218,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140530225038');
 INSERT INTO schema_migrations (version) VALUES ('20140612230821');
 
 INSERT INTO schema_migrations (version) VALUES ('20140626141415');
+
+INSERT INTO schema_migrations (version) VALUES ('20140708123838');
 
