@@ -70,6 +70,22 @@ describe ProjectPolicy do
     it_should_behave_like 'create permissions'
   end
 
+  permissions :destroy? do
+    it_should_behave_like 'create permissions'
+
+    context 'when it can be pushed to trash' do
+      it 'permits access' do
+        should permit(User.new(admin: true), Project.new(state: 'draft'))
+      end
+    end
+
+    context 'when it cannot be pushed to trash' do
+      it 'does not permit access' do
+        should_not permit(User.new(admin: true), Project.new(state: 'online'))
+      end
+    end
+  end
+
   permissions :show? do
     context 'when project is in draft' do
       let(:project_state) { 'draft' }
