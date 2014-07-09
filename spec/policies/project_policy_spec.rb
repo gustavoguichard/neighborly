@@ -176,3 +176,54 @@ describe ProjectPolicy do
     end
   end
 end
+
+shared_examples 'being a non admin user' do
+  it 'includes own draft projects' do
+    project = create(:project, state: :draft)
+    expect(subject.resolve).to_not include(project)
+  end
+
+  it 'includes lauched projects from other members' do
+    project = create(:project)
+    expect(subject.resolve).to include(project)
+  end
+
+  it 'excludes draft projects from other members' do
+    project = create(:project, state: :draft)
+    expect(subject.resolve).to_not include(project)
+  end
+
+  it 'excludes rejected projects from other members' do
+    project = create(:project, state: :rejected)
+    expect(subject.resolve).to_not include(project)
+  end
+end
+
+describe ProjectPolicy::Scope do
+  subject { described_class.new(user, Project.all) }
+
+  context 'for admin users' do
+    let(:user) { User.new(admin: true) }
+
+    it 'is equal to complete collection of resources' do
+      expect(subject.resolve).to eql(subject.scope)
+    end
+  end
+
+  context 'for channel members' do
+    let(:user) { create(:channel).user }
+
+    it 'includes draft projects in managed channels' do
+      project = create(:project, state: :draft, user: user)
+      expect(subject.resolve).to include(project)
+    end
+
+    it_behaves_like 'being a non admin user'
+  end
+
+  context 'for common users' do
+    let(:user) { create(:user) }
+
+    it_behaves_like 'being a non admin user'
+  end
+end
