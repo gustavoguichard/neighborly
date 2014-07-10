@@ -1,9 +1,9 @@
-.project-box
-  @media #{$medium}
-    margin-bottom: +emCalc(30px)
+$content-height: 195px
+$content-top-transition: -100px
 
-    .cover
-      height: +emCalc(178px) !important
+@media #{$medium}
+  .project-box
+    margin-bottom: +emCalc(30px)
 
     &:hover:not(.large)
       .description *
@@ -13,9 +13,10 @@
         -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
         -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
         transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        height: +emCalc(273px)
-        margin-top: +emCalc(-115px)
+        height: +emCalc($content-height - $content-top-transition)
+        margin-top: +emCalc($content-top-transition)
 
+.project-box
   height: +emCalc(335px)
   position: relative
   overflow: hidden
@@ -27,13 +28,14 @@
 
   &.large
     overflow: visible
-    height: auto
     .cover
       padding: 0
-      height: +emCalc(335px) !important
       overflow: hidden
+      position: absolute
+      height: auto
       img
-        width: +emCalc(500px)
+        width: auto
+        height: 100%
 
     .content
       padding-left: 0
@@ -42,8 +44,8 @@
 
     .name
       background: $primary-color
-      padding-top: +emCalc(40px)
-      padding-bottom: +emCalc(50px)
+      padding-top: +emCalc(20px)
+      padding-bottom: +emCalc(30px)
       color: white
 
     .description *
@@ -61,7 +63,7 @@
       width: 100%
 
   .content
-    height: +emCalc(158px)
+    height: +emCalc($content-height)
     @extend .white
     position: relative
 
