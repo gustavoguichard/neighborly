@@ -54,7 +54,8 @@ class Project < ActiveRecord::Base
       [:about,    'C']
     ],
     associated_against: {
-      user: %i(name email address_city)
+      user: %i(name email address_city),
+      category: %i(name_en name_pt)
     },
     using: {
       tsearch: {
