@@ -1,4 +1,6 @@
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project)]
+- large = defined?(large) && large
+
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project, large, try(:contribution), try(:columns))]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'
@@ -19,17 +21,17 @@
         = image_tag "coming_soon.#{I18n.locale}.png"
 
     .cover
-      = image_tag project.display_image(large_project?(project) || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
+      = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
-    .content[class=project_content_classes(large_project?(project))]
-      - if large_project?(project) || defined?(contribution) && !browser.mobile?
+    .content[class=project_content_classes(project, large, try(:contribution))]
+      - if large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
       .category
         i[title=project.category.to_s]
         span = project.category.to_s
 
-      - unless large_project?(project) || defined?(contribution) && !browser.mobile?
+      - unless large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
       .location
@@ -37,7 +39,7 @@
         | &nbsp;
         = project.location
 
-      - if (large_project?(project) || !browser.ie8? || defined?(contribution) && !browser.mobile?)
+      - if (large || !browser.ie8? || defined?(contribution) && !browser.mobile?)
         .description.hide-for-small[itemprop='description']
           span = truncate(project.headline, length: 140, separator: ' ')
           a
