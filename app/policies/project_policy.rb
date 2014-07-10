@@ -27,6 +27,22 @@ class ProjectPolicy < ApplicationPolicy
     update?
   end
 
+  def approve?
+    change_state? && record.can_approve?
+  end
+
+  def launch?
+    change_state? && record.can_launch?
+  end
+
+  def reject?
+    change_state? && record.can_reject?
+  end
+
+  def push_to_draft?
+    change_state? && record.can_push_to_draft?
+  end
+
   def permitted_attributes
     if user.present? && (!record.instance_of?(Project) || fully_editable?)
       { project: record.attribute_names.map(&:to_sym) + [:location, :tag_list] }
@@ -42,6 +58,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   protected
+
+  def change_state?
+    user.present? && (user.admin? || is_channel_admin?)
+  end
 
   def fully_editable?
     record.instance_of?(Project) && ( !record.persisted? ||

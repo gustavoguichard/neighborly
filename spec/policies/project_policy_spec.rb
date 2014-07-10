@@ -46,6 +46,43 @@ describe ProjectPolicy do
     end
   end
 
+  shared_examples_for 'change state permissions' do
+    let(:project_state) { 'draft' }
+
+    it 'should deny access if user is nil' do
+      should_not permit(nil, Project.new(state: project_state))
+    end
+
+    it 'should deny access if user is not project owner' do
+      should_not permit(User.new, Project.new(state: project_state,
+                                              user: User.new))
+    end
+
+    it 'should permit access if user is admin' do
+      admin = User.new
+      admin.admin = true
+      should permit(admin, Project.new(state: project_state,
+                                       user: User.new))
+    end
+
+    it 'should permit access if user is a channel member' do
+      channel = Channel.new
+      user = User.new
+      user.channels = [channel]
+      project = Project.new state: project_state
+      project.channels = [channel]
+      should permit(user, project)
+    end
+
+    it 'should permit access if user is the channel owner' do
+      user = User.new
+      channel = Channel.new(user: user)
+      project = Project.new state: project_state
+      project.channels = [channel]
+      should permit(user, project)
+    end
+  end
+
   permissions :new? do
     it_should_behave_like 'create permissions'
   end
@@ -68,6 +105,24 @@ describe ProjectPolicy do
 
   permissions :reports? do
     it_should_behave_like 'create permissions'
+  end
+
+  permissions :approve? do
+    it_should_behave_like 'change state permissions'
+  end
+
+  permissions :launch? do
+    it_should_behave_like 'change state permissions'
+  end
+
+  permissions :reject? do
+    it_should_behave_like 'change state permissions'
+  end
+
+  permissions :push_to_draft? do
+    let(:project_state) { 'online' }
+
+    it_should_behave_like 'change state permissions'
   end
 
   permissions :destroy? do
