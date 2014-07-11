@@ -222,10 +222,26 @@ describe ProjectPolicy do
       let(:project){ create(:project) }
       let(:policy){ described_class.new(user, project) }
 
-      (Project.attribute_names + ['location']).each do |field|
+      not_permited_params = [
+                              :online_date, :created_at, :updated_at, :about_html,
+                              :budget_html, :terms_html, :sent_to_analysis_at
+                             ]
+
+      permited_params = Project.attribute_names.map(&:to_sym) +
+              [:location, :tag_list] - not_permited_params
+
+
+      (not_permited_params).each do |field|
         context "when field is #{field}" do
-          subject{ policy.permitted?(field.to_sym) }
-          it{ should be_true }
+          subject { policy.permitted?(field) }
+          it { should_not be_true }
+        end
+      end
+
+      (permited_params).each do |field|
+        context "when field is #{field}" do
+          subject { policy.permitted?(field) }
+          it { should be_true }
         end
       end
     end
