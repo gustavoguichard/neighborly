@@ -38,13 +38,14 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: d71678ce05ece9901e07ae437e9a494f42e120b5
+  revision: e818ef9d337ebd45762dd26faf54548a983478f2
   branch: master
   specs:
     neighborly-api (0.0.1)
       active_model_serializers
       has_scope
       kaminari
+      pundit
       rails (~> 4.0)
 
 GIT
@@ -82,7 +83,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: 350fff1b1fb32bd21514b0f4479f2f8b32efaa71
+  revision: d9edc787ee83614bed3fd2f488e752f6b1d1259b
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
