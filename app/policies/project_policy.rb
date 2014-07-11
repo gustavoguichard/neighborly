@@ -45,7 +45,14 @@ class ProjectPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.present? && (!record.instance_of?(Project) || fully_editable?)
-      { project: record.attribute_names.map(&:to_sym) + [:location, :tag_list] }
+      {
+        project: record.attribute_names.map(&:to_sym) +
+                 [:location, :tag_list] -
+                 [
+                   :online_date, :created_at, :updated_at, :about_html,
+                   :budget_html, :terms_html, :sent_to_analysis_at
+                 ]
+      }
     else
       { project: [:about,         :video_url,            :uploaded_image,
                   :hero_image,    :headline,             :budget,
