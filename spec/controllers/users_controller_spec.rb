@@ -137,15 +137,44 @@ describe UsersController do
     context "when I'm loggedn" do
 
       context 'as normal request' do
-        before { get :edit, id: user }
-
-        its(:status){ should == 200 }
+        its(:status) do
+          get :edit, id: user
+          should == 200
+        end
 
         it 'should assigns the correct resource' do
+          get :edit, id: user
           expect(assigns(:user)).to eq user
         end
 
-        it { should render_template(:edit) }
+        it do
+          get :edit, id: user
+          should render_template(:edit)
+        end
+
+        context 'when payment engines requires configuration' do
+          it 'assigns variable reflecting requirement' do
+            engines = [
+              double(account_path: '/myengine/configuration'),
+              double(account_path: nil)
+            ]
+            allow(PaymentEngine).to receive(:engines).and_return(engines)
+            get :edit, id: user
+            expect(assigns(:has_payment_configuration)).to be_true
+          end
+        end
+
+        context 'when payment engines don\'t require configuration' do
+          it 'assigns variable reflecting requirement' do
+            engines = [
+              double(account_path: false),
+              double(account_path: nil)
+            ]
+            allow(PaymentEngine).to receive(:engines).and_return(engines)
+            get :edit, id: user
+            expect(assigns(:has_payment_configuration)).to be_false
+          end
+        end
       end
 
       context 'as xhr request' do
