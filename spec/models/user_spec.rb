@@ -58,6 +58,21 @@ describe User do
     end
   end
 
+  describe '#pg_search' do
+    let(:user) { create(:user, name: 'foo') }
+    context 'when user exists' do
+      it 'returns the user ignoring accents' do
+        expect(
+          [described_class.pg_search('foo'), described_class.pg_search('fóõ')]
+        ).to eq [[user], [user]]
+      end
+    end
+    context 'when user is not found' do
+      it 'returns a empty array' do
+        expect(described_class.pg_search('lorem')).to eq []
+      end
+    end
+  end
 
   describe ".who_contributed_project" do
     subject{ User.who_contributed_project(successful_project.id) }

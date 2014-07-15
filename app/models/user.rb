@@ -2,8 +2,9 @@
 require 'state_machine'
 
 class User < ActiveRecord::Base
-  include User::Completeness
-  include Shared::LocationHandler
+  include User::Completeness,
+          Shared::LocationHandler,
+          PgSearch
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   # :validatable
@@ -45,6 +46,23 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :channel
   accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
+
+  pg_search_scope :pg_search, against: [
+      [:name,  'A'],
+      [:email, 'B'],
+      [:bio,   'C'],
+      [:id,    'D']
+    ],
+    associated_against: {
+      organization: %i(name),
+      channel:      %i(name),
+    },
+    using: {
+      tsearch: {
+        dictionary: 'english'
+      }
+    },
+    ignoring: :accents
 
   scope :who_contributed_project, ->(project_id) {
     where("id IN (SELECT user_id FROM contributions WHERE contributions.state = 'confirmed' AND project_id = ?)", project_id)
