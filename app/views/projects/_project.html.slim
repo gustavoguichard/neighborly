@@ -20,8 +20,9 @@
       .status-image
         = image_tag "coming_soon.#{I18n.locale}.png"
 
-    .cover
-      = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
+    .row
+      .cover.small-12.columns
+        = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
     .content[class=project_content_classes(project, large, try(:contribution))]
       - if large || defined?(contribution) && !browser.mobile?
