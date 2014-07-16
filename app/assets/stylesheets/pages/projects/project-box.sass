@@ -1,3 +1,4 @@
+$project-box-height: 335px
 $content-height: 195px
 $content-top-transition: -100px
 
@@ -13,10 +14,9 @@ $content-top-transition: -100px
 
   &.large
     overflow: visible
-    .cover
-      img
-        width: 100%
-        height: auto
+    .cover img
+      width: 100%
+      height: auto
 
     .content
       padding-left: 0
@@ -36,9 +36,8 @@ $content-top-transition: -100px
     top: -1px
     left: +emCalc(14px)
 
-  .cover
-    img
-      width: 100%
+  .cover img
+    width: 100%
 
   .content
     height: +emCalc($content-height)
@@ -169,11 +168,26 @@ body.embed
       position: fixed
       bottom: 5px
 
+@media #{$small}
+  .project-box
+    height: +emCalc($project-box-height)
+    margin-bottom: +emCalc(30px)
+    &.large
+      .cover
+        height: auto
+        overflow: hidden
+        position: absolute
+        img
+          height: +emCalc($project-box-height)
+          width: auto
+      .content
+        height: 100%
+    .cover
+      height: +emCalc(140px)
+      overflow: hidden
+
 @media #{$medium}
   .project-box
-    height: +emCalc(335px)
-    margin-bottom: +emCalc(30px)
-
     &:hover:not(.large)
       .description *
         +single-transition(opacity, 1s)
@@ -185,15 +199,8 @@ body.embed
         height: +emCalc($content-height - $content-top-transition)
         margin-top: +emCalc($content-top-transition)
     &.large
-      .cover
-        height: auto
-        overflow: hidden
-        position: absolute
-        img
-          height: 100%
-          width: auto
+      .cover img
+        height: 100%
+        width: auto
       .content
-        height: +emCalc(335px)
-    .cover
-      height: +emCalc(140px)
-      overflow: hidden
+        height: +emCalc($project-box-height)
