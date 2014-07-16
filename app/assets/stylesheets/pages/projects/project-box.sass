@@ -1,21 +1,6 @@
 $content-height: 195px
 $content-top-transition: -100px
 
-@media #{$medium}
-  .project-box
-    margin-bottom: +emCalc(30px)
-
-    &:hover:not(.large)
-      .description *
-        +single-transition(opacity, 1s)
-        opacity: 1
-      .content
-        -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        height: +emCalc($content-height - $content-top-transition)
-        margin-top: +emCalc($content-top-transition)
-
 .project-box
   height: +emCalc(335px)
   margin-bottom: +emCalc(15px)
@@ -30,17 +15,13 @@ $content-top-transition: -100px
   &.large
     overflow: visible
     .cover
-      overflow: hidden
-      position: absolute
-      height: auto
       img
-        width: auto
-        height: 100%
+        width: 100%
+        height: auto
 
     .content
       padding-left: 0
       padding-right: 0
-      height: +emCalc(335px)
 
     .name
       background: $primary-color
@@ -190,3 +171,29 @@ body.embed
       margin-left: -180px
       position: fixed
       bottom: 5px
+
+@media #{$medium}
+  .project-box
+    margin-bottom: +emCalc(30px)
+
+    &:hover:not(.large)
+      .description *
+        +single-transition(opacity, 1s)
+        opacity: 1
+      .content
+        -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        height: +emCalc($content-height - $content-top-transition)
+        margin-top: +emCalc($content-top-transition)
+
+    &.large
+      .cover
+        height: auto
+        overflow: hidden
+        position: absolute
+        img
+          height: 100%
+          width: auto
+      .content
+        height: +emCalc(335px)
