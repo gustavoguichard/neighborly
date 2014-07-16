@@ -2,7 +2,6 @@ $content-height: 195px
 $content-top-transition: -100px
 
 .project-box
-  height: +emCalc(335px)
   margin-bottom: +emCalc(15px)
   position: relative
   overflow: hidden
@@ -38,8 +37,6 @@ $content-top-transition: -100px
     left: +emCalc(14px)
 
   .cover
-    height: +emCalc(140px)
-    overflow: hidden
     img
       width: 100%
 
@@ -174,6 +171,7 @@ body.embed
 
 @media #{$medium}
   .project-box
+    height: +emCalc(335px)
     margin-bottom: +emCalc(30px)
 
     &:hover:not(.large)
@@ -186,7 +184,6 @@ body.embed
         transition: height 0.4s ease-out, margin-top 0.4s ease-out
         height: +emCalc($content-height - $content-top-transition)
         margin-top: +emCalc($content-top-transition)
-
     &.large
       .cover
         height: auto
@@ -197,3 +194,6 @@ body.embed
           width: auto
       .content
         height: +emCalc(335px)
+    .cover
+      height: +emCalc(140px)
+      overflow: hidden
