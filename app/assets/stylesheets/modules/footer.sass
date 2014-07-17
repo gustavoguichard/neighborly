@@ -9,12 +9,12 @@ footer
     color: white
     text-transform: uppercase
     font-weight: 400
+    display: inline
     [class^="icon-"], [class*=" icon-"]
       color: $footer-icon-color
       font-size: 150%
       padding-right: +emCalc(10px)
       vertical-align: middle
-
 
   .quick-links, .now-acception-proposals, .stay-in-touch
     padding-left: +emCalc(60px)
@@ -24,6 +24,8 @@ footer
       margin-left: +emCalc(-40px)
 
   .now-acception-proposals
+    [class^="icon"]
+      margin-right: +emCalc(4px)
     p
       font-size: 90%
       .button
@@ -43,6 +45,8 @@ footer
       margin-top: +emCalc(20px)
       h6
         margin-left: 0
+        margin-bottom: +emCalc(10px)
+        display: block
 
       .newsletter-input
         float: left
