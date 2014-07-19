@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 883ad5af59f263c9ef4b473a5d4fbc7a9bc4c1f6
+  revision: 21d1528bd8d121424862cf342f8441577b65e5a5
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: e818ef9d337ebd45762dd26faf54548a983478f2
+  revision: 984150d9dcd3765e60d9abb3c3bdb9c11e3e5e36
   branch: master
   specs:
     neighborly-api (0.0.1)
@@ -83,21 +83,12 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: d9edc787ee83614bed3fd2f488e752f6b1d1259b
+  revision: 117ab7c0c58b5ae19bd673c5332fd56120180139
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
       bootstrap-sass
       coffee-rails
-      ember-auth-module-action_redirectable-rails
-      ember-auth-module-auth_redirectable-rails
-      ember-auth-module-ember_data-rails
-      ember-auth-rails
-      ember-auth-request-jquery-rails
-      ember-auth-response-json-rails
-      ember-auth-session-cookie-rails
-      ember-auth-source (~> 9.0.7)
-      ember-auth-strategy-token-rails
       ember-rails (~> 0.15.0)
       emblem-rails (~> 0.2.1)
       font-awesome-sass
@@ -219,54 +210,6 @@ GEM
       request_store (~> 1.0.3)
     dropzonejs-rails (0.4.14)
       rails (> 3.1)
-    ember-auth-module-action_redirectable-rails (1.0.0)
-      ember-auth-module-action_redirectable-source
-      rails
-    ember-auth-module-action_redirectable-source (1.0.2)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
-    ember-auth-module-auth_redirectable-rails (1.0.0)
-      ember-auth-module-auth_redirectable-source
-      rails
-    ember-auth-module-auth_redirectable-source (1.0.3)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
-    ember-auth-module-ember_data-rails (1.0.0)
-      ember-auth-module-ember_data-source
-      rails
-    ember-auth-module-ember_data-source (1.0.2)
-      ember-auth-source (~> 9.0)
-      ember-data-source (>= 1.0.0.beta.1, < 2.0)
-      ember-source (~> 1.0)
-    ember-auth-rails (5.0.1)
-      ember-auth-source (>= 8.0.0)
-      rails
-    ember-auth-request-jquery-rails (1.0.0)
-      ember-auth-request-jquery-source
-      rails
-    ember-auth-request-jquery-source (1.0.3)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
-    ember-auth-response-json-rails (1.0.0)
-      ember-auth-response-json-source
-      rails
-    ember-auth-response-json-source (1.0.2)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
-    ember-auth-session-cookie-rails (1.0.0)
-      ember-auth-session-cookie-source
-      rails
-    ember-auth-session-cookie-source (1.0.1)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
-    ember-auth-source (9.0.7)
-      ember-source (>= 1.0.0.rc6.2)
-    ember-auth-strategy-token-rails (1.0.0)
-      ember-auth-strategy-token-source
-      rails
-    ember-auth-strategy-token-source (1.0.2)
-      ember-auth-source (~> 9.0)
-      ember-source (~> 1.0)
     ember-data-source (1.0.0.beta.8)
       ember-source
     ember-rails (0.15.0)
@@ -278,7 +221,7 @@ GEM
       handlebars-source (> 1.0.0)
       jquery-rails (>= 1.0.17)
       railties (>= 3.1)
-    ember-source (1.6.0.beta.5)
+    ember-source (1.6.0)
       handlebars-source (~> 1.0)
     emblem-rails (0.2.1)
       barber-emblem (~> 0.1.1)
