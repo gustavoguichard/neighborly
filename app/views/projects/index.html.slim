@@ -91,17 +91,6 @@
                 = t('words.see_more')
                 i.icon-et-right-circled
 
-      - if @projects_with_matches.any?
-        section.with_active_matches
-          .small-12.columns
-            h3
-              = link_to discover_path(filter: 'with_active_matches') do
-                i.icon-et-thumbs-up
-                = t('.with_active_matches')
-
-          - for project in @projects_with_matches
-            = render 'project', project: project
-
       section.start-one.hide-for-small
         .small-12.columns
           = link_to start_path do
