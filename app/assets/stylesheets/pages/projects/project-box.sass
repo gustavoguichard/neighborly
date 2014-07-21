@@ -188,14 +188,14 @@ body.embed
 
 @media #{$medium}
   .project-box
+    &:not(.large) a
+      display: inline-block
     &:hover:not(.large)
       .description *
-        +single-transition(opacity, 1s)
+        +single-transition(all, 1s)
         opacity: 1
       .content
-        -webkit-transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        -moz-transition: height 0.4s ease-out, margin-top 0.4s ease-out
-        transition: height 0.4s ease-out, margin-top 0.4s ease-out
+        +single-transition(all, 0.4s, ease-out)
         height: +emCalc($content-height - $content-top-transition)
         margin-top: +emCalc($content-top-transition)
     &.large
