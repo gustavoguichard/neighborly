@@ -28,6 +28,56 @@ describe Contribution do
     it{ should allow_value(20).for(:value) }
   end
 
+  describe '#pg_search' do
+    context 'using payment_method' do
+      let(:contribution) { create(:contribution, payment_method: 'balanced') }
+
+      context 'when contribution exists' do
+        it 'returns the contribution ignoring accents' do
+          expect(
+            [described_class.pg_search('balanced'), described_class.pg_search('bálançed')]
+          ).to eq [[contribution], [contribution]]
+        end
+      end
+
+      context 'when contribution is not found' do
+        it 'returns a empty array' do
+          expect(described_class.pg_search('lorem')).to eq []
+        end
+      end
+    end
+
+    context 'using user name' do
+      let(:contribution) do
+        create(:contribution, user: create(:user, name: 'Foo Bar User'))
+      end
+
+      it 'returns the contribution' do
+        expect(described_class.pg_search('Foo Bar User')).to eq [contribution]
+      end
+    end
+
+    context 'using user email' do
+      let(:contribution) do
+        create(:contribution, user: create(:user, email: 'foobar@contribution.com'))
+      end
+
+      it 'returns the contribution' do
+        expect(described_class.pg_search('foobar@contribution.com')).to eq [contribution]
+      end
+    end
+
+    context 'using project name' do
+      let(:contribution) do
+        create(:contribution, project: create(:project, name: 'Foo Bar Project', state: 'online'))
+      end
+
+      it 'returns the contribution' do
+        expect(described_class.pg_search('Foo Bar Project')).to eq [contribution]
+      end
+    end
+  end
+
   pending '.confirmed_today' do
     before do
       3.times { create(:contribution, state: 'confirmed', confirmed_at: 2.days.ago) }

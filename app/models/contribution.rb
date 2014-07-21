@@ -3,7 +3,8 @@ class Contribution < ActiveRecord::Base
           Shared::PaymentStateMachineHandler,
           Contribution::CustomValidators,
           Shared::Notifiable,
-          Shared::Payable
+          Shared::Payable,
+          PgSearch
 
   belongs_to :user
   belongs_to :project
@@ -24,6 +25,23 @@ class Contribution < ActiveRecord::Base
   scope :can_cancel,           -> { where("contributions.can_cancel") }
   # Contributions already refunded or with requested_refund should appear so that the user can see their status on the refunds list
   scope :can_refund,           ->{ where("contributions.can_refund") }
+
+  pg_search_scope :pg_search, against: [
+      [:key,            'A'],
+      [:value,          'B'],
+      [:payment_method, 'C'],
+      [:payment_id,     'D']
+    ],
+    associated_against: {
+      user:    %i(id name email),
+      project: %i(name)
+    },
+    using: {
+      tsearch: {
+        dictionary: 'english'
+      }
+    },
+    ignoring: :accents
 
   def matched_contributions
     self.class.where(matching_id: matchings)
