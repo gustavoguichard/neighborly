@@ -1,14 +1,13 @@
-- columns_n = if defined? columns then columns else 'large-3 medium-4' end
-- large = false unless defined?(large) && large == true
+- large = defined?(large) && large
 
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class="#{'soon' if project.soon?} #{'large large-9 medium-8 columns' if large} #{'large large-12 medium-12 columns' if defined?(contribution) && !browser.mobile?} #{columns_n + ' columns' unless large || defined?(contribution) && !browser.mobile?} #{project.category.to_s.parameterize if project.category}"]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project, large, try(:contribution), try(:columns))]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'
   - else
     - project_link = project_path(project)
 
-  = link_to project_link, target: ( defined?(embed_link) ? :blank : '' ) do
+  = link_to project_link, target: (defined?(embed_link) ? :blank : '') do
     - if project.expired?
       .status-image
         - if project.successful? && project.reached_goal?
@@ -21,10 +20,11 @@
       .status-image
         = image_tag "coming_soon.#{I18n.locale}.png"
 
-    .cover[class="#{'large-8 medium-8 columns' if large} #{'large-6 medium-6 columns' if defined?(contribution) && !browser.mobile?} "]
-      = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
+    .row
+      .cover.small-12.columns
+        = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
-    .content[class="#{'large-4 medium-4 columns' if large} #{'large-3 medium-3 columns' if defined?(contribution) && !browser.mobile?}"]
+    .content[class=project_content_classes(project, large, try(:contribution))]
       - if large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
