@@ -17,20 +17,20 @@
           strong Click to learn more!
           i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to How it works section'
 
-    #how-it-works
-      .row
-        .small-12.columns
-          p
-            | <strong>Neighbor.ly's</strong> mission is to connect communities with new funding sources, companies with new earned media opportunities, and citizens with the community projects they care about.
-      .row
-        .medium-6.columns
-          h3 For communities
-          p Local governaments, neighborhood organizations, and civic-minded nonprofits post projects in need of funding and engage the community to support their mission.
-          = link_to 'Get started', '#'
-        .medium-6.columns
-          h3 For citizens
-          p Individuals, companies, and foundations search for projects within their area and invest directly in the civic ameneties and community projects they care about most.
-          = link_to 'Find projects', '#'
+  #how-it-works.section-content
+    .row
+      .small-12.columns
+        p
+          | <strong>Neighbor.ly's</strong> mission is to connect communities with new funding sources, companies with new earned media opportunities, and citizens with the community projects they care about.
+    .row.text-center
+      .medium-6.columns
+        h3 For communities
+        p Local governaments, neighborhood organizations, and civic-minded nonprofits post projects in need of funding and engage the community to support their mission.
+        = link_to 'Get started', '#', class: 'button'
+      .medium-6.columns
+        h3 For citizens
+        p Individuals, companies, and foundations search for projects within their area and invest directly in the civic ameneties and community projects they care about most.
+        = link_to 'Find projects', '#', class: 'button'
 
   = hero_header_tag @presenter, { class: 'text-center' }, @presenter.pricing_image do
     .title-information
@@ -48,64 +48,61 @@
           strong Click to learn more!
           i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to Pricing section'
 
-    #pricing
-      #pricing-table.row.collapse
-        .large-4.columns
-          ul.pricing-table
-            li.title Single
-            li.price
-              span $0
-              | /month
-            li.description For community organizations
-            li.description 3% transaction fees
-            li.description Fund community projects
-            li.description = link_to 'Get started', '#'
-            li.bullet-item Run single project
-            li.bullet-item Run multiple projects
-            li.bullet-item Accept applications
-            li.bullet-item Project dashboard
-            li.bullet-item Challenge matches
-            li.bullet-item Branded partner page
-            li.bullet-item Branded campaigns
-            li.bullet-item White label website
-            li.cta-button = link_to 'Buy Now', '#', class: 'button secondary'
-        .suggested-plan.large-4.columns
-          ul.pricing-table
-            li.title Partner
-            li.price
-              span $299
-              | /month
-            li.description For nonprofits & CDFIs
-            li.description 0% transaction fees
-            li.description Fundraising managment
-            li.description = link_to 'Get started', '#'
-            li.bullet-item Run single project
-            li.bullet-item Run multiple projects
-            li.bullet-item Accept applications
-            li.bullet-item Project dashboard
-            li.bullet-item Challenge matches
-            li.bullet-item Branded partner page
-            li.bullet-item Branded campaigns
-            li.bullet-item White label website
-            li.cta-button = link_to 'Buy Now', '#', class: 'button secondary'
-        .large-4.columns
-          ul.pricing-table
-            li.title Enterprise
-            li.price
-              span Custom
-            li.description For enterprise customers
-            li.description 0% transaction fees
-            li.description Custom fundraising toolkit
-            li.description = link_to 'Get started', '#'
-            li.bullet-item Run single project
-            li.bullet-item Run multiple projects
-            li.bullet-item Accept applications
-            li.bullet-item Project dashboard
-            li.bullet-item Challenge matches
-            li.bullet-item Branded partner page
-            li.bullet-item Branded campaigns
-            li.bullet-item White label website
-            li.cta-button = link_to 'Buy Now', '#', class: 'button secondary'
+  #pricing.section-content
+    #pricing-table.row.collapse
+      .pricing-table.large-4.columns
+        ul
+          li.title Single
+          li.price.description
+            span $0
+            | /month
+          li.description For community organizations
+          li.description 3% transaction fees
+          li.description Fund community projects
+          li.cta-button.description = link_to 'Get started', '#', class: 'button secondary'
+          li.bullet-item Run single project
+          li.bullet-item Run multiple projects
+          li.bullet-item Accept applications
+          li.bullet-item Project dashboard
+          li.bullet-item Challenge matches
+          li.bullet-item Branded partner page
+          li.bullet-item Branded campaigns
+          li.bullet-item White label website
+      .pricing-table.suggested-plan.large-4.columns
+        ul
+          li.title Partner
+          li.price.description
+            span $299
+            | /month
+          li.description For nonprofits & CDFIs
+          li.description 0% transaction fees
+          li.description Fundraising managment
+          li.cta-button.description = link_to 'Get started', '#', class: 'button'
+          li.bullet-item Run single project
+          li.bullet-item Run multiple projects
+          li.bullet-item Accept applications
+          li.bullet-item Project dashboard
+          li.bullet-item Challenge matches
+          li.bullet-item Branded partner page
+          li.bullet-item Branded campaigns
+          li.bullet-item White label website
+      .pricing-table.large-4.columns
+        ul
+          li.title Enterprise
+          li.price.description
+            span Custom
+          li.description For enterprise customers
+          li.description 0% transaction fees
+          li.description Custom fundraising toolkit
+          li.cta-button.description = link_to 'Contact us', '#', class: 'button secondary'
+          li.bullet-item Run single project
+          li.bullet-item Run multiple projects
+          li.bullet-item Accept applications
+          li.bullet-item Project dashboard
+          li.bullet-item Challenge matches
+          li.bullet-item Branded partner page
+          li.bullet-item Branded campaigns
+          li.bullet-item White label website
 
   h2 Meet the team
   strong We help communities fund projects
