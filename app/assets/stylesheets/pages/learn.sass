@@ -53,6 +53,8 @@ $pricing-table-item-padding: 25px
     list-style-type: none
     padding: +emCalc($pricing-table-item-padding) 0
     text-align: center
+  li:not(.bullet-item)
+    background-color: $box-hover-background-color
   .title
     border-bottom: 1px solid $body-font-color
     font-size: 200%
@@ -66,4 +68,18 @@ $pricing-table-item-padding: 25px
     margin-bottom: 0
   .bullet-item
     padding: 15px 25px
+    position: relative
     text-align: left
+    &:first-child
+      padding-top: 30px
+    span
+      font-size: 125%
+      position: absolute
+      right: 25px
+      top: 7px
+    .included
+      color: green
+    .not-included
+      color: red
+  .price span
+    font-size: 150%

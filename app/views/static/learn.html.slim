@@ -60,14 +60,14 @@
           li.description 3% transaction fees
           li.description Fund community projects
           li.cta-button.description = link_to 'Get started', '#', class: 'button secondary'
-          li.bullet-item Run single project
-          li.bullet-item Run multiple projects
-          li.bullet-item Accept applications
-          li.bullet-item Project dashboard
-          li.bullet-item Challenge matches
-          li.bullet-item Branded partner page
-          li.bullet-item Branded campaigns
-          li.bullet-item White label website
+          = pricing_table_item 'Run single project',    true
+          = pricing_table_item 'Run multiple projects', false
+          = pricing_table_item 'Accept applications',   false
+          = pricing_table_item 'Project dashboard',     false
+          = pricing_table_item 'Challenge matches',     false
+          = pricing_table_item 'Branded partner page',  false
+          = pricing_table_item 'Branded campaigns',     false
+          = pricing_table_item 'White label website',   false
       .pricing-table.suggested-plan.large-4.columns
         ul
           li.title Partner
@@ -78,14 +78,14 @@
           li.description 0% transaction fees
           li.description Fundraising managment
           li.cta-button.description = link_to 'Get started', '#', class: 'button'
-          li.bullet-item Run single project
-          li.bullet-item Run multiple projects
-          li.bullet-item Accept applications
-          li.bullet-item Project dashboard
-          li.bullet-item Challenge matches
-          li.bullet-item Branded partner page
-          li.bullet-item Branded campaigns
-          li.bullet-item White label website
+          = pricing_table_item 'Run single project',    true
+          = pricing_table_item 'Run multiple projects', true
+          = pricing_table_item 'Accept applications',   true
+          = pricing_table_item 'Project dashboard',     true
+          = pricing_table_item 'Challenge matches',     true
+          = pricing_table_item 'Branded partner page',  true
+          = pricing_table_item 'Branded campaigns',     false
+          = pricing_table_item 'White label website',   false
       .pricing-table.large-4.columns
         ul
           li.title Enterprise
@@ -95,14 +95,14 @@
           li.description 0% transaction fees
           li.description Custom fundraising toolkit
           li.cta-button.description = link_to 'Contact us', '#', class: 'button secondary'
-          li.bullet-item Run single project
-          li.bullet-item Run multiple projects
-          li.bullet-item Accept applications
-          li.bullet-item Project dashboard
-          li.bullet-item Challenge matches
-          li.bullet-item Branded partner page
-          li.bullet-item Branded campaigns
-          li.bullet-item White label website
+          = pricing_table_item 'Run single project',    true
+          = pricing_table_item 'Run multiple projects', true
+          = pricing_table_item 'Accept applications',   true
+          = pricing_table_item 'Project dashboard',     true
+          = pricing_table_item 'Challenge matches',     true
+          = pricing_table_item 'Branded partner page',  true
+          = pricing_table_item 'Branded campaigns',     true
+          = pricing_table_item 'White label website',   true
 
   h2 Meet the team
   strong We help communities fund projects
