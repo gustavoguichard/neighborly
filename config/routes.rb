@@ -88,6 +88,7 @@ Neighborly::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
   get "/start",                 to: "projects#start",             as: :start
+  get '/learn',                 to: 'static#learn',               as: :learn
 
   # Only accessible on development
   if Rails.env.development?

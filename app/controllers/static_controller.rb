@@ -13,6 +13,10 @@ class StaticController < ApplicationController
   def start; end
   def faq; end
 
+  def learn
+    @presenter = LearnPagePresenter.new
+  end
+
   def thank_you
     contribution = Contribution.find session[:thank_you_contribution_id]
     redirect_to [contribution.project, contribution]

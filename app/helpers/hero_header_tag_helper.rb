@@ -1,7 +1,8 @@
 module HeroHeaderTagHelper
-  def hero_header_tag(object, options = {class: nil}, &block)
+  def hero_header_tag(object, options = {}, image = nil, &block)
+    image ||= object.hero_image_url(:blur) || 'no-image'
     content_tag :header, capture(&block),
-      class: [:hero, options[:class], "#{'no-image' unless object.hero_image_url.present?}"],
-      data: { :"image-url" => image_url(object.hero_image_url(:blur)) }
+      class: [:hero, options[:class], image],
+      data: { 'image-url' => image_url(image) }
   end
 end
