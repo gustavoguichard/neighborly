@@ -16,12 +16,13 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    projects_vars = { featured:              :featured,
-                      recommended:           :recommends,
-                      successful:            :successful,
-                      ending_soon:           :expiring,
-                      coming_soon:           :soon,
-                      projects_with_matches: :with_active_matches }
+    projects_vars = {
+      coming_soon: :soon,
+      ending_soon: :expiring,
+      featured:    :featured,
+      recommended: :recommends,
+      successful:  :successful
+    }
 
     projects_vars.each do |var_name, scope|
       instance_variable_set "@#{var_name}", ProjectsForHome.send(scope)

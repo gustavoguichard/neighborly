@@ -237,40 +237,4 @@ describe ProjectsForHome do
       expect(subject).not_to include(not_home_page)
     end
   end
-
-  describe '.with_active_matches' do
-    subject { ProjectsForHome.with_active_matches }
-
-    let(:with_match_active) { create(:match).project }
-
-    let(:without_match_active) do
-      travel_to(10.days.ago) do
-        create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now).project
-      end
-    end
-
-    it 'should limit in 4 projects' do
-      create_list(:match, 5)
-
-      expect(ProjectsForHome.with_active_matches).to have(4).items
-    end
-
-    it 'should return Project instances' do
-      with_match_active
-
-      expect(subject.first).to be_instance_of(Project)
-    end
-
-    it 'should include projects with active matches' do
-      with_match_active
-
-      expect(subject).to include(with_match_active)
-    end
-
-    it 'should not include projects without active matches' do
-      without_match_active
-
-      expect(subject).not_to include(without_match_active)
-    end
-  end
 end

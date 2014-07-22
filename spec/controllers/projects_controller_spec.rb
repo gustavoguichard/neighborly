@@ -87,7 +87,7 @@ describe ProjectsController do
     end
 
     context 'project variables' do
-      vars = %i(featured recommended successful ending_soon coming_soon projects_with_matches)
+      vars = %i(featured recommended successful ending_soon coming_soon)
 
       vars.each do |var|
         it "should set #{var} as a instance variable" do
