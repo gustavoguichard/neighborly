@@ -120,7 +120,7 @@
 
       .row
         = render 'team_member', nickname: :jase, name: 'Jase Wilson', role: 'CEO',
-          description: 'MIT grad blessed with ADHD. Obsessed with cities and the people who shape &amp; are shaped by them.',
+          description: 'MIT grad blessed with ADHD. Obsessed with cities and the people who shape & are shaped by them.',
           social_networks: { linkedin: 'http://linkedin.com/in/luminopolis', twitter: 'http://twitter.com/luminopolis' }
         = render 'team_member', nickname: :sean, name: 'Sean Connolly', role: 'CMO',
           description: 'Master story teller. City planning and design.',
@@ -166,12 +166,47 @@
           description: 'Director of Government Relations at Code for America. Growth strategist from startups to Fortune 500\'s.',
           social_networks: { linkedin: 'http://linkedin.com/in/lukednorris', twitter: 'http://twitter.com/norrisluke' }
 
-  section
-    header
-      h2 Our supporters
-      strong We have some amazing friends
+  section#supporters.row
+    header.title-information.text-center.row
+      .row
+        .small-12.columns
+          h2 Our supporters
+      .row
+        hr.small-offset-1.small-9.medium-offset-4.medium-4.columns
+      .row
+        .small-12.columns
+          strong.subtitle We have some amazing friends
 
-  section
-    header
-      h2 Yes, we're open
-      strong Open company, clear mission
+    ul
+      li.supporter.small-6.medium-3.columns
+        = image_tag 'learn/knight.png', alt: 'Knight Foundation\'s logo', title: '2013 Knight Foundation Grantee'
+        strong
+          span @KnightFdn
+          span Backed
+      li.supporter.small-6.medium-3.columns
+        = image_tag 'learn/civicx.png', alt: 'The Points of Light Civic Accelerator\'s logo',  title: 'CivicX'
+        strong
+          span #CivicX
+          span Accelerated
+      li.supporter.small-6.medium-3.columns
+        = image_tag 'learn/tumml.png', alt: 'Tumml\'s logo',  title: 'TUMML'
+        strong
+          span @TUMML
+          span Amplified
+      li.supporter.small-6.medium-3.columns
+        = image_tag 'learn/madeinkcsf.png', alt: 'US map with hearts in Kansas City and San Francisco',  title: 'Made in KC and SF'
+        strong
+          span Made in @KCMO &amp;
+          span San Francisco
+
+  section#open.row
+    .small-12.columns
+      header.title-information.text-center.row
+        .row
+          .small-12.columns
+            h2 Yes, we're open
+        .row
+          hr.small-offset-1.small-9.medium-offset-4.medium-4.columns
+        .row
+          .small-12.columns
+            strong.subtitle Open company, clear mission

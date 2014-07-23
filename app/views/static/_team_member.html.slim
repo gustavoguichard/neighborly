@@ -8,4 +8,5 @@ article.team-member.small-12.medium-4.columns
     - social_networks.each do |network, url|
       li.social-network
         = link_to url, target: '_blank' do
-          i.social-network-button[class="icon-et-#{network}-circled" title="#{name}'s #{network} account"]
+          - possessive_name = name[-1].eql?('s') ? "#{name}'" : "#{name}'s"
+          i.social-network-icon[class="icon-et-#{network}-circled" title="#{possessive_name} #{network} account"]

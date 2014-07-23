@@ -15,6 +15,10 @@ $pricing-table-item-padding: 25px
     margin-bottom: +emCalc(15px)
   p
     font-size: 125%
+  section header
+    text-transform: uppercase
+    &, h2
+      color: $body-font-color
   .hero
     font-size: 80%
     text-transform: uppercase
@@ -46,11 +50,13 @@ $pricing-table-item-padding: 25px
   .social-network
     display: inline-block
     list-style-type: none
-  .social-network-button
+  .social-network-icon
     color: $secondary-font-color
     display: block
     font-size: 250%
     margin-right: +emCalc(5px)
+    &:hover, &:active
+      color: $primary-color
   .team-member
     header
       margin-bottom: +emCalc(20px)
@@ -67,12 +73,16 @@ $pricing-table-item-padding: 25px
       text-transform: uppercase
     .description
       font-size: 85%
+      height: +emCalc(70px)
       margin-bottom: 0
-  section header
-    text-transform: uppercase
-
-    &, h2
-      color: $body-font-color
+  .supporter
+    color: black
+    list-style-type: none
+    text-align: center
+    span
+      display: block
+      font-size: 160%
+      font-weight: 100
 
 .pricing-table
   border: 1px solid $body-font-color
