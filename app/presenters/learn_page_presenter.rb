@@ -1,13 +1,9 @@
 class LearnPagePresenter
   def how_it_works_image
-    'default-bg-hero.jpg'
-  end
-
-  def our_team_image
-    'default-bg-hero.jpg'
+    'learn/how_it_works.jpg'
   end
 
   def pricing_image
-    'default-bg-hero.jpg'
+    'learn/pricing.jpg'
   end
 end
