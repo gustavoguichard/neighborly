@@ -65,10 +65,6 @@ class Contribution < ActiveRecord::Base
     created_at + 180.days
   end
 
-  def can_refund?
-    confirmed? && project.failed?
-  end
-
   def available_rewards
     Reward.where(project_id: self.project_id).where('minimum_value <= ?', self.value).order(:minimum_value)
   end

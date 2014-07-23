@@ -152,36 +152,6 @@ describe Contribution do
     it{ should == [valid_refund] }
   end
 
-  describe '#can_refund?' do
-    subject{ contribution.can_refund? }
-    before do
-      valid_refund
-      sucessful_project_contribution
-      successful_project.update_attributes state: 'successful'
-      failed_project.update_attributes state: 'failed'
-    end
-
-    context 'when project is successful' do
-      let(:contribution){ sucessful_project_contribution }
-      it{ should be_false }
-    end
-
-    context 'when project is not finished' do
-      let(:contribution){ unfinished_project_contribution }
-      it{ should be_false }
-    end
-
-    context 'when contribution is not confirmed' do
-      let(:contribution){ not_confirmed_contribution }
-      it{ should be_false }
-    end
-
-    context'when it is a valid refund' do
-      let(:contribution){ valid_refund }
-      it{ should be_true }
-    end
-  end
-
   describe '#credits' do
     subject{ user.credits.to_f }
     context 'when contributions are confirmed and not done with credits but project is successful' do
