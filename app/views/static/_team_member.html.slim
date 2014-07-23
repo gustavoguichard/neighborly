@@ -1,0 +1,11 @@
+article.team-member.small-12.medium-4.columns
+  header
+    = image_tag "about/heads/#{nickname}.jpg", class: 'team-member-picture', alt: "#{name}'s picture", title: name
+    h3.name = name
+    strong.role = role
+  p.description = description
+  ul
+    - social_networks.each do |network, url|
+      li.social-network
+        = link_to url, target: '_blank' do
+          i.social-network-button[class="icon-et-#{network}-circled" title="#{name}'s #{network} account"]

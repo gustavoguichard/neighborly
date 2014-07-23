@@ -4,6 +4,7 @@ $pricing-table-item-padding: 25px
 #learn-page
   h2
     font-size: 300%
+    font-weight: 500
     margin-bottom: 0
   h3
     color: $body-font-color
@@ -17,12 +18,16 @@ $pricing-table-item-padding: 25px
   .hero
     font-size: 80%
     text-transform: uppercase
+    h2
+      font-weight: 700
+    h2, .subtitle
+      color: white
   .title-information
     margin-bottom: +emCalc(85px)
   .subtitle
     display: block
     font-size: 200%
-    font-weight: normal
+    font-weight: 300
     margin-top: +emCalc(5px)
   .expand-section
     color: $body-bg
@@ -34,6 +39,40 @@ $pricing-table-item-padding: 25px
     font-size: 120%
   .section-content
     margin: +emCalc(65px) 0
+  .team-member-picture
+    border-radius: 50%
+    height: +emCalc(170px)
+    width: +emCalc(170px)
+  .social-network
+    display: inline-block
+    list-style-type: none
+  .social-network-button
+    color: $secondary-font-color
+    display: block
+    font-size: 250%
+    margin-right: +emCalc(5px)
+  .team-member
+    header
+      margin-bottom: +emCalc(20px)
+      text-align: center
+    header, .name
+      color: black
+    .name
+      font-size: 150%
+      font-weight: 400
+      margin-bottom: 0
+      text-transform: none
+    .role
+      font-weight: 100
+      text-transform: uppercase
+    .description
+      font-size: 85%
+      margin-bottom: 0
+  section header
+    text-transform: uppercase
+
+    &, h2
+      color: $body-font-color
 
 .pricing-table
   border: 1px solid $body-font-color
