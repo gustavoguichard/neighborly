@@ -1,6 +1,6 @@
 = content_for :title, 'Learn'
 
-#learn-page
+.learn-page
   section
     = hero_header_tag @presenter, { class: 'text-center' }, @presenter.how_it_works_image do
       header.title-information
@@ -51,7 +51,7 @@
             i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to Pricing section'
 
     #pricing.section-content
-      #pricing-table.row.collapse
+      .row.collapse
         .pricing-table.large-4.columns
           ul
             li.title Single
