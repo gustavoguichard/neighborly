@@ -1,7 +1,7 @@
 = content_for :title, 'Learn'
 
 .learn-page
-  section
+  section.main-section.section-with-hero-header
     = hero_header_tag @presenter, { class: 'text-center' }, @presenter.how_it_works_image do
       header.title-information
         .row
@@ -33,7 +33,7 @@
           p Individuals, companies, and foundations search for projects within their area and invest directly in the civic ameneties and community projects they care about most.
           = link_to 'Find projects', '#', class: 'button'
 
-  section
+  section.main-section.section-with-hero-header
     = hero_header_tag @presenter, { class: 'text-center' }, @presenter.pricing_image do
       header.title-information
         .row

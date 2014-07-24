@@ -1,5 +1,6 @@
 $suggested-plan-margin: 25px
 $pricing-table-item-padding: 25px
+$section-content-margin: 65px
 
 .learn-page
   h2
@@ -28,16 +29,23 @@ $pricing-table-item-padding: 25px
     font-weight: 400
   a .important-notice
     color: $body-font-color
+  .section-with-hero-header
+    padding: 0
+    .section-content
+      margin: 0
+    .section-content-expanded
+      height: initial
+      margin-top: +emCalc($section-content-margin)
+      margin-bottom: +emCalc($section-content-margin/2)
+      padding-top: $suggested-plan-margin
   .hero
-    font-size: 80%
-    position: relative
     text-transform: uppercase
-    top: +emCalc(-65px)
     h2
       font-weight: 700
     h2, .subtitle
       color: white
   .title-information
+    font-size: 80%
     margin-bottom: +emCalc(85px)
   .subtitle
     display: block
@@ -52,8 +60,12 @@ $pricing-table-item-padding: 25px
   .expand-section-icon
     margin-left: +emCalc(20px)
     font-size: 120%
+  .main-section
+    overflow: hidden
   .section-content
-    margin: +emCalc(65px) 0
+    height: 0
+    margin: +emCalc($section-content-margin) 0
+    overflow: hidden
   .team-member-picture
     border-radius: 50%
     height: +emCalc(170px)
