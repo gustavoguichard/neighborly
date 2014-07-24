@@ -25,6 +25,10 @@ class ProjectTotal
     contributions.length
   end
 
+  def total_contributions_without_matches
+    contributions.where(matching_id: nil).length
+  end
+
   def total_payment_service_fee
     contributions.inject(0) { |sum, c| sum + c.payment_service_fee }
   end

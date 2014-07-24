@@ -379,6 +379,24 @@ describe Project do
     end
   end
 
+  describe "#total_contributions_without_matches" do
+    subject{ project.total_contributions_without_matches }
+    context "when project_total is nil" do
+      before do
+        project.stub(:project_total).and_return(nil)
+      end
+      it{ should == 0 }
+    end
+    context "when project_total exists" do
+      before do
+        project_total = mock()
+        project_total.stub(:total_contributions_without_matches).and_return(1)
+        project.stub(:project_total).and_return(project_total)
+      end
+      it{ should == 1 }
+    end
+  end
+
   describe "#expired?" do
     subject{ project.expired? }
 
