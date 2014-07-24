@@ -54,7 +54,7 @@ gem 'ezcrypto'
 gem 'pundit', '~> 0.2.3'
 
 # Email marketing
-gem 'catarse_monkeymail', '~> 0.1.4'
+gem 'catarse_monkeymail', '~> 0.1.6'
 
 # HTML manipulation and formatting
 gem 'simple_form', '~> 3.0.2'

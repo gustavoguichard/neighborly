@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: 984150d9dcd3765e60d9abb3c3bdb9c11e3e5e36
+  revision: 464265d1f6d5fa8f60342ce370f6cfd7ca231339
   branch: master
   specs:
     neighborly-api (0.0.1)
@@ -83,7 +83,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: 117ab7c0c58b5ae19bd673c5332fd56120180139
+  revision: 21886461aabd67aa5f830d9fb37aeb301fa7f281
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
@@ -167,9 +167,10 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
-    catarse_monkeymail (0.1.4)
+    catarse_monkeymail (0.1.6)
       mailchimp-api (~> 2.0.4)
       rails (>= 4.0.3)
+      rails-observers
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
@@ -301,7 +302,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mailchimp-api (2.0.4)
+    mailchimp-api (2.0.5)
       excon (>= 0.16.0)
       json (>= 1.7.7)
     method_source (0.8.2)
@@ -533,7 +534,7 @@ DEPENDENCIES
   capybara (~> 2.2.1)
   capybara-webkit
   carrierwave (~> 0.9.0)
-  catarse_monkeymail (~> 0.1.4)
+  catarse_monkeymail (~> 0.1.6)
   coffee-rails (~> 4.0.1)
   coveralls
   database_cleaner
