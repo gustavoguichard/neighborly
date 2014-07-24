@@ -3,9 +3,10 @@ require 'spec_helper'
 describe ContributionPolicy do
   subject{ described_class }
 
-  let(:project) { create(:project) }
-  let(:contribution) { create(:contribution) }
-  let(:user) { contribution.user }
+  let(:project)       { create(:project) }
+  let(:initial_state) { 'confirmed' }
+  let(:contribution)  { create(:contribution, state: initial_state) }
+  let(:user)          { contribution.user }
 
   shared_examples_for 'update permissions' do
     it 'denies access if user is nil' do
@@ -37,6 +38,21 @@ describe ContributionPolicy do
     end
   end
 
+  shared_examples_for 'change state permissions' do
+    it 'denies access if user is nil' do
+      expect(subject).not_to permit(nil, contribution)
+    end
+
+    it 'denies access if user is not an admin' do
+      expect(subject).not_to permit(build(:user, admin: false), contribution)
+    end
+
+    it 'authorizes access if user is admin' do
+      admin = build(:user, admin: true)
+      expect(subject).to permit(admin, contribution)
+    end
+  end
+
   permissions(:new?) { it_should_behave_like 'create permissions' }
 
   permissions(:create?) { it_should_behave_like 'create permissions' }
@@ -50,6 +66,21 @@ describe ContributionPolicy do
   permissions(:credits_checkout?) { it_should_behave_like 'update permissions' }
 
   permissions(:request_refund?) { it_should_behave_like 'update permissions' }
+
+  permissions(:pendent?) { it_should_behave_like 'change state permissions' }
+
+  permissions(:confirm?) do
+    let(:initial_state) { 'pending' }
+    it_should_behave_like 'change state permissions'
+  end
+
+  permissions(:cancel?) { it_should_behave_like 'change state permissions' }
+
+  permissions(:refund?) { it_should_behave_like 'change state permissions' }
+
+  permissions(:hide?) { it_should_behave_like 'change state permissions' }
+
+  permissions(:destroy?) { it_should_behave_like 'change state permissions' }
 
   describe 'UserScope' do
     describe '.resolve' do

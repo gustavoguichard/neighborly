@@ -32,6 +32,30 @@ class ContributionPolicy < ApplicationPolicy
     done_by_owner_or_admin?
   end
 
+  def pendent?
+    change_state? && record.can_pendent?
+  end
+
+  def confirm?
+    change_state? && record.can_confirm?
+  end
+
+  def cancel?
+    change_state? && record.can_cancel?
+  end
+
+  def refund?
+    change_state? && record.can_refund?
+  end
+
+  def hide?
+    change_state? && record.can_hide?
+  end
+
+  def destroy?
+    change_state? && record.can_push_to_trash?
+  end
+
   def permitted_attributes
     {contribution: record.attribute_names.map(&:to_sym) - %i[user_attributes
                                                              user_id
@@ -40,5 +64,11 @@ class ContributionPolicy < ApplicationPolicy
                                                              payment_service_fee
                                                              payment_id
                                                              payment_service_fee_paid_by_user]}
+  end
+
+  protected
+
+  def change_state?
+    user.present? && (user.admin?)
   end
 end
