@@ -100,10 +100,10 @@
               = t('.tabs.updates')
               span.count=" #{@project.updates.size}"
 
-          - if @project.total_contributions > 0
+          - if @project.total_contributions_without_matches > 0
             li = tab_link_to project_contributions_path(@project) do
               = t('.tabs.contributions')
-              span.count=" #{@project.total_contributions}"
+              span.count=" #{@project.total_contributions_without_matches}"
 
           li = tab_link_to comments_project_path(@project) do
             = t('.tabs.comments')
@@ -153,11 +153,11 @@
                 h5 = t('.in_partnership_with')
                 = image_tag @project.last_channel.image.large.url
 
-      - if @project.total_contributions > 0
+      - if @project.total_contributions_without_matches > 0
         section.custom.neighbors-behind-this.hide-for-medium-down
           .title = t('.neighbors_behind_this')
           .list
-            - for contribution in @project.contributions.available_to_display.order("RANDOM()").limit(15)
+            - for contribution in @project.contributions.available_to_display.order("RANDOM()").where(matching_id: nil).limit(15)
               - if contribution.anonymous
                 = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_contribution'), class: 'has-tip', data: { tooltip: '' }
               - else

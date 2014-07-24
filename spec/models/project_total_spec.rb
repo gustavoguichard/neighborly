@@ -9,6 +9,7 @@ describe ProjectTotal do
 
   def prepopulate_db
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'pending', project_id: project.id)
+    create(:contribution, value: 10.0, payment_service_fee: 1, state: 'confirmed', project_id: project.id, matching: create(:matching))
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'confirmed', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'waiting_confirmation', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'refunded', project_id: project.id)
@@ -19,12 +20,18 @@ describe ProjectTotal do
     before { prepopulate_db }
 
     subject { ProjectTotal.new(project).pledged }
-    it { should == 30 }
+    it { should == 40 }
   end
 
   describe "#total_contributions" do
     before  { prepopulate_db }
     subject { ProjectTotal.new(project).total_contributions }
+    it{ should == 4 }
+  end
+
+  describe "#total_contributions_without_matches" do
+    before  { prepopulate_db }
+    subject { ProjectTotal.new(project).total_contributions_without_matches }
     it{ should == 3 }
   end
 

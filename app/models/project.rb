@@ -145,6 +145,10 @@ class Project < ActiveRecord::Base
     project_total ? project_total.total_contributions : 0
   end
 
+  def total_contributions_without_matches
+    project_total ? project_total.total_contributions_without_matches : 0
+  end
+
   def total_payment_service_fee
     project_total ? project_total.total_payment_service_fee : 0.0
   end
