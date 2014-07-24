@@ -17,7 +17,7 @@ module Shared::PaymentStateMachineHandler
       end
 
       event :pendent do
-        transition all => :pending
+        transition all - [:pending] => :pending
       end
 
       event :wait_confirmation do
@@ -25,11 +25,11 @@ module Shared::PaymentStateMachineHandler
       end
 
       event :confirm do
-        transition all => :confirmed
+        transition all - [:confirmed] => :confirmed
       end
 
       event :cancel do
-        transition all => :canceled
+        transition all - [:canceled] => :canceled
       end
 
       event :request_refund do

@@ -41,6 +41,7 @@ describe Shared::PaymentStateMachineHandler do
     end
 
     describe '#wait_confirmation' do
+      let(:initial_state) { 'pending' }
       before { resource.wait_confirmation }
 
       context 'when in peding state' do
@@ -138,6 +139,7 @@ describe Shared::PaymentStateMachineHandler do
   end
 
   context 'when resource is Contribution' do
+    let(:initial_state)           { 'deleted' }
     let(:resource)                { create(:contribution, state: initial_state) }
     let(:resource_class)          { Contribution }
     let(:resource_observer_class) { ContributionObserver }

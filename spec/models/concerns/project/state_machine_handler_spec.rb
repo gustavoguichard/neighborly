@@ -180,7 +180,7 @@ describe Project::StateMachineHandler do
 
       context 'when project not hit the goal' do
         let(:user) { create(:user) }
-        let(:contribution) { create(:contribution, project: main_project, user: user, value: 20, payment_token: 'ABC') }
+        let(:contribution) { create(:contribution, state: 'pending', project: main_project, user: user, value: 20, payment_token: 'ABC') }
 
         before do
           contribution

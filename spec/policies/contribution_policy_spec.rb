@@ -3,9 +3,10 @@ require 'spec_helper'
 describe ContributionPolicy do
   subject{ described_class }
 
-  let(:project) { create(:project) }
-  let(:contribution) { create(:contribution) }
-  let(:user) { contribution.user }
+  let(:project)       { create(:project) }
+  let(:initial_state) { 'confirmed' }
+  let(:contribution)  { create(:contribution, state: initial_state) }
+  let(:user)          { contribution.user }
 
   shared_examples_for 'update permissions' do
     it 'denies access if user is nil' do
@@ -68,7 +69,10 @@ describe ContributionPolicy do
 
   permissions(:pendent?) { it_should_behave_like 'change state permissions' }
 
-  permissions(:confirm?) { it_should_behave_like 'change state permissions' }
+  permissions(:confirm?) do
+    let(:initial_state) { 'pending' }
+    it_should_behave_like 'change state permissions'
+  end
 
   permissions(:cancel?) { it_should_behave_like 'change state permissions' }
 
