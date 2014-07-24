@@ -32,12 +32,10 @@ $section-content-margin: 65px
   .section-with-hero-header
     padding: 0
     .section-content
-      margin: 0
-    .section-content-expanded
-      height: initial
-      margin-top: +emCalc($section-content-margin)
-      margin-bottom: +emCalc($section-content-margin/2)
-      padding-top: $suggested-plan-margin
+      background-image: linear-gradient(to bottom, transparent 98%, $body-font-color 110%)
+      display: none
+      margin-bottom: 0
+      padding-bottom: +emCalc($section-content-margin)
   .hero
     text-transform: uppercase
     h2
@@ -63,7 +61,6 @@ $section-content-margin: 65px
   .main-section
     overflow: hidden
   .section-content
-    height: 0
     margin: +emCalc($section-content-margin) 0
     overflow: hidden
   .team-member-picture
@@ -128,6 +125,9 @@ $section-content-margin: 65px
   .open-company-logo
     width: +emCalc(150px)
     margin-top: +emCalc(17px)
+
+#pricing
+  padding-top: +emCalc($section-content-margin)
 
 .pricing-table
   border: 1px solid $body-font-color

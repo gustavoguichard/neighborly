@@ -15,7 +15,7 @@
       .row
         .small-12.columns
           = link_to '#how-it-works', class: 'expand-section' do
-            strong Click to learn more!
+            strong.expansion-btn[data-alternative-text="Click to show less"] Click to learn more!
             i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to How it works section'
 
     #how-it-works.section-content
@@ -47,7 +47,7 @@
       .row
         .small-12.columns
           = link_to '#pricing', class: 'expand-section' do
-            strong Click to learn more!
+            strong.expansion-btn[data-alternative-text="Click to show less"] Click to learn more!
             i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to Pricing section'
 
     #pricing.section-content
@@ -106,7 +106,7 @@
             = pricing_table_item 'Branded campaigns',     true
             = pricing_table_item 'White label website',   true
 
-  section#team.full-width-row
+  section#team.main-section.full-width-row
     .row
       .small-12.columns
         header.title-information.text-center.row
@@ -167,7 +167,7 @@
             description: 'Director of Government Relations at Code for America. Growth strategist from startups to Fortune 500\'s.',
             social_networks: { linkedin: 'http://linkedin.com/in/lukednorris', twitter: 'http://twitter.com/norrisluke' }
 
-  section#supporters.full-width-row
+  section#supporters.main-section.full-width-row
     .row
       header.title-information.text-center.row
         .row
@@ -207,7 +207,7 @@
             | Find us on
             = image_tag 'learn/angel_list.png', alt: 'Angel List\'s logo', title: 'Angel List', class: 'angel-list-logo'
 
-  section#open.full-width-row
+  section#open.main-section.full-width-row
     .row
       .small-12.columns
         header.title-information.text-center.row
