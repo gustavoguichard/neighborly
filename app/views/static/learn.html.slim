@@ -27,11 +27,11 @@
         .medium-6.columns
           h3 For communities
           p Local governaments, neighborhood organizations, and civic-minded nonprofits post projects in need of funding and engage the community to support their mission.
-          = link_to 'Get started', '#', class: 'button'
+          = link_to 'Get started', start_path, class: 'button'
         .medium-6.columns
           h3 For citizens
           p Individuals, companies, and foundations search for projects within their area and invest directly in the civic ameneties and community projects they care about most.
-          = link_to 'Find projects', '#', class: 'button'
+          = link_to 'Find projects', discover_path, class: 'button'
 
   section.main-section.section-with-hero-header
     = hero_header_tag @presenter, { class: 'text-center' }, @presenter.pricing_image do
@@ -61,7 +61,7 @@
             li.description For community organizations
             li.description 3% transaction fees
             li.description Fund community projects
-            li.cta-button.description = link_to 'Get started', '#', class: 'button secondary'
+            li.cta-button.description = link_to 'Get started', start_path, class: 'button secondary'
             = pricing_table_item 'Run single project',    true
             = pricing_table_item 'Run multiple projects', false
             = pricing_table_item 'Accept applications',   false
@@ -79,7 +79,7 @@
             li.description For nonprofits & CDFIs
             li.description 0% transaction fees
             li.description Fundraising managment
-            li.cta-button.description = link_to 'Get started', '#', class: 'button'
+            li.cta-button.description = link_to 'Get started', start_path, class: 'button'
             = pricing_table_item 'Run single project',    true
             = pricing_table_item 'Run multiple projects', true
             = pricing_table_item 'Accept applications',   true
@@ -96,7 +96,7 @@
             li.description For enterprise customers
             li.description 0% transaction fees
             li.description Custom fundraising toolkit
-            li.cta-button.description = link_to 'Contact us', '#', class: 'button secondary'
+            li.cta-button.description = mail_to 'howdy@neighbor.ly', 'Contact us', class: 'button secondary'
             = pricing_table_item 'Run single project',    true
             = pricing_table_item 'Run multiple projects', true
             = pricing_table_item 'Accept applications',   true
