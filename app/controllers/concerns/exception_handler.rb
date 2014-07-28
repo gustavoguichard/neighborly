@@ -7,7 +7,8 @@ module Concerns
     end
 
     def deny_access(exception)
-      session[:return_to] = request.env['REQUEST_URI']
+      session[:return_to] = url_for(host: request.env['HTTP_HOST'],
+                                    protocol: request.protocol)
 
       # Clear the previous response body to avoid a DoubleRenderError
       # when redirecting or rendering another view

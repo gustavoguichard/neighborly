@@ -26,7 +26,7 @@ module Concerns::AuthenticationHandler
 
     def set_return_to
       if params[:redirect_to].present?
-        session[:return_to] = params[:redirect_to]
+        session[:return_to] = "/#{params[:redirect_to]}"
         flash.alert = t('devise.failure.unauthenticated')
       end
     end
