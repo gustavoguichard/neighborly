@@ -29,20 +29,21 @@
     font-size: 80%
     color: $secondary-color
     text-align: center
+
+  &.personal
+    .usr-upld-img, i
+      width: 154px
+
+  &.organization
+    .usr-upld-img, i
+      width: 174px
+
 .usr-upld-img
   margin-bottom: +emCalc(5px)
   background: white no-repeat center
-  padding: 10px
-  height: 180px
   cursor: pointer
   position: relative
   +single-transition(.2s)
-  &.usr-upld-pctr .uploaded-image
-    margin-top: -75px
-    margin-left: -75px
-  &.usr-upld-cp .uploaded-image
-    margin-top: -45px
-    margin-left: -85px
   &.usr-upld-cvr .uploaded-image
     position: static
     max-width: 100%
@@ -50,10 +51,6 @@
     text-align: center
     display: block
     margin: 0 auto
-  .uploaded-image
-    position: absolute
-    top: 50%
-    left: 50%
   .info
     text:
       align: center
