@@ -147,7 +147,7 @@
 
       - if @project.last_channel
         section.channel
-          = link_to root_url(subdomain: @project.last_channel.permalink) do
+          = link_to root_url(subdomain: @project.last_channel.permalink, protocol: :http) do
             .row
               .large-12.columns.large-centered
                 h5 = t('.in_partnership_with')

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def show
-    return redirect_to root_url(subdomain: resource.channel.permalink) if resource.channel? && resource.channel.present?
+    return redirect_to root_url(subdomain: resource.channel.permalink, protocol: :http) if resource.channel? && resource.channel.present?
     show!{
       set_facebook_url_admin(@user)
       @title = "#{@user.display_name}"
