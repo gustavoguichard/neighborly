@@ -3,6 +3,17 @@ $pricing-table-item-padding: 20px
 $section-content-margin: 65px
 
 .learn-page
+  .button,
+  .button.secondary:hover,
+  .button.secondary:active
+    background-color: #2cbb9d
+    border: none
+    border-radius: 0
+    color: white
+    font-weight: 400
+  .button.secondary
+    background-color: #b8e4db
+    color: $secondary-font-color
   h2
     border-bottom: 2px solid $border-color
     display: inline-block
@@ -16,6 +27,7 @@ $section-content-margin: 65px
   p
     font-size: 125%
   section
+    background-color: white
     padding: +emCalc(50px) 0
     header
       text-transform: uppercase
@@ -136,7 +148,11 @@ $section-content-margin: 65px
 #pricing
   padding-top: +emCalc($section-content-margin)
 
+.pricing-table.suggested-plan li:not(.bullet-item)
+  background-color: #ddefeb
+
 .pricing-table-content
+  background-color: $body-bg
   border: 1px solid $body-font-color
   li
     font-size: 115%
@@ -144,7 +160,7 @@ $section-content-margin: 65px
     padding: +emCalc(15px) 0
     text-align: center
   li:not(.bullet-item)
-    background-color: $box-hover-background-color
+    background-color: white
   .title
     border-bottom: 1px solid $body-font-color
     font-size: 200%
@@ -187,8 +203,9 @@ $section-content-margin: 65px
     padding: 0
   .learn-page
     .pricing-table
-      width: 25%
+      background-color: $body-bg
       border: 1px solid $body-font-color
+      width: 25%
       &:first-child
         border-right: none
         margin-left: +emCalc(125px)
