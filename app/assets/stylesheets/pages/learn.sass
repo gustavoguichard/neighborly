@@ -1,5 +1,5 @@
 $suggested-plan-margin: 25px
-$pricing-table-item-padding: 25px
+$pricing-table-item-padding: 20px
 $section-content-margin: 65px
 
 .learn-page
@@ -137,23 +137,12 @@ $section-content-margin: 65px
 #pricing
   padding-top: +emCalc($section-content-margin)
 
-.pricing-table
+.pricing-table-content
   border: 1px solid $body-font-color
-  &:first-child
-    border-right: none
-  &:last-child
-    border-left: none
-  &.suggested-plan
-    position: relative
-    top: -$suggested-plan-margin
-    li:nth-child(2)
-      padding: ($pricing-table-item-padding + $suggested-plan-margin) 0
-    li:last-child
-      padding-bottom: $pricing-table-item-padding + $suggested-plan-margin
   li
-    font-size: 150%
+    font-size: 115%
     list-style-type: none
-    padding: +emCalc($pricing-table-item-padding) 0
+    padding: +emCalc(15px) 0
     text-align: center
   li:not(.bullet-item)
     background-color: $box-hover-background-color
@@ -169,9 +158,8 @@ $section-content-margin: 65px
   .button
     margin-bottom: 0
   .bullet-item
-    padding: 15px 25px
+    padding: $pricing-table-item-padding 0
     position: relative
-    text-align: left
     &:first-child
       padding-top: 30px
     span
@@ -183,5 +171,42 @@ $section-content-margin: 65px
       color: $primary-color
     .not-included
       color: $alert-color
-  .price span
-    font-size: 150%
+  .price
+    padding-top: +emCalc($pricing-table-item-padding)
+    padding-bottom: +emCalc($pricing-table-item-padding)
+    span
+      display: block
+      font-size: 85%
+      line-height: 85%
+    .strong
+      font-size: 150%
+      display: inline
+
+@media #{$medium}
+  .medium-collapse .columns
+    margin: 0
+    padding: 0
+  .learn-page
+    .pricing-table
+      width: 25%
+      border: 1px solid $body-font-color
+      &:first-child
+        border-right: none
+        margin-left: +emCalc(125px)
+        li:nth-child(2)
+          padding-top: $pricing-table-item-padding / 2
+      &:last-child
+        border-left: none
+        float: left
+      &.suggested-plan
+        position: relative
+        top: -$suggested-plan-margin
+        li:nth-child(2)
+          padding-top: $suggested-plan-margin
+          padding-bottom: ($suggested-plan-margin + $pricing-table-item-padding * 2) + 1
+        li:last-child
+          padding-bottom: $pricing-table-item-padding + $suggested-plan-margin
+      .price
+        height: 67px
+    .pricing-table-content
+      border: none

@@ -47,60 +47,44 @@
             i.expand-section-icon.scroll-down.icon-fa-chevron-down alt='Go to Pricing section'
 
     #pricing.section-content
-      .row.collapse
-        .pricing-table.large-4.columns
-          ul
+      .row.medium-collapse
+        .pricing-table.small-12.columns
+          ul.pricing-table-content
             li.title Single
             li.price.description
-              span $0
+              span.strong $0
               | /month
+              span +3% / transaction
             li.description For community organizations
-            li.description 3% transaction fees
             li.description Fund community projects
             li.cta-button.description = link_to 'Get started', start_path, class: 'button secondary'
-            = pricing_table_item 'Run single project',    true
-            = pricing_table_item 'Run multiple projects', false
-            = pricing_table_item 'Accept applications',   false
-            = pricing_table_item 'Project dashboard',     false
-            = pricing_table_item 'Challenge matches',     false
-            = pricing_table_item 'Branded partner page',  false
-            = pricing_table_item 'Branded campaigns',     false
-            = pricing_table_item 'White label website',   false
-        .pricing-table.suggested-plan.large-4.columns
-          ul
+            li.bullet-item Run single project
+            li.bullet-item Unify your message
+            li.bullet-item Share your story
+        .pricing-table.suggested-plan.small-12.columns
+          ul.pricing-table-content
             li.title Partner
             li.price.description
-              span $299
+              span.strong $299
               | /month
+              span +0% / transaction
             li.description For nonprofits & CDFIs
-            li.description 0% transaction fees
             li.description Fundraising managment
             li.cta-button.description = link_to 'Get started', start_path, class: 'button'
-            = pricing_table_item 'Run single project',    true
-            = pricing_table_item 'Run multiple projects', true
-            = pricing_table_item 'Accept applications',   true
-            = pricing_table_item 'Project dashboard',     true
-            = pricing_table_item 'Challenge matches',     true
-            = pricing_table_item 'Branded partner page',  true
-            = pricing_table_item 'Branded campaigns',     false
-            = pricing_table_item 'White label website',   false
-        .pricing-table.large-4.columns
-          ul
+            li.bullet-item Run multiple projects
+            li.bullet-item Manage applications
+            li.bullet-item Challenge matches
+        .pricing-table.small-12.columns
+          ul.pricing-table-content
             li.title Enterprise
             li.price.description
-              span Custom
+              span.strong Custom
             li.description For enterprise customers
-            li.description 0% transaction fees
             li.description Custom fundraising toolkit
             li.cta-button.description = mail_to 'howdy@neighbor.ly', 'Contact us', class: 'button secondary'
-            = pricing_table_item 'Run single project',    true
-            = pricing_table_item 'Run multiple projects', true
-            = pricing_table_item 'Accept applications',   true
-            = pricing_table_item 'Project dashboard',     true
-            = pricing_table_item 'Challenge matches',     true
-            = pricing_table_item 'Branded partner page',  true
-            = pricing_table_item 'Branded campaigns',     true
-            = pricing_table_item 'White label website',   true
+            li.bullet-item White label website
+            li.bullet-item Branded campaigns
+            li.bullet-item Accept applications
 
   section#team.main-section.full-width-row
     .row
