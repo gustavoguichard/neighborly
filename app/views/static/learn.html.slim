@@ -97,47 +97,43 @@
           .small-12.columns
             p We're a passionate team of civic geeks, fundraisers, planners, finance folks, techies & entrepreneurs. Our mission is to help communities help themselves. We love our country and the thousands of communities that make it.
 
-        .team-members.row
+        .team-members
           = render 'team_member', nickname: :jase, name: 'Jase Wilson', role: 'CEO',
             description: 'MIT grad blessed with ADHD. Obsessed with cities and the people who shape & are shaped by them.',
             social_networks: { linkedin: 'http://linkedin.com/in/luminopolis', twitter: 'http://twitter.com/luminopolis' }
-          = render 'team_member', nickname: :sean, name: 'Sean Connolly', role: 'CMO',
-            description: 'Master story teller. City planning and design.',
-            social_networks: { linkedin: 'http://linkedin.com/pub/sean-connolly/29/7b3/3b7', twitter: 'http://twitter.com/snconnolly' }
-          = render 'team_member', nickname: :sarah, name: 'Sarah Shipley', role: 'Development Director',
-            description: 'Decorated communications consultant &amp; fundraiser in love with all things civic.',
-            social_networks: { linkedin: 'http://linkedin.com/pub/sarah-shipley/41/148/329', twitter: 'http://twitter.com/shipleycom' }
-        .row
-          = render 'team_member', nickname: :briston, name: 'Briston Davidge', role: 'Product Director',
-            description: 'Seasoned web developer. Makes functional, forward thinking things for the internet.',
-            social_networks: { linkedin: 'http://linkedin.com/in/bristondavidge', twitter: 'http://twitter.com/BristonDavidge' }
-          = render 'team_member', nickname: :chris, name: 'Chris Parrott', role: 'CFO',
-            description: 'CPA with deep local gov experience. Innovative financial modeling.',
-            social_networks: { linkedin: 'http://linkedin.com/pub/christopher-parrott/b/23/780', twitter: 'http://twitter.com/cm_parrott' }
           = render 'team_member', nickname: :patrick, name: 'Patrick Hosty', role: 'COO',
             description: 'Bond trader with deep experience in public finance. Philanthropist.',
             social_networks: { linkedin: 'http://linkedin.com/in/hosty', twitter: 'http://twitter.com/hosty' }
-        .row
+          = render 'team_member', nickname: :sean, name: 'Sean Connolly', role: 'CMO',
+            description: 'Master story teller. City planning and design.',
+            social_networks: { linkedin: 'http://linkedin.com/pub/sean-connolly/29/7b3/3b7', twitter: 'http://twitter.com/snconnolly' }
+          = render 'team_member', nickname: :chris, name: 'Chris Parrott', role: 'CFO',
+            description: 'CPA with deep local gov experience. Innovative financial modeling.',
+            social_networks: { linkedin: 'http://linkedin.com/pub/christopher-parrott/b/23/780', twitter: 'http://twitter.com/cm_parrott' }
+          = render 'team_member', nickname: :sarah, name: 'Sarah Shipley', role: 'Development Director',
+            description: 'Decorated communications consultant &amp; fundraiser in love with all things civic.',
+            social_networks: { linkedin: 'http://linkedin.com/pub/sarah-shipley/41/148/329', twitter: 'http://twitter.com/shipleycom' }
           = render 'team_member', nickname: :josemar, name: 'Josemar Luedke', role: 'Lead Developer',
             description: 'Rails Jedi. Addicted to open source.',
             social_networks: { linkedin: 'http://br.linkedin.com/in/josemarluedke', twitter: 'http://twitter.com/JosemarLuedke', github: 'https://github.com/josemarluedke' }
+          = render 'team_member', nickname: :briston, name: 'Briston Davidge', role: 'Product Director',
+            description: 'Seasoned web developer. Makes functional, forward thinking things for the internet.',
+            social_networks: { linkedin: 'http://linkedin.com/in/bristondavidge', twitter: 'http://twitter.com/BristonDavidge' }
           = render 'team_member', nickname: :irio, name: 'Irio Musskopf', role: 'Developer',
             description: 'Seeker of simple solutions. Student of maths. Building Neighbor.ly to make people happier.',
             social_networks: { linkedin: 'http://linkedin.com/in/iriomk', twitter: 'https://twitter.com/irio', github: 'https://github.com/irio' }
-          = render 'team_member', nickname: :christine, name: 'Christine Outram', role: 'Advisor',
-            description: 'Inventionist at DeutschLA. Design-driven, award winning tech geek.',
-            social_networks: { linkedin: 'http://linkedin.com/in/christineoutram', twitter: 'http://twitter.com/CityInnovation' }
-        .row
           = render 'team_member', nickname: :lesa, name: 'Lesa Mitchell', role: 'Advisor',
             description: 'Founder of Network for Scale. Former Kauffman Fdn VP. Author. Super connector.',
             social_networks: { linkedin: 'http://linkedin.com/in/lesamitchell', twitter: 'https://twitter.com/lesamitchell' }
           = render 'team_member', nickname: :seth, name: 'Seth Friedman', role: 'Advisor',
             description: 'Brand-focused, digitally-fluent strategist. Madison Avenue ad agency vet.',
             social_networks: { linkedin: 'http://linkedin.com/pub/seth-friedman/2/364/bab', twitter: 'http://twitter.com/sethrf' }
+          = render 'team_member', nickname: :christine, name: 'Christine Outram', role: 'Advisor',
+            description: 'Inventionist at DeutschLA. Design-driven, award winning tech geek.',
+            social_networks: { linkedin: 'http://linkedin.com/in/christineoutram', twitter: 'http://twitter.com/CityInnovation' }
           = render 'team_member', nickname: :robert, name: 'Robert Litan', role: 'Advisor',
             description: 'Former Director of Research, Bloomberg Government. Economist, author, lawyer.',
             social_networks: { twitter: 'http://twitter.com/BobLitan' }
-        .row
           = render 'team_member', nickname: :brett, name: 'Brett Hudson', role: 'Advisor',
             description: 'Social entrepreneur with deep startup experience. Stanford Public Policy honors grad.',
             social_networks: { linkedin: 'http://br.linkedin.com/pub/brett-hudson/4/491/a30', twitter: 'http://twitter.com/BrettJHudson' }
