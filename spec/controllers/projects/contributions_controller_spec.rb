@@ -55,13 +55,12 @@ describe Projects::ContributionsController do
 
   describe "GET edit" do
     before do
-      request.env['REQUEST_URI'] = "/test_path"
       get :edit, {locale: :pt, project_id: project, id: contribution.id}
     end
 
     context "when no user is logged" do
       it{ should redirect_to new_user_session_path }
-      it('should set the session[:return_to]'){ session[:return_to].should == "/test_path" }
+      it('should set the session[:return_to]'){ session[:return_to].should == edit_project_contribution_url(project_id: project, id: contribution.id) }
     end
 
     context "when user is logged in" do
@@ -88,14 +87,13 @@ describe Projects::ContributionsController do
     let(:value){ '20.00' }
     let(:set_expectations) {}
     before do
-      request.env['REQUEST_URI'] = "/test_path"
       set_expectations
       post :create, {locale: :pt, project_id: project, contribution: { value: value, reward_id: nil, anonymous: '0' }}
     end
 
     context "when no user is logged" do
       it{ should redirect_to new_user_session_path }
-      it('should set the session[:return_to]'){ session[:return_to].should == "/test_path" }
+      it('should set the session[:return_to]'){ session[:return_to].should == project_contributions_url(project_id: project) }
     end
 
     context "when user is logged in" do
