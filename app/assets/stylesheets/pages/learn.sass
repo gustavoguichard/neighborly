@@ -7,13 +7,13 @@ $section-content-margin-medium: 65px
   .button,
   .button.secondary:hover,
   .button.secondary:active
-    background-color: #2cbb9d
+    background-color: $primary-color
     border: none
     border-radius: 0
-    color: white
+    color: $input-bg-color
     font-weight: 400
   .button.secondary
-    background-color: #b8e4db
+    background-color: rgba($primary-color, 0.3)
     color: $secondary-font-color
   h2
     border-bottom: 2px solid $border-color
@@ -28,7 +28,7 @@ $section-content-margin-medium: 65px
   p
     font-size: 125%
   section
-    background-color: white
+    background-color: $input-bg-color
     padding: +emCalc(50px) 0
     header
       text-transform: uppercase
@@ -56,7 +56,7 @@ $section-content-margin-medium: 65px
     h2
       font-weight: 700
     h2, .subtitle
-      color: white
+      color: $input-bg-color
   .title-information
     font-size: 80%
     margin-bottom: +emCalc(55px)
@@ -102,7 +102,7 @@ $section-content-margin-medium: 65px
       margin-bottom: +emCalc(20px)
       text-align: center
     header, .name
-      color: black
+      color: $joyride-tip-bg
     .name
       font-size: 150%
       font-weight: 400
@@ -117,7 +117,7 @@ $section-content-margin-medium: 65px
       margin-bottom: 0
       text-align: center
   #supporters
-    background: white
+    background: $input-bg-color
   .supporter
     color: black
     list-style-type: none
@@ -150,7 +150,7 @@ $section-content-margin-medium: 65px
   padding-top: +emCalc($section-content-margin)
 
 .pricing-table.suggested-plan li:not(.bullet-item)
-  background-color: #ddefeb
+  background-color: rgba($primary-color, 0.15)
 
 .pricing-table-content
   background-color: $body-bg
@@ -161,7 +161,7 @@ $section-content-margin-medium: 65px
     padding: +emCalc(15px) 0
     text-align: center
   li:not(.bullet-item)
-    background-color: white
+    background-color: $input-bg-color
   .title
     border-bottom: 1px solid $body-font-color
     font-size: 200%
