@@ -6,13 +6,13 @@ en:
       steps:
         first:
           title: '1. Submit an Idea'
-          description: "The first step of getting started is getting your idea out! We'll review it to make sure it fits."
+          description: "The first step to getting started is getting your idea out. We'll review it to make sure it fits with our scope of work."
         second:
           title: '2. Plan Your Project'
-          description: "It takes more than an idea, so while we are reviewing, you'll be getting all of your ducks in a row."
+          description: "As you're developing your story and campaign, take some time to create a marketing plan to help ensure your success."
         third:
           title: '3. Launch Your Campaign'
-          description: "Once your project is approved, you'll ready to go live and start raising money!"
+          description: "Once your project is developed and approved, you'll be ready to go live and start raising money!"
       who:
         title: 'Who can run a campaign?'
         local-governments: 'Local Governments'
