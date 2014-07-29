@@ -1,6 +1,7 @@
 $suggested-plan-margin: 25px
 $pricing-table-item-padding: 20px
-$section-content-margin: 65px
+$section-content-margin: 15px
+$section-content-margin-medium: 65px
 
 .learn-page
   .button,
@@ -43,7 +44,8 @@ $section-content-margin: 65px
   .section-with-hero-header
     padding: 0
     .hero
-      padding: +emCalc(75px) 0
+      padding-bottom: +emCalc(10px) !important
+      padding-top: +emCalc(75px)
       margin-bottom: +emCalc(5px)
     .section-content
       background-image: linear-gradient(to bottom, transparent 98%, $body-font-color 110%)
@@ -57,7 +59,7 @@ $section-content-margin: 65px
       color: white
   .title-information
     font-size: 80%
-    margin-bottom: +emCalc(85px)
+    margin-bottom: +emCalc(55px)
   .subtitle
     display: block
     font-size: 200%
@@ -202,6 +204,8 @@ $section-content-margin: 65px
     margin: 0
     padding: 0
   .learn-page
+    .title-information
+      margin-bottom: +emCalc(85px)
     .pricing-table
       background-color: $body-bg
       border: 1px solid $body-font-color
@@ -226,5 +230,13 @@ $section-content-margin: 65px
         height: 67px
     .pricing-table-content
       border: none
-    .section-with-hero-header .section-content
-      display: none
+    .section-content
+      margin: +emCalc($section-content-margin-medium) 0
+    .section-with-hero-header
+      .section-content
+        display: none
+        padding-bottom: +emCalc($section-content-margin-medium)
+      .hero
+        padding-bottom: +emCalc(75px) !important
+  #pricing
+    padding-top: +emCalc($section-content-margin-medium)
