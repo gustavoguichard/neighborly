@@ -24,6 +24,14 @@ describe Channel do
     it { should have_many :members }
   end
 
+  describe '.state_names' do
+    let(:states) { [:draft, :online] }
+
+    it 'returns an array with the state names' do
+      expect(described_class.state_names).to eq states
+    end
+  end
+
   describe ".by_permalink" do
     before do
       @c1 = create(:channel, permalink: 'foo')
