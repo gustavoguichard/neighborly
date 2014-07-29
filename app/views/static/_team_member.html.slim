@@ -1,0 +1,12 @@
+article.team-member.small-12.medium-4.columns.left
+  header
+    = image_tag "learn/team/#{nickname}.jpg", class: 'team-member-picture', alt: "#{name}'s picture", title: name
+    h3.name = name
+    strong.role = role
+  p.description = description
+  ul
+    - social_networks.each do |network, url|
+      li.social-network
+        = link_to url, target: '_blank' do
+          - possessive_name = name[-1].eql?('s') ? "#{name}'" : "#{name}'s"
+          i.social-network-icon[class="icon-et-#{network}-circled" title="#{possessive_name} #{network} account"]

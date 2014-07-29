@@ -89,5 +89,7 @@ window.Neighborly =
 
   backstretch:
     init: ->
-      if $('header.hero').not('.no-image').data('image-url') != null && $('header.hero').not('.no-image').data('image-url') != ''
-        $('header.hero').backstretch($('header.hero').data('image-url'), {fade: 'normal'})
+      has_image = -> $(header).data('image-url')?
+      for header in $('header.hero:not(.no-image)') when has_image() then do (header) =>
+        header = $(header)
+        header.backstretch(header.data('image-url'), {fade: 'normal'})

@@ -1,0 +1,252 @@
+$suggested-plan-margin: 25px
+$pricing-table-item-padding: 20px
+$section-content-margin: 15px
+$section-content-margin-medium: 65px
+
+.learn-page
+  .button,
+  .button.secondary:hover,
+  .button.secondary:active
+    background-color: $primary-color
+    border: none
+    border-radius: 0
+    color: $input-bg-color
+    font-weight: 400
+  .button.secondary
+    background-color: rgba($primary-color, 0.3)
+    color: $secondary-font-color
+  h2
+    border-bottom: 2px solid $border-color
+    display: inline-block
+    font-size: 300%
+    font-weight: 500
+    margin-bottom: 30px
+    padding: 0 20px 30px
+  h3
+    color: $body-font-color
+    text-transform: uppercase
+  p
+    font-size: 125%
+  section
+    background-color: $input-bg-color
+    padding: +emCalc(50px) 0
+    header
+      text-transform: uppercase
+      &, h2
+        color: $body-font-color
+  .full-width-row
+    max-width: 100%
+  .important-notice
+    font-size: 200%
+    font-weight: 400
+  a .important-notice
+    color: $body-font-color
+  .section-with-hero-header
+    padding: 0
+    .hero
+      padding-bottom: +emCalc(10px) !important
+      padding-top: +emCalc(75px)
+      margin-bottom: +emCalc(5px)
+    .section-content
+      background-image: linear-gradient(to bottom, transparent 98%, $body-font-color 110%)
+      margin-bottom: 0
+      padding-bottom: +emCalc($section-content-margin)
+  .hero
+    text-transform: uppercase
+    h2
+      font-weight: 700
+    h2, .subtitle
+      color: $input-bg-color
+  .title-information
+    font-size: 80%
+    margin-bottom: +emCalc(55px)
+  .subtitle
+    display: block
+    font-size: 200%
+    font-weight: 300
+    margin-top: +emCalc(5px)
+  .expand-section
+    color: $body-bg
+    font-size: 150%
+    strong
+      font-weight: normal
+  .expand-section-icon
+    margin-left: +emCalc(10px)
+    font-size: 120%
+  .main-section
+    overflow: hidden
+  .section-content
+    margin: +emCalc($section-content-margin) 0
+    overflow: hidden
+  .main-section p
+    font-size: 148%
+    text-align: center
+  .team-member-picture
+    border-radius: 50%
+    height: +emCalc(170px)
+    width: +emCalc(170px)
+  .social-network
+    display: inline-block
+    list-style-type: none
+  .social-network-icon
+    color: $secondary-font-color
+    display: block
+    font-size: 250%
+    margin-right: +emCalc(5px)
+    &:hover, &:active
+      color: $primary-color
+  .team-members
+    margin-top: +emCalc(50px)
+  .team-member
+    header
+      margin-bottom: +emCalc(20px)
+      text-align: center
+    header, .name
+      color: $joyride-tip-bg
+    .name
+      font-size: 150%
+      font-weight: 400
+      margin-bottom: 0
+      text-transform: none
+    .role
+      font-weight: 100
+      text-transform: uppercase
+    .description
+      font-size: 85%
+      height: +emCalc(70px)
+      margin-bottom: 0
+      text-align: center
+  #supporters
+    background: $input-bg-color
+  .supporter
+    color: black
+    list-style-type: none
+    text-align: center
+    span
+      display: block
+      font-size: 160%
+      font-weight: 100
+  .angel-list
+    margin-top: +emCalc(50px)
+  .angel-list-logo
+    margin-left: +emCalc(10px)
+    width: +emCalc(80px)
+  .open-type
+    margin-bottom: +emCalc(90px)
+    .important-notice
+      display: block
+  .open-type-image
+    display: inline-block
+    margin-bottom: +emCalc(25px)
+    vertical-align: middle
+  .github-logo
+    width: +emCalc(200px)
+  .sunlight-foundation-logo
+    width: +emCalc(250px)
+  .open-company-logo
+    width: +emCalc(150px)
+
+#pricing
+  padding-top: +emCalc($section-content-margin)
+
+.pricing-table.suggested-plan li:not(.bullet-item)
+  background-color: rgba($primary-color, 0.15)
+
+.pricing-table-content
+  background-color: $body-bg
+  border: 1px solid $body-font-color
+  li
+    font-size: 115%
+    list-style-type: none
+    padding: +emCalc(15px) 0
+    text-align: center
+  li:not(.bullet-item)
+    background-color: $input-bg-color
+  .title
+    border-bottom: 1px solid $body-font-color
+    font-size: 200%
+    padding: +emCalc(10px) 0
+    text-transform: uppercase
+  .description
+    border-bottom: 1px solid $secondary-font-color
+  .cta-button
+    border-bottom-color: $body-font-color
+  .button
+    margin-bottom: 0
+  .bullet-item
+    padding: $pricing-table-item-padding 0
+    position: relative
+    &:first-child
+      padding-top: 30px
+    span
+      font-size: 125%
+      position: absolute
+      right: 25px
+      top: 7px
+    .included
+      color: $primary-color
+    .not-included
+      color: $alert-color
+  .price
+    padding-top: +emCalc($pricing-table-item-padding)
+    padding-bottom: +emCalc($pricing-table-item-padding)
+    span
+      display: block
+      font-size: 85%
+      line-height: 85%
+    .strong
+      font-size: 150%
+      display: inline
+
+@media #{$medium}
+  .medium-collapse .columns
+    margin: 0
+    padding: 0
+  .learn-page
+    .title-information
+      margin-bottom: +emCalc(85px)
+    .pricing-table
+      background-color: $body-bg
+      border: 1px solid $body-font-color
+      width: 25%
+      &:first-child
+        border-right: none
+        margin-left: +emCalc(125px)
+        li:nth-child(2)
+          padding-top: $pricing-table-item-padding / 2
+      &:last-child
+        border-left: none
+        float: left
+      &.suggested-plan
+        position: relative
+        top: -$suggested-plan-margin
+        li:nth-child(2)
+          padding-top: $suggested-plan-margin
+          padding-bottom: ($suggested-plan-margin + $pricing-table-item-padding * 2) + 1
+        li:last-child
+          padding-bottom: $pricing-table-item-padding + $suggested-plan-margin
+      .price
+        height: 67px
+    .pricing-table-content
+      border: none
+    .section-content
+      margin: +emCalc($section-content-margin-medium) 0
+    .section-with-hero-header
+      .section-content
+        display: none
+        padding-bottom: +emCalc($section-content-margin-medium)
+      .hero
+        padding-bottom: +emCalc(75px) !important
+    .open-type
+      margin-bottom: 0
+    .open-type-image
+      height: +emCalc(175px)
+      margin-bottom: +emCalc(50px)
+    .sunlight-foundation-logo
+      margin-top: +emCalc(40px)
+    .open-company-logo
+      margin-top: +emCalc(17px)
+    .team-member .description
+      text-align: left
+  #pricing
+    padding-top: +emCalc($section-content-margin-medium)
