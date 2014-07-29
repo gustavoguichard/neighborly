@@ -1,9 +1,10 @@
 class Channel < ActiveRecord::Base
   extend CatarseAutoHtml
-  include Shared::StateMachineHelpers
-  include Channel::StateMachineHandler
-  include Channel::StartContent
-  include Channel::SuccessContent
+  include Shared::StateMachineHelpers,
+          Channel::StateMachineHandler,
+          Channel::StartContent,
+          Channel::SuccessContent,
+          PgSearch
 
   has_many :subscriber_reports
   belongs_to :user
@@ -28,6 +29,21 @@ class Channel < ActiveRecord::Base
   mount_uploader :image, ChannelUploader, mount_on: :image
 
   scope :by_permalink, ->(p) { where("lower(channels.permalink) = lower(?)", p) }
+
+  pg_search_scope :pg_search, against: [
+      [:name,        'A'],
+      [:permalink,   'B'],
+      [:description, 'C']
+    ],
+    associated_against: {
+      user:    %i(id name email)
+    },
+    using: {
+      tsearch: {
+        dictionary: 'english'
+      }
+    },
+    ignoring: :accents
 
   def self.find_by_permalink!(string)
     self.by_permalink(string).first!

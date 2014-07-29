@@ -46,6 +46,45 @@ describe Channel do
     it { should == @c1 }
   end
 
+  describe '#pg_search' do
+    context 'using permalink' do
+      let(:channel) { create(:channel, permalink: 'neighborly') }
+
+      context 'when channel exists' do
+        it 'returns the channel ignoring accents' do
+          expect(
+            [described_class.pg_search('neighborly'), described_class.pg_search('néìghbôrly')]
+          ).to eq [[channel], [channel]]
+        end
+      end
+
+      context 'when channel is not found' do
+        it 'returns a empty array' do
+          expect(described_class.pg_search('lorem')).to eq []
+        end
+      end
+    end
+
+    context 'using user name' do
+      let(:channel) do
+        create(:channel, user: create(:user, name: 'Foo Bar User'))
+      end
+
+      it 'returns the channel' do
+        expect(described_class.pg_search('Foo Bar User')).to eq [channel]
+      end
+    end
+
+    context 'using user email' do
+      let(:channel) do
+        create(:channel, user: create(:user, email: 'foobar@channel.com'))
+      end
+
+      it 'returns the channel' do
+        expect(described_class.pg_search('foobar@channel.com')).to eq [channel]
+      end
+    end
+  end
 
   describe "#to_param" do
     let(:channel) { create(:channel) }
