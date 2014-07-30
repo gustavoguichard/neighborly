@@ -90,7 +90,7 @@ class ProjectsController < ApplicationController
   end
 
   def start
-    @projects = ProjectsForHome.successful[0..2]
+    @projects = ProjectsForHome.successful[0..3]
   end
 
   protected
