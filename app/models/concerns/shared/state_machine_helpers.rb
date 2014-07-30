@@ -5,9 +5,7 @@ module Shared
 
     included do
       def self.state_names
-        self.state_machine.states.map do |state|
-          state.name if state.name != :deleted
-        end.compact!
+        self.state_machine.states.map(&:name).reject { |n| n == :deleted }
       end
     end
   end
