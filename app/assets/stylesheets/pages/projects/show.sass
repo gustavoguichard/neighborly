@@ -14,8 +14,6 @@
         color: lighten($primary-color, 30%)
         &:hover
           color: lighten($primary-color, 10%)
-    .headline
-      padding-bottom: +emCalc(15px)
     .time-remaining
       font-size: 140%
       padding-top: 12px
@@ -34,8 +32,11 @@
       .pledged
         font-size: 160%
         padding-top: +emCalc(10px)
+        margin-bottom: +emCalc(10px)
         small
           font-size: 75%
+      .pledged.show-for-medium
+        font-size: 126%
       .progress
         margin-top: +emCalc(10px)
         background: $secondary-color
@@ -311,3 +312,10 @@
     width: 390px
   #project-box-embed-html
     width: 250px
+
+@media #{$medium}
+  .project-page
+    .headline
+      padding-bottom: +emCalc(15px)
+    header.hero .status .pledged
+      font-size: 140%
