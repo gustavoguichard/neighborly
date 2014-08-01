@@ -190,6 +190,8 @@ body.embed
 
 @media #{$medium}
   .project-box
+    &:not(.large) a
+      display: inline-block
     &:hover:not(.large)
       .description *
         +single-transition(all, 1s)
