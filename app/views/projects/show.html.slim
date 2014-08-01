@@ -46,9 +46,13 @@
           p = @project.headline
         .status
           = @project.progress_bar
-          .pledged
+          .pledged.hide-for-medium
             = @project.display_pledged
             small = t('.so_far').html_safe
+            = @project.display_goal
+          .pledged.show-for-medium
+            = @project.display_pledged
+            small = t('.reached_goal_small_separator_html')
             = @project.display_goal
         - if @project.online? && !@project.expired?
           .show-for-small

@@ -2,6 +2,7 @@ en:
   projects:
     show:
       so_far: '&nbsp; so far of &nbsp; '
+      reached_goal_small_separator_html: '&nbsp; / &nbsp; '
       anonymous_contribution: "Anonymous neighbor"
       subtitle:
         all_or_none: "A project in %{category_name}, in %{city}, by %{author}"
