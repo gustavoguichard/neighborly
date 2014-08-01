@@ -7,10 +7,6 @@ class ProjectPolicy < ApplicationPolicy
     create?
   end
 
-  def destroy?
-    create? && record.can_push_to_trash?
-  end
-
   def show?
     if record.draft? || record.soon?
       create?
@@ -25,6 +21,10 @@ class ProjectPolicy < ApplicationPolicy
 
   def reports?
     update?
+  end
+
+  def destroy?
+    change_state? && record.can_push_to_trash?
   end
 
   def approve?

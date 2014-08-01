@@ -126,7 +126,7 @@ describe ProjectPolicy do
   end
 
   permissions :destroy? do
-    it_should_behave_like 'create permissions'
+    it_should_behave_like 'change state permissions'
 
     context 'when it can be pushed to trash' do
       it 'permits access' do
