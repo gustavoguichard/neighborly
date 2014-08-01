@@ -6,6 +6,11 @@ class Users::ContributionsController < ApplicationController
   belongs_to :user
   actions :index
 
+  def index
+    authorize parent, :update?
+    index!
+  end
+
   def request_refund
     authorize resource
     if resource.value > resource.user.user_total.credits || !resource.request_refund

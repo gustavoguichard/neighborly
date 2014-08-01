@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Users::ProjectsController do
-  let(:project) { create(:project) }
   let(:user) { create(:user) }
+  let(:project) { create(:project, user: user) }
 
   subject{ response }
 

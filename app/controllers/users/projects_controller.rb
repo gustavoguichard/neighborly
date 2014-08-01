@@ -3,6 +3,11 @@ class Users::ProjectsController < ApplicationController
   actions :index
   belongs_to :user
 
+  def index
+    authorize parent, :update?
+    index!
+  end
+
   def collection
     @projects ||= end_of_association_chain
   end
