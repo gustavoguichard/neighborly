@@ -1,6 +1,6 @@
 - large = defined?(large) && large
 
-.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project, large, try(:contribution), try(:columns))]
+.project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project, large, (defined?(contribution) && contribution), try(:columns))]
   meta[itemprop="dateCreated" content=project.created_at.to_date]
   - if project.soon?
     - project_link = 'javascript:void(0)'
@@ -24,7 +24,32 @@
       .cover.small-12.columns
         = image_tag project.display_image(large || defined?(contribution) && !browser.mobile? ? 'project_thumb_large' : 'project_thumb'), itemprop: 'image'
 
-    .content[class=project_content_classes(project, large, try(:contribution))]
+    - if defined?(contribution) && !browser.mobile?
+      .back-informations.large-3.medium-3.columns.right
+        h5
+          - contribution.confirmed_at.present?
+            i.icon-et-calendar
+            = l contribution.confirmed_at.to_date, format: :long
+
+        - if contribution.display_value
+          h5
+            i.icon-et-heart
+            = contribution.display_value
+        - if contribution.reward
+          .reward
+            h5
+              i.icon-et-trophy
+              = t('rewards.index.reward_title', minimum: contribution.reward.display_minimum)
+            - description = contribution.reward.description.gsub(/"/,'&quot;')
+            p[title=description] = truncate(contribution.reward.description, length: 160)
+
+        .share.row
+          .large-6.columns
+            = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{project.name}&p[summary]=#{project.headline}&p[url]=#{project_url(project)}&p[images[0]=#{project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+          .large-6.columns
+            = link_to t('.share.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: project.name, hash_tag: project.hash_tag))}", class: 'button with-icon twitter', target: :blank
+
+    .content[class=project_content_classes(project, large, (defined?(contribution) && contribution))]
       - if large || defined?(contribution) && !browser.mobile?
         h4.name = project.name
 
@@ -57,28 +82,3 @@
             - else
               = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
         = project.progress_bar
-
-    - if defined?(contribution) && !browser.mobile?
-      .back-informations.large-3.medium-3.columns
-        h5
-          - contribution.confirmed_at.present?
-            i.icon-et-calendar
-            = l contribution.confirmed_at.to_date, format: :long
-
-        - if contribution.display_value
-          h5
-            i.icon-et-heart
-            = contribution.display_value
-        - if contribution.reward
-          .reward
-            h5
-              i.icon-et-trophy
-              = t('rewards.index.reward_title', minimum: contribution.reward.display_minimum)
-            - description = contribution.reward.description.gsub(/"/,'&quot;')
-            p[title=description] = truncate(contribution.reward.description, length: 160)
-
-        .share.row
-          .large-6.columns
-            = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{project.name}&p[summary]=#{project.headline}&p[url]=#{project_url(project)}&p[images[0]=#{project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
-          .large-6.columns
-            = link_to t('.share.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: project.name, hash_tag: project.hash_tag))}", class: 'button with-icon twitter', target: :blank
