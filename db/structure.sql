@@ -37,6 +37,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -399,8 +413,8 @@ CREATE TABLE channels (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     image text,
-    video_url text,
     video_embed_url character varying(255),
+    video_url text,
     how_it_works text,
     how_it_works_html text,
     terms_url character varying(255),
@@ -1327,7 +1341,7 @@ ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
 --
 
 CREATE VIEW user_totals AS
-    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[])) GROUP BY b.user_id;
+    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) GROUP BY b.user_id;
 
 
 --
@@ -3216,6 +3230,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140530224700');
 INSERT INTO schema_migrations (version) VALUES ('20140530225038');
 
 INSERT INTO schema_migrations (version) VALUES ('20140612230821');
+
+INSERT INTO schema_migrations (version) VALUES ('20140625130624');
 
 INSERT INTO schema_migrations (version) VALUES ('20140626141415');
 
