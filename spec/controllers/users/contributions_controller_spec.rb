@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Users::ContributionsController do
   subject{ response }
   let(:user){ create(:user, password: 'current_password', password_confirmation: 'current_password', authorizations: [create(:authorization, uid: 666, oauth_provider: create(:oauth_provider, name: 'facebook'))]) }
-  let(:successful_project){ create(:project, state: 'online') }
+  let(:successful_project){ create(:project, state: 'online', user: user) }
   let(:failed_project){ create(:project, state: 'online') }
-  let(:successful_contribution){ create(:contribution, state: 'confirmed', project: successful_project) }
+  let(:successful_contribution){ create(:contribution, state: 'confirmed', project: successful_project, user: user) }
   let(:failed_contribution){ create(:contribution, state: 'confirmed', user: user, project: failed_project) }
   let(:other_back) { create(:contribution, project: failed_project) }
   let(:unconfirmed_contribution) { create(:contribution, state: 'pending', user: user, project: failed_project) }
@@ -22,6 +22,8 @@ describe Users::ContributionsController do
   end
 
   describe "GET index" do
+    let(:current_user){ user }
+
     before do
       get :index, user_id: successful_contribution.user.id, locale: 'pt'
     end
