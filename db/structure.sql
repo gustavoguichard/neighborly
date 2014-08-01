@@ -2419,6 +2419,14 @@ CREATE RULE "_RETURN" AS ON SELECT TO funding_raised_per_project_reports DO INST
 
 
 --
+-- Name: prevent_deletion_of_recommendations; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE prevent_deletion_of_recommendations AS
+    ON DELETE TO recommendations DO INSTEAD NOTHING;
+
+
+--
 -- Name: contributions_project_id_reference; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2447,7 +2455,7 @@ ALTER TABLE ONLY contributions
 --
 
 ALTER TABLE ONLY api_access_tokens
-    ADD CONSTRAINT fk_api_access_tokens_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_api_access_tokens_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2463,7 +2471,7 @@ ALTER TABLE ONLY authorizations
 --
 
 ALTER TABLE ONLY authorizations
-    ADD CONSTRAINT fk_authorizations_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_authorizations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2471,7 +2479,7 @@ ALTER TABLE ONLY authorizations
 --
 
 ALTER TABLE ONLY balanced_contributors
-    ADD CONSTRAINT fk_balanced_contributors_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_balanced_contributors_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2487,7 +2495,7 @@ ALTER TABLE ONLY channel_members
 --
 
 ALTER TABLE ONLY channel_members
-    ADD CONSTRAINT fk_channel_members_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_channel_members_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2519,7 +2527,7 @@ ALTER TABLE ONLY channels_subscribers
 --
 
 ALTER TABLE ONLY channels_subscribers
-    ADD CONSTRAINT fk_channels_subscribers_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_channels_subscribers_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2543,7 +2551,7 @@ ALTER TABLE ONLY contributions
 --
 
 ALTER TABLE ONLY images
-    ADD CONSTRAINT fk_images_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_images_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2607,7 +2615,7 @@ ALTER TABLE ONLY notifications
 --
 
 ALTER TABLE ONLY organizations
-    ADD CONSTRAINT fk_organizations_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_organizations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2695,7 +2703,7 @@ ALTER TABLE ONLY notifications
 --
 
 ALTER TABLE ONLY notifications
-    ADD CONSTRAINT notifications_user_id_reference FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT notifications_user_id_reference FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2743,7 +2751,7 @@ ALTER TABLE ONLY unsubscribes
 --
 
 ALTER TABLE ONLY unsubscribes
-    ADD CONSTRAINT unsubscribes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT unsubscribes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -2759,7 +2767,7 @@ ALTER TABLE ONLY updates
 --
 
 ALTER TABLE ONLY updates
-    ADD CONSTRAINT updates_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT updates_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -3237,6 +3245,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140626141415');
 INSERT INTO schema_migrations (version) VALUES ('20140708123838');
 
 INSERT INTO schema_migrations (version) VALUES ('20140721232244');
+
+INSERT INTO schema_migrations (version) VALUES ('20140801185200');
 
 INSERT INTO schema_migrations (version) VALUES ('20140806134524');
 
