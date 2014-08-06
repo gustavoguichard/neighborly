@@ -9,6 +9,7 @@ en:
       filter: 'Status'
       showing_results_for: 'Showing results for: '
       filters:
+        active: 'Active'
         recommended: 'Recommended'
         expiring: 'Ending Soon'
         recent: 'Recent'

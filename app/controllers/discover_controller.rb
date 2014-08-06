@@ -1,6 +1,6 @@
 class DiscoverController < ApplicationController
 
-  FILTERS = %w(recommended expiring recent successful soon with_active_matches)
+  FILTERS = %w(active recommended expiring recent successful soon with_active_matches)
 
   def index
     @must_show_all_projects = ActiveRecord::ConnectionAdapters::Column.

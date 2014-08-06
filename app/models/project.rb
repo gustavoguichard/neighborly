@@ -65,6 +65,7 @@ class Project < ActiveRecord::Base
     ignoring: :accents
 
   # Used to simplify a has_scope
+  scope :active, ->{ with_state('online') }
   scope :successful, ->{ with_state('successful') }
   scope :with_active_matches, -> { includes(:matches).where(matches: { id: Match.active }).group('projects.id', 'matches.id') }
   scope :by_id, ->(id) { where(id: id) }
@@ -73,7 +74,6 @@ class Project < ActiveRecord::Base
   scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
   scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
   scope :visible, -> { without_states(['draft', 'rejected', 'deleted']) }
-  scope :financial, -> { with_states(['online', 'successful', 'waiting_funds']).where("projects.expires_at > (current_timestamp - '15 days'::interval)") }
   scope :recommended, -> { where(recommended: true) }
   scope :expired, -> { where("projects.expires_at < current_timestamp") }
   scope :not_expired, -> { where("projects.expires_at >= current_timestamp") }

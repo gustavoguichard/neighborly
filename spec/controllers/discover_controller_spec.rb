@@ -13,7 +13,7 @@ describe DiscoverController do
   end
 
   it 'should have the rights filters' do
-    expected_filters = %w(recommended expiring recent successful soon with_active_matches)
+    expected_filters = %w(active recommended expiring recent successful soon with_active_matches)
     expect(DiscoverController::FILTERS).to eq(expected_filters)
   end
 
