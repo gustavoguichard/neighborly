@@ -69,6 +69,8 @@ class ProjectObserver < ActiveRecord::Observer
     notify_admin_that_project_reached_deadline(project)
   end
 
+  private
+
   def notify_new_draft_project(project)
     if (user = project.new_draft_recipient)
       Notification.notify_once(
@@ -105,8 +107,6 @@ class ProjectObserver < ActiveRecord::Observer
       end
     end
   end
-
-  private
 
   def deliver_default_notification_for(project, notification_type)
     project.notify_owner(
