@@ -159,15 +159,6 @@ describe User do
     it{ should == 50.0 }
   end
 
-  describe "#update_attributes" do
-    context "when I try to update moip_login" do
-      before do
-        user.update_attributes moip_login: 'test'
-      end
-      it("should perform the update"){ user.moip_login.should == 'test' }
-    end
-  end
-
   describe "#recommended_project" do
     subject{ user.recommended_projects }
     before do

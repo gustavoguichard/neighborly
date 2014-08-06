@@ -14,10 +14,9 @@ class ProjectFinancial
     {
       project_id:          project_id,
       name:                name,
-      moip:                moip,
       goal:                goal,
       reached:             reached,
-      moip_tax:            moip_tax,
+      service_fee:         service_fee,
       platform_fee:        platform_fee,
       repass_value:        repass_value,
       expires_at:          expires_at,
@@ -34,11 +33,7 @@ class ProjectFinancial
     project.expires_at.to_date
   end
 
-  def moip
-    user.moip_login
-  end
-
-  def moip_tax
+  def service_fee
     project_total.total_payment_service_fee
   end
 

@@ -2,7 +2,6 @@ class Projects::ContributionsController < ApplicationController
   after_filter :verify_authorized, except: :index
   inherit_resources
   actions :show, :new, :edit, :create, :credits_checkout
-  skip_before_filter :verify_authenticity_token, only: [:moip]
   skip_before_filter :set_persistent_warning
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
