@@ -79,11 +79,11 @@ describe ProjectsController do
       it { expect(response).to redirect_to set_email_users_path }
     end
 
-    context 'with referal link' do
-      subject { controller.session[:referal_link] }
-      before { get :index, ref: 'referal' }
+    context 'with referral_url' do
+      subject { controller.session[:referral_url] }
+      before { get :index, ref: 'referral' }
 
-      it { expect(subject).to eq 'referal' }
+      it { expect(subject).to eq 'referral' }
     end
 
     context 'project variables' do
