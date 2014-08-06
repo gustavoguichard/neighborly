@@ -6,7 +6,7 @@ class ProjectTotal
   end
 
   def net_amount
-    contributions.inject(0) { |sum, c| sum + c.net_payment } - platform_fee
+    contributions.inject(0) { |sum, c| sum + c.net_value } - platform_fee
   end
 
   def platform_fee
