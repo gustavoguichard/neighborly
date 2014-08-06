@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   force_ssl if: :use_ssl?
   protect_from_forgery
 
-  helper_method :channel, :referal_link
-  before_action :referal_it!
+  helper_method :channel, :referral_url
+  before_action :referral_it!
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
     Channel.find_by_permalink(request.subdomain.to_s)
   end
 
-  def referal_link
-    session[:referal_link]
+  def referral_url
+    session[:referral_url]
   end
 
   private
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     Rails.env.production? && !request.subdomain.present?
   end
 
-  def referal_it!
-    session[:referal_link] = params[:ref] if params[:ref].present?
+  def referral_it!
+    session[:referral_url] = params[:ref] if params[:ref].present?
   end
 end
