@@ -6,9 +6,9 @@ en:
       tags: 'Popular Tags: '
       near: 'Locations'
       category: 'Category'
-      filter: 'Status'
+      state: 'Status'
       showing_results_for: 'Showing results for: '
-      filters:
+      states:
         active: 'Active'
         recommended: 'Recommended'
         expiring: 'Ending Soon'

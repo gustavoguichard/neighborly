@@ -1,20 +1,20 @@
 class DiscoverController < ApplicationController
 
-  FILTERS = %w(active recommended expiring recent successful soon with_active_matches)
+  FILTER_STATES = %w(active recommended expiring recent successful soon with_active_matches)
 
   def index
     @must_show_all_projects = ActiveRecord::ConnectionAdapters::Column.
       value_to_boolean(params[:show_all_projects]) || params[:search].present?
-    @available_filters      = FILTERS.map do |f|
-      [I18n.t("discover.index.filters.#{f}"), f]
+    @available_states       = FILTER_STATES.map do |f|
+      [I18n.t("discover.index.states.#{f}"), f]
     end
     @filters                = {}
     @tags                   = Tag.popular
     @projects               = Project.visible
 
-    if params[:filter].present? && FILTERS.include?(params[:filter].downcase)
-      @projects = @projects.send(params[:filter].downcase)
-      @filters.merge! filter: params[:filter].downcase
+    if params[:state].present? && FILTER_STATES.include?(params[:state].downcase)
+      @projects = @projects.send(params[:state].downcase)
+      @filters.merge! state: params[:state].downcase
     end
 
     if params[:near].present?
@@ -46,4 +46,6 @@ class DiscoverController < ApplicationController
     @projects = @projects.order_for_search
     @channels = Channel.with_state('online').order('RANDOM()').limit(4) unless @filters.any?
   end
+
+
 end
