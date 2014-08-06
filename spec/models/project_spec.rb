@@ -12,6 +12,7 @@ describe Project do
   describe "associations" do
     it{ should belong_to :user }
     it{ should belong_to :category }
+    it{ should have_one :project_total }
     it{ should have_many :contributions }
     it{ should have_many :matches }
     it{ should have_many :rewards }
@@ -252,18 +253,17 @@ describe Project do
   end
 
   describe '#reached_goal?' do
-    let(:project) { create(:project, goal: 3000) }
-    subject { project.reached_goal? }
+    subject { create(:project, goal: 3000) }
 
     context 'when sum of all contributions hit the goal' do
       before do
-        create(:contribution, value: 4000, project: project)
+        create(:contribution, value: 4000, project: subject)
       end
-      it { should be_true }
+      it { expect(subject).to be_reached_goal }
     end
 
     context "when sum of all contributions don't hit the goal" do
-      it { should be_false }
+      it { expect(subject).to_not be_reached_goal }
     end
   end
 

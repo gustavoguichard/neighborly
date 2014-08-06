@@ -6,6 +6,7 @@ class ProjectObserver < ActiveRecord::Observer
   end
 
   def after_create(project)
+    create_project_total(project)
     deliver_default_notification_for(project, :project_received)
     notify_new_draft_project(project)
   end
@@ -118,5 +119,9 @@ class ProjectObserver < ActiveRecord::Observer
         origin_name: project.last_channel.try(:name) || Configuration[:company_name]
       }
     )
+  end
+
+  def create_project_total(project)
+    ProjectTotalBuilder.new(project).perform
   end
 end

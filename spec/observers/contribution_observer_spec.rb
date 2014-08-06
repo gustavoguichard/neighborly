@@ -26,6 +26,17 @@ describe ContributionObserver do
         expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
         resource.confirm!
       end
+
+      it 'update project\'s total' do
+        resource
+        expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+        resource.confirm!
+      end
+    end
+
+    it 'update project\'s total' do
+      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      resource
     end
   end
 

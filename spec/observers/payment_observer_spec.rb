@@ -9,6 +9,7 @@ describe PaymentObserver do
     before do
       Notification.unstub(:notify)
       Notification.unstub(:notify_once)
+      allow_any_instance_of(ProjectTotalBuilder).to receive(:perform)
     end
 
     describe '#after_create' do

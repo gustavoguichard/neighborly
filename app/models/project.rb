@@ -32,6 +32,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :category
+  has_one :project_total
   has_many :contributions, dependent: :destroy
   has_many :matches, dependent: :destroy
   has_many :rewards, dependent: :destroy
@@ -127,10 +128,6 @@ class Project < ActiveRecord::Base
 
   def decorator
     @decorator ||= ProjectDecorator.new(self)
-  end
-
-  def project_total
-    @project_total ||= ProjectTotal.new(self)
   end
 
   def expires_at

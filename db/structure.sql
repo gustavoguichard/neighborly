@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -34,20 +35,6 @@ CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -413,8 +400,8 @@ CREATE TABLE channels (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     image text,
-    video_embed_url character varying(255),
     video_url text,
+    video_embed_url character varying(255),
     how_it_works text,
     how_it_works_html text,
     terms_url character varying(255),
@@ -971,11 +958,577 @@ ALTER SEQUENCE project_faqs_id_seq OWNED BY project_faqs.id;
 
 
 --
+-- Name: project_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE project_totals (
+    id integer NOT NULL,
+    project_id integer,
+    net_amount numeric DEFAULT 0,
+    platform_fee numeric DEFAULT 0,
+    pledged numeric DEFAULT 0,
+    progress double precision DEFAULT 0,
+    total_contributions integer DEFAULT 0,
+    total_contributions_without_matches integer DEFAULT 0,
+    total_payment_service_fee numeric DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: project_totals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE project_totals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_totals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE project_totals_id_seq OWNED BY project_totals.id;
+
+
+--
 -- Name: projects_for_home; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW projects_for_home AS
-    WITH featured_projects AS (SELECT 'featured'::text AS origin, featureds.id, featureds.name, featureds.user_id, featureds.category_id, featureds.goal, featureds.about, featureds.headline, featureds.video_url, featureds.short_url, featureds.created_at, featureds.updated_at, featureds.about_html, featureds.recommended, featureds.home_page_comment, featureds.permalink, featureds.video_thumbnail, featureds.state, featureds.online_days, featureds.online_date, featureds.how_know, featureds.more_urls AS more_links, featureds.first_contributions, featureds.uploaded_image, featureds.video_embed_url, featureds.budget, featureds.budget_html, featureds.terms, featureds.terms_html, featureds.site, featureds.hash_tag, featureds.address_city, featureds.address_state, featureds.address_zip_code, featureds.address_neighborhood, featureds.foundation_widget, featureds.campaign_type, featureds.featured, featureds.home_page, featureds.about_textile, featureds.budget_textile, featureds.terms_textile, featureds.latitude, featureds.longitude, featureds.referral_url AS referal_link, featureds.hero_image, featureds.sent_to_analysis_at, featureds.organization_type, featureds.street_address FROM projects featureds WHERE (featureds.featured AND ((featureds.state)::text = 'online'::text)) LIMIT 1), recommended_projects AS (SELECT 'recommended'::text AS origin, recommends.id, recommends.name, recommends.user_id, recommends.category_id, recommends.goal, recommends.about, recommends.headline, recommends.video_url, recommends.short_url, recommends.created_at, recommends.updated_at, recommends.about_html, recommends.recommended, recommends.home_page_comment, recommends.permalink, recommends.video_thumbnail, recommends.state, recommends.online_days, recommends.online_date, recommends.how_know, recommends.more_urls AS more_links, recommends.first_contributions, recommends.uploaded_image, recommends.video_embed_url, recommends.budget, recommends.budget_html, recommends.terms, recommends.terms_html, recommends.site, recommends.hash_tag, recommends.address_city, recommends.address_state, recommends.address_zip_code, recommends.address_neighborhood, recommends.foundation_widget, recommends.campaign_type, recommends.featured, recommends.home_page, recommends.about_textile, recommends.budget_textile, recommends.terms_textile, recommends.latitude, recommends.longitude, recommends.referral_url AS referal_link, recommends.hero_image, recommends.sent_to_analysis_at, recommends.organization_type, recommends.street_address FROM projects recommends WHERE (((recommends.recommended AND ((recommends.state)::text = 'online'::text)) AND recommends.home_page) AND (NOT (recommends.id IN (SELECT featureds.id FROM featured_projects featureds)))) ORDER BY random() LIMIT 5), expiring_projects AS (SELECT 'expiring'::text AS origin, expiring.id, expiring.name, expiring.user_id, expiring.category_id, expiring.goal, expiring.about, expiring.headline, expiring.video_url, expiring.short_url, expiring.created_at, expiring.updated_at, expiring.about_html, expiring.recommended, expiring.home_page_comment, expiring.permalink, expiring.video_thumbnail, expiring.state, expiring.online_days, expiring.online_date, expiring.how_know, expiring.more_urls AS more_links, expiring.first_contributions, expiring.uploaded_image, expiring.video_embed_url, expiring.budget, expiring.budget_html, expiring.terms, expiring.terms_html, expiring.site, expiring.hash_tag, expiring.address_city, expiring.address_state, expiring.address_zip_code, expiring.address_neighborhood, expiring.foundation_widget, expiring.campaign_type, expiring.featured, expiring.home_page, expiring.about_textile, expiring.budget_textile, expiring.terms_textile, expiring.latitude, expiring.longitude, expiring.referral_url AS referal_link, expiring.hero_image, expiring.sent_to_analysis_at, expiring.organization_type, expiring.street_address FROM projects expiring WHERE (((((expiring.state)::text = 'online'::text) AND (expires_at(expiring.*) <= (now() + '14 days'::interval))) AND expiring.home_page) AND (NOT (expiring.id IN (SELECT recommends.id FROM recommended_projects recommends UNION SELECT featureds.id FROM featured_projects featureds)))) ORDER BY random() LIMIT 4), soon_projects AS (SELECT 'soon'::text AS origin, soon.id, soon.name, soon.user_id, soon.category_id, soon.goal, soon.about, soon.headline, soon.video_url, soon.short_url, soon.created_at, soon.updated_at, soon.about_html, soon.recommended, soon.home_page_comment, soon.permalink, soon.video_thumbnail, soon.state, soon.online_days, soon.online_date, soon.how_know, soon.more_urls AS more_links, soon.first_contributions, soon.uploaded_image, soon.video_embed_url, soon.budget, soon.budget_html, soon.terms, soon.terms_html, soon.site, soon.hash_tag, soon.address_city, soon.address_state, soon.address_zip_code, soon.address_neighborhood, soon.foundation_widget, soon.campaign_type, soon.featured, soon.home_page, soon.about_textile, soon.budget_textile, soon.terms_textile, soon.latitude, soon.longitude, soon.referral_url AS referal_link, soon.hero_image, soon.sent_to_analysis_at, soon.organization_type, soon.street_address FROM projects soon WHERE ((((soon.state)::text = 'soon'::text) AND soon.home_page) AND (soon.uploaded_image IS NOT NULL)) ORDER BY random() LIMIT 4), successful_projects AS (SELECT 'successful'::text AS origin, successful.id, successful.name, successful.user_id, successful.category_id, successful.goal, successful.about, successful.headline, successful.video_url, successful.short_url, successful.created_at, successful.updated_at, successful.about_html, successful.recommended, successful.home_page_comment, successful.permalink, successful.video_thumbnail, successful.state, successful.online_days, successful.online_date, successful.how_know, successful.more_urls AS more_links, successful.first_contributions, successful.uploaded_image, successful.video_embed_url, successful.budget, successful.budget_html, successful.terms, successful.terms_html, successful.site, successful.hash_tag, successful.address_city, successful.address_state, successful.address_zip_code, successful.address_neighborhood, successful.foundation_widget, successful.campaign_type, successful.featured, successful.home_page, successful.about_textile, successful.budget_textile, successful.terms_textile, successful.latitude, successful.longitude, successful.referral_url AS referal_link, successful.hero_image, successful.sent_to_analysis_at, successful.organization_type, successful.street_address FROM projects successful WHERE (((successful.state)::text = 'successful'::text) AND successful.home_page) ORDER BY random() LIMIT 4) (((SELECT featured_projects.origin, featured_projects.id, featured_projects.name, featured_projects.user_id, featured_projects.category_id, featured_projects.goal, featured_projects.about, featured_projects.headline, featured_projects.video_url, featured_projects.short_url, featured_projects.created_at, featured_projects.updated_at, featured_projects.about_html, featured_projects.recommended, featured_projects.home_page_comment, featured_projects.permalink, featured_projects.video_thumbnail, featured_projects.state, featured_projects.online_days, featured_projects.online_date, featured_projects.how_know, featured_projects.more_links, featured_projects.first_contributions, featured_projects.uploaded_image, featured_projects.video_embed_url, featured_projects.budget, featured_projects.budget_html, featured_projects.terms, featured_projects.terms_html, featured_projects.site, featured_projects.hash_tag, featured_projects.address_city, featured_projects.address_state, featured_projects.address_zip_code, featured_projects.address_neighborhood, featured_projects.foundation_widget, featured_projects.campaign_type, featured_projects.featured, featured_projects.home_page, featured_projects.about_textile, featured_projects.budget_textile, featured_projects.terms_textile, featured_projects.latitude, featured_projects.longitude, featured_projects.referal_link, featured_projects.hero_image, featured_projects.sent_to_analysis_at, featured_projects.organization_type, featured_projects.street_address FROM featured_projects UNION SELECT recommended_projects.origin, recommended_projects.id, recommended_projects.name, recommended_projects.user_id, recommended_projects.category_id, recommended_projects.goal, recommended_projects.about, recommended_projects.headline, recommended_projects.video_url, recommended_projects.short_url, recommended_projects.created_at, recommended_projects.updated_at, recommended_projects.about_html, recommended_projects.recommended, recommended_projects.home_page_comment, recommended_projects.permalink, recommended_projects.video_thumbnail, recommended_projects.state, recommended_projects.online_days, recommended_projects.online_date, recommended_projects.how_know, recommended_projects.more_links, recommended_projects.first_contributions, recommended_projects.uploaded_image, recommended_projects.video_embed_url, recommended_projects.budget, recommended_projects.budget_html, recommended_projects.terms, recommended_projects.terms_html, recommended_projects.site, recommended_projects.hash_tag, recommended_projects.address_city, recommended_projects.address_state, recommended_projects.address_zip_code, recommended_projects.address_neighborhood, recommended_projects.foundation_widget, recommended_projects.campaign_type, recommended_projects.featured, recommended_projects.home_page, recommended_projects.about_textile, recommended_projects.budget_textile, recommended_projects.terms_textile, recommended_projects.latitude, recommended_projects.longitude, recommended_projects.referal_link, recommended_projects.hero_image, recommended_projects.sent_to_analysis_at, recommended_projects.organization_type, recommended_projects.street_address FROM recommended_projects) UNION SELECT expiring_projects.origin, expiring_projects.id, expiring_projects.name, expiring_projects.user_id, expiring_projects.category_id, expiring_projects.goal, expiring_projects.about, expiring_projects.headline, expiring_projects.video_url, expiring_projects.short_url, expiring_projects.created_at, expiring_projects.updated_at, expiring_projects.about_html, expiring_projects.recommended, expiring_projects.home_page_comment, expiring_projects.permalink, expiring_projects.video_thumbnail, expiring_projects.state, expiring_projects.online_days, expiring_projects.online_date, expiring_projects.how_know, expiring_projects.more_links, expiring_projects.first_contributions, expiring_projects.uploaded_image, expiring_projects.video_embed_url, expiring_projects.budget, expiring_projects.budget_html, expiring_projects.terms, expiring_projects.terms_html, expiring_projects.site, expiring_projects.hash_tag, expiring_projects.address_city, expiring_projects.address_state, expiring_projects.address_zip_code, expiring_projects.address_neighborhood, expiring_projects.foundation_widget, expiring_projects.campaign_type, expiring_projects.featured, expiring_projects.home_page, expiring_projects.about_textile, expiring_projects.budget_textile, expiring_projects.terms_textile, expiring_projects.latitude, expiring_projects.longitude, expiring_projects.referal_link, expiring_projects.hero_image, expiring_projects.sent_to_analysis_at, expiring_projects.organization_type, expiring_projects.street_address FROM expiring_projects) UNION SELECT soon_projects.origin, soon_projects.id, soon_projects.name, soon_projects.user_id, soon_projects.category_id, soon_projects.goal, soon_projects.about, soon_projects.headline, soon_projects.video_url, soon_projects.short_url, soon_projects.created_at, soon_projects.updated_at, soon_projects.about_html, soon_projects.recommended, soon_projects.home_page_comment, soon_projects.permalink, soon_projects.video_thumbnail, soon_projects.state, soon_projects.online_days, soon_projects.online_date, soon_projects.how_know, soon_projects.more_links, soon_projects.first_contributions, soon_projects.uploaded_image, soon_projects.video_embed_url, soon_projects.budget, soon_projects.budget_html, soon_projects.terms, soon_projects.terms_html, soon_projects.site, soon_projects.hash_tag, soon_projects.address_city, soon_projects.address_state, soon_projects.address_zip_code, soon_projects.address_neighborhood, soon_projects.foundation_widget, soon_projects.campaign_type, soon_projects.featured, soon_projects.home_page, soon_projects.about_textile, soon_projects.budget_textile, soon_projects.terms_textile, soon_projects.latitude, soon_projects.longitude, soon_projects.referal_link, soon_projects.hero_image, soon_projects.sent_to_analysis_at, soon_projects.organization_type, soon_projects.street_address FROM soon_projects) UNION SELECT successful_projects.origin, successful_projects.id, successful_projects.name, successful_projects.user_id, successful_projects.category_id, successful_projects.goal, successful_projects.about, successful_projects.headline, successful_projects.video_url, successful_projects.short_url, successful_projects.created_at, successful_projects.updated_at, successful_projects.about_html, successful_projects.recommended, successful_projects.home_page_comment, successful_projects.permalink, successful_projects.video_thumbnail, successful_projects.state, successful_projects.online_days, successful_projects.online_date, successful_projects.how_know, successful_projects.more_links, successful_projects.first_contributions, successful_projects.uploaded_image, successful_projects.video_embed_url, successful_projects.budget, successful_projects.budget_html, successful_projects.terms, successful_projects.terms_html, successful_projects.site, successful_projects.hash_tag, successful_projects.address_city, successful_projects.address_state, successful_projects.address_zip_code, successful_projects.address_neighborhood, successful_projects.foundation_widget, successful_projects.campaign_type, successful_projects.featured, successful_projects.home_page, successful_projects.about_textile, successful_projects.budget_textile, successful_projects.terms_textile, successful_projects.latitude, successful_projects.longitude, successful_projects.referal_link, successful_projects.hero_image, successful_projects.sent_to_analysis_at, successful_projects.organization_type, successful_projects.street_address FROM successful_projects;
+ WITH featured_projects AS (
+         SELECT 'featured'::text AS origin,
+            featureds.id,
+            featureds.name,
+            featureds.user_id,
+            featureds.category_id,
+            featureds.goal,
+            featureds.about,
+            featureds.headline,
+            featureds.video_url,
+            featureds.short_url,
+            featureds.created_at,
+            featureds.updated_at,
+            featureds.about_html,
+            featureds.recommended,
+            featureds.home_page_comment,
+            featureds.permalink,
+            featureds.video_thumbnail,
+            featureds.state,
+            featureds.online_days,
+            featureds.online_date,
+            featureds.how_know,
+            featureds.more_urls AS more_links,
+            featureds.first_contributions,
+            featureds.uploaded_image,
+            featureds.video_embed_url,
+            featureds.budget,
+            featureds.budget_html,
+            featureds.terms,
+            featureds.terms_html,
+            featureds.site,
+            featureds.hash_tag,
+            featureds.address_city,
+            featureds.address_state,
+            featureds.address_zip_code,
+            featureds.address_neighborhood,
+            featureds.foundation_widget,
+            featureds.campaign_type,
+            featureds.featured,
+            featureds.home_page,
+            featureds.about_textile,
+            featureds.budget_textile,
+            featureds.terms_textile,
+            featureds.latitude,
+            featureds.longitude,
+            featureds.referral_url AS referal_link,
+            featureds.hero_image,
+            featureds.sent_to_analysis_at,
+            featureds.organization_type,
+            featureds.street_address
+           FROM projects featureds
+          WHERE (featureds.featured AND ((featureds.state)::text = 'online'::text))
+         LIMIT 1
+        ), recommended_projects AS (
+         SELECT 'recommended'::text AS origin,
+            recommends.id,
+            recommends.name,
+            recommends.user_id,
+            recommends.category_id,
+            recommends.goal,
+            recommends.about,
+            recommends.headline,
+            recommends.video_url,
+            recommends.short_url,
+            recommends.created_at,
+            recommends.updated_at,
+            recommends.about_html,
+            recommends.recommended,
+            recommends.home_page_comment,
+            recommends.permalink,
+            recommends.video_thumbnail,
+            recommends.state,
+            recommends.online_days,
+            recommends.online_date,
+            recommends.how_know,
+            recommends.more_urls AS more_links,
+            recommends.first_contributions,
+            recommends.uploaded_image,
+            recommends.video_embed_url,
+            recommends.budget,
+            recommends.budget_html,
+            recommends.terms,
+            recommends.terms_html,
+            recommends.site,
+            recommends.hash_tag,
+            recommends.address_city,
+            recommends.address_state,
+            recommends.address_zip_code,
+            recommends.address_neighborhood,
+            recommends.foundation_widget,
+            recommends.campaign_type,
+            recommends.featured,
+            recommends.home_page,
+            recommends.about_textile,
+            recommends.budget_textile,
+            recommends.terms_textile,
+            recommends.latitude,
+            recommends.longitude,
+            recommends.referral_url AS referal_link,
+            recommends.hero_image,
+            recommends.sent_to_analysis_at,
+            recommends.organization_type,
+            recommends.street_address
+           FROM projects recommends
+          WHERE (((recommends.recommended AND ((recommends.state)::text = 'online'::text)) AND recommends.home_page) AND (NOT (recommends.id IN ( SELECT featureds.id
+                   FROM featured_projects featureds))))
+          ORDER BY random()
+         LIMIT 5
+        ), expiring_projects AS (
+         SELECT 'expiring'::text AS origin,
+            expiring.id,
+            expiring.name,
+            expiring.user_id,
+            expiring.category_id,
+            expiring.goal,
+            expiring.about,
+            expiring.headline,
+            expiring.video_url,
+            expiring.short_url,
+            expiring.created_at,
+            expiring.updated_at,
+            expiring.about_html,
+            expiring.recommended,
+            expiring.home_page_comment,
+            expiring.permalink,
+            expiring.video_thumbnail,
+            expiring.state,
+            expiring.online_days,
+            expiring.online_date,
+            expiring.how_know,
+            expiring.more_urls AS more_links,
+            expiring.first_contributions,
+            expiring.uploaded_image,
+            expiring.video_embed_url,
+            expiring.budget,
+            expiring.budget_html,
+            expiring.terms,
+            expiring.terms_html,
+            expiring.site,
+            expiring.hash_tag,
+            expiring.address_city,
+            expiring.address_state,
+            expiring.address_zip_code,
+            expiring.address_neighborhood,
+            expiring.foundation_widget,
+            expiring.campaign_type,
+            expiring.featured,
+            expiring.home_page,
+            expiring.about_textile,
+            expiring.budget_textile,
+            expiring.terms_textile,
+            expiring.latitude,
+            expiring.longitude,
+            expiring.referral_url AS referal_link,
+            expiring.hero_image,
+            expiring.sent_to_analysis_at,
+            expiring.organization_type,
+            expiring.street_address
+           FROM projects expiring
+          WHERE (((((expiring.state)::text = 'online'::text) AND (expires_at(expiring.*) <= (now() + '14 days'::interval))) AND expiring.home_page) AND (NOT (expiring.id IN ( SELECT recommends.id
+                   FROM recommended_projects recommends
+                UNION
+                 SELECT featureds.id
+                   FROM featured_projects featureds))))
+          ORDER BY random()
+         LIMIT 4
+        ), soon_projects AS (
+         SELECT 'soon'::text AS origin,
+            soon.id,
+            soon.name,
+            soon.user_id,
+            soon.category_id,
+            soon.goal,
+            soon.about,
+            soon.headline,
+            soon.video_url,
+            soon.short_url,
+            soon.created_at,
+            soon.updated_at,
+            soon.about_html,
+            soon.recommended,
+            soon.home_page_comment,
+            soon.permalink,
+            soon.video_thumbnail,
+            soon.state,
+            soon.online_days,
+            soon.online_date,
+            soon.how_know,
+            soon.more_urls AS more_links,
+            soon.first_contributions,
+            soon.uploaded_image,
+            soon.video_embed_url,
+            soon.budget,
+            soon.budget_html,
+            soon.terms,
+            soon.terms_html,
+            soon.site,
+            soon.hash_tag,
+            soon.address_city,
+            soon.address_state,
+            soon.address_zip_code,
+            soon.address_neighborhood,
+            soon.foundation_widget,
+            soon.campaign_type,
+            soon.featured,
+            soon.home_page,
+            soon.about_textile,
+            soon.budget_textile,
+            soon.terms_textile,
+            soon.latitude,
+            soon.longitude,
+            soon.referral_url AS referal_link,
+            soon.hero_image,
+            soon.sent_to_analysis_at,
+            soon.organization_type,
+            soon.street_address
+           FROM projects soon
+          WHERE ((((soon.state)::text = 'soon'::text) AND soon.home_page) AND (soon.uploaded_image IS NOT NULL))
+          ORDER BY random()
+         LIMIT 4
+        ), successful_projects AS (
+         SELECT 'successful'::text AS origin,
+            successful.id,
+            successful.name,
+            successful.user_id,
+            successful.category_id,
+            successful.goal,
+            successful.about,
+            successful.headline,
+            successful.video_url,
+            successful.short_url,
+            successful.created_at,
+            successful.updated_at,
+            successful.about_html,
+            successful.recommended,
+            successful.home_page_comment,
+            successful.permalink,
+            successful.video_thumbnail,
+            successful.state,
+            successful.online_days,
+            successful.online_date,
+            successful.how_know,
+            successful.more_urls AS more_links,
+            successful.first_contributions,
+            successful.uploaded_image,
+            successful.video_embed_url,
+            successful.budget,
+            successful.budget_html,
+            successful.terms,
+            successful.terms_html,
+            successful.site,
+            successful.hash_tag,
+            successful.address_city,
+            successful.address_state,
+            successful.address_zip_code,
+            successful.address_neighborhood,
+            successful.foundation_widget,
+            successful.campaign_type,
+            successful.featured,
+            successful.home_page,
+            successful.about_textile,
+            successful.budget_textile,
+            successful.terms_textile,
+            successful.latitude,
+            successful.longitude,
+            successful.referral_url AS referal_link,
+            successful.hero_image,
+            successful.sent_to_analysis_at,
+            successful.organization_type,
+            successful.street_address
+           FROM projects successful
+          WHERE (((successful.state)::text = 'successful'::text) AND successful.home_page)
+          ORDER BY random()
+         LIMIT 4
+        )
+ SELECT featured_projects.origin,
+    featured_projects.id,
+    featured_projects.name,
+    featured_projects.user_id,
+    featured_projects.category_id,
+    featured_projects.goal,
+    featured_projects.about,
+    featured_projects.headline,
+    featured_projects.video_url,
+    featured_projects.short_url,
+    featured_projects.created_at,
+    featured_projects.updated_at,
+    featured_projects.about_html,
+    featured_projects.recommended,
+    featured_projects.home_page_comment,
+    featured_projects.permalink,
+    featured_projects.video_thumbnail,
+    featured_projects.state,
+    featured_projects.online_days,
+    featured_projects.online_date,
+    featured_projects.how_know,
+    featured_projects.more_links,
+    featured_projects.first_contributions,
+    featured_projects.uploaded_image,
+    featured_projects.video_embed_url,
+    featured_projects.budget,
+    featured_projects.budget_html,
+    featured_projects.terms,
+    featured_projects.terms_html,
+    featured_projects.site,
+    featured_projects.hash_tag,
+    featured_projects.address_city,
+    featured_projects.address_state,
+    featured_projects.address_zip_code,
+    featured_projects.address_neighborhood,
+    featured_projects.foundation_widget,
+    featured_projects.campaign_type,
+    featured_projects.featured,
+    featured_projects.home_page,
+    featured_projects.about_textile,
+    featured_projects.budget_textile,
+    featured_projects.terms_textile,
+    featured_projects.latitude,
+    featured_projects.longitude,
+    featured_projects.referal_link,
+    featured_projects.hero_image,
+    featured_projects.sent_to_analysis_at,
+    featured_projects.organization_type,
+    featured_projects.street_address
+   FROM featured_projects
+UNION
+ SELECT recommended_projects.origin,
+    recommended_projects.id,
+    recommended_projects.name,
+    recommended_projects.user_id,
+    recommended_projects.category_id,
+    recommended_projects.goal,
+    recommended_projects.about,
+    recommended_projects.headline,
+    recommended_projects.video_url,
+    recommended_projects.short_url,
+    recommended_projects.created_at,
+    recommended_projects.updated_at,
+    recommended_projects.about_html,
+    recommended_projects.recommended,
+    recommended_projects.home_page_comment,
+    recommended_projects.permalink,
+    recommended_projects.video_thumbnail,
+    recommended_projects.state,
+    recommended_projects.online_days,
+    recommended_projects.online_date,
+    recommended_projects.how_know,
+    recommended_projects.more_links,
+    recommended_projects.first_contributions,
+    recommended_projects.uploaded_image,
+    recommended_projects.video_embed_url,
+    recommended_projects.budget,
+    recommended_projects.budget_html,
+    recommended_projects.terms,
+    recommended_projects.terms_html,
+    recommended_projects.site,
+    recommended_projects.hash_tag,
+    recommended_projects.address_city,
+    recommended_projects.address_state,
+    recommended_projects.address_zip_code,
+    recommended_projects.address_neighborhood,
+    recommended_projects.foundation_widget,
+    recommended_projects.campaign_type,
+    recommended_projects.featured,
+    recommended_projects.home_page,
+    recommended_projects.about_textile,
+    recommended_projects.budget_textile,
+    recommended_projects.terms_textile,
+    recommended_projects.latitude,
+    recommended_projects.longitude,
+    recommended_projects.referal_link,
+    recommended_projects.hero_image,
+    recommended_projects.sent_to_analysis_at,
+    recommended_projects.organization_type,
+    recommended_projects.street_address
+   FROM recommended_projects
+UNION
+ SELECT expiring_projects.origin,
+    expiring_projects.id,
+    expiring_projects.name,
+    expiring_projects.user_id,
+    expiring_projects.category_id,
+    expiring_projects.goal,
+    expiring_projects.about,
+    expiring_projects.headline,
+    expiring_projects.video_url,
+    expiring_projects.short_url,
+    expiring_projects.created_at,
+    expiring_projects.updated_at,
+    expiring_projects.about_html,
+    expiring_projects.recommended,
+    expiring_projects.home_page_comment,
+    expiring_projects.permalink,
+    expiring_projects.video_thumbnail,
+    expiring_projects.state,
+    expiring_projects.online_days,
+    expiring_projects.online_date,
+    expiring_projects.how_know,
+    expiring_projects.more_links,
+    expiring_projects.first_contributions,
+    expiring_projects.uploaded_image,
+    expiring_projects.video_embed_url,
+    expiring_projects.budget,
+    expiring_projects.budget_html,
+    expiring_projects.terms,
+    expiring_projects.terms_html,
+    expiring_projects.site,
+    expiring_projects.hash_tag,
+    expiring_projects.address_city,
+    expiring_projects.address_state,
+    expiring_projects.address_zip_code,
+    expiring_projects.address_neighborhood,
+    expiring_projects.foundation_widget,
+    expiring_projects.campaign_type,
+    expiring_projects.featured,
+    expiring_projects.home_page,
+    expiring_projects.about_textile,
+    expiring_projects.budget_textile,
+    expiring_projects.terms_textile,
+    expiring_projects.latitude,
+    expiring_projects.longitude,
+    expiring_projects.referal_link,
+    expiring_projects.hero_image,
+    expiring_projects.sent_to_analysis_at,
+    expiring_projects.organization_type,
+    expiring_projects.street_address
+   FROM expiring_projects
+UNION
+ SELECT soon_projects.origin,
+    soon_projects.id,
+    soon_projects.name,
+    soon_projects.user_id,
+    soon_projects.category_id,
+    soon_projects.goal,
+    soon_projects.about,
+    soon_projects.headline,
+    soon_projects.video_url,
+    soon_projects.short_url,
+    soon_projects.created_at,
+    soon_projects.updated_at,
+    soon_projects.about_html,
+    soon_projects.recommended,
+    soon_projects.home_page_comment,
+    soon_projects.permalink,
+    soon_projects.video_thumbnail,
+    soon_projects.state,
+    soon_projects.online_days,
+    soon_projects.online_date,
+    soon_projects.how_know,
+    soon_projects.more_links,
+    soon_projects.first_contributions,
+    soon_projects.uploaded_image,
+    soon_projects.video_embed_url,
+    soon_projects.budget,
+    soon_projects.budget_html,
+    soon_projects.terms,
+    soon_projects.terms_html,
+    soon_projects.site,
+    soon_projects.hash_tag,
+    soon_projects.address_city,
+    soon_projects.address_state,
+    soon_projects.address_zip_code,
+    soon_projects.address_neighborhood,
+    soon_projects.foundation_widget,
+    soon_projects.campaign_type,
+    soon_projects.featured,
+    soon_projects.home_page,
+    soon_projects.about_textile,
+    soon_projects.budget_textile,
+    soon_projects.terms_textile,
+    soon_projects.latitude,
+    soon_projects.longitude,
+    soon_projects.referal_link,
+    soon_projects.hero_image,
+    soon_projects.sent_to_analysis_at,
+    soon_projects.organization_type,
+    soon_projects.street_address
+   FROM soon_projects
+UNION
+ SELECT successful_projects.origin,
+    successful_projects.id,
+    successful_projects.name,
+    successful_projects.user_id,
+    successful_projects.category_id,
+    successful_projects.goal,
+    successful_projects.about,
+    successful_projects.headline,
+    successful_projects.video_url,
+    successful_projects.short_url,
+    successful_projects.created_at,
+    successful_projects.updated_at,
+    successful_projects.about_html,
+    successful_projects.recommended,
+    successful_projects.home_page_comment,
+    successful_projects.permalink,
+    successful_projects.video_thumbnail,
+    successful_projects.state,
+    successful_projects.online_days,
+    successful_projects.online_date,
+    successful_projects.how_know,
+    successful_projects.more_links,
+    successful_projects.first_contributions,
+    successful_projects.uploaded_image,
+    successful_projects.video_embed_url,
+    successful_projects.budget,
+    successful_projects.budget_html,
+    successful_projects.terms,
+    successful_projects.terms_html,
+    successful_projects.site,
+    successful_projects.hash_tag,
+    successful_projects.address_city,
+    successful_projects.address_state,
+    successful_projects.address_zip_code,
+    successful_projects.address_neighborhood,
+    successful_projects.foundation_widget,
+    successful_projects.campaign_type,
+    successful_projects.featured,
+    successful_projects.home_page,
+    successful_projects.about_textile,
+    successful_projects.budget_textile,
+    successful_projects.terms_textile,
+    successful_projects.latitude,
+    successful_projects.longitude,
+    successful_projects.referal_link,
+    successful_projects.hero_image,
+    successful_projects.sent_to_analysis_at,
+    successful_projects.organization_type,
+    successful_projects.street_address
+   FROM successful_projects;
 
 
 --
@@ -1002,7 +1555,34 @@ ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
 --
 
 CREATE VIEW recommendations AS
-    SELECT recommendations.user_id, recommendations.project_id, (sum(recommendations.count))::bigint AS count FROM (SELECT b.user_id, recommendations.id AS project_id, count(DISTINCT recommenders.user_id) AS count FROM ((((contributions b JOIN projects p ON ((p.id = b.project_id))) JOIN contributions backers_same_projects ON ((p.id = backers_same_projects.project_id))) JOIN contributions recommenders ON ((recommenders.user_id = backers_same_projects.user_id))) JOIN projects recommendations ON ((recommendations.id = recommenders.project_id))) WHERE ((((((((b.state)::text = 'confirmed'::text) AND ((backers_same_projects.state)::text = 'confirmed'::text)) AND ((recommenders.state)::text = 'confirmed'::text)) AND (b.user_id <> backers_same_projects.user_id)) AND (recommendations.id <> b.project_id)) AND ((recommendations.state)::text = 'online'::text)) AND (NOT (EXISTS (SELECT true AS bool FROM contributions b2 WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = b.user_id)) AND (b2.project_id = recommendations.id)))))) GROUP BY b.user_id, recommendations.id UNION SELECT b.user_id, recommendations.id AS project_id, 0 AS count FROM ((contributions b JOIN projects p ON ((b.project_id = p.id))) JOIN projects recommendations ON ((recommendations.category_id = p.category_id))) WHERE (((b.state)::text = 'confirmed'::text) AND ((recommendations.state)::text = 'online'::text))) recommendations WHERE (NOT (EXISTS (SELECT true AS bool FROM contributions b2 WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = recommendations.user_id)) AND (b2.project_id = recommendations.project_id))))) GROUP BY recommendations.user_id, recommendations.project_id ORDER BY (sum(recommendations.count))::bigint DESC;
+ SELECT recommendations.user_id,
+    recommendations.project_id,
+    (sum(recommendations.count))::bigint AS count
+   FROM ( SELECT b.user_id,
+            recommendations_1.id AS project_id,
+            count(DISTINCT recommenders.user_id) AS count
+           FROM ((((contributions b
+             JOIN projects p ON ((p.id = b.project_id)))
+             JOIN contributions backers_same_projects ON ((p.id = backers_same_projects.project_id)))
+             JOIN contributions recommenders ON ((recommenders.user_id = backers_same_projects.user_id)))
+             JOIN projects recommendations_1 ON ((recommendations_1.id = recommenders.project_id)))
+          WHERE ((((((((b.state)::text = 'confirmed'::text) AND ((backers_same_projects.state)::text = 'confirmed'::text)) AND ((recommenders.state)::text = 'confirmed'::text)) AND (b.user_id <> backers_same_projects.user_id)) AND (recommendations_1.id <> b.project_id)) AND ((recommendations_1.state)::text = 'online'::text)) AND (NOT (EXISTS ( SELECT true AS bool
+                   FROM contributions b2
+                  WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = b.user_id)) AND (b2.project_id = recommendations_1.id))))))
+          GROUP BY b.user_id, recommendations_1.id
+        UNION
+         SELECT b.user_id,
+            recommendations_1.id AS project_id,
+            0 AS count
+           FROM ((contributions b
+             JOIN projects p ON ((b.project_id = p.id)))
+             JOIN projects recommendations_1 ON ((recommendations_1.category_id = p.category_id)))
+          WHERE (((b.state)::text = 'confirmed'::text) AND ((recommendations_1.state)::text = 'online'::text))) recommendations
+  WHERE (NOT (EXISTS ( SELECT true AS bool
+           FROM contributions b2
+          WHERE ((((b2.state)::text = 'confirmed'::text) AND (b2.user_id = recommendations.user_id)) AND (b2.project_id = recommendations.project_id)))))
+  GROUP BY recommendations.user_id, recommendations.project_id
+  ORDER BY (sum(recommendations.count))::bigint DESC;
 
 
 --
@@ -1180,7 +1760,57 @@ CREATE TABLE users (
 --
 
 CREATE VIEW statistics AS
-    SELECT (SELECT count(*) AS count FROM users) AS total_users, (SELECT count(*) AS count FROM users WHERE ((users.profile_type)::text = 'organization'::text)) AS total_organization_users, (SELECT count(*) AS count FROM users WHERE ((users.profile_type)::text = 'personal'::text)) AS total_personal_users, (SELECT count(*) AS count FROM users WHERE ((users.profile_type)::text = 'channel'::text)) AS total_channel_users, (SELECT count(*) AS count FROM (SELECT DISTINCT projects.address_city, projects.address_state FROM projects) count) AS total_communities, contributions_totals.total_contributions, contributions_totals.total_contributors, contributions_totals.total_contributed, projects_totals.total_projects, projects_totals.total_projects_success, projects_totals.total_projects_online, projects_totals.total_projects_draft, projects_totals.total_projects_soon FROM (SELECT count(*) AS total_contributions, count(DISTINCT contributions.user_id) AS total_contributors, sum(contributions.value) AS total_contributed FROM contributions WHERE ((contributions.state)::text <> ALL (ARRAY[('waiting_confirmation'::character varying)::text, ('pending'::character varying)::text, ('canceled'::character varying)::text, 'deleted'::text]))) contributions_totals, (SELECT count(*) AS total_projects, count(CASE WHEN ((projects.state)::text = 'draft'::text) THEN 1 ELSE NULL::integer END) AS total_projects_draft, count(CASE WHEN ((projects.state)::text = 'soon'::text) THEN 1 ELSE NULL::integer END) AS total_projects_soon, count(CASE WHEN ((projects.state)::text = 'successful'::text) THEN 1 ELSE NULL::integer END) AS total_projects_success, count(CASE WHEN ((projects.state)::text = 'online'::text) THEN 1 ELSE NULL::integer END) AS total_projects_online FROM projects WHERE ((projects.state)::text <> ALL (ARRAY[('deleted'::character varying)::text, ('rejected'::character varying)::text]))) projects_totals;
+ SELECT ( SELECT count(*) AS count
+           FROM users) AS total_users,
+    ( SELECT count(*) AS count
+           FROM users
+          WHERE ((users.profile_type)::text = 'organization'::text)) AS total_organization_users,
+    ( SELECT count(*) AS count
+           FROM users
+          WHERE ((users.profile_type)::text = 'personal'::text)) AS total_personal_users,
+    ( SELECT count(*) AS count
+           FROM users
+          WHERE ((users.profile_type)::text = 'channel'::text)) AS total_channel_users,
+    ( SELECT count(*) AS count
+           FROM ( SELECT DISTINCT projects.address_city,
+                    projects.address_state
+                   FROM projects) count) AS total_communities,
+    contributions_totals.total_contributions,
+    contributions_totals.total_contributors,
+    contributions_totals.total_contributed,
+    projects_totals.total_projects,
+    projects_totals.total_projects_success,
+    projects_totals.total_projects_online,
+    projects_totals.total_projects_draft,
+    projects_totals.total_projects_soon
+   FROM ( SELECT count(*) AS total_contributions,
+            count(DISTINCT contributions.user_id) AS total_contributors,
+            sum(contributions.value) AS total_contributed
+           FROM contributions
+          WHERE ((contributions.state)::text <> ALL (ARRAY[('waiting_confirmation'::character varying)::text, ('pending'::character varying)::text, ('canceled'::character varying)::text, 'deleted'::text]))) contributions_totals,
+    ( SELECT count(*) AS total_projects,
+            count(
+                CASE
+                    WHEN ((projects.state)::text = 'draft'::text) THEN 1
+                    ELSE NULL::integer
+                END) AS total_projects_draft,
+            count(
+                CASE
+                    WHEN ((projects.state)::text = 'soon'::text) THEN 1
+                    ELSE NULL::integer
+                END) AS total_projects_soon,
+            count(
+                CASE
+                    WHEN ((projects.state)::text = 'successful'::text) THEN 1
+                    ELSE NULL::integer
+                END) AS total_projects_success,
+            count(
+                CASE
+                    WHEN ((projects.state)::text = 'online'::text) THEN 1
+                    ELSE NULL::integer
+                END) AS total_projects_online
+           FROM projects
+          WHERE ((projects.state)::text <> ALL (ARRAY[('deleted'::character varying)::text, ('rejected'::character varying)::text]))) projects_totals;
 
 
 --
@@ -1188,7 +1818,12 @@ CREATE VIEW statistics AS
 --
 
 CREATE VIEW subscriber_reports AS
-    SELECT u.id, cs.channel_id, u.name, u.email FROM (users u JOIN channels_subscribers cs ON ((cs.user_id = u.id)));
+ SELECT u.id,
+    cs.channel_id,
+    u.name,
+    u.email
+   FROM (users u
+     JOIN channels_subscribers cs ON ((cs.user_id = u.id)));
 
 
 --
@@ -1340,7 +1975,23 @@ ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
 --
 
 CREATE VIEW user_totals AS
-    SELECT b.user_id AS id, b.user_id, count(DISTINCT b.project_id) AS total_contributed_projects, sum(b.value) AS sum, count(*) AS count, sum(CASE WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY (ARRAY[('requested_refund'::character varying)::text, ('refunded'::character varying)::text])))))) THEN (0)::numeric WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value ELSE (b.value * ((-1))::numeric) END) AS credits FROM (contributions b JOIN projects p ON ((b.project_id = p.id))) WHERE ((b.state)::text = ANY (ARRAY[('confirmed'::character varying)::text, ('requested_refund'::character varying)::text, ('refunded'::character varying)::text])) GROUP BY b.user_id;
+ SELECT b.user_id AS id,
+    b.user_id,
+    count(DISTINCT b.project_id) AS total_contributed_projects,
+    sum(b.value) AS sum,
+    count(*) AS count,
+    sum(
+        CASE
+            WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric
+            WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric
+            WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])))))) THEN (0)::numeric
+            WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value
+            ELSE (b.value * ((-1))::numeric)
+        END) AS credits
+   FROM (contributions b
+     JOIN projects p ON ((b.project_id = p.id)))
+  WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[]))
+  GROUP BY b.user_id;
 
 
 --
@@ -1541,6 +2192,13 @@ ALTER TABLE ONLY project_documents ALTER COLUMN id SET DEFAULT nextval('project_
 --
 
 ALTER TABLE ONLY project_faqs ALTER COLUMN id SET DEFAULT nextval('project_faqs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_totals ALTER COLUMN id SET DEFAULT nextval('project_totals_id_seq'::regclass);
 
 
 --
@@ -1795,6 +2453,14 @@ ALTER TABLE ONLY project_documents
 
 ALTER TABLE ONLY project_faqs
     ADD CONSTRAINT project_faqs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY project_totals
+    ADD CONSTRAINT project_totals_pkey PRIMARY KEY (id);
 
 
 --
@@ -2055,6 +2721,13 @@ CREATE INDEX fk__project_faqs_project_id ON project_faqs USING btree (project_id
 
 
 --
+-- Name: fk__project_totals_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__project_totals_project_id ON project_totals USING btree (project_id);
+
+
+--
 -- Name: fk__taggings_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2286,6 +2959,13 @@ CREATE INDEX index_project_faqs_on_project_id ON project_faqs USING btree (proje
 
 
 --
+-- Name: index_project_totals_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_project_totals_on_project_id ON project_totals USING btree (project_id);
+
+
+--
 -- Name: index_projects_on_category_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2415,14 +3095,24 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- Name: _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE RULE "_RETURN" AS ON SELECT TO funding_raised_per_project_reports DO INSTEAD SELECT project.id AS project_id, project.name AS project_name, sum(backers.value) AS total_raised, count(*) AS total_backs, count(DISTINCT backers.user_id) AS total_backers FROM (contributions backers JOIN projects project ON ((project.id = backers.project_id))) WHERE ((backers.state)::text <> ALL (ARRAY[('waiting_confirmation'::character varying)::text, ('pending'::character varying)::text, ('canceled'::character varying)::text, 'deleted'::text])) GROUP BY project.id;
+CREATE RULE "_RETURN" AS
+    ON SELECT TO funding_raised_per_project_reports DO INSTEAD  SELECT project.id AS project_id,
+    project.name AS project_name,
+    sum(contributions.value) AS total_raised,
+    count(*) AS total_backs,
+    count(DISTINCT contributions.user_id) AS total_backers
+   FROM (contributions
+     JOIN projects project ON ((project.id = contributions.project_id)))
+  WHERE ((contributions.state)::text <> ALL (ARRAY[('waiting_confirmation'::character varying)::text, ('pending'::character varying)::text, ('canceled'::character varying)::text, 'deleted'::text]))
+  GROUP BY project.id;
 
 
 --
 -- Name: prevent_deletion_of_recommendations; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE RULE prevent_deletion_of_recommendations AS ON DELETE TO recommendations DO INSTEAD NOTHING;
+CREATE RULE prevent_deletion_of_recommendations AS
+    ON DELETE TO recommendations DO INSTEAD NOTHING;
 
 
 --
@@ -2658,6 +3348,14 @@ ALTER TABLE ONLY project_faqs
 
 
 --
+-- Name: fk_project_totals_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_totals
+    ADD CONSTRAINT fk_project_totals_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
 -- Name: fk_taggings_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2773,7 +3471,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO public, pg_catalog;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 
@@ -3237,8 +3935,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140530225038');
 
 INSERT INTO schema_migrations (version) VALUES ('20140612230821');
 
-INSERT INTO schema_migrations (version) VALUES ('20140625130624');
-
 INSERT INTO schema_migrations (version) VALUES ('20140626141415');
 
 INSERT INTO schema_migrations (version) VALUES ('20140708123838');
@@ -3254,4 +3950,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140806135608');
 INSERT INTO schema_migrations (version) VALUES ('20140806141600');
 
 INSERT INTO schema_migrations (version) VALUES ('20140807215229');
+
+INSERT INTO schema_migrations (version) VALUES ('20140808185831');
 

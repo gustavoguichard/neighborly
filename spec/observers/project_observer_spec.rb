@@ -16,10 +16,10 @@ describe ProjectObserver do
     before do
       ProjectObserver.any_instance.should_receive(:after_create).and_call_original
       user
-      project
     end
 
     it 'creates notification for project owner' do
+      project
       expect(
         Notification.where(user_id: project.user.id,
                            template_name: 'project_received',
@@ -28,11 +28,17 @@ describe ProjectObserver do
     end
 
     it 'creates notification for admins' do
+      project
       expect(
         Notification.where(user_id: user.id,
                            template_name: 'new_draft_project',
                            project_id: project.id).first
       ).not_to be_nil
+    end
+
+    it 'creates a project total' do
+      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      project
     end
   end
 
