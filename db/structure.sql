@@ -2422,8 +2422,7 @@ CREATE RULE "_RETURN" AS ON SELECT TO funding_raised_per_project_reports DO INST
 -- Name: prevent_deletion_of_recommendations; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE RULE prevent_deletion_of_recommendations AS
-    ON DELETE TO recommendations DO INSTEAD NOTHING;
+CREATE RULE prevent_deletion_of_recommendations AS ON DELETE TO recommendations DO INSTEAD NOTHING;
 
 
 --
