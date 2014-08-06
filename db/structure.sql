@@ -1160,7 +1160,6 @@ CREATE TABLE users (
     facebook_url character varying(255),
     other_url character varying(255),
     uploaded_image text,
-    moip_login character varying(255),
     state_inscription character varying(255),
     profile_type character varying(255),
     linkedin_url character varying(255),
@@ -3238,4 +3237,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140626141415');
 INSERT INTO schema_migrations (version) VALUES ('20140708123838');
 
 INSERT INTO schema_migrations (version) VALUES ('20140721232244');
+
+INSERT INTO schema_migrations (version) VALUES ('20140806134524');
 
