@@ -12,10 +12,10 @@ describe DiscoverController do
     create(:channel, state: 'draft')
   end
 
-  it 'should have the rights states to filter' do
-    expected_states = %w(active recommended expiring recent successful soon with_active_matches)
-    expect(DiscoverController::FILTER_STATES).to eq(expected_states)
-  end
+  #it 'should have the rights states to filter' do
+    #expected_states = %w(active recommended expiring recent successful soon with_active_matches)
+    #expect(DiscoverController::FILTER_STATES).to eq(expected_states)
+  #end
 
   shared_examples 'has filter' do
     it 'should not assings channels when has filter' do
