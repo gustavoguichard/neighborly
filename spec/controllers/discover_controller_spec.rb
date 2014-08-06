@@ -6,7 +6,7 @@ describe DiscoverController do
     @near = create(:project, location: 'Kansas City, MO', latitude: 40.7143528, longitude: -74.0059731)
     @category = create(:category)
     @category_project = create(:project, category: @category)
-    @tag = create(:project, tag_list: 'test')
+    @tag = create(:project, tag_list: 'test,test2')
     @search = create(:project, name: 'test project for search')
     create(:channel, state: 'online')
     create(:channel, state: 'draft')
@@ -38,6 +38,12 @@ describe DiscoverController do
       it 'should assigns online channels' do
         expect(assigns(:channels)).to have(1).channel
       end
+    end
+
+    it 'merges results of multiple scopes' do
+      @category_project.update_attributes(recommended: true)
+      get :index, state: :recommended, category: @category.to_s
+      expect(assigns(:projects)).to include(@category_project)
     end
 
     context 'when filtering by recommended' do
@@ -77,9 +83,9 @@ describe DiscoverController do
     end
 
     context 'when filtering by tags' do
-      before { get :index, tags: 'test' }
+      before { get :index, tags: 'test,test2' }
 
-      it 'should only assings the right taged project' do
+      it 'should only assigns the right tagged project' do
         expect(assigns(:projects)).to eq [@tag]
       end
 
@@ -95,6 +101,5 @@ describe DiscoverController do
 
       it_behaves_like 'has filter'
     end
-
   end
 end

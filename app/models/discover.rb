@@ -1,53 +1,64 @@
 class Discover
-  attr_accessor :filters, :params
+  attr_accessor :filters
+  attr_reader :params
 
   FILTERS = %w(state near category tags search)
   STATES  = %w(active recommended expiring recent successful soon with_active_matches)
 
   def initialize(params)
-    @projects = Project.visible
-    @filters  = {}
-    @params = params
+    @filters = {}
+    @params  = params
   end
 
   def projects
-    params.compact.slice(*FILTERS).each do |scope, value|
-      send(scope, value)
+    projects = if params[:search].blank?
+      Project.group('projects.id')
+    else
+      Project
     end
 
-    @projects = @projects.group('projects.id') unless params[:search].present?
-    @projects.order_for_search
+    apply_scopes(params.compact.slice(*FILTERS), projects.visible).order_for_search
   end
 
   private
 
-  def state(value)
-    return unless STATES.include?(value.downcase)
-    @projects = @projects.send(value.downcase)
-    filters.merge! state: value.downcase
+  def apply_scopes(scopes, projects)
+    return projects if scopes.empty?
+
+    scope, value = scopes.shift.flatten
+    apply_scopes(scopes, send(scope, value.downcase, projects))
   end
 
-  def near(value)
-    @projects = @projects.near(value, 30)
-    filters.merge! near: value
+  def state(value, projects)
+    return projects unless STATES.include?(value)
+
+    filters[:state] = value
+    projects.send(value)
   end
 
-  def category(value)
+  def near(value, projects)
+    filters[:near] = value
+    projects.near(value, 30)
+  end
+
+  def category(value, projects)
     category = Category.where('name_en ILIKE ?', value).first
     if category.present?
-      @projects = @projects.where(category_id: category.id)
-      filters.merge! category: category.to_s
+      filters[:category] = category.to_s
+      projects.where(category_id: category.id)
+    else
+      projects
     end
   end
 
-  def tags(value)
+  def tags(value, projects)
     tags = Project::TagList.new value
-    @projects = @projects.joins("JOIN taggings ON taggings.project_id = projects.id AND taggings.tag_id IN (SELECT id FROM tags WHERE tags.name IN (#{tags.map { |t| "'#{t}'"}.join(',')}))")
-    filters.merge! tags: tags
+    filters[:tags] = tags
+    projects.joins(:tags).where(tags: { name: tags })
   end
 
-  def search(value)
-    @projects = @projects.pg_search(value)
-    filters.merge! search: value
+  def search(value, projects)
+    filters[:search] = value
+    projects.pg_search(value)
   end
 end
