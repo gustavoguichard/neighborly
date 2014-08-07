@@ -1,0 +1,23 @@
+section.status-bar.fixed
+  .row
+    .large-12.columns.status
+      .row
+        .large-3.columns.share-small.hide-for-medium-down
+          = render 'projects/share', embed: false
+        .large-2.columns.pledged.hide-for-medium-down
+          p = "#{@project.display_pledged} (#{@project.progress}%)"
+        .large-2.columns.contributions.hide-for-medium-down
+          p
+            i.icon-et-user
+            = t('.total_contributions', value: @project.total_contributions)
+        .large-2.columns.time-remaining.hide-for-medium-down
+          p
+            i.icon-et-clock
+            = remaining_days(@project)
+
+        - if @project.online? && !@project.expired?
+          .large-3.columns.contribute
+            = link_to t('.contribute'), new_project_contribution_url(@project), class: 'button small'
+        - else
+          .large-3.columns.status-description
+            = display_status(@project)
