@@ -168,10 +168,8 @@ Neighborly::Application.routes.draw do
     end
   end
 
-  namespace :companies do
-    get :contact, to: 'contacts#new'
-    resources :contacts, only: [:create]
-  end
+  get :contact, to: 'contacts#new'
+  resources :contacts, only: [:create]
 
   resources :images, only: [:new, :create]
 

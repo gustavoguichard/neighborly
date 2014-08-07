@@ -45,7 +45,7 @@ module Neighborly
     config.active_record.observers = [
       :contribution_observer,     :user_observer,
       :update_observer,           :project_observer,
-      :company_contact_observer,  :authorization_observer,
+      :contact_observer,  :authorization_observer,
       :match_observer,            :payment_observer
     ]
 

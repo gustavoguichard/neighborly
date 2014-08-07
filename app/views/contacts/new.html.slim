@@ -1,6 +1,6 @@
 - content_for :title, t('.title')
 
-.companies-contact-page
+.contact-page
   header.hero[data-image-url=image_path('bg-company-contact.jpg')]
     .row
       .large-12.columns.text-center
@@ -8,7 +8,7 @@
         h4 = t('.summary')
 
   section.form
-    = simple_form_for resource, url: companies_contacts_path do |f|
+    = simple_form_for resource, url: contacts_path do |f|
       .row
         .large-6.columns
           = f.input :first_name
