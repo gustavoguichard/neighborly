@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
   has_many :contributions
+  has_many :matches
   has_many :projects
   has_many :notifications
   has_many :updates
