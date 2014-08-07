@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
   def create
     create! do
       flash.notice = { message: t('controllers.contacts.create.success'), dismissible: false }
-      return redirect_to companies_contact_path
+      return redirect_to contact_path
     end
   end
 
