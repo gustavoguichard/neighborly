@@ -2,8 +2,8 @@
 
 - content_for :page_content do
   .row
-    - if @projects.present?
-      = render @projects
+    - if @presenter.projects.present?
+      = render @presenter.projects
     - else
       p = t('.empty')
     .text-right
@@ -11,34 +11,33 @@
         = t('words.see_more')
         i.icon-et-right-circled
 
-  - unless @filters.any?
-    - if @channels.any?
-      section.channels.default-list
-        .row
-          .large-12.columns
-            h3
-              i.icon-et-megaphone
-              = t('.channels')
+  - if @presenter.channels.any?
+    section.channels.default-list
+      .row
+        .large-12.columns
+          h3
+            i.icon-et-megaphone
+            = t('.channels')
 
-        .row
-          = render @channels
+      .row
+        = render @presenter.channels
 
 
 - if request.xhr?
   = yield :page_content
 - else
-  .discover-page[data-path=discover_path show-all-projects=@must_show_all_projects]
+  .discover-page[data-path=discover_path show-all-projects=@presenter.must_show_all_projects]
     section.filters.white
       .row
         .large-12.columns
           h2 = t('.title')
           = form_tag discover_path, method: 'GET', class: 'discover-form row' do
             .large-3.small-6.columns
-              = select_tag :near, options_for_select(Project.locations, @filters[:near]), prompt: t('.near'), class: 'near-input'
+              = select_tag :near, options_for_select(@presenter.locations, @presenter.filters[:near]), prompt: t('.near'), class: 'near-input'
             .large-3.small-6.columns
-              = select_tag :category, options_for_select(Category.with_projects, @filters[:category]), prompt: t('.category'), class: 'category-input'
+              = select_tag :category, options_for_select(@presenter.categories, @presenter.filters[:category]), prompt: t('.category'), class: 'category-input'
             .large-3.small-6.columns
-              = select_tag :state, options_for_select(@available_states, @filters[:state]), prompt: t('.state'), class: 'state-input'
+              = select_tag :state, options_for_select(@presenter.available_states, @presenter.filters[:state]), prompt: t('.state'), class: 'state-input'
             .search.large-3.small-6.columns
               = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...', class: 'search-input'
               = link_to '#search', class: 'search-button' do
@@ -46,11 +45,11 @@
 
           .tags.hide-for-small
             strong = t('.tags')
-            - for tag in @tags
-              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @filters[:tags].present? && @filters[:tags].include?(tag.name) }"
+            - for tag in @presenter.tags
+              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @presenter.filters[:tags].present? && @filters[:tags].include?(tag.name) }"
           .results-for
             strong = t('.showing_results_for')
-            - for type, value in @filters
+            - for type, value in @presenter.filters
               - if type == :tags
                 - for tag in value
                   .filter

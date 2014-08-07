@@ -1,27 +1,17 @@
 require 'spec_helper'
 
 describe DiscoverController do
-  before(:all) do
-    @recommended = create(:project, recommended: true)
-    create(:channel, state: 'online')
-    create(:channel, state: 'draft')
-  end
+  before { create(:project, recommended: true) }
 
   describe 'GET index' do
-    context 'when access without filter' do
-      before { get :index }
+    before { get :index }
 
-      it 'assigns online channels' do
-        expect(assigns(:channels).size).to eq 1
-      end
+    it 'assigns a presenter' do
+      expect(assigns(:presenter)).not_to be_nil
     end
 
-    context 'when access with filter' do
-      before { get :index, state: :recommended }
-
-      it 'does not assigns online channels' do
-        expect(assigns(:channels)).to be_nil
-      end
+    it 'presenter is a DiscoverPresenter instance' do
+      expect(assigns(:presenter)).to be_instance_of(DiscoverPresenter)
     end
   end
 end
