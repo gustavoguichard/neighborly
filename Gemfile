@@ -33,7 +33,7 @@ gem 'neighborly-api', github: 'neighborly/neighborly-api', branch: :master
 gem 'neighborly-dashboard', github: 'neighborly/neighborly-dashboard', branch: :master
 
 # Turns every field on a editable one - Admin dependencies
-gem 'best_in_place', github: 'bernat/best_in_place', branch: 'rails-4'
+gem 'best_in_place', github: 'bernat/best_in_place'
 
 # Decorators
 gem 'draper'

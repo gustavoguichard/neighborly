@@ -7,12 +7,11 @@ GIT
 
 GIT
   remote: git://github.com/bernat/best_in_place.git
-  revision: 366413be357d65cdf47031e928aea969f72e3659
-  branch: rails-4
+  revision: 0307038d99e0ab7ed19069903a18fe311b18a4b4
   specs:
-    best_in_place (2.0.3)
-      jquery-rails
-      rails (~> 4)
+    best_in_place (3.0.0.alpha)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
 
 GIT
   remote: git://github.com/josemarluedke/font-icons-rails.git
