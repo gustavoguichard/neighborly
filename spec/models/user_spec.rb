@@ -10,6 +10,7 @@ describe User do
 
   describe "associations" do
     it{ should have_many :contributions }
+    it{ should have_many :matches }
     it{ should have_many :projects }
     it{ should have_many :notifications }
     it{ should have_many :updates }
