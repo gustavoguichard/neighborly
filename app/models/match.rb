@@ -10,7 +10,7 @@ class Match < ActiveRecord::Base
 
   validates :project, :user, presence: true
   validates :value, numericality: { greater_than_or_equal_to: 500 }
-  validate :start_and_finish_dates
+  validate :start_and_finish_dates, on: :create
 
   scope :uncompleted, -> { where(completed: false) }
   scope :activating_today, -> { where(starts_at: Date.today) }
@@ -40,7 +40,7 @@ class Match < ActiveRecord::Base
   end
 
   def complete!
-    update_attributes(completed: true)
+    update_attributes!(completed: true)
   end
 
   private
