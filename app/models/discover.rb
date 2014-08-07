@@ -17,7 +17,9 @@ class Discover
       Project
     end
 
-    apply_scopes(params.compact.slice(*FILTERS), projects.visible).order_for_search
+    @projects ||= apply_scopes(
+      params.compact.slice(*FILTERS), projects.visible
+    ).order_for_search.to_a
   end
 
   private
