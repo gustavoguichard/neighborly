@@ -7,7 +7,7 @@ class Discover
 
   def initialize(params)
     @filters = {}
-    @params  = params
+    @params  = ActiveSupport::HashWithIndifferentAccess.new(params)
   end
 
   def projects
@@ -30,7 +30,7 @@ class Discover
   end
 
   def state(value, projects)
-    return projects unless STATES.include?(value)
+    return projects unless STATES.include?(value.to_s)
 
     filters[:state] = value
     projects.send(value)
