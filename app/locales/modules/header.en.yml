@@ -7,4 +7,9 @@ en:
       sign-out: 'Log out'
       sign-up: 'Join'
       sign-in: 'Log in'
+      my_profile: 'My Profile'
+      settings: 'Settings'
+      contributed_projects: 'Contributed Projects'
+      my_projects: 'My Projects'
+      dashboard: 'Dashboard'
 
