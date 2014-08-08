@@ -12,9 +12,9 @@ class Discover
 
   def projects
     projects = if params[:search].blank?
-      Project.group('projects.id')
+      Project.includes(:project_total, :category).group('projects.id')
     else
-      Project
+      Project.includes(:project_total, :category)
     end
 
     @projects ||= apply_scopes(
