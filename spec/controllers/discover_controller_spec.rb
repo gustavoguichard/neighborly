@@ -1,100 +1,17 @@
 require 'spec_helper'
 
 describe DiscoverController do
-  before do
-    @recommended = create(:project, recommended: true)
-    @near = create(:project, location: 'Kansas City, MO', latitude: 40.7143528, longitude: -74.0059731)
-    @category = create(:category)
-    @category_project = create(:project, category: @category)
-    @tag = create(:project, tag_list: 'test')
-    @search = create(:project, name: 'test project for search')
-    create(:channel, state: 'online')
-    create(:channel, state: 'draft')
-  end
-
-  it 'should have the rights states to filter' do
-    expected_states = %w(active recommended expiring recent successful soon with_active_matches)
-    expect(DiscoverController::FILTER_STATES).to eq(expected_states)
-  end
-
-  shared_examples 'has filter' do
-    it 'should not assings channels when has filter' do
-      expect(assigns(:channels)).to be_nil
-    end
-
-    it 'should assigns filter' do
-      expect(assigns(:filters).size).to eq 1
-    end
-  end
+  before { create(:project, recommended: true) }
 
   describe 'GET index' do
-    context 'when access without filter' do
-      before { get :index }
+    before { get :index }
 
-      it 'shoult get all project' do
-        expect(assigns(:projects).to_a).to have(5).items
-      end
-
-      it 'should assigns online channels' do
-        expect(assigns(:channels)).to have(1).channel
-      end
+    it 'assigns a presenter' do
+      expect(assigns(:presenter)).not_to be_nil
     end
 
-    context 'when filtering by recommended' do
-      before { get :index, state: :recommended }
-
-      it 'should only assigns the recommended project' do
-        expect(assigns(:projects)).to eq [@recommended]
-      end
-
-      it_behaves_like 'has filter'
+    it 'presenter is a DiscoverPresenter instance' do
+      expect(assigns(:presenter)).to be_instance_of(DiscoverPresenter)
     end
-
-    context 'when filtering by with_active_matches' do
-      before { get :index, state: :with_active_matches }
-
-      it_behaves_like 'has filter'
-    end
-
-    context 'when filtering by near' do
-      before { get :index, near: 'Kansas City, MO' }
-
-      it 'should only assings the near project' do
-        expect(assigns(:projects)).to eq [@near]
-      end
-
-      it_behaves_like 'has filter'
-    end
-
-    context 'when filtering by category' do
-      before { get :index, category: @category.to_s }
-
-      it 'should only assings the right categorized project' do
-        expect(assigns(:projects)).to eq [@category_project]
-      end
-
-      it_behaves_like 'has filter'
-    end
-
-    context 'when filtering by tags' do
-      before { get :index, tags: 'test' }
-
-      it 'should only assings the right taged project' do
-        expect(assigns(:projects)).to eq [@tag]
-      end
-
-      it_behaves_like 'has filter'
-    end
-
-    context 'when searching by a project name' do
-      before { get :index, search: 'test project for search' }
-
-      it 'should only assings the right project' do
-        expect(assigns(:projects)).to eq [@search]
-      end
-
-      it_behaves_like 'has filter'
-    end
-
   end
 end
