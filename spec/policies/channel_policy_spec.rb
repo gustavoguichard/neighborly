@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ChannelPolicy do
   subject { described_class }
 
-  permissions :admin? do
+  shared_examples_for 'update permissions' do
     it 'should deny access to admin if user is nil' do
       should_not permit(nil, Channel.new)
     end
@@ -26,12 +26,69 @@ describe ChannelPolicy do
       should permit(user, channel)
     end
 
-    it 'should permit access to admin if user is adminl' do
+    it 'should permit access to admin if user is admin' do
       user = User.new
       user.admin = true
       channel = Channel.new
       should permit(user, channel)
     end
+  end
+
+  permissions :admin? do
+    it_should_behave_like 'update permissions'
+  end
+
+  permissions :edit? do
+    it_should_behave_like 'update permissions'
+  end
+
+  permissions :update? do
+    it_should_behave_like 'update permissions'
+  end
+
+  permissions :destroy? do
+    it_should_behave_like 'update permissions'
+  end
+
+  shared_examples_for 'change state permissions' do
+    let(:initial_state) { 'draft' }
+
+    it 'should deny access to admin if user is nil' do
+      should_not permit(nil, Channel.new(state: initial_state))
+    end
+
+    it 'should deny access to admin if user is not the channel' do
+      should_not permit(User.new, Channel.new(state: initial_state))
+    end
+
+    it 'should deny access to the channel admin' do
+      user = User.new
+      channel = Channel.new(state: initial_state)
+      channel.user = user
+      should_not permit(user, channel)
+    end
+
+    it 'should deny access to the channel member' do
+      user = User.new
+      channel = Channel.new(state: initial_state)
+      channel.members << user
+      should_not permit(user, channel)
+    end
+
+    it 'should permit access to admin if user is admin' do
+      user = User.new
+      user.admin = true
+      channel = Channel.new(state: initial_state)
+      should permit(user, channel)
+    end
+  end
+
+  permissions :push_to_draft? do
+    it_should_behave_like 'change state permissions'
+  end
+
+  permissions :push_to_online? do
+    it_should_behave_like 'change state permissions'
   end
 
   describe 'Scope' do
