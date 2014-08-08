@@ -21,6 +21,15 @@ describe Match do
     it { should validate_presence_of(:project) }
     it { should validate_presence_of(:user) }
 
+    it 'allow complete matches after its finish date' do
+      match
+      travel_to(10.days.from_now) do
+        expect {
+          match.complete!
+        }.to change(Match.uncompleted, :count).by(-1)
+      end
+    end
+
     describe 'start and finish dates' do
       it 'returns error with starts_at before current date' do
         subject.starts_at = -1.day.from_now
