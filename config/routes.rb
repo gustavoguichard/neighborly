@@ -95,7 +95,7 @@ Neighborly::Application.routes.draw do
     get "/base",                to: "static#base",              as: :base
   end
 
-  get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
+  get "/discover/(:state)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
   resources :tags, only: [:index]
 

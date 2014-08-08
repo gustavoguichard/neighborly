@@ -12,9 +12,9 @@ describe DiscoverController do
     create(:channel, state: 'draft')
   end
 
-  it 'should have the rights filters' do
-    expected_filters = %w(recommended expiring recent successful soon with_active_matches)
-    expect(DiscoverController::FILTERS).to eq(expected_filters)
+  it 'should have the rights states to filter' do
+    expected_states = %w(active recommended expiring recent successful soon with_active_matches)
+    expect(DiscoverController::FILTER_STATES).to eq(expected_states)
   end
 
   shared_examples 'has filter' do
@@ -23,7 +23,7 @@ describe DiscoverController do
     end
 
     it 'should assigns filter' do
-      expect(assigns(:filters)).to have(1).filter
+      expect(assigns(:filters).size).to eq 1
     end
   end
 
@@ -41,7 +41,7 @@ describe DiscoverController do
     end
 
     context 'when filtering by recommended' do
-      before { get :index, filter: :recommended }
+      before { get :index, state: :recommended }
 
       it 'should only assigns the recommended project' do
         expect(assigns(:projects)).to eq [@recommended]
@@ -51,7 +51,7 @@ describe DiscoverController do
     end
 
     context 'when filtering by with_active_matches' do
-      before { get :index, filter: :with_active_matches }
+      before { get :index, state: :with_active_matches }
 
       it_behaves_like 'has filter'
     end

@@ -13,7 +13,7 @@ Neighborly.Discover.Index =
       _.bindAll(this, 'removeFilter')
       that = this
       this.$target_container = this.$('section.content')
-      this.$('.near-input, .category-input, .filter-input').change ->
+      this.$('.near-input, .category-input, .state-input').change ->
         that.process()
 
       this.$('form.discover-form').submit (e)->
@@ -28,22 +28,22 @@ Neighborly.Discover.Index =
       this.process()
 
     process: ->
-      $filter = this.$('.filter-input')
+      $state = this.$('.state-input')
       $near = this.$('.near-input')
       $category = this.$('.category-input')
       $tags = this.$('.tags a.selected')
       $search = this.$('.search-input')
 
-      url = this.generateUrl($filter, $near, $category, $tags, $search)
+      url = this.generateUrl($state, $near, $category, $tags, $search)
       $.pjax({ url: url, container: this.$target_container })
 
-    generateUrl: ($filter, $near, $category, $tags, $search)->
+    generateUrl: ($state, $near, $category, $tags, $search)->
       url = this.$el.data('path')
-      if $filter.val() != ''
-        url += "/#{$filter.val().toLowerCase()}"
-        this.addResultFor('filter', $filter.find(':selected').text())
+      if $state.val() != ''
+        url += "/#{$state.val().toLowerCase()}"
+        this.addResultFor('state', $state.find(':selected').text())
       else
-        this.removeResultFor('filter')
+        this.removeResultFor('state')
 
       if $near.val() != ''
         url += "/near/#{$near.val()}"

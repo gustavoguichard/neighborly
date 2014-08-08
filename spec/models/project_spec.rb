@@ -89,6 +89,17 @@ describe Project do
       it{ should == [@project] }
     end
 
+    describe '.active' do
+      before do
+        create(:project, state: :successful)
+        @project = create(:project, state: :online)
+      end
+
+      it 'returns only the online project' do
+        expect(described_class.active).to eq [@project]
+      end
+    end
+
     describe '.between_created_at' do
       let(:start_at) { '17/01/2013' }
       let(:ends_at) { '20/01/2013' }
