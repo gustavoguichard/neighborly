@@ -45,6 +45,10 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
 
+  delegate :pledged, :progress, :total_contributions,
+    :total_contributions_without_matches, :total_payment_service_fee,
+    to: :project_total
+
   catarse_auto_html_for field: :about, video_width: 720, video_height: 405
   catarse_auto_html_for field: :budget, video_width: 720, video_height: 405
   catarse_auto_html_for field: :terms, video_width: 720, video_height: 405
@@ -134,22 +138,6 @@ class Project < ActiveRecord::Base
     online_date && (online_date + online_days.days).end_of_day
   end
 
-  def pledged
-    project_total ? project_total.pledged : 0.0
-  end
-
-  def total_contributions
-    project_total ? project_total.total_contributions : 0
-  end
-
-  def total_contributions_without_matches
-    project_total ? project_total.total_contributions_without_matches : 0
-  end
-
-  def total_payment_service_fee
-    project_total ? project_total.total_payment_service_fee : 0.0
-  end
-
   def selected_rewards
     rewards.sort_asc.where(id: contributions.with_state('confirmed').map(&:reward_id))
   end
@@ -164,11 +152,6 @@ class Project < ActiveRecord::Base
 
   def in_time_to_wait?
     contributions.with_state('waiting_confirmation').count > 0
-  end
-
-  def progress
-    return 0 if goal == 0.0
-    ((pledged / goal * 100).abs).round(pledged.to_i.size).to_i
   end
 
   def pending_contributions_reached_the_goal?

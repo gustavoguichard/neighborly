@@ -1,6 +1,4 @@
 class ProjectTotalBuilder
-  attr_accessor :project
-
   def initialize(project)
     @project = project
   end
@@ -18,14 +16,14 @@ class ProjectTotalBuilder
   end
 
   def perform
-    ProjectTotal.find_or_create_by(project_id: project.id).
+    ProjectTotal.find_or_create_by(project_id: @project.id).
       update_attributes(attributes)
   end
 
   private
 
   def contributions
-    project.contributions.with_state(:confirmed, :refunded, :requested_refund)
+    @project.contributions.with_state(:confirmed, :refunded, :requested_refund)
   end
 
   def net_amount
@@ -41,7 +39,11 @@ class ProjectTotalBuilder
   end
 
   def progress
-    pledged / project.goal * 100
+    if @project.goal.zero?
+      0
+    else
+      pledged / @project.goal * 100
+    end
   end
 
   def total_contributions
