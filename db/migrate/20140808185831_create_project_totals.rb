@@ -8,7 +8,7 @@ class CreateProjectTotals < ActiveRecord::Migration
       t.decimal :net_amount, default: 0
       t.decimal :platform_fee, default: 0
       t.decimal :pledged, default: 0
-      t.float :progress, default: 0
+      t.integer :progress, default: 0
       t.integer :total_contributions, default: 0
       t.integer :total_contributions_without_matches, default: 0
       t.decimal :total_payment_service_fee, default: 0

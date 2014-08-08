@@ -42,7 +42,7 @@ class ProjectTotalBuilder
     if @project.goal.zero?
       0
     else
-      pledged / @project.goal * 100
+      (pledged / @project.goal * 100).to_i
     end
   end
 

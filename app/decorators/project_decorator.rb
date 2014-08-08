@@ -34,7 +34,7 @@ class ProjectDecorator < Draper::Decorator
       [
         [source.progress, 8].max,
         100
-      ].min.to_i
+      ].min
     end
   end
 

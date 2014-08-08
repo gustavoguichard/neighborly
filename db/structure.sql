@@ -967,7 +967,7 @@ CREATE TABLE project_totals (
     net_amount numeric DEFAULT 0,
     platform_fee numeric DEFAULT 0,
     pledged numeric DEFAULT 0,
-    progress double precision DEFAULT 0,
+    progress integer DEFAULT 0,
     total_contributions integer DEFAULT 0,
     total_contributions_without_matches integer DEFAULT 0,
     total_payment_service_fee numeric DEFAULT 0,
@@ -3471,7 +3471,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public, pg_catalog;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 

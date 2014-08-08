@@ -29,18 +29,25 @@ describe ProjectTotalBuilder do
     it 'calculates the reached percentage' do
       subject = described_class.new(project)
       create(:contribution, project: project, value: 730)
-      expect(subject.attributes[:progress].to_f).to eql(73.0)
+      expect(subject.attributes[:progress]).to eql(73)
     end
 
     it 'allow progress pass of 100%' do
       subject = described_class.new(project)
       create(:contribution, project: project, value: 1_200)
-      expect(subject.attributes[:progress].to_f).to eql(120.0)
+      expect(subject.attributes[:progress]).to eql(120)
     end
 
     it 'doesn\'t crash when calculating for a project with goal zero' do
       subject = described_class.new(create(:project, goal: 0))
-      expect(subject.attributes[:progress].to_f).to eql(0.0)
+      expect(subject.attributes[:progress]).to eql(0)
+    end
+
+    it 'always return integral numbers' do
+      project = create(:project, goal: 300)
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 200)
+      expect(subject.attributes[:progress]).to eql(66)
     end
   end
 
