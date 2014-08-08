@@ -1,124 +1,18 @@
 - content_for :title, @project.name
 = render partial: 'layouts/disqus_count'
-= content_for :meta_tags do
-  - if @update
-    meta name="description" content=@update.title
-    meta property="og:title" content=@update.title
-    meta property="og:description" content=@update.comment
-    meta property="og:url" content=project_url(@project, update_id: @update.id)
-  - else
-    meta name="description" content=@project.headline
-    meta property="og:title" content=@project.name
-    meta property="og:description" content=@project.headline
-    meta property="og:url" content=project_url(@project)
-  meta property="og:type" content='cause'
-  meta property="og:image" content=@project.display_image('project_thumb_facebook')
-  meta property="og:site_name" content=::Configuration[:company_name]
-  meta property="fb:admins" content=facebook_url_admin
+= render 'projects/meta_tags'
 
 .project-page
-  = hero_header_tag @project, class: ('no-image' if browser.mobile?) do
-    .row
-      .large-12.columns
-        .name
-          h3 = @project.name
-      .large-8.medium-8.columns.no-padding-for-small
-        .flex-video.widescreen.vimeo
-          iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
-        .row.hide-for-medium-down
-          .large-6.small-8.columns.share-small
-            = render 'projects/share'
-          .large-6.small-4.columns.time-remaining
-            i.icon-et-clock
-            - if @project.draft? || @project.rejected?
-              strong = @project.online_days
-              = " #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('words.remaining_singular'), t('words.remaining_plural'))}"
-            - else
-              strong = @project.remaining_days
-              = " #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
-
-
-      .large-4.medium-4.columns
-        .subtitle
-          h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(category: @project.category.to_s.downcase)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
-        hr
-        .headline
-          p = @project.headline
-        .status
-          = @project.progress_bar
-          .pledged.hide-for-medium
-            = @project.display_pledged
-            small = t('.so_far').html_safe
-            = @project.display_goal
-          .pledged.show-for-medium
-            = @project.display_pledged
-            small = t('.reached_goal_small_separator_html')
-            = @project.display_goal
-        - if @project.online? && !@project.expired?
-          .show-for-small
-            .contribute-top
-              = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
-
-  section.status-bar.fixed
-    .row
-      .large-12.columns.status
-        .row
-          .large-3.columns.share-small.hide-for-medium-down
-            = render 'projects/share', embed: false
-          .large-2.columns.pledged.hide-for-medium-down
-            p = "#{@project.display_pledged} (#{@project.progress}%)"
-          .large-2.columns.contributions.hide-for-medium-down
-            p
-              i.icon-et-user
-              = t('.status-bar.total_contributions', value: @project.total_contributions)
-          .large-2.columns.time-remaining.hide-for-medium-down
-            p
-              i.icon-et-clock
-              - if @project.draft? || @project.rejected?
-                = "#{@project.online_days} #{pluralize_without_number(@project.online_days, I18n.t('datetime.prompts.day').downcase)} #{pluralize_without_number(@project.online_days, t('words.remaining_singular'), t('words.remaining_plural'))}"
-              - else
-                = "#{@project.remaining_days} #{@project.time_to_go[:unit].capitalize} #{pluralize_without_number(@project.time_to_go[:time], t('words.remaining_singular'), t('words.remaining_plural'))}"
-
-          - if @project.online? && !@project.expired?
-            .large-3.columns.contribute
-              = link_to t('.status-bar.contribute'), new_project_contribution_url(@project), class: 'button small'
-          - else
-            .large-3.columns.status-description
-              span = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.expires_at.to_date, format: :long) rescue nil))
+  = render 'projects/header'
+  = render 'projects/status_bar'
 
   .row.page-main-content
     section.large-9.medium-8.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
-
       = render 'projects/matches'
-
       = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
-
-      nav.tabs[data-target-container=".project-page section.content"]
-        ul
-          li = tab_link_to t('.tabs.about'), project_path(@project)
-
-          - if policy(@project).update? || @project.updates.size > 0
-            li = tab_link_to project_updates_path(@project) do
-              = t('.tabs.updates')
-              span.count=" #{@project.updates.size}"
-
-          - if @project.total_contributions_without_matches > 0
-            li = tab_link_to project_contributions_path(@project) do
-              = t('.tabs.contributions')
-              span.count=" #{@project.total_contributions_without_matches}"
-
-          li = tab_link_to comments_project_path(@project) do
-            = t('.tabs.comments')
-            span.commentsCount.count style="display: none;"
-              span#countNumber
-
-          li = tab_link_to t('.tabs.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
-          li = tab_link_to t('.tabs.budget'), budget_project_path(@project) if @project.budget.present?
-          li = tab_link_to t('.tabs.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
-          - if policy(@project).update?
-            li = tab_link_to t('.tabs.reports'), reports_project_path(@project), 'private'
+      = render 'projects/tabs'
 
       section.content
         - if content_for? :page_content
@@ -131,19 +25,14 @@
     aside.large-3.medium-4.columns.sidebar
       .call-to-action
         - if @project.online? && !@project.expired?
-          noscript
-            .alert-box
-              strong
-                | We're sorry, but you won't be able to contribute without JavaScript enabled.
-                br
-                br
-                | Do you need some #{mail_to t('site.email.contact'), 'help'}?
+          = render 'projects/noscript'
+
           = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute hide-for-small"
           - if current_user && (current_user.organization? || current_user.channel? || current_user.admin?)
             = link_to t('.create_match'), new_project_match_url(@project), class: "button with-icon create-match hide-for-small"
         - else
           .alert-box.secondary.status-description
-            p = t(".display_status.#{@project.campaign_type}.#{@project.display_status}", goal: @project.display_goal, date: (l(@project.expires_at.to_date, format: :long) rescue nil))
+            = display_status(@project)
 
         = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small' if policy(@project).update?
 

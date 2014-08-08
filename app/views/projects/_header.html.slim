@@ -1,0 +1,36 @@
+= hero_header_tag @project, class: ('no-image' if browser.mobile?) do
+  .row
+    .large-12.columns
+      .name
+        h3 = @project.name
+    .large-8.medium-8.columns.no-padding-for-small
+      .flex-video.widescreen.vimeo
+        iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+      .row.hide-for-medium-down
+        .large-6.small-8.columns.share-small
+          = render 'projects/share'
+        .large-6.small-4.columns.time-remaining
+          i.icon-et-clock
+          = remaining_days(@project)
+
+    .large-4.medium-4.columns
+      .subtitle
+        h5= t(".subtitle.#{@project.campaign_type}", category_name: link_to(@project.category, discover_path(category: @project.category.to_s.downcase)), city: @project.display_address_formated, author: link_to(@project.user.display_name, user_path(@project.user))).html_safe
+      hr
+      .headline
+        p = @project.headline
+      .status
+        = @project.progress_bar
+        .pledged.hide-for-medium
+          = @project.display_pledged
+          small = t('.so_far').html_safe
+          = @project.display_goal
+        .pledged.show-for-medium
+          = @project.display_pledged
+          small = t('.reached_goal_small_separator_html')
+          = @project.display_goal
+      - if @project.online? && !@project.expired?
+        .show-for-small
+          .contribute-top
+            = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute"
+

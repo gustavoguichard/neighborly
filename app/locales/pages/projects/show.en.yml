@@ -1,25 +1,7 @@
 en:
   projects:
     show:
-      so_far: '&nbsp; so far of &nbsp; '
-      reached_goal_small_separator_html: '&nbsp; / &nbsp; '
       anonymous_contribution: "Anonymous neighbor"
-      subtitle:
-        all_or_none: "A project in %{category_name}, in %{city}, by %{author}"
-        flexible: "A <span data-tooltip class='has-tip' title='Every Dollar Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
-      status-bar:
-        goal: 'Goal: %{value}'
-        total_contributions: '%{value} neighbors'
-        contribute: 'Contribute'
-      tabs:
-        about: 'About'
-        updates: 'Updates'
-        faqs: 'FAQs'
-        comments: 'Comments'
-        contributions: 'Neighbors'
-        budget: 'Budget'
-        terms: 'Terms'
-        reports: 'Reports'
       display_status:
         all_or_none:
           reached_goal: "This project will be successful and funded on %{date}"
@@ -52,3 +34,23 @@ en:
       facebook: 'Share'
       email: 'Email'
       embed: 'Embed'
+    status_bar:
+      goal: 'Goal: %{value}'
+      total_contributions: '%{value} neighbors'
+      contribute: 'Contribute'
+    tabs:
+      about: 'About'
+      updates: 'Updates'
+      faqs: 'FAQs'
+      comments: 'Comments'
+      contributions: 'Neighbors'
+      budget: 'Budget'
+      terms: 'Terms'
+      reports: 'Reports'
+    header:
+      subtitle:
+        all_or_none: "A project in %{category_name}, in %{city}, by %{author}"
+        flexible: "A <span data-tooltip class='has-tip' title='Every Dollar Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
+      so_far: '&nbsp; so far of &nbsp; '
+      reached_goal_small_separator_html: '&nbsp; / &nbsp; '
+      contribute: 'Contribute'
