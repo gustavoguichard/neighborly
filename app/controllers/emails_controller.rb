@@ -3,7 +3,7 @@ class EmailsController < ApplicationController
     @notifications = []
     types = [
       :adm_project_deadline,
-      :company_contact,
+      :contact,
       :payment_confirmed,
       :payment_canceled_after_confirmed,
       :payment_confirmed_after_finished_project,

@@ -16,7 +16,7 @@ describe Notification do
     it { should belong_to :channel }
     it { should belong_to :contribution }
     it { should belong_to :match }
-    it { should belong_to :company_contact }
+    it { should belong_to :contact }
     it { should belong_to :project_update }
   end
 

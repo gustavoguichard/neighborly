@@ -23,7 +23,7 @@ en:
         twitter: 'http://twitter.com/'
         website: 'http://www.'
     labels:
-      company_contact:
+      contact:
         first_name: 'First Name'
         last_name: 'Last Name'
         company_name: 'Company Name'
@@ -114,7 +114,7 @@ en:
         uploaded_image: "Upload a minimum 150x150 image(.jpg or .png)."
   helpers:
     submit:
-      company_contact:
+      contact:
         create: "Let's Talk!"
       user:
         update: 'Save Changes'

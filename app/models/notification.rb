@@ -5,7 +5,7 @@ class Notification < ActiveRecord::Base
   belongs_to :channel
   belongs_to :contribution
   belongs_to :match
-  belongs_to :company_contact
+  belongs_to :contact
 
   validates_presence_of :user
 
