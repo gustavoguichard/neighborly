@@ -23,6 +23,27 @@ describe ProjectTotalBuilder do
     it { should == 40 }
   end
 
+  describe 'progress' do
+    let(:project) { create(:project, goal: 1_000) }
+
+    it 'calculates the reached percentage' do
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 730)
+      expect(subject.attributes[:progress].to_f).to eql(73.0)
+    end
+
+    it 'allow progress pass of 100%' do
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 1_200)
+      expect(subject.attributes[:progress].to_f).to eql(120.0)
+    end
+
+    it 'doesn\'t crash when calculating for a project with goal zero' do
+      subject = described_class.new(create(:project, goal: 0))
+      expect(subject.attributes[:progress].to_f).to eql(0.0)
+    end
+  end
+
   describe "#total_contributions" do
     before  { prepopulate_db }
     subject { described_class.new(project).attributes[:total_contributions] }
