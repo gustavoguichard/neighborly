@@ -7,6 +7,8 @@ describe ProjectObserver do
   subject { contribution }
 
   before do
+    ProjectObserver.any_instance.unstub(:deliver_default_notification_for)
+    ProjectObserver.any_instance.unstub(:notify_new_draft_project)
     Notification.unstub(:notify)
     Notification.unstub(:notify_once)
   end

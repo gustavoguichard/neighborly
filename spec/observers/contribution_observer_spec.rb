@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe ContributionObserver do
+  let!(:project) { create(:project) }
   let(:resource) do
     create(:contribution,
+           project:      project,
            state:        resource_state,
            confirmed_at: confirmed_at,
            value:        1000)
@@ -42,9 +44,8 @@ describe ContributionObserver do
 
   describe '#before_save' do
     context 'when project reached the goal' do
-      let(:project){ create(:project, state: 'failed', goal: 1000) }
-
       before do
+        project = create(:project, state: 'failed', goal: 1000)
         project.stub(:project_total).and_return(
           double('ProjectTotal', pledged: 1000.0, total_contributions: 1)
         )
@@ -62,8 +63,9 @@ describe ContributionObserver do
     end
 
     context 'when project is already successful' do
-      let(:project) { create(:project, state: 'successful') }
-      before        { resource.project = project }
+      before do
+        resource.project = create(:project, state: 'successful')
+      end
 
       it 'does not send project_successful notification again' do
         expect(Notification).not_to receive(:notify_once)
@@ -72,12 +74,11 @@ describe ContributionObserver do
     end
 
     context 'when project is already finished' do
-      let(:user)           { create(:user, email: 'finan@c.me') }
+      let(:user)           { create(:user, email: ENV['EMAIL_PAYMENTS'].dup) }
       let(:resource_state) { 'pending' }
       let(:confirmed_at)   { nil }
 
       before do
-        Configuration.stub(:[]).and_return('finan@c.me')
         resource.project.stub(:expires_at).and_return(8.days.ago)
       end
 
