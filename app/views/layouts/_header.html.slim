@@ -56,7 +56,7 @@ header.contain-to-grid.fixed
                 li.divider
                 li = link_to main_app.user_contributions_path(current_user) do
                     i.icon-et-check
-                    = t('.contributed_projects')
+                    = t('.my_contributions')
 
                 - if current_user.projects.any?
                   li = link_to user_projects_path(current_user) do
