@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 72b41460d852e375146703811bba003344168de7
+  revision: 5edba1c345ae7e39b565dcdac2b7b271ef344ab9
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: 06e04a5059a0d34d9535c2952f25e100c4306fca
+  revision: 8bbbe1d0debcc7b3f40251b860c9efabd0da927c
   branch: master
   specs:
     neighborly-api (0.0.1)
@@ -49,7 +49,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 86c4080a49b171d88e11b4813cc44f2cd6a0f200
+  revision: 2bbbaef6e636cbd3adfe5405e9984e79003955fc
   branch: master
   specs:
     neighborly-balanced-bankaccount (1.0.0)
