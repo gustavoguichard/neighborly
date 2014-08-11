@@ -7,6 +7,8 @@ describe ProjectObserver do
   subject { contribution }
 
   before do
+    ProjectObserver.any_instance.unstub(:deliver_default_notification_for)
+    ProjectObserver.any_instance.unstub(:notify_new_draft_project)
     Notification.unstub(:notify)
     Notification.unstub(:notify_once)
   end
@@ -16,10 +18,10 @@ describe ProjectObserver do
     before do
       ProjectObserver.any_instance.should_receive(:after_create).and_call_original
       user
-      project
     end
 
     it 'creates notification for project owner' do
+      project
       expect(
         Notification.where(user_id: project.user.id,
                            template_name: 'project_received',
@@ -28,20 +30,34 @@ describe ProjectObserver do
     end
 
     it 'creates notification for admins' do
+      project
       expect(
         Notification.where(user_id: user.id,
                            template_name: 'new_draft_project',
                            project_id: project.id).first
       ).not_to be_nil
     end
+
+    it 'creates a project total' do
+      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      project
+    end
   end
 
-  describe '#before_save' do
+  describe '#after_save' do
     context 'when video_url changes' do
       it 'calls project downloader service' do
         expect(ProjectDownloaderWorker).to receive(:perform_async).with(project.id)
         project.update(video_url: 'http://vimeo.com/66698435')
       end
+    end
+  end
+
+  describe 'after updating' do
+    it 'updates project total' do
+      project
+      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      project.update_attributes(goal: 25_000)
     end
   end
 

@@ -6,11 +6,6 @@ describe PaymentObserver do
     let(:resource_id_name) { "#{resource_name}_id".to_sym }
     let(:confirmed_at)     { Time.now }
 
-    before do
-      Notification.unstub(:notify)
-      Notification.unstub(:notify_once)
-    end
-
     describe '#after_create' do
       it 'calls #define_key!' do
         expect_any_instance_of(resource_class).to receive(:define_key!)
@@ -23,15 +18,13 @@ describe PaymentObserver do
         before { resource.confirmed_at = nil }
 
         it 'notifies the contributor about confirmation' do
-          Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me')
-
           expect(Notification).to receive(:notify_once).
             with(:payment_confirmed,
                  resource.user,
                  { resource_id_name =>  resource.id },
                  { resource_name    => resource,
                    project:         resource.project,
-                   bcc:             'finan@c.me' })
+                   bcc:             ENV['EMAIL_PAYMENTS'] })
 
           resource.save!
         end
@@ -51,8 +44,7 @@ describe PaymentObserver do
     end
 
     describe '#from_confirmed_to_canceled' do
-      let(:user) { create(:user, email: 'finan@c.me') }
-      before     { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
+      let(:user) { create(:user, email: ENV['EMAIL_PAYMENTS'].dup) }
 
       it 'notifies backoffice about cancelation' do
         expect(Notification).to receive(:notify_once).
@@ -66,8 +58,7 @@ describe PaymentObserver do
     end
 
     describe '#from_confirmed_to_requested_refund' do
-      let(:user) { create(:user, email: 'finan@c.me') }
-      before     { Configuration.stub(:[]).with(:email_payments).and_return('finan@c.me') }
+      let(:user) { create(:user, email: ENV['EMAIL_PAYMENTS'].dup) }
 
       it 'notifies backoffice about the refund request' do
         resource.user.stub(:credits).and_return(1000)

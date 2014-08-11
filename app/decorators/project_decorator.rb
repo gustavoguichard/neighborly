@@ -28,9 +28,14 @@ class ProjectDecorator < Draper::Decorator
 
   # Method for width of progress bars only
   def display_progress
-    return 100 if (source.successful? and source.reached_goal?) || source.progress > 100
-    return 8 if source.progress > 0 and source.progress < 8
-    source.progress
+    if source.progress.zero?
+      0
+    else
+      [
+        [source.progress, 8].max,
+        100
+      ].min
+    end
   end
 
   def display_image(version = 'project_thumb' )
@@ -66,10 +71,13 @@ class ProjectDecorator < Draper::Decorator
   end
 
   def progress_bar
-    width = source.display_progress
-    width = 5 if width < 1 && source.contributions.with_state('confirmed').size > 0
-    content_tag(:div, class: [:progress, :round, "#{'green-bar' if width >= 100}"]) do
-      content_tag(:span, nil, class: :meter, style: "width: #{width}%")
+    classes = if display_progress == 100
+      %i(green-bar progress round)
+    else
+      %i(progress round)
+    end
+    content_tag :div, class: classes do
+      content_tag :span, nil, class: :meter, style: "width: #{display_progress}%"
     end
   end
 

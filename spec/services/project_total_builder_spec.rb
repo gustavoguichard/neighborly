@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe ProjectTotal do
+describe ProjectTotalBuilder do
   let!(:project) { create(:project) }
   before do
     Configuration.stub(:[]).with(:platform_fee).and_return(0.1)
   end
-  subject { ProjectTotal.new(project) }
+  subject { described_class.new(project) }
 
   def prepopulate_db
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'pending', project_id: project.id)
@@ -19,25 +19,53 @@ describe ProjectTotal do
   describe "#pledged" do
     before { prepopulate_db }
 
-    subject { ProjectTotal.new(project).pledged }
+    subject { described_class.new(project).attributes[:pledged] }
     it { should == 40 }
+  end
+
+  describe 'progress' do
+    let(:project) { create(:project, goal: 1_000) }
+
+    it 'calculates the reached percentage' do
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 730)
+      expect(subject.attributes[:progress]).to eql(73)
+    end
+
+    it 'allow progress pass of 100%' do
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 1_200)
+      expect(subject.attributes[:progress]).to eql(120)
+    end
+
+    it 'doesn\'t crash when calculating for a project with goal zero' do
+      subject = described_class.new(create(:project, goal: 0))
+      expect(subject.attributes[:progress]).to eql(0)
+    end
+
+    it 'always return integral numbers' do
+      project = create(:project, goal: 300)
+      subject = described_class.new(project)
+      create(:contribution, project: project, value: 200)
+      expect(subject.attributes[:progress]).to eql(66)
+    end
   end
 
   describe "#total_contributions" do
     before  { prepopulate_db }
-    subject { ProjectTotal.new(project).total_contributions }
+    subject { described_class.new(project).attributes[:total_contributions] }
     it{ should == 4 }
   end
 
   describe "#total_contributions_without_matches" do
     before  { prepopulate_db }
-    subject { ProjectTotal.new(project).total_contributions_without_matches }
+    subject { described_class.new(project).attributes[:total_contributions_without_matches] }
     it{ should == 3 }
   end
 
   describe "#total_payment_service_fee" do
     before  { prepopulate_db }
-    subject { ProjectTotal.new(project).total_payment_service_fee }
+    subject { described_class.new(project).attributes[:total_payment_service_fee] }
     it { should == 3 }
   end
 
@@ -56,7 +84,7 @@ describe ProjectTotal do
           project_id:                       project.id,
           state:                            'confirmed'
         )
-        expect(subject.net_amount.to_f).to eql(89.0)
+        expect(subject.attributes[:net_amount].to_f).to eql(89.0)
       end
     end
 
@@ -70,7 +98,7 @@ describe ProjectTotal do
           project_id:                       project.id,
           state:                            'confirmed'
         )
-        expect(subject.net_amount.to_f).to eql(90.0)
+        expect(subject.attributes[:net_amount].to_f).to eql(90.0)
       end
     end
 
@@ -81,7 +109,7 @@ describe ProjectTotal do
         value: 50,
         project: project
       )
-      expect(subject.total_payment_service_fee).to eql(6) # 1 + 5 from matched contribution
+      expect(subject.attributes[:total_payment_service_fee]).to eql(6) # 1 + 5 from matched contribution
     end
   end
 
@@ -93,7 +121,7 @@ describe ProjectTotal do
         project_id: project.id,
         state:      'confirmed'
       )
-      expect(subject.platform_fee.to_f).to eql(10.0)
+      expect(subject.attributes[:platform_fee].to_f).to eql(10.0)
     end
   end
 end

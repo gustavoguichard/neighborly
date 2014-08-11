@@ -12,6 +12,7 @@ describe Project do
   describe "associations" do
     it{ should belong_to :user }
     it{ should belong_to :category }
+    it{ should have_one :project_total }
     it{ should have_many :contributions }
     it{ should have_many :matches }
     it{ should have_many :rewards }
@@ -252,18 +253,18 @@ describe Project do
   end
 
   describe '#reached_goal?' do
-    let(:project) { create(:project, goal: 3000) }
-    subject { project.reached_goal? }
+    subject { create(:project, goal: 3000) }
 
     context 'when sum of all contributions hit the goal' do
       before do
-        create(:contribution, value: 4000, project: project)
+        create(:contribution, value: 4000, project: subject)
       end
-      it { should be_true }
+
+      it { expect(subject).to be_reached_goal }
     end
 
     context "when sum of all contributions don't hit the goal" do
-      it { should be_false }
+      it { expect(subject).to_not be_reached_goal }
     end
   end
 
@@ -294,36 +295,6 @@ describe Project do
     end
   end
 
-  describe "#progress" do
-    subject{ project.progress }
-    let(:pledged){ 0.0 }
-    let(:goal){ 0.0 }
-    before do
-        project.stub(:pledged).and_return(pledged)
-        project.stub(:goal).and_return(goal)
-    end
-
-    context "when goal == pledged > 0" do
-      let(:goal){ 10.0 }
-      let(:pledged){ 10.0 }
-      it{ should == 100 }
-    end
-
-    context "when goal is > 0 and pledged is 0.0" do
-      let(:goal){ 10.0 }
-      it{ should == 0 }
-    end
-
-    context "when goal is 0.0 and pledged > 0.0" do
-      let(:pledged){ 10.0 }
-      it{ should == 0 }
-    end
-
-    context "when goal is 0.0 and pledged is 0.0" do
-      it{ should == 0 }
-    end
-  end
-
   describe "#pledged_and_waiting" do
     subject{ project.pledged_and_waiting }
     before do
@@ -333,79 +304,6 @@ describe Project do
       create(:contribution, value: 1000, state: 'pending', project: project)
     end
     it{ should == @confirmed.value + @waiting.value }
-  end
-
-  describe "#pledged" do
-    subject{ project.pledged }
-    context "when project_total is nil" do
-      before do
-        project.stub(:project_total).and_return(nil)
-      end
-      it{ should == 0 }
-    end
-    context "when project_total exists" do
-      before do
-        project_total = mock()
-        project_total.stub(:pledged).and_return(10.0)
-        project.stub(:project_total).and_return(project_total)
-      end
-      it{ should == 10.0 }
-    end
-  end
-
-  describe "#total_payment_service_fee" do
-    subject { project.total_payment_service_fee }
-
-    context "when project_total is nil" do
-      before { project.stub(:project_total).and_return(nil) }
-      it { should == 0 }
-    end
-
-    context "when project_total exists" do
-      before do
-        project_total = mock()
-        project_total.stub(:total_payment_service_fee).and_return(4.0)
-        project.stub(:project_total).and_return(project_total)
-      end
-
-      it { should == 4.0 }
-    end
-  end
-
-  describe "#total_contributions" do
-    subject{ project.total_contributions }
-    context "when project_total is nil" do
-      before do
-        project.stub(:project_total).and_return(nil)
-      end
-      it{ should == 0 }
-    end
-    context "when project_total exists" do
-      before do
-        project_total = mock()
-        project_total.stub(:total_contributions).and_return(1)
-        project.stub(:project_total).and_return(project_total)
-      end
-      it{ should == 1 }
-    end
-  end
-
-  describe "#total_contributions_without_matches" do
-    subject{ project.total_contributions_without_matches }
-    context "when project_total is nil" do
-      before do
-        project.stub(:project_total).and_return(nil)
-      end
-      it{ should == 0 }
-    end
-    context "when project_total exists" do
-      before do
-        project_total = mock()
-        project_total.stub(:total_contributions_without_matches).and_return(1)
-        project.stub(:project_total).and_return(project_total)
-      end
-      it{ should == 1 }
-    end
   end
 
   describe "#expired?" do

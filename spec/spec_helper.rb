@@ -1,7 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require 'coveralls'
-Coveralls.wear!('rails')
+ENV["RAILS_ENV"]      ||= 'test'
+ENV['PLATFORM_FEE']   ||= '0.1'
+ENV['EMAIL_PAYMENTS'] ||= 'finan@c.me'
+
+if ENV['CI']
+  require 'coveralls'
+  Coveralls.wear!('rails')
+end
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -105,9 +110,10 @@ RSpec.configure do |config|
     User.any_instance.stub(:subscribe_to_newsletter_list).and_return(true)
     User.any_instance.stub(:unsubscribe_to_newsletter_list).and_return(true)
     Project.any_instance.stub(:store_image_url).and_return('http://www.store_image_url.com')
-    ProjectObserver.any_instance.stub(:after_create)
     UserObserver.any_instance.stub(:after_create)
     Project.any_instance.stub(:download_video_thumbnail)
+    ProjectObserver.any_instance.stub(:deliver_default_notification_for)
+    ProjectObserver.any_instance.stub(:notify_new_draft_project)
     Notification.stub(:notify)
     Notification.stub(:notify_once)
   end

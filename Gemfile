@@ -101,13 +101,13 @@ group :production do
 end
 
 group :development do
-  gem 'spring'
-  gem 'ffaker'
-  gem "letter_opener"
-  gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'ffaker'
+  gem 'letter_opener'
   gem 'quiet_assets'
+  gem 'spring'
+  gem 'thin'
 end
 
 group :development, :test do

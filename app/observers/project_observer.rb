@@ -1,5 +1,7 @@
 class ProjectObserver < ActiveRecord::Observer
   def after_save(project)
+    build_project_total(project)
+
     if project.video_url.present? && project.video_url_changed?
       ProjectDownloaderWorker.perform_async(project.id)
     end
@@ -118,5 +120,9 @@ class ProjectObserver < ActiveRecord::Observer
         origin_name: project.last_channel.try(:name) || Configuration[:company_name]
       }
     )
+  end
+
+  def build_project_total(project)
+    ProjectTotalBuilder.new(project).perform
   end
 end
