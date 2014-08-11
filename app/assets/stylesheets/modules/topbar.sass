@@ -107,16 +107,23 @@
           font-size: 90%
           background: $topbar-bg-highlight
 
+          &.sign-out
+            display: none
+
           &.radius-left
-            border-radius: +emCalc(20px, 0, 0, 20px)
+            border-top-left-radius: +emCalc(20px)
+            border-bottom-left-radius: +emCalc(20px)
             padding-right: 0
             padding-left: +emCalc(15px)
 
           &.radius-right
-            border-radius: +emCalc(0, 20px, 20px, 0)
+            border-top-right-radius: +emCalc(20px)
+            border-bottom-right-radius: +emCalc(20px)
             padding-left: 0
             padding-right: +emCalc(15px)
-
+          &.radius-left.radius-right
+            padding-right: +emCalc(15px)
+            padding-left: +emCalc(15px)
           &.with-divider
             a:after
               content: '|'
@@ -141,6 +148,34 @@
 
         &.user-action
           padding: +emCalc(10px)
+
+  #user-dropdown
+    background: darken(desaturate($primary-color, 30%), 10%)
+    border-width: 0
+    border-radius: $global-radius
+    font-size: 120%
+    margin-top: +emCalc(8px)
+    &.f-dropdown:before
+      border-bottom-color: $primary-color
+    &.f-dropdown:after
+      border-bottom-color: transparent
+    li
+      float: none
+      &:first-child
+        background: $primary-color
+        border-radius: $global-radius $global-radius 0 0
+      &:last-child
+        border-radius: 0 0 $global-radius $global-radius
+      &:hover
+        background: $primary-color
+      a
+        padding: +emCalc(15px)
+        text-transform: none
+        i
+          padding-right: +emCalc(5px)
+      &.divider
+        border-top: none
+        border-bottom: 1px solid darken($primary-color, 20%)
 
 .f-topbar-fixed
   padding-top: 0 !important
