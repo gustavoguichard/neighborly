@@ -27,6 +27,13 @@ describe Discover do
     expect(described_class::STATES).to eq(expected_states)
   end
 
+  it 'handles with_active_matches scope adding necessary group by clauses' do
+    create(:match)
+    expect(
+      described_class.new('state' => 'with_active_matches').projects.first
+    ).to be_a(Project)
+  end
+
   shared_examples 'has filter' do
     it 'has filters' do
       subject.projects

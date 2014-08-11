@@ -17,6 +17,10 @@ class Discover
       Project.includes(:project_total, :category)
     end
 
+    if params[:state].eql? 'with_active_matches'
+      projects = projects.group('project_totals.id', 'categories.id')
+    end
+
     @projects ||= apply_scopes(
       params.compact.slice(*FILTERS), projects.visible
     ).order_for_search.to_a
