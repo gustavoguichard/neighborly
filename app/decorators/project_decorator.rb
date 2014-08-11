@@ -28,7 +28,7 @@ class ProjectDecorator < Draper::Decorator
 
   # Method for width of progress bars only
   def display_progress
-    if source.progress.zero?
+    if source.contributions.none?
       0
     else
       [

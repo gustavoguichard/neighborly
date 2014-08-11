@@ -98,11 +98,29 @@ describe ProjectDecorator do
   end
 
   describe "#display_progress" do
+    let(:contribution) { double('Contribution') }
     subject{ project.display_progress }
-    context "when progress is 0" do
-      before{ project.stub(:progress).and_return(0) }
+    before do
+      project.stub(:contributions).and_return([contribution])
+    end
+
+    context "when no contribution were made" do
+      before do
+        project.stub(:contributions).and_return([])
+        project.stub(:progress).and_return(0)
+      end
+
       it{ should == 0 }
     end
+
+    context "when contributions were made but progress does not reach 1%" do
+      before do
+        project.stub(:progress).and_return(0)
+      end
+
+      it{ should == 8 }
+    end
+
     context "when progress is between 0 and 8" do
       before{ project.stub(:progress).and_return(7) }
       it{ should == 8 }
