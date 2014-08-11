@@ -3,35 +3,36 @@
 .channel-page
   section.header
     .row
-      .large-7.columns.video
+      .large-7.columns.video.no-padding-for-small
         - if @profile.video_url.present?
-          = content_tag(:iframe, nil, src: @profile.display_video_embed_url, width: '540', height: '304', frameborder: 0)
+          .flex-video.widescreen.vimeo
+            = content_tag(:iframe, nil, src: @profile.display_video_embed_url, width: '540', height: '304', frameborder: 0)
         - else
           = image_tag @profile.image.x_large.url
       .large-5.columns
         h2.title = @profile.name
         p.description = truncate(@profile.description, length: 320)
         .row
-          .large-6.columns
+          .medium-6.columns
             = link_to t('.submit'), start_path, class: [:button] if @profile.accepts_projects?
           - if resource.has_subscriber?(current_user)
-            .large-6.columns
+            .medium-6.columns
               = link_to t('.unfollow'), channels_subscriber_path, method: :delete, class: [:button, :secondary]
           - else
-            .large-6.columns
+            .medium-6.columns
               = link_to t('.follow'), channels_subscriber_path, class: [:button, :success]
 
     section.more
       .row
         - if @profile.accepts_projects?
-          .large-3.small-4.columns.submit-your-project
+          .medium-3.columns.submit-your-project
             h4 = t('.submit_your_project.title')
             - if @profile.submit_your_project_text.present?
               p = @profile.submit_your_project_text_html.html_safe
             - else
               p = t('.submit_your_project.text')
             = link_to t('.submit_your_project.button'), start_path, class: 'button'
-        .small-8.columns[class="large-#{ @profile.accepts_projects? ? '9' : '12' }"]
+        .medium-8.columns[class="large-#{ @profile.accepts_projects? ? '9' : '12' }"]
           .about-us
             h4 = t('.about.title')
             p = @profile.how_it_works_html.html_safe if @profile.how_it_works_html
@@ -39,16 +40,16 @@
             h4 = "#{t('.connect.title')} #{@profile.name}"
             .row.social
               - if @profile.user.other_url.present?
-                .large-3.small-3.columns
+                .large-3.medium-6.columns
                   = link_to t('.connect.website'), @profile.user.other_url, class: 'button website success with-icon', target: :blank
               - if @profile.user.facebook_url.present?
-                .large-3.small-3.columns
+                .large-3.medium-6.columns
                   = link_to t('.connect.facebook'), @profile.user.facebook_url, class: 'button facebook with-icon', target: :blank
               - if @profile.user.twitter_url.present?
-                .large-3.small-3.columns
+                .large-3.medium-6.columns
                   = link_to t('.connect.twitter'), @profile.user.twitter_url, class: 'button twitter with-icon', target: :blank
               - if @profile.user.email.present?
-                .large-3.small-3.columns
+                .large-3.medium-6.columns
                   = mail_to @profile.user.email, t('.connect.email'), class: 'button email with-icon'
     .see-more-wrapper.row
       .large-12.columns
@@ -62,13 +63,20 @@
             | &nbsp;
             i.icon-et-up-circled
 
+  section.projects
+    .row
+      - if @active_projects.any?
+        .large-12.columns
+          h3 
+            i.icon-et-home
+            = t('.active_projects_we_support')
+        - @active_projects.each do |project|
+          = render partial: 'projects/project', locals: { project: project }
 
-  - if @projects.any?
-    section.projects
-      .row
+    .row
+      .large-12.columns
         h3 
-          i.icon-et-home
-          = t('.projects_we_support')
-        .row
-          - @projects.each do |project|
-            = render partial: 'projects/project', locals: { project: project }
+          i.icon-et-heart
+          = t('.projects_we_have_supported')
+      - @other_projects.each do |project|
+        = render partial: 'projects/project', locals: { project: project }
