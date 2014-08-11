@@ -5,7 +5,8 @@ en:
         unfollow: 'Unfollow'
         follow: 'Follow Us'
         submit: 'Apply Now'
-        projects_we_support: 'Projects We Support'
+        active_projects_we_support: 'Active Projects We Support'
+        projects_we_have_supported: 'Projects We Have Supported'
         see_more: 'Learn more'
         see_less: 'See less'
         submit_your_project:

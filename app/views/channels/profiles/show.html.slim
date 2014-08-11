@@ -63,12 +63,20 @@
             | &nbsp;
             i.icon-et-up-circled
 
-
-  - if @projects.any?
-    section.projects
-      .row
-        h3 
-          i.icon-et-home
-          = t('.projects_we_support')
-        - @projects.each do |project|
+  section.projects
+    .row
+      - if @active_projects.any?
+        .large-12.columns
+          h3 
+            i.icon-et-home
+            = t('.active_projects_we_support')
+        - @active_projects.each do |project|
           = render partial: 'projects/project', locals: { project: project }
+
+    .row
+      .large-12.columns
+        h3 
+          i.icon-et-heart
+          = t('.projects_we_have_supported')
+      - @other_projects.each do |project|
+        = render partial: 'projects/project', locals: { project: project }

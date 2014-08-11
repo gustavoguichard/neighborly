@@ -9,7 +9,8 @@ class Channels::ProfilesController < Channels::BaseController
   end
 
   def show
-    @projects = resource.projects.visible
+    @active_projects = resource.projects.active
+    @other_projects = resource.projects.visible.without_state('online')
   end
 
   def resource
