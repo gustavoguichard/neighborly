@@ -1,9 +1,25 @@
 class ChannelPolicy < ApplicationPolicy
-  def admin?
+  def update?
     user.present? && (record.user == user ||
                       record.members.include?(user) ||
                       is_admin?
                      )
+  end
+
+  def admin?
+    update?
+  end
+
+  def destroy?
+    update?
+  end
+
+  def push_to_draft?
+    is_admin? && record.can_push_to_draft?
+  end
+
+  def push_to_online?
+    is_admin? && record.can_push_to_online?
   end
 
   class Scope < Struct.new(:user, :scope)
