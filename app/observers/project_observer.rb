@@ -1,12 +1,13 @@
 class ProjectObserver < ActiveRecord::Observer
   def after_save(project)
+    build_project_total(project)
+
     if project.video_url.present? && project.video_url_changed?
       ProjectDownloaderWorker.perform_async(project.id)
     end
   end
 
   def after_create(project)
-    create_project_total(project)
     deliver_default_notification_for(project, :project_received)
     notify_new_draft_project(project)
   end
@@ -121,7 +122,7 @@ class ProjectObserver < ActiveRecord::Observer
     )
   end
 
-  def create_project_total(project)
+  def build_project_total(project)
     ProjectTotalBuilder.new(project).perform
   end
 end

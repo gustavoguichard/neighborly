@@ -44,12 +44,20 @@ describe ProjectObserver do
     end
   end
 
-  describe '#before_save' do
+  describe '#after_save' do
     context 'when video_url changes' do
       it 'calls project downloader service' do
         expect(ProjectDownloaderWorker).to receive(:perform_async).with(project.id)
         project.update(video_url: 'http://vimeo.com/66698435')
       end
+    end
+  end
+
+  describe 'after updating' do
+    it 'updates project total' do
+      project
+      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      project.update_attributes(goal: 25_000)
     end
   end
 
