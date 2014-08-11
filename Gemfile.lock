@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-admin.git
-  revision: 72b41460d852e375146703811bba003344168de7
+  revision: 5edba1c345ae7e39b565dcdac2b7b271ef344ab9
   branch: master
   specs:
     neighborly-admin (1.0.0)
@@ -493,7 +493,7 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.2)
       coffee-rails
-    tzinfo (1.2.1)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
