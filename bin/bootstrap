@@ -14,19 +14,16 @@ def check_dependencies!
   end
 end
 
-# Travis CI has dependencies installed but don't expose executables.
-# By this fact, we don't need to check availability in CI.
-db_init_tasks = if ENV['CI']
-  'db:create db:migrate'
-else
-  check_dependencies!
-
-  'db:setup db:test:load'
-end
-
 system 'cp config/database.yml.example config/database.yml'
 system 'cp .env.example .env'
 system 'bundle install'
-system "bundle exec rake #{db_init_tasks}"
 
+# Travis CI has dependencies installed but don't expose executables.
+# By this fact, we don't need to check availability in CI.
+unless ENV['CI']
+  check_dependencies!
+  system 'RAILS_ENV=development bundle exec rake db:setup'
+end
+
+system 'RAILS_ENV=test bundle exec rake db:create db:migrate'
 system 'gem install foreman'
