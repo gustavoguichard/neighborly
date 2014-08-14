@@ -37,3 +37,22 @@
                 p = t('words.or')
 
               = link_to 'Sign Up with Facebook', user_omniauth_authorize_path(provider: :facebook, locale: :en), class: 'button facebook sign-up-with-facebook small-12 large-12 with-icon'
+          - else
+            .medium-3.columns.text-center
+              = current_user.display_image_html width: 85, height: 85
+            .medium-9.columns
+              h3.thanks Thank You, #{current_user.first_name}, for supporting civic projects.
+            .medium-12.columns
+              p
+                br/
+                | You'll be among the first to know when we launch. Meanwhile, share your pledge.
+              section.share
+                .row
+                  .medium-8.small-12.columns.large-centered.small-centered.buttons
+                    .row
+                      .medium-6.small-12.columns
+                        - share_text  = "I've pledged to invest in communities with @Neighborly. How will you support your favorite places? http://neighbor.ly"
+                        - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=http://neighbor.ly"
+                        = link_to t('.facebook'), "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank
+                      .medium-6.small-12.columns
+                        = link_to t('.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
