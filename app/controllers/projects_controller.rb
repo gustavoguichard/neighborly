@@ -17,8 +17,8 @@ class ProjectsController < ApplicationController
 
   def index
     projects_vars = {
-      coming_soon: :soon,
-      ending_soon: :expiring,
+      #coming_soon: :soon,
+      #ending_soon: :expiring,
       featured:    :featured,
       recommended: :recommends,
       successful:  :successful

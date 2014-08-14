@@ -2,11 +2,11 @@ en:
   projects:
     index:
       title: 'Fundraising for civic projects | Civic Crowdfunding | CSR | Cause Marketing'
-      recommended: 'Recommended'
+      recommended: 'Projects We'
       near: 'Projects Near'
       channels: 'Partners'
       ending_soon: 'Ending Soon'
-      successful: 'Successful'
+      successful: 'Past Campaigns'
       coming_soon: 'Coming Soon'
       with_active_matches: 'Active Matches'
       join:
