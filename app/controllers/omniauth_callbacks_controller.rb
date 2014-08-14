@@ -13,7 +13,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protected
 
   def oauth_callback_for(oauth_provider)
-    omniauth_user    = OmniauthUserSerializer.new(request.env.delete('omniauth.auth'))
+    omniauth_user = OmniauthUserSerializer.new(
+      request.env.delete('omniauth.auth').merge(params: request.env['omniauth.params'])
+    )
+
     omniauth_sign_in = OmniauthSignIn.new(current_user)
     omniauth_sign_in.complete(omniauth_user.to_h, session.delete(:new_user_attrs))
 

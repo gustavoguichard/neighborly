@@ -31,6 +31,16 @@ class UserInitializer
     else
       @user = User.create(omniauth_data)
     end
+
+    attach_investment_prospect
+  end
+
+  def attach_investment_prospect
+    value = omniauth_data[:investment_prospect_attributes].try(:[], :value)
+
+    if value.present? && !user.investment_prospect.present?
+      user.build_investment_prospect(value: value).save
+    end
   end
 
   def attach_authorization
