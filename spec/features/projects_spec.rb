@@ -28,15 +28,15 @@ describe "Projects" do
       featured.should have(1).items
     end
 
-    it "should show coming soon projects" do
-      coming_soon = all(".coming-soon .project-box")
-      coming_soon.should have(1).items
-    end
+    #it "should show coming soon projects" do
+      #coming_soon = all(".coming-soon .project-box")
+      #coming_soon.should have(1).items
+    #end
 
-    it "should show ending soon projects" do
-      ending_soon = all(".ending-soon .project-box")
-      ending_soon.should have(1).items
-    end
+    #it "should show ending soon projects" do
+      #ending_soon = all(".ending-soon .project-box")
+      #ending_soon.should have(1).items
+    #end
   end
 
   describe "new and create" do
