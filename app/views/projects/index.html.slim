@@ -3,6 +3,13 @@
 .home-page
   header.hero[ data-image-url=image_path('home-hero.jpg') ]
     .row
+      .small-12.medium-8.medium-centered.columns.text-center
+        h2 = t('.hero.title').html_safe
+        h3.subtitle
+          = t('.hero.subtitle_html')
+          = link_to t('.hero.learn_more'), '#learn-more-investment', class: 'button secondary tiny expand-section', data: { alternative_text: t('.hero.see_less') }
+
+        p.expand-section-content = t('.hero.description')
   = render 'projects/investors'
 
   section.meanwhile.text-center
