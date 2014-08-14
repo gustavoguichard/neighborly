@@ -63,8 +63,12 @@ class UsersController < ApplicationController
     authorize resource
     update! do |success, failure|
       success.html do
-        flash.notice = update_success_flash_message
+        flash.notice = update_success_flash_message unless params[:investment_prospect]
         return redirect_to settings_user_path(@user) if params[:settings]
+        if params[:investment_prospect]
+          flash.delete(:notice)
+          return redirect_to root_path
+        end
         return redirect_to edit_user_path(@user)
       end
       failure.html do
