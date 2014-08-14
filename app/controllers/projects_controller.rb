@@ -30,6 +30,8 @@ class ProjectsController < ApplicationController
 
     @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
+
+    investment_section_variables
   end
 
   def create
@@ -96,5 +98,15 @@ class ProjectsController < ApplicationController
   protected
   def permitted_params
     params.permit(policy(@project || Project).permitted_attributes)
+  end
+
+  private
+
+  def investment_section_variables
+    statistic = Statistics.all.to_a.first
+    @total_investors = statistic.total_contributors.to_i + InvestmentProspect.count
+    @total_pledged_for_investment = statistic.total_contributed.to_f +
+      InvestmentProspect.sum(:value)
+    @users = User.with_profile_type('personal').order("RANDOM()").limit(18)
   end
 end
