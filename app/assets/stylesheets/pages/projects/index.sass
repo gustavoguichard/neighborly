@@ -1,8 +1,11 @@
 .home-page
   @media #{$medium}
+    header.hero
+      height: +emCalc(400px)
 
   header.hero
-    padding: +emCalc(45px) 0
+    padding-top: +emCalc(45px)
+    padding-bottom: +emCalc(150px)
     min-height: +emCalc(200px)
     h2
       font-weight: 300
@@ -22,8 +25,54 @@
       padding: +emCalc(10px)
       text-align: justify
       background: rgba(#FFF, 0.2)
+
+  .invest-box-wrapper
+    z-index: 2
+
+  .invest-box
+    margin-top: +emCalc(-150px)
+    padding: +emCalc(25px)
+    background: #FFF
+    h3
+      text-transform: uppercase
+      &.thanks
+        color: $primary-color
+
+    form
+      margin: 0
+
+    .sign-up-button
       margin-bottom: 0
+
+    p
+      color: $secondary-color
+
+    .investment-value
+      margin-bottom: +emCalc(20px)
+
+      .input
+        display: inline
+
+      select
+        width: auto
+        padding-right: +emCalc(15px)
+
+    .separator
+      border-top: 1px solid $border-color
+      height: 1px
+      margin: 2.4em 0
+      text-align: center
+      clear: both
       position: relative
+      p
+        text-align: center
+        background: white
+        color: $secondary-font-color
+        width: 30px
+        display: block
+        margin: 0 auto
+        position: relative
+        top: emCalc(-14px)
   section.investors
     h3
       font-size: 190%

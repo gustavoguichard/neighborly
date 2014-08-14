@@ -103,6 +103,14 @@ class ProjectsController < ApplicationController
   private
 
   def investment_section_variables
+    @user = current_user || User.new
+    @user.build_investment_prospect unless @user.investment_prospect
+
+    @invest_from_otions = if current_user
+                            { url: user_path(current_user, investment_prospect: true), method: :put }
+                           else
+                             { url: sign_up_path }
+                           end
     statistic = Statistics.all.to_a.first
     @total_investors = statistic.total_contributors.to_i + InvestmentProspect.count
     @total_pledged_for_investment = statistic.total_contributed.to_f +

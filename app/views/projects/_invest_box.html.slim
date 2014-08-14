@@ -1,0 +1,39 @@
+.row
+  .small-12.medium-8.medium-centered.columns.text-center.invest-box-wrapper
+    .invest-box
+      = simple_form_for(@user, { as: 'user' }.merge(@invest_from_otions)) do |f|
+        .row
+          .large-12.columns
+            - if (current_user && current_user.investment_prospect.value.zero?) || !current_user
+              h3
+                - if !current_user
+                  | Sign Up for Early Access
+                - else
+                  | Interested? Let us know
+
+              .investment-value
+                = f.fields_for :investment_prospect do |fa|
+                  | I plan on investing up to 
+
+                  - values = [1000, 2000, 3000, 4000, 10000].map { |v| [number_to_currency(v, precision: 0), v] }
+                  = fa.input :value, collection: values, selected: 2000, label: false, input_html: { required: true, class: 'investment-prospect-value' }
+                  |  a year.
+
+          - if current_user && current_user.investment_prospect.value.zero?
+              = f.submit 'Pledge Support', class: 'button'
+
+          - elsif !current_user
+            .medium-6.columns
+              = f.hidden_field :newsletter, value: true
+
+              = f.input :name,     as: :string, required: true, label_html: { class: 'hidden-label' }
+              = f.input :email,    as: :email,  required: true, label_html: { class: 'hidden-label' }
+              = f.input :password,              required: true, label_html: { class: 'hidden-label' }
+
+            .medium-6.columns
+              = f.submit 'Create Account', class: 'button small-12 large-12 sign-up-button'
+
+              .separator
+                p = t('words.or')
+
+              = link_to 'Sign Up with Facebook', user_omniauth_authorize_path(provider: :facebook, locale: :en), class: 'button facebook sign-up-with-facebook small-12 large-12 with-icon'
