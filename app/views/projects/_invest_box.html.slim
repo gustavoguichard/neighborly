@@ -23,7 +23,15 @@
               = f.submit 'Pledge Support', class: 'button'
 
           - elsif !current_user
+            - content_for :facebook_button do
+              = link_to 'Sign Up with Facebook', user_omniauth_authorize_path(provider: :facebook, locale: :en), class: 'button facebook sign-up-with-facebook small-12 large-12 with-icon'
+
             .medium-6.columns
+              - if browser.mobile?
+                = yield :facebook_button
+                .separator
+                  p = t('words.or')
+
               = f.hidden_field :newsletter, value: true
 
               = f.input :name,     as: :string, required: true, label_html: { class: 'hidden-label' }
@@ -33,10 +41,11 @@
             .medium-6.columns
               = f.submit 'Create Account', class: 'button small-12 large-12 sign-up-button'
 
-              .separator
-                p = t('words.or')
+              - unless browser.mobile?
+                .separator
+                  p = t('words.or')
+                = yield :facebook_button
 
-              = link_to 'Sign Up with Facebook', user_omniauth_authorize_path(provider: :facebook, locale: :en), class: 'button facebook sign-up-with-facebook small-12 large-12 with-icon'
           - else
             .medium-3.columns.text-center
               = current_user.display_image_html width: 85, height: 85

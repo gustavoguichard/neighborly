@@ -1,8 +1,4 @@
 .home-page
-  @media #{$medium}
-    header.hero
-      height: +emCalc(400px)
-
   header.hero
     padding-top: +emCalc(45px)
     padding-bottom: +emCalc(150px)
@@ -12,7 +8,7 @@
       text-transform: uppercase
     h3.subtitle
       text-transform: none
-      font-size: 180%
+      font-size: 140%
       font-weight: 300
       a
         margin-left: +emCalc(10px)
@@ -31,7 +27,7 @@
 
   .invest-box
     margin-top: +emCalc(-150px)
-    padding: +emCalc(25px)
+    padding: +emCalc(15px)
     background: #FFF
     h3
       text-transform: uppercase
@@ -41,13 +37,14 @@
     form
       margin: 0
 
-    .sign-up-button
+    .sign-up-button, .sign-up-with-facebook
       margin-bottom: 0
 
     p
       color: $secondary-color
 
     .investment-value
+      font-size: 90%
       margin-bottom: +emCalc(20px)
 
       .input
@@ -56,6 +53,7 @@
       select
         width: auto
         padding-right: +emCalc(15px)
+        font-size: 70%
 
     .separator
       border-top: 1px solid $border-color
@@ -80,23 +78,24 @@
       margin: auto
 
   section.investors
-    h3
-      font-size: 190%
-
     margin-top: +emCalc(50px)
     padding: +emCalc(25px)
     background: #FFF
     +clearfix
+
+    h3
+      font-size: 150%
+
     .profile-image
       float: left
-      margin: +emCalc(10px)
+      margin: +emCalc(17px)
 
   section.meanwhile
     margin-top: +emCalc(50px)
     background: image-url('home-hero.jpg') bottom center
     background-size: cover
     h3
-      font-size: 190%
+      font-size: 150%
       font-weight: 300
       padding: +emCalc(10px)
       color: white
@@ -165,3 +164,26 @@
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.30)
         h3
           color: $primary-color
+
+@media #{$medium}
+  .home-page
+    header.hero
+      height: +emCalc(400px)
+      h3.subtitle
+        font-size: 180%
+        text-align: justify
+
+    section.investors, section.meanwhile
+      h3
+        font-size: 190%
+
+    section.investors .profile-image
+      margin: +emCalc(8px)
+
+    .invest-box
+      padding: +emCalc(25px)
+
+      .investment-value
+        font-size: 100%
+        select
+          font-size: 100%

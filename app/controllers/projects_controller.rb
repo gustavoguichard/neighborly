@@ -115,6 +115,8 @@ class ProjectsController < ApplicationController
     @total_investors = statistic.total_contributors.to_i + InvestmentProspect.count
     @total_pledged_for_investment = statistic.total_contributed.to_f +
       InvestmentProspect.sum(:value)
-    @users = User.with_profile_type('personal').order("RANDOM()").limit(18)
+
+    user_limit = browser.mobile? ? 6 : 18
+    @users = User.with_profile_type('personal').order("RANDOM()").limit(user_limit)
   end
 end
