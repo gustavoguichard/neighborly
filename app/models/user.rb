@@ -42,11 +42,13 @@ class User < ActiveRecord::Base
   has_many :channel_members, dependent: :destroy
   has_many :channels, through: :channel_members, source: :channel
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
+  has_one :investment_prospect, dependent: :destroy
 
   accepts_nested_attributes_for :authorizations
   accepts_nested_attributes_for :channel
   accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
+  accepts_nested_attributes_for :investment_prospect
 
   pg_search_scope :pg_search, against: [
       [:name,  'A'],
