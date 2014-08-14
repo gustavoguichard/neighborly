@@ -20,3 +20,10 @@ Neighborly.Projects.Index =
                 $('.invest-box').animate({'margin-top': '-9.375em'})
               else
                 $('.invest-box').animate({'margin-top': '20px'})
+
+      $('.sign-up-with-facebook').click (event)->
+        event.preventDefault()
+        value = $('.investment-prospect-value').val()
+        $target = $(event.currentTarget)
+
+        location.href = "#{$target.attr('href')}&investment_prospect_value=#{value}"
