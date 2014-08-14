@@ -117,6 +117,6 @@ class ProjectsController < ApplicationController
       InvestmentProspect.sum(:value)
 
     user_limit = browser.mobile? ? 6 : 18
-    @users = User.with_profile_type('personal').order("RANDOM()").limit(user_limit)
+    @users = User.where('uploaded_image IS NOT NULL').with_profile_type('personal').order("RANDOM()").limit(user_limit)
   end
 end
