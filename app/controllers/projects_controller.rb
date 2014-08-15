@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
       instance_variable_set "@#{var_name}", ProjectsForHome.send(scope)
     end
 
+    @successful = @successful.take(2) if browser.mobile?
     @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
 
