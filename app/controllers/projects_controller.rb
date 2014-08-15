@@ -113,7 +113,7 @@ class ProjectsController < ApplicationController
                              { url: sign_up_path }
                            end
     statistic = Statistics.all.to_a.first
-    @total_investors = statistic.total_contributors.to_i + InvestmentProspect.count
+    @total_investors = statistic.total_users
     @total_pledged_for_investment = statistic.total_contributed.to_f +
       InvestmentProspect.sum(:value)
 
