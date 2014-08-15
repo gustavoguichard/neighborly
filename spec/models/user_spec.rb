@@ -24,6 +24,7 @@ describe User do
     it{ should have_one :organization }
     it{ should have_many :channel_members }
     it{ should have_many :channels }
+    it{ should have_one :investment_prospect }
   end
 
   describe "validations" do

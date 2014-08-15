@@ -1,41 +1,107 @@
 .home-page
-  @media #{$medium}
-    .header-newsletter-input
-      width: 80%
-    .header-newsletter-submit
-      width: 20%
-
   header.hero
-    padding: +emCalc(45px) 0
+    padding-top: +emCalc(45px)
+    padding-bottom: +emCalc(150px)
     min-height: +emCalc(200px)
     h2
-      strong
-        color: #ffffee
-    #home-subtitle, #home-newsletter
-      margin-top: +emCalc(30px)
-    #home-subtitle
-      font-weight: normal
-      font-size: 1.1em
-      line-height: 1.4
-      span
-        font-weight: bold
-    #home-newsletter
-      text-align: center
-    .header-newsletter
-      margin-top: +emCalc(10px)
-    .header-newsletter-input
-      float: left
-    .header-newsletter-submit
-      float: left
-      padding-left: +emCalc(15px)
-      padding-right: +emCalc(15px)
-    .scroll-down
-      font-size: 2.0em
+      font-weight: 300
+      text-transform: uppercase
+    h3.subtitle
+      text-transform: none
+      font-size: 140%
+      font-weight: 300
+      a
+        margin-left: +emCalc(10px)
+        font-size: 50%
+      .has-tip
+        color: white
+        font-weight: 300
+    p
+      display: none
+      padding: +emCalc(10px)
+      text-align: justify
+      background: rgba(#FFF, 0.2)
+
+  .invest-box-wrapper
+    z-index: 2
+
+  .invest-box
+    margin-top: +emCalc(-150px)
+    padding: +emCalc(15px)
+    background: #FFF
+    h3
+      text-transform: uppercase
+      &.thanks
+        color: $primary-color
+
+    form
+      margin: 0
+
+    .sign-up-button, .sign-up-with-facebook
       margin-bottom: 0
+
+    p
+      color: $secondary-color
+
+    .investment-value
+      font-size: 90%
+      margin-bottom: +emCalc(20px)
+
+      .input
+        display: inline
+
+      select
+        width: auto
+        padding-right: +emCalc(15px)
+        font-size: 70%
+
+    .separator
+      border-top: 1px solid $border-color
+      height: 1px
+      margin: 2.4em 0
+      text-align: center
+      clear: both
       position: relative
-      top: +emCalc(15px)
-    a .scroll-down
-      color: $box-hover-background-color
+      p
+        text-align: center
+        background: white
+        color: $secondary-font-color
+        width: 30px
+        display: block
+        margin: 0 auto
+        position: relative
+        top: emCalc(-14px)
+    .share
+      .button
+        width: 100%
+    .profile-image
+      margin: auto
+
+  section.investors
+    margin-top: +emCalc(50px)
+    padding: +emCalc(25px)
+    background: #FFF
+    +clearfix
+
+    h3
+      font-size: 150%
+
+    .profile-image
+      float: left
+      margin: +emCalc(17px)
+
+  section.meanwhile
+    margin: +emCalc(50px, 0)
+    padding: +emCalc(25px)
+    background: image-url('meanwhile-hero.jpg') top center
+    background-size: cover
+    h3
+      font-size: 150%
+      font-weight: 300
+      margin: 0
+      padding: +emCalc(10px)
+      color: white
+      text-transform: uppercase
 
   section.projects
     padding: +emCalc(25px) 0
@@ -100,3 +166,26 @@
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.30)
         h3
           color: $primary-color
+
+@media #{$medium}
+  .home-page
+    header.hero
+      height: +emCalc(400px)
+      h3.subtitle
+        font-size: 180%
+        text-align: justify
+
+    section.investors, section.meanwhile
+      h3
+        font-size: 190%
+
+    section.investors .profile-image
+      margin: +emCalc(8px)
+
+    .invest-box
+      padding: +emCalc(25px)
+
+      .investment-value
+        font-size: 100%
+        select
+          font-size: 100%

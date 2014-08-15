@@ -14,8 +14,13 @@ class OmniauthUserSerializer
       linkedin_url:              linkedin_url,
       facebook_url:              facebook_url,
       remote_uploaded_image_url: remote_uploaded_image_url,
-      authorizations_attributes: [authorization]
+      authorizations_attributes: [authorization],
+      investment_prospect_attributes: investment_prospect
     }.reject { |_key, value| value.blank? }
+  end
+
+  def investment_prospect
+    { value: @omniauth_data['params'].try(:[], 'investment_prospect_value') }
   end
 
   def authorization

@@ -91,3 +91,4 @@ extra: !ruby/hash:OmniAuth::AuthHash
     verified: true
     updated_time: '2014-03-28T10:55:34+0000'
     username: juquinhadasilva
+params: !ruby/hash:OmniAuth::AuthHash

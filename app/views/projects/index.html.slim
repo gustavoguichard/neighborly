@@ -1,22 +1,23 @@
 - content_for :title, t('.title')
 
 .home-page
-  header.hero[data-image-url=image_path('home-hero.jpg')]
+  header.hero[ data-image-url=image_path('home-hero-sf.jpg') ]
     .row
-      .small-12.medium-12.medium-centered.columns
-        h2.text-center = t('.hero.title').html_safe
-        #home-subtitle.row
-          .small-12.medium-10.medium-offset-1.columns
-            = t('.hero.subtitle_html')
-        #home-newsletter.row
-          .small-12.medium-8.medium-offset-2.columns
-            = form_tag Configuration['mailchimp_headline_list_url'], method: 'post', class: 'header-newsletter collapse' do
-              = email_field_tag 'mce-EMAIL', nil, name: 'EMAIL', placeholder: t('.hero.email_placeholder'), label: 'email', class: 'header-newsletter-input small-12 columns'
-              = submit_tag t('.hero.submit'), class: 'header-newsletter-submit button small-12 columns'
-    .row#first-title
-      .small-12.columns.text-center
-        = link_to '#first-title' do
-          i.scroll-down.icon-fa-chevron-down alt='Scroll down!'
+      .small-12.medium-8.medium-centered.columns.text-center
+        h2 = t('.hero.title').html_safe
+        h3.subtitle
+          = t('.hero.subtitle_html')
+          = link_to t('.hero.learn_more'), '#learn-more-investment', class: 'button secondary tiny expand-section', data: { alternative_text: t('.hero.see_less') }
+
+        p.expand-section-content = t('.hero.description')
+
+  = render 'projects/invest_box'
+  = render 'projects/investors'
+
+  section.meanwhile.text-center
+    .row
+      .medium-8.small-12.columns.medium-centered
+        h3 Meanwhile, explore existing crowdfunding campaigns
 
   section.projects
     .row

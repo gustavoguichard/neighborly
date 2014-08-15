@@ -30,6 +30,8 @@ class ProjectsController < ApplicationController
 
     @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
+
+    investment_section_variables
   end
 
   def create
@@ -96,5 +98,25 @@ class ProjectsController < ApplicationController
   protected
   def permitted_params
     params.permit(policy(@project || Project).permitted_attributes)
+  end
+
+  private
+
+  def investment_section_variables
+    @user = current_user || User.new
+    @user.build_investment_prospect unless @user.investment_prospect
+
+    @invest_from_otions = if current_user
+                            { url: user_path(current_user, investment_prospect: true), method: :put }
+                           else
+                             { url: sign_up_path }
+                           end
+    statistic = Statistics.all.to_a.first
+    @total_investors = statistic.total_contributors.to_i + InvestmentProspect.count
+    @total_pledged_for_investment = statistic.total_contributed.to_f +
+      InvestmentProspect.sum(:value)
+
+    user_limit = browser.mobile? ? 6 : 18
+    @users = User.where('uploaded_image IS NOT NULL').with_profile_type('personal').order("RANDOM()").limit(user_limit)
   end
 end

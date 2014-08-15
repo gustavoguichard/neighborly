@@ -14,6 +14,8 @@
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
           = f.hidden_field :newsletter, value: true
+          = f.fields_for :investment_prospect do |fa|
+            = fa.hidden_field :value
 
           = render 'devise/shared/alert'
           = f.input :name,     as: :string, required: true, label_html: { class: 'hidden-label' }
