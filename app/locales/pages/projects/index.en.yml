@@ -22,3 +22,6 @@ en:
       start-one:
         title: 'Have a community project in need of funding?'
         button: 'Start one in your area'
+    invest_box:
+      facebook: 'Share'
+      twitter: 'Tweet'
