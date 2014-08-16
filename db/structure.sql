@@ -296,10 +296,10 @@ ALTER SEQUENCE authorizations_id_seq OWNED BY authorizations.id;
 CREATE TABLE balanced_contributors (
     id integer NOT NULL,
     user_id integer,
-    uri character varying(255),
+    href character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    bank_account_uri character varying(255)
+    bank_account_href character varying(255)
 );
 
 
@@ -594,6 +594,38 @@ CREATE SEQUENCE images_id_seq
 --
 
 ALTER SEQUENCE images_id_seq OWNED BY images.id;
+
+
+--
+-- Name: investment_prospects; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE investment_prospects (
+    id integer NOT NULL,
+    user_id integer,
+    value double precision DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: investment_prospects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE investment_prospects_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: investment_prospects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE investment_prospects_id_seq OWNED BY investment_prospects.id;
 
 
 --
@@ -2014,40 +2046,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE versions (
-    id integer NOT NULL,
-    item_type character varying(255) NOT NULL,
-    item_id integer NOT NULL,
-    event character varying(255) NOT NULL,
-    whodunnit character varying(255),
-    object text,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
-
-
---
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2122,6 +2120,13 @@ ALTER TABLE ONLY contributions ALTER COLUMN id SET DEFAULT nextval('contribution
 --
 
 ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY investment_prospects ALTER COLUMN id SET DEFAULT nextval('investment_prospects_id_seq'::regclass);
 
 
 --
@@ -2265,13 +2270,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
-
-
---
 -- Name: api_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2365,6 +2363,14 @@ ALTER TABLE ONLY contacts
 
 ALTER TABLE ONLY images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: investment_prospects_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY investment_prospects
+    ADD CONSTRAINT investment_prospects_pkey PRIMARY KEY (id);
 
 
 --
@@ -2552,14 +2558,6 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY versions
-    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: fk__api_access_tokens_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2627,6 +2625,13 @@ CREATE INDEX fk__channels_user_id ON channels USING btree (user_id);
 --
 
 CREATE INDEX fk__images_user_id ON images USING btree (user_id);
+
+
+--
+-- Name: fk__investment_prospects_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__investment_prospects_user_id ON investment_prospects USING btree (user_id);
 
 
 --
@@ -2868,6 +2873,13 @@ CREATE INDEX index_images_on_user_id ON images USING btree (user_id);
 
 
 --
+-- Name: index_investment_prospects_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_investment_prospects_on_user_id ON investment_prospects USING btree (user_id);
+
+
+--
 -- Name: index_matches_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3078,13 +3090,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
-
-
---
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3241,6 +3246,14 @@ ALTER TABLE ONLY contributions
 
 ALTER TABLE ONLY images
     ADD CONSTRAINT fk_images_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_investment_prospects_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY investment_prospects
+    ADD CONSTRAINT fk_investment_prospects_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3471,7 +3484,7 @@ ALTER TABLE ONLY updates
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO public, pg_catalog;
 
 INSERT INTO schema_migrations (version) VALUES ('20121226120921');
 
@@ -3952,4 +3965,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140806141600');
 INSERT INTO schema_migrations (version) VALUES ('20140807215229');
 
 INSERT INTO schema_migrations (version) VALUES ('20140808185831');
+
+INSERT INTO schema_migrations (version) VALUES ('20140814170158');
+
+INSERT INTO schema_migrations (version) VALUES ('20140815171319');
+
+INSERT INTO schema_migrations (version) VALUES ('20140816212033');
 
