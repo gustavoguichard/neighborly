@@ -46,7 +46,7 @@
           .tags.hide-for-small
             strong = t('.tags')
             - for tag in @presenter.tags
-              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @presenter.filters[:tags].present? && @filters[:tags].include?(tag.name) }"
+              = link_to tag.display_name, discover_path(tags: tag.name), data: { name: tag.name, class: tag.name.parameterize }, class: "#{tag.name.parameterize} #{'selected' if @presenter.filters[:tags].present? && @presenter.filters[:tags].include?(tag.name) }"
           .results-for
             strong = t('.showing_results_for')
             - for type, value in @presenter.filters
