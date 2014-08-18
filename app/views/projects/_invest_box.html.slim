@@ -15,7 +15,7 @@
                 = f.fields_for :investment_prospect do |fa|
                   | I plan on investing up to 
 
-                  - values = [1000, 2000, 3000, 4000, 10000].map { |v| [number_to_currency(v, precision: 0), v] }
+                  - values = [1000, 2000, 5000, 10000, 25000].map { |v| [number_to_currency(v, precision: 0), v] }
                   = fa.input :value, collection: values, selected: 2000, label: false, input_html: { required: true, class: 'investment-prospect-value' }
                   |  a year.
 
