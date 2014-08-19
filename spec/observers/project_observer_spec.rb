@@ -35,7 +35,9 @@ describe ProjectObserver do
     end
 
     it 'creates a project total' do
-      expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)
+      builder = double('ProjectTotalBuilder')
+      allow(ProjectTotalBuilder).to receive(:new).and_return(builder)
+      expect(builder).to receive(:perform).at_least(:once)
       project
     end
   end
