@@ -4,7 +4,6 @@ log/
 log/*.log
 tmp/**/*
 tmp/restart.txt
-config/database.yml
 db/seeds/my-seeds-local.rb
 db/seeds/my-seeds-heroku.rb
 # Vim
@@ -30,6 +29,10 @@ spec/tmp/
 *.dot
 .ruby-version
 ./log
+
+# Personal
+.rspec
+config/database.yml
 
 # Secrets
 .env

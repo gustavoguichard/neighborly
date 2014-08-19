@@ -4,7 +4,7 @@ rvm:
 cache: bundler
 env: RAILS_ENV=test DISPLAY=:99.0
 script:
-  - bundle exec rspec
+  - bundle exec rspec --colour --format d
 before_script:
   - 'sh -e /etc/init.d/xvfb start'
   - './bin/bootstrap'
