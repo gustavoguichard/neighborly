@@ -254,9 +254,9 @@ shared_examples 'being a non admin user' do
     expect(subject.resolve).to_not include(project)
   end
 
-  it 'includes lauched projects from other members' do
+  it 'excludes lauched projects from other members' do
     project = create(:project)
-    expect(subject.resolve).to include(project)
+    expect(subject.resolve).not_to include(project)
   end
 
   it 'excludes draft projects from other members' do

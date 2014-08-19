@@ -91,8 +91,7 @@ class ProjectPolicy < ApplicationPolicy
         from_managed_channels = scope.joins(channels: :members).
           where(channel_members: { user_id: user.id })
         from_managed_directly = scope.where(user_id: user.id)
-        from_public_listing   = scope.visible
-        scope.from("(#{from_managed_channels.to_sql} UNION #{from_managed_directly.to_sql} UNION #{from_public_listing.to_sql}) as projects")
+        scope.from("(#{from_managed_channels.to_sql} UNION #{from_managed_directly.to_sql}) as projects")
       end
     end
   end
