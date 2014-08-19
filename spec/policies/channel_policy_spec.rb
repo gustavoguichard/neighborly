@@ -83,6 +83,10 @@ describe ChannelPolicy do
     end
   end
 
+  permissions :create? do
+    it_should_behave_like 'change state permissions'
+  end
+
   permissions :push_to_draft? do
     it_should_behave_like 'change state permissions'
   end
@@ -146,6 +150,60 @@ describe ChannelPolicy do
       let(:user) { create(:user) }
 
       it_behaves_like 'being a non admin user'
+    end
+  end
+
+  describe '#permitted?' do
+    shared_examples_for 'permitted attributes' do
+      user_attrs = [
+        user_attributes: [:email,
+                          :password,
+                          :facebook_url,
+                          :twitter_url,
+                          :other_url]
+      ]
+
+      channel_attrs = [
+        :name,
+        :description,
+        :permalink,
+        :image,
+        :video_url,
+        :how_it_works,
+        :terms_url,
+        :accepts_projects,
+        :submit_your_project_text,
+        :start_hero_image,
+        { start_content: [] },
+        { success_content: [] }
+      ]
+
+      (channel_attrs + user_attrs ).each do |field|
+        it "permits #{field} field" do
+          expect(policy.permitted?(field)).to eq true
+        end
+      end
+    end
+
+    context 'when user is not admin' do
+      let(:policy) { described_class.new(nil, Channel.new) }
+
+      it 'does not permit user_id field' do
+        expect(policy.permitted?(:user_id)).to eq false
+      end
+
+      it_should_behave_like 'permitted attributes'
+    end
+
+    context 'when user is an admin' do
+      let(:user)   { create(:user, admin: true) }
+      let(:policy) { described_class.new(user, Channel.new) }
+
+      it 'permits user_id field' do
+        expect(policy.permitted?(:user_id)).to eq true
+      end
+
+      it_should_behave_like 'permitted attributes'
     end
   end
 end
