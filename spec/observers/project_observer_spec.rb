@@ -14,11 +14,7 @@ describe ProjectObserver do
   end
 
   describe '#after_create' do
-    let(:user) { create(:user, email: ::Configuration[:email_projects].dup)}
-    before do
-      ProjectObserver.any_instance.should_receive(:after_create).and_call_original
-      user
-    end
+    let!(:user) { create(:user, email: ::Configuration[:email_projects].dup)}
 
     it 'creates notification for project owner' do
       project
