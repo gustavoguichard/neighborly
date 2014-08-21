@@ -49,7 +49,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 2bbbaef6e636cbd3adfe5405e9984e79003955fc
+  revision: 7c1fd3b70e9eef3b5f67b8cf8f81b96176d750a0
   branch: master
   specs:
     neighborly-balanced-bankaccount (1.0.0)
@@ -60,7 +60,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: 04caefe1858b37ab07c8980be8e67dc5df826da2
+  revision: 535b82d4414af3bee7df28d803c9b60b34ffbca9
   branch: master
   specs:
     neighborly-balanced-creditcard (1.1.0)
@@ -70,11 +70,11 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: c22e6523465e3dbc5da87b06b4ca5546a262c0e5
+  revision: 6be2e5be27d55fec25171d73218ee47286b6debf
   branch: master
   specs:
     neighborly-balanced (1.1.0)
-      balanced (~> 0.8.0)
+      balanced (~> 1.1)
       draper (~> 1.3)
       faraday (= 0.8.9)
       faraday_middleware (= 0.9.0)
@@ -131,8 +131,9 @@ GEM
       redcarpet (~> 3.1)
       rinku (~> 1.5.0)
     awesome_print (1.2.0)
-    balanced (0.8.2)
-      faraday (~> 0.8.6)
+    balanced (1.1.1)
+      addressable (~> 2.3.5)
+      faraday (>= 0.8.6, <= 0.9.0)
       faraday_middleware (~> 0.9.0)
     barber (0.4.2)
       ember-source
