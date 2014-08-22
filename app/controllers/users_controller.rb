@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   def show
     return redirect_to root_url(subdomain: resource.channel.permalink, protocol: :http) if resource.channel? && resource.channel.present?
     show!{
+      @projects = Project.contributed_by(@user).
+        includes(:category, :contributions, :project_total)
       set_facebook_url_admin(@user)
       @title = "#{@user.display_name}"
     }
