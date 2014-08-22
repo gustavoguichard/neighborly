@@ -18,7 +18,7 @@ class Discover
     end
 
     if params[:state].eql? 'with_active_matches'
-      projects = projects.group('project_totals.id', 'categories.id')
+      projects = projects.group('contributions.id', 'project_totals.id', 'categories.id')
     end
 
     @projects ||= apply_scopes(
