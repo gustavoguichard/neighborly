@@ -4,7 +4,7 @@
       = simple_form_for(@user, { as: 'user' }.merge(@invest_from_otions)) do |f|
         .row
           .large-12.columns
-            - if (current_user && current_user.investment_prospect.value.zero?) || !current_user
+            - if (current_user && current_user.investment_prospect.value.to_i.zero?) || !current_user
               h3
                 - if !current_user
                   | Sign Up for Early Access
@@ -19,7 +19,7 @@
                   = fa.input :value, collection: values, selected: 2000, label: false, input_html: { required: true, class: 'investment-prospect-value' }
                   |  a year.
 
-          - if current_user && current_user.investment_prospect.value.zero?
+          - if current_user && current_user.investment_prospect.value.to_i.zero?
               = f.submit 'Pledge Support', class: 'button'
 
           - elsif !current_user
