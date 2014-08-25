@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: 8bbbe1d0debcc7b3f40251b860c9efabd0da927c
+  revision: 716a222ffe0d230dab935d28f8729b11688b0e9d
   branch: master
   specs:
     neighborly-api (0.0.1)
@@ -49,7 +49,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: 7c1fd3b70e9eef3b5f67b8cf8f81b96176d750a0
+  revision: ec47e4fa92c168db1606f9fc0d613fd606732428
   branch: master
   specs:
     neighborly-balanced-bankaccount (1.0.0)
@@ -60,7 +60,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: 535b82d4414af3bee7df28d803c9b60b34ffbca9
+  revision: fbef3c62c06c70d9f4468a589172b05c7e7563f8
   branch: master
   specs:
     neighborly-balanced-creditcard (1.1.0)
@@ -70,7 +70,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: 6be2e5be27d55fec25171d73218ee47286b6debf
+  revision: b22f37ef2d18a25414559007fc30e8f63127c1e0
   branch: master
   specs:
     neighborly-balanced (1.1.0)
@@ -82,7 +82,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: 00441c773e415d7f9132e87d86db219d64485bd7
+  revision: a293203639c0e3b71175e2a586a0ce66074983ae
   branch: master
   specs:
     neighborly-dashboard (0.0.1)
