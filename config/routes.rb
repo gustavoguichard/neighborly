@@ -180,6 +180,9 @@ Neighborly::Application.routes.draw do
   # Redirect from old users url to the new
   get "/users/:id", to: redirect('neighbors/%{id}')
 
+  # Temporary Routes
+  get '/projects/57/video_embed', to: redirect('projects/ideagarden/video_embed')
+
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:id", to: redirect('projects/%{id}')
 end
