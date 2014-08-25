@@ -98,7 +98,6 @@ group :production do
 
   # Monitoring with the new new relic
   gem 'newrelic_rpm', '3.6.9.171'
-  gem 'skylight'
 end
 
 group :development do
