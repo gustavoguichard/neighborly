@@ -44,15 +44,13 @@ body.f-topbar-fixed
   = render 'layouts/loader'
   = render 'layouts/header'
   = flash_messages
-  /.row.content
   = yield
   = render 'layouts/footer'
   = yield :modals
-  = render 'layouts/uservoice'
-
 
   /[if lt IE 9]
     = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js", 'data-turbolinks-eval' => false
   = javascript_include_tag 'vendor/custom.modernizr', 'data-turbolinks-eval' => false
   = javascript_include_tag :application, 'data-turbolinks-eval' => false
+  = render 'layouts/uservoice'
 |</html>
