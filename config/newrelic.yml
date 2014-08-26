@@ -109,7 +109,7 @@ license_key: '<%= ENV["NEW_RELIC_LICENSE_KEY"] %>'
   # Java: create a config setting called "ignored_params" and set it to
   #     a comma separated list of HTTP parameter names.
   #     ex: ignored_params: credit_card, ssn, password
-  capture_params: false
+  capture_params: true
 
   # Transaction tracer captures deep information about slow
   # transactions and sends this to the New Relic service once a
@@ -145,7 +145,7 @@ license_key: '<%= ENV["NEW_RELIC_LICENSE_KEY"] %>'
     # Determines whether the agent will capture query plans for slow
     # SQL queries.  Only supported in mysql and postgres.  Should be
     # set to false when using other adapters.
-    # explain_enabled: true
+    explain_enabled: true
 
     # Threshold for query execution time below which query plans will
     # not be captured.  Relevant only when `explain_enabled` is true.
