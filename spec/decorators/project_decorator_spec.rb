@@ -98,15 +98,15 @@ describe ProjectDecorator do
   end
 
   describe "#display_progress" do
-    let(:contribution) { double('Contribution') }
     subject{ project.display_progress }
+
     before do
-      project.stub(:contributions).and_return([contribution])
+      project.stub(:total_contributions).and_return(1)
     end
 
     context "when no contribution were made" do
       before do
-        project.stub(:contributions).and_return([])
+        project.stub(:total_contributions).and_return(0)
         project.stub(:progress).and_return(0)
       end
 
