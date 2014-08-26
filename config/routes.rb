@@ -66,11 +66,7 @@ Neighborly::Application.routes.draw do
       end
 
       resource :profile, only: [:show]
-      resources :projects, only: [:new, :create] do
-        collection do
-          get 'video'
-        end
-      end
+      resources :projects, only: [:new, :create]
       # NOTE We use index instead of create to subscribe comming back from auth via GET
       resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
     end
