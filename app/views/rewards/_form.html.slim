@@ -1,28 +1,28 @@
-= simple_form_for [parent, resource], html: { class: 'remote-form' } do |f|
+= simple_form_for [parent, @reward], html: { class: 'remote-form' } do |f|
   .pull-right
     a.cancel.button.secondary href="#" = t('words.cancel')
   .clearfix
 
-  - if policy(resource).permitted_for?(:title, :update)
+  - if policy(@reward).permitted_for?(:title, :update)
     = f.input :title
 
-  - if policy(resource).permitted_for?(:minimum_value, :update)
+  - if policy(@reward).permitted_for?(:minimum_value, :update)
     = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
 
-  - if policy(resource).permitted_for?(:days_to_delivery, :update)
+  - if policy(@reward).permitted_for?(:days_to_delivery, :update)
     = f.input :days_to_delivery
 
-  - if policy(resource).permitted_for?(:description, :update)
+  - if policy(@reward).permitted_for?(:description, :update)
     = f.input :description
 
-  - if policy(resource).permitted_for?(:maximum_contributions, :update)
+  - if policy(@reward).permitted_for?(:maximum_contributions, :update)
     = f.input :maximum_contributions
 
   = f.input :soon, as: :boolean
 
   = f.button :submit, data: { disable_with: t('words.sending') }
-  - if resource.persisted? && policy(resource).destroy?
+  - if @reward.persisted? && policy(@reward).destroy?
     span.or = t('words.or')
-    = link_to [parent, resource], class: 'button alert', method: :delete, confirm: t('words.confirm') do
+    = link_to [parent, @reward], class: 'button alert', method: :delete, confirm: t('words.confirm') do
       i.icon-et-trash.icon-white
       = t('words.delete')
