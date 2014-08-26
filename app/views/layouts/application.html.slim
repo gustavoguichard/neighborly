@@ -37,13 +37,8 @@ head
     meta property="og:site_name"    content=::Configuration[:company_name]
     meta property="fb:app_id"       content=::Configuration[:facebook_app_id]
     meta property="og:description"  content=t('site.ograph.description')
-
-  /[if lt IE 9]
-    = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
-  = javascript_include_tag 'vendor/custom.modernizr', 'data-turbolinks-track' => true
-  = javascript_include_tag :application, 'data-turbolinks-track' => true
+body.f-topbar-fixed
   = render 'layouts/analytics'
-body
   = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
   = render 'layouts/loader'
@@ -54,4 +49,10 @@ body
   = render 'layouts/footer'
   = yield :modals
   = render 'layouts/uservoice'
+
+
+  /[if lt IE 9]
+    = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js", 'data-turbolinks-eval' => false
+  = javascript_include_tag 'vendor/custom.modernizr', 'data-turbolinks-eval' => false
+  = javascript_include_tag :application, 'data-turbolinks-eval' => false
 |</html>
