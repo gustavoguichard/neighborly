@@ -131,6 +131,7 @@ group :test do
   gem 'capybara-webkit'
 end
 
+gem 'asset_sync'
 gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'uglifier'
