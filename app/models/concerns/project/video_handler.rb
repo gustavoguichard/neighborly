@@ -20,14 +20,14 @@ module Project::VideoHandler
       end
     end
 
-    def video
-      @video ||= VideoInfo.get(video_url)
-    end
-
     protected
 
     def video_valid?
       VideoInfo.usable?(video_url)
+    end
+
+    def video
+      @video ||= VideoInfo.get(video_url)
     end
   end
 end
