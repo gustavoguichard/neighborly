@@ -125,7 +125,7 @@ Neighborly::Application.routes.draw do
       get 'success'
     end
 
-    resources :rewards, only: [ :index, :create, :update, :destroy, :new, :edit ] do
+    resources :rewards, except: :show do
       member do
         post 'sort'
       end

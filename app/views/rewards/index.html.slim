@@ -1,4 +1,4 @@
-- collection.rank(:row_order).each do |reward|
+- @rewards.each do |reward|
   div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? && !reward.soon? } #{ 'sortable' if policy(reward).update? } #{ 'soon' if reward.soon? }"]
     header.title
       = t('.reward_title', minimum: reward.display_minimum).html_safe

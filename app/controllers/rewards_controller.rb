@@ -1,38 +1,41 @@
 class RewardsController < ApplicationController
   after_filter :verify_authorized, except: :index
-  inherit_resources
-  belongs_to :project, finder: :find_by_permalink!
-  respond_to :html, :json
+  helper_method :parent
+  respond_to :html
 
   def index
-    render layout: !request.xhr?
+    @rewards = parent.rewards.rank(:row_order)
+    respond_with @rewards, layout: !request.xhr?
   end
 
   def new
     @reward = Reward.new(project: parent)
     authorize @reward
-    render layout: !request.xhr?
-  end
-
-  def edit
-    authorize resource
-    render layout: !request.xhr?
-  end
-
-  def update
-    authorize resource
-    update! { project_path(parent) }
+    respond_with @reward, layout: !request.xhr?
   end
 
   def create
     @reward = Reward.new(permitted_params[:reward].merge(project: parent))
+    authorize @reward
+    @reward.save
+    respond_with @reward, location: project_path(parent)
+  end
+
+  def edit
     authorize resource
-    create! { project_path(parent) }
+    respond_with resource, layout: !request.xhr?
+  end
+
+  def update
+    authorize resource
+    respond_with Reward.update(resource.id, permitted_params[:reward]),
+      location: project_path(parent)
   end
 
   def destroy
     authorize resource
-    destroy! { project_path(resource.project) }
+    resource.delete
+    respond_with resource, location: project_path(parent)
   end
 
   def sort
@@ -43,6 +46,15 @@ class RewardsController < ApplicationController
   end
 
   private
+
+  def resource
+    @reward ||= parent.rewards.find(params[:id])
+  end
+
+  def parent
+    @project ||= Project.find_by_permalink!(params[:project_id])
+  end
+
   def permitted_params
     params.permit(policy(@reward || Reward).permitted_attributes)
   end
