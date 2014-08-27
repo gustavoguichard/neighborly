@@ -83,7 +83,7 @@ class ProjectDecorator < Draper::Decorator
 
 
   def successful_flag
-    return nil unless source.successful?
+    return unless source.successful?
 
     content_tag(:div, class: [:successful_flag]) do
       image_tag("successful.#{I18n.locale}.png")
@@ -98,15 +98,12 @@ class ProjectDecorator < Draper::Decorator
   private
 
   def use_uploaded_image(version)
-    source.uploaded_image.send(version).url if source.uploaded_image.present?
+    source.uploaded_image.send(version).url
   end
 
   def use_video_tumbnail(version)
-    if source.video_thumbnail.url.present?
-      source.video_thumbnail.send(version).url
-    elsif source.video
-      source.video.thumbnail_large rescue nil
-    end
+    source.video_thumbnail.send(version).url ||
+      'image-placeholder-upload-in-progress.jpg'
   end
 
   def time_to_go_for(unit)

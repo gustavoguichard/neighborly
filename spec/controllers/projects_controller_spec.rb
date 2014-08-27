@@ -269,22 +269,4 @@ describe ProjectsController do
       it { expect(response).to be_success }
     end
   end
-
-  describe "GET video" do
-    context 'url is a valid video' do
-      let(:video_url){ 'http://vimeo.com/17298435' }
-      before do
-        VideoInfo.stub(:get).and_return({video_id: 'abcd'})
-        get :video, url: video_url
-      end
-
-      it { expect(response.body).to eq VideoInfo.get(video_url).to_json }
-    end
-
-    context 'url is not a valid video' do
-      before { get :video, url: 'http://????' }
-
-      it { expect(response.body).to eq nil.to_json }
-    end
-  end
 end

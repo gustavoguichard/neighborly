@@ -73,13 +73,6 @@ class ProjectsController < ApplicationController
     @project = resource
   end
 
-  def video
-    project = Project.new(video_url: params[:url])
-    render json: project.video.to_json
-  rescue VideoInfo::UrlError
-    render json: nil
-  end
-
   %w(embed video_embed).each do |method_name|
     define_method method_name do
       @title = resource.name

@@ -54,7 +54,10 @@ describe ProjectDecorator do
 
     context "when we have a video_url without thumbnail" do
       let(:project){ create(:project, uploaded_image: nil, video_thumbnail: nil) }
-      it{ should == project.video.thumbnail_large }
+
+      it 'returns the image for "downloading in progress"' do
+        expect(subject).to eql('image-placeholder-upload-in-progress.jpg')
+      end
     end
 
     context "when we have a video_thumbnail" do

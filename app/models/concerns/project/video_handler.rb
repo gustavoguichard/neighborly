@@ -6,24 +6,28 @@ module Project::VideoHandler
 
     delegate :display_video_embed_url, to: :decorator
 
-    def video
-      @video ||= VideoInfo.get(self.video_url) if self.video_url.present?
-    end
-
     def download_video_thumbnail
-      self.video_thumbnail = open(self.video.thumbnail_large)  if self.video_valid?
-      self.save
-    rescue OpenURI::HTTPError, TypeError => e
-      Rails.logger.info "-----> #{e.inspect}"
+      if video_valid?
+        self.video_thumbnail = open(video.thumbnail_large)
+        save
+      end
     end
 
     def update_video_embed_url
-      self.video_embed_url = self.video.embed_url if self.video_valid?
-      self.save
+      if video_valid?
+        self.video_embed_url = video.embed_url
+        save
+      end
     end
 
+    protected
+
     def video_valid?
-      self.video_url.present? && self.video
+      VideoInfo.usable?(video_url)
+    end
+
+    def video
+      @video ||= VideoInfo.get(video_url)
     end
   end
 end
