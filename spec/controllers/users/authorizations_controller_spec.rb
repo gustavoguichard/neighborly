@@ -7,7 +7,7 @@ describe Users::AuthorizationsController do
   context 'Not authenticated' do
     before { delete :destroy, id: authorization.id, user_id: user }
     it { expect(response).to redirect_to(new_user_session_path) }
-    it { expect(-> { authorization.reload }).not_to raise_error(ActiveRecord::RecordNotFound) }
+    it { expect(-> { authorization.reload }).not_to raise_error }
   end
 
   context 'Authenticated' do
@@ -17,6 +17,6 @@ describe Users::AuthorizationsController do
     end
 
     it { expect(response).to redirect_to(edit_user_path(user)) }
-    it { expect(-> { authorization.reload }).to raise_error(ActiveRecord::RecordNotFound) }
+    it { expect(-> { authorization.reload }).to raise_error }
   end
 end

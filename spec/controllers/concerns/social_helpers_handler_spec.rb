@@ -7,7 +7,6 @@ describe Concerns::SocialHelpersHandler do
       ApplicationController.any_instance.unstub(method)
     end
     @controller = ApplicationController.new
-    @controller.request.stub(:variant)
   end
 
   describe '#set_facebook_url_admin' do
@@ -38,12 +37,12 @@ describe Concerns::SocialHelpersHandler do
   end
 
   describe '#display_uservoice_sso' do
-    let(:current_user) { create(:user) }
     before do
-      @controller.request = OpenStruct.new(host: 'neighborly.local')
-
+      request = ActionDispatch::Request.new('HTTP_HOST' => 'neighborly.local')
+      allow(@controller).to receive(:request).and_return(request)
       controller.stub(:current_user).and_return(current_user)
     end
+    let(:current_user) { create(:user) }
 
     it { expect(@controller.display_uservoice_sso).to_not be_nil }
   end
