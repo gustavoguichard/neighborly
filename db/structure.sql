@@ -505,8 +505,8 @@ CREATE TABLE contacts (
     last_name character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
     phone character varying(255),
-    company_name character varying(255) NOT NULL,
-    company_website character varying(255),
+    organization_name character varying(255) NOT NULL,
+    organization_website character varying(255),
     message text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -704,6 +704,38 @@ CREATE SEQUENCE matchings_id_seq
 --
 
 ALTER SEQUENCE matchings_id_seq OWNED BY matchings.id;
+
+
+--
+-- Name: neighborly_balanced_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE neighborly_balanced_orders (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    href character varying(255) NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: neighborly_balanced_orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE neighborly_balanced_orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: neighborly_balanced_orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE neighborly_balanced_orders_id_seq OWNED BY neighborly_balanced_orders.id;
 
 
 --
@@ -2147,6 +2179,13 @@ ALTER TABLE ONLY matchings ALTER COLUMN id SET DEFAULT nextval('matchings_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY neighborly_balanced_orders ALTER COLUMN id SET DEFAULT nextval('neighborly_balanced_orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
@@ -2387,6 +2426,14 @@ ALTER TABLE ONLY matches
 
 ALTER TABLE ONLY matchings
     ADD CONSTRAINT matchings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: neighborly_balanced_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY neighborly_balanced_orders
+    ADD CONSTRAINT neighborly_balanced_orders_pkey PRIMARY KEY (id);
 
 
 --
@@ -2663,6 +2710,13 @@ CREATE INDEX fk__matchings_match_id ON matchings USING btree (match_id);
 
 
 --
+-- Name: fk__neighborly_balanced_orders_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__neighborly_balanced_orders_project_id ON neighborly_balanced_orders USING btree (project_id);
+
+
+--
 -- Name: fk__notifications_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2905,6 +2959,13 @@ CREATE INDEX index_matchings_on_contribution_id ON matchings USING btree (contri
 --
 
 CREATE INDEX index_matchings_on_match_id ON matchings USING btree (match_id);
+
+
+--
+-- Name: index_neighborly_balanced_orders_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_neighborly_balanced_orders_on_project_id ON neighborly_balanced_orders USING btree (project_id);
 
 
 --
@@ -3286,6 +3347,14 @@ ALTER TABLE ONLY matchings
 
 ALTER TABLE ONLY matchings
     ADD CONSTRAINT fk_matchings_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
+
+
+--
+-- Name: fk_neighborly_balanced_orders_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY neighborly_balanced_orders
+    ADD CONSTRAINT fk_neighborly_balanced_orders_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
 
 
 --
@@ -3971,4 +4040,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140814170158');
 INSERT INTO schema_migrations (version) VALUES ('20140815171319');
 
 INSERT INTO schema_migrations (version) VALUES ('20140816212033');
+
+INSERT INTO schema_migrations (version) VALUES ('20140822150920');
+
+INSERT INTO schema_migrations (version) VALUES ('20140827181425');
 

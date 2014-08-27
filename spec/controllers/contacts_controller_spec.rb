@@ -14,7 +14,7 @@ describe ContactsController do
     let(:contact_params) { { contact: { first_name: 'Foo',
                                 last_name: 'Bar',
                                 email: 'foo@bar.com',
-                                company_name: 'Foo Bar CO.' } } }
+                                organization_name: 'Foo Bar CO.' } } }
 
     it 'creates a contact record' do
       expect{ post :create, contact_params }.to change{ Contact.count }.from(0).to(1)
