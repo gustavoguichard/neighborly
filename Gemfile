@@ -80,6 +80,9 @@ gem 'oink'
 # Payment
 gem 'httpclient', '>= 2.2.5'
 
+# Caching
+gem 'dalli'
+
 group :production do
   gem 'google-analytics-rails'
 
