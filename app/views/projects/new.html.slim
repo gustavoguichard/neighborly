@@ -1,6 +1,6 @@
 - @title = t('.titles.site')
 
-.new-project-page[class="category-#{resource.category.to_s.parameterize}"]
+.new-project-page[class="category-#{@project.category.to_s.parameterize}"]
 
   - unless browser.mobile? || browser.tablet?
     ol.joyride-list[data-joyride]
