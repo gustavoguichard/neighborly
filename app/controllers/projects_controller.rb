@@ -5,9 +5,6 @@ class ProjectsController < ApplicationController
                                             :reward_contact, :send_reward_email,
                                             :start]
 
-  inherit_resources
-  defaults finder: :find_by_permalink!
-  actions :create, :edit, :update
   respond_to :html
 
   def new
@@ -38,7 +35,8 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(permitted_params[:project].merge(user: current_user))
     authorize @project
-    create! { success_project_path(@project) }
+    @project.save
+    respond_with @project, location: success_project_path(@project)
   end
 
   def success
@@ -47,12 +45,13 @@ class ProjectsController < ApplicationController
 
   def edit
     authorize resource
-    edit!
+    respond_with resource
   end
 
   def update
     authorize resource
-    update! { edit_project_path(@project) }
+    respond_with Project.update(resource.id, permitted_params[:project]),
+      location: edit_project_path(@project)
   end
 
   def show
@@ -89,12 +88,19 @@ class ProjectsController < ApplicationController
     @projects = ProjectsForHome.successful[0..3]
   end
 
-  protected
+  private
+
   def permitted_params
     params.permit(policy(@project || Project).permitted_attributes)
   end
 
-  private
+  def resource
+    @project ||= Project.find_by_permalink!(params[:id])
+  end
+
+  def permitted_params
+    params.permit(policy(@project || Project).permitted_attributes)
+  end
 
   def investment_section_variables
     @user = current_user || User.new

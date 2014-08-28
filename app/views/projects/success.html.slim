@@ -1,7 +1,7 @@
 - @title = t('.titles.site')
 - channel = controller.channel
 
-.success-project-page[class="category-#{resource.category.to_s.parameterize}"]
+.success-project-page[class="category-#{@project.category.to_s.parameterize}"]
   .row
     .large-6.columns.large-centered
       .success-project-box
@@ -27,6 +27,6 @@
               - if channel && channel.success.button_link.present?
                 - link = channel.success.button_link
               - else
-                - link = edit_project_path(resource)
+                - link = edit_project_path(@project)
 
               = link_to text, link, class: 'button'
