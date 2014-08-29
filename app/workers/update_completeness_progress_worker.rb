@@ -3,9 +3,7 @@ class UpdateCompletenessProgressWorker
   sidekiq_options retry: 5
 
   def perform(user_id)
-    resource = User.find(user_id)
-    resource.update_completeness_progress!
-  rescue ActiveRecord::RecordNotFound
-    raise "User #{user_id} not found.. sending to retry queue"
+    user = User.find(user_id)
+    user.update_completeness_progress!
   end
 end

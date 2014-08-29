@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ProjectsController do
-  before{ Notification.unstub(:notify) }
   before{ Notification.unstub(:notify_once) }
   before{ controller.stub(:current_user).and_return(current_user) }
   render_views
