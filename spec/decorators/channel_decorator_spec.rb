@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe ChannelDecorator do
-  let(:channel){ build(:channel, facebook: 'http://www.facebook.com/foobar', twitter: 'http://twitter.com/foobar', website: 'http://foobar.com') }
+  subject { described_class.new(channel) }
+  let(:channel) { Channel.new }
 
   describe '#display_video_embed_url' do
     subject{ channel.display_video_embed_url }
@@ -19,6 +20,19 @@ describe ChannelDecorator do
     context 'source does not have a video' do
       let(:channel) { create(:channel, video_url: "") }
       it { should be_nil }
+    end
+  end
+
+  describe 'project_proposal_url' do
+    it 'returns the model attribute when present in source' do
+      url = 'http://example.com/application.pdf'
+      channel.project_proposal_url = url
+      expect(subject.project_proposal_url).to eql(url)
+    end
+
+    it 'returns new_project_path when not present in source' do
+      channel.project_proposal_url = nil
+      expect(subject.project_proposal_url).to eql(Rails.application.routes.url_helpers.new_project_path)
     end
   end
 end

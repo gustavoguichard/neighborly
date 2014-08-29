@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def channel
-    Channel.find_by_permalink(request.subdomain.to_s)
+    Channel.find_by_permalink(request.subdomain.to_s).decorate
   end
 
   def referral_url

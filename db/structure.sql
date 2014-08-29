@@ -412,7 +412,8 @@ CREATE TABLE channels (
     submit_your_project_text_html text,
     start_content hstore,
     start_hero_image character varying(255),
-    success_content hstore
+    success_content hstore,
+    project_proposal_url character varying(255)
 );
 
 
@@ -4044,4 +4045,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140816212033');
 INSERT INTO schema_migrations (version) VALUES ('20140822150920');
 
 INSERT INTO schema_migrations (version) VALUES ('20140827181425');
+
+INSERT INTO schema_migrations (version) VALUES ('20140829195912');
 
