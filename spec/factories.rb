@@ -27,12 +27,10 @@ FactoryGirl.define do
     f.association :project
   end
 
-  factory :user do |f|
-    f.name "Foo bar"
-    f.password "123456"
-    f.email { generate(:email) }
-    f.bio "This is Foo bar's biography."
-    f.confirmed_at { Time.now }
+  factory :user do
+    confirmed_at { Time.now }
+    email        { "sherlock.holmes#{rand}@example.com" }
+    password     '123123123'
   end
 
   factory :user_with_uploaded_image, parent: :user do |f|
