@@ -7,7 +7,7 @@ feature 'Create contribution' do
     login
   end
 
-  scenario 'providing smaller value then accepted' do
+  scenario 'providing value smaller then accepted' do
     visit project_path(@project)
     within '.sidebar' do
       click_on 'Contribute'
