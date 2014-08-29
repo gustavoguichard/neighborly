@@ -36,7 +36,7 @@ describe Notification do
       end
     end
 
-    context "when filter is nil" do
+    context 'when filter is nil' do
       let(:filter) { nil }
 
       it_behaves_like 'delivering notification'
