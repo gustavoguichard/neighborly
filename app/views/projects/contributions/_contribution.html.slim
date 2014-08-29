@@ -1,4 +1,4 @@
-- if contribution.user.present?
+= cache contribution, expires_in: 24.hours do
   .large-6.small-6.columns.contribution-wrapper
     .contribution[class="#{contribution.user.try(:profile_type)} #{'with-note' if contribution.short_note.present?}"]
       .row.collapse
