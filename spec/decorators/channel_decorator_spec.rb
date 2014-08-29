@@ -23,16 +23,16 @@ describe ChannelDecorator do
     end
   end
 
-  describe 'project_proposal_url' do
+  describe 'application_url' do
     it 'returns the model attribute when present in source' do
       url = 'http://example.com/application.pdf'
-      channel.project_proposal_url = url
-      expect(subject.project_proposal_url).to eql(url)
+      channel.application_url = url
+      expect(subject.application_url).to eql(url)
     end
 
     it 'returns new_project_path when not present in source' do
-      channel.project_proposal_url = nil
-      expect(subject.project_proposal_url).to eql(Rails.application.routes.url_helpers.new_project_path)
+      channel.application_url = nil
+      expect(subject.application_url).to eql(Rails.application.routes.url_helpers.new_project_path)
     end
   end
 end

@@ -413,7 +413,7 @@ CREATE TABLE channels (
     start_content hstore,
     start_hero_image character varying(255),
     success_content hstore,
-    project_proposal_url character varying(255)
+    application_url character varying(255)
 );
 
 

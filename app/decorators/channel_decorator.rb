@@ -5,9 +5,9 @@ class ChannelDecorator < Draper::Decorator
     "//#{source.video_embed_url}?title=0&byline=0&portrait=0&autoplay=0&color=ffffff&badge=0&modestbranding=1&showinfo=0&border=0&controls=2".gsub('http://', '') if source.video_embed_url
   end
 
-  def project_proposal_url
-    if source.project_proposal_url.present?
-      source.project_proposal_url
+  def application_url
+    if source.application_url.present?
+      source.application_url
     else
       h.new_project_path
     end
