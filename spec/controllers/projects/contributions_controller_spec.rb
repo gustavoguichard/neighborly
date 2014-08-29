@@ -88,7 +88,7 @@ describe Projects::ContributionsController do
     let(:set_expectations) {}
     before do
       set_expectations
-      post :create, {locale: :pt, project_id: project, contribution: { value: value, reward_id: nil, anonymous: '0' }}
+      post :create, {locale: :pt, project_id: project, contribution_form: { value: value, reward_id: nil, anonymous: '0' }}
     end
 
     context "when no user is logged" do

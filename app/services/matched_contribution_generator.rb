@@ -7,8 +7,8 @@ class MatchedContributionGenerator
 
   def create
     active_matches.each do |match|
-      matched_contribution = Contribution.create(attributes(match))
-      matching             = Matching.create(
+      matched_contribution = Contribution.create!(attributes(match))
+      matching             = Matching.create!(
         match_id:        match.id,
         contribution_id: contribution.id
       )

@@ -25,7 +25,7 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def new
-    @contribution = Contribution.new(project: parent, user: current_user)
+    @contribution = ContributionForm.new(project: parent, user: current_user)
     authorize @contribution
 
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
@@ -37,11 +37,11 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def create
-    @contribution = Contribution.new(permitted_params[:contribution].
+    @contribution = ContributionForm.new(permitted_params[:contribution_form].
                                      merge(user: current_user,
                                            project: parent))
 
-    @contribution.reward_id = nil if params[:contribution][:reward_id].to_i == 0
+    @contribution.reward_id = nil if params[:contribution_form][:reward_id].to_i == 0
     authorize @contribution
 
     create! do |success, failure|
@@ -75,7 +75,7 @@ class Projects::ContributionsController < ApplicationController
 
   protected
   def permitted_params
-    params.permit(policy(@contribution || Contribution).permitted_attributes)
+    params.permit(policy(@contribution || ContributionForm).permitted_attributes)
   end
 
   def collection

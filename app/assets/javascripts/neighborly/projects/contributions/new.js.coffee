@@ -10,11 +10,11 @@ Neighborly.Projects.Contributions.New =
       _.bindAll this, 'resetReward', 'clickReward', 'clickAnonymous', 'submitButtonHandler'
 
       # bind change event (support for ie8 )
-      this.$('#contribution_value').change this.resetReward
+      this.$('#contribution_form_value').change this.resetReward
       this.$('input[type=radio]').change this.clickReward
       this.$('#contribution_anonymous').change this.clickAnonymous
 
-      this.$value = this.$('#contribution_value')
+      this.$value = this.$('#contribution_form_value')
       this.rewards = this.$value.data('rewards')
       this.$choices = this.$('.reward-option')
       this.selectReward(this.$('input[type=radio]:checked'))

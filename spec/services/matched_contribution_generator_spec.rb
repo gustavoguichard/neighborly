@@ -19,7 +19,7 @@ describe MatchedContributionGenerator do
         and_return(attrs)
       create(:match, project: contribution.project)
 
-      expect(Contribution).to receive(:create).with(attrs).and_return(build(:contribution))
+      expect(Contribution).to receive(:create!).with(attrs).and_return(build(:contribution))
       subject.create
     end
 
