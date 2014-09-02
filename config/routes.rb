@@ -65,7 +65,6 @@ Neighborly::Application.routes.draw do
         end
       end
 
-      resource :profile, only: [:show]
       resources :projects, only: [:new, :create]
       # NOTE We use index instead of create to subscribe comming back from auth via GET
       resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
