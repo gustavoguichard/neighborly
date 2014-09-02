@@ -172,7 +172,7 @@ FactoryGirl.define do
     first_name 'First'
     last_name 'Last'
     email 'some@email.com'
-    company_name 'Test'
+    organization_name 'Test'
   end
 
   factory :image do |f|

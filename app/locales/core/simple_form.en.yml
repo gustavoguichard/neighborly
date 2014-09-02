@@ -26,8 +26,8 @@ en:
       contact:
         first_name: 'First Name'
         last_name: 'Last Name'
-        company_name: 'Company Name'
-        company_website: 'Company Website'
+        organization_name: 'Organization Name'
+        organization_website: 'Organization Website'
         email: 'Email Address'
         phone: 'Phone (If you prefer to be called)'
         message: "Anything in particular that you'd like to know?"
