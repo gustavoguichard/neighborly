@@ -13,8 +13,7 @@ class Contribution < ActiveRecord::Base
   has_many   :matchings
   has_one :match, through: :matching
 
-  validates_presence_of     :project, :user, :value
-  validates_numericality_of :value, greater_than_or_equal_to: 10.00
+  validates_presence_of :project, :user, :value
 
   scope :available_to_count,   -> { with_states(['confirmed', 'requested_refund', 'refunded']) }
   scope :available_to_display, -> { with_states(['confirmed', 'requested_refund', 'refunded']) }
