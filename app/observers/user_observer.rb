@@ -3,11 +3,9 @@ class UserObserver < ActiveRecord::Observer
     user.password = SecureRandom.hex(4) unless user.password || user.persisted?
   end
 
-  def after_save(user)
-    calculate_completeness(user)
-  end
-
   def after_commit(user)
+    calculate_completeness(user)
+
     if just_created?(user)
       welcome_user(user)
     end

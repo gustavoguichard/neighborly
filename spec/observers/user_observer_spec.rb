@@ -16,6 +16,26 @@ describe UserObserver do
   end
 
   describe '#after_commit' do
+    context 'when profile is complete' do
+      it 'does not send to worker' do
+        subject = create(:user, completeness_progress: 100)
+        subject.name = 'test'
+        subject.save
+        expect(UpdateCompletenessProgressWorker).to_not receive(:perform_async)
+        subject.run_callbacks(:commit)
+      end
+    end
+
+    context 'when profile is not complete' do
+      it 'sends to worker' do
+        subject = create(:user, completeness_progress: 50)
+        subject.name = 'test'
+        subject.save
+        expect(UpdateCompletenessProgressWorker).to receive(:perform_async).with(subject.id)
+        subject.run_callbacks(:commit)
+      end
+    end
+
     context 'when the user is with temporary email' do
       it 'does not send to worker' do
         subject = create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly")
@@ -29,26 +49,6 @@ describe UserObserver do
         subject = create(:user)
         expect(WelcomeWorker).to receive(:perform_async)
         subject.run_callbacks(:commit)
-      end
-    end
-  end
-
-  describe '#after_save' do
-    context 'when profile is complete' do
-      it 'does not send to worker' do
-        @user = create(:user, completeness_progress: 100)
-        expect(UpdateCompletenessProgressWorker).to_not receive(:perform_async)
-        @user.name = 'test'
-        @user.save
-      end
-    end
-
-    context 'when profile is not complete' do
-      it 'sends to worker' do
-        @user = create(:user, completeness_progress: 50)
-        expect(UpdateCompletenessProgressWorker).to receive(:perform_async).with(@user.id)
-        @user.name = 'test'
-        @user.save
       end
     end
   end
