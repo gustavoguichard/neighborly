@@ -3,11 +3,9 @@ class NotificationWorker
   sidekiq_options retry: 5
 
   def perform(notification_id)
-    resource = Notification.find(notification_id)
+    notification = Notification.find(notification_id)
 
-    NotificationsMailer.notify(resource).deliver
-    resource.update_attributes dismissed: true
-  rescue ActiveRecord::RecordNotFound
-    raise "Notification #{notification_id} not found.. sending to retry queue"
+    NotificationsMailer.notify(notification).deliver
+    notification.update_attributes(dismissed: true)
   end
 end

@@ -19,6 +19,7 @@ module Neighborly
     # Since Rails 3.1, all folders inside app/ will be loaded automatically
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/**)
 
+    I18n.enforce_available_locales = true
     config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('app', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
@@ -42,12 +43,17 @@ module Neighborly
         fixture: false
     end
 
-    config.active_record.observers = [
-      :contribution_observer,     :user_observer,
-      :update_observer,           :project_observer,
-      :contact_observer,  :authorization_observer,
-      :match_observer,            :payment_observer
-    ]
+    config.active_record.observers = %i(
+      authorization_observer
+      contact_observer
+      contribution_observer
+      match_observer
+      notification_observer
+      payment_observer
+      project_observer
+      update_observer
+      user_observer
+    )
 
     # Enable the asset pipeline
     config.assets.enabled = true

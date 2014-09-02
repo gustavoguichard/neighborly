@@ -110,11 +110,9 @@ RSpec.configure do |config|
     User.any_instance.stub(:subscribe_to_newsletter_list).and_return(true)
     User.any_instance.stub(:unsubscribe_to_newsletter_list).and_return(true)
     Project.any_instance.stub(:store_image_url).and_return('http://www.store_image_url.com')
-    UserObserver.any_instance.stub(:after_create)
     Project.any_instance.stub(:download_video_thumbnail)
     ProjectObserver.any_instance.stub(:deliver_default_notification_for)
     ProjectObserver.any_instance.stub(:notify_new_draft_project)
-    Notification.stub(:notify)
     Notification.stub(:notify_once)
   end
 end

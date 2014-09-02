@@ -47,7 +47,6 @@ describe Update do
 
   describe '#notify_contributors' do
     before do
-      Notification.unstub(:notify)
       Notification.unstub(:notify_once)
       @project = create(:project)
       contribution = create(:contribution, state: 'confirmed', project: @project)

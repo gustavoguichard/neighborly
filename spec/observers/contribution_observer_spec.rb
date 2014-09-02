@@ -16,7 +16,6 @@ describe ContributionObserver do
   let(:confirmed_at)     { Time.now }
 
   before do
-    Notification.unstub(:notify)
     Notification.unstub(:notify_once)
   end
 
