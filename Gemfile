@@ -75,7 +75,6 @@ gem 'video_info', '~> 2.0.2'
 gem 'geocoder'
 # Feature branch still to be merged by original gem author
 gem 'as_csv', require: 'as_csv', github: 'Irio/as_csv', branch: 'localization-of-headers'
-gem 'oink'
 gem 'gctools', '~> 0.2.3'
 
 # Payment
