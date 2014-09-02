@@ -132,6 +132,10 @@ FactoryGirl.define do
     name "Test"
     description "Lorem Ipsum"
     sequence(:permalink) { |n| "#{n}-test-page" }
+
+    factory :channel_with_external_application do
+      application_url 'https://example.com/application.pdf'
+    end
   end
 
   factory :channels_subscriber do |f|
