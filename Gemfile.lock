@@ -27,20 +27,6 @@ GIT
   specs:
     state_machine (1.2.0)
 
-GIT
-  remote: git://github.com/neighborly/neighborly-dashboard.git
-  revision: a293203639c0e3b71175e2a586a0ce66074983ae
-  branch: master
-  specs:
-    neighborly-dashboard (0.0.1)
-      bootstrap-sass
-      coffee-rails
-      ember-rails (~> 0.15.0)
-      emblem-rails (~> 0.2.1)
-      font-awesome-sass
-      rails (~> 4.0)
-      sass-rails
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,7 +87,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.2.0.0)
+    bootstrap-sass (3.2.0.1)
       sass (~> 3.2)
     browser (0.4.1)
     builder (3.2.2)
@@ -163,7 +149,7 @@ GEM
       request_store (~> 1.0.3)
     dropzonejs-rails (0.4.14)
       rails (> 3.1)
-    ember-data-source (1.0.0.beta.8)
+    ember-data-source (1.0.0.beta.9)
       ember-source
     ember-rails (0.15.0)
       active_model_serializers
@@ -174,12 +160,12 @@ GEM
       handlebars-source (> 1.0.0)
       jquery-rails (>= 1.0.17)
       railties (>= 3.1)
-    ember-source (1.6.0)
+    ember-source (1.7.0)
       handlebars-source (~> 1.0)
     emblem-rails (0.2.1)
       barber-emblem (~> 0.1.1)
       ember-rails (>= 0.14.0)
-    emblem-source (0.3.16)
+    emblem-source (0.3.17)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.32.1)
@@ -213,7 +199,7 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
-    font-awesome-sass (4.1.0)
+    font-awesome-sass (4.2.0)
       sass (~> 3.2)
     formatador (0.2.4)
     gctools (0.2.3)
@@ -288,6 +274,14 @@ GEM
       neighborly-balanced (~> 2.0)
       rails (~> 4.0)
       slim (~> 2.0)
+    neighborly-dashboard (1.0.0)
+      bootstrap-sass
+      coffee-rails
+      ember-rails (~> 0.15.0)
+      emblem-rails (~> 0.2.1)
+      font-awesome-sass
+      rails (~> 4.0)
+      sass-rails
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
@@ -545,7 +539,7 @@ DEPENDENCIES
   neighborly-balanced (~> 2.0.0)
   neighborly-balanced-bankaccount (~> 2.0.0)
   neighborly-balanced-creditcard (~> 2.0.0)
-  neighborly-dashboard!
+  neighborly-dashboard (~> 1.0.0)
   newrelic_rpm
   nprogress-rails
   omniauth
