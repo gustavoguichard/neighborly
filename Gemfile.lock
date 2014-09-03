@@ -28,18 +28,6 @@ GIT
     state_machine (1.2.0)
 
 GIT
-  remote: git://github.com/neighborly/neighborly-api.git
-  revision: addb4fa57c77b94398d09ef93f10297f06a7de3a
-  branch: master
-  specs:
-    neighborly-api (0.0.1)
-      active_model_serializers
-      has_scope
-      kaminari
-      pundit
-      rails (~> 4.0)
-
-GIT
   remote: git://github.com/neighborly/neighborly-dashboard.git
   revision: a293203639c0e3b71175e2a586a0ce66074983ae
   branch: master
@@ -278,6 +266,12 @@ GEM
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     neighborly-admin (1.1.0)
+      rails (~> 4.0)
+    neighborly-api (1.0.0)
+      active_model_serializers
+      has_scope
+      kaminari
+      pundit
       rails (~> 4.0)
     neighborly-balanced (2.0.0)
       balanced (~> 1.1)
@@ -547,7 +541,7 @@ DEPENDENCIES
   letter_opener
   minitest
   neighborly-admin (~> 1.1.0)
-  neighborly-api!
+  neighborly-api (~> 1.0.0)
   neighborly-balanced (~> 2.0.0)
   neighborly-balanced-bankaccount (~> 2.0.0)
   neighborly-balanced-creditcard (~> 2.0.0)

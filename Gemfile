@@ -29,7 +29,7 @@ gem 'neighborly-balanced', '~> 2.0.0'
 
 # Neigbhor.ly Engines
 gem 'neighborly-admin', '~> 1.1.0'
-gem 'neighborly-api', github: 'neighborly/neighborly-api', branch: :master
+gem 'neighborly-api', '~> 1.0.0'
 gem 'neighborly-dashboard', github: 'neighborly/neighborly-dashboard', branch: :master
 
 # Turns every field on a editable one - Admin dependencies
