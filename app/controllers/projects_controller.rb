@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
 
   def start
     @projects = ProjectsForHome.successful[0..3]
-    @channel  = channel.decorate
+    @channel  = channel.decorate if channel
   end
 
   private
