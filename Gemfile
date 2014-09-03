@@ -5,7 +5,7 @@ ruby '2.1.2'
 gem 'rails', '4.1.5'
 
 gem 'rails-observers', '~> 0.1.2'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.8.1'
 
 gem 'sidekiq', '~> 3.2.2'
 gem 'sinatra', '~> 1.4.5', require: false # required by sidekiq web interface mounted on /sidekiq
@@ -29,7 +29,7 @@ gem 'neighborly-balanced', '~> 2.0.0'
 
 # Neigbhor.ly Engines
 gem 'neighborly-admin', '~> 1.1.0'
-gem 'neighborly-api', '~> 1.0.0'
+gem 'neighborly-api', '~> 1.0.1'
 gem 'neighborly-dashboard', '~> 1.0.0'
 
 # Turns every field on a editable one - Admin dependencies
