@@ -71,6 +71,11 @@ Neighbor.ly consists of many separate services/gems, each with their own source 
 
 A Rails Engine that contains our API.
 
+### [Neighborly::Dashboard](https://github.com/neighborly/neighborly-dashboard) [![Build Status](https://travis-ci.org/neighborly/neighborly-dashboard.svg?branch=master)](https://travis-ci.org/neighborly/neighborly-dashboard)
+
+A Rails Engine that contains the Dashboard that is built with [Ember.js](http://emberjs.com) using the API.
+
+
 ### [Neighborly::Admin](https://github.com/neighborly/neighborly-admin) [![Build Status](https://travis-ci.org/neighborly/neighborly-admin.png?branch=master)](https://travis-ci.org/neighborly/neighborly-admin) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly-admin.png)](https://codeclimate.com/github/neighborly/neighborly-admin)
 
 A Rails Engine that deal with all the admin section for Neighbor.ly.
