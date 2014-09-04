@@ -30,7 +30,7 @@ gem 'neighborly-balanced', '~> 2.0.0'
 # Neigbhor.ly Engines
 gem 'neighborly-admin', '~> 1.1.1'
 gem 'neighborly-api', '~> 1.0.1'
-gem 'neighborly-dashboard', '~> 1.0.0'
+gem 'neighborly-dashboard', '~> 1.0.1'
 
 # Turns every field on a editable one - Admin dependencies
 gem 'best_in_place', github: 'bernat/best_in_place'
