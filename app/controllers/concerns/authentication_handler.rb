@@ -61,11 +61,12 @@ module Concerns::AuthenticationHandler
 
     def black_list_domains
       ['neighborly-staging.herokuapp.com',
+       'invest.neighbor.ly',
        'staging.neighbor.ly',
-        'channel.staging.neighbor.ly',
-        'kaboom.neighbor.ly',
-        'cfg.neighbor.ly',
-        'makeitright.neighbor.ly']
+       'channel.staging.neighbor.ly',
+       'kaboom.neighbor.ly',
+       'cfg.neighbor.ly',
+       'makeitright.neighbor.ly']
     end
   end
 end
