@@ -1,17 +1,16 @@
 class Projects::MatchesController < ApplicationController
   before_filter :authenticate_user!
   after_filter :verify_authorized
-  inherit_resources
-  actions :all, except: %i(index update destroy)
-  belongs_to :project, finder: :find_by_permalink!
 
   def new
-    @match = parent.matches.build
+    @project = parent
+    @match   = parent.matches.build
     authorize @match
   end
 
   def create
-    @match = Match.new(
+    @project = parent
+    @match   = Match.new(
       match_params.except(:starts_at, :finishes_at).
         merge(project: parent, user: current_user)
     )
@@ -33,14 +32,19 @@ class Projects::MatchesController < ApplicationController
   end
 
   def edit
+    @project = parent
+    @match   = resource
     authorize resource
   end
 
   def show
+    @project = parent
+    @match   = resource
     authorize resource
   end
 
   protected
+
   def match_params
     params.require(:match).permit(
       %i(
@@ -50,5 +54,13 @@ class Projects::MatchesController < ApplicationController
         value
       )
     )
+  end
+
+  def parent
+    @parent ||= Project.find_by_permalink!(params[:project_id])
+  end
+
+  def resource
+    @resource ||= parent.matches.find(params[:id])
   end
 end
