@@ -108,15 +108,6 @@ describe Project::StateMachineHandler do
         its(:finish) { should be_false }
       end
 
-      context 'when project is expired and the sum of the pending contributions and confirmed contributions dont reached the goal' do
-        before do
-          create(:contribution, value: 100, project: subject, created_at: 2.days.ago)
-          subject.finish
-        end
-
-        its(:failed?) { should be_true }
-      end
-
       context 'when project is expired and have recent contributions without confirmation' do
         before do
           create(:contribution, value: 30_000, project: subject, state: 'waiting_confirmation')
@@ -193,8 +184,6 @@ describe Project::StateMachineHandler do
             subject.finish
           end
 
-          its(:failed?) { should be_true }
-
           it "should generate credits for users" do
             contribution.confirm!
             user.reload
@@ -207,8 +196,6 @@ describe Project::StateMachineHandler do
             subject.update_attributes campaign_type: 'flexible'
             subject.finish
           end
-
-          its(:failed?) { should be_false }
 
           it "should generate credits for users" do
             contribution.confirm!

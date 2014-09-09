@@ -13,7 +13,7 @@ class Users::ContributionsController < ApplicationController
 
   def request_refund
     authorize resource
-    if resource.value > resource.user.user_total.credits || !resource.request_refund
+    if resource.value > resource.user.credits || !resource.request_refund
       flash.alert = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
     else
       flash.notice = I18n.t('controllers.users.contributions.request_refund.refunded')

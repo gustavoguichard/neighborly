@@ -42,25 +42,6 @@ describe ContributionObserver do
   end
 
   describe '#before_save' do
-    context 'when project reached the goal' do
-      before do
-        project = create(:project, state: 'failed', goal: 1000)
-        project.stub(:project_total).and_return(
-          double('ProjectTotal', pledged: 1000.0, total_contributions: 1)
-        )
-        resource.project = project
-      end
-
-      it 'notifies the project owner' do
-        expect(Notification).to receive(:notify).
-          with(:project_success,
-               resource.project.user,
-               project: resource.project)
-
-        resource.save!
-      end
-    end
-
     context 'when project is already successful' do
       before do
         resource.project = create(:project, state: 'successful')

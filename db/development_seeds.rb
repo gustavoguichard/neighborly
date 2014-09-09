@@ -140,17 +140,6 @@ puts '---------------------------------------------'
 puts 'Done!'
 
 
-puts 'Creating failed projects...... It can take a while...'
-
-  2.times do
-    p = generate_project(state: 'online', goal: 100000, campaign_type: 'all_or_none')
-    [4, 7, 15, 30].shuffle.first.times { generate_contribution(p) }
-    p.update_column(:state, :failed)
-  end
-
-puts '---------------------------------------------'
-puts 'Done!'
-
 puts 'Creating online projects all_or_none...... It can take a while...'
 
   2.times do

@@ -72,7 +72,7 @@
                     span.label.label-online= project.state
                   - elsif project.successful?
                     span.label.label-success= project.state
-                  - elsif project.failed? or project.rejected?
+                  - elsif project.rejected?
                     span.label.label-important= project.state
                   - elsif project.waiting_funds?
                     span.label.label-warning= project.state

@@ -92,7 +92,6 @@ class Project < ActiveRecord::Base
                                      WHEN 'online' THEN 1
                                      WHEN 'waiting_funds' THEN 2
                                      WHEN 'successful' THEN 3
-                                     WHEN 'failed' THEN 4
                                      END ASC, projects.online_date DESC, projects.created_at DESC") }
 
   scope :contributed_by, ->(user_id){

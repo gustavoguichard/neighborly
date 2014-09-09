@@ -156,12 +156,6 @@ describe ProjectDecorator do
       end
       it{ should == 'not_reached_goal' }
     end
-    context "when failed" do
-      before do
-        project.stub(:state).and_return('failed')
-      end
-      it{ should == 'failed' }
-    end
     context "when successful" do
       before do
         project.stub(:state).and_return('successful')

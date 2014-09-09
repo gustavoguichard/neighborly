@@ -30,7 +30,7 @@ describe ContributionPolicy do
   shared_examples_for 'create permissions' do
     it_should_behave_like 'update permissions'
 
-    ['draft', 'deleted', 'rejected', 'successful', 'failed', 'waiting_funds'].each do |state|
+    ['draft', 'deleted', 'rejected', 'successful', 'waiting_funds'].each do |state|
       it "denies access if project is on #{state}" do
         contribution.project.update_attributes state: state
         expect(subject).not_to permit(user, contribution)

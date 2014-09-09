@@ -18,7 +18,6 @@ describe Users::ContributionsController do
     unconfirmed_contribution
     other_back
     successful_project.update_attributes state: 'successful'
-    failed_project.update_attributes state: 'failed'
   end
 
   describe "GET index" do

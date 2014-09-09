@@ -18,8 +18,6 @@
             = image_tag "successful.#{I18n.locale}.png"
           - elsif project.successful? && !project.reached_goal?
             = image_tag "successful_flex.#{I18n.locale}.png"
-          - elsif project.failed?
-            = image_tag "not_successful.#{I18n.locale}.png"
       - elsif project.soon?
         .status-image
           = image_tag "coming_soon.#{I18n.locale}.png"

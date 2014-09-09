@@ -204,7 +204,7 @@ describe Project do
   end
 
   describe '.state_names' do
-    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds, :failed] }
+    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds] }
 
     subject { Project.state_names }
 
