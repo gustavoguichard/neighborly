@@ -1,15 +1,13 @@
 class Projects::ContributionsController < ApplicationController
   after_filter :verify_authorized, except: :index
-  inherit_resources
-  actions :show, :new, :edit, :create, :credits_checkout
   skip_before_filter :set_persistent_warning
   has_scope :available_to_count, type: :boolean
   has_scope :with_state
   has_scope :page, default: 1
-  belongs_to :project, finder: :find_by_permalink!
 
   def index
     @project        = parent
+    @contributions  = collection
     @active_matches = parent.matches.active
     if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
@@ -17,14 +15,19 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def edit
+    @project      = parent
+    @contribution = resource
     authorize resource
   end
 
   def show
+    @project      = parent
+    @contribution = resource
     authorize resource
   end
 
   def new
+    @project      = parent
     @contribution = ContributionForm.new(project: parent, user: current_user)
     authorize @contribution
 
@@ -37,6 +40,7 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def create
+    @project      = parent
     @contribution = ContributionForm.new(permitted_params[:contribution_form].
                                      merge(user: current_user,
                                            project: parent))
@@ -44,20 +48,18 @@ class Projects::ContributionsController < ApplicationController
     @contribution.reward_id = nil if params[:contribution_form][:reward_id].to_i == 0
     authorize @contribution
 
-    create! do |success, failure|
-      success.html do
-        session[:thank_you_contribution_id] = @contribution.id
-        flash.delete(:notice)
-        return redirect_to edit_project_contribution_path(project_id: @project, id: @contribution.id)
-      end
-
-      failure.html do
-        return redirect_to new_project_contribution_path(@project), flash: { failure: t('controllers.projects.contributions.create.error') }
-      end
+    if @contribution.save
+      session[:thank_you_contribution_id] = @contribution.id
+      flash.delete(:notice)
+      redirect_to edit_project_contribution_path(project_id: @project, id: @contribution.id)
+    else
+      flash.alert = t('controllers.projects.contributions.create.error')
+      redirect_to new_project_contribution_path(@project)
     end
   end
 
   def credits_checkout
+    @contribution = resource
     authorize resource
     if current_user.credits < @contribution.value
       flash.alert = t('controllers.projects.contributions.credits_checkout.no_credits')
@@ -74,15 +76,24 @@ class Projects::ContributionsController < ApplicationController
   end
 
   protected
+
   def permitted_params
     params.permit(policy(@contribution || ContributionForm).permitted_attributes)
   end
 
   def collection
-    @contributions ||= apply_scopes(end_of_association_chain).available_to_display.where(matching_id: nil).order("confirmed_at DESC").per(10)
+    @contributions ||= apply_scopes(parent.contributions).available_to_display.where(matching_id: nil).order("confirmed_at DESC").per(10)
   end
 
   def empty_reward
     Reward.new(minimum_value: 0, description: t('controllers.projects.contributions.new.no_reward'))
+  end
+
+  def parent
+    @parent ||= Project.find_by_permalink!(params[:project_id])
+  end
+
+  def resource
+    @resource ||= parent.contributions.find(params[:id])
   end
 end

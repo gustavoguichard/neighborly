@@ -4,8 +4,8 @@
     = render 'active_matches'
     .row
       .list
-        - if collection.any?
-          = render collection
+        - if @contributions.any?
+          = render @contributions
         - else
           p = t('.empty')
 

@@ -27,7 +27,7 @@
         h2.text-center = t('.title')
 
     .row
-      = simple_form_for [parent, resource] do |f|
+      = simple_form_for [@project, @match] do |f|
         #match-form.large-7.medium-10.columns.large-centered
           .row
             .large-10.medium-10.columns.large-centered
@@ -47,12 +47,12 @@
                   p = t('.for_each_1_raised_between')
               .row
                 .large-5.medium-5.columns
-                  - date = (resource.starts_at || Time.now).strftime('%m/%d/%y')
+                  - date = (@match.starts_at || Time.now).strftime('%m/%d/%y')
                   = f.input_field :starts_at,   as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
                 .large-2.medium-2.columns
                   p = t('.and')
                 .large-5.medium-5.columns
-                  - date = (resource.finishes_at || parent.expires_at).strftime('%m/%d/%y')
+                  - date = (@match.finishes_at || @project.expires_at).strftime('%m/%d/%y')
                   = f.input_field :finishes_at, as: :string, required: true, value: date, placeholder: date, maxlength: 8, class: 'input-date'
               .row
                 .large-3.medium-3.columns

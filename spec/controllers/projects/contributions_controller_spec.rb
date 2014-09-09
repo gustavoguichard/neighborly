@@ -206,7 +206,8 @@ describe Projects::ContributionsController do
 
     it 'returns active matches of project' do
       matches = [double('Match').as_null_object]
-      controller.stub_chain(:parent, :matches, :active).and_return(matches)
+      allow_any_instance_of(Project).to receive(:matches).
+        and_return(double(active: matches))
       get :index, locale: :pt, project_id: project
       expect(assigns(:active_matches)).to eql(matches)
     end
