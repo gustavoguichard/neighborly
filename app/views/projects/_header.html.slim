@@ -1,4 +1,4 @@
-= cache [:project_header, @project, @project.progress] do
+= cache [:project_header, @project, @project.progress, @project.remaining_days] do
   = hero_header_tag @project, class: ('no-image' if browser.mobile?) do
     .row
       .large-12.columns
