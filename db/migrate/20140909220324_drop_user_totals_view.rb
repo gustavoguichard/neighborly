@@ -2,10 +2,11 @@ class DropUserTotalsView < ActiveRecord::Migration
   def up
     drop_view :user_totals
     execute 'DROP FUNCTION can_refund(contributions)'
-    remove_column :contributions, :credits, :boolean
+    remove_column :contributions, :credits
   end
 
   def down
+    add_column :contributions, :credits, :boolean
     execute <<-SQL
       CREATE VIEW user_totals AS
        SELECT b.user_id AS id,

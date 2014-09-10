@@ -90,7 +90,6 @@ FactoryGirl.define do
     f.confirmed_at Time.now
     f.value 10.00
     f.state 'confirmed'
-    f.credits false
   end
 
   factory :payment_notification do |f|

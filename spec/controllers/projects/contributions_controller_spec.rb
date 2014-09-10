@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Projects::ContributionsController do
   let(:project) { create(:project) }
-  let(:contribution){ create(:contribution, value: 10.00, credits: true, project: project, state: 'pending') }
+  let(:contribution){ create(:contribution, value: 10.00, project: project, state: 'pending') }
   let(:user){ nil }
   let(:contribution_info){ { address_city: 'Porto Alegre', address_complement: '24', address_neighborhood: 'Rio Branco', address_number: '1004', address_phone_number: '(51)2112-8397', address_state: 'RS', address_street: 'Rua Mariante', address_zip_code: '90430-180', payer_email: 'diogo@biazus.me', payer_name: 'Diogo de Oliveira Biazus' } }
 
@@ -26,7 +26,7 @@ describe Projects::ContributionsController do
       render_views
 
       let(:user){ create(:user) }
-      let(:contribution){ create(:contribution, value: 10.00, credits: true, project: project, state: 'pending', user: user) }
+      let(:contribution){ create(:contribution, value: 10.00, project: project, state: 'pending', user: user) }
       its(:body){ should =~ /#{I18n.t('projects.contributions.edit.title', project_name: project.name)}/ }
       its(:body){ should =~ /#{project.name}/ }
       its(:body){ should =~ /\$10/ }
@@ -126,7 +126,7 @@ describe Projects::ContributionsController do
   end
 
   describe "GET show" do
-    let(:contribution){ create(:contribution, value: 10.00, credits: false, state: 'confirmed') }
+    let(:contribution){ create(:contribution, value: 10.00, state: 'confirmed') }
     before do
       get :show, { locale: :pt, project_id: contribution.project, id: contribution.id }
     end
