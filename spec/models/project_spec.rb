@@ -466,16 +466,6 @@ describe Project do
   end
 
   describe "campaign types" do
-    let(:project) { create(:project, campaign_type: 'all_or_none') }
-
-    describe "#all_or_none?" do
-      subject { project.all_or_none? }
-
-      context "when project is new" do
-        it { should be_true }
-      end
-    end
-
     describe "#flexible?" do
       let(:project) { create(:project, campaign_type: 'flexible') }
 

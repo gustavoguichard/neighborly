@@ -3,7 +3,6 @@ module Project::StateMachineHandler
 
   included do
      state_machine :campaign_type, initial: :flexible do
-      state :all_or_none
       state :flexible
     end
 

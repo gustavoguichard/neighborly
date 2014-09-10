@@ -140,18 +140,6 @@ puts '---------------------------------------------'
 puts 'Done!'
 
 
-puts 'Creating online projects all_or_none...... It can take a while...'
-
-  2.times do
-    p = generate_project(state: 'online', campaign_type: 'all_or_none')
-    [4, 7].shuffle.first.times { generate_contribution(p) }
-  end
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-
-
 puts 'Creating online projects...... It can take a while...'
 
   5.times do

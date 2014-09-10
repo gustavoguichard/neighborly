@@ -8,7 +8,7 @@
           .section-header Admin fields
           = form.input :user_id, required: true
           = form.input :permalink, as: :string
-          = form.input :campaign_type, as: :select, collection: [['All or None', 'all_or_none'], ['Flexible', 'flexible']], include_blank: false
+          = form.input :campaign_type, as: :select, collection: [['Flexible', 'flexible']], include_blank: false
           = form.input :foundation_widget, as: :boolean
       .section-header #1. Project Overview
       - if policy(@project).permitted_for?(:name, :update)
