@@ -1,6 +1,8 @@
 class DropUserTotalsView < ActiveRecord::Migration
   def up
     drop_view :user_totals
+    execute 'DROP FUNCTION can_refund(contributions)'
+    remove_column :contributions, :credits, :boolean
   end
 
   def down
@@ -23,6 +25,19 @@ class DropUserTotalsView < ActiveRecord::Migration
            JOIN projects p ON ((b.project_id = p.id)))
         WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[]))
         GROUP BY b.user_id;
+
+      CREATE FUNCTION can_refund(contributions) RETURNS boolean
+          LANGUAGE sql
+          AS $_$
+              select
+                $1.state IN('confirmed', 'requested_refund', 'refunded') AND
+                NOT $1.credits AND
+                EXISTS(
+                  SELECT true
+                    FROM projects p
+                    WHERE p.id = $1.project_id and p.state = 'failed'
+                )
+            $_$;
     SQL
   end
 end

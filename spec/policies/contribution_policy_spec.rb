@@ -63,10 +63,6 @@ describe ContributionPolicy do
 
   permissions(:edit?) { it_should_behave_like 'update permissions' }
 
-  permissions(:credits_checkout?) { it_should_behave_like 'update permissions' }
-
-  permissions(:request_refund?) { it_should_behave_like 'update permissions' }
-
   permissions(:pendent?) { it_should_behave_like 'change state permissions' }
 
   permissions(:confirm?) do

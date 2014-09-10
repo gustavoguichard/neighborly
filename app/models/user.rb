@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
+    :medium_name, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
@@ -90,10 +90,6 @@ class User < ActiveRecord::Base
 
   def decorator
     @decorator ||= UserDecorator.new(self)
-  end
-
-  def credits
-    0.0
   end
 
   def total_contributed_projects

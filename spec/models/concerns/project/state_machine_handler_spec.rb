@@ -168,42 +168,6 @@ describe Project::StateMachineHandler do
           its(:successful?) { should be_false }
         end
       end
-
-      context 'when project not hit the goal' do
-        let(:user) { create(:user) }
-        let(:contribution) { create(:contribution, state: 'pending', project: main_project, user: user, value: 20, payment_token: 'ABC') }
-
-        before do
-          contribution
-          subject.online_date = 2.weeks.ago
-          subject.online_days = 0
-        end
-
-        context "when project is all_or_none" do
-          before do
-            subject.finish
-          end
-
-          it "should generate credits for users" do
-            contribution.confirm!
-            user.reload
-            user.credits.should == 20
-          end
-        end
-
-        context "when project is flexible" do
-          before do
-            subject.update_attributes campaign_type: 'flexible'
-            subject.finish
-          end
-
-          it "should generate credits for users" do
-            contribution.confirm!
-            user.reload
-            user.credits.should == 0
-          end
-        end
-      end
     end
   end
 end

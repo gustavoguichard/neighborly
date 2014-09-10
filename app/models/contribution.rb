@@ -15,15 +15,12 @@ class Contribution < ActiveRecord::Base
 
   validates_presence_of :project, :user, :value
 
-  scope :available_to_count,   -> { with_states(['confirmed', 'requested_refund', 'refunded']) }
-  scope :available_to_display, -> { with_states(['confirmed', 'requested_refund', 'refunded']) }
+  scope :available_to_count,   -> { with_states(['confirmed', 'refunded']) }
+  scope :available_to_display, -> { with_states(['confirmed', 'refunded']) }
   scope :anonymous,            -> { where(anonymous: true) }
-  scope :credits,              -> { where(credits: true) }
   scope :not_anonymous,        -> { where(anonymous: false) }
   scope :confirmed_today,      -> { with_state('confirmed').where("contributions.confirmed_at::date = current_timestamp::date ") }
   scope :can_cancel,           -> { where("contributions.can_cancel") }
-  # Contributions already refunded or with requested_refund should appear so that the user can see their status on the refunds list
-  scope :can_refund,           ->{ where("contributions.can_refund") }
 
   pg_search_scope :pg_search, against: [
       [:key,            'A'],

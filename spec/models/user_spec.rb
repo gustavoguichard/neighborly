@@ -113,26 +113,6 @@ describe User do
     it { should == 2}
   end
 
-  describe "#credits" do
-    before do
-      @u = create(:user)
-      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: successful_project)
-      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: unfinished_project)
-      create(:contribution, state: 'confirmed', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: successful_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 50, user_id: @u.id, project: unfinished_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'requested_refund', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'refunded', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      failed_project.update_attributes state: 'failed'
-      successful_project.update_attributes state: 'successful'
-    end
-
-    subject{ @u.credits }
-
-    it{ should == 50.0 }
-  end
-
   describe "#recommended_project" do
     subject{ user.recommended_projects }
     before do

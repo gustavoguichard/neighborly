@@ -3,10 +3,6 @@ class UserPolicy < ApplicationPolicy
     done_by_owner_or_admin?
   end
 
-  def credits?
-    update?
-  end
-
   def payments?
     is_owned_by?(user)
   end

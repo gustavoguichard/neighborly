@@ -167,43 +167,6 @@ describe UsersController do
     end
   end
 
-  describe "GET credits" do
-    context "when I'm not logged in" do
-      let(:current_user){ nil }
-      before do
-        get :credits, id: user
-      end
-      it{ should redirect_to new_user_session_path }
-    end
-
-    context "when I'm loggedn" do
-
-      context 'as normal request' do
-        before { get :credits, id: user }
-
-        its(:status){ should == 200 }
-
-        it 'should assigns the correct resource' do
-          expect(assigns(:user)).to eq user
-        end
-
-        it { should render_template(:edit) }
-      end
-
-      context 'as xhr request' do
-        before { xhr :get, :credits, id: user }
-
-        its(:status){ should == 200 }
-
-        it 'should assigns the correct resource' do
-          expect(assigns(:user)).to eq user
-        end
-
-        it { should render_template(:credits) }
-      end
-    end
-  end
-
   describe "GET settings" do
     context "when I'm not logged in" do
       let(:current_user){ nil }

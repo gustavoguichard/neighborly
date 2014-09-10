@@ -86,7 +86,6 @@ CREATE TABLE contributions (
     updated_at timestamp without time zone,
     anonymous boolean DEFAULT false,
     key text,
-    credits boolean DEFAULT false,
     notified_finish boolean DEFAULT false,
     payment_method text,
     payment_token text,
@@ -128,24 +127,6 @@ CREATE FUNCTION can_cancel(contributions) RETURNS boolean
               from generate_series($1.created_at::date, current_date, '1 day') day
               WHERE extract(dow from day) not in (0,1)
             )  > 6
-          )
-      $_$;
-
-
---
--- Name: can_refund(contributions); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION can_refund(contributions) RETURNS boolean
-    LANGUAGE sql
-    AS $_$
-        select
-          $1.state IN('confirmed', 'requested_refund', 'refunded') AND
-          NOT $1.credits AND
-          EXISTS(
-            SELECT true
-              FROM projects p
-              WHERE p.id = $1.project_id and p.state = 'failed'
           )
       $_$;
 

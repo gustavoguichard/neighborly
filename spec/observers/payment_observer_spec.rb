@@ -56,21 +56,6 @@ describe PaymentObserver do
         resource.cancel!
       end
     end
-
-    describe '#from_confirmed_to_requested_refund' do
-      let(:user) { create(:user, email: ENV['EMAIL_PAYMENTS'].dup) }
-
-      it 'notifies backoffice about the refund request' do
-        resource.user.stub(:credits).and_return(1000)
-        expect(Notification).to receive(:notify_once).
-          with(:refund_request,
-            user,
-            { resource_id_name => resource.id },
-            resource_name      => resource)
-
-        resource.request_refund!
-      end
-    end
   end
 
   context 'when resource is a Contribution' do

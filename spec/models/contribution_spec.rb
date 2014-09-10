@@ -134,56 +134,6 @@ describe Contribution do
     end
   end
 
-
-  describe '.can_refund' do
-    subject{ Contribution.can_refund.load }
-    before do
-      create(:contribution, state: 'confirmed', credits: true, project: failed_project)
-      valid_refund
-      sucessful_project_contribution
-      unfinished_project
-      not_confirmed_contribution
-      successful_project.update_attributes state: 'successful'
-      failed_project.update_attributes state: 'failed'
-    end
-    it{ should == [valid_refund] }
-  end
-
-  describe '#credits' do
-    subject{ user.credits.to_f }
-    context 'when contributions are confirmed and not done with credits but project is successful' do
-      before do
-        create(:contribution, state: 'confirmed', user: user, project: successful_project)
-        successful_project.update_attributes state: 'successful'
-      end
-      it{ should == 0 }
-    end
-
-    context 'when contributions are confirmed and not done with credits' do
-      before do
-        create(:contribution, state: 'confirmed', user: user, project: failed_project)
-        failed_project.update_attributes state: 'failed'
-      end
-      it{ should == 10 }
-    end
-
-    context 'when contributions are done with credits' do
-      before do
-        create(:contribution, credits: true, state: 'confirmed', user: user, project: failed_project)
-        failed_project.update_attributes state: 'failed'
-      end
-      it{ should == 0 }
-    end
-
-    context 'when contributions are not confirmed' do
-      before do
-        create(:contribution, user: user, project: failed_project, state: 'pending')
-        failed_project.update_attributes state: 'failed'
-      end
-      it{ should == 0 }
-    end
-  end
-
   describe '#display_value' do
     context 'when the value has decimal places' do
       subject{ build(:contribution, value: 99.99).display_value }

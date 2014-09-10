@@ -67,63 +67,11 @@ describe Shared::PaymentStateMachineHandler do
       end
     end
 
-    describe '#request_refund' do
-      let(:credits) { resource.value }
-      let(:initial_state) { 'confirmed' }
-      let(:resource_is_credits) { false }
-      before do
-        resource_observer_class.any_instance.stub(:notify_backoffice)
-        resource.stub(:credits).and_return(resource_is_credits)
-        resource.user.stub(:credits).and_return(credits)
-        resource.request_refund
-      end
-
-      subject { resource.requested_refund? }
-
-      context 'when resource is confirmed' do
-        it 'changes to requested_refund state' do
-          expect(subject).to be_true
-        end
-      end
-
-      context 'when resource is credits' do
-        let(:resource_is_credits) { true }
-
-        it 'doesn\'t changes to requested_refund state' do
-          expect(subject).to be_false
-        end
-      end
-
-      context 'when resource is not confirmed' do
-        let(:initial_state) { 'pending' }
-
-        it 'doesn\'t changes to requested_refund state' do
-          expect(subject).to be_false
-        end
-      end
-
-      context 'when resource value is above user credits' do
-        let(:credits) { resource.value - 1 }
-
-        it 'doesn\'t changes to requested_refund state' do
-          expect(subject).to be_false
-        end
-      end
-    end
-
     describe '#refund' do
       before { resource.refund }
 
       context 'when resource is confirmed' do
         let(:initial_state) { 'confirmed' }
-
-        it 'changes to refunded state' do
-          expect(resource.refunded?).to be_true
-        end
-      end
-
-      context 'when resource is requested refund' do
-        let(:initial_state) { 'requested_refund' }
 
         it 'changes to refunded state' do
           expect(resource.refunded?).to be_true

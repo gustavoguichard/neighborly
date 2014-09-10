@@ -32,10 +32,6 @@ describe UserPolicy do
     it_should_behave_like 'update permissions'
   end
 
-  permissions :credits? do
-    it_should_behave_like 'update permissions'
-  end
-
   permissions :settings? do
     it_should_behave_like 'update permissions'
   end

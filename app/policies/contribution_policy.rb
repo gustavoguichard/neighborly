@@ -24,14 +24,6 @@ class ContributionPolicy < ApplicationPolicy
     done_by_owner_or_admin?
   end
 
-  def credits_checkout?
-    done_by_owner_or_admin?
-  end
-
-  def request_refund?
-    done_by_owner_or_admin?
-  end
-
   def pendent?
     change_state? && record.can_pendent?
   end
@@ -45,7 +37,7 @@ class ContributionPolicy < ApplicationPolicy
   end
 
   def refund?
-    change_state? && record.can_refund?
+    change_state?
   end
 
   def hide?

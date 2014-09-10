@@ -11,23 +11,15 @@ en:
           no_reward: "No perks! I just want to help out the project!"
         create:
           error: 'Oh noez! There was an error processing your contribution. Please try again.'
-        credits_checkout:
-          no_credits: "You don't have enough credits to help greenlight this project."
-          success: "You successfully contributed using credits."
         pay:
           credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
           echeck_description: "Back project %{project_name} with %{value} (plus fees)"
           paypal_description: "Back project %{project_name} with %{value} (plus fees)"
-          no_credits: "You don't have enough credits to help greenlight this project."
           success: "You successfully contributed. Thank you!"
     users:
       completeness_progress: 'Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       update:
         success: 'Your information has been updated!'
-      contributions:
-        request_refund:
-          refunded: "Refund request successfully done. Our team will contact you within two business days."
-          insufficient_credits: "You don't have enough credits to request this refund."
     channels_subscribers:
       created: 'You are now following %{channel}'
       deleted: 'You are no longer following %{channel}'
