@@ -1,43 +1,42 @@
-= cache [contribution, (current_user && current_user.admin?)], expires_in: 24.hours do
-  .large-6.small-6.columns.contribution-wrapper
-    .contribution[class="#{contribution.user.try(:profile_type)} #{'with-note' if contribution.short_note.present?}"]
-      .row.collapse
-        .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 7 : 4 }"]
-          - if contribution.anonymous
-            figure.profile-image.personal
-              = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
-          - else
-            = link_to user_path(contribution.user) do
-              - if contribution.user.organization? || contribution.user.channel?
-                = contribution.user.display_image_html width: 181, height: 85
-              - else
-                = contribution.user.display_image_html width: 85, height: 85
-        .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 5 : 8 }"]
-          .name
-            - if contribution.anonymous
-              = " #{t('.anonymous_contribution')}"
+.large-6.small-6.columns.contribution-wrapper
+  .contribution[class="#{contribution.user.try(:profile_type)} #{'with-note' if contribution.short_note.present?}"]
+    .row.collapse
+      .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 7 : 4 }"]
+        - if contribution.anonymous
+          figure.profile-image.personal
+            = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
+        - else
+          = link_to user_path(contribution.user) do
+            - if contribution.user.organization? || contribution.user.channel?
+              = contribution.user.display_image_html width: 181, height: 85
             - else
-              = link_to contribution.user.display_name, user_path(contribution.user)
-          .infos
-            - if !browser.mobile? && current_user && (current_user == @project.user || current_user.admin)
-              .custom-tooltip
-                = link_to '#' do
-                  i.icon-et-info-circled
-                .tooltip-content.hide
-                  .reward
-                    .value = contribution.display_value
-                    - if contribution.reward
-                      .user-reward
-                        = contribution.reward.display_minimum
-                        |  -
-                        = contribution.reward.description
-                    - else
-                      = t('.no_reward')
-                    .user_email = mail_to contribution.user.email
-            - if contribution.matched_contributions.size > 0
-              .matched-by
-                - matchers = contribution.matched_contributions.map {|c| c.matching.match.user.display_name }.uniq.to_sentence
-                = t('.matched_by', matchers: matchers)
+              = contribution.user.display_image_html width: 85, height: 85
+      .columns[class="large-#{ (contribution.user.organization? || contribution.user.channel?) ? 5 : 8 }"]
+        .name
+          - if contribution.anonymous
+            = " #{t('.anonymous_contribution')}"
+          - else
+            = link_to contribution.user.display_name, user_path(contribution.user)
+        .infos
+          - if !browser.mobile? && current_user && (current_user == @project.user || current_user.admin)
+            .custom-tooltip
+              = link_to '#' do
+                i.icon-et-info-circled
+              .tooltip-content.hide
+                .reward
+                  .value = contribution.display_value
+                  - if contribution.reward
+                    .user-reward
+                      = contribution.reward.display_minimum
+                      |  -
+                      = contribution.reward.description
+                  - else
+                    = t('.no_reward')
+                  .user_email = mail_to contribution.user.email
+          - if contribution.matched_contributions.size > 0
+            .matched-by
+              - matchers = contribution.matched_contributions.map {|c| c.matching.match.user.display_name }.uniq.to_sentence
+              = t('.matched_by', matchers: matchers)
 
-            - if contribution.short_note.present?
-              p = contribution.short_note
+          - if contribution.short_note.present?
+            p = contribution.short_note
