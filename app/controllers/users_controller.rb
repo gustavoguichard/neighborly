@@ -18,7 +18,6 @@ class UsersController < ApplicationController
 
   def edit
     authorize resource
-    @has_payment_configuration = PaymentEngine.engines.map(&:account_path).any?
     @user.build_organization unless @user.organization
     render :profile if request.xhr?
   end
