@@ -1,0 +1,26 @@
+= hero_header_tag @project, class: ('no-image' if browser.mobile?) do
+  .row
+    .large-12.columns
+      .name
+        h3 = @project.name
+        p
+          | Issued by 
+          = @project.user.display_name
+    .boxes.medium-8.large-7.columns.large-centered
+      .row
+        .small-6.medium-3.columns
+          .box
+            strong AA+
+            small Bond Rating
+        .small-6.medium-3.columns
+          .box
+            strong Fax Free
+            small Return
+        .small-6.medium-3.columns
+          .box
+            strong G.O.
+            small Credit Type
+        .small-6.medium-3.columns
+          .box
+            strong 2016-2018
+            small Serial Maturieties

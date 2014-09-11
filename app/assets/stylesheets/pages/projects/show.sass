@@ -1,20 +1,29 @@
 .project-page
   header.hero
+    min-height: +emCalc(200px)
     padding-top: 0
     padding-bottom: 0
     @media #{$medium}
       padding-top: +emCalc(25px)
-      padding-bottom: +emCalc(60px)
-      .name
-        padding-bottom: +emCalc(40px)
+      padding-bottom: +emCalc(25px)
     .name
       text-align: center
-    .name, .subtitle, .headline, .status
+      h3
+        padding-top: 0
       a
         color: lighten($primary-color, 30%)
         &:hover
           color: lighten($primary-color, 10%)
+
+    .boxes
+      .box
         margin-bottom: +emCalc(10px)
+        font-size: 110%
+        border: 1px solid rgba(#FFF, .6)
+        text-align: center
+        padding: +emCalc(10px)
+        background: rgba(#FFF, .2)
+        strong
           display: block
 
 
