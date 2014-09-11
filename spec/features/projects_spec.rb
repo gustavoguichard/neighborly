@@ -113,13 +113,6 @@ describe "Projects" do
         end
       end
 
-      describe '#comments' do
-        it 'should be able to click on comments tab' do
-           find("a[href='#{comments_project_path(project)}']").click
-           current_path.should == comments_project_path(project)
-        end
-      end
-
       describe '#faqs' do
         it 'should be able to click on faqs tab' do
            find("a[href='#{project_faqs_path(project)}']").click
