@@ -26,10 +26,6 @@ en:
       facebook: 'Share'
       email: 'Email'
       embed: 'Embed'
-    status_bar:
-      goal: 'Goal: %{value}'
-      total_contributions: '%{value} neighbors'
-      contribute: 'Contribute'
     tabs:
       about: 'About'
       updates: 'Updates'

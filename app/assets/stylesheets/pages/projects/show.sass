@@ -14,103 +14,14 @@
         color: lighten($primary-color, 30%)
         &:hover
           color: lighten($primary-color, 10%)
-    .time-remaining
-      font-size: 140%
-      padding-top: 12px
-      font-weight: 200
-      i
-        padding-right: +emCalc(10px)
-      strong
-        padding-right: +emCalc(2px)
-    .has-tip
-      border-bottom: none
-      color: white
-      font-weight: 200
-    h3
-      font-weight: bold
-    .status
-      .pledged
-        font-size: 160%
-        padding-top: +emCalc(10px)
         margin-bottom: +emCalc(10px)
-        small
-          font-size: 75%
-      .pledged.show-for-medium
-        font-size: 126%
-      .progress
-        margin-top: +emCalc(10px)
-        background: $secondary-color
-        +radius(10px)
-        height: +emCalc(20px)
-        span
           display: block
-          background: white
-          height: +emCalc(20px)
-          +radius(10px)
-        &.green-bar
-          span
-            border: 1px solid $border-color
-            background: lighten($primary-color, 30%)
-    .contribute-top
-      margin-top: +emCalc(25px)
 
-  section.status-bar
-    display: none
-    background: white
-    padding: +emCalc(20px, 0)
-    color: $secondary-color
-    border-bottom: 1px solid $border-color
 
-    @media #{$medium}
-      top: +emCalc(90px)
-
-    &.show
-      display: block
-    p
-      font-weight: 200
-      text-transform: lowercase
-      margin-bottom: 0
-      text-align: center
-      i
-        padding-right: +emCalc(5px)
-        opacity: .5
-    .columns:not(:first-child)
-      border-left: 1px solid $border-color
-    .button
-      width: 100%
-      margin-bottom: 0
-      margin-top: 0
-    .status-description
-      line-height: 1
-      font-size: 75%
-    .share-small
-      margin-top: 0
-      position: relative
-      padding-right: +emCalc(30px)
-      .columns
-        border: none
-      .button
-        background: white
-        color: $primary-color
-        border: 1px solid darken($border-color, 10%)
-        border-bottom-width: 2px
-        &:after
-          border-left-color: darken($border-color, 10%)
-        &.facebook
-          color: $facebook-color
-        &.twitter
-          color: $twitter-color
   .button
     &.contribute
       width: 100%
       font-size: 125%
-      padding-left: 0
-      &:after
-        content: ' '
-        background: image-url('icons/dollar-heart.png') center no-repeat
-        font-weight: 200
-        font-family: $body-font-family
-        padding-top: 5px
 
     &.edit
       background: $special-highlighted-color
