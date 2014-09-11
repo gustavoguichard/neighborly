@@ -4,6 +4,34 @@
 .project-page
   = render 'projects/hero'
 
+  .header
+    .row
+      .large-8.medium-8.columns.no-padding-for-small
+        .flex-video.widescreen.vimeo
+          iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+      .large-4.columns.medium-4.columns
+        - if @project.online? && !@project.expired?
+          = render 'projects/noscript'
+
+          = link_to t('.invest'), new_project_contribution_url(@project), class: "button invest"
+
+        p
+          strong Sale Date: 
+          | Bla bla bla
+        p
+          strong Minimum Investment: 
+          | $500
+        p
+          strong Issue Size: 
+          | $91,285.000
+        p
+          strong Category: 
+          = @project.category.name
+
+        p.disclosure
+          | *All informations presented is subject to change.
+          br/
+          | See official preliminary statement for more details.
 
   .row.page-main-content
     section.large-9.medium-8.columns.main
@@ -23,17 +51,8 @@
 
     aside.large-3.medium-4.columns.sidebar
       .call-to-action
-        - if @project.online? && !@project.expired?
-          = render 'projects/noscript'
-
-          = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute hide-for-small"
-          - if current_user && (current_user.organization? || current_user.channel? || current_user.admin?)
-            = link_to t('.create_match'), new_project_match_url(@project), class: "button with-icon create-match hide-for-small"
-        - else
-          .alert-box.secondary.status-description
-            = display_status(@project)
-
-        = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small' if policy(@project).update?
+        - if policy(@project).update?
+          = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small'
 
         = render 'projects/matches_aside' unless browser.mobile?
 
