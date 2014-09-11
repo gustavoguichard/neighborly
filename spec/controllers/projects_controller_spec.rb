@@ -97,13 +97,6 @@ describe ProjectsController do
     end
   end
 
-  describe 'GET comments' do
-    before do
-      get :comments, id: project
-    end
-    it { expect(response).to be_success }
-  end
-
   describe 'GET budget' do
     before do
       get :budget, id: project
