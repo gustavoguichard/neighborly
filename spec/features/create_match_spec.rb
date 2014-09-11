@@ -7,7 +7,7 @@ feature 'Create match' do
     login
   end
 
-  scenario 'generate new' do
+  pending 'generate new' do
     visit project_path(@project)
     click_on 'Create a Match'
 
