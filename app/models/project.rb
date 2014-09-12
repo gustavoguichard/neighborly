@@ -110,7 +110,7 @@ class Project < ActiveRecord::Base
     order(sort_field) if sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
   end
 
-  validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
+  validates :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
   validates_presence_of :name, :user, :category, :summary, :headline, :goal, :permalink, :location, :statement_file_url
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days

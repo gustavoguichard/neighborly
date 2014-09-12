@@ -7,8 +7,12 @@
   .header
     .row
       .large-8.medium-8.columns.no-padding-for-small
-        .flex-video.widescreen.vimeo
-          iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+        - if @project.video_url.present?
+          .flex-video.widescreen.vimeo
+            iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+        - else
+          = image_tag @project.display_image('large')
+
       .large-4.columns.medium-4.columns
         - if @project.online? && !@project.expired?
           = render 'projects/noscript'
@@ -23,7 +27,7 @@
           = number_to_currency @project.minimum_investment
         p
           strong Issue Size: 
-          = number_to_currency @project.goal
+          = number_to_currency @project.goal, precision: 0
         p
           strong Category: 
           = @project.category.name
