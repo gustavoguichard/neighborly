@@ -37,7 +37,7 @@
     section.large-9.medium-8.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
-      = render 'projects/matches'
+      /= render 'projects/matches'
       = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
       = render 'projects/tabs'
 
