@@ -98,7 +98,7 @@ en:
           hash_tag: 'A short hashtag that can be added to tweets and Facebook updates.'
           site: "Paste the full link to your project's website, if it has one."
           foundation_widget: 'If you want to use new widget on embed, check this!'
-          campaign_type: 'All or None: Fund only if the goal is met by the deadline. <br> Every Dollar Counts: Keep the funds whether or not goal is met.'
+          campaign_type: 'Every Dollar Counts: Keep the funds whether or not goal is met.'
           budget: 'Contributors feel most comfortable when you have a clear plan for how the proceeds will be spent. Briefly explain how the money will be used.'
           permalink: 'Automatically generated. You can edit this later.'
           headlinet: 'headlinet hint'

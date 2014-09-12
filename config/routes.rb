@@ -126,11 +126,7 @@ Neighborly::Application.routes.draw do
       end
     end
 
-    resources :contributions, controller: 'projects/contributions', except: :update do
-      member do
-        put 'credits_checkout'
-      end
-    end
+    resources :contributions, controller: 'projects/contributions', except: :update
 
     resources :matches, controller: 'projects/matches', except: %i(index update destroy)
   end
@@ -145,17 +141,12 @@ Neighborly::Application.routes.draw do
   resources :users, path: 'neighbors' do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
-    resources :contributions, controller: 'users/contributions', only: [:index] do
-      member do
-        get :request_refund
-      end
-    end
+    resources :contributions, controller: 'users/contributions', only: [:index]
 
     resources :authorizations, controller: 'users/authorizations', only: [:destroy]
     resources :unsubscribes, only: [:create]
     member do
       get :settings
-      get :credits
       get :payments
       get :edit
       put :update_email

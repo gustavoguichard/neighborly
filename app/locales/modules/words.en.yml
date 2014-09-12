@@ -16,7 +16,6 @@ en:
     accept_terms_html: 'I have read and accepted the %{link}.'
     terms: 'Terms of Service'
     see_more: 'See more'
-    credits: 'Credits'
     no_name: 'Unnamed'
     found_plural: 'Found'
     found_singular: 'Found'

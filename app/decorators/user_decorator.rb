@@ -47,10 +47,6 @@ class UserDecorator < Draper::Decorator
     truncate display_name, length: 42
   end
 
-  def display_credits
-    number_to_currency source.credits
-  end
-
   def display_total_of_contributions
     number_to_currency source.contributions.with_state('confirmed').sum(:value)
   end

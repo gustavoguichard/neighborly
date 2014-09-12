@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
+    :medium_name, :display_total_of_contributions, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :oauth_providers, through: :authorizations
   has_many :channels_subscribers
-  has_one :user_total
   has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
   has_one :channel
   has_one :organization, dependent: :destroy
@@ -89,29 +88,12 @@ class User < ActiveRecord::Base
     state :channel, value: 'channel'
   end
 
-  def self.contribution_totals
-    connection.select_one(
-      self.all.
-      joins(:user_total).
-      select('
-        count(DISTINCT user_id) as users,
-        count(*) as contributions,
-        sum(user_totals.sum) as contributed,
-        sum(user_totals.credits) as credits').
-      to_sql
-    ).reduce({}){|memo,el| memo.merge({ el[0].to_sym => BigDecimal.new(el[1] || '0') }) }
-  end
-
   def decorator
     @decorator ||= UserDecorator.new(self)
   end
 
-  def credits
-    user_total ? user_total.credits : 0.0
-  end
-
   def total_contributed_projects
-    user_total ? user_total.total_contributed_projects : 0
+    contributions.count('distinct project_id')
   end
 
   def facebook_id

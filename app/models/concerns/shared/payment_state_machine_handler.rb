@@ -8,7 +8,6 @@ module Shared::PaymentStateMachineHandler
       state :confirmed
       state :canceled
       state :refunded
-      state :requested_refund
       state :refunded_and_canceled
       state :deleted
 
@@ -32,14 +31,8 @@ module Shared::PaymentStateMachineHandler
         transition all - [:canceled] => :canceled
       end
 
-      event :request_refund do
-        transition confirmed: :requested_refund, if: ->(resource){
-          resource.user.credits >= resource.value && !resource.try(:credits)
-        }
-      end
-
       event :refund do
-        transition [:requested_refund, :confirmed] => :refunded
+        transition [:confirmed] => :refunded
       end
 
       event :hide do

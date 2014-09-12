@@ -54,23 +54,6 @@ class ProjectObserver < ActiveRecord::Observer
     from_draft_to_online(project)
   end
 
-  def from_online_to_failed(project)
-    notify_users(project)
-
-    project.contributions.with_state('waiting_confirmation').each do |contribution|
-      contribution.notify_owner(:pending_contribution_project_unsuccessful,
-                                { },
-                                project: project)
-    end
-
-    project.notify_owner(:project_unsuccessful, user_id: project.user.id)
-  end
-
-  def from_waiting_funds_to_failed(project)
-    from_online_to_failed(project)
-    notify_admin_that_project_reached_deadline(project)
-  end
-
   private
 
   def notify_new_draft_project(project)

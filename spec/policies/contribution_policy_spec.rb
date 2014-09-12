@@ -30,7 +30,7 @@ describe ContributionPolicy do
   shared_examples_for 'create permissions' do
     it_should_behave_like 'update permissions'
 
-    ['draft', 'deleted', 'rejected', 'successful', 'failed', 'waiting_funds'].each do |state|
+    ['draft', 'deleted', 'rejected', 'successful', 'waiting_funds'].each do |state|
       it "denies access if project is on #{state}" do
         contribution.project.update_attributes state: state
         expect(subject).not_to permit(user, contribution)
@@ -62,10 +62,6 @@ describe ContributionPolicy do
   permissions(:update?) { it_should_behave_like 'update permissions' }
 
   permissions(:edit?) { it_should_behave_like 'update permissions' }
-
-  permissions(:credits_checkout?) { it_should_behave_like 'update permissions' }
-
-  permissions(:request_refund?) { it_should_behave_like 'update permissions' }
 
   permissions(:pendent?) { it_should_behave_like 'change state permissions' }
 

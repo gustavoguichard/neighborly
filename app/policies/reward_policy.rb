@@ -30,6 +30,6 @@ class RewardPolicy < ApplicationPolicy
   end
 
   def project_finished?
-    record.project.failed? || record.project.successful?
+    record.project.successful?
   end
 end

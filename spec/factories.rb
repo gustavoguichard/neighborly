@@ -37,9 +37,13 @@ FactoryGirl.define do
     f.uploaded_image File.open("#{Rails.root}/spec/fixtures/image.png")
   end
 
-  factory :category do |f|
-    f.name_pt { generate(:name) }
-    f.name_en { generate(:name) }
+  factory :category do
+    ignore do
+      name { "Category ##{rand}" }
+    end
+
+    name_en { name }
+    name_pt { name }
   end
 
   factory :project do |f|
@@ -90,7 +94,6 @@ FactoryGirl.define do
     f.confirmed_at Time.now
     f.value 10.00
     f.state 'confirmed'
-    f.credits false
   end
 
   factory :payment_notification do |f|

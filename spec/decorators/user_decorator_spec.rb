@@ -123,11 +123,6 @@ describe UserDecorator do
     its(:medium_name) { should == 'My Name Is Lorem Ipsum Dolor Sit Amet A...' }
   end
 
-  describe "#display_credits" do
-    subject { create(:user) }
-    its(:display_credits) { should == '$0.00'}
-  end
-
   describe "#display_total_of_contributions" do
     subject { create(:user) }
     context "with confirmed contributions" do

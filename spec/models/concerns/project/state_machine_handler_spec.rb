@@ -108,15 +108,6 @@ describe Project::StateMachineHandler do
         its(:finish) { should be_false }
       end
 
-      context 'when project is expired and the sum of the pending contributions and confirmed contributions dont reached the goal' do
-        before do
-          create(:contribution, value: 100, project: subject, created_at: 2.days.ago)
-          subject.finish
-        end
-
-        its(:failed?) { should be_true }
-      end
-
       context 'when project is expired and have recent contributions without confirmation' do
         before do
           create(:contribution, value: 30_000, project: subject, state: 'waiting_confirmation')
@@ -133,14 +124,6 @@ describe Project::StateMachineHandler do
           subject.stub(:reached_goal?).and_return(true)
           subject.online_date = 2.weeks.ago
           subject.online_days = 0
-        end
-
-        context "when campaign type is all_or_none" do
-          before do
-            subject.finish
-          end
-
-          its(:successful?) { should be_true }
         end
 
         context "when campaign type is flexible" do
@@ -161,13 +144,6 @@ describe Project::StateMachineHandler do
           main_project.update_attributes state: 'waiting_funds'
         end
 
-        context "when project is all_or_none" do
-          before do
-            subject.finish
-          end
-          its(:successful?) { should be_false }
-        end
-
         context "when project is flexible" do
           before do
             main_project.update_attributes campaign_type: 'flexible'
@@ -175,46 +151,6 @@ describe Project::StateMachineHandler do
           end
 
           its(:successful?) { should be_false }
-        end
-      end
-
-      context 'when project not hit the goal' do
-        let(:user) { create(:user) }
-        let(:contribution) { create(:contribution, state: 'pending', project: main_project, user: user, value: 20, payment_token: 'ABC') }
-
-        before do
-          contribution
-          subject.online_date = 2.weeks.ago
-          subject.online_days = 0
-        end
-
-        context "when project is all_or_none" do
-          before do
-            subject.finish
-          end
-
-          its(:failed?) { should be_true }
-
-          it "should generate credits for users" do
-            contribution.confirm!
-            user.reload
-            user.credits.should == 20
-          end
-        end
-
-        context "when project is flexible" do
-          before do
-            subject.update_attributes campaign_type: 'flexible'
-            subject.finish
-          end
-
-          its(:failed?) { should be_false }
-
-          it "should generate credits for users" do
-            contribution.confirm!
-            user.reload
-            user.credits.should == 0
-          end
         end
       end
     end

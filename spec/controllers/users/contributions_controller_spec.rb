@@ -18,7 +18,6 @@ describe Users::ContributionsController do
     unconfirmed_contribution
     other_back
     successful_project.update_attributes state: 'successful'
-    failed_project.update_attributes state: 'failed'
   end
 
   describe "GET index" do
@@ -29,59 +28,5 @@ describe Users::ContributionsController do
     end
 
     its(:status){ should == 200 }
-  end
-
-  describe "POST request_refund" do
-    before do
-      ContributionObserver.any_instance.stub(:notify_backoffice)
-    end
-
-    context "without user" do
-      let(:current_user){ nil }
-      before { post :request_refund, { user_id: user.id, id: failed_contribution.id } }
-
-      it "should not set requested_refund" do
-        failed_contribution.reload
-        failed_contribution.requested_refund?.should be_false
-      end
-      it{ should redirect_to new_user_session_path }
-    end
-
-    context "when current_user have a confirmed contribution" do
-      let(:current_user) { user }
-      before { post :request_refund, { user_id: user.id, id: failed_contribution.id } }
-
-      it do
-        failed_contribution.reload
-        failed_contribution.requested_refund?.should be_true
-      end
-
-      it { should redirect_to credits_user_path(current_user) }
-    end
-
-    context "when current_user have a unconfirmed contribution" do
-      let(:current_user) { user }
-      before { post :request_refund, { user_id: user.id, id: unconfirmed_contribution.id } }
-
-      it do
-        unconfirmed_contribution.reload
-        unconfirmed_contribution.requested_refund?.should be_false
-      end
-
-      it { should redirect_to credits_user_path(current_user) }
-    end
-
-    context "when current_user is not owner of the contribution" do
-      let(:current_user) { create(:user) }
-      let(:user) { other_back.user }
-      before { post :request_refund, { user_id: user.id, id: other_back.id } }
-
-      it do
-        other_back.reload
-        other_back.requested_refund?.should be_false
-      end
-
-      it { should redirect_to root_path }
-    end
   end
 end

@@ -11,17 +11,6 @@ class Users::ContributionsController < ApplicationController
     index!
   end
 
-  def request_refund
-    authorize resource
-    if resource.value > resource.user.user_total.credits || !resource.request_refund
-      flash.alert = I18n.t('controllers.users.contributions.request_refund.insufficient_credits')
-    else
-      flash.notice = I18n.t('controllers.users.contributions.request_refund.refunded')
-    end
-
-    redirect_to credits_user_path(parent)
-  end
-
   protected
   def policy_scope(scope)
     @_policy_scoped = true

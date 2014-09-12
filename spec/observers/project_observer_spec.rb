@@ -58,62 +58,6 @@ describe ProjectObserver do
     end
   end
 
-  describe '#from_online_to_failed' do
-    let(:project) do
-      create(:project, goal: 30, online_days: -7, state: 'online')
-    end
-
-    let!(:contribution) do
-      create(:contribution,
-             project: project,
-             state: 'confirmed',
-             confirmed_at: Time.now,
-             value: 20)
-    end
-
-    before { project.update_attributes state: 'waiting_funds' }
-
-    it 'notifies the project contributors and owner' do
-      expect(Notification).to receive(:notify_once).at_least(2)
-      project.finish!
-    end
-
-    context 'when with pending contributions' do
-      before do
-        project.update_attributes state: 'online'
-        create(:contribution, project: project, value: 20, state: 'pending')
-        project.update_attributes state: 'waiting_funds'
-      end
-
-      it 'ignores the pending contribution' do
-        expect(Notification).to receive(:notify_once).at_least(2)
-        project.finish!
-      end
-    end
-  end
-
-  describe '#from_waiting_funds_to_failed' do
-    let(:project) do
-      create(:project, goal: 30, online_days: -7, state: 'waiting_funds')
-    end
-
-    it 'calls from_online_to_failed' do
-      expect_any_instance_of(
-        ProjectObserver
-      ).to receive(:from_online_to_failed).with(project)
-
-      project.finish!
-    end
-
-    it 'calls notify_admin_that_project_reached_deadline' do
-      expect_any_instance_of(
-        ProjectObserver
-      ).to receive(:notify_admin_that_project_reached_deadline).with(project)
-
-      project.finish!
-    end
-  end
-
   describe '#from_draft_to_soon' do
     before { project.update_attributes state: 'draft' }
 

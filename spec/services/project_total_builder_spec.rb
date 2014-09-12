@@ -13,14 +13,13 @@ describe ProjectTotalBuilder do
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'confirmed', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'waiting_confirmation', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'refunded', project_id: project.id)
-    create(:contribution, value: 10.0, payment_service_fee: 1, state: 'requested_refund', project_id: project.id)
   end
 
   describe "#pledged" do
     before { prepopulate_db }
 
     subject { described_class.new(project).attributes[:pledged] }
-    it { should == 40 }
+    it { should == 30 }
   end
 
   describe 'progress' do
@@ -54,19 +53,19 @@ describe ProjectTotalBuilder do
   describe "#total_contributions" do
     before  { prepopulate_db }
     subject { described_class.new(project).attributes[:total_contributions] }
-    it{ should == 4 }
+    it{ should == 3 }
   end
 
   describe "#total_contributions_without_matches" do
     before  { prepopulate_db }
     subject { described_class.new(project).attributes[:total_contributions_without_matches] }
-    it{ should == 3 }
+    it{ should == 2 }
   end
 
   describe "#total_payment_service_fee" do
     before  { prepopulate_db }
     subject { described_class.new(project).attributes[:total_payment_service_fee] }
-    it { should == 3 }
+    it { should == 2 }
   end
 
   describe 'net amount' do

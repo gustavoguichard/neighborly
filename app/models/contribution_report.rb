@@ -62,7 +62,7 @@ class ContributionReport
 
   def self.contributions(project = nil)
     collection = project.try(:contributions) || Contribution
-    @contributions ||= collection.with_state(:confirmed, :refunded, :requested_refund).
+    @contributions ||= collection.with_state(:confirmed, :refunded).
       map do |contribution|
       new(contribution)
     end

@@ -12,6 +12,12 @@ module FeatureHelpers
   def current_user
     @user ||= FactoryGirl.create(:user, password: 'test123', password_confirmation: 'test123')
   end
+
+  def logout
+    within '#user-dropdown' do
+      click_on 'Log out'
+    end
+  end
 end
 
 RSpec.configure do |config|

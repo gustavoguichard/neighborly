@@ -58,23 +58,6 @@ class Projects::ContributionsController < ApplicationController
     end
   end
 
-  def credits_checkout
-    @contribution = resource
-    authorize resource
-    if current_user.credits < @contribution.value
-      flash.alert = t('controllers.projects.contributions.credits_checkout.no_credits')
-      return redirect_to new_project_contribution_path(@contribution.project)
-    end
-
-    unless @contribution.confirmed?
-      @contribution.update_attributes({ payment_method: 'Credits' })
-      @contribution.confirm!
-    end
-
-    flash.notice = t('controllers.projects.contributions.credits_checkout.success')
-    redirect_to project_contribution_path(parent, resource)
-  end
-
   protected
 
   def permitted_params

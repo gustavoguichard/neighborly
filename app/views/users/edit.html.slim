@@ -18,7 +18,6 @@
             li = tab_link_to t('.tabs.my_campaigns'), user_projects_path(@user)
           - if @user.contributions.any?
             li = tab_link_to t('.tabs.ive_contributed'), user_contributions_path(@user)
-          li = tab_link_to t('.tabs.credits'), credits_user_path(@user)
           - if PaymentEngine.engines.map(&:account_path).any?
             li = tab_link_to t('.tabs.payments'), payments_user_path(@user)
           li = tab_link_to t('.tabs.settings'), settings_user_path(@user)

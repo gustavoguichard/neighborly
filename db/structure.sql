@@ -86,7 +86,6 @@ CREATE TABLE contributions (
     updated_at timestamp without time zone,
     anonymous boolean DEFAULT false,
     key text,
-    credits boolean DEFAULT false,
     notified_finish boolean DEFAULT false,
     payment_method text,
     payment_token text,
@@ -128,24 +127,6 @@ CREATE FUNCTION can_cancel(contributions) RETURNS boolean
               from generate_series($1.created_at::date, current_date, '1 day') day
               WHERE extract(dow from day) not in (0,1)
             )  > 6
-          )
-      $_$;
-
-
---
--- Name: can_refund(contributions); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION can_refund(contributions) RETURNS boolean
-    LANGUAGE sql
-    AS $_$
-        select
-          $1.state IN('confirmed', 'requested_refund', 'refunded') AND
-          NOT $1.credits AND
-          EXISTS(
-            SELECT true
-              FROM projects p
-              WHERE p.id = $1.project_id and p.state = 'failed'
           )
       $_$;
 
@@ -2033,30 +2014,6 @@ CREATE SEQUENCE updates_id_seq
 --
 
 ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
-
-
---
--- Name: user_totals; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW user_totals AS
- SELECT b.user_id AS id,
-    b.user_id,
-    count(DISTINCT b.project_id) AS total_contributed_projects,
-    sum(b.value) AS sum,
-    count(*) AS count,
-    sum(
-        CASE
-            WHEN (((p.state)::text <> 'failed'::text) AND (NOT b.credits)) THEN (0)::numeric
-            WHEN (((p.state)::text = 'failed'::text) AND b.credits) THEN (0)::numeric
-            WHEN (((p.state)::text = 'failed'::text) AND ((((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])) AND (NOT b.credits)) OR (b.credits AND (NOT ((b.state)::text = ANY ((ARRAY['requested_refund'::character varying, 'refunded'::character varying])::text[])))))) THEN (0)::numeric
-            WHEN ((((p.state)::text = 'failed'::text) AND (NOT b.credits)) AND ((b.state)::text = 'confirmed'::text)) THEN b.value
-            ELSE (b.value * ((-1))::numeric)
-        END) AS credits
-   FROM (contributions b
-     JOIN projects p ON ((b.project_id = p.id)))
-  WHERE ((b.state)::text = ANY ((ARRAY['confirmed'::character varying, 'requested_refund'::character varying, 'refunded'::character varying])::text[]))
-  GROUP BY b.user_id;
 
 
 --
@@ -4047,4 +4004,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140822150920');
 INSERT INTO schema_migrations (version) VALUES ('20140827181425');
 
 INSERT INTO schema_migrations (version) VALUES ('20140829195912');
+
+INSERT INTO schema_migrations (version) VALUES ('20140909220324');
 

@@ -52,10 +52,6 @@ describe Contribution::CustomValidators do
       let(:contribution){ build(:contribution, project: unfinished_project) }
       it{ should be_valid }
     end
-    context "when project is failed" do
-      let(:contribution){ build(:contribution, project: create(:project, state: 'failed')) }
-      it{ should_not be_valid }
-    end
   end
 
   describe "#should_not_back_if_maximum_contributions_been_reached" do

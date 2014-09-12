@@ -22,12 +22,6 @@ class UsersController < ApplicationController
     render :profile if request.xhr?
   end
 
-  def credits
-    authorize resource
-    @title = "Credits: #{@user.display_name}"
-    @credits = @user.contributions.can_refund
-  end
-
   def payments
     authorize resource
   end

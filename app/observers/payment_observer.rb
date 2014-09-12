@@ -15,10 +15,6 @@ class PaymentObserver < ActiveRecord::Observer
     notification_for_backoffice(resource, :payment_canceled_after_confirmed)
   end
 
-  def from_confirmed_to_requested_refund(resource)
-    notification_for_backoffice(resource, :refund_request)
-  end
-
   private
 
   def notify_confirmation(resource)

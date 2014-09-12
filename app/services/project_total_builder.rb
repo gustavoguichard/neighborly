@@ -23,7 +23,7 @@ class ProjectTotalBuilder
   private
 
   def contributions
-    @project.contributions.with_state(:confirmed, :refunded, :requested_refund)
+    @project.contributions.with_state(:confirmed, :refunded)
   end
 
   def net_amount

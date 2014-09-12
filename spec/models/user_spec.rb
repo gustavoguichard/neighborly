@@ -18,7 +18,6 @@ describe User do
     it{ should have_many :authorizations }
     it{ should have_many(:oauth_providers).through(:authorizations) }
     it{ should have_many :channels_subscribers }
-    it{ should have_one :user_total }
     it{ should have_and_belong_to_many :subscriptions }
     it{ should have_one :channel }
     it{ should have_one :organization }
@@ -86,33 +85,6 @@ describe User do
     it{ should == [@contribution.user] }
   end
 
-  describe ".contribution_totals" do
-    before do
-      create(:contribution, state: 'confirmed', value: 100, credits: false, project: successful_project)
-      create(:contribution, state: 'confirmed', value: 50, credits: false, project: successful_project)
-      @user = create(:contribution, state: 'confirmed', value: 25, project: failed_project).user
-      failed_project.update_attributes state: 'failed'
-      successful_project.update_attributes state: 'successful'
-      @user.save!
-      @u = create(:user)
-    end
-
-    context "when we call upon user without contributions" do
-      subject{ User.where(id: @u.id).contribution_totals }
-      it{ should == {users: 0.0, contributions: 0.0, contributed: 0.0, credits: 0.0} }
-    end
-
-    context "when we call without scopes" do
-      subject{ User.contribution_totals }
-      it{ should == {users: 3.0, contributions: 3.0, contributed: 175.0, credits: 25.0} }
-    end
-
-    context "when we call with scopes" do
-      subject{ User.where(id: @user.id).contribution_totals }
-      it{ should == {users: 1.0, contributions: 1.0, contributed: 25.0, credits: 25.0} }
-    end
-  end
-
   describe ".create" do
     subject do
       User.create! do |u|
@@ -139,26 +111,6 @@ describe User do
     end
 
     it { should == 2}
-  end
-
-  describe "#credits" do
-    before do
-      @u = create(:user)
-      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: successful_project)
-      create(:contribution, state: 'confirmed', credits: false, value: 100, user_id: @u.id, project: unfinished_project)
-      create(:contribution, state: 'confirmed', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: successful_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 50, user_id: @u.id, project: unfinished_project)
-      create(:contribution, state: 'confirmed', credits: true, value: 100, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'requested_refund', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      create(:contribution, state: 'refunded', credits: false, value: 200, user_id: @u.id, project: failed_project)
-      failed_project.update_attributes state: 'failed'
-      successful_project.update_attributes state: 'successful'
-    end
-
-    subject{ @u.credits }
-
-    it{ should == 50.0 }
   end
 
   describe "#recommended_project" do
