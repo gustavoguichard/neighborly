@@ -38,7 +38,23 @@ en:
       definition: '<b>DEFINITION:</b>'
       rating: '<b>RATING:</b>'
       rating_agency: '<b>AGENCY:</b>'
-      rating_definition_aa_plus: 'BLA BLA BLA'
+      rating_definitions:
+        - 'An obligor has EXTREMELY STRONG capacity to meet its financial commitments.'
+        - 'An obligor has VERY STRONG capacity to meet its financial commitments. It differs from the highest rated obligors only in small degree.'
+        - 'An obligor has VERY STRONG capacity to meet its financial commitments. It differs from the highest rated obligors only in small degree.'
+        - 'An obligor has VERY STRONG capacity to meet its financial commitments. It differs from the highest rated obligors only in small degree.'
+        - 'An obligor has STRONG capacity to meet its financial commitments but is somewhat more susceptible to the adverse effects of changes in circumstances and economic conditions than obligors in higher-rated categories.'
+        - 'An obligor has STRONG capacity to meet its financial commitments but is somewhat more susceptible to the adverse effects of changes in circumstances and economic conditions than obligors in higher-rated categories.'
+        - 'An obligor has STRONG capacity to meet its financial commitments but is somewhat more susceptible to the adverse effects of changes in circumstances and economic conditions than obligors in higher-rated categories.'
+        - 'An obligor has ADEQUATE capacity to meet its financial commitments. However, adverse economic conditions or changing circumstances are more likely to lead to a weakened capacity of the obligor to meet its financial commitments.'
+        - 'An obligor has ADEQUATE capacity to meet its financial commitments. However, adverse economic conditions or changing circumstances are more likely to lead to a weakened capacity of the obligor to meet its financial commitments.'
+        - 'An obligor has ADEQUATE capacity to meet its financial commitments. However, adverse economic conditions or changing circumstances are more likely to lead to a weakened capacity of the obligor to meet its financial commitments.'
+        - "An obligor is LESS VULNERABLE in the near term than other lower-rated obligors. However, it faces major ongoing uncertainties and exposure to adverse business, financial, or economic conditions which could lead to the obligor's inadequate capacity to meet its financial commitments."
+        - "An obligor is LESS VULNERABLE in the near term than other lower-rated obligors. However, it faces major ongoing uncertainties and exposure to adverse business, financial, or economic conditions which could lead to the obligor's inadequate capacity to meet its financial commitments."
+        - "An obligor is LESS VULNERABLE in the near term than other lower-rated obligors. However, it faces major ongoing uncertainties and exposure to adverse business, financial, or economic conditions which could lead to the obligor's inadequate capacity to meet its financial commitments."
+        - "An obligor is MORE VULNERABLE than the obligors rated 'BB', but the obligor currently has the capacity to meet its financial commitments. Adverse business, financial, or economic conditions will likely impair the obligor's capacity or willingness to meet its financial commitments."
+        - "An obligor is MORE VULNERABLE than the obligors rated 'BB', but the obligor currently has the capacity to meet its financial commitments. Adverse business, financial, or economic conditions will likely impair the obligor's capacity or willingness to meet its financial commitments."
+        - "An obligor is MORE VULNERABLE than the obligors rated 'BB', but the obligor currently has the capacity to meet its financial commitments. Adverse business, financial, or economic conditions will likely impair the obligor's capacity or willingness to meet its financial commitments."
       yield: '<b>TAX EXEMPT YIELD:</b>'
       yield_definition: 'Yields made on these bonds are <br /> exempt from federal tax and most state taxes.'
       credit_type: '<b>CREDIT TYPE:</b>'

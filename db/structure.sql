@@ -189,6 +189,7 @@ CREATE TABLE projects (
     rating integer,
     rating_agency character varying(255),
     statement_file_url character varying(255) NOT NULL,
+    tax_exempt_yield numeric DEFAULT 0 NOT NULL,
     CONSTRAINT projects_about_not_blank CHECK ((length(btrim(summary)) > 0)),
     CONSTRAINT projects_headline_length_within CHECK (((length(headline) >= 1) AND (length(headline) <= 140))),
     CONSTRAINT projects_headline_not_blank CHECK ((length(btrim(headline)) > 0))
@@ -1105,7 +1106,8 @@ CREATE VIEW projects_for_home AS
             featureds.minimum_investment,
             featureds.rating,
             featureds.rating_agency,
-            featureds.statement_file_url
+            featureds.statement_file_url,
+            featureds.tax_exempt_yield
            FROM projects featureds
           WHERE (featureds.featured AND ((featureds.state)::text = 'online'::text))
          LIMIT 1
@@ -1163,7 +1165,8 @@ CREATE VIEW projects_for_home AS
             recommends.minimum_investment,
             recommends.rating,
             recommends.rating_agency,
-            recommends.statement_file_url
+            recommends.statement_file_url,
+            recommends.tax_exempt_yield
            FROM projects recommends
           WHERE (((recommends.recommended AND ((recommends.state)::text = 'online'::text)) AND recommends.home_page) AND (NOT (recommends.id IN ( SELECT featureds.id
                    FROM featured_projects featureds))))
@@ -1223,7 +1226,8 @@ CREATE VIEW projects_for_home AS
             expiring.minimum_investment,
             expiring.rating,
             expiring.rating_agency,
-            expiring.statement_file_url
+            expiring.statement_file_url,
+            expiring.tax_exempt_yield
            FROM projects expiring
           WHERE (((((expiring.state)::text = 'online'::text) AND (expires_at(expiring.*) <= (now() + '14 days'::interval))) AND expiring.home_page) AND (NOT (expiring.id IN ( SELECT recommends.id
                    FROM recommended_projects recommends
@@ -1286,7 +1290,8 @@ CREATE VIEW projects_for_home AS
             soon.minimum_investment,
             soon.rating,
             soon.rating_agency,
-            soon.statement_file_url
+            soon.statement_file_url,
+            soon.tax_exempt_yield
            FROM projects soon
           WHERE ((((soon.state)::text = 'soon'::text) AND soon.home_page) AND (soon.uploaded_image IS NOT NULL))
           ORDER BY random()
@@ -1345,7 +1350,8 @@ CREATE VIEW projects_for_home AS
             successful.minimum_investment,
             successful.rating,
             successful.rating_agency,
-            successful.statement_file_url
+            successful.statement_file_url,
+            successful.tax_exempt_yield
            FROM projects successful
           WHERE (((successful.state)::text = 'successful'::text) AND successful.home_page)
           ORDER BY random()
@@ -1404,7 +1410,8 @@ CREATE VIEW projects_for_home AS
     featured_projects.minimum_investment,
     featured_projects.rating,
     featured_projects.rating_agency,
-    featured_projects.statement_file_url
+    featured_projects.statement_file_url,
+    featured_projects.tax_exempt_yield
    FROM featured_projects
 UNION
  SELECT recommended_projects.origin,
@@ -1460,7 +1467,8 @@ UNION
     recommended_projects.minimum_investment,
     recommended_projects.rating,
     recommended_projects.rating_agency,
-    recommended_projects.statement_file_url
+    recommended_projects.statement_file_url,
+    recommended_projects.tax_exempt_yield
    FROM recommended_projects
 UNION
  SELECT expiring_projects.origin,
@@ -1516,7 +1524,8 @@ UNION
     expiring_projects.minimum_investment,
     expiring_projects.rating,
     expiring_projects.rating_agency,
-    expiring_projects.statement_file_url
+    expiring_projects.statement_file_url,
+    expiring_projects.tax_exempt_yield
    FROM expiring_projects
 UNION
  SELECT soon_projects.origin,
@@ -1572,7 +1581,8 @@ UNION
     soon_projects.minimum_investment,
     soon_projects.rating,
     soon_projects.rating_agency,
-    soon_projects.statement_file_url
+    soon_projects.statement_file_url,
+    soon_projects.tax_exempt_yield
    FROM soon_projects
 UNION
  SELECT successful_projects.origin,
@@ -1628,7 +1638,8 @@ UNION
     successful_projects.minimum_investment,
     successful_projects.rating,
     successful_projects.rating_agency,
-    successful_projects.statement_file_url
+    successful_projects.statement_file_url,
+    successful_projects.tax_exempt_yield
    FROM successful_projects;
 
 

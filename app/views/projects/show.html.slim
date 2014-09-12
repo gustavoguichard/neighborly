@@ -17,13 +17,13 @@
 
         p
           strong Sale Date: 
-          | Bla bla bla
+          = l @project.sale_date
         p
           strong Minimum Investment: 
-          | $500
+          = number_to_currency @project.minimum_investment
         p
           strong Issue Size: 
-          | $91,285.000
+          = number_to_currency @project.goal
         p
           strong Category: 
           = @project.category.name

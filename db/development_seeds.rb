@@ -21,6 +21,7 @@ def generate_project(fields = {})
    p = Project.create!({ user: User.where(email: 'org@org.com').first,
                      category: Category.order('RANDOM()').limit(1).first,
                      name: Faker::Lorem.sentence(2),
+                     statement_file_url: 'http://example.com/statement.pdf',
                      summary: Faker::Lorem.paragraph(10),
                      headline: Faker::Lorem.sentence,
                      goal: [40000, 73000, 1000, 50000, 100000].shuffle.first,

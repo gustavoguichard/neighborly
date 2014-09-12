@@ -10,20 +10,20 @@
       .row
         .small-6.medium-3.columns
           .box
-            span[data-tooltip class="has-tip" title="#{t('.rating')} AA+ <br />#{t('.rating_agency')} Fitch <br />#{t('.definition')} #{t('.rating_definition_aa_plus')}"]
-              strong AA+
+            span[data-tooltip class="has-tip" title="#{t('.rating')} #{@project.rating} <br />#{t('.rating_agency')} #{@project.rating_agency} <br />#{t('.definition')} #{t('.rating_definitions')[Project.ratings[@project.rating]]}"]
+              strong = @project.rating
               small Bond Rating
             .tooltip-content.hide
               p bla bla bla
         .small-6.medium-3.columns
           .box
-            span[data-tooltip class="has-tip" title="#{t('.yield')} 1555555555% <br />#{t('.definition')} #{t('.yield_definition')}"]
+            span[data-tooltip class="has-tip" title="#{t('.yield')} #{@project.display_tax_exempt_yield} <br />#{t('.definition')} #{t('.yield_definition')}"]
               strong Tax Free
               small Return
         .small-6.medium-3.columns
           .box
-            span[data-tooltip class="has-tip" title="#{t('.credit_type')} General Obligation <br />#{t('.definition')} #{t('.credit_type_definition_general_obligation')}"]
-              strong G.O.
+            span[data-tooltip class="has-tip" title="#{t('.credit_type')} #{t("project.credit_type.#{@project.credit_type}.name")} <br />#{t('.definition')} #{t(".credit_type_definition_#{@project.credit_type}")}"]
+              strong = t("project.credit_type.#{@project.credit_type}.abbr")
               small Credit Type
         .small-6.medium-3.columns
           .box

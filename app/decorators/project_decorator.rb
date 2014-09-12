@@ -95,6 +95,10 @@ class ProjectDecorator < Draper::Decorator
     I18n.t("project.organization_type.#{source.organization_type}")
   end
 
+  def display_tax_exempt_yield
+    source.tax_exempt_yield.to_s + '%'
+  end
+
   private
 
   def use_uploaded_image(version)

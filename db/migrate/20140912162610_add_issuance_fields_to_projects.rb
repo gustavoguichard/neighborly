@@ -5,6 +5,7 @@ class AddIssuanceFieldsToProjects < ActiveRecord::Migration
     add_column :projects, :rating, :integer
     add_column :projects, :rating_agency, :string
     add_column :projects, :statement_file_url, :string, null: false
+    add_column :projects, :tax_exempt_yield, :decimal, null: false, default: 0
     rename_column :projects, :about, :summary
     rename_column :projects, :about_html, :summary_html
     rename_column :projects, :about_textile, :summary_textile
