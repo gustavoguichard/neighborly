@@ -47,7 +47,7 @@
 
           .share.row
             .large-6.columns
-              = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{project.name}&p[summary]=#{project.headline}&p[url]=#{project_url(project)}&p[images[0]=#{project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+              = link_to t('.share.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{project.name}&p[summary]=#{project.headline}&p[url]=#{project_url(project)}&p[images[0]=#{project.display_image('large')}", class: 'button with-icon facebook', target: :blank
             .large-6.columns
               = link_to t('.share.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: project.name, hash_tag: project.hash_tag))}", class: 'button with-icon twitter', target: :blank
 

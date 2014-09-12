@@ -25,15 +25,16 @@ describe ProjectUploader do
     it{ should have_dimensions(85, 67) }
   end
 
-  describe '#project_thumb_facebook' do
-    subject{ @uploader.project_thumb_facebook }
-    it{ should have_dimensions(512, 400) }
-  end
-
   describe '#project_thumb_large' do
     subject{ @uploader.project_thumb_large }
     it{ should have_dimensions(495, 335) }
   end
+
+  describe '#large' do
+    subject{ @uploader.large }
+    it{ should have_dimensions(750, 422) }
+  end
+
   describe "#store_dir" do
     subject{ @uploader.store_dir }
     it{ should == "uploads/project/uploaded_image/#{project.id}" }

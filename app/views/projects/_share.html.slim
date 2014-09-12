@@ -2,7 +2,7 @@
   - embed = true
 .row
   .columns[class="large-#{ embed ? 4 : 6 }"]
-    = link_to t('.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('project_thumb_facebook')}", class: 'button with-icon facebook', target: :blank
+    = link_to t('.facebook'), "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('large')}", class: 'button with-icon facebook', target: :blank
   .columns[class="large-#{ embed ? 4 : 6 }"]
     = link_to t('.twitter'), "https://twitter.com/intent/tweet?text=#{URI::encode(t('.twitter-text', name: @project.name, hash_tag: @project.hash_tag, project_url: project_url(@project)))}", class: 'button with-icon twitter', target: :blank
   - if embed
