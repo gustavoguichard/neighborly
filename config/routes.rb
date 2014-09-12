@@ -144,7 +144,6 @@ Neighborly::Application.routes.draw do
     resources :contributions, controller: 'users/contributions', only: [:index]
 
     resources :authorizations, controller: 'users/authorizations', only: [:destroy]
-    resources :unsubscribes, only: [:create]
     member do
       get :settings
       get :payments

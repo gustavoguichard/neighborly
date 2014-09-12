@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :notifications
   has_many :updates
-  has_many :unsubscribes
   has_many :authorizations
   has_many :oauth_providers, through: :authorizations
   has_many :channels_subscribers
@@ -46,7 +45,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :authorizations
   accepts_nested_attributes_for :channel
   accepts_nested_attributes_for :organization
-  accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
   accepts_nested_attributes_for :investment_prospect
 
   pg_search_scope :pg_search, against: [
@@ -68,18 +66,6 @@ class User < ActiveRecord::Base
 
   scope :who_contributed_project, ->(project_id) {
     where("id IN (SELECT user_id FROM contributions WHERE contributions.state = 'confirmed' AND project_id = ?)", project_id)
-  }
-
-  scope :subscribed_to_updates, -> {
-     where("id NOT IN (
-       SELECT user_id
-       FROM unsubscribes
-       WHERE project_id IS NULL)")
-   }
-
-  scope :subscribed_to_project, ->(project_id) {
-    who_contributed_project(project_id).
-    where("id NOT IN (SELECT user_id FROM unsubscribes WHERE project_id = ?)", project_id)
   }
 
   state_machine :profile_type, initial: :personal do
@@ -108,16 +94,6 @@ class User < ActiveRecord::Base
 
   def total_contributions
     contributions.with_state('confirmed').not_anonymous.count
-  end
-
-  def updates_subscription
-    unsubscribes.updates_unsubscribe(nil)
-  end
-
-  def project_unsubscribes
-    Project.contributed_by(self).map do |p|
-      unsubscribes.updates_unsubscribe(p.id)
-    end
   end
 
   def projects_led

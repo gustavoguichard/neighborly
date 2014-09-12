@@ -19,25 +19,6 @@
         = f.input :new_project
         p = f.button :submit, t('.update_communication_preferences'), data: { disable_with: t('words.sending') }
 
-    = simple_form_for(@user, url: user_unsubscribes_path(user_id: @user.id), html:{ method: :post}) do |f|
-      .large-8.columns
-        .row
-          .large-12.columns
-            h3= t('.unsubscribes.title')
-            = f.fields_for :unsubscribes, @subscribed_to_updates do |u|
-              - u.object.created_at.nil? ? (checked = { checked: 'checked' }) : (checked = {})
-              = u.input :subscribed, as: :boolean, input_html: checked, label: t('.unsubscribes.updates')
-          - if @unsubscribes
-            .large-11.columns.offset-1
-              = f.fields_for :unsubscribes, @unsubscribes do |u|
-                - u.object.created_at.nil? ? (checked = { checked: 'checked' }) : (checked = {})
-                .subscribed_projects
-                  = u.input :subscribed, as: :boolean, input_html: {id: "user_unsubscribes_#{u.object.project_id}"}.merge(checked), label: Project.find(u.object.project_id).name
-                = u.input :project_id, as: :hidden
-                = u.input :user_id, as: :hidden
-
-        = f.button :submit, t('.unsubscribes.submit'), data: { disable_with: t('words.sending') }
-
 - if request.xhr?
   = yield :page_content
 - else

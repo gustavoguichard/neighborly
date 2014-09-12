@@ -14,7 +14,6 @@ describe User do
     it{ should have_many :projects }
     it{ should have_many :notifications }
     it{ should have_many :updates }
-    it{ should have_many :unsubscribes }
     it{ should have_many :authorizations }
     it{ should have_many(:oauth_providers).through(:authorizations) }
     it{ should have_many :channels_subscribers }
@@ -121,27 +120,6 @@ describe User do
       create(:contribution, state: 'confirmed', user: user, project: other_contribution.project)
     end
     it{ should == [unfinished_project]}
-  end
-
-  describe "#updates_subscription" do
-    subject{user.updates_subscription}
-    context "when user is subscribed to all projects" do
-      it{ should be_new_record }
-    end
-    context "when user is unsubscribed from all projects" do
-      before { @u = create(:unsubscribe, project_id: nil, user_id: user.id )}
-      it{ should == @u}
-    end
-  end
-
-  describe "#project_unsubscribes" do
-    subject{user.project_unsubscribes}
-    before do
-      @p1 = create(:project)
-      create(:contribution, user: user, project: @p1)
-      @u1 = create(:unsubscribe, project_id: @p1.id, user_id: user.id )
-    end
-    it{ should == [@u1]}
   end
 
   describe "#facebook_id" do

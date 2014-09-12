@@ -40,7 +40,6 @@ class Project < ActiveRecord::Base
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_and_belongs_to_many :channels
-  has_many :unsubscribes
 
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents

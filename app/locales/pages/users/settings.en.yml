@@ -6,7 +6,3 @@ en:
       save_password: 'Save my new password'
       communication_preferences: 'Communication Preferences'
       update_communication_preferences: 'Update Communication Preferences'
-      unsubscribes:
-        title: 'Notifications from Projects Updates'
-        updates: 'I want to receive project updates'
-        submit: 'Save my Notifications Preferences'
