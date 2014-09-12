@@ -46,23 +46,23 @@ FactoryGirl.define do
     name_pt { name }
   end
 
-  factory :project do |f|
-    f.name "Foo bar"
-    f.campaign_type { :flexible }
-    f.permalink { generate(:permalink) }
-    f.association :user, factory: :user
-    f.association :category, factory: :category
-    f.about "Foo bar"
-    f.headline "Foo bar"
-    f.goal 10000
-    f.online_date Time.now
-    f.online_days 5
-    f.how_know 'Lorem ipsum'
-    f.video_url 'http://vimeo.com/17298435'
-    f.state 'online'
-    f.home_page true
-    f.address_city 'Kansas City'
-    f.address_state 'MO'
+  factory :project do
+    address_city       'Kansas City'
+    address_state      'MO'
+    goal               10000
+    headline           'Foo bar'
+    home_page          true
+    how_know           'Lorem ipsum'
+    name               'Foo bar'
+    online_days        5
+    permalink          { "#{name.parameterize}-#{SecureRandom.hex}" }
+    statement_file_url 'http://example.com/statement.pdf'
+    sale_date          Time.now
+    state              'online'
+    summary            'Foo bar'
+    video_url          'http://vimeo.com/17298435'
+    category
+    user
   end
 
   factory :unsubscribe do |f|

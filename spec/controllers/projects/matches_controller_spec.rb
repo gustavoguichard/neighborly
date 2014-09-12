@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Projects::MatchesController do
-  let(:project) { create(:project, state: :online, online_date: Date.current, online_days: 30) }
+  let(:project) { create(:project, state: :online, sale_date: Date.current, online_days: 30) }
   let(:user)    { create(:user) }
   let(:create_params) do
     {

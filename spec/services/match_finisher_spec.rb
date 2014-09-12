@@ -95,7 +95,7 @@ describe MatchFinisher do
         match = travel_to(10.days.from_now) do
           project = create(:project,
             online_days: 10,
-            online_date: 2.days.from_now.to_date
+            sale_date: 2.days.from_now.to_date
           )
           create(:match,
             finishes_at: 4.days.from_now.to_date,

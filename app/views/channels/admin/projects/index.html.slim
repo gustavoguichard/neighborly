@@ -51,7 +51,7 @@
               th= t('channels.admin.projects.index.pledged')
               th= t('channels.admin.projects.index.total_contributions')
               th= t('channels.admin.projects.index.recommended')
-              th= t('channels.admin.projects.index.online_date')
+              th= t('channels.admin.projects.index.sale_date')
               th= t('channels.admin.projects.index.expires_at')
               th= t('channels.admin.projects.index.state')
               th
@@ -65,7 +65,7 @@
                 td= "#{project.display_pledged} (#{project.progress}%)"
                 td= project.total_contributions
                 td= project.recommended ? t('words._yes') : t('words._no')
-                td= project.online_date.to_date if project.online_date
+                td= project.sale_date.to_date if project.sale_date
                 td= project.display_expires_at
                 td
                   - if project.online?

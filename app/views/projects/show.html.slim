@@ -45,7 +45,7 @@
         - if content_for? :page_content
           = yield :page_content
         - else
-          = render template: 'projects/about', locals: { partial: true }
+          = render template: 'projects/summary', locals: { partial: true }
 
       = render 'projects/author' unless browser.mobile?
 

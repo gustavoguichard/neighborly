@@ -208,11 +208,11 @@ describe ProjectsController do
           end
         end
 
-        context "when I try to update only the about field" do
-          before{ put :update, id: project, project: { about: 'new_description' } }
+        context "when I try to update only the summary field" do
+          before{ put :update, id: project, project: { summary: 'new_description' } }
           it "should update it" do
             project.reload
-            expect(project.about).to eq 'new_description'
+            expect(project.summary).to eq 'new_description'
           end
         end
       end

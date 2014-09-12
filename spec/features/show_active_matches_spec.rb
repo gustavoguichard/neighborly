@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Show active matches in project page' do
   background do
-    @project = create(:project, state: 'online', online_date: -1.day.from_now)
+    @project = create(:project, state: 'online', sale_date: -1.day.from_now)
     create(:match, project: @project, state: :pending)
 
     create(:match,

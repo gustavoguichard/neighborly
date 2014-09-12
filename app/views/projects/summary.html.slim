@@ -1,5 +1,5 @@
 - content_for :page_content do
-  .user-content = @project.about_html
+  .user-content = @project.summary_html
 
 - if request.xhr? || defined?(partial)
   = yield :page_content

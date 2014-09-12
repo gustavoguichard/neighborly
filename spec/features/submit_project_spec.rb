@@ -12,6 +12,7 @@ def submit_project
   fill_in 'Project Budget', with: '1000000'
   fill_in 'Street Address', with: '4000'
   fill_in 'City, State', with: 'Louisville, KY'
+  fill_in 'Statement file URL', with: 'http://example.com/statement.pdf'
   fill_in 'Summary', with: 'Making the intersection where Schnitzelburg, Shelby Park, & German-Paristown connect a better place to meet, walk, & drive through!'
   fill_in 'The Story', with: <<-THE_STORY
     # A Dreary Intersection

@@ -177,9 +177,9 @@ task migrate_markdown_images: :environment do
   Project.all.each do |project|
     puts "Applying to Project: #{project.name} - #{project.permalink}"
 
-    content = project.about
+    content = project.summary
     if content.present?
-      project.about = content.gsub(regex) do
+      project.summary = content.gsub(regex) do
         $1 + upload_image($2, project.user) + $3
       end
     end

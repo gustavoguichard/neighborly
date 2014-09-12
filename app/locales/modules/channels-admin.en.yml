@@ -37,7 +37,7 @@ en:
           pledged: 'Pledged'
           total_contributions: 'Contributions'
           recommended: 'Recommended?'
-          online_date: 'Online date'
+          sale_date: 'Sale date'
           expires_at: 'Expires at'
           state: 'State'
           approve: 'Approve!'

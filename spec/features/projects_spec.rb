@@ -11,10 +11,10 @@ describe "Projects" do
 
   describe "home" do
     before do
-      create(:project, state: 'online', recommended: true, online_days: 30, online_date: Time.now, home_page: true)
-      create(:project, state: 'online', featured: true, online_days: 30, online_date: Time.now)
+      create(:project, state: 'online', recommended: true, online_days: 30, sale_date: Time.now, home_page: true)
+      create(:project, state: 'online', featured: true, online_days: 30, sale_date: Time.now)
       create(:project, state: 'soon', online_days: 30, home_page: true, uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"))
-      create(:project, state: 'online', online_days: 30, online_date: 29.days.ago, home_page: true)
+      create(:project, state: 'online', online_days: 30, sale_date: 29.days.ago, home_page: true)
       visit root_path
     end
 
@@ -53,7 +53,7 @@ describe "Projects" do
       within "form#new_project" do
         select(project.category.to_s, from: 'project[category_id]')
         select(I18n.t("project.organization_type.#{Project.organization_types.first}"), from: 'project[organization_type]')
-        ['name', 'goal', 'location', 'headline', 'about'].each do |a|
+        ['name', 'goal', 'location', 'headline', 'summary'].each do |a|
           fill_in "project_#{a}", with: project.attributes[a]
         end
         find('input[type=submit]').click

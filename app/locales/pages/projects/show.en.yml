@@ -27,7 +27,7 @@ en:
       email: 'Email'
       embed: 'Embed'
     tabs:
-      about: 'About'
+      summary: 'Summary'
       updates: 'Updates'
       faqs: 'FAQs'
       contributions: 'Neighbors'

@@ -29,7 +29,7 @@ en:
         headline:
           title: 'Summary'
           description: 'Describe your project in 140 characters.'
-        about:
+        summary:
           title: 'The Story'
           description: "Tell us what you can about your project. Why do you need the community's help?"
         organization_type:
