@@ -13,7 +13,6 @@ describe User do
     it{ should have_many :matches }
     it{ should have_many :projects }
     it{ should have_many :notifications }
-    it{ should have_many :updates }
     it{ should have_many :authorizations }
     it{ should have_many(:oauth_providers).through(:authorizations) }
     it{ should have_many :channels_subscribers }

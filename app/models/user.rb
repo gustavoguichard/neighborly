@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
   has_many :matches
   has_many :projects
   has_many :notifications
-  has_many :updates
   has_many :authorizations
   has_many :oauth_providers, through: :authorizations
   has_many :channels_subscribers

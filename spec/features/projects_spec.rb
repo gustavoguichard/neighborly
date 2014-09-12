@@ -97,13 +97,6 @@ describe "Projects" do
    context 'when is my project' do
       let!(:project) { create(:project, online_days: 10, state: 'online', user: current_user) }
 
-      describe '#updates' do
-        it 'should be able to click on updates tab' do
-           find("a[href='#{project_updates_path(project)}']").click
-           current_path.should == project_updates_path(project)
-        end
-      end
-
       describe '#contributions' do
         it 'should be able to click on contributions tab' do
           within 'nav.tabs' do
