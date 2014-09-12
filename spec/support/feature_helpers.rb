@@ -14,18 +14,9 @@ module FeatureHelpers
   end
 
   def logout
-    within '.top-bar' do
+    within '#user-dropdown' do
       click_on 'Log out'
     end
-  end
-
-  def login_admin
-    visit '/dashboard'
-
-    admin = FactoryGirl.create(:user, admin: true, password: '123123123', password_confirmation: '123123123')
-    find(:css, 'placeholder="Email"').set(admin.email)
-    find(:css, 'placeholder="Password"').set('123123123')
-    click_in 'Sign me in'
   end
 end
 

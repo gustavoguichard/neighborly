@@ -41,13 +41,10 @@ feature 'Submit project' do
     submit_project
     logout
 
-    login_admin
-    click_on 'Projects'
-    click_on 'Draft'
-    click_on 'draft'
-    click_on 'Approve!'
+    Project.all.map(&:approve)
 
     visit '/'
+    click_on 'Discover'
     expect(page).to have_content('Three Points Beautification')
   end
 end
