@@ -55,10 +55,10 @@ FactoryGirl.define do
     home_page          true
     how_know           'Lorem ipsum'
     name               'Foo bar'
-    online_days        5
+    online_days        30
     permalink          { "#{name.parameterize}-#{SecureRandom.hex}" }
     statement_file_url 'http://example.com/statement.pdf'
-    sale_date          Time.now
+    sale_date          { -1.day.from_now }
     state              'online'
     summary            'Foo bar'
     video_url          'http://vimeo.com/17298435'
