@@ -29,6 +29,7 @@ class Project < ActiveRecord::Base
            :display_address_formated,
            :display_organization_type,
            :display_tax_exempt_yield,
+           :rating_description,
            to: :decorator
 
   enum credit_type: %i(general_obligation revenue)

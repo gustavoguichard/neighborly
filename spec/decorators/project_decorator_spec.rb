@@ -222,5 +222,18 @@ describe ProjectDecorator do
       end
     end
   end
+
+  describe 'rating description' do
+    it 'returns localized string when does have rating' do
+      project.rating = 0
+      expected_string = I18n.t('projects.hero.rating_definitions')[0]
+      expect(project.rating_description).to eql(expected_string)
+    end
+
+    it 'returns blank string when does not have rating' do
+      project.rating = nil
+      expect(project.rating_description).to be_empty
+    end
+  end
 end
 

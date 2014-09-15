@@ -10,7 +10,7 @@
       .row
         .small-6.medium-3.columns
           .box
-            span[data-tooltip class="has-tip" title="#{t('.rating')} #{@project.rating} <br />#{t('.rating_agency')} #{@project.rating_agency} <br />#{t('.definition')} #{t('.rating_definitions')[Project.ratings[@project.rating]]}"]
+            span[data-tooltip class="has-tip" title="#{t('.rating')} #{@project.rating} <br />#{t('.rating_agency')} #{@project.rating_agency} <br />#{t('.definition')} #{@project.rating_description}"]
               strong = @project.rating
               small Bond Rating
             .tooltip-content.hide

@@ -99,6 +99,15 @@ class ProjectDecorator < Draper::Decorator
     source.tax_exempt_yield.to_s + '%'
   end
 
+  def rating_description
+    rating_index = Project.ratings[source.rating]
+    if rating_index
+      t('projects.hero.rating_definitions')[rating_index]
+    else
+      ''
+    end
+  end
+
   private
 
   def use_uploaded_image(version)
