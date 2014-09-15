@@ -35,8 +35,8 @@
               = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
               = f.input :name, as: :string, maxlength: 100
               = f.input :statement_file_url
-              = f.label :campaign_type
-              = f.select :campaign_type, [['Every Dollar Counts', 'flexible']]
+              = f.label :credit_type
+              = f.select :credit_type, @credit_types
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse

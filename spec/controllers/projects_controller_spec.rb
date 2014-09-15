@@ -11,7 +11,9 @@ describe ProjectsController do
   describe "POST create" do
     let(:project){ build(:project) }
     before do
-      post :create, { project: project.attributes }
+      attrs = project.attributes
+      attrs[:credit_type] = 'general_obligation'
+      post :create, { project: attrs  }
     end
 
     context "when no user is logged in" do

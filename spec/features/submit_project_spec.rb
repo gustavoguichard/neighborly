@@ -8,7 +8,7 @@ def submit_project
   click_on 'Get Started'
   select 'Streetscapes', from: 'Project Category'
   fill_in 'Project Title', with: 'Three Points Beautification'
-  select 'Every Dollar Counts', from: 'Project Type'
+  select 'General obligation', from: 'Credit type'
   fill_in 'Project Budget', with: '1000000'
   fill_in 'Street Address', with: '4000'
   fill_in 'City, State', with: 'Louisville, KY'

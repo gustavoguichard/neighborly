@@ -26,16 +26,22 @@ describe Channels::ProjectsController do
     end
 
     describe 'create' do
+      let(:params) {
+        attrs = project.attributes
+        attrs[:credit_type] = 'general_obligation'
+        { project: attrs  }
+      }
+
       context 'when channel does not have external application method' do
         it 'creates a new project' do
           expect {
-            post :create, project: project.attributes
+            post :create, params
           }.to change(Project, :count).by(1)
         end
 
         it 'associates new project with the given channel' do
           expect {
-            post :create, project: project.attributes
+            post :create, params
           }.to change(channel.projects, :count).by(1)
         end
       end
@@ -45,7 +51,7 @@ describe Channels::ProjectsController do
 
         it 'raise routing error' do
           expect {
-            post :create, project: project.attributes
+            post :create, params
           }.to raise_error
         end
       end

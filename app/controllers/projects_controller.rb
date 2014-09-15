@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new(user: current_user)
     authorize @project
+    @credit_types = Project.credit_types.map { |k, _| [k.humanize, k] }
   end
 
   def index
