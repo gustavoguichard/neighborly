@@ -29,8 +29,6 @@ class UsersController < ApplicationController
   def settings
     authorize resource
     @title = "Settings: #{@user.display_name}"
-    @subscribed_to_updates = @user.updates_subscription
-    @unsubscribes = @user.project_unsubscribes
   end
 
   def set_email

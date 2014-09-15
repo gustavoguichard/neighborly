@@ -104,7 +104,6 @@ Neighborly::Application.routes.draw do
   resources :projects, except: [ :destroy ] do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
     resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
-    resources :updates, controller: 'projects/updates', only: [ :index, :create, :destroy ]
 
     collection do
       get 'video'
@@ -144,7 +143,6 @@ Neighborly::Application.routes.draw do
     resources :contributions, controller: 'users/contributions', only: [:index]
 
     resources :authorizations, controller: 'users/authorizations', only: [:destroy]
-    resources :unsubscribes, only: [:create]
     member do
       get :settings
       get :payments

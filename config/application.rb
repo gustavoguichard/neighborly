@@ -51,7 +51,6 @@ module Neighborly
       notification_observer
       payment_observer
       project_observer
-      update_observer
       user_observer
     )
 

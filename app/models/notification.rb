@@ -1,5 +1,4 @@
 class Notification < ActiveRecord::Base
-  belongs_to :project_update, class_name: "Update", foreign_key: :update_id # Update was an unfortunate decision, we should rename it soon
   belongs_to :user
   belongs_to :project
   belongs_to :channel
