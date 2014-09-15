@@ -49,6 +49,7 @@ FactoryGirl.define do
   factory :project do
     address_city       'Kansas City'
     address_state      'MO'
+    credit_type        'general_obligation'
     goal               10000
     headline           'Foo bar'
     home_page          true

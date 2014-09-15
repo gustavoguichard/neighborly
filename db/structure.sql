@@ -184,7 +184,7 @@ CREATE TABLE projects (
     sent_to_analysis_at timestamp without time zone,
     organization_type character varying(255),
     street_address character varying(255),
-    credit_type integer,
+    credit_type integer NOT NULL,
     minimum_investment numeric,
     rating integer,
     rating_agency character varying(255),

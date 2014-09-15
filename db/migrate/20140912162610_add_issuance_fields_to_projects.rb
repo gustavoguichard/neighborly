@@ -1,6 +1,6 @@
 class AddIssuanceFieldsToProjects < ActiveRecord::Migration
   def change
-    add_column :projects, :credit_type, :integer
+    add_column :projects, :credit_type, :integer, null: false
     add_column :projects, :minimum_investment, :decimal
     add_column :projects, :rating, :integer
     add_column :projects, :rating_agency, :string
