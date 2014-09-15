@@ -36,7 +36,7 @@
               = f.input :name, as: :string, maxlength: 100
               = f.input :statement_file_url
               = f.label :credit_type
-              = f.select :credit_type, @credit_types
+              = f.select :credit_type, Project.credit_types.map { |k, _| [k.humanize, k] }
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
