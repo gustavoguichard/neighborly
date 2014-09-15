@@ -44,6 +44,7 @@ class Project < ActiveRecord::Base
   has_many :updates, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
+  has_many :activities, dependent: :destroy
   has_and_belongs_to_many :channels
 
   accepts_nested_attributes_for :rewards

@@ -89,6 +89,14 @@ FactoryGirl.define do
     f.days_to_delivery 10
   end
 
+  factory :activity do |f|
+    project
+    user
+    title 'Foo Bar'
+    summary 'Foo Bar Summary'
+    happened_at { Time.now }
+  end
+
   factory :contribution do |f|
     f.association :project, factory: :project
     f.association :user, factory: :user
