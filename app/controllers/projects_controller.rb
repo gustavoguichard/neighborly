@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   after_filter :verify_authorized, except: [:index, :video, :video_embed, :embed,
                                             :embed_panel, :budget,
                                             :reward_contact, :send_reward_email,
-                                            :start]
+                                            :start, :statement]
 
   respond_to :html
 
@@ -62,6 +62,10 @@ class ProjectsController < ApplicationController
 
   def reports
     authorize resource
+  end
+
+  def statement
+    @project = resource
   end
 
   def budget

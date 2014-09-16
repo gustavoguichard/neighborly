@@ -104,6 +104,16 @@ describe ProjectsController do
       get :budget, id: project
     end
     it { expect(response).to be_success }
+    it { expect(assigns(:project)).to eq project }
+  end
+
+  describe 'GET statement' do
+    before do
+      get :statement, id: project
+    end
+
+    it { expect(response).to be_success }
+    it { expect(assigns(:project)).to eq project }
   end
 
   describe 'GET reports' do
