@@ -1,0 +1,9 @@
+- content_for :page_content do
+  h3 Official Statement
+  .panel
+    = link_to 'Click to Read the Official Statement', @project.statement_file_url, target: :blank
+
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'

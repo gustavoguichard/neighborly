@@ -28,6 +28,7 @@ en:
       embed: 'Embed'
     tabs:
       summary: 'Summary'
+      statement: 'Statement'
       updates: 'Updates'
       faqs: 'FAQs'
       contributions: 'Neighbors'
