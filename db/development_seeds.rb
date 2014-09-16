@@ -37,7 +37,12 @@ def generate_project(fields = {})
                      remote_hero_image_url: lorem_pixel_url('1280/600', 'city')
     }.merge!(fields))
 
-   [3, 5, 7].shuffle.first.times { Reward.create! project: p, minimum_value: [10, 20, 30, 40, 50, 60, 70].shuffle.first, title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph(2) }
+   [3, 5, 7].shuffle.first.times do
+     Reward.create! project: p,
+       minimum_value: [10, 20, 30, 40, 50, 60, 70].shuffle.first,
+       title: Faker::Lorem.sentence,
+       description: Faker::Lorem.paragraph(2)
+   end
    p
 end
 
