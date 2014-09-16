@@ -32,7 +32,17 @@
     margin-top: +emCalc(30px)
     .disclosure
       font-size: 80%
-      margin-top: +emCalc(75px)
+
+    .tags
+      a
+        margin-left: 0
+        padding: +emCalc(5px)
+        border: 1px solid $tags-bg-selected
+        border-radius: $global-radius
+        background: none
+        line-height: 1
+        &:hover
+          background: $tags-bg-selected
 
   .button
     &.invest
