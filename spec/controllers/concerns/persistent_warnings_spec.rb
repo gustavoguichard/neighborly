@@ -38,32 +38,32 @@ describe Concerns::PersistentWarnings do
           current_user.stub(:confirmed?).and_return(false)
         end
 
-        context 'with completed profile' do
-          before do
-            current_user.stub_chain(:completeness_progress, :to_i).and_return(100)
-          end
+        #context 'with completed profile' do
+          #before do
+            #current_user.stub_chain(:completeness_progress, :to_i).and_return(100)
+          #end
 
-          it 'shows message asking to confirm account' do
-            link    = 'http://example.com'
-            subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
-            warning = I18n.t('devise.confirmations.confirm', link: link)
-            expect(subject.persistent_warning[:message]).to eql(warning)
-          end
-        end
+          #it 'shows message asking to confirm account' do
+            #link    = 'http://example.com'
+            #subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
+            #warning = I18n.t('devise.confirmations.confirm', link: link)
+            #expect(subject.persistent_warning[:message]).to eql(warning)
+          #end
+        #end
 
-        context 'with uncomplete profile' do
-          before do
-            current_user.stub_chain(:completeness_progress, :to_i).and_return(99)
-          end
+        #context 'with uncomplete profile' do
+          #before do
+            #current_user.stub_chain(:completeness_progress, :to_i).and_return(99)
+          #end
 
-          it 'shows message asking to confirm account' do
-            link    = 'http://example.com'
-            subject.stub_chain(:main_app, :edit_user_path)
-            subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
-            warning = I18n.t('devise.confirmations.confirm', link: link)
-            expect(subject.persistent_warning[:message]).to eql(warning)
-          end
-        end
+          #it 'shows message asking to confirm account' do
+            #link    = 'http://example.com'
+            #subject.stub_chain(:main_app, :edit_user_path)
+            #subject.stub_chain(:main_app, :new_user_confirmation_path).and_return(link)
+            #warning = I18n.t('devise.confirmations.confirm', link: link)
+            #expect(subject.persistent_warning[:message]).to eql(warning)
+          #end
+        #end
       end
 
       context 'with confirmed account' do
@@ -81,18 +81,18 @@ describe Concerns::PersistentWarnings do
           end
         end
 
-        context 'with uncomplete profile' do
-          before do
-            current_user.stub_chain(:completeness_progress, :to_i).and_return(99)
-          end
+        #context 'with uncomplete profile' do
+          #before do
+            #current_user.stub_chain(:completeness_progress, :to_i).and_return(99)
+          #end
 
-          it 'shows message asking to complete profile' do
-            link    = 'http://example.com'
-            subject.stub_chain(:main_app, :edit_user_path).and_return(link)
-            warning = I18n.t('controllers.users.completeness_progress', link: link)
-            expect(subject.persistent_warning[:message]).to eql(warning)
-          end
-        end
+          #it 'shows message asking to complete profile' do
+            #link    = 'http://example.com'
+            #subject.stub_chain(:main_app, :edit_user_path).and_return(link)
+            #warning = I18n.t('controllers.users.completeness_progress', link: link)
+            #expect(subject.persistent_warning[:message]).to eql(warning)
+          #end
+        #end
       end
     end
 

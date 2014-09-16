@@ -4,7 +4,7 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_commit(user)
-    calculate_completeness(user)
+    #calculate_completeness(user)
 
     if just_created?(user)
       welcome_user(user)
