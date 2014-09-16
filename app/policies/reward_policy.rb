@@ -16,16 +16,6 @@ class RewardPolicy < ApplicationPolicy
   def permitted_attributes
     attributes = record.attribute_names.map(&:to_sym)
 
-    if not_sold_yet?
-      attributes = attributes.concat(%i(
-        cusip_number
-        interest_rate
-        price
-        principal_amount
-        yield
-      ))
-    end
-
     { reward: attributes }
   end
 
