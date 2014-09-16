@@ -11,7 +11,9 @@ describe ProjectsController do
   describe "POST create" do
     let(:project){ build(:project) }
     before do
-      post :create, { project: project.attributes }
+      attrs = project.attributes
+      attrs[:credit_type] = 'general_obligation'
+      post :create, { project: attrs  }
     end
 
     context "when no user is logged in" do
@@ -95,13 +97,6 @@ describe ProjectsController do
         end
       end
     end
-  end
-
-  describe 'GET comments' do
-    before do
-      get :comments, id: project
-    end
-    it { expect(response).to be_success }
   end
 
   describe 'GET budget' do
@@ -215,11 +210,11 @@ describe ProjectsController do
           end
         end
 
-        context "when I try to update only the about field" do
-          before{ put :update, id: project, project: { about: 'new_description' } }
+        context "when I try to update only the summary field" do
+          before{ put :update, id: project, project: { summary: 'new_description' } }
           it "should update it" do
             project.reload
-            expect(project.about).to eq 'new_description'
+            expect(project.summary).to eq 'new_description'
           end
         end
       end

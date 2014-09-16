@@ -113,7 +113,6 @@ Neighborly::Application.routes.draw do
       get 'embed'
       get 'video_embed'
       get 'embed_panel'
-      get 'comments'
       get 'reports'
       get 'budget'
       get 'success'

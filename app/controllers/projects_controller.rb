@@ -1,7 +1,7 @@
 # coding: utf-8
 class ProjectsController < ApplicationController
   after_filter :verify_authorized, except: [:index, :video, :video_embed, :embed,
-                                            :embed_panel, :comments, :budget,
+                                            :embed_panel, :budget,
                                             :reward_contact, :send_reward_email,
                                             :start]
 
@@ -58,10 +58,6 @@ class ProjectsController < ApplicationController
     authorize resource
     set_facebook_url_admin(resource.user)
     render :about if request.xhr?
-  end
-
-  def comments
-    @project = resource
   end
 
   def reports

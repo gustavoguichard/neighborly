@@ -1,16 +1,11 @@
 nav.tabs[data-target-container=".project-page section.content"]
   ul
-    li = tab_link_to t('.about'), project_path(@project)
+    li = tab_link_to t('.summary'), project_path(@project)
 
     - if @project.total_contributions_without_matches > 0
       li = tab_link_to project_contributions_path(@project) do
         = t('.contributions')
         span.count=" #{@project.total_contributions_without_matches}"
-
-    li = tab_link_to comments_project_path(@project) do
-      = t('.comments')
-      span.commentsCount.count style="display: none;"
-        span#countNumber
 
     li = tab_link_to t('.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
     li = tab_link_to t('.budget'), budget_project_path(@project) if @project.budget.present?

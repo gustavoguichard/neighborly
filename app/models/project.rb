@@ -28,7 +28,12 @@ class Project < ActiveRecord::Base
            :successful_flag,
            :display_address_formated,
            :display_organization_type,
+           :display_tax_exempt_yield,
+           :rating_description,
            to: :decorator
+
+  enum credit_type: %i(general_obligation revenue)
+  enum rating:      %i(AAA AA+ AA AA- A+ A A- BBB+ BBB BBB- BB+ BB BB- B+ B B-)
 
   belongs_to :user
   belongs_to :category
@@ -48,14 +53,14 @@ class Project < ActiveRecord::Base
     :total_contributions_without_matches, :total_payment_service_fee,
     to: :project_total
 
-  catarse_auto_html_for field: :about, video_width: 720, video_height: 405
+  catarse_auto_html_for field: :summary, video_width: 720, video_height: 405
   catarse_auto_html_for field: :budget, video_width: 720, video_height: 405
   catarse_auto_html_for field: :terms, video_width: 720, video_height: 405
 
   pg_search_scope :pg_search, against: [
       [:name,     'A'],
       [:headline, 'B'],
-      [:about,    'C']
+      [:summary,  'C']
     ],
     associated_against: {
       user: %i(name email address_city),
@@ -83,7 +88,7 @@ class Project < ActiveRecord::Base
   scope :not_expired, -> { where("projects.expires_at >= current_timestamp") }
   scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
   scope :not_expiring, -> { not_expired.where("NOT (projects.expires_at <= (current_timestamp + interval '2 weeks'))") }
-  scope :recent, -> { where("(current_timestamp - projects.online_date) <= '5 days'::interval") }
+  scope :recent, -> { where("(current_timestamp - projects.sale_date) <= '5 days'::interval") }
   scope :soon, -> { with_state('soon').where('uploaded_image IS NOT NULL') }
   scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
@@ -91,7 +96,7 @@ class Project < ActiveRecord::Base
                                      WHEN 'online' THEN 1
                                      WHEN 'waiting_funds' THEN 2
                                      WHEN 'successful' THEN 3
-                                     END ASC, projects.online_date DESC, projects.created_at DESC") }
+                                     END ASC, projects.sale_date DESC, projects.created_at DESC") }
 
   scope :contributed_by, ->(user_id){
     where("id IN (SELECT project_id FROM contributions b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
@@ -105,8 +110,8 @@ class Project < ActiveRecord::Base
     order(sort_field) if sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
   end
 
-  validates :video_url, :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :about, :headline, :goal, :permalink, :location
+  validates :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
+  validates_presence_of :name, :user, :category, :summary, :headline, :goal, :permalink, :location, :statement_file_url
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
   validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update
@@ -133,7 +138,7 @@ class Project < ActiveRecord::Base
   end
 
   def expires_at
-    online_date && (online_date + online_days.days).end_of_day
+    sale_date && (sale_date + online_days.days).end_of_day
   end
 
   def selected_rewards

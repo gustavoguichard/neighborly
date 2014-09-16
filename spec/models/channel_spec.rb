@@ -127,8 +127,8 @@ describe Channel do
 
   describe "#projects" do
     let(:channel) { create(:channel) }
-    let(:project1) { create(:project, online_date: (Time.now - 21.days)) }
-    let(:project2) { create(:project, online_date: (Time.now - 20.days)) }
+    let(:project1) { create(:project, sale_date: (Time.now - 21.days)) }
+    let(:project2) { create(:project, sale_date: (Time.now - 20.days)) }
     before { channel.projects << project1 }
     before { channel.projects << project2 }
 

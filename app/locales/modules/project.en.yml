@@ -1,5 +1,12 @@
 en:
   project:
+    credit_type:
+      general_obligation:
+        name: 'General Obligation'
+        abbr: 'G.O.'
+      revenue:
+        abbr: 'Revenue'
+        name: 'Revenue'
     display_status:
       expired: 'expired'
       successful: 'funded'

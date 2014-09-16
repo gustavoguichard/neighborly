@@ -14,7 +14,7 @@
                    {id: 'project_goal',                   name: :goal},
                    {id: 'project_location',               name: :location},
                    {id: 'project_headline',               name: :headline},
-                   {id: 'project_about',                  name: :about},
+                   {id: 'project_summary',                name: :summary},
                    {id: 'project_organization_type',      name: :organization_type}]
 
       - for joy in joyride
@@ -34,8 +34,9 @@
             = simple_form_for @project do |f|
               = f.input :category_id, collection: Category.array, selected: @project.category_id, include_blank: false, required: true
               = f.input :name, as: :string, maxlength: 100
-              = f.label :campaign_type
-              = f.select :campaign_type, [['Every Dollar Counts', 'flexible']]
+              = f.input :statement_file_url
+              = f.label :credit_type
+              = f.select :credit_type, Project.credit_types.map { |k, _| [k.humanize, k] }
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse
@@ -56,7 +57,7 @@
                 .map-canvas
 
               = f.input :headline, as: :string, maxlength: 140
-              = f.input :about
+              = f.input :summary
               = f.input :organization_type, as: :select, collection: Project.organization_type_array, prompt: :translate, input_html: { required: true }
 
               p.terms = t('.accept_terms_html', link: link_to(t('words.terms'), terms_path, target: :blank))

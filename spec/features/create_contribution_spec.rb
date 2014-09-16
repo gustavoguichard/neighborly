@@ -1,17 +1,15 @@
 require 'spec_helper'
 
-feature 'Create contribution' do
+feature 'Create Investment' do
   background do
-    @project = create(:project, state: 'online', online_date: -1.seconds.from_now)
+    @project = create(:project, state: 'online', sale_date: -1.seconds.from_now)
     @user = create(:user, password: 'test123')
     login
   end
 
   scenario 'providing value smaller then accepted' do
     visit project_path(@project)
-    within '.sidebar' do
-      click_on 'Contribute'
-    end
+    click_on 'Invest'
 
     fill_in 'contribution_form_value', with: 9
 
@@ -22,9 +20,7 @@ feature 'Create contribution' do
 
   scenario 'providing value accepted' do
     visit project_path(@project)
-    within '.sidebar' do
-      click_on 'Contribute'
-    end
+    click_on 'Invest'
 
     fill_in 'contribution_form_value', with: 10
 

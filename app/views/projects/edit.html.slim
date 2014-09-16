@@ -13,12 +13,14 @@
       .section-header #1. Project Overview
       - if policy(@project).permitted_for?(:name, :update)
         = form.input :name, as: :string
+      - if policy(@project).permitted_for?(:statement_file_url, :update)
+        = form.input :statement_file_url
       - if policy(@project).permitted_for?(:category, :update)
         = form.association :category, include_blank: false
       - if policy(@project).permitted_for?(:headline, :update)
         = form.input :headline, as: :string
-      - if policy(@project).permitted_for?(:about, :update)
-        = form.input :about
+      - if policy(@project).permitted_for?(:summary, :update)
+        = form.input :summary
       - if policy(@project).permitted_for?(:tag_list, :update)
         .tags-path[data-url=tags_path]
         = form.input :tag_list, as: :string

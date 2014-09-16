@@ -59,7 +59,7 @@ en:
         permalink: 'Permalink'
         goal: 'Project Budget'
         headline: 'Summary'
-        about: 'The Story'
+        summary: 'The Story'
         expires_at: 'Duration'
         online_days: 'Duration'
         video_url: 'Video'
@@ -75,6 +75,7 @@ en:
         budget: 'Budget Detail'
         tag_list: 'Keywords'
         street_address: 'Street Address'
+        statement_file_url: 'Statement file URL'
         new:
           category_id: 'Project Category'
       contribution:
@@ -85,7 +86,7 @@ en:
       project:
         edit:
           video_url_edit: 'Paste here the URL of your Vimeo or Youtube video.'
-          about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
+          summary: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
           category: "Which category best describes your project?"
           expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days."
           goal: "What is the total goal for the project? Keep in mind Neighbor.ly's platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."

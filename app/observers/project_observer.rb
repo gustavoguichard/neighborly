@@ -43,7 +43,7 @@ class ProjectObserver < ActiveRecord::Observer
   def from_draft_to_online(project)
     deliver_default_notification_for(project, :project_visible)
     notify_users_that_a_new_project_is_online(project)
-    project.update_attributes({ online_date: DateTime.now })
+    project.update_attributes({ sale_date: DateTime.now })
   end
 
   def from_draft_to_soon(project)

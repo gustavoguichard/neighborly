@@ -9,7 +9,7 @@ class Channel < ActiveRecord::Base
   has_many :subscriber_reports
   belongs_to :user
   has_many :channel_members
-  has_and_belongs_to_many :projects, -> { order("online_date desc") }
+  has_and_belongs_to_many :projects, -> { order("sale_date desc") }
   has_and_belongs_to_many :subscribers, class_name: 'User', join_table: :channels_subscribers
   has_many :subscriber_reports
   has_many :channel_members, dependent: :destroy

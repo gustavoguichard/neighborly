@@ -1,16 +1,47 @@
 - content_for :title, @project.name
-= render partial: 'layouts/disqus_count'
 = render 'projects/meta_tags'
 
 .project-page
-  = render 'projects/header'
-  = render 'projects/status_bar'
+  = render 'projects/hero'
+
+  .header
+    .row
+      .large-8.medium-8.columns.no-padding-for-small
+        - if @project.video_url.present?
+          .flex-video.widescreen.vimeo
+            iframe src="#{@project.display_video_embed_url}" width="636 " height="358" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen
+        - else
+          = image_tag @project.display_image('large')
+
+      .large-4.columns.medium-4.columns
+        - if @project.online? && !@project.expired?
+          = render 'projects/noscript'
+
+          = link_to t('.invest'), new_project_contribution_url(@project), class: "button invest"
+
+        p
+          strong Sale Date: 
+          = l @project.sale_date
+        p
+          strong Minimum Investment: 
+          = number_to_currency @project.minimum_investment
+        p
+          strong Issue Size: 
+          = number_to_currency @project.goal, precision: 0
+        p
+          strong Category: 
+          = @project.category.name
+
+        p.disclosure
+          | *All informations presented is subject to change.
+          br/
+          | See official preliminary statement for more details.
 
   .row.page-main-content
     section.large-9.medium-8.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
-      = render 'projects/matches'
+      /= render 'projects/matches'
       = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
       = render 'projects/tabs'
 
@@ -18,33 +49,24 @@
         - if content_for? :page_content
           = yield :page_content
         - else
-          = render template: 'projects/about', locals: { partial: true }
+          = render template: 'projects/summary', locals: { partial: true }
 
       = render 'projects/author' unless browser.mobile?
 
     aside.large-3.medium-4.columns.sidebar
       .call-to-action
-        - if @project.online? && !@project.expired?
-          = render 'projects/noscript'
+        - if policy(@project).update?
+          = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small'
 
-          = link_to t('.contribute'), new_project_contribution_url(@project), class: "button with-icon contribute hide-for-small"
-          - if current_user && (current_user.organization? || current_user.channel? || current_user.admin?)
-            = link_to t('.create_match'), new_project_match_url(@project), class: "button with-icon create-match hide-for-small"
-        - else
-          .alert-box.secondary.status-description
-            = display_status(@project)
+        /= render 'projects/matches_aside' unless browser.mobile?
 
-        = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small' if policy(@project).update?
-
-        = render 'projects/matches_aside' unless browser.mobile?
-
-      - if @project.last_channel
-        section.channel
-          = link_to root_url(subdomain: @project.last_channel.permalink, protocol: :http) do
-            .row
-              .large-12.columns.large-centered
-                h5 = t('.in_partnership_with')
-                = image_tag @project.last_channel.image.large.url
+      /- if @project.last_channel
+        /section.channel
+          /= link_to root_url(subdomain: @project.last_channel.permalink, protocol: :http) do
+            /.row
+              /.large-12.columns.large-centered
+                /h5 = t('.in_partnership_with')
+                /= image_tag @project.last_channel.image.large.url
 
       - if @project.total_contributions_without_matches > 0
         section.custom.neighbors-behind-this.hide-for-medium-down
@@ -57,7 +79,5 @@
                 = link_to image_tag(contribution.user.display_image), user_path(contribution.user), title: contribution.user.display_name, class: 'has-tip', data: { tooltip: '' }
           .more
             = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
-
-      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{policy(@project).update?}"]
 
       = render 'projects/author' if browser.mobile?

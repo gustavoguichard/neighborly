@@ -167,31 +167,31 @@ describe ProjectPolicy do
   end
 
   describe '#permitted_for?' do
-    context 'when user is nil and I want to update about' do
+    context 'when user is nil and I want to update summary' do
       let(:policy){ described_class.new(nil, Project.new) }
-      subject{ policy.permitted_for?(:about, :update) }
+      subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_false }
     end
 
-    context 'when user is project owner and I want to update about' do
+    context 'when user is project owner and I want to update summary' do
       let(:project){ create(:project) }
       let(:policy){ described_class.new(project.user, project) }
-      subject{ policy.permitted_for?(:about, :update) }
+      subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_true }
     end
   end
 
   describe '#permitted_for?' do
-    context 'when user is nil and I want to update about' do
+    context 'when user is nil and I want to update summary' do
       let(:policy){ described_class.new(nil, Project.new) }
-      subject{ policy.permitted_for?(:about, :update) }
+      subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_false }
     end
 
-    context 'when user is project owner and I want to update about' do
+    context 'when user is project owner and I want to update summary' do
       let(:project){ create(:project) }
       let(:policy){ described_class.new(project.user, project) }
-      subject{ policy.permitted_for?(:about, :update) }
+      subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_true }
     end
   end
@@ -200,7 +200,7 @@ describe ProjectPolicy do
     context 'when user is nil' do
       let(:policy){ described_class.new(nil, Project.new) }
 
-      [:about,         :video_url,            :uploaded_image,
+      [:summary,       :video_url,            :uploaded_image,
        :hero_image,    :headline,             :budget,
        :terms,         :address_neighborhood, :location,
        :address_city,  :address_state,        :hash_tag,
@@ -223,7 +223,7 @@ describe ProjectPolicy do
       let(:policy){ described_class.new(user, project) }
 
       not_permited_params = [
-                              :online_date, :created_at, :updated_at, :about_html,
+                              :sale_date, :created_at, :updated_at, :summary_html,
                               :budget_html, :terms_html, :sent_to_analysis_at
                              ]
 

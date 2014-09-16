@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectDecorator do
-  let(:project){ create(:project, about: 'Foo Bar http://www.foo.bar <javascript>xss()</javascript>[Click here](http://click.here)') }
+  let(:project){ create(:project, summary: 'Foo Bar http://www.foo.bar <javascript>xss()</javascript>[Click here](http://click.here)') }
 
   describe "#time_to_go" do
     let(:project){ build(:project) }
@@ -35,13 +35,13 @@ describe ProjectDecorator do
   describe "#display_expires_at" do
     subject{ project.display_expires_at }
 
-    context "when online_date is nil" do
-      let(:project){ create(:project, online_date: nil) }
+    context "when sale_date is nil" do
+      let(:project){ create(:project, sale_date: nil) }
       it{ should == '' }
     end
 
-    context "when we have an online_date" do
-      let(:project){ create(:project, online_date: Time.now) }
+    context "when we have an sale_date" do
+      let(:project){ create(:project, sale_date: Time.now) }
       before do
         I18n.should_receive(:l).with(project.expires_at.to_date)
       end
@@ -95,8 +95,8 @@ describe ProjectDecorator do
     end
   end
 
-  describe "#about_html" do
-    subject{ project.about_html }
+  describe "#summary_html" do
+    subject{ project.summary_html }
     it{ should == "<p>Foo Bar <a href=\"http://www.foo.bar\">http://www.foo.bar</a> &lt;javascript&gt;xss()&lt;/javascript&gt;<a href=\"http://click.here\">Click here</a></p>\n" }
   end
 
@@ -220,6 +220,19 @@ describe ProjectDecorator do
       it "should not return an image, but nil" do
         expect(project.successful_flag).to eq(nil)
       end
+    end
+  end
+
+  describe 'rating description' do
+    it 'returns localized string when does have rating' do
+      project.rating = 0
+      expected_string = I18n.t('projects.hero.rating_definitions')[0]
+      expect(project.rating_description).to eql(expected_string)
+    end
+
+    it 'returns blank string when does not have rating' do
+      project.rating = nil
+      expect(project.rating_description).to be_empty
     end
   end
 end

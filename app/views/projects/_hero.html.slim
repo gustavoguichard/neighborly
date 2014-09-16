@@ -1,0 +1,32 @@
+= hero_header_tag @project, class: ('no-image' if browser.mobile?) do
+  .row
+    .large-12.columns
+      .name
+        h3 = @project.name
+        p
+          | Issued by 
+          = @project.user.display_name
+    .boxes.medium-8.large-7.columns.large-centered
+      .row
+        .small-6.medium-3.columns
+          .box
+            span[data-tooltip class="has-tip" title="#{t('.rating')} #{@project.rating} <br />#{t('.rating_agency')} #{@project.rating_agency} <br />#{t('.definition')} #{@project.rating_description}"]
+              strong = @project.rating
+              small Bond Rating
+            .tooltip-content.hide
+              p bla bla bla
+        .small-6.medium-3.columns
+          .box
+            span[data-tooltip class="has-tip" title="#{t('.yield')} #{@project.display_tax_exempt_yield} <br />#{t('.definition')} #{t('.yield_definition')}"]
+              strong Tax Free
+              small Return
+        .small-6.medium-3.columns
+          .box
+            span[data-tooltip class="has-tip" title="#{t('.credit_type')} #{t("project.credit_type.#{@project.credit_type}.name")} <br />#{t('.definition')} #{t(".credit_type_definition_#{@project.credit_type}")}"]
+              strong = t("project.credit_type.#{@project.credit_type}.abbr")
+              small Credit Type
+        .small-6.medium-3.columns
+          .box
+            span[data-tooltip class="has-tip" title="#{t('.maturities')} 2016-2018 <br />#{t('.definition')} #{t('.maturities_definition')}"]
+              strong 2016-2018
+              small Serial Maturieties

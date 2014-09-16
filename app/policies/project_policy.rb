@@ -49,16 +49,17 @@ class ProjectPolicy < ApplicationPolicy
         project: record.attribute_names.map(&:to_sym) +
                  [:location, :tag_list] -
                  [
-                   :online_date, :created_at, :updated_at, :about_html,
+                   :sale_date, :created_at, :updated_at, :summary_html,
                    :budget_html, :terms_html, :sent_to_analysis_at
                  ]
       }
     else
-      { project: [:about,         :video_url,            :uploaded_image,
+      { project: [:summary,       :video_url,            :uploaded_image,
                   :hero_image,    :headline,             :budget,
                   :terms,         :address_neighborhood, :location,
                   :address_city,  :address_state,        :hash_tag,
-                  :site, :tag_list] }
+                  :site,          :tag_list,             :statement_file_url,
+                  :credit_type] }
 
 
     end
