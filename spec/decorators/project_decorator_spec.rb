@@ -100,46 +100,6 @@ describe ProjectDecorator do
     it{ should == "<p>Foo Bar <a href=\"http://www.foo.bar\">http://www.foo.bar</a> &lt;javascript&gt;xss()&lt;/javascript&gt;<a href=\"http://click.here\">Click here</a></p>\n" }
   end
 
-  describe "#display_progress" do
-    subject{ project.display_progress }
-
-    before do
-      project.stub(:total_contributions).and_return(1)
-    end
-
-    context "when no contribution were made" do
-      before do
-        project.stub(:total_contributions).and_return(0)
-        project.stub(:progress).and_return(0)
-      end
-
-      it{ should == 0 }
-    end
-
-    context "when contributions were made but progress does not reach 1%" do
-      before do
-        project.stub(:progress).and_return(0)
-      end
-
-      it{ should == 8 }
-    end
-
-    context "when progress is between 0 and 8" do
-      before{ project.stub(:progress).and_return(7) }
-      it{ should == 8 }
-    end
-    context "when progress is between 8 and 100" do
-      before{ project.stub(:progress).and_return(70) }
-      it{ should == 70 }
-    end
-    context "when progress is above 100" do
-      before do
-        project.stub(:progress).and_return(101)
-      end
-      it{ should == 100 }
-    end
-  end
-
   describe "#display_status" do
     subject{ project.display_status }
     context "when online and reached goal" do

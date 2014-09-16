@@ -1,6 +1,4 @@
 .row
   .large-8.columns.large-centered
     .status
-      .progress.round
-        span.meter[style="width: #{@project.display_progress}%"]
       .pledged = "#{@project.display_pledged} / #{@project.display_goal} (#{@project.progress}%)"
