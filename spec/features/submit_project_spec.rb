@@ -3,8 +3,7 @@ require 'spec_helper'
 def submit_project
   FactoryGirl.create(:category, name: 'Streetscapes')
 
-  visit '/'
-  click_on 'Start A Campaign'
+  visit '/start'
   click_on 'Get Started'
   select 'Streetscapes', from: 'Project Category'
   fill_in 'Project Title', with: 'Three Points Beautification'
