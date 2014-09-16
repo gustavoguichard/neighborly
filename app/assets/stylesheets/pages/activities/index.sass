@@ -1,0 +1,31 @@
+section.activities
+  .content
+    padding: +emCalc(15px)
+
+  .activity
+    border-left: 2px solid #666
+    padding-left: +emCalc(10px)
+    padding-bottom: +emCalc(25px)
+    position: relative
+    &:last-child
+      border-left: none
+      padding-bottom: 0
+    h5
+      margin: 0
+      text-transform: uppercase
+      &:before
+        content: ' '
+        display: block
+        width: +emCalc(15px)
+        height: +emCalc(15px)
+        background: #666
+        border-radius: 50%
+        position: absolute
+        left: +emCalc(-8px)
+        top: +emCalc(5px)
+        border: +emCalc(3px) solid #FFF
+    .datetime
+      color: darken($secondary-color, 10%)
+    p
+      margin-bottom: 0
+      color: $secondary-color
