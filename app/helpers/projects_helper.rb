@@ -7,7 +7,6 @@ module ProjectsHelper
     else
       columns || 'large-3 medium-4'
     end
-    classes << " #{project.category.to_s.parameterize}" if project.category
     classes << ' soon' if project.soon?
 
     classes << ' columns left'

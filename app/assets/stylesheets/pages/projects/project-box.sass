@@ -56,23 +56,7 @@ $content-top-transition: -100px
     font-weight: 500
     max-height: +emCalc(130px)
 
-  .category
     text-align: center
-    i
-      margin-top: +emCalc(-20px)
-      padding: +emCalc(10px)
-      display: inline-block
-      width: +emCalc(48px)
-      height: +emCalc(48px)
-      @extend .white
-      +radius(50%)
-      &:before
-        color: $primary-color
-        @extend [class^="icon-et-"]:before
-        @extend .icon-et-thumbs-up:before
-        font-size: 180%
-    span
-      display: none
 
   .location
     padding: +emCalc(20px)
@@ -123,21 +107,6 @@ $content-top-transition: -100px
         width: 100%
         padding-left: 0
         font-size: 70%
-
-  $categories-names: recreation, entertainment, event, mobility, restoration, technology
-  $categories-colors: #CB4042, #246b5b, #dec423, #d3663a, #256483, #744689
-  $categories-icons: bucket, leaf, calendar, rocket, arrows-ccw, signal
-
-  =category-style-for($name)
-    .category i:before
-      color: nth($categories-colors, index($categories-names, $name))
-      @extend .icon-et-#{nth($categories-icons, index($categories-names, $name))}:before
-    &.large .name
-      background: nth($categories-colors, index($categories-names, $name))
-
-  @each $name in $categories-names
-    &.#{$name}
-      +category-style-for($name)
 
 body.embed
   .project-box

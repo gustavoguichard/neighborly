@@ -16,7 +16,6 @@ class Project < ActiveRecord::Base
   has_permalink  :name, true
 
   delegate :display_status,
-           :display_progress,
            :display_image,
            :display_expires_at,
            :remaining_text,
