@@ -1,5 +1,5 @@
-- @rewards.each do |reward|
-  = cache [reward, reward.sold_out?] do
+- content_for :page_content do
+  - @rewards.each do |reward|
     div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? } #{ 'sortable' if policy(reward).update? }"]
       header.title
         = reward.to_s
@@ -30,15 +30,19 @@
 
       .title = reward.to_s
 
-- if policy(parent).update?
+  - if policy(parent).update?
+    .reward.new-reward-form
+      .loading.hide
+        = image_tag 'loading.gif'
+      .form-content.hide
 
-  .reward.new-reward-form
-    .loading.hide
-      = image_tag 'loading.gif'
-    .form-content.hide
+    .reward.add-reward
+      = link_to new_project_reward_path(parent), data: { element: '.new-reward-form', path: new_project_reward_path(parent) } do
+        i.icon-et-plus
+        br/
+        = t('.add')
 
-  .reward.add-reward
-    = link_to new_project_reward_path(parent), data: { element: '.new-reward-form', path: new_project_reward_path(parent) } do
-      i.icon-et-plus
-      br/
-      = t('.add')
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'

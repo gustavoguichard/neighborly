@@ -105,6 +105,7 @@ Neighborly::Application.routes.draw do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
     resources :terms, controller: 'projects/terms', only: [ :index, :create, :destroy ]
     resources :activities, except: [:index, :show]
+    resources :maturities, only: [:index], controller: :rewards
 
     collection do
       get 'video'
