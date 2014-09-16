@@ -11,8 +11,8 @@ class Reward < ActiveRecord::Base
   scope :remaining, -> { where("maximum_contributions IS NULL OR (maximum_contributions IS NOT NULL AND (SELECT COUNT(*) FROM contributions WHERE state IN ('confirmed', 'waiting_confirmation') AND reward_id = rewards.id) < maximum_contributions)") }
   scope :sort_asc, -> { order('id ASC') }
 
-  delegate :display_deliver_prevision, :display_remaining, :name, :display_minimum,
-           :medium_description, :last_description, :display_description, to: :decorator
+  delegate :display_remaining, to: :decorator
+
   def decorator
     @decorator ||= RewardDecorator.new(self)
   end
