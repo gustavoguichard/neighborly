@@ -37,18 +37,11 @@ def generate_project(fields = {})
                      remote_hero_image_url: lorem_pixel_url('1280/600', 'city')
     }.merge!(fields))
 
-   [3, 5, 7].shuffle.first.times do
-     Reward.create! project: p,
-       minimum_value: [10, 20, 30, 40, 50, 60, 70].shuffle.first,
-       title: Faker::Lorem.sentence,
-       description: Faker::Lorem.paragraph(2)
-   end
    p
 end
 
-def generate_contribution(project, fields: {}, reward: true)
-  r = project.rewards.order('RANDOM()').limit(1).first if reward
-  c = Contribution.create!( { project: project, user: generate_user, reward: r, value: r.minimum_value}.merge!(fields) )
+def generate_contribution(project, fields: {})
+  c = Contribution.create!( { project: project, user: generate_user, value: (rand * 100_000).to_i}.merge!(fields) )
   c.update_column(:state, 'confirmed')
   c
 end
