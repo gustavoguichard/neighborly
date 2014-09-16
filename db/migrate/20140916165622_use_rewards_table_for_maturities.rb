@@ -7,7 +7,7 @@ class UseRewardsTableForMaturities < ActiveRecord::Migration
     remove_column :rewards, :soon
     remove_column :rewards, :title
 
-    add_column :rewards, :happens_at, :date
+    add_column :rewards, :happens_at, :date, null: false
     add_column :rewards, :principal_amount, :decimal
     add_column :rewards, :interest_rate, :decimal
     add_column :rewards, :yield, :decimal

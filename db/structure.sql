@@ -1707,7 +1707,7 @@ CREATE TABLE rewards (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     row_order integer,
-    happens_at date,
+    happens_at date NOT NULL,
     principal_amount numeric,
     interest_rate numeric,
     yield numeric,
