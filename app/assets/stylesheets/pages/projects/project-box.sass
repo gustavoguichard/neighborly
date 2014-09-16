@@ -48,15 +48,22 @@ $content-top-transition: -100px
 
   .name
     margin: 0
-    padding: +emCalc(20px)
-    padding-bottom: +emCalc(7px)
-    padding-top: 0
+    padding: +emCalc(0, 20px, 7px, 20px)
+    margin-top: -10px
     font-size: 90%
     text-transform: uppercase
     font-weight: 500
     max-height: +emCalc(130px)
 
+  .rating
     text-align: center
+    margin: auto
+    margin-top: +emCalc(-30px)
+    padding: +emCalc(10px)
+    width: +emCalc(55px)
+    height: +emCalc(55px)
+    background: #fff
+    +radius(50%)
 
   .location
     padding: +emCalc(20px)
