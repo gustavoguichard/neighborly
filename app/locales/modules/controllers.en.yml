@@ -4,8 +4,6 @@ en:
       needs_ownership_confirmation: 'Please login with your existing account before proceed.'
     projects:
       contributions:
-        new:
-          no_reward: "No perks! I just want to help out the project!"
         create:
           error: 'Oh noez! There was an error processing your contribution. Please try again.'
         pay:

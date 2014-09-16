@@ -111,7 +111,6 @@ describe Projects::ContributionsController do
       it{ should render_template("projects/contributions/new") }
 
       its(:body) { should =~ /#{I18n.t('projects.contributions.new.title')}/ }
-      its(:body) { should =~ /#{I18n.t('controllers.projects.contributions.new.no_reward')}/ }
       its(:body) { should =~ /#{project.name}/ }
     end
 
@@ -153,7 +152,7 @@ describe Projects::ContributionsController do
   describe "GET index" do
     before do
       create(:contribution, value: 10.00, state: 'confirmed',
-              reward: create(:reward, project: project, description: 'Test Reward'),
+              reward: create(:reward, project: project),
               project: project,
               user: create(:user, name: 'Foo Bar'))
     end

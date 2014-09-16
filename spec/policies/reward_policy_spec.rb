@@ -92,23 +92,8 @@ describe RewardPolicy do
           create(:contribution, project: reward.project, reward: reward, state: 'waiting_confirmation')
         end
 
-        context 'and want to update minimum_value' do
-          let(:field) { :minimum_value }
-          it { expect(subject).to be_false }
-        end
-
-        context 'and want to update description' do
-          let(:field) { :description }
-          it { expect(subject).to be_true }
-        end
-
         context 'and want to update maximum_contributions' do
           let(:field) { :maximum_contributions }
-          it { expect(subject).to be_true }
-        end
-
-        context 'and want to update days_to_delivery' do
-          let(:field) { :days_to_delivery }
           it { expect(subject).to be_true }
         end
       end
@@ -116,46 +101,18 @@ describe RewardPolicy do
 
     context "when reward's project is in state successful" do
       let(:reward) { create(:reward, project: create(:project, state: 'successful')) }
-      context 'and want to update minimum_value' do
-        let(:field) { :minimum_value }
-        it { expect(subject).to be_true }
-      end
-
-      context 'and want to update description' do
-        let(:field) { :description }
-        it { expect(subject).to be_true }
-      end
 
       context 'and want to update maximum_contributions' do
         let(:field) { :maximum_contributions }
         it { expect(subject).to be_true }
-      end
-
-      context 'and want to update days_to_delivery' do
-        let(:field) { :days_to_delivery }
-        it { expect(subject).to be_false }
       end
     end
 
     context 'when reward\'s project is in state online' do
       let(:reward) { create(:reward, project: create(:project, state: 'online')) }
-      context 'and want to update minimum_value' do
-        let(:field) { :minimum_value }
-        it { expect(subject).to be_true }
-      end
-
-      context 'and want to update description' do
-        let(:field) { :description }
-        it { expect(subject).to be_true }
-      end
 
       context 'and want to update maximum_contributions' do
         let(:field) { :maximum_contributions }
-        it { expect(subject).to be_true }
-      end
-
-      context 'and want to update days_to_delivery' do
-        let(:field) { :days_to_delivery }
         it { expect(subject).to be_true }
       end
     end

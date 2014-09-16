@@ -16,24 +16,6 @@ describe Contribution::CustomValidators do
     end
   end
 
-  describe "#value_must_be_at_least_rewards_value" do
-    let(:reward){ create(:reward, minimum_value: 500) }
-    let(:contribution){ build(:contribution, reward: reward, project: reward.project, value: value) }
-    subject{ contribution }
-    context "when value is lower than reward minimum value" do
-      let(:value){ 499.99 }
-      it{ should_not be_valid }
-    end
-    context "when value is equal than reward minimum value" do
-      let(:value){ 500.00 }
-      it{ should be_valid }
-    end
-    context "when value is greater than reward minimum value" do
-      let(:value){ 500.01 }
-      it{ should be_valid }
-    end
-  end
-
   describe "#project_should_be_online" do
     subject{ contribution }
     context "when project is draft" do
