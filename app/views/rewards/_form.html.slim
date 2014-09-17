@@ -1,8 +1,4 @@
 = simple_form_for [parent, @reward], html: { class: 'remote-form' } do |f|
-  .pull-right
-    a.cancel.button.secondary href="#" = t('words.cancel')
-  .clearfix
-
   - if policy(@reward).permitted_for?(:maximum_contributions, :update)
     = f.input :maximum_contributions
 
@@ -14,8 +10,13 @@
   = f.input :cusip_number
 
   = f.button :submit, data: { disable_with: t('words.sending') }
+  | &nbsp;
+  = link_to 'Cancel', project_maturities_path(parent), class: 'button secondary'
   - if @reward.persisted? && policy(@reward).destroy?
+    | &nbsp;
     span.or = t('words.or')
+    | &nbsp;
     = link_to [parent, @reward], class: 'button alert', method: :delete, confirm: t('words.confirm') do
       i.icon-et-trash.icon-white
+      | &nbsp;
       = t('words.delete')

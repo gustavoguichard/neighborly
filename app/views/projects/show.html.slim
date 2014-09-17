@@ -82,6 +82,4 @@
 
       = render template: 'activities/index'
 
-      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{policy(@project).update?}"]
-
       = render 'projects/author' if browser.mobile?

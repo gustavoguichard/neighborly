@@ -29,6 +29,7 @@ en:
     tabs:
       summary: 'Summary'
       statement: 'Statement'
+      maturities: 'Maturities'
       updates: 'Updates'
       faqs: 'FAQs'
       contributions: 'Neighbors'

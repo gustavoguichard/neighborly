@@ -1,44 +1,31 @@
-- @rewards.each do |reward|
-  = cache [reward, reward.sold_out?] do
-    div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? } #{ 'sortable' if policy(reward).update? }"]
-      header.title
-        = reward.to_s
-        - if policy(reward).update?
-          = link_to edit_project_reward_path(parent, reward), data: { element: ".edit-#{reward.id}-reward-form", path: edit_project_reward_path(parent, reward) }, class: 'edit' do
-            i.icon-et-pencil
+- content_for :page_content do
+  h3 Maturity Schedule
 
-      div[class="edit-#{reward.id}-reward-form"]
-        .loading.hide
-          = image_tag 'loading.gif'
-        .form-content.hide
+  - if policy(parent).update?
+    = link_to 'New Maturity', new_project_reward_path(parent), class: 'button tiny'
 
-      - if reward.maximum_contributions
-        - if reward.sold_out?
-          .sold-out
-            .wrapper
-              h4
-                i.icon-et-cancel-squared
-                br/
-                = t('.sold_out')
-        .maximum-contributions
-          i.icon-et-alert
-          = reward.display_remaining
+  table.maturities
+    thead
+      tr
+        td Maturity Date
+        td Pricipal Amount
+        td Interest Rate
+        td Yield
+        td CUSIP No.
+        - if policy(parent).update?
+          td
+    tbody
+      - @rewards.each do |maturity|
+        tr
+          td = maturity.happens_at.year
+          td = number_to_currency maturity.principal_amount, precision: 0
+          td = "#{maturity.interest_rate}%"
+          td = "#{maturity.yield}%"
+          td = maturity.cusip_number
+          - if policy(parent).update?
+            td = link_to 'Edit', edit_project_reward_path(parent, maturity), class: 'button tiny'
 
-          - in_time_to_confirm = reward.contributions.with_state('waiting_confirmation').count
-          - if in_time_to_confirm > 0
-            .pending = t('.contributions_to_confirm', count: in_time_to_confirm)
-
-      .title = reward.to_s
-
-- if policy(parent).update?
-
-  .reward.new-reward-form
-    .loading.hide
-      = image_tag 'loading.gif'
-    .form-content.hide
-
-  .reward.add-reward
-    = link_to new_project_reward_path(parent), data: { element: '.new-reward-form', path: new_project_reward_path(parent) } do
-      i.icon-et-plus
-      br/
-      = t('.add')
+- if request.xhr?
+  = yield :page_content
+- else
+  = render template: 'projects/show'
