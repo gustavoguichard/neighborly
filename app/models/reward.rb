@@ -8,6 +8,7 @@ class Reward < ActiveRecord::Base
   ranks :row_order, with_same: :project_id
 
   validates_numericality_of :maximum_contributions, only_integer: true, greater_than: 0, allow_nil: true
+  default_scope { order(:happens_at) }
   scope :remaining, -> { where("maximum_contributions IS NULL OR (maximum_contributions IS NOT NULL AND (SELECT COUNT(*) FROM contributions WHERE state IN ('confirmed', 'waiting_confirmation') AND reward_id = rewards.id) < maximum_contributions)") }
   scope :sort_asc, -> { order('id ASC') }
 

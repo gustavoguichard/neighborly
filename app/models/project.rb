@@ -28,6 +28,7 @@ class Project < ActiveRecord::Base
            :display_organization_type,
            :display_tax_exempt_yield,
            :rating_description,
+           :maturity_period,
            to: :decorator
 
   enum credit_type: %i(general_obligation revenue)
