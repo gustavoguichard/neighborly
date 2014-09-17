@@ -32,6 +32,10 @@
           strong Category: 
           = @project.category.name
 
+        p.tags
+          - @project.tags.each do |tag|
+            = link_to tag.display_name, discover_path(tags: tag.name)
+
         p.disclosure
           | *All informations presented is subject to change.
           br/
