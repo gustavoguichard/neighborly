@@ -16,11 +16,6 @@ class RewardPolicy < ApplicationPolicy
   def permitted_attributes
     attributes = record.attribute_names.map(&:to_sym)
 
-    if record.instance_of?(Reward)
-      attributes.delete(:minimum_value) unless not_sold_yet?
-      attributes.delete(:days_to_delivery) if project_finished?
-    end
-
     { reward: attributes }
   end
 

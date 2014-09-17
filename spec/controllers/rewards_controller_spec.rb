@@ -11,28 +11,28 @@ describe RewardsController do
   end
 
   shared_examples_for "POST rewards create" do
-    before { post :create, project_id: project, reward: { title: 'Foo bar', description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
+    before { post :create, project_id: project, reward: { minimum_value: 10, cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should_not be_empty}
   end
 
   shared_examples_for "POST rewards create without permission" do
-    before { post :create, project_id: project, reward: { title: 'Foo bar', description: 'Lorem ipsum', minimum_value: 10, days_to_delivery: 10 }, locale: :pt }
+    before { post :create, project_id: project, reward: { minimum_value: 10, cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should be_empty}
   end
 
   shared_examples_for "PUT rewards update" do
-    before { put :update, project_id: project, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
+    before { put :update, project_id: project, id: reward.id, reward: { cusip_number: '000000XXX' }, locale: :pt }
     it {
       reward.reload
-      reward.description.should == 'Amenori ipsum'
+      reward.cusip_number.should == '000000XXX'
     }
   end
 
   shared_examples_for "PUT rewards update without permission" do
-    before { put :update, project_id: project, id: reward.id, reward: { description: 'Amenori ipsum' }, locale: :pt }
+    before { put :update, project_id: project, id: reward.id, reward: { cusip_number: '000000XXX' }, locale: :pt }
     it {
       reward.reload
-      reward.description.should == 'Foo bar'
+      reward.cusip_number.should_not == '000000XXX'
     }
   end
 
@@ -62,29 +62,6 @@ describe RewardsController do
     it_should_behave_like "POST rewards create"
     it_should_behave_like "PUT rewards update"
     it_should_behave_like "DELETE rewards destroy"
-
-    context "When reward already have contributions" do
-      before { FactoryGirl.create(:contribution, state: 'confirmed', project: project, reward: reward) }
-
-      context "can't update the minimum value" do
-        before { put :update, project_id: project, id: reward.id, reward: { minimum_value: 15, description: 'Amenori ipsum' }, locale: :pt }
-        it {
-          reward.reload
-          reward.minimum_value.should_not eq(15.0)
-        }
-      end
-
-      context "can update the description and maximum contributions" do
-        before do
-          put :update, project_id: project, id: reward.id, reward: { maximum_contributions: 99, description: 'lorem ipsum'}, locale: :pt
-          reward.reload
-        end
-
-        it { expect(reward.description).to eq('lorem ipsum') }
-        it { expect(reward.maximum_contributions).to eq(99) }
-      end
-
-    end
   end
 
   context "when current_user is admin" do

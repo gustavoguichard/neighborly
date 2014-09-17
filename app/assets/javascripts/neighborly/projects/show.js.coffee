@@ -1,6 +1,6 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
 
-Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Projects.Show.StatusBar, Neighborly.Projects.Show.AskQuestion]
+Neighborly.Projects.modules =-> [Neighborly.Tabs, Neighborly.Rewards.Index, Neighborly.Projects.Show.StatusBar, Neighborly.Projects.Show.AskQuestion]
 
 
 Neighborly.Projects.Show =

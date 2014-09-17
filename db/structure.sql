@@ -738,7 +738,6 @@ CREATE TABLE notifications (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     contribution_id integer,
-    update_id integer,
     origin_email text NOT NULL,
     origin_name text NOT NULL,
     template_name text NOT NULL,
@@ -1704,18 +1703,17 @@ CREATE VIEW recommendations AS
 CREATE TABLE rewards (
     id integer NOT NULL,
     project_id integer NOT NULL,
-    minimum_value numeric NOT NULL,
     maximum_contributions integer,
-    description text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    reindex_versions timestamp without time zone,
     row_order integer,
-    days_to_delivery integer,
-    soon boolean DEFAULT false,
-    title character varying(255) DEFAULT ''::character varying NOT NULL,
-    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0)),
-    CONSTRAINT rewards_minimum_value_positive CHECK ((minimum_value >= (0)::numeric))
+    happens_at date NOT NULL,
+    principal_amount numeric,
+    interest_rate numeric,
+    yield numeric,
+    price numeric,
+    cusip_number character varying(255),
+    CONSTRAINT rewards_maximum_backers_positive CHECK ((maximum_contributions >= 0))
 );
 
 
@@ -2014,75 +2012,6 @@ CREATE TABLE total_backed_ranges (
 
 
 --
--- Name: unsubscribes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE unsubscribes (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    project_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE unsubscribes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE unsubscribes_id_seq OWNED BY unsubscribes.id;
-
-
---
--- Name: updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE updates (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    project_id integer NOT NULL,
-    title text,
-    comment text NOT NULL,
-    comment_html text NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    exclusive boolean DEFAULT false,
-    comment_textile text
-);
-
-
---
--- Name: updates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE updates_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: updates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE updates_id_seq OWNED BY updates.id;
-
-
---
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -2309,20 +2238,6 @@ ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq':
 --
 
 ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY unsubscribes ALTER COLUMN id SET DEFAULT nextval('unsubscribes_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY updates ALTER COLUMN id SET DEFAULT nextval('updates_id_seq'::regclass);
 
 
 --
@@ -2602,22 +2517,6 @@ ALTER TABLE ONLY tags
 
 ALTER TABLE ONLY total_backed_ranges
     ADD CONSTRAINT total_backed_ranges_pkey PRIMARY KEY (name);
-
-
---
--- Name: unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY unsubscribes
-    ADD CONSTRAINT unsubscribes_pkey PRIMARY KEY (id);
-
-
---
--- Name: updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY updates
-    ADD CONSTRAINT updates_pkey PRIMARY KEY (id);
 
 
 --
@@ -3000,13 +2899,6 @@ CREATE INDEX index_notifications_on_match_id ON notifications USING btree (match
 
 
 --
--- Name: index_notifications_on_update_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_notifications_on_update_id ON notifications USING btree (update_id);
-
-
---
 -- Name: index_organizations_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3116,27 +3008,6 @@ CREATE INDEX index_taggings_on_project_id ON taggings USING btree (project_id);
 --
 
 CREATE INDEX index_taggings_on_tag_id ON taggings USING btree (tag_id);
-
-
---
--- Name: index_unsubscribes_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_unsubscribes_on_project_id ON unsubscribes USING btree (project_id);
-
-
---
--- Name: index_unsubscribes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_unsubscribes_on_user_id ON unsubscribes USING btree (user_id);
-
-
---
--- Name: index_updates_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_updates_on_project_id ON updates USING btree (project_id);
 
 
 --
@@ -3494,14 +3365,6 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: notifications_update_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT notifications_update_id_fk FOREIGN KEY (update_id) REFERENCES updates(id);
-
-
---
 -- Name: notifications_user_id_reference; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3539,38 +3402,6 @@ ALTER TABLE ONLY projects
 
 ALTER TABLE ONLY rewards
     ADD CONSTRAINT rewards_project_id_reference FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: unsubscribes_project_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY unsubscribes
-    ADD CONSTRAINT unsubscribes_project_id_fk FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: unsubscribes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY unsubscribes
-    ADD CONSTRAINT unsubscribes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: updates_project_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY updates
-    ADD CONSTRAINT updates_project_id_fk FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: updates_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY updates
-    ADD CONSTRAINT updates_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -4074,4 +3905,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140829195912');
 INSERT INTO schema_migrations (version) VALUES ('20140909220324');
 
 INSERT INTO schema_migrations (version) VALUES ('20140912162610');
+
+INSERT INTO schema_migrations (version) VALUES ('20140912221643');
+
+INSERT INTO schema_migrations (version) VALUES ('20140912225658');
+
+INSERT INTO schema_migrations (version) VALUES ('20140916165622');
 

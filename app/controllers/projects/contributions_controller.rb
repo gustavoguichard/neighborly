@@ -31,7 +31,7 @@ class Projects::ContributionsController < ApplicationController
     @contribution = ContributionForm.new(project: parent, user: current_user)
     authorize @contribution
 
-    @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
+    @rewards = @project.rewards.remaining.order(:happens_at)
 
     if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
       @contribution.reward = selected_reward
@@ -66,10 +66,6 @@ class Projects::ContributionsController < ApplicationController
 
   def collection
     @contributions ||= apply_scopes(parent.contributions).available_to_display.where(matching_id: nil).order("confirmed_at DESC").per(10)
-  end
-
-  def empty_reward
-    Reward.new(minimum_value: 0, description: t('controllers.projects.contributions.new.no_reward'))
   end
 
   def parent

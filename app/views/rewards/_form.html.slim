@@ -3,22 +3,15 @@
     a.cancel.button.secondary href="#" = t('words.cancel')
   .clearfix
 
-  - if policy(@reward).permitted_for?(:title, :update)
-    = f.input :title
-
-  - if policy(@reward).permitted_for?(:minimum_value, :update)
-    = f.input :minimum_value, as: :integer, input_html: {pattern: "^[\\d+.]+"}
-
-  - if policy(@reward).permitted_for?(:days_to_delivery, :update)
-    = f.input :days_to_delivery
-
-  - if policy(@reward).permitted_for?(:description, :update)
-    = f.input :description
-
   - if policy(@reward).permitted_for?(:maximum_contributions, :update)
     = f.input :maximum_contributions
 
-  = f.input :soon, as: :boolean
+  = f.input :happens_at
+  = f.input :principal_amount
+  = f.input :interest_rate
+  = f.input :yield
+  = f.input :price
+  = f.input :cusip_number
 
   = f.button :submit, data: { disable_with: t('words.sending') }
   - if @reward.persisted? && policy(@reward).destroy?
