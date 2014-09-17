@@ -2,7 +2,7 @@
 - if !defined?(:contribution)
   - contribution = nil
 
-= cache [:project_box, project, project.progress, large, contribution, defined?(:columns), browser.mobile?, browser.ie8?, project.remaining_days] do
+= cache [:project_box, project, large, contribution, defined?(:columns), browser.mobile?, browser.ie8?, project.remaining_days] do
 
   .project-box[itemscope itemtype="http://schema.org/CreativeWork" class=project_box_classes(project, large, contribution, try(:columns))]
     meta[ itemprop="dateCreated" content=project.created_at.to_date ]
@@ -12,13 +12,7 @@
       - project_link = project_path(project)
 
     = link_to project_link, target: (defined?(embed_link) ? :blank : '') do
-      - if project.expired?
-        .status-image
-          - if project.successful? && project.reached_goal?
-            = image_tag "successful.#{I18n.locale}.png"
-          - elsif project.successful? && !project.reached_goal?
-            = image_tag "successful_flex.#{I18n.locale}.png"
-      - elsif project.soon?
+      - if project.soon?
         .status-image
           = image_tag "coming_soon.#{I18n.locale}.png"
 
@@ -55,9 +49,7 @@
         - if large || contribution && !browser.mobile?
           h4.name = project.name
 
-        .category
-          i[title=project.category.to_s]
-          span = project.category.to_s
+        .rating = project.rating
 
         - unless large || contribution && !browser.mobile?
           h4.name = project.name
@@ -74,7 +66,7 @@
 
         .status
           .row.collapse
-            .pledged.large-6.columns = "#{project.display_pledged} (#{project.progress}%)"
+            .pledged.large-6.columns = number_to_currency project.goal, precision: 0
             .time.project.large-6.columns
               i.icon-et-clock
               - if project.soon?
@@ -83,4 +75,3 @@
                 = t('.completed')
               - else
                 = "#{project.time_to_go[:time]} #{project.time_to_go[:unit]} #{project.remaining_text}"
-          = project.progress_bar

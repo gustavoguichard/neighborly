@@ -48,31 +48,22 @@ $content-top-transition: -100px
 
   .name
     margin: 0
-    padding: +emCalc(20px)
-    padding-bottom: +emCalc(7px)
-    padding-top: 0
+    padding: +emCalc(0, 20px, 7px, 20px)
+    margin-top: -10px
     font-size: 90%
     text-transform: uppercase
     font-weight: 500
     max-height: +emCalc(130px)
 
-  .category
+  .rating
     text-align: center
-    i
-      margin-top: +emCalc(-20px)
-      padding: +emCalc(10px)
-      display: inline-block
-      width: +emCalc(48px)
-      height: +emCalc(48px)
-      @extend .white
-      +radius(50%)
-      &:before
-        color: $primary-color
-        @extend [class^="icon-et-"]:before
-        @extend .icon-et-thumbs-up:before
-        font-size: 180%
-    span
-      display: none
+    margin: auto
+    margin-top: +emCalc(-30px)
+    padding: +emCalc(10px)
+    width: +emCalc(55px)
+    height: +emCalc(55px)
+    background: #fff
+    +radius(50%)
 
   .location
     padding: +emCalc(20px)
@@ -112,16 +103,6 @@ $content-top-transition: -100px
         padding-right: +emCalc(5px)
     .time
       text-align: right
-    .progress
-      margin-top: +emCalc(10px)
-      background: #CACACA
-      +radius(4px)
-      height: +emCalc(10px)
-      span
-        display: block
-        background: $primary-color
-        height: +emCalc(10px)
-        +radius(4px)
   .back-informations
     i
       margin-right: +emCalc(10px)
@@ -133,21 +114,6 @@ $content-top-transition: -100px
         width: 100%
         padding-left: 0
         font-size: 70%
-
-  $categories-names: recreation, entertainment, event, mobility, restoration, technology
-  $categories-colors: #CB4042, #246b5b, #dec423, #d3663a, #256483, #744689
-  $categories-icons: bucket, leaf, calendar, rocket, arrows-ccw, signal
-
-  =category-style-for($name)
-    .category i:before
-      color: nth($categories-colors, index($categories-names, $name))
-      @extend .icon-et-#{nth($categories-icons, index($categories-names, $name))}:before
-    &.large .name
-      background: nth($categories-colors, index($categories-names, $name))
-
-  @each $name in $categories-names
-    &.#{$name}
-      +category-style-for($name)
 
 body.embed
   .project-box

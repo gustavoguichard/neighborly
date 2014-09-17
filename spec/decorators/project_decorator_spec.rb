@@ -100,46 +100,6 @@ describe ProjectDecorator do
     it{ should == "<p>Foo Bar <a href=\"http://www.foo.bar\">http://www.foo.bar</a> &lt;javascript&gt;xss()&lt;/javascript&gt;<a href=\"http://click.here\">Click here</a></p>\n" }
   end
 
-  describe "#display_progress" do
-    subject{ project.display_progress }
-
-    before do
-      project.stub(:total_contributions).and_return(1)
-    end
-
-    context "when no contribution were made" do
-      before do
-        project.stub(:total_contributions).and_return(0)
-        project.stub(:progress).and_return(0)
-      end
-
-      it{ should == 0 }
-    end
-
-    context "when contributions were made but progress does not reach 1%" do
-      before do
-        project.stub(:progress).and_return(0)
-      end
-
-      it{ should == 8 }
-    end
-
-    context "when progress is between 0 and 8" do
-      before{ project.stub(:progress).and_return(7) }
-      it{ should == 8 }
-    end
-    context "when progress is between 8 and 100" do
-      before{ project.stub(:progress).and_return(70) }
-      it{ should == 70 }
-    end
-    context "when progress is above 100" do
-      before do
-        project.stub(:progress).and_return(101)
-      end
-      it{ should == 100 }
-    end
-  end
-
   describe "#display_status" do
     subject{ project.display_status }
     context "when online and reached goal" do
@@ -201,25 +161,6 @@ describe ProjectDecorator do
       let(:project) { create(:project, video_url: "") }
 
       it { should be_nil }
-    end
-  end
-
-
-  describe "#successful_flag" do
-    let(:project) { create(:project) }
-
-    context "When the project is successful" do
-      it "should return a successful image flag when the project is successful" do
-        project.stub(:successful?).and_return(true)
-
-        expect(project.successful_flag).to eq('<div class="successful_flag"><img alt="Successful.en" src="/assets/successful.en.png" /></div>')
-      end
-    end
-
-    context "When the project was not successful" do
-      it "should not return an image, but nil" do
-        expect(project.successful_flag).to eq(nil)
-      end
     end
   end
 
