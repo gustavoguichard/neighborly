@@ -13,8 +13,8 @@ module Concerns
 
     def persistent_warning
       [
-        confirm_account,
-        complete_profile
+        confirm_account
+        #complete_profile
       ].detect do |possible_warnings|
         !possible_warnings.nil?
       end
