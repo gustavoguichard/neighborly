@@ -58,15 +58,6 @@ class ProjectDecorator < Draper::Decorator
     number_to_currency source.goal, precision: 0
   end
 
-  def successful_flag
-    return unless source.successful?
-
-    content_tag(:div, class: [:successful_flag]) do
-      image_tag("successful.#{I18n.locale}.png")
-    end
-
-  end
-
   def display_organization_type
     I18n.t("project.organization_type.#{source.organization_type}")
   end

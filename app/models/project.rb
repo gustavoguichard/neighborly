@@ -24,7 +24,6 @@ class Project < ActiveRecord::Base
            :display_goal,
            :remaining_days,
            :progress_bar,
-           :successful_flag,
            :display_address_formated,
            :display_organization_type,
            :display_tax_exempt_yield,
