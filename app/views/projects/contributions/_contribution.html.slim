@@ -25,10 +25,7 @@
               .tooltip-content.hide
                 .reward
                   .value = contribution.display_value
-                  .user-reward
-                    = contribution.reward.try(:happens_at)
-                    |  -
-                    = contribution.reward.try(:interest_rate)
+                  .user-reward = contribution.reward.to_s
                   .user_email = mail_to contribution.user.email
           - if contribution.matched_contributions.size > 0
             .matched-by

@@ -1,8 +1,8 @@
 - @rewards.each do |reward|
-  = cache [reward, reward.sold_out?, reward.display_deliver_prevision] do
-    div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? && !reward.soon? } #{ 'sortable' if policy(reward).update? } #{ 'soon' if reward.soon? }"]
+  = cache [reward, reward.sold_out?] do
+    div[id="reward-#{reward.id}" data-update-path=sort_project_reward_path(parent, reward) data-new-project-contribution-path=new_project_contribution_path(parent, reward_id: reward.id) class="reward #{ 'clickable' if parent.online? && !reward.sold_out? } #{ 'sortable' if policy(reward).update? }"]
       header.title
-        = t('.reward_title', minimum: reward.display_minimum).html_safe
+        = reward.to_s
         - if policy(reward).update?
           = link_to edit_project_reward_path(parent, reward), data: { element: ".edit-#{reward.id}-reward-form", path: edit_project_reward_path(parent, reward) }, class: 'edit' do
             i.icon-et-pencil
@@ -28,12 +28,7 @@
           - if in_time_to_confirm > 0
             .pending = t('.contributions_to_confirm', count: in_time_to_confirm)
 
-      .title = reward.title
-      .description = reward.display_description
-
-      - if reward.days_to_delivery.present?
-        .days-to-delivery
-        p = "#{t('.reward_deliver_time', prevision: reward.display_deliver_prevision)}".html_safe
+      .title = reward.to_s
 
 - if policy(parent).update?
 
