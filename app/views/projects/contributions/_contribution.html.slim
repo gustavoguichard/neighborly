@@ -25,7 +25,7 @@
               .tooltip-content.hide
                 .reward
                   .value = contribution.display_value
-                  .user-reward = contribution.reward.to_s
+                  .user-reward = contribution.reward
                   .user_email = mail_to contribution.user.email
 
           - if contribution.short_note.present?

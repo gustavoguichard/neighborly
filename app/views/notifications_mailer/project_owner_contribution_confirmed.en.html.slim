@@ -19,7 +19,7 @@ table width="500" border="1" cellpadding="10" cellspacing="0" style='font-size: 
         td= contribution.display_value
         td
           - if contribution.reward
-            strong = contribution.reward.to_s
+            strong = contribution.reward
 
 br
 |You can view all contributors here: #{link_to project_contributions_path(project), project_contributions_path(project)}
