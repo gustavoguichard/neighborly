@@ -78,10 +78,6 @@ en:
         statement_file_url: 'Statement file URL'
         new:
           category_id: 'Project Category'
-      contribution:
-        new:
-          anonymous: 'Optional: Make your contribution anonymous.'
-          short_note: 'Optional: Add a short message. This will display with your name on the "Neighbors" tab.'
     hints:
       project:
         edit:

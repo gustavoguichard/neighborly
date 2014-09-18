@@ -2,9 +2,8 @@ en:
   projects:
     contributions:
       new:
-        title: "Contribute to this campaign"
+        title: "Invest to this project"
         minimum_value: 'Contribute any amount as little as $10'
-        subtitle: "Select your amount or select your reward."
-        contribute: "Contribute to <strong>%{project_name}</strong>"
-        contribution_with_matches: "Contributions to <strong>%{project_name}</strong> will be matched by %{matchers}"
+        subtitle: "Select your maturity date to continue."
+        invest: "Invest in <strong>%{project_name}</strong>"
         submit: 'Review & Proceed'
