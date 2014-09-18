@@ -11,12 +11,12 @@ describe RewardsController do
   end
 
   shared_examples_for "POST rewards create" do
-    before { post :create, project_id: project, reward: { cusip_number: '840058TG6' }, locale: :pt }
+    before { post :create, project_id: project, reward: { happens_at: 10.years.from_now, cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should_not be_empty}
   end
 
   shared_examples_for "POST rewards create without permission" do
-    before { post :create, project_id: project, reward: { cusip_number: '840058TG6' }, locale: :pt }
+    before { post :create, project_id: project, reward: { happens_at: 10.years.from_now, cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should be_empty}
   end
 
