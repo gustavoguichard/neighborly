@@ -11,11 +11,6 @@
           .row
             .large-5.columns.large-centered.small-centered
               input[type='text' disabled=true value="#{t('.total')}#{number_to_currency(@contribution.value)}" data-total-text=t('.total')]
-              - if @project.matches.active.any?
-                .to-be-matched-by
-                  = t('.to_be_matched_by')
-                  br/
-                  = @project.matches.active.map { |m| m.user.display_name }.uniq.to_sentence
               .who-pay-fees
                 = check_box_tag 'pay_payment_fees', 1, true
                 = label_tag 'pay_payment_fees', t('.i_want_pay_fees')

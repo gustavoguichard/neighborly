@@ -29,10 +29,4 @@ describe Shared::Payable do
 
     it_should_behave_like 'payable'
   end
-
-  context 'when its included on Match' do
-    let(:resource) { create(:match, value: 1000, key: 'something') }
-
-    it_should_behave_like 'payable'
-  end
 end

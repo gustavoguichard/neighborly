@@ -9,9 +9,6 @@ class Contribution < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :reward
-  belongs_to :matching
-  has_many   :matchings
-  has_one :match, through: :matching
 
   validates_presence_of :project, :user, :value
 
@@ -39,14 +36,6 @@ class Contribution < ActiveRecord::Base
     },
     ignoring: :accents
 
-  def matched_contributions
-    self.class.where(matching_id: matchings)
-  end
-
-  def matches
-    matched_contributions
-  end
-
   def as_json(options = {})
     return super unless options.empty?
 
@@ -70,14 +59,6 @@ class Contribution < ActiveRecord::Base
       value
     else
       value - payment_service_fee
-    end
-  end
-
-  def payment_service_fee
-    if match
-      match.payment_service_fee / match.value * value
-    else
-      read_attribute(:payment_service_fee)
     end
   end
 end

@@ -128,8 +128,6 @@ Neighborly::Application.routes.draw do
     end
 
     resources :contributions, controller: 'projects/contributions', except: :update
-
-    resources :matches, controller: 'projects/matches', except: %i(index update destroy)
   end
 
   scope :login, controller: :sessions do

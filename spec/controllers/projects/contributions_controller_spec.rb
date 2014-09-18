@@ -161,13 +161,5 @@ describe Projects::ContributionsController do
       get :index, locale: :pt, project_id: project
       expect(subject.status).to eq(200)
     end
-
-    it 'returns active matches of project' do
-      matches = [double('Match').as_null_object]
-      allow_any_instance_of(Project).to receive(:matches).
-        and_return(double(active: matches))
-      get :index, locale: :pt, project_id: project
-      expect(assigns(:active_matches)).to eql(matches)
-    end
   end
 end

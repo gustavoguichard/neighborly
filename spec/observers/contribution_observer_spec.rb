@@ -23,11 +23,6 @@ describe ContributionObserver do
     describe 'when updating status' do
       let(:resource_state) { 'pending' }
 
-      it 'updates matched contributions\' statuses' do
-        expect_any_instance_of(MatchedContributionGenerator).to receive(:update)
-        resource.confirm!
-      end
-
       it 'update project\'s total' do
         resource
         expect_any_instance_of(ProjectTotalBuilder).to receive(:perform)

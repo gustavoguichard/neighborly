@@ -52,11 +52,4 @@ describe PayableDecorator do
 
     it_should_behave_like 'payable'
   end
-
-  context 'when its included on Match' do
-    let(:resource_name) { :match }
-
-    it_should_behave_like 'payable'
-  end
 end
-

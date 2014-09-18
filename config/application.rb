@@ -47,7 +47,6 @@ module Neighborly
       authorization_observer
       contact_observer
       contribution_observer
-      match_observer
       notification_observer
       payment_observer
       project_observer

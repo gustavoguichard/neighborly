@@ -32,13 +32,3 @@ desc 'Cancel all waiting_confirmation contributions that is passed 4 weekdays'
 task :cancel_expired_waiting_confirmation_contributions => :environment do
   Contribution.can_cancel.update_all(state: 'canceled')
 end
-
-desc 'Refund remaining amount from matches already finished'
-task :complete_finished_matches => :environment do
-  MatchFinisher.new.complete!
-end
-
-desc 'Activate new matches to start in the current day'
-task :active_new_matches => :environment do
-  MatchActivationWorker.perform_async
-end

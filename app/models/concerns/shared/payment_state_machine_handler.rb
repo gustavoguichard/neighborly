@@ -41,10 +41,6 @@ module Shared::PaymentStateMachineHandler
 
       after_transition do |resource, transition|
         resource.notify_observers "from_#{transition.from}_to_#{transition.to}".to_sym
-
-        if resource.is_a? Contribution
-          MatchedContributionGenerator.new(resource).update
-        end
       end
     end
   end
