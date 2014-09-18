@@ -42,7 +42,6 @@
         .selected-reward
           h4 = t('.reward.title')
           .description
-            h5 = @contribution.reward.title
-            p = @contribution.reward.description
+            h5 = @contribution.reward.to_s
       .faqs
         = render 'faqs'

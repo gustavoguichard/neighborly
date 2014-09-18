@@ -11,10 +11,9 @@ strong #{number_to_currency resource.value, precision: 0}
 br
 - if resource.respond_to?(:reward)
   br
-  |Reward Selected: 
+  |Maturity Selected: 
   - if resource.reward
-    strong #{number_to_currency resource.reward.minimum_value, precision: 0}
-    |  &mdash; #{resource.reward.description}
+    strong = contribution.reward.to_s
   -else
     |  No reward selected. If this was in error, please email &nbsp; #{mail_to Configuration[:email_contact]}
   br

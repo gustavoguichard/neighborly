@@ -3,19 +3,6 @@
 # These tasks was/will be used on migrating some data in production env.
 ###
 
-desc "Create reward title"
-task :create_reward_title => :environment do
-   Project.all.each do |project|
-    puts "PROJECT: #{project.id} -- #{project.name}"
-    i = 0
-    project.rewards.rank(:row_order).each do |reward|
-      i += 1
-      puts "REWARD LEVEL: #{i} -- #{reward.minimum_value} -- ID: #{reward.id}"
-      reward.update_attributes(title: "Level #{i}") unless reward.title.present?
-    end
-  end
-end
-
 desc "Update user completeness_progress"
 task :update_user_completeness_progress => :environment do
   User.all.each do |user|
@@ -148,16 +135,6 @@ task :fix_payment_method_from_old_contributions => :environment do
     lower(contributions.payment_method) = lower('MoIP')
     and contributions.created_at + interval '2 hours' > contributions.confirmed_at
   ").update_all(payment_method: 'AuthorizeNet')
-end
-
-desc "Create first versions for rewards"
-task :index_rewards_versions => :environment do
-  Reward.all.each do |reward|
-    unless reward.versions.count > 0
-      puts "update! #{reward.id}"
-      reward.update_attributes(reindex_versions: DateTime.now)
-    end
-  end
 end
 
 desc "Upload images from markdown"

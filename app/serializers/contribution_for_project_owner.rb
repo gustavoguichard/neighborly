@@ -8,7 +8,6 @@ class ContributionForProjectOwner
     allow_nil: true
   delegate :value, to: :contribution, prefix: true, allow_nil: true
   delegate :email, :name, to: :user, prefix: true, allow_nil: true
-  delegate :description, :minimum_value, to: :reward, prefix: true, allow_nil: true
 
   def initialize(contribution)
     @contribution = contribution
@@ -18,8 +17,6 @@ class ContributionForProjectOwner
     {
       project_id:           project_id,
       reward_id:            reward_id,
-      reward_description:   reward_description,
-      reward_minimum_value: reward_minimum_value,
       created_at:           created_at,
       confirmed_at:         confirmed_at,
       contribution_value:   contribution_value,

@@ -3,7 +3,6 @@ en:
     contributions:
       new:
         title: "Invest to this project"
-        minimum_value: 'Contribute any amount as little as $10'
         subtitle: "Select your maturity date to continue."
         invest: "Invest in <strong>%{project_name}</strong>"
         submit: 'Review & Proceed'

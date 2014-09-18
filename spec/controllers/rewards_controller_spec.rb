@@ -11,12 +11,12 @@ describe RewardsController do
   end
 
   shared_examples_for "POST rewards create" do
-    before { post :create, project_id: project, reward: { minimum_value: 10, cusip_number: '840058TG6' }, locale: :pt }
+    before { post :create, project_id: project, reward: { cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should_not be_empty}
   end
 
   shared_examples_for "POST rewards create without permission" do
-    before { post :create, project_id: project, reward: { minimum_value: 10, cusip_number: '840058TG6' }, locale: :pt }
+    before { post :create, project_id: project, reward: { cusip_number: '840058TG6' }, locale: :pt }
     it { project.rewards.should be_empty}
   end
 

@@ -33,9 +33,9 @@ class Projects::ContributionsController < ApplicationController
 
     @rewards = @project.rewards.remaining.order(:happens_at)
 
-    if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
+    if params[:reward_id] && (selected_reward = @project.rewards.find(params[:reward_id])) && !selected_reward.sold_out?
       @contribution.reward = selected_reward
-      @contribution.value = "%0.0f" % selected_reward.minimum_value
+      @contribution.value = "%0.0f" % @project.minimum_investment
     end
   end
 
