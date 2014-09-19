@@ -76,6 +76,7 @@ en:
         tag_list: 'Keywords'
         street_address: 'Street Address'
         statement_file_url: 'Statement file URL'
+        minimum_investment: 'Minimum investment'
         new:
           category_id: 'Project Category'
     hints:

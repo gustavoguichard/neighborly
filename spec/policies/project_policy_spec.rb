@@ -204,7 +204,8 @@ describe ProjectPolicy do
        :hero_image,    :headline,             :budget,
        :terms,         :address_neighborhood, :location,
        :address_city,  :address_state,        :hash_tag,
-       :site, :tag_list].each do |field|
+       :site,          :tag_list,             :statement_file_url,
+       :credit_type,   :minimum_investment].each do |field|
         context "when field is #{field}" do
           subject{ policy.permitted?(field) }
           it{ should be_true }

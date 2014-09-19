@@ -37,6 +37,7 @@
               = f.input :statement_file_url
               = f.label :credit_type
               = f.select :credit_type, Project.credit_types.map { |k, _| [k.humanize, k] }
+              = f.input :minimum_investment
 
               .input[class="#{'error' if @project.errors[:goal].present?}"]
                 .row.collapse

@@ -184,7 +184,7 @@ CREATE TABLE projects (
     organization_type character varying(255),
     street_address character varying(255),
     credit_type integer NOT NULL,
-    minimum_investment numeric,
+    minimum_investment numeric NOT NULL,
     rating integer,
     rating_agency character varying(255),
     statement_file_url character varying(255) NOT NULL,
@@ -3750,4 +3750,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140915205939');
 INSERT INTO schema_migrations (version) VALUES ('20140916165622');
 
 INSERT INTO schema_migrations (version) VALUES ('20140918210041');
+
+INSERT INTO schema_migrations (version) VALUES ('20140919192329');
 
