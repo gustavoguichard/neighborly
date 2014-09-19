@@ -3,7 +3,7 @@ class Discover
   attr_reader :params
 
   FILTERS = %w(state near category tags search)
-  STATES  = %w(active recommended expiring recent successful soon with_active_matches)
+  STATES  = %w(active recommended expiring recent successful soon)
 
   def initialize(params)
     @filters = {}
@@ -15,10 +15,6 @@ class Discover
       Project.includes(:project_total).group('projects.id')
     else
       Project.includes(:project_total)
-    end
-
-    if params[:state].eql? 'with_active_matches'
-      projects = projects.group('project_totals.id', 'categories.id')
     end
 
     @projects ||= apply_scopes(

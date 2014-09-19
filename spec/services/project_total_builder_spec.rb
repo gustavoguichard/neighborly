@@ -9,7 +9,6 @@ describe ProjectTotalBuilder do
 
   def prepopulate_db
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'pending', project_id: project.id)
-    create(:contribution, value: 10.0, payment_service_fee: 1, state: 'confirmed', project_id: project.id, matching: create(:matching))
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'confirmed', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'waiting_confirmation', project_id: project.id)
     create(:contribution, value: 10.0, payment_service_fee: 1, state: 'refunded', project_id: project.id)
@@ -19,7 +18,7 @@ describe ProjectTotalBuilder do
     before { prepopulate_db }
 
     subject { described_class.new(project).attributes[:pledged] }
-    it { should == 30 }
+    it { should == 20 }
   end
 
   describe 'progress' do
@@ -53,12 +52,6 @@ describe ProjectTotalBuilder do
   describe "#total_contributions" do
     before  { prepopulate_db }
     subject { described_class.new(project).attributes[:total_contributions] }
-    it{ should == 3 }
-  end
-
-  describe "#total_contributions_without_matches" do
-    before  { prepopulate_db }
-    subject { described_class.new(project).attributes[:total_contributions_without_matches] }
     it{ should == 2 }
   end
 
@@ -99,16 +92,6 @@ describe ProjectTotalBuilder do
         )
         expect(subject.attributes[:net_amount].to_f).to eql(90.0)
       end
-    end
-
-    it 'takes payment service fees of matches in count' do
-      create(:match, project: project, payment_service_fee: 10, value: 1_000, value_unit: 10)
-      create(:contribution,
-        payment_service_fee: 1,
-        value: 50,
-        project: project
-      )
-      expect(subject.attributes[:total_payment_service_fee]).to eql(6) # 1 + 5 from matched contribution
     end
   end
 

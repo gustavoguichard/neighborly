@@ -11,11 +11,12 @@ feature 'Project\'s ending' do
 
   scenario 'After reaching ending date' do
     @project.finish
-    travel (@project.online_days + 1).days
 
-    visit '/'
-    click_on 'Discover'
-    click_on @project.name
-    expect(page).to_not have_link('Contribute')
+    travel (@project.online_days + 1).days do
+      visit '/'
+      click_on 'Discover'
+      click_on @project.name
+      expect(page).to_not have_link('Contribute')
+    end
   end
 end

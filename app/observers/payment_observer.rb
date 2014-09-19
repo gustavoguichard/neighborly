@@ -1,5 +1,5 @@
 class PaymentObserver < ActiveRecord::Observer
-  observe :contribution, :match
+  observe :contribution
 
   def after_create(resource)
     resource.define_key!

@@ -16,7 +16,6 @@ describe Contribution do
     it { should belong_to(:project) }
     it { should belong_to(:user) }
     it { should belong_to(:reward) }
-    it { should belong_to(:matching) }
   end
 
   describe 'validations' do
@@ -143,18 +142,6 @@ describe Contribution do
     context 'when the value does not have decimal places' do
       subject{ build(:contribution, value: 1).display_value }
       it{ should == '$1.00' }
-    end
-  end
-
-  describe 'when saving' do
-    it 'generates matched contributions' do
-      expect_any_instance_of(MatchedContributionGenerator).to receive(:create)
-      create(:contribution)
-    end
-
-    it 'skips matched contributions generation when is already a match' do
-      expect_any_instance_of(MatchedContributionGenerator).to_not receive(:create)
-      create(:contribution, payment_method: :matched)
     end
   end
 

@@ -37,7 +37,6 @@ class Project < ActiveRecord::Base
   belongs_to :category
   has_one :project_total
   has_many :contributions, dependent: :destroy
-  has_many :matches, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :updates, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
@@ -49,8 +48,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_documents
 
   delegate :pledged, :progress, :total_contributions,
-    :total_contributions_without_matches, :total_payment_service_fee,
-    to: :project_total
+    :total_payment_service_fee, to: :project_total
 
   catarse_auto_html_for field: :summary, video_width: 720, video_height: 405
   catarse_auto_html_for field: :budget, video_width: 720, video_height: 405
@@ -75,7 +73,6 @@ class Project < ActiveRecord::Base
   # Used to simplify a has_scope
   scope :active, ->{ with_state('online') }
   scope :successful, ->{ with_state('successful') }
-  scope :with_active_matches, -> { includes(:matches).where(matches: { id: Match.active }).group('projects.id', 'matches.id') }
   scope :by_id, ->(id) { where(id: id) }
   scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }

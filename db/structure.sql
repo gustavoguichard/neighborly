@@ -107,7 +107,6 @@ CREATE TABLE contributions (
     short_note text,
     referral_url text,
     payment_service_fee_paid_by_user boolean DEFAULT false,
-    matching_id integer,
     CONSTRAINT backers_value_positive CHECK ((value >= (0)::numeric))
 );
 
@@ -205,6 +204,41 @@ CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     AS $_$
                    SELECT ((($1.sale_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
                   $_$;
+
+
+--
+-- Name: activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE activities (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    happened_at timestamp without time zone NOT NULL,
+    summary character varying(255),
+    project_id integer,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
@@ -617,84 +651,6 @@ ALTER SEQUENCE investment_prospects_id_seq OWNED BY investment_prospects.id;
 
 
 --
--- Name: matches; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matches (
-    id integer NOT NULL,
-    project_id integer NOT NULL,
-    user_id integer,
-    starts_at date NOT NULL,
-    finishes_at date NOT NULL,
-    value_unit numeric NOT NULL,
-    value numeric,
-    completed boolean DEFAULT false NOT NULL,
-    payment_id character varying(255),
-    payment_choice text,
-    payment_method text,
-    payment_token text,
-    payment_service_fee numeric DEFAULT 0.0,
-    payment_service_fee_paid_by_user boolean DEFAULT true,
-    state character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    key character varying(255),
-    confirmed_at timestamp without time zone
-);
-
-
---
--- Name: matches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE matches_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: matches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE matches_id_seq OWNED BY matches.id;
-
-
---
--- Name: matchings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE matchings (
-    id integer NOT NULL,
-    match_id integer,
-    contribution_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: matchings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE matchings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: matchings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE matchings_id_seq OWNED BY matchings.id;
-
-
---
 -- Name: neighborly_balanced_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -744,8 +700,7 @@ CREATE TABLE notifications (
     locale text NOT NULL,
     channel_id integer,
     contact_id integer,
-    bcc character varying(255),
-    match_id integer
+    bcc character varying(255)
 );
 
 
@@ -850,8 +805,7 @@ CREATE TABLE payment_notifications (
     contribution_id integer NOT NULL,
     extra_data text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    match_id integer
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1020,7 +974,6 @@ CREATE TABLE project_totals (
     pledged numeric DEFAULT 0,
     progress integer DEFAULT 0,
     total_contributions integer DEFAULT 0,
-    total_contributions_without_matches integer DEFAULT 0,
     total_payment_service_fee numeric DEFAULT 0,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -2034,6 +1987,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY api_access_tokens ALTER COLUMN id SET DEFAULT nextval('api_access_tokens_id_seq'::regclass);
 
 
@@ -2112,20 +2072,6 @@ ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::reg
 --
 
 ALTER TABLE ONLY investment_prospects ALTER COLUMN id SET DEFAULT nextval('investment_prospects_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matches ALTER COLUMN id SET DEFAULT nextval('matches_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matchings ALTER COLUMN id SET DEFAULT nextval('matchings_id_seq'::regclass);
 
 
 --
@@ -2248,6 +2194,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: api_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2349,22 +2303,6 @@ ALTER TABLE ONLY images
 
 ALTER TABLE ONLY investment_prospects
     ADD CONSTRAINT investment_prospects_pkey PRIMARY KEY (id);
-
-
---
--- Name: matches_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY matches
-    ADD CONSTRAINT matches_pkey PRIMARY KEY (id);
-
-
---
--- Name: matchings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY matchings
-    ADD CONSTRAINT matchings_pkey PRIMARY KEY (id);
 
 
 --
@@ -2528,6 +2466,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: fk__activities_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__activities_project_id ON activities USING btree (project_id);
+
+
+--
+-- Name: fk__activities_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__activities_user_id ON activities USING btree (user_id);
+
+
+--
 -- Name: fk__api_access_tokens_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2605,34 +2557,6 @@ CREATE INDEX fk__investment_prospects_user_id ON investment_prospects USING btre
 
 
 --
--- Name: fk__matches_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__matches_project_id ON matches USING btree (project_id);
-
-
---
--- Name: fk__matches_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__matches_user_id ON matches USING btree (user_id);
-
-
---
--- Name: fk__matchings_contribution_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__matchings_contribution_id ON matchings USING btree (contribution_id);
-
-
---
--- Name: fk__matchings_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__matchings_match_id ON matchings USING btree (match_id);
-
-
---
 -- Name: fk__neighborly_balanced_orders_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2654,24 +2578,10 @@ CREATE INDEX fk__notifications_company_contact_id ON notifications USING btree (
 
 
 --
--- Name: fk__notifications_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__notifications_match_id ON notifications USING btree (match_id);
-
-
---
 -- Name: fk__organizations_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX fk__organizations_user_id ON organizations USING btree (user_id);
-
-
---
--- Name: fk__payment_notifications_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__payment_notifications_match_id ON payment_notifications USING btree (match_id);
 
 
 --
@@ -2721,6 +2631,20 @@ CREATE INDEX fk__taggings_project_id ON taggings USING btree (project_id);
 --
 
 CREATE INDEX fk__taggings_tag_id ON taggings USING btree (tag_id);
+
+
+--
+-- Name: index_activities_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activities_on_project_id ON activities USING btree (project_id);
+
+
+--
+-- Name: index_activities_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activities_on_user_id ON activities USING btree (user_id);
 
 
 --
@@ -2815,13 +2739,6 @@ CREATE INDEX index_contributions_on_key ON contributions USING btree (key);
 
 
 --
--- Name: index_contributions_on_matching_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_contributions_on_matching_id ON contributions USING btree (matching_id);
-
-
---
 -- Name: index_contributions_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2857,45 +2774,10 @@ CREATE INDEX index_investment_prospects_on_user_id ON investment_prospects USING
 
 
 --
--- Name: index_matches_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_matches_on_project_id ON matches USING btree (project_id);
-
-
---
--- Name: index_matches_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_matches_on_user_id ON matches USING btree (user_id);
-
-
---
--- Name: index_matchings_on_contribution_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_matchings_on_contribution_id ON matchings USING btree (contribution_id);
-
-
---
--- Name: index_matchings_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_matchings_on_match_id ON matchings USING btree (match_id);
-
-
---
 -- Name: index_neighborly_balanced_orders_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_neighborly_balanced_orders_on_project_id ON neighborly_balanced_orders USING btree (project_id);
-
-
---
--- Name: index_notifications_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_notifications_on_match_id ON notifications USING btree (match_id);
 
 
 --
@@ -2910,13 +2792,6 @@ CREATE INDEX index_organizations_on_user_id ON organizations USING btree (user_i
 --
 
 CREATE INDEX index_payment_notifications_on_contribution_id ON payment_notifications USING btree (contribution_id);
-
-
---
--- Name: index_payment_notifications_on_match_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_payment_notifications_on_match_id ON payment_notifications USING btree (match_id);
 
 
 --
@@ -3101,6 +2976,22 @@ ALTER TABLE ONLY contributions
 
 
 --
+-- Name: fk_activities_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_activities_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- Name: fk_activities_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_activities_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_api_access_tokens_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3189,14 +3080,6 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: fk_contributions_matching_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contributions
-    ADD CONSTRAINT fk_contributions_matching_id FOREIGN KEY (matching_id) REFERENCES matchings(id);
-
-
---
 -- Name: fk_images_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3210,38 +3093,6 @@ ALTER TABLE ONLY images
 
 ALTER TABLE ONLY investment_prospects
     ADD CONSTRAINT fk_investment_prospects_user_id FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_matches_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matches
-    ADD CONSTRAINT fk_matches_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: fk_matches_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matches
-    ADD CONSTRAINT fk_matches_user_id FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_matchings_contribution_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matchings
-    ADD CONSTRAINT fk_matchings_contribution_id FOREIGN KEY (contribution_id) REFERENCES contributions(id);
-
-
---
--- Name: fk_matchings_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY matchings
-    ADD CONSTRAINT fk_matchings_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
 
 
 --
@@ -3269,27 +3120,11 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: fk_notifications_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT fk_notifications_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
-
-
---
 -- Name: fk_organizations_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY organizations
     ADD CONSTRAINT fk_organizations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_payment_notifications_match_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY payment_notifications
-    ADD CONSTRAINT fk_payment_notifications_match_id FOREIGN KEY (match_id) REFERENCES matches(id);
 
 
 --
@@ -3910,5 +3745,9 @@ INSERT INTO schema_migrations (version) VALUES ('20140912221643');
 
 INSERT INTO schema_migrations (version) VALUES ('20140912225658');
 
+INSERT INTO schema_migrations (version) VALUES ('20140915205939');
+
 INSERT INTO schema_migrations (version) VALUES ('20140916165622');
+
+INSERT INTO schema_migrations (version) VALUES ('20140918210041');
 

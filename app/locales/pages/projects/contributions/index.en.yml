@@ -3,9 +3,6 @@ en:
     contributions:
       index:
         empty: "No contributions yet. Be the first!"
-        active_matches: 'Active challenge matches'
-        match_progress: '%{pledged} so far of %{ceil}'
         load_more: 'Load More'
       contribution:
         anonymous_contribution: "Anonymous neighbor"
-        matched_by: 'Matched by %{matchers}'

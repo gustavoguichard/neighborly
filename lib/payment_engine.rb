@@ -29,10 +29,10 @@ class PaymentEngine
 
     def find_payment(filter)
       resource_class = Contribution
-      id_key         = filter.slice(:contribution_id, :match_id).keys.first
+      id_key         = filter.slice(:contribution_id).keys.first
       if id_key
         filter[:id]    = filter.delete(id_key)
-        # :match_id => Match
+        # :contribution_id => Contribution
         resource_class = id_key[0..-4].camelize.constantize
       end
       resource_class.find_by(filter)
