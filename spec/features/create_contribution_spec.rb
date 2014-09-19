@@ -11,7 +11,7 @@ feature 'Create Investment' do
     visit project_path(@project)
     click_on 'Invest'
 
-    find(:xpath, "//input[@id='contribution_form_value']").set '10'
+    find(:xpath, "//input[@id='contribution_value']").set '10'
 
     expect {
       click_on 'Review & Proceed'

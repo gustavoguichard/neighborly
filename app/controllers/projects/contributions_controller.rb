@@ -27,7 +27,7 @@ class Projects::ContributionsController < ApplicationController
 
   def new
     @project      = parent
-    @contribution = ContributionForm.new(project: parent, user: current_user)
+    @contribution = Contribution.new(project: parent, user: current_user)
     @rewards      = parent.rewards
     authorize @contribution
 
@@ -41,11 +41,11 @@ class Projects::ContributionsController < ApplicationController
 
   def create
     @project      = parent
-    @contribution = ContributionForm.new(permitted_params[:contribution_form].
+    @contribution = Contribution.new(permitted_params[:contribution].
                                      merge(user: current_user,
                                            project: parent))
 
-    @contribution.reward_id = nil if params[:contribution_form][:reward_id].to_i == 0
+    @contribution.reward_id = nil if params[:contribution][:reward_id].to_i == 0
     authorize @contribution
 
     if @contribution.save
@@ -61,7 +61,7 @@ class Projects::ContributionsController < ApplicationController
   protected
 
   def permitted_params
-    params.permit(policy(@contribution || ContributionForm).permitted_attributes)
+    params.permit(policy(@contribution || Contribution).permitted_attributes)
   end
 
   def collection
