@@ -65,7 +65,7 @@ describe PaymentEngine do
     end
 
     it 'should return all engines' do
-      expect(PaymentEngine.all).to eq [creditcard, bankaccount]
+      expect(PaymentEngine.all).to eq [bankaccount, creditcard]
     end
   end
 
