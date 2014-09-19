@@ -28,6 +28,7 @@ class Projects::ContributionsController < ApplicationController
   def new
     @project      = parent
     @contribution = ContributionForm.new(project: parent, user: current_user)
+    @rewards      = parent.rewards
     authorize @contribution
 
     @rewards = @project.rewards.remaining.order(:happens_at)

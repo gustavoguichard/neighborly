@@ -1,52 +1,46 @@
 - content_for :title, t('projects.contributions.new.title', name: @project.name)
 .new-contribution-page
-  = simple_form_for @contribution, url: project_contributions_path(@project), html: { id: 'form-contribution' } do |form|
-    = hero_header_tag @project do
-      .row
-        .large-10.columns.large-centered
-          .name
-            h3 = t('.contribute', project_name: @project.name).html_safe
-      .row.value-wrapper
-        .large-8.columns.large-centered
-          .row.collapse
-            .large-2.small-2.columns
-              span.prefix $
-            .large-8.small-8.columns
-              = form.number_field :value, required: true, label: false, autocomplete: 'off', min: 10, data: { rewards: @rewards.map{|r| {id: r.id, minimum_value: r.minimum_value.to_i} }.to_json }, class: 'with-prefix with-postfix'
-            .large-2.small-2.columns
-              span.postfix .00
-          .row
-            .large-12.columns.text-center
-                .minimum-value
-                  i = t('.minimum_value')
-
+  = hero_header_tag @project do
     .row
-      .large-8.columns.large-centered
-        .subtitle
-          h4 = t('.subtitle')
-        .row
-          = form.association :reward_id, as: :radio_buttons, label: false, collection: @rewards do |builder|
-            - if builder.object.any?
-              - for reward in builder.object
-                .large-12.columns
-                  .reward-option.row[class="#{'selected' if form.object.reward_id == reward.id }"]
-                    .large-2.small-2.columns.radio
-                      = form.radio_button :reward_id, reward.id
-                    .large-10.small-10.columns
-                      = form.label "reward_id#{'_' if reward.id.present?}#{reward.id}" do
-                        .minimum-value
-                          = reward.minimum_value > 0 ? reward.display_minimum + ' or more' : I18n.t('reward.dont_want')
-                        .title = reward.title
-                        p.description
-                          = h reward.description
-                        - if reward.sold_out?
-                          .sold-out
-                            = I18n.t('reward.sold_out')
+      .large-10.columns.large-centered
+        h3 = t('.invest', project_name: @project.name).html_safe
 
-        = form.input :anonymous, as: :boolean
-        .anonymous-warning.hide
-          .alert-box
-            = render 'anonymous_warning'
-        = form.input :short_note
-        .text-center
-          = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }
+  .row
+    .large-8.columns.large-centered
+      h4.subtitle = t('.subtitle')
+
+      - @rewards.each do |maturity|
+        = simple_form_for @contribution, url: project_contributions_path(@project), html: { id: 'form-contribution' } do |form|
+          = form.input :reward_id, as: :hidden, value: maturity.id
+
+          .large-12.columns.maturity-option
+            .row.header
+              .medium-4.columns
+                h4 Maturity Date
+                p.happens-at = l maturity.happens_at, format: :long
+              .medium-8.columns
+                table
+                  thead
+                    tr
+                      td Pricipal Amount
+                      td Interest Rate
+                      td Yield
+                      td CUSIP Number
+                  tbody
+                    tr
+                      td = number_to_currency maturity.principal_amount, precision: 0
+                      td = "#{maturity.interest_rate}%"
+                      td = "#{maturity.yield}%"
+                      td = maturity.cusip_number
+
+            .row.details
+              .large-12.columns
+                p Enter the number of bonds you wish to purchase.
+                = number_field_tag :order_size, 1, class: 'order-size-input', data: { minimum_investment: @project.minimum_investment }
+                = form.input :value, as: :hidden, input_html: { value: @project.minimum_investment, class: 'value-input' }
+
+                fieldset.purchase-amount
+                  legend Purchase amount
+                  span.amount = number_to_currency @project.minimum_investment, precision: 0
+
+                = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }
