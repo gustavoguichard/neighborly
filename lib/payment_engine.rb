@@ -12,7 +12,7 @@ class PaymentEngine
 
   class << self
     def all
-      engines
+      engines.sort_by { |e| e.name }
     end
 
     def destroy_all
