@@ -39,7 +39,6 @@ class Project < ActiveRecord::Base
   has_one :project_total
   has_many :contributions, dependent: :destroy
   has_many :rewards, dependent: :destroy
-  has_many :updates, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_many :activities, dependent: :destroy
@@ -108,7 +107,7 @@ class Project < ActiveRecord::Base
   end
 
   validates :online_days, :address_city, :address_state, presence: true, if: ->(p) { p.state_name == 'online' }
-  validates_presence_of :name, :user, :category, :summary, :headline, :goal, :permalink, :location, :statement_file_url
+  validates_presence_of :name, :user, :category, :summary, :headline, :goal, :permalink, :location, :statement_file_url, :minimum_investment
   validates_length_of :headline, maximum: 140
   validates_numericality_of :online_days
   validates_uniqueness_of :permalink, allow_blank: true, case_sensitive: false, on: :update

@@ -54,6 +54,7 @@ FactoryGirl.define do
     headline           'Foo bar'
     home_page          true
     how_know           'Lorem ipsum'
+    minimum_investment 500
     name               'Foo bar'
     online_days        30
     permalink          { "#{name.parameterize}-#{SecureRandom.hex}" }

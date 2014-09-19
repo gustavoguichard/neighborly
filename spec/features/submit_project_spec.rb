@@ -8,6 +8,7 @@ def submit_project
   select 'Streetscapes', from: 'Project Category'
   fill_in 'Project Title', with: 'Three Points Beautification'
   select 'General obligation', from: 'Credit type'
+  fill_in 'Minimum investment', with: '500'
   fill_in 'Project Budget', with: '1000000'
   fill_in 'Street Address', with: '4000'
   fill_in 'City, State', with: 'Louisville, KY'

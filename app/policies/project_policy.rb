@@ -59,7 +59,7 @@ class ProjectPolicy < ApplicationPolicy
                   :terms,         :address_neighborhood, :location,
                   :address_city,  :address_state,        :hash_tag,
                   :site,          :tag_list,             :statement_file_url,
-                  :credit_type] }
+                  :credit_type,   :minimum_investment] }
 
 
     end

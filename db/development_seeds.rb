@@ -34,7 +34,8 @@ def generate_project(fields = {})
                      address_city: Faker::Address.city,
                      address_state: Faker::AddressUS.state_abbr,
                      remote_uploaded_image_url: lorem_pixel_url('500/400', 'city'),
-                     remote_hero_image_url: lorem_pixel_url('1280/600', 'city')
+                     remote_hero_image_url: lorem_pixel_url('1280/600', 'city'),
+                     minimum_investment: 500
     }.merge!(fields))
 
    p
