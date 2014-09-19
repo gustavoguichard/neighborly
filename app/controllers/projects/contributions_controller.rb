@@ -27,25 +27,25 @@ class Projects::ContributionsController < ApplicationController
 
   def new
     @project      = parent
-    @contribution = ContributionForm.new(project: parent, user: current_user)
+    @contribution = Contribution.new(project: parent, user: current_user)
     @rewards      = parent.rewards
     authorize @contribution
 
     @rewards = @project.rewards.remaining.order(:happens_at)
 
-    if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
+    if params[:reward_id] && (selected_reward = @project.rewards.find(params[:reward_id])) && !selected_reward.sold_out?
       @contribution.reward = selected_reward
-      @contribution.value = "%0.0f" % selected_reward.minimum_value
+      @contribution.value = "%0.0f" % @project.minimum_investment
     end
   end
 
   def create
     @project      = parent
-    @contribution = ContributionForm.new(permitted_params[:contribution_form].
+    @contribution = Contribution.new(permitted_params[:contribution].
                                      merge(user: current_user,
                                            project: parent))
 
-    @contribution.reward_id = nil if params[:contribution_form][:reward_id].to_i == 0
+    @contribution.reward_id = nil if params[:contribution][:reward_id].to_i == 0
     authorize @contribution
 
     if @contribution.save
@@ -61,7 +61,7 @@ class Projects::ContributionsController < ApplicationController
   protected
 
   def permitted_params
-    params.permit(policy(@contribution || ContributionForm).permitted_attributes)
+    params.permit(policy(@contribution || Contribution).permitted_attributes)
   end
 
   def collection

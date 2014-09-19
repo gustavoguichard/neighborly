@@ -9,7 +9,6 @@ en:
       anonymous: 'Anonymous'
       confirmed_at: 'Contribution Confirmed'
       created_at: 'Contribution Made'
-      minimum_value: 'Reward Level'
       payment_method: 'Payment Method'
       project_id: 'Project'
       reward_description: 'Reward Description'

@@ -47,7 +47,7 @@ describe Projects::ContributionsController do
     let(:set_expectations) {}
     before do
       set_expectations
-      post :create, {locale: :pt, project_id: project, contribution_form: { value: value, reward_id: nil, anonymous: '0' }}
+      post :create, {locale: :pt, project_id: project, contribution: { value: value, reward_id: nil, anonymous: '0' }}
     end
 
     context "when no user is logged" do
@@ -63,13 +63,6 @@ describe Projects::ContributionsController do
     context "without value" do
       let(:user){ create(:user) }
       let(:value){ '' }
-
-      it{ should redirect_to new_project_contribution_path(project) }
-    end
-
-    context "with invalid contribution values" do
-      let(:user){ create(:user) }
-      let(:value) { 2.0 }
 
       it{ should redirect_to new_project_contribution_path(project) }
     end

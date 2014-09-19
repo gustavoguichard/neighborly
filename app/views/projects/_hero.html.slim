@@ -27,6 +27,6 @@
               small Credit Type
         .small-6.medium-3.columns
           .box
-            span[data-tooltip class="has-tip" title="#{t('.maturities')} 2016-2018 <br />#{t('.definition')} #{t('.maturities_definition')}"]
-              strong 2016-2018
-              small Serial Maturieties
+            span[data-tooltip class="has-tip" title="#{t('.maturities')} #{@project.maturity_period} <br />#{t('.definition')} #{t('.maturities_definition')}"]
+              strong = @project.maturity_period
+              small Serial Maturities

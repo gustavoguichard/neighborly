@@ -19,10 +19,7 @@ table width="500" border="1" cellpadding="10" cellspacing="0" style='font-size: 
         td= contribution.display_value
         td
           - if contribution.reward
-            strong #{number_to_currency contribution.reward.minimum_value, precision: 0}
-            |  &mdash; #{contribution.reward.display_description}
-          - else
-            |  No reward selected. If this was in error, please email #{mail_to Configuration[:email_contact]}
+            strong = contribution.reward
 
 br
 |You can view all contributors here: #{link_to project_contributions_path(project), project_contributions_path(project)}

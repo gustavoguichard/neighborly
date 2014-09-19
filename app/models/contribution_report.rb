@@ -8,8 +8,6 @@ class ContributionReport
     :payer_email, :payer_name, :payment_choice, :payment_method,
     :payment_service_fee, :project_id, :state, :value, to: :contribution
 
-  delegate :description, :minimum_value, to: :reward
-
   delegate :address_city, :address_complement, :address_neighborhood,
     :address_number, :address_state, :address_street, :address_zip_code,
     :email, :name, to: :user
@@ -35,8 +33,6 @@ class ContributionReport
       project_id:            project_id,
       name:                  name,
       value:                 value,
-      minimum_value:         minimum_value,
-      description:           description,
       payment_method:        payment_method,
       payment_choice:        payment_choice,
       payment_service_fee:   payment_service_fee,

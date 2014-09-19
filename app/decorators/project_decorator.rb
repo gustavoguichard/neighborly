@@ -75,6 +75,17 @@ class ProjectDecorator < Draper::Decorator
     end
   end
 
+  def maturity_period
+    if source.rewards.any?
+      [
+        source.rewards.first.happens_at.year,
+        source.rewards.last.happens_at.year
+      ].uniq.join('-')
+    else
+      ''
+    end
+  end
+
   private
 
   def use_uploaded_image(version)

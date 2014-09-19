@@ -176,5 +176,23 @@ describe ProjectDecorator do
       expect(project.rating_description).to be_empty
     end
   end
+
+  describe 'maturity period' do
+    it 'returns years of both ends of rewards' do
+      create(:reward, happens_at: Date.new(2090), project: project)
+      create(:reward, happens_at: Date.new(2060), project: project)
+      expect(project.maturity_period).to eql('2060-2090')
+    end
+
+    it 'returns year of rewards if everything is in the same' do
+      create(:reward, happens_at: Date.new(2090), project: project)
+      create(:reward, happens_at: Date.new(2090), project: project)
+      expect(project.maturity_period).to eql('2090')
+    end
+
+    it 'returns blank string when does not have rewards' do
+      expect(project.maturity_period).to be_empty
+    end
+  end
 end
 

@@ -64,6 +64,12 @@ FactoryGirl.define do
     video_url          'http://vimeo.com/17298435'
     category
     user
+
+    trait :with_rewards do
+      after(:create) do |instance|
+        create :reward, project: instance
+      end
+    end
   end
 
   factory :unsubscribe do |f|
