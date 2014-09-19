@@ -8,7 +8,6 @@ en:
       ending_soon: 'Ending Soon'
       successful: 'Past Campaigns'
       coming_soon: 'Coming Soon'
-      with_active_matches: 'Active Matches'
       join:
         join_the_neighborhood: 'Join the Neighborhood'
         already_joined: 'Already joined? %{link}.'

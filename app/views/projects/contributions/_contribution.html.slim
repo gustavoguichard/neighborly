@@ -27,10 +27,6 @@
                   .value = contribution.display_value
                   .user-reward = contribution.reward.to_s
                   .user_email = mail_to contribution.user.email
-          - if contribution.matched_contributions.size > 0
-            .matched-by
-              - matchers = contribution.matched_contributions.map {|c| c.matching.match.user.display_name }.uniq.to_sentence
-              = t('.matched_by', matchers: matchers)
 
           - if contribution.short_note.present?
             p = contribution.short_note

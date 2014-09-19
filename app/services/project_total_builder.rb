@@ -5,13 +5,12 @@ class ProjectTotalBuilder
 
   def attributes
     {
-      net_amount:                          net_amount,
-      platform_fee:                        platform_fee,
-      pledged:                             pledged,
-      progress:                            progress,
-      total_contributions:                 total_contributions,
-      total_contributions_without_matches: total_contributions_without_matches,
-      total_payment_service_fee:           total_payment_service_fee
+      net_amount:                net_amount,
+      platform_fee:              platform_fee,
+      pledged:                   pledged,
+      progress:                  progress,
+      total_contributions:       total_contributions,
+      total_payment_service_fee: total_payment_service_fee
     }
   end
 
@@ -48,10 +47,6 @@ class ProjectTotalBuilder
 
   def total_contributions
     contributions.length
-  end
-
-  def total_contributions_without_matches
-    contributions.where(matching_id: nil).length
   end
 
   def total_payment_service_fee

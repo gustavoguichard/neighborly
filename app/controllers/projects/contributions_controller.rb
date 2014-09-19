@@ -8,7 +8,6 @@ class Projects::ContributionsController < ApplicationController
   def index
     @project        = parent
     @contributions  = collection
-    @active_matches = parent.matches.active
     if request.xhr? && params[:page] && params[:page].to_i > 1
       render collection
     end
@@ -65,7 +64,7 @@ class Projects::ContributionsController < ApplicationController
   end
 
   def collection
-    @contributions ||= apply_scopes(parent.contributions).available_to_display.where(matching_id: nil).order("confirmed_at DESC").per(10)
+    @contributions ||= apply_scopes(parent.contributions).available_to_display.order("confirmed_at DESC").per(10)
   end
 
   def parent

@@ -69,16 +69,4 @@ describe PaymentObserver do
 
     it_should_behave_like 'payment observer'
   end
-
-  context 'when resource is a Match' do
-    let(:resource_class) { Match }
-    let(:resource) do
-      create(:match,
-             state: 'confirmed',
-             confirmed_at: confirmed_at,
-             value: 1000)
-    end
-
-    it_should_behave_like 'payment observer'
-  end
 end

@@ -14,7 +14,6 @@ describe Project do
     it{ should belong_to :category }
     it{ should have_one :project_total }
     it{ should have_many :contributions }
-    it{ should have_many :matches }
     it{ should have_many :rewards }
     it{ should have_many :notifications }
     it{ should have_many :project_faqs }
@@ -183,22 +182,6 @@ describe Project do
       end
       subject{ Project.recent }
       it{ should == [@p] }
-    end
-
-    describe '.with_active_matches' do
-      it 'should include projects with active matches' do
-        project = create(:match).project
-
-        expect(described_class.with_active_matches).to include(project)
-      end
-
-      it 'should not include projects without active matches' do
-        project = travel_to(10.days.ago) do
-          create(:match, starts_at: 5.days.from_now, finishes_at: 7.days.from_now).project
-        end
-
-        expect(described_class.with_active_matches).not_to include(project)
-      end
     end
   end
 
