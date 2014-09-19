@@ -207,6 +207,41 @@ CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
 
 
 --
+-- Name: activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE activities (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    happened_at timestamp without time zone NOT NULL,
+    summary character varying(255),
+    project_id integer,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
+
+
+--
 -- Name: api_access_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1952,6 +1987,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY api_access_tokens ALTER COLUMN id SET DEFAULT nextval('api_access_tokens_id_seq'::regclass);
 
 
@@ -2149,6 +2191,14 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -2416,6 +2466,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: fk__activities_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__activities_project_id ON activities USING btree (project_id);
+
+
+--
+-- Name: fk__activities_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__activities_user_id ON activities USING btree (user_id);
+
+
+--
 -- Name: fk__api_access_tokens_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2567,6 +2631,20 @@ CREATE INDEX fk__taggings_project_id ON taggings USING btree (project_id);
 --
 
 CREATE INDEX fk__taggings_tag_id ON taggings USING btree (tag_id);
+
+
+--
+-- Name: index_activities_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activities_on_project_id ON activities USING btree (project_id);
+
+
+--
+-- Name: index_activities_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activities_on_user_id ON activities USING btree (user_id);
 
 
 --
@@ -2895,6 +2973,22 @@ ALTER TABLE ONLY contributions
 
 ALTER TABLE ONLY contributions
     ADD CONSTRAINT contributions_user_id_reference FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_activities_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_activities_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- Name: fk_activities_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_activities_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3650,6 +3744,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140912162610');
 INSERT INTO schema_migrations (version) VALUES ('20140912221643');
 
 INSERT INTO schema_migrations (version) VALUES ('20140912225658');
+
+INSERT INTO schema_migrations (version) VALUES ('20140915205939');
 
 INSERT INTO schema_migrations (version) VALUES ('20140916165622');
 
