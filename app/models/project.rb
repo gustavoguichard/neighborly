@@ -39,7 +39,6 @@ class Project < ActiveRecord::Base
   has_one :project_total
   has_many :contributions, dependent: :destroy
   has_many :rewards, dependent: :destroy
-  has_many :updates, dependent: :destroy
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_many :activities, dependent: :destroy
