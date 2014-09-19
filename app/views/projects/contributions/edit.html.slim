@@ -30,18 +30,5 @@
 
 
   .row
-    section.content.large-8.medium-8.columns
+    section.content.large-12.columns
       = render 'shared/payments/form', resource: @contribution
-
-    aside.large-4.medium-4.columns
-      .project-image
-        = image_tag @project.display_image('project_thumb_large'), id: 'project_image', alt: @project.name
-        h5 = "#{@project.time_to_go[:time]} #{@project.time_to_go[:unit]} #{@project.remaining_text}"
-
-      - if @contribution.reward
-        .selected-reward
-          h4 = t('.reward.title')
-          .description
-            h5 = @contribution.reward
-      .faqs
-        = render 'faqs'

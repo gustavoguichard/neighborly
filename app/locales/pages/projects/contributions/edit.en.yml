@@ -6,6 +6,4 @@ en:
         you_are_contributing_to: 'You are contributing to'
         total: 'Total: '
         i_want_pay_fees: "I'll cover the transaction fees"
-        reward:
-          title: 'Your maturity'
         tooltip-text: "Thank you for supporting <strong>%{project_name}</strong>! In order to make the most of your contribution, we ask that you please consider covering the electronic transaction fees. Though entirely optional, doing so makes a big difference and is greatly appreciated.<br /><strong>Note that ACH debit fees cap at $5.</strong>"
