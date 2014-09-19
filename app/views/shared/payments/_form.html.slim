@@ -6,7 +6,7 @@
       .large-6.columns[class="payment-method-option-#{engine.name}"]
         label.payment-method-option
           .left
-            = radio_button_tag :payment_method, engine.name, false, :'data-value-without-fees' => number_to_currency(resource.value), :'data-value-with-fees' => number_to_currency(engine.fee_calculator(resource.value).gross_amount)
+            = radio_button_tag :payment_method, engine.name, false
             | &nbsp;
             = image_tag("payments/#{engine.name}.png", alt: engine.name.humanize, class: 'payment-method-option-icon')
           .left.description
