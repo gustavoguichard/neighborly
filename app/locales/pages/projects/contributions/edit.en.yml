@@ -2,8 +2,8 @@ en:
   projects:
     contributions:
       edit:
-        title: 'You are contributing to %{project_name}'
-        you_are_contributing_to: 'You are contributing to'
+        title: 'You are investing in %{project_name}'
+        you_are_investing_in: 'You are investing in'
         total: 'Total: '
         i_want_pay_fees: "I'll cover the transaction fees"
         tooltip-text: "Thank you for supporting <strong>%{project_name}</strong>! In order to make the most of your contribution, we ask that you please consider covering the electronic transaction fees. Though entirely optional, doing so makes a big difference and is greatly appreciated.<br /><strong>Note that ACH debit fees cap at $5.</strong>"

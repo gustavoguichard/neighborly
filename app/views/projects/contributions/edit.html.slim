@@ -1,10 +1,10 @@
 - content_for :title, t('.title', project_name: @project.name)
-.create-contribution-page[data-thank-you-path=project_contribution_path(project_id: @project, id: @contribution.id)]
+.checkout-page[data-thank-you-path=project_contribution_path(project_id: @project, id: @contribution.id)]
   = hero_header_tag @project do
     .row
-      .large-10.columns.large-centered
+      .large-12.columns
         h3
-          = t('.you_are_contributing_to')
+          = t('.you_are_investing_in')
           br/
           strong = @project.name
         form.total-value
@@ -27,7 +27,6 @@
                       i.icon-et-info-circled
                     .tooltip-content.hide
                       p = t('.tooltip-text', project_name: @project.name).html_safe
-
 
   .row
     section.content.large-12.columns
