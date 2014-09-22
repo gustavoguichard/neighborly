@@ -6,10 +6,7 @@ class PayableResourceSerializer
   end
 
   def to_json
-    json = resource.as_json(only: %i(
-      payment_service_fee
-      payment_service_fee_paid_by_user
-    ))
+    json = resource.as_json(only: %i(payment_service_fee))
 
     json[:project] = project
     json[:user]    = user

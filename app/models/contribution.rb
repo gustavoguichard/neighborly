@@ -55,10 +55,6 @@ class Contribution < ActiveRecord::Base
   end
 
   def net_value
-    if payment_service_fee_paid_by_user?
-      value
-    else
-      value - payment_service_fee
-    end
+    value
   end
 end

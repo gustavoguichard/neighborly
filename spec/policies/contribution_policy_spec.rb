@@ -115,8 +115,7 @@ describe ContributionPolicy do
        state
        user
        payment_service_fee
-       payment_id
-       payment_service_fee_paid_by_user].each do |field|
+       payment_id].each do |field|
       it { expect(subject).not_to be_permitted(field) }
     end
 
@@ -124,5 +123,4 @@ describe ContributionPolicy do
       it { expect(subject).to be_permitted(field) }
     end
   end
-
 end
