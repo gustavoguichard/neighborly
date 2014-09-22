@@ -164,14 +164,8 @@ describe Contribution do
       build(:contribution, value: 100, payment_service_fee: 1)
     end
 
-    it 'is equal to contribution value when user paid service fees' do
-      subject.payment_service_fee_paid_by_user = true
+    it 'is equal to contribution value' do
       expect(subject.net_value).to eql(100)
-    end
-
-    it 'is equal to contribution value minus service fees when project paid them' do
-      subject.payment_service_fee_paid_by_user = false
-      expect(subject.net_value).to eql(99)
     end
   end
 end

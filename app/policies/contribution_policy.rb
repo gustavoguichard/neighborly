@@ -54,8 +54,7 @@ class ContributionPolicy < ApplicationPolicy
                                                              state
                                                              user
                                                              payment_service_fee
-                                                             payment_id
-                                                             payment_service_fee_paid_by_user]}
+                                                             payment_id]}
   end
 
   protected
