@@ -27,6 +27,39 @@ GIT
   specs:
     state_machine (1.2.0)
 
+GIT
+  remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
+  revision: dab0c5c0e246d08734d8ee2ccf6d5917c0d17870
+  branch: master
+  specs:
+    neighborly-balanced-bankaccount (2.0.0)
+      neighborly-balanced (~> 2.0)
+      rails (~> 4.0)
+      sidekiq (~> 3.0)
+      slim (~> 2.0)
+
+GIT
+  remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
+  revision: a348eba319a550f6aa97d37431e2fec04a2110e8
+  branch: master
+  specs:
+    neighborly-balanced-creditcard (2.0.0)
+      neighborly-balanced (~> 2.0)
+      rails (~> 4.0)
+      slim (~> 2.0)
+
+GIT
+  remote: git://github.com/neighborly/neighborly-balanced.git
+  revision: 10d0df6966576ca8c981afcf8170c419b6b7c12f
+  branch: master
+  specs:
+    neighborly-balanced (2.0.1)
+      balanced (~> 1.1)
+      draper (~> 1.3)
+      faraday (= 0.8.9)
+      faraday_middleware (= 0.9.0)
+      rails (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -259,21 +292,6 @@ GEM
       kaminari
       pundit
       rails (~> 4.0)
-    neighborly-balanced (2.0.0)
-      balanced (~> 1.1)
-      draper (~> 1.3)
-      faraday (= 0.8.9)
-      faraday_middleware (= 0.9.0)
-      rails (~> 4.0)
-    neighborly-balanced-bankaccount (2.0.0)
-      neighborly-balanced (~> 2.0)
-      rails (~> 4.0)
-      sidekiq (~> 3.0)
-      slim (~> 2.0)
-    neighborly-balanced-creditcard (2.0.0)
-      neighborly-balanced (~> 2.0)
-      rails (~> 4.0)
-      slim (~> 2.0)
     neighborly-dashboard (1.0.1)
       bootstrap-sass
       coffee-rails
@@ -537,9 +555,9 @@ DEPENDENCIES
   minitest
   neighborly-admin (~> 1.1.1)
   neighborly-api (~> 1.0.1)
-  neighborly-balanced (~> 2.0.0)
-  neighborly-balanced-bankaccount (~> 2.0.0)
-  neighborly-balanced-creditcard (~> 2.0.0)
+  neighborly-balanced!
+  neighborly-balanced-bankaccount!
+  neighborly-balanced-creditcard!
   neighborly-dashboard (~> 1.0.1)
   newrelic_rpm
   nprogress-rails
