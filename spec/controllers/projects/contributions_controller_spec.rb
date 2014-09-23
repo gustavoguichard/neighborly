@@ -29,7 +29,6 @@ describe Projects::ContributionsController do
       let(:contribution){ create(:contribution, value: 10.00, project: project, state: 'pending', user: user) }
       its(:body){ should =~ /#{I18n.t('projects.contributions.edit.title', project_name: project.name)}/ }
       its(:body){ should =~ /#{project.name}/ }
-      its(:body){ should =~ /\$10/ }
     end
 
     describe 'persistent warnings' do
