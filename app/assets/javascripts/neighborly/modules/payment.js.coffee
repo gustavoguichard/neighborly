@@ -30,3 +30,5 @@ Neighborly.Payment = Backbone.View.extend
               return (this.bottom = $('footer').outerHeight(true) + 65)
           }
         })
+
+        $('.order-summary').trigger('scroll')
