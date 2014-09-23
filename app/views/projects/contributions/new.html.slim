@@ -11,7 +11,7 @@
 
       - @rewards.each do |maturity|
         = simple_form_for @contribution, url: project_contributions_path(@project), html: { id: 'form-contribution' } do |form|
-          = form.input :reward_id, as: :hidden, value: maturity.id
+          = form.input :reward_id, as: :hidden, input_html: { value: maturity.id }
 
           .large-12.columns.maturity-option
             .row.header
