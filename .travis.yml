@@ -1,6 +1,4 @@
 language: ruby
-rvm:
-  - 2.1.2
 cache: bundler
 env: RAILS_ENV=test DISPLAY=:99.0
 script:

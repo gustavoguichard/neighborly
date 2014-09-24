@@ -27,7 +27,6 @@ spec/tmp/
 *.sublime-project
 *.sublime-workspace
 *.dot
-.ruby-version
 ./log
 
 # Personal
