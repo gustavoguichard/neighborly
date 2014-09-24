@@ -1,39 +1,48 @@
 footer
   .row
-    .medium-4.columns.quick-links
-      h6
-        i.icon-et-info-circled
-        = t('.quick_links')
+    .large-8.medium-7.columns
+      .disclaimer
+        h6
+          i.icon-et-alert
+          = t('.disclaimer')
+        p
+          - 3.times do
+            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-      ul
-        li = link_to t('.discover'), main_app.discover_path
-        li = link_to t('.about'), main_app.learn_path
-        li = link_to t('.faq'), main_app.faq_path
-        li = link_to t('.legal'), main_app.privacy_path
-        li = link_to t('.terms'), main_app.terms_path
-        li = mail_to Configuration[:email_contact], t('.contact')
+    .large-4.medium-5.columns
+      .quick-links
+        h6
+          i.icon-et-info-circled
+          = t('.quick_links')
 
-    .medium-4.columns.now-acception-proposals
-      h6
-        i.icon-et-lamp
-        = t('.now_accepting_proposals')
+        ul
+          li = link_to t('.discover'), main_app.discover_path
+          li = link_to t('.about'), main_app.learn_path
+          li = link_to t('.faq'), main_app.faq_path
+          li = link_to t('.legal'), main_app.privacy_path
+          li = link_to t('.terms'), main_app.terms_path
+          li = mail_to Configuration[:email_contact], t('.contact')
 
-      .row
-        p.small-11.medium-12.large-11.columns
-          = t('.now_accepting_proposals_text')
-          = link_to t('.we_want_to_help'), main_app.start_path, class: 'button'
+      .stay-in-touch
+        h6
+          i.icon-et-infinity
+          = t('.stay_in_touch')
 
-    .medium-4.columns.stay-in-touch
-      h6
-        i.icon-et-infinity
-        = t('.stay_in_touch')
+        .twitter-box
+          = link_to "Follow @#{::Configuration[:twitter_username]}", "http://twitter.com/#{::Configuration[:twitter_username]}", class: 'twitter-follow-button', data: { button: 'blue', :'text-color' => '#ffffff', :'link-color' => '#ffffff', width: '224px' }
 
-      .twitter-box
-        = link_to "Follow @#{::Configuration[:twitter_username]}", "http://twitter.com/#{::Configuration[:twitter_username]}", class: 'twitter-follow-button', data: { button: 'blue', :'text-color' => '#ffffff', :'link-color' => '#ffffff', width: '224px' }
-      .facebook-box
-        .fb-like data-href="#{Configuration['facebook_url']}" data-width="224" data-height="40" data-header="false" data-show-border="false" data-colorscheme="dark" data-layout="standard" data-action="like" data-show-faces="false" data-send="false"
+        .facebook-box
+          .fb-like data-href="#{Configuration['facebook_url']}" data-width="224" data-height="40" data-header="false" data-show-border="false" data-colorscheme="dark" data-layout="standard" data-action="like" data-show-faces="false" data-send="false"
 
-      = render 'layouts/newsletter'
+      .newsletter
+        = form_tag Configuration['mailchimp_url'], method: 'post' do
+          h6
+            i.icon-et-mail
+            = t('.newsletter.title')
+
+          = email_field_tag 'EMAIL', nil, placeholder: t('.newsletter.email'), label: 'email', class: 'input'
+          = submit_tag t('.newsletter.submit'), class: 'submit button'
+
   .row.subfooter.collapse
     .large-3.columns
       = link_to Configuration[:company_name], main_app.root_url, title: Configuration[:company_name], class: 'logo'
