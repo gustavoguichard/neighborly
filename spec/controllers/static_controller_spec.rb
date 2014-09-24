@@ -5,11 +5,6 @@ describe StaticController do
   render_views
   subject{ response }
 
-  describe 'GET guidelines' do
-    before{ get :how_it_works, {locale: :pt} }
-    it{ should be_success }
-  end
-
   describe "GET sitemap" do
     before{ get :sitemap, {locale: :pt} }
     it{ should be_success }

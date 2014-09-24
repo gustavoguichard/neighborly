@@ -8,7 +8,6 @@ class StaticController < ApplicationController
     render layout: false if request.xhr?
   end
 
-  def how_it_works; end
   def start_terms; end
   def start; end
   def faq; end
