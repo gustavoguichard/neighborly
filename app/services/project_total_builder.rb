@@ -26,11 +26,11 @@ class ProjectTotalBuilder
   end
 
   def net_amount
-    contributions.inject(0) { |sum, c| sum + c.net_value } - platform_fee
+    contributions.sum(:value)
   end
 
   def platform_fee
-    pledged * Configuration[:platform_fee].to_f
+    Contribution::FEE_PER_BOND * contributions.sum(:bonds)
   end
 
   def pledged

@@ -1,6 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"]      ||= 'test'
-ENV['PLATFORM_FEE']   ||= '0.1'
 ENV['EMAIL_PAYMENTS'] ||= 'finan@c.me'
 
 if ENV['CI']

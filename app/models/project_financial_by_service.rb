@@ -16,7 +16,7 @@ class ProjectFinancialByService
   end
 
   def net_amount
-    contributions.to_a.sum(&:net_value) - platform_fee
+    contributions.to_a.sum(&:net_value)
   end
 
   def payment_service_fee
@@ -24,7 +24,7 @@ class ProjectFinancialByService
   end
 
   def platform_fee
-    contributions.sum(:value) * Configuration[:platform_fee]
+    Contribution::FEE_PER_BOND * contributions.sum(:bonds)
   end
 
   def total_contributions

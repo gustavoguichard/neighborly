@@ -106,6 +106,7 @@ CREATE TABLE contributions (
     state character varying(255),
     short_note text,
     referral_url text,
+    bonds integer DEFAULT 1 NOT NULL,
     CONSTRAINT backers_value_positive CHECK ((value >= (0)::numeric))
 );
 
@@ -3753,4 +3754,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140918210041');
 INSERT INTO schema_migrations (version) VALUES ('20140919192329');
 
 INSERT INTO schema_migrations (version) VALUES ('20140922183239');
+
+INSERT INTO schema_migrations (version) VALUES ('20140924204913');
 
