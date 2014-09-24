@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby IO.read('.ruby-version').strip
 
 gem 'rails', '4.1.5'
 
