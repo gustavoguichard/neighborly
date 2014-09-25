@@ -33,7 +33,15 @@
       text-transform: uppercase
       &.thanks
         color: $primary-color
-        text-align: left
+        text-align: center
+
+    .user-image-wrapper
+      text-align: center
+      padding-bottom: +emCalc(10px)
+
+      .profile-image
+        float: none
+        margin: auto
 
     form
       margin: 0
@@ -190,3 +198,12 @@
         font-size: 100%
         select
           font-size: 100%
+
+      h3.thanks
+        text-align: left
+
+      .user-image-wrapper
+        text-align: right
+
+        .profile-image
+          float: right

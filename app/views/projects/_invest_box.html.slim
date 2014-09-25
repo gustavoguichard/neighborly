@@ -47,13 +47,12 @@
                 = yield :facebook_button
 
           - else
-            .medium-3.columns.text-right
+            .medium-3.columns.user-image-wrapper
               = current_user.display_image_html width: 85, height: 85
             .medium-9.columns
               h3.thanks Thank You, #{current_user.first_name}, for supporting civic projects.
-            .medium-12.columns.text-left
-              p
-                br/
+            .medium-12.columns
+              p.text-center
                 | You'll be among the first to know when we launch. Meanwhile, share your pledge.
               section.share
                 .row
