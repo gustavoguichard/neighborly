@@ -6,35 +6,48 @@
       - if current_user.admin
         .admin-fields
           .section-header Admin fields
+
           = form.input :user_id, required: true
           = form.input :permalink, as: :string
           = form.input :campaign_type, as: :select, collection: [['Flexible', 'flexible']], include_blank: false
+
       .section-header #1. Project Overview
+
       - if policy(@project).permitted_for?(:name, :update)
         = form.input :name, as: :string
+
       - if policy(@project).permitted_for?(:statement_file_url, :update)
         = form.input :statement_file_url
+
       - if policy(@project).permitted_for?(:category, :update)
         = form.association :category, include_blank: false
+
       - if policy(@project).permitted_for?(:headline, :update)
         = form.input :headline, as: :string
+
       - if policy(@project).permitted_for?(:summary, :update)
         = form.input :summary
+
       - if policy(@project).permitted_for?(:tag_list, :update)
-        .tags-path[data-url=tags_path]
+        .tags-path[ data-url=tags_path ]
         = form.input :tag_list, as: :string
 
       .section-header #2. Project Location
+
       - if policy(@project).permitted_for?(:location, :update)
         .location
-          .location-coordinates.pin-img[data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png')]
+          .location-coordinates.pin-img[ data-longitude=@project.longitude data-latitude=@project.latitude data-url=image_url('pin.png') ]
           = form.input :location, required: false, input_html: { class: 'search-cities-with-google' }, autocomplete: :off
           .map-canvas
+
       - if policy(@project).permitted_for?(:address_neighborhood, :update)
         = form.input :address_neighborhood
+
       .section-header #3. Supporting Media
+
       - if policy(@project).permitted_for?(:video_url, :update)
         = form.input :video_url, as: :string
+
       .row
         p
         - if policy(@project).permitted_for?(:uploaded_image, :update)
@@ -43,23 +56,50 @@
             - if @project.uploaded_image.present?
               .image-preview
                 = image_tag(@project.uploaded_image.project_thumb.url, size: '220x172')
+
         - if policy(@project).permitted_for?(:hero_image, :update)
           .large-6.small-6.columns.image-uploader
             = form.input :hero_image, as: :file
             - if @project.hero_image.present?
               .image-preview
                 = image_tag(@project.hero_image_url(:blur), size: '220')
+
       - if policy(@project).permitted_for?(:site, :update)
         = form.input :site
+
       - if policy(@project).permitted_for?(:site, :update)
         = form.input :hash_tag
-      .section-header #4. Budget & Timeline
+
+      .section-header #4. Rating & Tax Exempt Yield
+
+      - if policy(@project).permitted_for?(:credit_type, :update)
+          = form.label :credit_type
+          = form.select :credit_type, Project.credit_types.map { |k, _| [k.humanize, k] }
+
+      - if policy(@project).permitted_for?(:rating, :update)
+          = form.label :rating
+          = form.select :rating, Project.ratings.map { |k, _| [k.humanize, k] }
+          
+      - if policy(@project).permitted_for?(:rating_agency, :update)
+        = form.input :rating_agency
+
+      - if policy(@project).permitted_for?(:tax_exempt_yield, :update)
+        = form.input :tax_exempt_yield, as: :integer
+
+      .section-header #5. Budget & Timeline
+
+      - if policy(@project).permitted_for?(:minimum_investment, :update)
+        = form.input :minimum_investment, as: :integer
+
       - if policy(@project).permitted_for?(:goal, :update)
         = form.input :goal, as: :integer
+
       - if policy(@project).permitted_for?(:online_days, :update)
         = form.input :online_days, as: :integer
+
       - if policy(@project).permitted_for?(:budget, :update)
         = form.input :budget
+
       - if policy(@project).permitted_for?(:terms, :update)
         = form.input :terms
 
