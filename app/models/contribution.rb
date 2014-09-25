@@ -66,11 +66,11 @@ class Contribution < ActiveRecord::Base
 
   def gross_value(payment_method = nil)
     payment_method ||= read_attribute(:payment_method) || (raise ArgumentError)
-    processor_fee = {
+    calculator = {
       'balanced-bankaccount' => Neighborly::Balanced::Bankaccount::Interface,
       'balanced-creditcard'  => Neighborly::Balanced::Creditcard::Interface
-    }.fetch(payment_method).new.fee_calculator(net_value).fees
+    }.fetch(payment_method).new.fee_calculator(net_value, platform_fee)
 
-    net_value + processor_fee + platform_fee
+    net_value + calculator.processor_fee + calculator.platform_fee
   end
 end

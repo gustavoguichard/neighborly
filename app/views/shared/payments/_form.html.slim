@@ -17,7 +17,7 @@
                 small
                   strong = t('.payment-method.fees')
                   | &nbsp;
-                  = number_to_currency(engine.fee_calculator(resource.value).fees)
+                  = number_to_currency(engine.fee_calculator(resource.value, resource.platform_fee).processor_fee)
 
   .container
     .loading
