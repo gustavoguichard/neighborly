@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   include Concerns::AuthenticationHandler
   include Pundit
 
-  force_ssl if: :use_ssl?
   protect_from_forgery
 
   helper_method :channel, :referral_url
@@ -26,9 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def use_ssl?
-    Rails.env.production? && !request.subdomain.present?
-  end
 
   def referral_it!
     session[:referral_url] = params[:ref] if params[:ref].present?
