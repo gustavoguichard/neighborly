@@ -1,4 +1,0 @@
-= form_tag Configuration['mailchimp_url'], method: 'post', class: 'newsletter' do
-  h6 = t('.newsletter')
-  = email_field_tag 'EMAIL', nil, placeholder: t('.email'), label: 'email', class: 'newsletter-input'
-  = submit_tag t('.submit'), class: 'newsletter-submit button'

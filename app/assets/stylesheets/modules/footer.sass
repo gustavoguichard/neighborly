@@ -1,107 +1,100 @@
 footer
   background: $footer-bg
-  padding: 25px 0
   color: $footer-color
-  font-size: 95%
+  padding: 25px 0
+
   a
     color: $footer-color-link
+
   h6
     color: white
-    text-transform: uppercase
+    font-size: 90%
     font-weight: 400
-    display: inline
+    margin: 0
+    text-transform: uppercase
+    margin-left: +emCalc(-40px)
+
     [class^="icon-"], [class*=" icon-"]
       color: $footer-icon-color
       font-size: 150%
       padding-right: +emCalc(10px)
       vertical-align: middle
 
-  .quick-links, .now-acception-proposals, .stay-in-touch
+  .disclaimer, .quick-links, .stay-in-touch, .newsletter
     padding-left: +emCalc(60px)
-    @media #{$medium}
-      padding-left: +emCalc(45px)
-    h6
-      margin-left: +emCalc(-40px)
 
-  .now-acception-proposals
-    [class^="icon"]
-      margin-right: +emCalc(4px)
+  .disclaimer
     p
+      color: darken($footer-color, 20%)
       font-size: 90%
-      .button
-        width: 100%
-        margin-top: +emCalc(10px)
-        font-size: 90%
-
-  .stay-in-touch
-    h6
-      margin-left: +emCalc(-40px)
-    p
-      max-width: 250px
-      font-size: 80%
-    .facebook-box
-      margin-top: +emCalc(20px)
-    .newsletter
-      margin-top: +emCalc(20px)
-      h6
-        margin-left: 0
-        margin-bottom: +emCalc(10px)
-        display: block
-
-      .newsletter-input
-        float: left
-        width: 160px
-        height: 28px
-        margin: 0
-        box-shadow: none
-        border: none
-        top: 0px
-        position: relative
-        padding-top: +emCalc(5px)
-        padding-bottom: +emCalc(5px)
-        border-radius: $button-radius 0 0 $button-radius
-        @media #{$medium}
-          width: 190px
-
-      .button
-        float: left
-        height: 28px
-        margin: 0
-        padding: 5px 20px
-        font-size: 80%
-        font-weight: 300
-        border-radius: 0 $button-radius $button-radius 0
 
   .quick-links
+    a
+      font-size: 90%
+      text-transform: uppercase
+
     ul
       list-style: none
-      li a
-        text-transform: uppercase
+
+  .facebook-box
+    margin: +emCalc(20px, 0)
+
+  .newsletter
+    .input
+      border-radius: $button-radius 0 0 $button-radius
+      border: none
+      box-shadow: none
+      float: left
+      height: 28px
+      margin: 0
+      padding-bottom: +emCalc(5px)
+      padding-top: +emCalc(5px)
+      position: relative
+      top: 0px
+      width: +emCalc(175px)
+
+    .submit
+      border-bottom: none
+      border-radius: 0 $button-radius $button-radius 0
+      font-size: 80%
+      height: 28px
+      margin: 0
+      padding: 5px 20px
 
   .subfooter
-    text-align: center
-    margin-top: +emCalc(20px)
-    padding-top: +emCalc(20px)
     border-top: 1px dashed $footer-border-color
     color: $subfooter-color
+    margin-top: +emCalc(20px)
+    padding-top: +emCalc(20px)
+    text-align: center
 
-    p
-      font-size: 80%
-
-    a.logo
-      display: inline-block
-      width: 120px
-      height: 31px
-      text-indent: -99999em
+    .logo
       background: image-url('footer-logo@2x.png') center no-repeat
       background: image-url('footer-logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
       background-size: 120px
+      display: inline-block
+      height: 31px
       margin-bottom: +emCalc(20px)
+      text-indent: -99999em
+      width: 120px
 
-    @media #{$medium}
+    p
+      font-size: 80%
+
+@media #{$medium}
+  footer
+    .disclaimer, .quick-links, .stay-in-touch, .newsletter
+      padding-left: +emCalc(45px)
+
+    .subfooter
       text-align: left
-      a.logo
+
+      .logo
         margin-bottom: 0
+
       p
         text-align: right
 
+    .newsletter
+      .input
+        width: +emCalc(195px)
