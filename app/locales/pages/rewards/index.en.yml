@@ -5,7 +5,7 @@ en:
       add: 'Add maturity'
       estimated_deliver: "Est. delivery: %{prevision}"
       contributions_to_confirm:
-        one:  "1 contribution in time to confirm."
-        other: "%{count} contributions in time to confirm."
+        one:  "1 investment in time to confirm."
+        other: "%{count} investments in time to confirm."
       contact: 'Contact'
       reward_deliver_time: "Est. delivery: %{prevision}"
