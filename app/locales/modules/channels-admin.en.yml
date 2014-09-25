@@ -35,7 +35,7 @@ en:
           user_id: 'User ID'
           goal: 'Goal'
           pledged: 'Pledged'
-          total_contributions: 'Contributions'
+          total_contributions: 'Investments'
           recommended: 'Recommended?'
           sale_date: 'Sale date'
           expires_at: 'Expires at'

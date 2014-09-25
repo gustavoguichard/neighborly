@@ -3,13 +3,13 @@ en:
     contributions:
       show:
         title: 'Thank you'
-        one_more_step: 'One more step, neighbor! Please verify your account to complete your contribution.'
+        one_more_step: 'One more step, neighbor! Please verify your account to complete your investment.'
         thank_you: 'thank you, neighbor! %{project_name} is only possible with the support of people like you.'
-        share: 'You can still help %{project_owner_name} by telling others about your contribution!'
-        twitter-text: 'I just contributed %{value} to %{name} on @Neighborly: %{project_url}'
+        share: 'You can still help %{project_owner_name} by telling others about your investment!'
+        twitter-text: 'I just invested %{value} to %{name} on @Neighborly: %{project_url}'
         bankaccount:
-          title: 'You contributed using a new bank account. Please verify your account to complete your contribution.'
+          title: 'You invested using a new bank account. Please verify your account to complete your investment.'
           steps:
             first: 'We will make two small deposits (each less than $1.00) to this account. Deposits may take 1-2 business days to appear.'
             second: 'Once the deposits have been made, you will receive an email with a link to verify your account using the two deposit amounts.'
-            third: 'Once your account has been verified, your contribution will be processed and automatically reflected in the campaign you contributed to.'
+            third: 'Once your account has been verified, your investment will be processed and automatically reflected in the campaign you invested to.'

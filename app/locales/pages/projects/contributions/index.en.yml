@@ -2,7 +2,7 @@ en:
   projects:
     contributions:
       index:
-        empty: "No contributions yet. Be the first!"
+        empty: "No investment yet. Be the first!"
         load_more: 'Load More'
       contribution:
         anonymous_contribution: "Anonymous neighbor"

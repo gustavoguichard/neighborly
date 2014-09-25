@@ -5,12 +5,12 @@ en:
     projects:
       contributions:
         create:
-          error: 'Oh noez! There was an error processing your contribution. Please try again.'
+          error: 'Oh noez! There was an error processing your investment. Please try again.'
         pay:
           credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
           echeck_description: "Back project %{project_name} with %{value} (plus fees)"
           paypal_description: "Back project %{project_name} with %{value} (plus fees)"
-          success: "You successfully contributed. Thank you!"
+          success: "You successfully invested. Thank you!"
     users:
       completeness_progress: 'Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       update:
