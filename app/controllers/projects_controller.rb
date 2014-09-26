@@ -27,7 +27,6 @@ class ProjectsController < ApplicationController
 
     @successful = @successful.take(2) if browser.mobile?
     @channels = Channel.with_state('online').order('RANDOM()').limit(4)
-    @press_assets = PressAsset.order('created_at DESC').limit(5)
     @users = User.where('uploaded_image IS NOT NULL').with_profile_type('personal').order("RANDOM()").limit(18)
   end
 
