@@ -3,24 +3,6 @@ en:
     index:
       title: 'Fundraising for civic projects | Civic Crowdfunding | CSR | Cause Marketing'
       recommended: 'Projects We'
-      near: 'Projects Near'
-      channels: 'Partners'
-      ending_soon: 'Ending Soon'
-      successful: 'Past Campaigns'
-      coming_soon: 'Coming Soon'
-      join:
-        join_the_neighborhood: 'Join the Neighborhood'
-        already_joined: 'Already joined? %{link}.'
-        sign_in: 'Sign in'
       hero:
         title: 'Invest in communities.'
         subtitle_html: "Soon you'll be able to earn 6-12% <span data-tooltip class='has-tip' title='Tax-Eqiuivalent Yield <br />Most municipal securities are tax-exempt, which can result in a higher effective yield.'>TEY</span> investing in your favorite places and civic projects."
-        description: "Welcome, neighbor. For the past two years, we’ve pioneered civic crowdfunding in the US, helping people  donate to community projects. Behind the scenes, we’ve been working on new ways to invest in communities, so that citizens like you can earn tax-free, fixed income returns by helping the places and civic project you care about."
-        learn_more: 'Learn More'
-        see_less: 'See Less'
-      start-one:
-        title: 'Have a community project in need of funding?'
-        button: 'Start one in your area'
-    invest_box:
-      facebook: 'Share'
-      twitter: 'Tweet'

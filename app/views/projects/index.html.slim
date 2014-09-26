@@ -5,19 +5,9 @@
     .row
       .small-12.medium-8.medium-centered.columns.text-center
         h2 = t('.hero.title').html_safe
-        h3.subtitle
-          = t('.hero.subtitle_html')
-          = link_to t('.hero.learn_more'), '#learn-more-investment', class: 'button secondary tiny expand-section', data: { alternative_text: t('.hero.see_less') }
+        h3.subtitle = t('.hero.subtitle_html')
 
-        p.expand-section-content = t('.hero.description')
-
-  = render 'projects/invest_box'
   = render 'projects/investors'
-
-  section.meanwhile.text-center
-    .row
-      .medium-8.small-12.columns.medium-centered
-        h3 Meanwhile, explore existing crowdfunding campaigns
 
   section.projects
     .row
@@ -31,32 +21,10 @@
         = render 'project', project: @featured.first, large: !browser.mobile? if @featured.any?
         = render 'project', project: @recommended.shift if @recommended.any?
 
-        /- if @recommended.any?
-          /.row
-            /- for project in @recommended
-              /= render 'project', project: project
-
         .text-right.text-right.small-12.columns
-          = link_to discover_path(filter: 'recommended'), class: 'see-more' do
+          = link_to discover_path(state: 'recommended'), class: 'see-more' do
             = t('words.see_more')
             i.icon-et-right-circled
-
-      /- if @ending_soon.any?
-        /section.ending-soon
-          /.small-12.columns
-            /h3
-              /= link_to discover_path(filter: 'expiring') do
-                /i.icon-et-hourglass
-                /= t('.ending_soon')
-
-          /- for project in @ending_soon
-            /= render 'project', project: project
-
-          /- if @ending_soon.size >= 4
-            /.text-right.small-12.columns
-              /= link_to discover_path(filter: 'expiring'), class: 'see-more' do
-                /= t('words.see_more')
-                /i.icon-et-right-circled
 
       - if @successful.any?
         section.successful
@@ -73,29 +41,6 @@
               = link_to discover_path(filter: 'successful'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
-
-      /- if @coming_soon.any?
-        /section.coming-soon
-          /.small-12.columns
-            /h3
-              /= link_to discover_path(filter: 'soon') do
-                /i.icon-et-clock
-                /= t('.coming_soon')
-
-          /- for project in @coming_soon
-            /= render 'project', project: project
-
-          /- if @coming_soon.size >= 4
-            /.text-right.text-right.small-12.columns
-              /= link_to discover_path(filter: 'soon'), class: 'see-more' do
-                /= t('words.see_more')
-                /i.icon-et-right-circled
-
-      /section.start-one.hide-for-small
-        /.small-12.columns
-          /= link_to start_path do
-            /h3 = t('.start-one.title')
-            /span.button.custom.with-icon.large = t('.start-one.button')
 
   - if @channels.any?
     section.channels.default-list
