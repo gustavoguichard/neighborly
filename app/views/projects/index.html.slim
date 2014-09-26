@@ -41,14 +41,3 @@
               = link_to discover_path(filter: 'successful'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
-
-  - if @channels.any?
-    section.channels.default-list
-      .row
-        .large-12.columns
-          h3
-            i.icon-et-megaphone
-            = t('.channels')
-
-      .row
-        = render @channels
