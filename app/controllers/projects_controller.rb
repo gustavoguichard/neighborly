@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
       #ending_soon: :expiring,
       featured:    :featured,
       recommended: :recommends,
-      successful:  :successful
+      #successful:  :successful
     }
 
     projects_vars.each do |var_name, scope|
