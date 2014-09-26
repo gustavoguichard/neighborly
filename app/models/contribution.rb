@@ -6,6 +6,8 @@ class Contribution < ActiveRecord::Base
           Shared::Payable,
           PgSearch
 
+  FEE_PER_BOND = 3
+
   belongs_to :user
   belongs_to :project
   belongs_to :reward
@@ -56,5 +58,19 @@ class Contribution < ActiveRecord::Base
 
   def net_value
     value
+  end
+
+  def platform_fee
+    FEE_PER_BOND * bonds
+  end
+
+  def gross_value(payment_method = nil)
+    payment_method ||= read_attribute(:payment_method) || (raise ArgumentError)
+    calculator = {
+      'balanced-bankaccount' => Neighborly::Balanced::Bankaccount::Interface,
+      'balanced-creditcard'  => Neighborly::Balanced::Creditcard::Interface
+    }.fetch(payment_method).new.fee_calculator(net_value, platform_fee)
+
+    net_value + calculator.processor_fee + calculator.platform_fee
   end
 end

@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe ProjectTotalBuilder do
   let!(:project) { create(:project) }
-  before do
-    Configuration.stub(:[]).with(:platform_fee).and_return(0.1)
-  end
   subject { described_class.new(project) }
 
   def prepopulate_db
@@ -66,15 +63,9 @@ describe ProjectTotalBuilder do
       Configuration.stub(:[]).with(:email_payments).and_return('books@neighbor.ly')
     end
 
-    it 'sums contributions values taking platform_fee out' do
-      create(
-        :contribution,
-        value:               100,
-        payment_service_fee: 1,
-        project_id:          project.id,
-        state:               'confirmed'
-      )
-      expect(subject.attributes[:net_amount].to_f).to eql(90.0)
+    it 'sums contributions\' net values' do
+      create_list(:contribution, 2, value: 100, project: project)
+      expect(subject.attributes[:net_amount].to_f).to eql(200.0)
     end
   end
 
@@ -82,11 +73,13 @@ describe ProjectTotalBuilder do
     it 'calculates the amount going to the platform' do
       create(
         :contribution,
+        bonds:      2,
         value:      100,
         project_id: project.id,
         state:      'confirmed'
       )
-      expect(subject.attributes[:platform_fee].to_f).to eql(10.0)
+      stub_const('Contribution::FEE_PER_BOND', 3)
+      expect(subject.attributes[:platform_fee].to_f).to eql(6.0)
     end
   end
 end

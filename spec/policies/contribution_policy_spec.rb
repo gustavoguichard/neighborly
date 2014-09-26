@@ -119,7 +119,7 @@ describe ContributionPolicy do
       it { expect(subject).not_to be_permitted(field) }
     end
 
-    %i[value].each do |field|
+    %i[value bonds].each do |field|
       it { expect(subject).to be_permitted(field) }
     end
   end

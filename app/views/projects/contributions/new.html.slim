@@ -36,7 +36,7 @@
             .row.details
               .large-12.columns
                 p Enter the number of bonds you wish to purchase.
-                = number_field_tag :order_size, 1, class: 'order-size-input', data: { minimum_investment: @project.minimum_investment }
+                = form.input :bonds, label: false, input_html: { value: 1, class: 'order-size-input', data: { minimum_investment: @project.minimum_investment } }
                 = form.input :value, as: :hidden, input_html: { value: @project.minimum_investment, class: 'value-input' }
 
                 fieldset.purchase-amount

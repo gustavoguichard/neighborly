@@ -10,7 +10,6 @@ describe Contribution do
   let(:not_confirmed_contribution){ create(:contribution, user: user, project: unfinished_project) }
   let(:valid_refund){ create(:contribution, state: 'confirmed', user: user, project: failed_project) }
 
-
   describe 'associations' do
     it { should have_many(:notifications) }
     it { should belong_to(:project) }
@@ -166,6 +165,15 @@ describe Contribution do
 
     it 'is equal to contribution value' do
       expect(subject.net_value).to eql(100)
+    end
+  end
+
+  describe 'platform fee' do
+    subject { described_class.new(value: 350, bonds: 5) }
+
+    it 'charges FEE_PER_BOND for each bond bought' do
+      stub_const('Contribution::FEE_PER_BOND', 3)
+      expect(subject.platform_fee).to eql(15)
     end
   end
 end

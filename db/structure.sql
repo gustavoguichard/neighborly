@@ -106,6 +106,7 @@ CREATE TABLE contributions (
     state character varying(255),
     short_note text,
     referral_url text,
+    bonds integer DEFAULT 1 NOT NULL,
     CONSTRAINT backers_value_positive CHECK ((value >= (0)::numeric))
 );
 
@@ -825,41 +826,6 @@ CREATE SEQUENCE payment_notifications_id_seq
 --
 
 ALTER SEQUENCE payment_notifications_id_seq OWNED BY payment_notifications.id;
-
-
---
--- Name: payouts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE payouts (
-    id integer NOT NULL,
-    payment_service character varying(255),
-    project_id integer NOT NULL,
-    user_id integer,
-    value numeric NOT NULL,
-    manual boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: payouts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE payouts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: payouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE payouts_id_seq OWNED BY payouts.id;
 
 
 --
@@ -2112,13 +2078,6 @@ ALTER TABLE ONLY payment_notifications ALTER COLUMN id SET DEFAULT nextval('paym
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY payouts ALTER COLUMN id SET DEFAULT nextval('payouts_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY press_assets ALTER COLUMN id SET DEFAULT nextval('press_assets_id_seq'::regclass);
 
 
@@ -2353,14 +2312,6 @@ ALTER TABLE ONLY payment_notifications
 
 
 --
--- Name: payouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY payouts
-    ADD CONSTRAINT payouts_pkey PRIMARY KEY (id);
-
-
---
 -- Name: press_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2584,20 +2535,6 @@ CREATE INDEX fk__organizations_user_id ON organizations USING btree (user_id);
 
 
 --
--- Name: fk__payouts_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__payouts_project_id ON payouts USING btree (project_id);
-
-
---
--- Name: fk__payouts_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__payouts_user_id ON payouts USING btree (user_id);
-
-
---
 -- Name: fk__project_documents_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2791,20 +2728,6 @@ CREATE INDEX index_organizations_on_user_id ON organizations USING btree (user_i
 --
 
 CREATE INDEX index_payment_notifications_on_contribution_id ON payment_notifications USING btree (contribution_id);
-
-
---
--- Name: index_payouts_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_payouts_on_project_id ON payouts USING btree (project_id);
-
-
---
--- Name: index_payouts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_payouts_on_user_id ON payouts USING btree (user_id);
 
 
 --
@@ -3124,22 +3047,6 @@ ALTER TABLE ONLY notifications
 
 ALTER TABLE ONLY organizations
     ADD CONSTRAINT fk_organizations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_payouts_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY payouts
-    ADD CONSTRAINT fk_payouts_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: fk_payouts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY payouts
-    ADD CONSTRAINT fk_payouts_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3753,4 +3660,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140918210041');
 INSERT INTO schema_migrations (version) VALUES ('20140919192329');
 
 INSERT INTO schema_migrations (version) VALUES ('20140922183239');
+
+INSERT INTO schema_migrations (version) VALUES ('20140924204913');
+
+INSERT INTO schema_migrations (version) VALUES ('20140925165552');
 

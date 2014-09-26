@@ -197,10 +197,4 @@ FactoryGirl.define do
     f.association :user
     f.file File.open("#{Rails.root}/spec/fixtures/image.png")
   end
-
-  factory :payout do
-    payment_service 'balanced'
-    project
-    value           100
-  end
 end
