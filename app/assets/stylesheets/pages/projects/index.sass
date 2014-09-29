@@ -1,11 +1,12 @@
 .home-page
   header.hero
-    padding-top: +emCalc(45px)
+    padding-top: 0
     padding-bottom: +emCalc(150px)
     min-height: +emCalc(200px)
     h2
-      font-weight: 300
+      font-weight: 500
       text-transform: uppercase
+
     h3.subtitle
       text-transform: none
       font-size: 140%
@@ -81,6 +82,39 @@
         h3
           color: $primary-color
 
+  header.hero
+    .contain-to-grid
+      background: none !important
+      z-index: 1000
+      text-shadow: none
+
+      .top-bar
+        background: none
+        margin-bottom: +emCalc(50px)
+
+        .top-bar-section ul
+          background: none
+
+          .user-action
+            background: none
+
+        .main-menu, .search-box
+          display: none
+
+        .name
+          h1
+            a
+              background: image-url('white-logo@2x.png') center no-repeat
+              background: image-url('white-logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
+              background-size: cover
+
+        &.expanded
+          .title-area
+            background: none
+
+          li > a
+            background: none
+
 @media #{$medium}
   .home-page
     header.hero
@@ -95,3 +129,25 @@
 
     section.investors .profile-image
       margin: +emCalc(8px)
+
+@media #{$topbar-media-query}
+  .home-page
+    .contain-to-grid
+      .top-bar
+        .sign-up
+          background: $primary-color
+          margin-top: +emCalc(-10px)
+          padding: +emCalc(10px)
+          border-radius: $global-radius
+
+        .sign-up, .sign-in
+          color: #fff !important
+
+        .sign-in
+          margin-left: +emCalc(15px)
+
+        .user-action.with-divider
+          a:after
+            content: ''
+            margin: 0
+
