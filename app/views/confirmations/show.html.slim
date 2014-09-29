@@ -1,0 +1,7 @@
+h2 You're almost done! Now create a password to securely access your account.
+= simple_form_for(@user, as: resource_name, url: confirm_path) do |f|
+  = devise_error_messages!
+  = f.input :confirmation_token, as: :hidden
+  = f.input :password, input_html: { autofocus: true }
+  = f.input :password_confirmation
+  = f.submit

@@ -1,7 +1,7 @@
 |Welcome, #{@email},
 br
 br
-|Almost ready to use #{Configuration[:company_name]}! Please confirm your email by clicking the link below:
+|Almost ready to use #{Configuration[:company_name]}! Please finish creating your account by clicking the link below:
 br
 br
 h1 #{link_to 'Confirm my email', confirmation_url(@resource, :confirmation_token => @token)}
