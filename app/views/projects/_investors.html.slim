@@ -1,5 +1,3 @@
-.row
-  .small-12.columns
-    section.investors.text-center
-      - for user in @users
-          = user.display_image_html width: 85, height: 85
+section.investors.text-center
+  - for user in @users
+      = image_tag user.display_image, size: '45x45'
