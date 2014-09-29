@@ -2,6 +2,8 @@
 
 .home-page
   header.hero[ data-image-url=image_path('home-hero-sf.jpg') ]
+    = render 'layouts/header'
+
     .row
       .small-12.medium-8.medium-centered.columns.text-center
         h2 = t('.hero.title').html_safe

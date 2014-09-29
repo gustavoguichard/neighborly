@@ -37,12 +37,13 @@ head
     meta property="og:site_name"    content=::Configuration[:company_name]
     meta property="fb:app_id"       content=::Configuration[:facebook_app_id]
     meta property="og:description"  content=t('site.ograph.description')
-body.f-topbar-fixed
+body
   = render 'layouts/analytics'
   = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
   = render 'layouts/loader'
-  = render 'layouts/header'
+  - unless controller.controller_name == 'projects' && controller.action_name == 'index'
+    = render 'layouts/header', fixed: true
   = flash_messages
   = yield
   = render 'layouts/footer'
