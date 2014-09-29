@@ -1,0 +1,8 @@
+en:
+  confirmations:
+    show:
+      titles:
+        site: 'Setup a password'
+      form:
+        inputs:
+          submit: 'Setup password'
