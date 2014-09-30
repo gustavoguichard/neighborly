@@ -26,6 +26,28 @@
             = t('words.see_more')
             i.icon-et-right-circled
 
+  section.features
+    .row
+      .medium-8.columns
+        .images
+          = image_tag 'features/discover.png', width: '667', class: 'discover'
+          = image_tag 'features/read.png', width: '667', class: 'read'
+          = image_tag 'features/invest.png', width: '667', class: 'invest'
+
+      .medium-4.columns
+        .list
+          a.active href="#" data-class-to-show='discover'
+            h5 Discover
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
+          a href="#" data-class-to-show='read'
+            h5 Read
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
+          a href="#" data-class-to-show='invest'
+            h5 Invest
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
   section.press.hide-for-small
     .row
       .small-12.columns

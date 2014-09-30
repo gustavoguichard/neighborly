@@ -106,6 +106,35 @@
           li > a
             background: none
 
+  section.features
+    background: #fff
+    padding: +emCalc(50px, 0)
+    .list
+      margin-top: +emCalc(22px)
+    a
+      display: block
+      padding: +emCalc(5px)
+      padding-left: 10px
+
+      h5
+        text-transform: uppercase
+
+      p
+        color: $secondary-color
+
+      h5, p
+        margin: 0
+
+      &.active
+        background-color: $primary-color
+        color: white
+
+        h5, p
+          color: white
+    .images
+      .read, .invest
+        display: none
+
 @media #{$medium}
   .home-page
     header.hero
@@ -141,4 +170,9 @@
           a:after
             content: ''
             margin: 0
+
+@media #{$small}
+  section.features
+    .list
+      margin-left: -29%
 
