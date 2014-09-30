@@ -11,21 +11,6 @@
 
   = render 'projects/investors'
 
-  section.projects
-    .row
-      section.recommended
-        .small-12.columns
-          h3
-            = link_to discover_path(filter: 'recommended') do
-              | Issuances
-
-        = render @recommended
-
-        .text-right.text-right.small-12.columns
-          = link_to discover_path, class: 'see-more' do
-            = t('words.see_more')
-            i.icon-et-right-circled
-
   section.features
     .row
       .medium-8.columns
@@ -47,6 +32,21 @@
           a href="#" data-class-to-show='invest'
             h5 Invest
             p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+
+  section.projects
+    .row
+      section.recommended
+        .small-12.columns
+          h3
+            = link_to discover_path(filter: 'recommended') do
+              | Issuances
+
+        = render @recommended
+
+        .text-right.text-right.small-12.columns
+          = link_to discover_path, class: 'see-more' do
+            = t('words.see_more')
+            i.icon-et-right-circled
 
   section.press.hide-for-small
     .row
