@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, if: :password_confirmation_required?
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
+  belongs_to :referrer, class_name: 'User', foreign_key: 'referrer_id'
   has_many :contributions
   has_many :projects
   has_many :notifications

@@ -1757,6 +1757,8 @@ CREATE TABLE users (
     longitude double precision,
     completeness_progress integer DEFAULT 0,
     bonds_early_adopter boolean DEFAULT false NOT NULL,
+    referrer_id integer,
+    referral_code character varying(255),
     CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
 );
 
@@ -2548,6 +2550,13 @@ CREATE INDEX fk__taggings_tag_id ON taggings USING btree (tag_id);
 
 
 --
+-- Name: fk__users_referrer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__users_referrer_id ON users USING btree (referrer_id);
+
+
+--
 -- Name: index_activities_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3065,6 +3074,14 @@ ALTER TABLE ONLY taggings
 
 ALTER TABLE ONLY taggings
     ADD CONSTRAINT fk_taggings_tag_id FOREIGN KEY (tag_id) REFERENCES tags(id);
+
+
+--
+-- Name: fk_users_referrer_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_users_referrer_id FOREIGN KEY (referrer_id) REFERENCES users(id);
 
 
 --
@@ -3646,6 +3663,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140925165552');
 INSERT INTO schema_migrations (version) VALUES ('20140925225445');
 
 INSERT INTO schema_migrations (version) VALUES ('20140930163732');
+
+INSERT INTO schema_migrations (version) VALUES ('20140930202758');
 
 INSERT INTO schema_migrations (version) VALUES ('20141001162251');
 
