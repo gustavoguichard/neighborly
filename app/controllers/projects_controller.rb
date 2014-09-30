@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     projects_vars = {
       #coming_soon: :soon,
       #ending_soon: :expiring,
-      featured:    :featured,
+      #featured:    :featured,
       recommended: :recommends,
       #successful:  :successful
     }
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
       instance_variable_set "@#{var_name}", ProjectsForHome.send(scope)
     end
 
-    @successful = @successful.take(2) if browser.mobile?
+    @recommended = @recommended.take(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
   end
 

@@ -17,14 +17,12 @@
         .small-12.columns
           h3
             = link_to discover_path(filter: 'recommended') do
-              = t('.recommended')
-              i.icon-et-heart
+              | Issuances
 
-        = render 'project', project: @featured.first, large: !browser.mobile? if @featured.any?
-        = render 'project', project: @recommended.shift if @recommended.any?
+        = render @recommended
 
         .text-right.text-right.small-12.columns
-          = link_to discover_path(state: 'recommended'), class: 'see-more' do
+          = link_to discover_path, class: 'see-more' do
             = t('words.see_more')
             i.icon-et-right-circled
 
