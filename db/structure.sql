@@ -1767,6 +1767,7 @@ CREATE TABLE users (
     latitude double precision,
     longitude double precision,
     completeness_progress integer DEFAULT 0,
+    bonds_early_adopter boolean DEFAULT false NOT NULL,
     CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
 );
 
@@ -3656,4 +3657,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140925165552');
 INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 
 INSERT INTO schema_migrations (version) VALUES ('20140925225445');
+
+INSERT INTO schema_migrations (version) VALUES ('20140930163732');
 

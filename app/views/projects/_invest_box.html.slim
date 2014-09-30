@@ -35,6 +35,7 @@
               = f.hidden_field :newsletter, value: true
 
               = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }
+              = f.input :bonds_early_adopter, as: :hidden, input_html: { value: '1' }
 
             .medium-6.columns
               = f.submit 'Create Account', class: 'button small-12 large-12 sign-up-button'

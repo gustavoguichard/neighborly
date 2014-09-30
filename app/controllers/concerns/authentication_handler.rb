@@ -47,6 +47,7 @@ module Concerns::AuthenticationHandler
                  :email,
                  :password,
                  :newsletter,
+                 :bonds_early_adopter,
                  [investment_prospect_attributes: [:value]])
       end
     end
