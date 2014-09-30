@@ -5,4 +5,4 @@ en:
         site: 'Setup a password'
       form:
         inputs:
-          submit: 'Setup password'
+          submit: 'Confirm'

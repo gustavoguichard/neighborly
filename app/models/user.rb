@@ -103,15 +103,15 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    if confirmed?
-      !persisted? || !password.nil? || !password_confirmation.nil?
+    if bonds_early_adopter?
+      persisted?
     else
-      false
+      new_record? || password.present? || password_confirmation.present?
     end
   end
 
   def password_confirmation_required?
-    !new_record?
+    persisted?
   end
 
   def confirmation_required?
