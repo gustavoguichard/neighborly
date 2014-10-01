@@ -13,7 +13,6 @@ class EmailsController < ApplicationController
       :project_rejected,
       :project_unsuccessful,
       :project_visible,
-      :project_visible_channel
     ]
 
     types.each do |type|

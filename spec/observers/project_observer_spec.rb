@@ -118,40 +118,19 @@ describe ProjectObserver do
   describe '#from_draft_to_online' do
     let(:project) { create(:project, state: 'draft') }
 
-    context "when project don't belongs to any channel" do
-      it 'notifies the project owner' do
-        expect(Notification).to receive(:notify_once).with(
-          :project_visible,
-          project.user,
-          { project_id: project.id, channel_id: nil },
-          {
-            project: project,
-            channel: nil,
-            origin_email: Configuration[:email_contact],
-            origin_name: Configuration[:company_name]
-          }
-        )
-        project.launch!
-      end
-    end
-
-    context 'when project belongs to a channel' do
-      before { project.channels << channel }
-
-      it 'notifies the project owner' do
-        expect(Notification).to receive(:notify_once).with(
-          :project_visible_channel,
-          project.user,
-          { project_id: project.id, channel_id: channel.id },
-          {
-            project: project,
-            channel: channel,
-            origin_email: channel.user.email,
-            origin_name: channel.name
-          }
-        )
-        project.launch!
-      end
+    it 'notifies the project owner' do
+      expect(Notification).to receive(:notify_once).with(
+        :project_visible,
+        project.user,
+        { project_id: project.id, channel_id: nil },
+        {
+          project: project,
+          channel: nil,
+          origin_email: Configuration[:email_contact],
+          origin_name: Configuration[:company_name]
+        }
+      )
+      project.launch!
     end
   end
 
