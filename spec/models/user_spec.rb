@@ -32,6 +32,32 @@ describe User do
     it{ should allow_value('a'.center(140)).for(:bio) }
     it{ should_not allow_value('a'.center(141)).for(:bio) }
     it{ should validate_uniqueness_of(:email) }
+
+    describe 'password' do
+      context 'when is not someone into early access for bonds' do
+        it 'does require it when is a new record' do
+          expect(subject).to be_password_required
+        end
+
+        it 'does require it when password confirmation were filled' do
+          subject.password_confirmation = '123123123'
+          expect(subject).to be_password_required
+        end
+      end
+
+      context 'when is someone into early access for bonds' do
+        before { subject.bonds_early_adopter = true }
+
+        it 'doesn\'t require it when is new user' do
+          expect(subject).to_not be_password_required
+        end
+
+        it 'does require it when updating existing user' do
+          subject = create(:user)
+          expect(subject).to be_password_required
+        end
+      end
+    end
   end
 
   describe "profile_types" do

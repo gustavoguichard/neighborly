@@ -12,7 +12,6 @@ describe WelcomeWorker do
 
     it 'satisfies expectations' do
       expect(Notification).to receive(:notify_once)
-      expect_any_instance_of(User).to receive(:update_attribute)
       perform_async
     end
   end

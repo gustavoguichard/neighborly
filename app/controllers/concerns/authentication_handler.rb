@@ -46,7 +46,7 @@ module Concerns::AuthenticationHandler
         u.permit(:name,
                  :email,
                  :password,
-                 :newsletter,
+                 :bonds_early_adopter,
                  [investment_prospect_attributes: [:value]])
       end
     end

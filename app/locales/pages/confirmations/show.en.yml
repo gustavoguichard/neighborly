@@ -1,0 +1,10 @@
+en:
+  confirmations:
+    show:
+      titles:
+        site: 'Account setup'
+      form:
+        inputs:
+          submit: 'Confirm'
+        labels:
+          name: 'Your full name'

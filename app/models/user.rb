@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :message => I18n.t('activerecord.errors.models.user.attributes.email.taken')
   validates_format_of :email, :with => Devise.email_regexp, :allow_blank => true, :if => :email_changed?
 
-  validates_presence_of :password, :if => :password_required?
-  validates_confirmation_of :password, :if => :password_confirmation_required?
+  validates_presence_of :password, if: :password_required?
+  validates_confirmation_of :password, if: :password_confirmation_required?
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
   has_many :contributions
@@ -103,11 +103,15 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    !persisted? || !password.nil? || !password_confirmation.nil?
+    if bonds_early_adopter?
+      persisted?
+    else
+      new_record? || password.present? || password_confirmation.present?
+    end
   end
 
   def password_confirmation_required?
-    !new_record?
+    persisted?
   end
 
   def confirmation_required?
