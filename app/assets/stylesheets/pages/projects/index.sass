@@ -106,7 +106,7 @@
           li > a
             background: none
 
-  section.municipal-securities
+  section.municipal-securities, section.built-by-people
     padding: +emCalc(50px, 0)
     background: image-url('rosette.png') center center no-repeat
 
@@ -116,9 +116,29 @@
       text-transform: uppercase
 
     p
-      padding-top: +emCalc(60px)
-      font-size: 115%
+      padding-top: +emCalc(50px)
+      font-size: 125%
       margin-bottom: 0
+
+  section.built-by-people
+    text-align: center
+    background: image-url('courthouse.jpg')
+    background-size: cover
+    background-attachment: fixed
+    color: #fff
+
+    h3
+      color: #fff
+
+    p
+      padding-top: 0
+
+    .the-problem-and-the-solution
+      margin: +emCalc(50px, 0)
+      width: +emCalc(720px)
+      height: +emCalc(113px)
+      background: image-url('bonds-problem-and-solution.png')
+      background-size: +emCalc(720px) auto
 
   section.features
     background: #fff

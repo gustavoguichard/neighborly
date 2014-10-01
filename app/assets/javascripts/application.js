@@ -7,6 +7,7 @@
 //= require dropzone
 //= require best_in_place
 //= require numeral.js
+//= require skrollr
 //= require ./lib/underscore.js
 //= require ./lib/backbone.js
 //= require neighborly/neighborly.js
