@@ -44,27 +44,6 @@ Neighborly::Application.routes.draw do
     namespace :channels, path: '' do
       get '/', to: 'profiles#show', as: :profile
       resources :channels_subscribers, only: [:index, :create, :destroy]
-
-      namespace :admin do
-
-        get '/', to: 'dashboard#index', as: :dashboard
-
-        namespace :reports do
-          resources :subscriber_reports, only: [ :index ]
-        end
-
-        resources :followers, only: [ :index ]
-
-        resources :projects, only: [ :index, :update] do
-          member do
-            put 'launch'
-            put 'reject'
-            put 'push_to_draft'
-            put 'approve'
-          end
-        end
-      end
-
       resources :projects, only: [:new, :create]
       # NOTE We use index instead of create to subscribe comming back from auth via GET
       resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
