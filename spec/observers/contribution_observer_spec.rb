@@ -41,11 +41,6 @@ describe ContributionObserver do
       before do
         resource.project = create(:project, state: 'successful')
       end
-
-      it 'does not send project_successful notification again' do
-        expect(Notification).not_to receive(:notify_once)
-        resource.save!
-      end
     end
 
     context 'when project is already finished' do

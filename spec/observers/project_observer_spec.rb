@@ -106,21 +106,11 @@ describe ProjectObserver do
       project.stub(:in_time_to_wait?).and_return(false)
     end
 
-    it 'notifies the project owner' do
-      expect(project).to receive(:notify_owner).with(:project_success)
-      project.finish!
-    end
-
     it 'calls notify_admin_that_project_reached_deadline' do
       expect_any_instance_of(ProjectObserver).to receive(
         :notify_admin_that_project_reached_deadline
       ).with(project)
 
-      project.finish!
-    end
-
-    it 'calls notify_users' do
-      expect_any_instance_of(ProjectObserver).to receive(:notify_users).with(project)
       project.finish!
     end
   end

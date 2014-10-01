@@ -17,8 +17,6 @@ class ProjectObserver < ActiveRecord::Observer
   end
 
   def from_waiting_funds_to_successful(project)
-    project.notify_owner(:project_success)
-
     notify_admin_that_project_reached_deadline(project)
     notify_users(project)
   end

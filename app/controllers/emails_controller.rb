@@ -18,7 +18,6 @@ class EmailsController < ApplicationController
       :project_received_channel,
       :project_rejected,
       :project_rejected_channel,
-      :project_success,
       :project_unsuccessful,
       :project_visible,
       :project_visible_channel
