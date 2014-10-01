@@ -9,8 +9,8 @@ describe RegistrationsController do
     it 'relates users when referral_code parameter is given' do
       user_email = "sherlock.#{rand}@example.com"
       referrer   = create(:user)
-      post :create, user: {
-        email: user_email, password: '123123123', referral_code: referrer.referral_code
+      post :create, referral_code: referrer.referral_code, user: {
+        email: user_email, password: '123123123'
       }
       expect(
         User.find_by(email: user_email).referrer
