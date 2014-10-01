@@ -11,18 +11,6 @@ task :cron => :environment do
   end
 end
 
-desc 'This tasks should be executed 1x per day'
-task notify_project_owner_about_new_confirmed_contributions: :environment do
-  Project.with_contributions_confirmed_today.each do |project|
-    Notification.notify_once(
-      :project_owner_contribution_confirmed,
-      project.user,
-      {user_id: project.user.id, project_id: project.id, 'notifications.created_at' => Date.today},
-      {project: project}
-    )
-  end
-end
-
 desc 'Move to deleted state all contributions that are in pending for one hour'
 task :move_pending_contributions_to_trash => [:environment] do
   Contribution.where("state in('pending') and created_at + interval '1 hour' <  ?", Time.current).update_all({state: 'deleted'})

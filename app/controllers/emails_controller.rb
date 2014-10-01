@@ -13,7 +13,6 @@ class EmailsController < ApplicationController
       :new_draft_project_channel,
       :new_user_registration,
       :project_in_wainting_funds,
-      :project_owner_contribution_confirmed,
       :project_received,
       :project_received_channel,
       :project_rejected,
