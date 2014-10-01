@@ -2,7 +2,6 @@ class EmailsController < ApplicationController
   def index
     @notifications = []
     types = [
-      :adm_project_deadline,
       :contact,
       :payment_confirmed,
       :payment_canceled_after_confirmed,

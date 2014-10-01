@@ -98,23 +98,6 @@ describe ProjectObserver do
     end
   end
 
-  describe '#from_waiting_funds_to_successful' do
-    let(:project){ create(:project, goal: 30, online_days: -7, state: 'waiting_funds') }
-
-    before do
-      project.stub(:reached_goal?).and_return(true)
-      project.stub(:in_time_to_wait?).and_return(false)
-    end
-
-    it 'calls notify_admin_that_project_reached_deadline' do
-      expect_any_instance_of(ProjectObserver).to receive(
-        :notify_admin_that_project_reached_deadline
-      ).with(project)
-
-      project.finish!
-    end
-  end
-
   describe '#from_draft_to_online' do
     let(:project) { create(:project, state: 'draft') }
 
@@ -140,20 +123,6 @@ describe ProjectObserver do
 
     it 'should create notification for project owner' do
       expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected', project_id: project.id).first).not_to be_nil
-    end
-  end
-
-  describe '#notify_admin_that_project_reached_deadline' do
-    let(:project){ create(:project, goal: 30, online_days: -7, state: 'waiting_funds') }
-    let!(:user) { create(:user, email: Configuration[:email_payments].dup)}
-    before do
-      project.stub(:reached_goal?).and_return(true)
-      project.stub(:in_time_to_wait?).and_return(false)
-      project.finish
-    end
-
-    it 'should create notification for admin' do
-      expect(Notification.where(user_id: user.id, template_name: 'adm_project_deadline', project_id: project.id).first).not_to be_nil
     end
   end
 end

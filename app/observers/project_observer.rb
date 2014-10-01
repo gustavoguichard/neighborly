@@ -16,23 +16,6 @@ class ProjectObserver < ActiveRecord::Observer
     project.notify_owner(:project_in_wainting_funds)
   end
 
-  def from_waiting_funds_to_successful(project)
-    notify_admin_that_project_reached_deadline(project)
-  end
-
-  def notify_admin_that_project_reached_deadline(project)
-    if (user = User.where(email: ::Configuration[:email_payments]).first)
-      Notification.notify_once(
-        :adm_project_deadline,
-        user,
-        {project_id: project.id},
-        project: project,
-        origin_email: Configuration[:email_system],
-        project: project
-      )
-    end
-  end
-
   def from_draft_to_rejected(project)
     deliver_default_notification_for(project, :project_rejected)
   end
