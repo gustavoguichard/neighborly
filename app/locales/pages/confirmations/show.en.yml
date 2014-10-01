@@ -2,7 +2,9 @@ en:
   confirmations:
     show:
       titles:
-        site: 'Setup a password'
+        site: 'Account setup'
       form:
         inputs:
           submit: 'Confirm'
+        labels:
+          name: 'Your full name'
