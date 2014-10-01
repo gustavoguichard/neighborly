@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :channel, :referral_url
-  before_action :store_referral_code, :referral_it!
+  before_action :store_referral_code
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def referral_it!
-    session[:referral_url] = params[:ref] if params[:ref].present?
-  end
 
   def store_referral_code
     session[:referral_code] ||= params[:referral_code]

@@ -80,13 +80,6 @@ describe ProjectsController do
       it { expect(response).to redirect_to set_email_users_path }
     end
 
-    context 'with referral_url' do
-      subject { controller.session[:referral_url] }
-      before { get :index, ref: 'referral' }
-
-      it { expect(subject).to eq 'referral' }
-    end
-
     context 'project variables' do
       #vars = %i(featured recommended successful ending_soon coming_soon)
       vars = %i(featured recommended successful)
