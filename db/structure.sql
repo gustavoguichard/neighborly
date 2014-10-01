@@ -168,7 +168,6 @@ CREATE TABLE projects (
     address_state character varying(255),
     address_zip_code character varying(255),
     address_neighborhood character varying(255),
-    campaign_type text,
     featured boolean DEFAULT false,
     home_page boolean,
     summary_textile text,
@@ -1003,7 +1002,6 @@ CREATE VIEW projects_for_home AS
             featureds.address_state,
             featureds.address_zip_code,
             featureds.address_neighborhood,
-            featureds.campaign_type,
             featureds.featured,
             featureds.home_page,
             featureds.summary_textile,
@@ -1061,7 +1059,6 @@ CREATE VIEW projects_for_home AS
             recommends.address_state,
             recommends.address_zip_code,
             recommends.address_neighborhood,
-            recommends.campaign_type,
             recommends.featured,
             recommends.home_page,
             recommends.summary_textile,
@@ -1121,7 +1118,6 @@ CREATE VIEW projects_for_home AS
             expiring.address_state,
             expiring.address_zip_code,
             expiring.address_neighborhood,
-            expiring.campaign_type,
             expiring.featured,
             expiring.home_page,
             expiring.summary_textile,
@@ -1184,7 +1180,6 @@ CREATE VIEW projects_for_home AS
             soon.address_state,
             soon.address_zip_code,
             soon.address_neighborhood,
-            soon.campaign_type,
             soon.featured,
             soon.home_page,
             soon.summary_textile,
@@ -1243,7 +1238,6 @@ CREATE VIEW projects_for_home AS
             successful.address_state,
             successful.address_zip_code,
             successful.address_neighborhood,
-            successful.campaign_type,
             successful.featured,
             successful.home_page,
             successful.summary_textile,
@@ -1302,7 +1296,6 @@ CREATE VIEW projects_for_home AS
     featured_projects.address_state,
     featured_projects.address_zip_code,
     featured_projects.address_neighborhood,
-    featured_projects.campaign_type,
     featured_projects.featured,
     featured_projects.home_page,
     featured_projects.summary_textile,
@@ -1358,7 +1351,6 @@ UNION
     recommended_projects.address_state,
     recommended_projects.address_zip_code,
     recommended_projects.address_neighborhood,
-    recommended_projects.campaign_type,
     recommended_projects.featured,
     recommended_projects.home_page,
     recommended_projects.summary_textile,
@@ -1414,7 +1406,6 @@ UNION
     expiring_projects.address_state,
     expiring_projects.address_zip_code,
     expiring_projects.address_neighborhood,
-    expiring_projects.campaign_type,
     expiring_projects.featured,
     expiring_projects.home_page,
     expiring_projects.summary_textile,
@@ -1470,7 +1461,6 @@ UNION
     soon_projects.address_state,
     soon_projects.address_zip_code,
     soon_projects.address_neighborhood,
-    soon_projects.campaign_type,
     soon_projects.featured,
     soon_projects.home_page,
     soon_projects.summary_textile,
@@ -1526,7 +1516,6 @@ UNION
     successful_projects.address_state,
     successful_projects.address_zip_code,
     successful_projects.address_neighborhood,
-    successful_projects.campaign_type,
     successful_projects.featured,
     successful_projects.home_page,
     successful_projects.summary_textile,
@@ -3654,9 +3643,11 @@ INSERT INTO schema_migrations (version) VALUES ('20140924204913');
 
 INSERT INTO schema_migrations (version) VALUES ('20140925165552');
 
-INSERT INTO schema_migrations (version) VALUES ('20141001184613');
-
 INSERT INTO schema_migrations (version) VALUES ('20140925225445');
 
 INSERT INTO schema_migrations (version) VALUES ('20140930163732');
+
+INSERT INTO schema_migrations (version) VALUES ('20141001162251');
+
+INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 
