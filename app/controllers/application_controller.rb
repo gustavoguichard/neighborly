@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   private
 
   def store_referral_code
-    session[:referral_code] ||= params[:referral_code]
+    session[:referral_code] ||= params[:ref]
   end
 end
