@@ -3,7 +3,6 @@ Neighborly.Projects = {} if Neighborly.Projects is undefined
 Neighborly.Projects.Index =
   init: ->(
     initialize: ->
-      skrollr.init()
       $('.features .list a').on 'mouseover', this.changeScreen
       $('.features .list a').on 'click', this.changeScreen
 
