@@ -125,15 +125,6 @@ describe Project::StateMachineHandler do
           subject.sale_date = 2.weeks.ago
           subject.online_days = 0
         end
-
-        context "when campaign type is flexible" do
-          before do
-            main_project.update_attributes campaign_type: 'flexible'
-            subject.finish
-          end
-
-          its(:successful?) { should be_true }
-        end
       end
 
       context 'when project already hit the goal and still is in the waiting_funds time' do
@@ -142,15 +133,6 @@ describe Project::StateMachineHandler do
           subject.stub(:reached_goal?).and_return(true)
           create(:contribution, project: main_project, user: user, value: 20, state: 'waiting_confirmation')
           main_project.update_attributes state: 'waiting_funds'
-        end
-
-        context "when project is flexible" do
-          before do
-            main_project.update_attributes campaign_type: 'flexible'
-            subject.finish
-          end
-
-          its(:successful?) { should be_false }
         end
       end
     end
