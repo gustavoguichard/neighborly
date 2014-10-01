@@ -53,7 +53,6 @@ en:
         update_address: "Update my address on my profile."
       project:
         name: 'Project Title'
-        campaign_type: 'Project Type'
         category_id: 'Category'
         category: 'Category'
         permalink: 'Permalink'
@@ -94,7 +93,6 @@ en:
           video_url: "Paste the link from a Youtube or Vimeo video about your project. Your video should be short enough to retain viewers, but descriptive enough that viewers can understand the project clearly."
           hash_tag: 'A short hashtag that can be added to tweets and Facebook updates.'
           site: "Paste the full link to your project's website, if it has one."
-          campaign_type: 'Every Dollar Counts: Keep the funds whether or not goal is met.'
           budget: 'Contributors feel most comfortable when you have a clear plan for how the proceeds will be spent. Briefly explain how the money will be used.'
           permalink: 'Automatically generated. You can edit this later.'
           headlinet: 'headlinet hint'

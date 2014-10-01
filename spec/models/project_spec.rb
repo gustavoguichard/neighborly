@@ -446,16 +446,4 @@ describe Project do
       end
     end
   end
-
-  describe "campaign types" do
-    describe "#flexible?" do
-      let(:project) { create(:project, campaign_type: 'flexible') }
-
-      subject { project.flexible? }
-
-      context "when change campaign type to flexible" do
-        it { should be_true }
-      end
-    end
-  end
 end

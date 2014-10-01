@@ -2,10 +2,6 @@ module Project::StateMachineHandler
   extend ActiveSupport::Concern
 
   included do
-     state_machine :campaign_type, initial: :flexible do
-      state :flexible
-    end
-
     state_machine :state, initial: :draft do
       state :draft, :soon, :rejected, :online, :successful, :waiting_funds, :deleted
 
@@ -31,11 +27,11 @@ module Project::StateMachineHandler
 
       event :finish do
         transition online: :waiting_funds,        if: ->(project) {
-          project.expired? && (project.pending_contributions_reached_the_goal? || project.flexible?)
+          project.expired? && project.pending_contributions_reached_the_goal?
         }
 
         transition waiting_funds: :successful,    if: ->(project) {
-          (project.reached_goal? || project.flexible?) && !project.in_time_to_wait?
+          !project.in_time_to_wait?
         }
 
         transition waiting_funds: :waiting_funds, if: ->(project) {

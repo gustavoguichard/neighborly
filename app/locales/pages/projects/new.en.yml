@@ -17,9 +17,6 @@ en:
         name:
           title: 'Project Title'
           description: 'What would you like to call it? A short, catchy, shareable title works best!'
-        campaign_type:
-          title: 'Project Type'
-          description: 'What funding model would you like to use? <br /><br/> <strong>Every Dollar Counts:</strong> The project is funded whether or not the goal is reached.'
         goal:
           title: 'Project Goal'
           description: 'How much do you need to raise in order to complete your project? Please enter a number without commas.'
