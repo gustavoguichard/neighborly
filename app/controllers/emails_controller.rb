@@ -6,7 +6,6 @@ class EmailsController < ApplicationController
       :contact,
       :payment_confirmed,
       :payment_canceled_after_confirmed,
-      :contribution_project_unsuccessful,
       :new_draft_project,
       :new_draft_project_channel,
       :new_user_registration,

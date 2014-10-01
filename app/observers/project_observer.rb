@@ -18,7 +18,6 @@ class ProjectObserver < ActiveRecord::Observer
 
   def from_waiting_funds_to_successful(project)
     notify_admin_that_project_reached_deadline(project)
-    notify_users(project)
   end
 
   def notify_admin_that_project_reached_deadline(project)
@@ -66,20 +65,6 @@ class ProjectObserver < ActiveRecord::Observer
           origin_name: project.user.display_name
         }
       )
-    end
-  end
-
-  def notify_users(project)
-    project.contributions.with_state('confirmed').each do |contribution|
-      unless contribution.notified_finish
-        unless project.successful?
-          contribution.notify_owner(:contribution_project_unsuccessful,
-                                    { },
-                                    { project: project })
-
-          contribution.update_attributes({ notified_finish: true })
-        end
-      end
     end
   end
 
