@@ -26,13 +26,8 @@ br
 strong #{resource.key}
 br
 - if resource.is_a?(Contribution)
-  - if resource.project.flexible?
-    br
-    | This project will be funded on <strong>#{l resource.project.expires_at.to_date, format: :long}</strong>. Shortly after, #{resource.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
-  - else
-    br
-    |If the project is successfully funded by <strong>#{l resource.project.expires_at.to_date, format: :long}</strong>, #{resource.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
-    |  If the project doesn't reach it's goal, you will receive another email with instructions regarding a refund.
+  br
+  | This project will be funded on <strong>#{l resource.project.expires_at.to_date, format: :long}</strong>. Shortly after, #{resource.project.user.display_name} will contact you about rewards and followup. This process may take a few days so hang tight!
   br
 br
 |If you want to contact #{resource.project.user.name}, send an email to #{mail_to resource.project.user.email}.

@@ -33,7 +33,7 @@ module ProjectsHelper
 
   def display_status(project)
     content_tag :span do
-      t("projects.show.display_status.#{project.campaign_type}.#{project.display_status}",
+      t("projects.show.display_status.#{project.display_status}",
         goal: project.display_goal,
         date: (l(project.expires_at.to_date, format: :long) rescue nil))
     end

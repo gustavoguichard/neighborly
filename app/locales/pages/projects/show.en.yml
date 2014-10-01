@@ -3,12 +3,11 @@ en:
     show:
       anonymous_contribution: "Anonymous neighbor"
       display_status:
-        flexible:
-          reached_goal: "This project will be successful and funded on %{date}"
-          not_reached_goal: "This project will be funded on %{date}"
-          successful: "This project was successful and was funded on %{date}"
-          waiting_funds: "This project recently closed and will be funded."
-          draft: "This project is in draft mode and is not open to contributors yet."
+        reached_goal: "This project will be successful and funded on %{date}"
+        not_reached_goal: "This project will be funded on %{date}"
+        successful: "This project was successful and was funded on %{date}"
+        waiting_funds: "This project recently closed and will be funded."
+        draft: "This project is in draft mode and is not open to contributors yet."
       invest: 'Invest'
       edit: 'Edit campaign'
       share:
