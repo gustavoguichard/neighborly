@@ -10,7 +10,6 @@ class EmailsController < ApplicationController
       :new_user_registration,
       :project_in_wainting_funds,
       :project_received,
-      :project_received_channel,
       :project_rejected,
       :project_rejected_channel,
       :project_unsuccessful,
