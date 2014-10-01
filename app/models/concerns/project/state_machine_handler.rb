@@ -7,13 +7,7 @@ module Project::StateMachineHandler
     end
 
     state_machine :state, initial: :draft do
-      state :draft
-      state :soon
-      state :rejected
-      state :online
-      state :successful
-      state :waiting_funds
-      state :deleted
+      state :draft, :soon, :rejected, :online, :successful, :waiting_funds, :deleted
 
       event :push_to_draft do
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
