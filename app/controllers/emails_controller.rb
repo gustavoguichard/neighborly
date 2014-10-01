@@ -11,7 +11,6 @@ class EmailsController < ApplicationController
       :project_in_wainting_funds,
       :project_received,
       :project_rejected,
-      :project_rejected_channel,
       :project_unsuccessful,
       :project_visible,
       :project_visible_channel

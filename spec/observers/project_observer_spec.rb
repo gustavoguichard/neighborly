@@ -157,24 +157,10 @@ describe ProjectObserver do
 
   describe '#from_draft_to_rejected' do
     let(:project){ create(:project, state: 'draft') }
+    before { project.reject! }
 
-    context 'when project don\'t belong to any channel' do
-      before { project.reject! }
-
-      it 'should create notification for project owner' do
-        expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected', project_id: project.id).first).not_to be_nil
-      end
-    end
-
-    context 'when project belong to a channel' do
-      before do
-        project.channels << channel
-        project.reject
-      end
-
-      it 'should create notification for project owner' do
-        expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected_channel', project_id: project.id).first).not_to be_nil
-      end
+    it 'should create notification for project owner' do
+      expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected', project_id: project.id).first).not_to be_nil
     end
   end
 
