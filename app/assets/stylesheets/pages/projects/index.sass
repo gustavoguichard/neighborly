@@ -1,13 +1,15 @@
 .home-page
   header.hero
     padding-top: 0
-    padding-bottom: +emCalc(150px)
+    padding-bottom: +emCalc(50px)
     min-height: +emCalc(200px)
+
     h2
       font-weight: 500
       text-transform: uppercase
 
     h3.subtitle
+      text-align: center !important
       text-transform: none
       font-size: 140%
       font-weight: 300
@@ -17,6 +19,30 @@
       .has-tip
         color: white
         font-weight: 300
+
+    .sign-up
+      margin-top: +emCalc(100px)
+
+      a.button
+        width: 100%
+        background: none
+        border: 1px solid #fff
+        &:hover
+          background: $primary-color
+          border-color: transparent
+
+
+    .new_user
+      .email
+        input
+          border-top-right-radius: 0
+          border-bottom-right-radius: 0
+          height: 45px
+      .button
+        width: 100%
+        border: none
+        border-top-left-radius: 0
+        border-bottom-left-radius: 0
     p
       display: none
       padding: +emCalc(10px)
@@ -174,7 +200,6 @@
 @media #{$medium}
   .home-page
     header.hero
-      height: +emCalc(400px)
       h3.subtitle
         font-size: 180%
         text-align: justify

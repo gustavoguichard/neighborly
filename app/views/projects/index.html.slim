@@ -9,6 +9,28 @@
         h2 = t('.hero.title').html_safe
         h3.subtitle = t('.hero.subtitle_html')
 
+        .sign-up
+          - if current_user.present?
+            h4 Thanks for signing up, your spot has been saved!
+            .row
+              .large-10.columns.large-centered
+                .row
+                  .small-6.columns
+                    = link_to 'Discover Issuances', discover_path, class: 'button'
+                  .small-6.columns
+                    = link_to 'Check your spot', '#', class: 'button'
+
+          - else
+            = simple_form_for(User.new, as: :user, url: sign_up_path) do |f|
+              = f.input :bonds_early_adopter, as: :hidden, input_html: { value: '1' }
+
+              .row.collapse
+                .medium-7.columns
+                  = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }
+
+                .medium-5.columns
+                  = f.submit 'Sign Up for early access', class: 'button'
+
   section.investors
     .row
       .large-8.columns.large-centered
