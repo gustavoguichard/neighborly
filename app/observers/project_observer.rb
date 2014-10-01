@@ -42,7 +42,6 @@ class ProjectObserver < ActiveRecord::Observer
 
   def from_draft_to_online(project)
     deliver_default_notification_for(project, :project_visible)
-    notify_users_that_a_new_project_is_online(project)
     project.update_attributes({ sale_date: DateTime.now })
   end
 
@@ -69,15 +68,6 @@ class ProjectObserver < ActiveRecord::Observer
           origin_name: project.user.display_name
         }
       )
-    end
-  end
-
-  def notify_users_that_a_new_project_is_online(project)
-    User.where(new_project: true).each do |user|
-      Notification.notify_once(:new_project_visible,
-        user,
-        {project_id: project.id, user_id: user.id},
-        project: project)
     end
   end
 
