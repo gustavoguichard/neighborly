@@ -11,21 +11,13 @@ describe "Projects" do
 
   describe "home" do
     before do
-      create(:project, state: 'online', recommended: true, online_days: 30, sale_date: Time.now, home_page: true)
-      create(:project, state: 'online', featured: true, online_days: 30, sale_date: Time.now)
-      create(:project, state: 'soon', online_days: 30, home_page: true, uploaded_image: File.open("#{Rails.root}/spec/fixtures/image.png"))
-      create(:project, state: 'online', online_days: 30, sale_date: 29.days.ago, home_page: true)
+      4.times { create(:project, state: 'online', recommended: true, online_days: 30, sale_date: Time.now, home_page: true) }
       visit root_path
     end
 
-    it "should show recommended project" do
+    it "should show recommended projects" do
       recommended = all(".recommended .project-box:not(.large)")
-      recommended.should have(1).items
-    end
-
-    it "should show featured project" do
-      featured = all(".recommended .project-box.large")
-      featured.should have(1).items
+      recommended.should have(4).items
     end
 
     #it "should show coming soon projects" do
