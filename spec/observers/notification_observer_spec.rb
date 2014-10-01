@@ -18,5 +18,12 @@ describe NotificationObserver do
       expect(NotificationWorker).to_not receive(:perform_async)
       subject.run_callbacks(:commit)
     end
+
+    it 'doesn\'t deliver it when disabled' do
+      subject = create(:notification)
+      allow_any_instance_of(NotificationObserver).to receive(:disabled?).and_return(true)
+      expect(NotificationWorker).to_not receive(:perform_async)
+      subject.run_callbacks(:commit)
+    end
   end
 end
