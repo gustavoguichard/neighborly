@@ -82,7 +82,7 @@ FactoryGirl.define do
     f.association :user, factory: :user
     f.association :contribution, factory: :contribution
     f.association :project, factory: :project
-    f.template_name 'project_success'
+    f.template_name 'payment_confirmed'
     f.origin_name 'Foo Bar'
     f.origin_email 'foo@bar.com'
     f.locale 'en'

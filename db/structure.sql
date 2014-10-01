@@ -86,7 +86,6 @@ CREATE TABLE contributions (
     updated_at timestamp without time zone,
     anonymous boolean DEFAULT false,
     key text,
-    notified_finish boolean DEFAULT false,
     payment_method text,
     payment_token text,
     payment_id character varying(255),
@@ -3664,4 +3663,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140922183239');
 INSERT INTO schema_migrations (version) VALUES ('20140924204913');
 
 INSERT INTO schema_migrations (version) VALUES ('20140925165552');
+
+INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 

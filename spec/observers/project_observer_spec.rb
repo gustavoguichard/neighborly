@@ -98,107 +98,31 @@ describe ProjectObserver do
     end
   end
 
-  describe '#from_waiting_funds_to_successful' do
-    let(:project){ create(:project, goal: 30, online_days: -7, state: 'waiting_funds') }
-
-    before do
-      project.stub(:reached_goal?).and_return(true)
-      project.stub(:in_time_to_wait?).and_return(false)
-    end
-
-    it 'notifies the project owner' do
-      expect(project).to receive(:notify_owner).with(:project_success)
-      project.finish!
-    end
-
-    it 'calls notify_admin_that_project_reached_deadline' do
-      expect_any_instance_of(ProjectObserver).to receive(
-        :notify_admin_that_project_reached_deadline
-      ).with(project)
-
-      project.finish!
-    end
-
-    it 'calls notify_users' do
-      expect_any_instance_of(ProjectObserver).to receive(:notify_users).with(project)
-      project.finish!
-    end
-  end
-
   describe '#from_draft_to_online' do
     let(:project) { create(:project, state: 'draft') }
 
-    context "when project don't belongs to any channel" do
-      it 'notifies the project owner' do
-        expect(Notification).to receive(:notify_once).with(
-          :project_visible,
-          project.user,
-          { project_id: project.id, channel_id: nil },
-          {
-            project: project,
-            channel: nil,
-            origin_email: Configuration[:email_contact],
-            origin_name: Configuration[:company_name]
-          }
-        )
-        project.launch!
-      end
-    end
-
-    context 'when project belongs to a channel' do
-      before { project.channels << channel }
-
-      it 'notifies the project owner' do
-        expect(Notification).to receive(:notify_once).with(
-          :project_visible_channel,
-          project.user,
-          { project_id: project.id, channel_id: channel.id },
-          {
-            project: project,
-            channel: channel,
-            origin_email: channel.user.email,
-            origin_name: channel.name
-          }
-        )
-        project.launch!
-      end
+    it 'notifies the project owner' do
+      expect(Notification).to receive(:notify_once).with(
+        :project_visible,
+        project.user,
+        { project_id: project.id, channel_id: nil },
+        {
+          project: project,
+          channel: nil,
+          origin_email: Configuration[:email_contact],
+          origin_name: Configuration[:company_name]
+        }
+      )
+      project.launch!
     end
   end
 
   describe '#from_draft_to_rejected' do
     let(:project){ create(:project, state: 'draft') }
+    before { project.reject! }
 
-    context 'when project don\'t belong to any channel' do
-      before { project.reject! }
-
-      it 'should create notification for project owner' do
-        expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected', project_id: project.id).first).not_to be_nil
-      end
-    end
-
-    context 'when project belong to a channel' do
-      before do
-        project.channels << channel
-        project.reject
-      end
-
-      it 'should create notification for project owner' do
-        expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected_channel', project_id: project.id).first).not_to be_nil
-      end
-    end
-  end
-
-  describe '#notify_admin_that_project_reached_deadline' do
-    let(:project){ create(:project, goal: 30, online_days: -7, state: 'waiting_funds') }
-    let!(:user) { create(:user, email: Configuration[:email_payments].dup)}
-    before do
-      project.stub(:reached_goal?).and_return(true)
-      project.stub(:in_time_to_wait?).and_return(false)
-      project.finish
-    end
-
-    it 'should create notification for admin' do
-      expect(Notification.where(user_id: user.id, template_name: 'adm_project_deadline', project_id: project.id).first).not_to be_nil
+    it 'should create notification for project owner' do
+      expect(Notification.where(user_id: project.user.id, template_name: 'project_rejected', project_id: project.id).first).not_to be_nil
     end
   end
 end

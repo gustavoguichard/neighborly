@@ -41,11 +41,6 @@ describe ContributionObserver do
       before do
         resource.project = create(:project, state: 'successful')
       end
-
-      it 'does not send project_successful notification again' do
-        expect(Notification).not_to receive(:notify_once)
-        resource.save!
-      end
     end
 
     context 'when project is already finished' do
@@ -59,13 +54,6 @@ describe ContributionObserver do
 
       it 'notifies backoffice about confirmation' do
         allow(Notification).to receive(:notify_once)
-
-        expect(Notification).to receive(:notify_once).at_least(:once).
-          with(:payment_confirmed_after_finished_project,
-               user,
-               { resource_id_name => resource.id },
-               resource_name      => resource)
-
         resource.confirm!
       end
     end

@@ -16,33 +16,12 @@ class ProjectObserver < ActiveRecord::Observer
     project.notify_owner(:project_in_wainting_funds)
   end
 
-  def from_waiting_funds_to_successful(project)
-    project.notify_owner(:project_success)
-
-    notify_admin_that_project_reached_deadline(project)
-    notify_users(project)
-  end
-
-  def notify_admin_that_project_reached_deadline(project)
-    if (user = User.where(email: ::Configuration[:email_payments]).first)
-      Notification.notify_once(
-        :adm_project_deadline,
-        user,
-        {project_id: project.id},
-        project: project,
-        origin_email: Configuration[:email_system],
-        project: project
-      )
-    end
-  end
-
   def from_draft_to_rejected(project)
     deliver_default_notification_for(project, :project_rejected)
   end
 
   def from_draft_to_online(project)
     deliver_default_notification_for(project, :project_visible)
-    notify_users_that_a_new_project_is_online(project)
     project.update_attributes({ sale_date: DateTime.now })
   end
 
@@ -69,27 +48,6 @@ class ProjectObserver < ActiveRecord::Observer
           origin_name: project.user.display_name
         }
       )
-    end
-  end
-
-  def notify_users_that_a_new_project_is_online(project)
-    User.where(new_project: true).each do |user|
-      Notification.notify_once(:new_project_visible,
-        user,
-        {project_id: project.id, user_id: user.id},
-        project: project)
-    end
-  end
-
-  def notify_users(project)
-    project.contributions.with_state('confirmed').each do |contribution|
-      unless contribution.notified_finish
-        contribution.notify_owner((project.successful? ? :contribution_project_successful : :contribution_project_unsuccessful),
-                                  { },
-                                  { project: project })
-
-        contribution.update_attributes({ notified_finish: true })
-      end
     end
   end
 
