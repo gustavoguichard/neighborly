@@ -11,6 +11,10 @@ class UserObserver < ActiveRecord::Observer
     end
   end
 
+  def before_create(user)
+    user.referral_code = SecureRandom.urlsafe_base64
+  end
+
   private
 
   def calculate_completeness(user)

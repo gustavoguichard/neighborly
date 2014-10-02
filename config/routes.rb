@@ -12,13 +12,14 @@ Neighborly::Application.routes.draw do
     controllers: {
       confirmations:      :confirmations,
       omniauth_callbacks: :omniauth_callbacks,
+      registrations:      :registrations,
       sessions:           :sessions
     }
 
 
   devise_scope :user do
-    post  '/sign_up', to: 'devise/registrations#create', as: :sign_up
     patch '/confirm', to: 'confirmations#confirm'
+    post  '/sign_up', to: 'registrations#create', as: :sign_up
   end
 
   get '/thank_you' => "static#thank_you"

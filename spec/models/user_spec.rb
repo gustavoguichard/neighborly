@@ -21,6 +21,12 @@ describe User do
     it{ should have_many :channel_members }
     it{ should have_many :channels }
     it{ should have_one :investment_prospect }
+
+    it 'referrer accepts users' do
+      expect {
+        subject.referrer = described_class.new
+      }.to_not raise_error
+    end
   end
 
   describe "validations" do

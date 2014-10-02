@@ -15,6 +15,13 @@ describe UserObserver do
     end
   end
 
+  describe '#before_create' do
+    it 'generates a referral code' do
+      subject = create(:user)
+      expect(subject.referral_code).to be_present
+    end
+  end
+
   describe '#after_commit' do
     #context 'when profile is complete' do
       #it 'does not send to worker' do

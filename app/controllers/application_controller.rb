@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :channel, :referral_url
-  before_action :referral_it!
+  helper_method :channel
+  before_action :store_referral_code
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
@@ -20,13 +20,13 @@ class ApplicationController < ActionController::Base
     Channel.find_by_permalink(request.subdomain.to_s)
   end
 
-  def referral_url
-    session[:referral_url]
+  def referral_code
+    session[:referral_code]
   end
 
   private
 
-  def referral_it!
-    session[:referral_url] = params[:ref] if params[:ref].present?
+  def store_referral_code
+    session[:referral_code] ||= params[:ref]
   end
 end
