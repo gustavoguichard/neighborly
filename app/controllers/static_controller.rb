@@ -12,8 +12,8 @@ class StaticController < ApplicationController
   def start; end
   def faq; end
 
-  def learn
-    @presenter = LearnPagePresenter.new
+  def about
+    @presenter = AboutPagePresenter.new
   end
 
   def thank_you
