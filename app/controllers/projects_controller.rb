@@ -27,6 +27,7 @@ class ProjectsController < ApplicationController
 
     @recommended = @recommended.take(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
+    @total_users = User.count - 1
   end
 
   def create
