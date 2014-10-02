@@ -1,6 +1,6 @@
-= content_for :title, 'Learn'
+= content_for :title, 'About'
 
-.learn-page
+.about-page
   section.main-section.section-with-hero-header
     = hero_header_tag @presenter, { class: 'text-center' }, @presenter.how_it_works_image do
       header.title-information
@@ -152,22 +152,22 @@
 
       ul
         li.supporter.small-6.medium-3.columns
-          = image_tag 'learn/knight.png', alt: 'Knight Foundation\'s logo', title: '2013 Knight Foundation Grantee'
+          = image_tag 'about/knight.png', alt: 'Knight Foundation\'s logo', title: '2013 Knight Foundation Grantee'
           strong
             span @KnightFdn
             span Backed
         li.supporter.small-6.medium-3.columns
-          = image_tag 'learn/civicx.png', alt: 'The Points of Light Civic Accelerator\'s logo',  title: 'CivicX'
+          = image_tag 'about/civicx.png', alt: 'The Points of Light Civic Accelerator\'s logo',  title: 'CivicX'
           strong
             span #CivicX
             span Accelerated
         li.supporter.small-6.medium-3.columns
-          = image_tag 'learn/tumml.png', alt: 'Tumml\'s logo',  title: 'TUMML'
+          = image_tag 'about/tumml.png', alt: 'Tumml\'s logo',  title: 'TUMML'
           strong
             span @TUMML
             span Amplified
         li.supporter.small-6.medium-3.columns
-          = image_tag 'learn/madeinkcsf.png', alt: 'US map with hearts in Kansas City and San Francisco',  title: 'Made in KC and SF'
+          = image_tag 'about/madeinkcsf.png', alt: 'US map with hearts in Kansas City and San Francisco',  title: 'Made in KC and SF'
           strong
             span Made in @KCMO &amp;
             span San Francisco
@@ -176,7 +176,7 @@
         = link_to 'https://angel.co/neighborly' do
           strong.important-notice
             | Find us on
-            = image_tag 'learn/angel_list.png', alt: 'Angel List\'s logo', title: 'Angel List', class: 'angel-list-logo'
+            = image_tag 'about/angel_list.png', alt: 'Angel List\'s logo', title: 'Angel List', class: 'angel-list-logo'
 
   section#open.main-section.full-width-row
     .row
@@ -190,13 +190,13 @@
               strong.subtitle Open company, clear mission
       .open-type.small-12.medium-4.columns.text-center
         .open-type-image
-          = image_tag 'learn/github.png', alt: 'GitHub\'s logo', title: 'GitHub', class: 'github-logo'
+          = image_tag 'about/github.png', alt: 'GitHub\'s logo', title: 'GitHub', class: 'github-logo'
         strong.important-notice Open Source
       .open-type.small-12.medium-4.columns.text-center
         .open-type-image
-          = image_tag 'learn/sunlight_foundation.png', alt: 'Sunlight Foundation\'s logo', title: 'Sunlight Foundation', class: 'sunlight-foundation-logo'
+          = image_tag 'about/sunlight_foundation.png', alt: 'Sunlight Foundation\'s logo', title: 'Sunlight Foundation', class: 'sunlight-foundation-logo'
         strong.important-notice Open Data
       .open-type.small-12.medium-4.columns.text-center
         .open-type-image
-          = image_tag 'learn/open_company.png', alt: 'Open Company Initiative\'s logo', title: 'The Open Company Initiative', class: 'open-company-logo'
+          = image_tag 'about/open_company.png', alt: 'Open Company Initiative\'s logo', title: 'The Open Company Initiative', class: 'open-company-logo'
         strong.important-notice Open Company

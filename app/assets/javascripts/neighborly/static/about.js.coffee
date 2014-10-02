@@ -1,8 +1,8 @@
 Neighborly.Static ?= {}
 
-Neighborly.Static.Learn =
+Neighborly.Static.About =
   init: Backbone.View.extend
-    el: '.learn-page'
+    el: '.about-page'
 
     initialize: ->
       if window.innerWidth < 1000
