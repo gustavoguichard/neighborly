@@ -13,7 +13,6 @@
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
-          = f.hidden_field :referral_code, value: @referral_code
           = f.fields_for :investment_prospect do |fa|
             = fa.hidden_field :value
 
