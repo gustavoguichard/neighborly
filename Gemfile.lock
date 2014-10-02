@@ -39,16 +39,6 @@ GIT
       slim (~> 2.0)
 
 GIT
-  remote: git://github.com/neighborly/neighborly-balanced-creditcard.git
-  revision: 8185622a34da1421b2a716907e12c95fa83b0ad7
-  branch: master
-  specs:
-    neighborly-balanced-creditcard (2.0.0)
-      neighborly-balanced (~> 2.0)
-      rails (~> 4.0)
-      slim (~> 2.0)
-
-GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
   revision: 47de0d64ea0255a872f0dde3dd3eda6d59cb7d38
   branch: master
@@ -557,7 +547,6 @@ DEPENDENCIES
   neighborly-api (~> 1.0.1)
   neighborly-balanced!
   neighborly-balanced-bankaccount!
-  neighborly-balanced-creditcard!
   neighborly-dashboard (~> 1.0.1)
   newrelic_rpm
   nprogress-rails

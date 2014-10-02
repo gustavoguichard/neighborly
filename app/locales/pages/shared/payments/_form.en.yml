@@ -5,7 +5,5 @@ en:
         title: 'Please select a payment method'
         payment-method:
           fees: 'Fees:'
-          balanced-creditcard:
-            title: 'Credit / Debit Card'
           balanced-bankaccount:
             title: 'Bank Account'
