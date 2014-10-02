@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-ruby IO.read('.ruby-version').strip
+ruby_version_file = Pathname.new(__FILE__) + '../.ruby-version'
+ruby IO.read(ruby_version_file).strip
 
 gem 'rails', '4.1.5'
 
