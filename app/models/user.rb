@@ -119,11 +119,4 @@ class User < ActiveRecord::Base
   def confirmation_required?
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
-
-  def balanced_contributor
-    Neighborly::Balanced::Contributor.new(
-      bank_account_href: ::Configuration[:balanced_default_bank_account_href],
-      href:              ::Configuration[:balanced_default_customer_href]
-    )
-  end
 end
