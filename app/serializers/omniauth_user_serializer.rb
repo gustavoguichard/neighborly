@@ -68,7 +68,7 @@ class OmniauthUserSerializer
   end
 
   def access_token_expires_at
-    if %w(facebook google_oauth2).include? provider
+    if provider.eql? 'facebook'
       Time.at(@omniauth_data['credentials']['expires_at'].to_i)
     end
   end
