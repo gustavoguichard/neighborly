@@ -120,6 +120,14 @@ class User < ActiveRecord::Base
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
 
+  def ahead_me
+    User.where('created_at < ?', created_at).count
+  end
+
+  def behind_me
+    User.where('created_at > ?', created_at).count
+  end
+
   def balanced_contributor
     Neighborly::Balanced::Contributor.new(
       bank_account_href: ::Configuration[:balanced_default_bank_account_href],
