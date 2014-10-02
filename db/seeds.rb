@@ -63,7 +63,7 @@ puts 'Done!'
 
 puts 'Creating OauthProvider entries...'
 
-  categories = %w{facebook twitter google_oauth2 linkedin}
+  categories = %w{facebook twitter linkedin}
   categories.each do |name|
     OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
   end

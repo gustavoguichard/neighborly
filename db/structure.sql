@@ -2901,7 +2901,7 @@ ALTER TABLE ONLY api_access_tokens
 --
 
 ALTER TABLE ONLY authorizations
-    ADD CONSTRAINT fk_authorizations_oauth_provider_id FOREIGN KEY (oauth_provider_id) REFERENCES oauth_providers(id);
+    ADD CONSTRAINT fk_authorizations_oauth_provider_id FOREIGN KEY (oauth_provider_id) REFERENCES oauth_providers(id) ON DELETE CASCADE;
 
 
 --
@@ -3659,4 +3659,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141001162251');
 INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 
 INSERT INTO schema_migrations (version) VALUES ('20141002000613');
+
+INSERT INTO schema_migrations (version) VALUES ('20141002145006');
 

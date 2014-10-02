@@ -23,19 +23,6 @@
         padding-top: +emCalc(6px)
         @extend .icon-et-twitter:before
 
-
-  &.google, &.google_oauth2
-    background: $google-color
-    border-bottom-color: darken($google-color, $button-border-color-darken)
-    color: white
-    &:hover
-      background: lighten($google-color, $button-border-color-darken)
-    &.with-icon
-      &:after
-        border-left-color: darken($google-color, $button-border-color-darken)
-        padding-top: +emCalc(6px)
-        @extend .icon-et-gplus:before
-
   &.linkedin
     background: $linkedin-color
     border-bottom-color: darken($linkedin-color, $button-border-color-darken)
@@ -48,7 +35,7 @@
         padding-top: +emCalc(6px)
         @extend .icon-et-linkedin:before
 
-  &.facebook.secondary, &.twitter.secondary, &.linkedin.secondary, &.google.secondary, &.google_oauth2.secondary
+  &.facebook.secondary, &.twitter.secondary, &.linkedin.secondary
     background: $secondary-color
     border-bottom-color: darken($secondary-color, $button-border-color-darken)
     &.with-icon
