@@ -16,6 +16,7 @@ describe User do
     it{ should have_many(:oauth_providers).through(:authorizations) }
     it{ should have_one :organization }
     it{ should have_one :investment_prospect }
+    it{ should have_one :brokerage_account }
 
     it 'referrer accepts users' do
       expect {

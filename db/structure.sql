@@ -339,6 +339,42 @@ ALTER SEQUENCE balanced_contributors_id_seq OWNED BY balanced_contributors.id;
 
 
 --
+-- Name: brokerage_accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE brokerage_accounts (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    tax_id character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    phone character varying(255) NOT NULL,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: brokerage_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE brokerage_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: brokerage_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE brokerage_accounts_id_seq OWNED BY brokerage_accounts.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1790,6 +1826,13 @@ ALTER TABLE ONLY balanced_contributors ALTER COLUMN id SET DEFAULT nextval('bala
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY brokerage_accounts ALTER COLUMN id SET DEFAULT nextval('brokerage_accounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
 
 
@@ -1971,6 +2014,14 @@ ALTER TABLE ONLY contributions
 
 ALTER TABLE ONLY balanced_contributors
     ADD CONSTRAINT balanced_contributors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: brokerage_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY brokerage_accounts
+    ADD CONSTRAINT brokerage_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -2208,6 +2259,13 @@ CREATE INDEX fk__balanced_contributors_user_id ON balanced_contributors USING bt
 
 
 --
+-- Name: fk__brokerage_accounts_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__brokerage_accounts_user_id ON brokerage_accounts USING btree (user_id);
+
+
+--
 -- Name: fk__images_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2331,6 +2389,13 @@ CREATE UNIQUE INDEX index_authorizations_on_uid_and_oauth_provider_id ON authori
 --
 
 CREATE INDEX index_balanced_contributors_on_user_id ON balanced_contributors USING btree (user_id);
+
+
+--
+-- Name: index_brokerage_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_brokerage_accounts_on_user_id ON brokerage_accounts USING btree (user_id);
 
 
 --
@@ -2616,6 +2681,14 @@ ALTER TABLE ONLY authorizations
 
 ALTER TABLE ONLY balanced_contributors
     ADD CONSTRAINT fk_balanced_contributors_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_brokerage_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY brokerage_accounts
+    ADD CONSTRAINT fk_brokerage_accounts_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3295,6 +3368,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 INSERT INTO schema_migrations (version) VALUES ('20141002000613');
 
 INSERT INTO schema_migrations (version) VALUES ('20141002145006');
+
+INSERT INTO schema_migrations (version) VALUES ('20141002194215');
 
 INSERT INTO schema_migrations (version) VALUES ('20141002211059');
 

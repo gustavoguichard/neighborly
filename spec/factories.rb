@@ -181,4 +181,13 @@ FactoryGirl.define do
     f.association :user
     f.file File.open("#{Rails.root}/spec/fixtures/image.png")
   end
+
+  factory :brokerage_account do
+    address '221B Baker Street'
+    email   'sherlock.holmes@example.com'
+    name    'Sherlock Holmes'
+    phone   '+44 20 7224 3688'
+    tax_id  '123-45-6789'
+    user
+  end
 end
