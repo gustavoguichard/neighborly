@@ -1,7 +1,6 @@
 class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  belongs_to :channel
   belongs_to :contribution
   belongs_to :contact
 

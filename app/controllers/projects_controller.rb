@@ -26,7 +26,6 @@ class ProjectsController < ApplicationController
     end
 
     @successful = @successful.take(2) if browser.mobile?
-    @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
 
     investment_section_variables
@@ -86,7 +85,6 @@ class ProjectsController < ApplicationController
 
   def start
     @projects = ProjectsForHome.successful[0..3]
-    @channel  = channel.decorate if channel
   end
 
   private

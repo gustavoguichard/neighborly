@@ -25,23 +25,6 @@ describe RewardPolicy do
       admin = build(:user, admin: true)
       expect(subject).to permit(admin, reward)
     end
-
-    it 'should permit access if user is a channel member' do
-      channel = Channel.new
-      user = User.new
-      user.channels = [channel]
-      project = Project.new
-      project.channels = [channel]
-       expect(subject).to  permit(user, Reward.new(project: project))
-    end
-
-    it 'should permit access if user is the channel owner' do
-      user = User.new
-      channel = Channel.new(user: user)
-      project = Project.new
-      project.channels = [channel]
-       expect(subject).to  permit(user, Reward.new(project: project))
-    end
   end
 
   shared_examples_for 'destroy permissions' do

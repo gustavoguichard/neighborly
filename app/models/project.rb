@@ -42,7 +42,6 @@ class Project < ActiveRecord::Base
   has_many :project_faqs, dependent: :destroy
   has_many :project_documents, dependent: :destroy
   has_many :activities, dependent: :destroy
-  has_and_belongs_to_many :channels
 
   accepts_nested_attributes_for :rewards
   accepts_nested_attributes_for :project_documents
@@ -162,16 +161,12 @@ class Project < ActiveRecord::Base
   end
 
   def new_draft_recipient
-    email = last_channel.try(:user).try(:email) || ::Configuration[:email_projects]
+    email = ::Configuration[:email_projects]
     User.where(email: email).first
   end
 
-  def last_channel
-    @last_channel ||= channels.last
-  end
-
   def notification_type type
-    channels.first ? "#{type}_channel".to_sym : type
+    type
   end
 
   def self.locations

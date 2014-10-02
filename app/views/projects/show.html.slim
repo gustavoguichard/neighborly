@@ -61,14 +61,6 @@
         - if policy(@project).update?
           = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small'
 
-      /- if @project.last_channel
-        /section.channel
-          /= link_to root_url(subdomain: @project.last_channel.permalink, protocol: :http) do
-            /.row
-              /.large-12.columns.large-centered
-                /h5 = t('.in_partnership_with')
-                /= image_tag @project.last_channel.image.large.url
-
       - if @project.total_contributions > 0
         section.custom.neighbors-behind-this.hide-for-medium-down
           .title = t('.neighbors_behind_this')

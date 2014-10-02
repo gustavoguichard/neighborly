@@ -1,5 +1,4 @@
 - @title = t('.titles.site')
-- channel = controller.channel
 
 .success-project-page[class="category-#{@project.category.to_s.parameterize}"]
   .row
@@ -14,19 +13,6 @@
         .row
           .large-10.small-11.columns.large-centered.small-centered
             p
-              - if channel && channel.success.main_text.present?
-                = channel.success_main_text_html.html_safe
-              - else
-                = t('.text').html_safe
+              = t('.text').html_safe
 
-              - if channel && channel.success.button_text.present?
-                - text = channel.success.button_text
-              - else
-                - text = t('.continue')
-
-              - if channel && channel.success.button_link.present?
-                - link = channel.success.button_link
-              - else
-                - link = edit_project_path(@project)
-
-              = link_to text, link, class: 'button'
+              = link_to t('.continue'), edit_project_path(@project), class: 'button'

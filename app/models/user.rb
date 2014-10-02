@@ -33,17 +33,11 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :authorizations
   has_many :oauth_providers, through: :authorizations
-  has_many :channels_subscribers
-  has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
-  has_one :channel
   has_one :organization, dependent: :destroy
-  has_many :channel_members, dependent: :destroy
-  has_many :channels, through: :channel_members, source: :channel
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
   has_one :investment_prospect, dependent: :destroy
 
   accepts_nested_attributes_for :authorizations
-  accepts_nested_attributes_for :channel
   accepts_nested_attributes_for :organization
   accepts_nested_attributes_for :investment_prospect
 
@@ -54,8 +48,7 @@ class User < ActiveRecord::Base
       [:id,    'D']
     ],
     associated_against: {
-      organization: %i(name),
-      channel:      %i(name),
+      organization: %i(name)
     },
     using: {
       tsearch: {
@@ -71,7 +64,6 @@ class User < ActiveRecord::Base
   state_machine :profile_type, initial: :personal do
     state :personal, value: 'personal'
     state :organization, value: 'organization'
-    state :channel, value: 'channel'
   end
 
   def decorator

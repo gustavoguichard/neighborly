@@ -40,10 +40,9 @@ class ProjectObserver < ActiveRecord::Observer
       Notification.notify_once(
         project.notification_type(:new_draft_project),
         user,
-        {project_id: project.id, channel_id: project.last_channel.try(:id)},
+        {project_id: project.id},
         {
           project: project,
-          channel: project.last_channel,
           origin_email: project.user.email,
           origin_name: project.user.display_name
         }
@@ -54,11 +53,10 @@ class ProjectObserver < ActiveRecord::Observer
   def deliver_default_notification_for(project, notification_type)
     project.notify_owner(
       project.notification_type(notification_type),
-      { channel_id: project.last_channel.try(:id) },
+      { },
       {
-        channel: project.last_channel,
-        origin_email: project.last_channel.try(:user).try(:email) || Configuration[:email_contact],
-        origin_name: project.last_channel.try(:name) || Configuration[:company_name]
+        origin_email: Configuration[:email_contact],
+        origin_name: Configuration[:company_name]
       }
     )
   end

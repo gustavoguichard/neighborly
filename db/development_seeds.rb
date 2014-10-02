@@ -84,50 +84,6 @@ puts 'Creating Organization user...'
 puts '---------------------------------------------'
 puts 'Done!'
 
-puts 'Creating Channel user...'
-
-  u = User.new name: 'Channel',
-               email: 'channel@channel.com',
-               password: 'password',
-               profile_type: 'channel'
-  u.admin = true
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-
-puts 'Creating channel...'
-
-  c = Channel.create! user: User.where(email: 'channel@channel.com').first,
-                      name: 'Channel Name',
-                      permalink: 'channel',
-                      description: Faker::Lorem.paragraph,
-                      remote_image_url: lorem_pixel_url('600/300', 'bussines')
-  c.push_to_online!
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating channel projects...... It can take a while... You can go and get a coffee now!'
-
-  3.times do
-    p = generate_project(channels: [Channel.order('RANDOM()').limit(1).first])
-    p.launch!
-  end
-
-  channel_project = Project.first
-  channel_project.push_to_draft!
-  channel_project.reject!
-  channel_project.push_to_draft!
-  channel_project.launch!
-  channel_project.update_column(:recommended, true)
-
-puts '---------------------------------------------'
-puts 'Done!'
-
 
 puts 'Creating successfull projects...... It can take a while...'
 

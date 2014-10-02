@@ -108,21 +108,11 @@ describe UsersController do
   end
 
   describe "GET show" do
-    context 'as a person/organization' do
-      before do
-        get :show, id: user.id, locale: 'pt'
-      end
-
-      it{ assigns(:facebook_url_admin).should include(user.facebook_id) }
+    before do
+      get :show, id: user.id, locale: 'pt'
     end
 
-    context 'as a channel' do
-      let(:channel) { create(:channel) }
-      before do
-        get :show, id: channel.user.id
-      end
-      it { should redirect_to(root_url(subdomain: channel.permalink)) }
-    end
+    it{ assigns(:facebook_url_admin).should include(user.facebook_id) }
   end
 
   describe "GET edit" do
