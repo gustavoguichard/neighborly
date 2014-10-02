@@ -1,8 +1,7 @@
 .payment
   h3.title = t('.title')
 
-
-  .row
+  .row.hide
     .medium-8.columns
       section.row.methods
         - PaymentEngine.all.each do |engine|
