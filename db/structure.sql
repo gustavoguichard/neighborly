@@ -104,7 +104,6 @@ CREATE TABLE contributions (
     payment_service_fee numeric DEFAULT 0 NOT NULL,
     state character varying(255),
     short_note text,
-    referral_url text,
     bonds integer DEFAULT 1 NOT NULL,
     CONSTRAINT backers_value_positive CHECK ((value >= (0)::numeric))
 );
@@ -175,7 +174,6 @@ CREATE TABLE projects (
     terms_textile text,
     latitude double precision,
     longitude double precision,
-    referral_url text,
     hero_image character varying(255),
     sent_to_analysis_at timestamp without time zone,
     organization_type character varying(255),
@@ -1009,7 +1007,6 @@ CREATE VIEW projects_for_home AS
             featureds.terms_textile,
             featureds.latitude,
             featureds.longitude,
-            featureds.referral_url,
             featureds.hero_image,
             featureds.sent_to_analysis_at,
             featureds.organization_type,
@@ -1066,7 +1063,6 @@ CREATE VIEW projects_for_home AS
             recommends.terms_textile,
             recommends.latitude,
             recommends.longitude,
-            recommends.referral_url,
             recommends.hero_image,
             recommends.sent_to_analysis_at,
             recommends.organization_type,
@@ -1125,7 +1121,6 @@ CREATE VIEW projects_for_home AS
             expiring.terms_textile,
             expiring.latitude,
             expiring.longitude,
-            expiring.referral_url,
             expiring.hero_image,
             expiring.sent_to_analysis_at,
             expiring.organization_type,
@@ -1187,7 +1182,6 @@ CREATE VIEW projects_for_home AS
             soon.terms_textile,
             soon.latitude,
             soon.longitude,
-            soon.referral_url,
             soon.hero_image,
             soon.sent_to_analysis_at,
             soon.organization_type,
@@ -1245,7 +1239,6 @@ CREATE VIEW projects_for_home AS
             successful.terms_textile,
             successful.latitude,
             successful.longitude,
-            successful.referral_url,
             successful.hero_image,
             successful.sent_to_analysis_at,
             successful.organization_type,
@@ -1303,7 +1296,6 @@ CREATE VIEW projects_for_home AS
     featured_projects.terms_textile,
     featured_projects.latitude,
     featured_projects.longitude,
-    featured_projects.referral_url,
     featured_projects.hero_image,
     featured_projects.sent_to_analysis_at,
     featured_projects.organization_type,
@@ -1358,7 +1350,6 @@ UNION
     recommended_projects.terms_textile,
     recommended_projects.latitude,
     recommended_projects.longitude,
-    recommended_projects.referral_url,
     recommended_projects.hero_image,
     recommended_projects.sent_to_analysis_at,
     recommended_projects.organization_type,
@@ -1413,7 +1404,6 @@ UNION
     expiring_projects.terms_textile,
     expiring_projects.latitude,
     expiring_projects.longitude,
-    expiring_projects.referral_url,
     expiring_projects.hero_image,
     expiring_projects.sent_to_analysis_at,
     expiring_projects.organization_type,
@@ -1468,7 +1458,6 @@ UNION
     soon_projects.terms_textile,
     soon_projects.latitude,
     soon_projects.longitude,
-    soon_projects.referral_url,
     soon_projects.hero_image,
     soon_projects.sent_to_analysis_at,
     soon_projects.organization_type,
@@ -1523,7 +1512,6 @@ UNION
     successful_projects.terms_textile,
     successful_projects.latitude,
     successful_projects.longitude,
-    successful_projects.referral_url,
     successful_projects.hero_image,
     successful_projects.sent_to_analysis_at,
     successful_projects.organization_type,
@@ -3669,4 +3657,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140930202758');
 INSERT INTO schema_migrations (version) VALUES ('20141001162251');
 
 INSERT INTO schema_migrations (version) VALUES ('20141001184613');
+
+INSERT INTO schema_migrations (version) VALUES ('20141002000613');
 

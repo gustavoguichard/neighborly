@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :channel, :referral_url
+  helper_method :channel
   before_action :store_referral_code
 
   before_filter do
@@ -18,10 +18,6 @@ class ApplicationController < ActionController::Base
 
   def channel
     Channel.find_by_permalink(request.subdomain.to_s)
-  end
-
-  def referral_url
-    session[:referral_url]
   end
 
   def referral_code
