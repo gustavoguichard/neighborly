@@ -31,6 +31,12 @@ FactoryGirl.define do
     confirmed_at { Time.now }
     email        { "sherlock.holmes#{rand}@example.com" }
     password     '123123123'
+
+    trait :with_brokerage_account do
+      after(:create) do |instance|
+        create :brokerage_account, user: instance
+      end
+    end
   end
 
   factory :user_with_uploaded_image, parent: :user do |f|
