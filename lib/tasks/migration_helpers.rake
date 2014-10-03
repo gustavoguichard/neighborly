@@ -190,24 +190,4 @@ task migrate_markdown_images: :environment do
 
     puts "Completed as #{update.save}"
   end
-
-  Channel.all.each do |channel|
-    puts "Applying to Channel: #{channel.id}"
-
-    content = channel.how_it_works
-    if content.present?
-      channel.how_it_works = content.gsub(regex) do
-        $1 + upload_image($2, channel.user || User.firsts) + $3
-      end
-    end
-
-    content = channel.submit_your_project_text
-    if content.present?
-      channel.submit_your_project_text = content.gsub(regex) do
-        $1 + upload_image($2, channel.user || User.first) + $3
-      end
-    end
-
-    puts "Completed as #{channel.save}"
-  end
 end

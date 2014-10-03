@@ -39,7 +39,6 @@ class UserPolicy < ApplicationPolicy
   def additional_user_attributes_white_list
     attrs = [:location, :current_password, :password]
     attrs += organization_attributes
-    attrs += channel_attributes if record.channel?
     attrs += [investment_prospect_attributes: [:value]]
     attrs
   end
@@ -70,25 +69,6 @@ class UserPolicy < ApplicationPolicy
         :id,
         :name,
         :image
-        ]
-    }]
-  end
-
-  def channel_attributes
-    [{channel_attributes:
-      Channel.attribute_names.map(&:to_sym) - [
-        :user_id,
-        :state,
-        :created_at,
-        :updated_at,
-        :video_embed_url,
-        :accepts_projects,
-        :how_it_works_html,
-        :submit_your_project_text,
-        :submit_your_project_text_html,
-        :start_content,
-        :start_hero_image,
-        :success_content
         ]
     }]
   end

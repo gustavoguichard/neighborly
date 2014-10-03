@@ -22,10 +22,6 @@ module User::Completeness
       calc_progress %w[bio location authorizations], %w[name image], :organization
     end
 
-    def calc_channel_progress
-      100 # Channels are always 100%
-    end
-
     def calc_progress(user_fields, association_fields = [], association_name = nil)
       progress = 0
       user_fields.each do |field|

@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 Neighborly::Application.routes.draw do
-  get '/about', to: redirect('/learn')
 
   devise_for :users, path: '',
     path_names:  {
@@ -33,7 +32,6 @@ Neighborly::Application.routes.draw do
 
   mount Neighborly::Api::Engine => '/api/', as: :neighborly_api
   mount Neighborly::Dashboard::Engine => '/dashboard/', as: :neighborly_dashboard
-  mount Neighborly::Balanced::Creditcard::Engine => '/balanced/creditcard/', as: :neighborly_balanced_creditcard
   mount Neighborly::Balanced::Bankaccount::Engine => '/balanced/bankaccount/', as: :neighborly_balanced_bankaccount
   mount Neighborly::Balanced::Engine => '/balanced/', as: :neighborly_balanced
 
@@ -42,20 +40,8 @@ Neighborly::Application.routes.draw do
     resources :emails, only: [ :index, :show ]
   end
 
-  # Channels
-  constraints ChannelConstraint do
-    namespace :channels, path: '' do
-      get '/', to: 'profiles#show', as: :profile
-      resources :channels_subscribers, only: [:index, :create, :destroy]
-      resources :projects, only: [:new, :create]
-      # NOTE We use index instead of create to subscribe comming back from auth via GET
-      resource :channels_subscriber, only: [:show, :destroy], as: :subscriber
-    end
-  end
-
   mount Neighborly::Admin::Engine => '/admin/', as: :neighborly_admin
 
-  # Root path should be after channel constraints
   root to: 'projects#index'
 
   # Static Pages
@@ -64,7 +50,7 @@ Neighborly::Application.routes.draw do
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
   get "/start",                 to: "projects#start",             as: :start
-  get '/learn',                 to: 'static#learn',               as: :learn
+  get '/about',                 to: 'static#about',               as: :about
 
   # Only accessible on development
   if Rails.env.development?
@@ -110,6 +96,8 @@ Neighborly::Application.routes.draw do
 
     resources :contributions, controller: 'projects/contributions', except: :update
   end
+
+  resource :brokerage_account, only: %i(new create edit update)
 
   scope :login, controller: :sessions do
     devise_scope :user do

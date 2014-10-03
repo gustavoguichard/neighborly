@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def show
-    return redirect_to root_url(subdomain: resource.channel.permalink, protocol: :http) if resource.channel? && resource.channel.present?
     show!{
       @projects = Project.contributed_by(@user).
         includes(:contributions, :project_total)

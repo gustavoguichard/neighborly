@@ -12,7 +12,6 @@ describe Notification do
   describe 'associations' do
     it { should belong_to :user }
     it { should belong_to :project }
-    it { should belong_to :channel }
     it { should belong_to :contribution }
     it { should belong_to :contact }
   end

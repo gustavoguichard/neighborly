@@ -1,0 +1,6 @@
+en:
+  brokerage_accounts:
+    new:
+      titles:
+        site: 'Brokerage account'
+        header: 'Brokerage account'

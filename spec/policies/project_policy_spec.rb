@@ -27,23 +27,6 @@ describe ProjectPolicy do
       should permit(admin, Project.new(state: project_state,
                                        user: User.new))
     end
-
-    it 'should permit access if user is a channel member' do
-      channel = Channel.new
-      user = User.new
-      user.channels = [channel]
-      project = Project.new state: project_state
-      project.channels = [channel]
-      should permit(user, project)
-    end
-
-    it 'should permit access if user is the channel owner' do
-      user = User.new
-      channel = Channel.new(user: user)
-      project = Project.new state: project_state
-      project.channels = [channel]
-      should permit(user, project)
-    end
   end
 
   shared_examples_for 'change state permissions' do
@@ -63,23 +46,6 @@ describe ProjectPolicy do
       admin.admin = true
       should permit(admin, Project.new(state: project_state,
                                        user: User.new))
-    end
-
-    it 'should permit access if user is a channel member' do
-      channel = Channel.new
-      user = User.new
-      user.channels = [channel]
-      project = Project.new state: project_state
-      project.channels = [channel]
-      should permit(user, project)
-    end
-
-    it 'should permit access if user is the channel owner' do
-      user = User.new
-      channel = Channel.new(user: user)
-      project = Project.new state: project_state
-      project.channels = [channel]
-      should permit(user, project)
     end
   end
 
@@ -280,17 +246,6 @@ describe ProjectPolicy::Scope do
     it 'is equal to complete collection of resources' do
       expect(subject.resolve).to eql(subject.scope)
     end
-  end
-
-  context 'for channel members' do
-    let(:user) { create(:channel).user }
-
-    it 'includes draft projects in managed channels' do
-      project = create(:project, state: :draft, user: user)
-      expect(subject.resolve).to include(project)
-    end
-
-    it_behaves_like 'being a non admin user'
   end
 
   context 'for common users' do

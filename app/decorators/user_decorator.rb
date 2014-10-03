@@ -10,8 +10,6 @@ class UserDecorator < Draper::Decorator
   def display_name
     if source.organization? && source.organization.present?
       source.organization.name || I18n.t('words.no_name')
-    elsif source.channel? && source.channel.present?
-      source.channel.name
     else
       source.name || source.full_name || I18n.t('words.no_name')
     end
@@ -20,8 +18,6 @@ class UserDecorator < Draper::Decorator
   def display_image
     if source.organization? && source.organization.present?
       source.organization.image.large.url || '/assets/logo-blank.jpg'
-    elsif source.channel? && source.channel.present?
-      source.channel.image.large.url || '/assets/logo-blank.jpg'
     else
       source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || "/assets/default-avatars/#{[*1..11].sample}.png"
     end

@@ -31,6 +31,12 @@ FactoryGirl.define do
     confirmed_at { Time.now }
     email        { "sherlock.holmes#{rand}@example.com" }
     password     '123123123'
+
+    trait :with_brokerage_account do
+      after(:create) do |instance|
+        create :brokerage_account, user: instance
+      end
+    end
   end
 
   factory :user_with_uploaded_image, parent: :user do |f|
@@ -143,22 +149,6 @@ FactoryGirl.define do
     f.comment_html "<p>This is a comment</p>"
   end
 
-  factory :channel do
-    user { create(:user, profile_type: 'channel') }
-    name "Test"
-    description "Lorem Ipsum"
-    sequence(:permalink) { |n| "#{n}-test-page" }
-
-    factory :channel_with_external_application do
-      application_url 'https://example.com/application.pdf'
-    end
-  end
-
-  factory :channels_subscriber do |f|
-    f.association :user
-    f.association :channel
-  end
-
   factory :state do
     name "RJ"
     acronym "RJ"
@@ -196,5 +186,14 @@ FactoryGirl.define do
   factory :image do |f|
     f.association :user
     f.file File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
+
+  factory :brokerage_account do
+    address '221B Baker Street'
+    email   'sherlock.holmes@example.com'
+    name    'Sherlock Holmes'
+    phone   '+44 20 7224 3688'
+    tax_id  '123-45-6789'
+    user
   end
 end

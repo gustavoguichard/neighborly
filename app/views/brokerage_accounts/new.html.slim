@@ -1,0 +1,17 @@
+- @title = t('.titles.site')
+
+.row
+  .large-6.medium-7.columns.large-centered
+    .new-project-box
+      header
+        h3 = t('.titles.header')
+      .row
+        .large-10.small-11.columns.large-centered.small-centered
+          = simple_form_for @brokerage_account, url: brokerage_account_path do |f|
+            = f.input :name
+            = f.input :address
+            = f.input :tax_id
+            = f.input :email
+            = f.input :phone
+
+            = f.button :submit

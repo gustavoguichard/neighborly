@@ -11,15 +11,6 @@ class DiscoverPresenter
 
   delegate :projects, :filters, to: :discover
 
-  def channels
-    @channels ||=
-      if filters.empty?
-        Channel.with_state('online').order('RANDOM()').limit(4)
-      else
-        []
-      end
-  end
-
   def tags
     @tags ||= Tag.popular
   end

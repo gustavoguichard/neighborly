@@ -339,6 +339,42 @@ ALTER SEQUENCE balanced_contributors_id_seq OWNED BY balanced_contributors.id;
 
 
 --
+-- Name: brokerage_accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE brokerage_accounts (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    tax_id character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    phone character varying(255) NOT NULL,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: brokerage_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE brokerage_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: brokerage_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE brokerage_accounts_id_seq OWNED BY brokerage_accounts.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -369,147 +405,6 @@ CREATE SEQUENCE categories_id_seq
 --
 
 ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
-
-
---
--- Name: channel_members; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE channel_members (
-    id integer NOT NULL,
-    channel_id integer,
-    user_id integer,
-    admin boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: channel_members_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE channel_members_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: channel_members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE channel_members_id_seq OWNED BY channel_members.id;
-
-
---
--- Name: channels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE channels (
-    id integer NOT NULL,
-    name text NOT NULL,
-    description text NOT NULL,
-    permalink text NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    image text,
-    video_url text,
-    video_embed_url character varying(255),
-    how_it_works text,
-    how_it_works_html text,
-    terms_url character varying(255),
-    state text DEFAULT 'draft'::text,
-    user_id integer,
-    accepts_projects boolean DEFAULT true,
-    submit_your_project_text text,
-    submit_your_project_text_html text,
-    start_content hstore,
-    start_hero_image character varying(255),
-    success_content hstore,
-    application_url character varying(255)
-);
-
-
---
--- Name: channels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE channels_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: channels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE channels_id_seq OWNED BY channels.id;
-
-
---
--- Name: channels_projects; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE channels_projects (
-    id integer NOT NULL,
-    channel_id integer,
-    project_id integer
-);
-
-
---
--- Name: channels_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE channels_projects_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: channels_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE channels_projects_id_seq OWNED BY channels_projects.id;
-
-
---
--- Name: channels_subscribers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE channels_subscribers (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    channel_id integer NOT NULL
-);
-
-
---
--- Name: channels_subscribers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE channels_subscribers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: channels_subscribers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE channels_subscribers_id_seq OWNED BY channels_subscribers.id;
 
 
 --
@@ -693,7 +588,6 @@ CREATE TABLE notifications (
     origin_name text NOT NULL,
     template_name text NOT NULL,
     locale text NOT NULL,
-    channel_id integer,
     contact_id integer,
     bcc character varying(255)
 );
@@ -1765,9 +1659,6 @@ CREATE VIEW statistics AS
            FROM users
           WHERE ((users.profile_type)::text = 'personal'::text)) AS total_personal_users,
     ( SELECT count(*) AS count
-           FROM users
-          WHERE ((users.profile_type)::text = 'channel'::text)) AS total_channel_users,
-    ( SELECT count(*) AS count
            FROM ( SELECT DISTINCT projects.address_city,
                     projects.address_state
                    FROM projects) count) AS total_communities,
@@ -1807,19 +1698,6 @@ CREATE VIEW statistics AS
                 END) AS total_projects_online
            FROM projects
           WHERE ((projects.state)::text <> ALL (ARRAY[('deleted'::character varying)::text, ('rejected'::character varying)::text]))) projects_totals;
-
-
---
--- Name: subscriber_reports; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW subscriber_reports AS
- SELECT u.id,
-    cs.channel_id,
-    u.name,
-    u.email
-   FROM (users u
-     JOIN channels_subscribers cs ON ((cs.user_id = u.id)));
 
 
 --
@@ -1948,35 +1826,14 @@ ALTER TABLE ONLY balanced_contributors ALTER COLUMN id SET DEFAULT nextval('bala
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY brokerage_accounts ALTER COLUMN id SET DEFAULT nextval('brokerage_accounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channel_members ALTER COLUMN id SET DEFAULT nextval('channel_members_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels ALTER COLUMN id SET DEFAULT nextval('channels_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_projects ALTER COLUMN id SET DEFAULT nextval('channels_projects_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_subscribers ALTER COLUMN id SET DEFAULT nextval('channels_subscribers_id_seq'::regclass);
 
 
 --
@@ -2160,6 +2017,14 @@ ALTER TABLE ONLY balanced_contributors
 
 
 --
+-- Name: brokerage_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY brokerage_accounts
+    ADD CONSTRAINT brokerage_accounts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: categories_name_unique; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2173,38 +2038,6 @@ ALTER TABLE ONLY categories
 
 ALTER TABLE ONLY categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
-
-
---
--- Name: channel_members_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY channel_members
-    ADD CONSTRAINT channel_members_pkey PRIMARY KEY (id);
-
-
---
--- Name: channel_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY channels
-    ADD CONSTRAINT channel_profiles_pkey PRIMARY KEY (id);
-
-
---
--- Name: channels_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY channels_projects
-    ADD CONSTRAINT channels_projects_pkey PRIMARY KEY (id);
-
-
---
--- Name: channels_subscribers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY channels_subscribers
-    ADD CONSTRAINT channels_subscribers_pkey PRIMARY KEY (id);
 
 
 --
@@ -2426,38 +2259,10 @@ CREATE INDEX fk__balanced_contributors_user_id ON balanced_contributors USING bt
 
 
 --
--- Name: fk__channel_members_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fk__brokerage_accounts_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX fk__channel_members_channel_id ON channel_members USING btree (channel_id);
-
-
---
--- Name: fk__channel_members_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__channel_members_user_id ON channel_members USING btree (user_id);
-
-
---
--- Name: fk__channels_subscribers_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__channels_subscribers_channel_id ON channels_subscribers USING btree (channel_id);
-
-
---
--- Name: fk__channels_subscribers_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__channels_subscribers_user_id ON channels_subscribers USING btree (user_id);
-
-
---
--- Name: fk__channels_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__channels_user_id ON channels USING btree (user_id);
+CREATE INDEX fk__brokerage_accounts_user_id ON brokerage_accounts USING btree (user_id);
 
 
 --
@@ -2479,13 +2284,6 @@ CREATE INDEX fk__investment_prospects_user_id ON investment_prospects USING btre
 --
 
 CREATE INDEX fk__neighborly_balanced_orders_project_id ON neighborly_balanced_orders USING btree (project_id);
-
-
---
--- Name: fk__notifications_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX fk__notifications_channel_id ON notifications USING btree (channel_id);
 
 
 --
@@ -2594,52 +2392,17 @@ CREATE INDEX index_balanced_contributors_on_user_id ON balanced_contributors USI
 
 
 --
+-- Name: index_brokerage_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_brokerage_accounts_on_user_id ON brokerage_accounts USING btree (user_id);
+
+
+--
 -- Name: index_categories_on_name_pt; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_categories_on_name_pt ON categories USING btree (name_pt);
-
-
---
--- Name: index_channel_members_on_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_channel_members_on_channel_id ON channel_members USING btree (channel_id);
-
-
---
--- Name: index_channel_members_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_channel_members_on_user_id ON channel_members USING btree (user_id);
-
-
---
--- Name: index_channels_on_permalink; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_channels_on_permalink ON channels USING btree (permalink);
-
-
---
--- Name: index_channels_projects_on_channel_id_and_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_channels_projects_on_channel_id_and_project_id ON channels_projects USING btree (channel_id, project_id);
-
-
---
--- Name: index_channels_projects_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_channels_projects_on_project_id ON channels_projects USING btree (project_id);
-
-
---
--- Name: index_channels_subscribers_on_user_id_and_channel_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_channels_subscribers_on_user_id_and_channel_id ON channels_subscribers USING btree (user_id, channel_id);
 
 
 --
@@ -2921,59 +2684,11 @@ ALTER TABLE ONLY balanced_contributors
 
 
 --
--- Name: fk_channel_members_channel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_brokerage_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY channel_members
-    ADD CONSTRAINT fk_channel_members_channel_id FOREIGN KEY (channel_id) REFERENCES channels(id);
-
-
---
--- Name: fk_channel_members_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channel_members
-    ADD CONSTRAINT fk_channel_members_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_channels_projects_channel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_projects
-    ADD CONSTRAINT fk_channels_projects_channel_id FOREIGN KEY (channel_id) REFERENCES channels(id);
-
-
---
--- Name: fk_channels_projects_project_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_projects
-    ADD CONSTRAINT fk_channels_projects_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: fk_channels_subscribers_channel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_subscribers
-    ADD CONSTRAINT fk_channels_subscribers_channel_id FOREIGN KEY (channel_id) REFERENCES channels(id);
-
-
---
--- Name: fk_channels_subscribers_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels_subscribers
-    ADD CONSTRAINT fk_channels_subscribers_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
-
---
--- Name: fk_channels_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY channels
-    ADD CONSTRAINT fk_channels_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY brokerage_accounts
+    ADD CONSTRAINT fk_brokerage_accounts_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -2998,14 +2713,6 @@ ALTER TABLE ONLY investment_prospects
 
 ALTER TABLE ONLY neighborly_balanced_orders
     ADD CONSTRAINT fk_neighborly_balanced_orders_project_id FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: fk_notifications_channel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT fk_notifications_channel_id FOREIGN KEY (channel_id) REFERENCES channels(id);
 
 
 --
@@ -3661,4 +3368,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141001184613');
 INSERT INTO schema_migrations (version) VALUES ('20141002000613');
 
 INSERT INTO schema_migrations (version) VALUES ('20141002145006');
+
+INSERT INTO schema_migrations (version) VALUES ('20141002194215');
+
+INSERT INTO schema_migrations (version) VALUES ('20141002211059');
 
