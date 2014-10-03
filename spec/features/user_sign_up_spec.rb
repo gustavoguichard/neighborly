@@ -14,7 +14,7 @@ feature 'User sign up' do
     expect(page).to have_link('Log in')
 
     fill_in 'Email', with: 'mr.watson@example.com'
-    click_on 'Create Account'
+    click_on 'Sign Up for early access'
 
     visit '/'
     expect(page).to_not have_link('Log in')

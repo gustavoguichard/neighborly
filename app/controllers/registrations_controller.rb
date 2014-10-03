@@ -9,4 +9,10 @@ class RegistrationsController < Devise::RegistrationsController
 
     super
   end
+
+  private
+
+  def after_sign_up_path_for(resource)
+    my_spot_path
+  end
 end

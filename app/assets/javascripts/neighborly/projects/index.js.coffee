@@ -1,29 +1,21 @@
 Neighborly.Projects = {} if Neighborly.Projects is undefined
 
 Neighborly.Projects.Index =
-  init: Backbone.View.extend
+  init: ->(
     initialize: ->
-      $('.hero .expand-section').on 'click', (event)->
-        event.preventDefault()
-        $target = $(event.currentTarget)
+      $('.features .list a').on 'mouseover', this.changeScreen
+      $('.features .list a').on 'click', this.changeScreen
 
-        current_text = $target.text()
-        $target.text($target.attr('data-alternative-text'))
-        $target.attr('data-alternative-text', current_text)
+      $(window).on 'scroll', ->
+        if $('.built-by-people').isOnScreen(0.85, 0.85)
+          $('.built-by-people .wrapper-images').removeClass('problem').addClass('solution')
 
-        $('.hero .expand-section-content').slideToggle
-          progress: ->
-            $('.hero').backstretch('resize')
-          start: ->
-            if $(window).width() >= 1000
-              if $('.invest-box').css('margin-top') == '20px'
-                $('.invest-box').animate({'margin-top': '-9.375em'})
-              else
-                $('.invest-box').animate({'margin-top': '20px'})
+    changeScreen: (event)->
+      event.preventDefault()
+      $('.features .list a').removeClass('active')
+      $(event.currentTarget).addClass('active')
+      classToShow = $(event.currentTarget).data('class-to-show')
+      $('.features .images img').hide()
+      $(".features .images .#{classToShow}").show()
 
-      $('.sign-up-with-facebook').click (event)->
-        event.preventDefault()
-        value = $('.investment-prospect-value').val()
-        $target = $(event.currentTarget)
-
-        location.href = "#{$target.attr('href')}&investment_prospect_value=#{value}"
+  ).initialize()

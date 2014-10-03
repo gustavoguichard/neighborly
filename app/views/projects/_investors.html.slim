@@ -1,8 +1,0 @@
-.row
-  .small-12.columns
-    section.investors.text-center
-      h3
-        = "#{number_with_precision(@total_investors, precision: 0, delimiter: ',')} people have pledged to invest #{number_to_currency(@total_pledged_for_investment, precision: 0)} in communities."
-
-      - for user in @users
-          = user.display_image_html width: 85, height: 85

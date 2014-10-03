@@ -2,22 +2,103 @@
 
 .home-page
   header.hero[ data-image-url=image_path('home-hero-sf.jpg') ]
+    = render 'layouts/header'
+
     .row
       .small-12.medium-8.medium-centered.columns.text-center
         h2 = t('.hero.title').html_safe
-        h3.subtitle
-          = t('.hero.subtitle_html')
-          = link_to t('.hero.learn_more'), '#learn-more-investment', class: 'button secondary tiny expand-section', data: { alternative_text: t('.hero.see_less') }
+        h3.subtitle = t('.hero.subtitle_html')
 
-        p.expand-section-content = t('.hero.description')
+        .sign-up
+          - if current_user.present?
+            h4 Thanks for signing up, your spot has been saved!
+            .row
+              .large-10.columns.large-centered
+                .row
+                  .medium-6.columns
+                    = link_to 'Discover Issuances', discover_path, class: 'button'
+                  .medium-6.columns
+                    = link_to 'Check your spot', my_spot_path, class: 'button'
 
-  = render 'projects/invest_box'
-  = render 'projects/investors'
+          - else
+            = simple_form_for(User.new, as: :user, url: sign_up_path) do |f|
+              = f.input :bonds_early_adopter, as: :hidden, input_html: { value: '1' }
 
-  section.meanwhile.text-center
+              .row.collapse
+                .medium-7.columns
+                  = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }
+
+                .medium-5.columns
+                  = f.submit 'Sign Up for early access', class: 'button'
+
+  section.investors
     .row
-      .medium-8.small-12.columns.medium-centered
-        h3 Meanwhile, explore existing crowdfunding campaigns
+      .large-8.columns.large-centered
+        h3
+          - if current_user.present?
+            | You and #{@total_users} other people are ready to invest in communities
+          - else
+            | Thousands of people just like you are ready to invest in communities
+
+  section.municipal-securities
+    .row
+      .large-12.columns
+        h3 Join the $400 billion market
+
+      .medium-8.columns
+        p Every year, US cities borrow $400 billion from people and institutions through a tool called municipal bonds. This process has allowed us to build some of our nation’s most treasured assets. Join today and get access to the funnest, cheapest, easiest way to invest in communities.
+
+      .medium-4.columns
+        = image_tag 'bonds.png'
+
+  section.built-by-people
+    .row
+      .large-9.columns.large-centered
+        h3 A solution for people, by people
+
+        - if browser.mobile? || browser.ie?
+          = image_tag 'bonds-solution.png', class: 'solution-image'
+        - else
+          .wrapper-images.problem
+            .icon.problem.solution.start._1
+              = image_tag 'built-by-people/issuing-community.png', size: '112x151'
+            .icon.problem._2
+              = image_tag 'built-by-people/underwriting-bank.png', size: '112x151'
+            .icon.problem._3
+              = image_tag 'built-by-people/mutual-fund.png', size: '112x151'
+            .icon.problem._4
+              = image_tag 'built-by-people/investment-advisor.png', size: '112x151'
+            .icon.problem.end._5
+              = image_tag 'built-by-people/individual-investor-sad.png', size: '112x151'
+            .icon.solution.final-state._6
+              = image_tag 'built-by-people/neighborly.png', size: '112x151'
+            .icon.solution.final-state.end._7
+              = image_tag 'built-by-people/individual-investor-happy.png', size: '112x151'
+
+        p
+          | Neighborly cuts out the middlemen, giving you a greater return on your investment when supporting projects you care about.
+
+  section.features
+    .row
+      .medium-8.columns
+        .images
+          = image_tag 'features/discover.png', width: '667', class: 'discover'
+          = image_tag 'features/read.png', width: '667', class: 'read'
+          = image_tag 'features/invest.png', width: '667', class: 'invest'
+
+      .medium-4.columns
+        .list
+          a.active href="#" data-class-to-show='discover'
+            h5 Discover
+            p Find projects based on your interests, projected yields or a specific geography.
+
+          a href="#" data-class-to-show='read'
+            h5 Read
+            p Review documents and read a project’s complete story before deciding to invest.
+
+          a href="#" data-class-to-show='invest'
+            h5 Invest
+            p Invest in projects you care about!
 
   section.projects
     .row
@@ -25,77 +106,14 @@
         .small-12.columns
           h3
             = link_to discover_path(filter: 'recommended') do
-              = t('.recommended')
-              i.icon-et-heart
+              | Investment Opportunities
 
-        = render 'project', project: @featured.first, large: !browser.mobile? if @featured.any?
-        = render 'project', project: @recommended.shift if @recommended.any?
-
-        /- if @recommended.any?
-          /.row
-            /- for project in @recommended
-              /= render 'project', project: project
+        = render @recommended
 
         .text-right.text-right.small-12.columns
-          = link_to discover_path(filter: 'recommended'), class: 'see-more' do
+          = link_to discover_path, class: 'see-more' do
             = t('words.see_more')
             i.icon-et-right-circled
-
-      /- if @ending_soon.any?
-        /section.ending-soon
-          /.small-12.columns
-            /h3
-              /= link_to discover_path(filter: 'expiring') do
-                /i.icon-et-hourglass
-                /= t('.ending_soon')
-
-          /- for project in @ending_soon
-            /= render 'project', project: project
-
-          /- if @ending_soon.size >= 4
-            /.text-right.small-12.columns
-              /= link_to discover_path(filter: 'expiring'), class: 'see-more' do
-                /= t('words.see_more')
-                /i.icon-et-right-circled
-
-      - if @successful.any?
-        section.successful
-          .small-12.columns
-            h3
-              = link_to discover_path(filter: 'successful') do
-                = t('.successful')
-
-          - for project in @successful
-            = render 'project', project: project
-
-          - if @successful.size >= 4
-            .text-right.text-right.small-12.columns
-              = link_to discover_path(filter: 'successful'), class: 'see-more' do
-                = t('words.see_more')
-                i.icon-et-right-circled
-
-      /- if @coming_soon.any?
-        /section.coming-soon
-          /.small-12.columns
-            /h3
-              /= link_to discover_path(filter: 'soon') do
-                /i.icon-et-clock
-                /= t('.coming_soon')
-
-          /- for project in @coming_soon
-            /= render 'project', project: project
-
-          /- if @coming_soon.size >= 4
-            /.text-right.text-right.small-12.columns
-              /= link_to discover_path(filter: 'soon'), class: 'see-more' do
-                /= t('words.see_more')
-                /i.icon-et-right-circled
-
-      /section.start-one.hide-for-small
-        /.small-12.columns
-          /= link_to start_path do
-            /h3 = t('.start-one.title')
-            /span.button.custom.with-icon.large = t('.start-one.button')
 
   section.press.hide-for-small
     .row

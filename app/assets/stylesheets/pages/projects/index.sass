@@ -1,12 +1,15 @@
 .home-page
   header.hero
-    padding-top: +emCalc(45px)
-    padding-bottom: +emCalc(150px)
+    padding-top: 0
+    padding-bottom: +emCalc(50px)
     min-height: +emCalc(200px)
+
     h2
-      font-weight: 300
+      font-weight: 500
       text-transform: uppercase
+
     h3.subtitle
+      text-align: center !important
       text-transform: none
       font-size: 140%
       font-weight: 300
@@ -16,101 +19,43 @@
       .has-tip
         color: white
         font-weight: 300
+
+    .sign-up
+      margin-top: +emCalc(100px)
+
+      a.button
+        width: 100%
+        background: none
+        border: 1px solid #fff
+        &:hover
+          background: $primary-color
+          border-color: transparent
+
+    .new_user
+      .email
+        input
+          height: 45px
+      .button
+        width: 100%
+        border: none
+        height: 45px
     p
       display: none
       padding: +emCalc(10px)
       text-align: justify
       background: rgba(#FFF, 0.2)
 
-  .invest-box-wrapper
-    z-index: 2
-
-  .invest-box
-    margin-top: +emCalc(-150px)
-    padding: +emCalc(15px)
-    background: #FFF
-    h3
-      text-transform: uppercase
-      &.thanks
-        color: $primary-color
-        text-align: center
-
-    .user-image-wrapper
-      text-align: center
-      padding-bottom: +emCalc(10px)
-
-      .profile-image
-        float: none
-        margin: auto
-
-    form
-      margin: 0
-
-    .sign-up-button, .sign-up-with-facebook
-      margin-bottom: 0
-
-    p
-      color: $secondary-color
-
-    .investment-value
-      font-size: 90%
-      margin-bottom: +emCalc(20px)
-
-      .input
-        display: inline
-
-      select
-        width: auto
-        padding-right: +emCalc(15px)
-        font-size: 70%
-
-    .separator
-      border-top: 1px solid $border-color
-      height: 1px
-      margin: 2.4em 0
-      text-align: center
-      clear: both
-      position: relative
-      p
-        text-align: center
-        background: white
-        color: $secondary-font-color
-        width: 30px
-        display: block
-        margin: 0 auto
-        position: relative
-        top: emCalc(-14px)
-    .share
-      .button
-        width: 100%
-    .profile-image
-      float: right
-
   section.investors
-    margin-top: +emCalc(50px)
-    padding: +emCalc(25px)
-    background: #FFF
-    +clearfix
+    background: image-url('investors-bg.jpg')
+    padding: +emCalc(40px, 0)
 
     h3
+      margin-top: 0
       font-size: 150%
-
-    .profile-image
-      float: left
-      margin: +emCalc(17px)
-
-  section.meanwhile
-    margin: +emCalc(50px, 0)
-    padding: +emCalc(25px)
-    background: image-url('meanwhile-hero.jpg') center center
-    background-size: cover
-    h3
-      font-size: 150%
-      font-weight: 300
-      margin: 0
-      padding: +emCalc(10px)
-      color: white
+      color: #fff
+      text-align: center
       text-transform: uppercase
+      font-weight: 400
 
   section.projects
     padding: +emCalc(25px) 0
@@ -150,60 +95,132 @@
         float: right
         margin-right: 0
 
-  section.start-one
+  header.hero
+    .contain-to-grid
+      background: none !important
+      z-index: 1000
+      text-shadow: none
+
+      .top-bar
+        background: none
+        margin-bottom: +emCalc(50px)
+
+        .top-bar-section ul
+          background: none
+
+          .user-action
+            background: none
+
+        .main-menu, .search-box
+          display: none
+
+        .name
+          h1
+            a
+              background: image-url('white-logo@2x.png') center no-repeat
+              background: image-url('white-logo.png') center no-repeat\9 // It will apply to all ie from 8 and below
+              background-size: cover
+
+        &.expanded
+          .title-area
+            background: none
+
+          li > a
+            background: none
+
+  section.municipal-securities
+    padding: +emCalc(50px, 0)
+    background: image-url('rosette.png') center center no-repeat
+
+    h3
+      font-weight: 400
+      text-align: center
+      text-transform: uppercase
+
+    p
+      padding-top: +emCalc(50px)
+      font-size: 125%
+      margin-bottom: 0
+
+  section.features
+    background: #fff
+    padding: +emCalc(50px, 0)
+
+    .list
+      margin-top: +emCalc(22px)
+
     a
       display: block
-      background: white
-      padding: +emCalc(15px)
-      text-align: center
-      height: +emCalc(250px)
-      border: 1px solid transparent
-      +single-transition(all, 0.6s)
-      .button
-        margin-top: +emCalc(15px)
-        margin-bottom: +emCalc(5px)
-      .button.with-icon:after
-        @extend .icon-et-right-circled:before
-      h3
-        font-weight: bold
-        margin-left: auto
-        margin-right: auto
-        margin-top: +emCalc(15px)
-      &:hover
-        background: $box-hover-background-color
-        border: 1px solid white
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.30)
-        h3
-          color: $primary-color
+      padding: +emCalc(5px)
+      padding-left: 10px
+
+      h5
+        text-transform: uppercase
+
+      p
+        color: $secondary-color
+
+      h5, p
+        margin: 0
+
+      &.active
+        background-color: $primary-color
+        color: white
+
+        h5, p
+          color: white
+    .images
+      .read, .invest
+        display: none
 
 @media #{$medium}
   .home-page
     header.hero
-      height: +emCalc(400px)
       h3.subtitle
         font-size: 180%
         text-align: justify
 
-    section.investors, section.meanwhile
+      .new_user
+        .email
+          input
+            border-top-right-radius: 0
+            border-bottom-right-radius: 0
+        .button
+          border-top-left-radius: 0
+          border-bottom-left-radius: 0
+    section.investors
+
       h3
         font-size: 190%
 
     section.investors .profile-image
       margin: +emCalc(8px)
 
-    .invest-box
-      padding: +emCalc(25px)
+@media #{$topbar-media-query}
+  .home-page
+    .contain-to-grid
+      .top-bar
+        .sign-up
+          background: $primary-color
+          margin-top: +emCalc(-10px)
+          padding: +emCalc(10px)
+          border-radius: $global-radius
 
-      .investment-value
-        font-size: 100%
-        select
-          font-size: 100%
+        .sign-up, .sign-in
+          color: #fff !important
 
-      h3.thanks
-        text-align: left
+        .sign-in
+          margin-left: +emCalc(15px)
 
-      .user-image-wrapper
-        text-align: right
+        .user-profile
+          padding: +emCalc(0, 15px)
 
-        .profile-image
-          float: right
+        .user-action.with-divider
+          a:after
+            content: ''
+            margin: 0
+
+@media #{$small}
+  section.features
+    .list
+      margin-left: -29%

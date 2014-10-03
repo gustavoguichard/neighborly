@@ -1,4 +1,5 @@
 class StaticController < ApplicationController
+  before_action :authenticate_user!, only: :my_spot
 
   def terms
     render layout: false if request.xhr?
@@ -11,6 +12,7 @@ class StaticController < ApplicationController
   def start_terms; end
   def start; end
   def faq; end
+  def my_spot; end
 
   def about
     @presenter = AboutPagePresenter.new

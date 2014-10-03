@@ -112,4 +112,12 @@ class User < ActiveRecord::Base
   def confirmation_required?
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
+
+  def ahead_me
+    User.where('created_at < ?', created_at).count
+  end
+
+  def behind_me
+    User.where('created_at > ?', created_at).count
+  end
 end

@@ -16,19 +16,18 @@ class ProjectsController < ApplicationController
     projects_vars = {
       #coming_soon: :soon,
       #ending_soon: :expiring,
-      featured:    :featured,
+      #featured:    :featured,
       recommended: :recommends,
-      successful:  :successful
+      #successful:  :successful
     }
 
     projects_vars.each do |var_name, scope|
       instance_variable_set "@#{var_name}", ProjectsForHome.send(scope)
     end
 
-    @successful = @successful.take(2) if browser.mobile?
+    @recommended = @recommended.take(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
-
-    investment_section_variables
+    @total_users = User.count - 1
   end
 
   def create
@@ -99,23 +98,5 @@ class ProjectsController < ApplicationController
 
   def permitted_params
     params.permit(policy(@project || Project).permitted_attributes)
-  end
-
-  def investment_section_variables
-    @user = current_user || User.new
-    @user.build_investment_prospect unless @user.investment_prospect
-
-    @invest_from_otions = if current_user
-                            { url: user_path(current_user, investment_prospect: true), method: :put }
-                           else
-                             { url: sign_up_path }
-                           end
-    statistic = Statistics.all.to_a.first
-    @total_investors = statistic.total_users
-    @total_pledged_for_investment = statistic.total_contributed.to_f +
-      InvestmentProspect.sum(:value)
-
-    user_limit = browser.mobile? ? 6 : 18
-    @users = User.where('uploaded_image IS NOT NULL').with_profile_type('personal').order("RANDOM()").limit(user_limit)
   end
 end
