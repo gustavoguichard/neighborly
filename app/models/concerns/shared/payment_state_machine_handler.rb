@@ -4,7 +4,7 @@ module Shared::PaymentStateMachineHandler
   included do
     state_machine :state, initial: :pending do
       state :pending, :waiting_confirmation, :confirmed, :canceled,
-            :refunded, :refunded_and_canceled, :deleted
+            :refunded, :refunded_and_canceled, :deleted, :waiting_broker
 
       event :push_to_trash do
         transition all => :deleted
@@ -16,6 +16,10 @@ module Shared::PaymentStateMachineHandler
 
       event :wait_confirmation do
         transition pending: :waiting_confirmation
+      end
+
+      event :wait_broker do
+        transition pending: :waiting_broker
       end
 
       event :confirm do

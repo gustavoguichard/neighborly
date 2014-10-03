@@ -84,6 +84,26 @@ describe Shared::PaymentStateMachineHandler do
         end
       end
     end
+
+    describe '#wait_broker' do
+      before { resource.wait_broker }
+
+      context 'when resource is pending' do
+        let(:initial_state) { 'pending' }
+
+        it 'changes to waiting_broker state' do
+          expect(resource.waiting_broker?).to be_true
+        end
+      end
+
+      context 'when resource is not pending' do
+        let(:initial_state) { 'canceled' }
+
+        it 'doesn\'t changes to refunded state' do
+          expect(resource.waiting_broker?).to be_false
+        end
+      end
+    end
   end
 
   context 'when resource is Contribution' do
