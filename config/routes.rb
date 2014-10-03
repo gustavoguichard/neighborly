@@ -97,6 +97,8 @@ Neighborly::Application.routes.draw do
     resources :contributions, controller: 'projects/contributions', except: :update
   end
 
+  resource :brokerage_account, only: %i(new create edit update)
+
   scope :login, controller: :sessions do
     devise_scope :user do
       get   :set_new_user_email
