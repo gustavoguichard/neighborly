@@ -1,14 +1,14 @@
 - content_for :title do
-  | Thanks for signing up!
+  | Thanks For Signing Up
 
 .my-spot
   .row
     .large-6.columns.large-centered
-      h2 Thanks for signing up!
+      h2 Thanks For Signing Up
 
-      h3 There are #{pluralize(current_user.ahead_me, 'person')} people ahead of you and #{pluralize(current_user.behind_me, 'person')} behind you.
+      h3 Position in line: You are #{current_user.ahead_me} in line.
 
-      p Get priority access and be among the first to invest with Neighbor.ly by referring your friends.
+      p Get access sooner by sharing with your friends.
       .row
         .medium-10.small-12.columns.large-centered.small-centered
           .row.share
@@ -19,5 +19,5 @@
             .medium-6.small-12.columns
               = link_to 'Tweet', "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
       p
-        | Or copy and share this unique URL: 
+        | Or, copy & paste your personal referral link: 
         span = link_to root_url(ref: current_user.referral_code), root_url(ref: current_user.referral_code)

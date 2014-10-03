@@ -43,10 +43,10 @@
   section.municipal-securities
     .row
       .large-12.columns
-        h3 Municipal Securities
+        h3 Join the $400 billion market
 
       .medium-8.columns
-        p This is not a new idea. Some of America’s greatest treasures were built using municipal securities. Issuers sell municipal bonds to people and institutions to access up-front capital in order to build civic infrastructure projects that benefit us every day.
+        p Every year, US cities borrow $400 billion from people and institutions through a tool called municipal bonds. This process has allowed us to build some of our nation’s most treasured assets. Join today and get access to the funnest, cheapest, easiest way to invest in communities.
 
       .medium-4.columns
         = image_tag 'bonds.png'
@@ -54,7 +54,7 @@
   section.built-by-people
     .row
       .large-9.columns.large-centered
-        h3 Built by people, for people
+        h3 A solution for people, by people
 
         - if browser.mobile? || browser.ie?
           = image_tag 'bonds-solution.png', class: 'solution-image'
@@ -76,9 +76,7 @@
               = image_tag 'built-by-people/individual-investor-happy.png', size: '112x151'
 
         p
-          | We realized issuers have become out of touch with the retail market - individuals with the first right to buy municipal securites. 
-          br/
-          | What used to be a simple process has become complex with middlemen and fees.
+          | Neighborly cuts out the middlemen, giving you a greater return on your investment when supporting projects you care about.
 
   section.features
     .row
@@ -92,15 +90,15 @@
         .list
           a.active href="#" data-class-to-show='discover'
             h5 Discover
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+            p Find projects based on your interests, projected yields or a specific geography.
 
           a href="#" data-class-to-show='read'
             h5 Read
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+            p Review documents and read a project’s complete story before deciding to invest.
 
           a href="#" data-class-to-show='invest'
             h5 Invest
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+            p Invest in projects you care about!
 
   section.projects
     .row
@@ -108,7 +106,7 @@
         .small-12.columns
           h3
             = link_to discover_path(filter: 'recommended') do
-              | Issuances
+              | Investment Opportunities
 
         = render @recommended
 
