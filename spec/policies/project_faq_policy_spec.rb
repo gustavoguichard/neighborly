@@ -25,23 +25,6 @@ describe ProjectFaqPolicy do
       admin = build(:user, admin: true)
       expect(subject).to permit(admin, project_faq)
     end
-
-    it 'authorizes access if user is a channel member' do
-      channel = Channel.new
-      user = User.new
-      user.channels = [channel]
-      project = Project.new
-      project.channels = [channel]
-      should permit(user, ProjectFaq.new(project: project))
-    end
-
-    it 'authorizes access if user is the channel owner' do
-      user = User.new
-      channel = Channel.new(user: user)
-      project = Project.new
-      project.channels = [channel]
-      should permit(user, ProjectFaq.new(project: project))
-    end
   end
 
   permissions :create? do

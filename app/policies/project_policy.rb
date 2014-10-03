@@ -1,6 +1,6 @@
 class ProjectPolicy < ApplicationPolicy
   def create?
-    done_by_owner_or_admin? || is_channel_admin?
+    done_by_owner_or_admin?
   end
 
   def update?
@@ -68,7 +68,7 @@ class ProjectPolicy < ApplicationPolicy
   protected
 
   def change_state?
-    user.present? && (user.admin? || is_channel_admin?)
+    user.present? && (user.admin?)
   end
 
   def fully_editable?
@@ -79,20 +79,12 @@ class ProjectPolicy < ApplicationPolicy
                                        record.soon?) )
   end
 
-  def is_channel_admin?
-    user.present? && ( record.last_channel.try(:user) == user ||
-                       user.channels.include?(record.last_channel) )
-  end
-
   class Scope < Struct.new(:user, :scope)
     def resolve
       if user.admin?
         scope
       else
-        from_managed_channels = scope.joins(channels: :members).
-          where(channel_members: { user_id: user.id })
-        from_managed_directly = scope.where(user_id: user.id)
-        scope.from("(#{from_managed_channels.to_sql} UNION #{from_managed_directly.to_sql}) as projects")
+        scope.where(user_id: user.id)
       end
     end
   end

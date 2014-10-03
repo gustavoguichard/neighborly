@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe ProjectObserver do
   let(:project) { create(:project, goal: 3000) }
-  let(:channel) { create(:channel) }
 
   subject { contribution }
 
@@ -105,10 +104,9 @@ describe ProjectObserver do
       expect(Notification).to receive(:notify_once).with(
         :project_visible,
         project.user,
-        { project_id: project.id, channel_id: nil },
+        { project_id: project.id },
         {
           project: project,
-          channel: nil,
           origin_email: Configuration[:email_contact],
           origin_name: Configuration[:company_name]
         }

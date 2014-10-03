@@ -15,9 +15,6 @@ en:
       completeness_progress: 'Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       update:
         success: 'Your information has been updated!'
-    channels_subscribers:
-      created: 'You are now following %{channel}'
-      deleted: 'You are no longer following %{channel}'
     contacts:
       create:
         success: 'Thank you for your interest! We will be in touch soon.'

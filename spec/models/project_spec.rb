@@ -6,8 +6,6 @@ describe Project do
 
   let(:project){ build(:project, goal: 3000) }
   let(:user){ create(:user) }
-  let(:channel){ create(:channel, user: user) }
-  let(:channel_project){ create(:project, channels: [ channel ]) }
 
   describe "associations" do
     it{ should belong_to :user }
@@ -18,7 +16,6 @@ describe Project do
     it{ should have_many :notifications }
     it{ should have_many :project_faqs }
     it{ should have_many :project_documents }
-    it{ should have_and_belong_to_many :channels }
     it{ should have_many :activities }
   end
 
@@ -334,13 +331,6 @@ describe Project do
     it { should == [reward_01, reward_03] }
   end
 
-  describe "#last_channel" do
-    let(:channel){ create(:channel) }
-    let(:project){ create(:project, channels: [ create(:channel), channel ]) }
-    subject{ project.last_channel }
-    it{ should == channel }
-  end
-
   describe '#pending_contributions_reached_the_goal?' do
     let(:project) { create(:project, goal: 200) }
 
@@ -362,30 +352,16 @@ describe Project do
   end
 
   describe "#new_draft_recipient" do
-    subject { project.new_draft_recipient }
-    context "when project does not belong to any channel" do
-      before do
-        @user = create(:user, email: Configuration[:email_projects].dup)
-      end
-      it{ should == @user }
+  subject { project.new_draft_recipient }
+    before do
+      @user = create(:user, email: Configuration[:email_projects].dup)
     end
-
-    context "when project belongs to a channel" do
-      let(:project) { channel_project }
-      it{ should == user }
-    end
+    it{ should == @user }
   end
 
   describe "#notification_type" do
     subject { project.notification_type(:foo) }
-    context "when project does not belong to any channel" do
-      it { should eq(:foo) }
-    end
-
-    context "when project does belong to a channel" do
-      let(:project) { channel_project }
-      it{ should eq(:foo_channel) }
-    end
+    it { should eq(:foo) }
   end
 
   describe 'Taggable' do

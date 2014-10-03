@@ -7,17 +7,12 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :channel
   before_action :store_referral_code
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
       redirect_to set_email_users_path unless controller_name =~ /users|confirmations/
     end
-  end
-
-  def channel
-    Channel.find_by_permalink(request.subdomain.to_s)
   end
 
   def referral_code

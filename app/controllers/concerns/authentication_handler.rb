@@ -65,7 +65,6 @@ module Concerns::AuthenticationHandler
       ['neighborly-staging.herokuapp.com',
        'invest.neighbor.ly',
        'staging.neighbor.ly',
-       'channel.staging.neighbor.ly',
        'kaboom.neighbor.ly',
        'cfg.neighbor.ly',
        'makeitright.neighbor.ly']

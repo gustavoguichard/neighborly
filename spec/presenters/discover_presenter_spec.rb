@@ -16,34 +16,6 @@ describe DiscoverPresenter do
     end
   end
 
-  describe '#channels' do
-    let!(:channel) { create(:channel, state: 'online') }
-
-    context 'when filters are empty' do
-      it 'loads channels with filtering by online' do
-        expect(Channel).to receive(:with_state).with('online').and_call_original
-        subject.channels
-      end
-
-      it 'returns an array' do
-        expect(subject.channels).to eq [channel]
-      end
-    end
-
-    context 'when filters are not empty' do
-      let(:params) { { state: :recommended } }
-
-      it 'does not loads the channels' do
-        expect(Channel).not_to receive(:with_state)
-        subject.channels
-      end
-
-      it 'returns a empty array' do
-        expect(subject.channels).to eq []
-      end
-    end
-  end
-
   describe '#categories' do
     it 'loads categories with projects' do
       expect(Category).to receive(:with_projects)

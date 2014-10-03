@@ -143,22 +143,6 @@ FactoryGirl.define do
     f.comment_html "<p>This is a comment</p>"
   end
 
-  factory :channel do
-    user { create(:user, profile_type: 'channel') }
-    name "Test"
-    description "Lorem Ipsum"
-    sequence(:permalink) { |n| "#{n}-test-page" }
-
-    factory :channel_with_external_application do
-      application_url 'https://example.com/application.pdf'
-    end
-  end
-
-  factory :channels_subscriber do |f|
-    f.association :user
-    f.association :channel
-  end
-
   factory :state do
     name "RJ"
     acronym "RJ"

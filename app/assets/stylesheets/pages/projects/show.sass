@@ -136,7 +136,7 @@
       margin: +emCalc(10px, 0)
     figure.profile-image
       margin-top: +emCalc(15px)
-      &.organization, &.channel
+      &.organization
         max-width: 100%
         img
           height: auto !important
@@ -184,22 +184,6 @@
       padding-right: +emCalc(37px)
       &:after
         font-size: 130%
-
-  section.channel
-    background: white
-    margin-bottom: +emCalc(20px)
-    text-align: center
-    padding: +emCalc(15px)
-    border: 1px solid white
-    +single-transition(background-color, 0.6s)
-    +single-transition(box-shadow, 0.6s)
-    h5
-      text-transform: uppercase
-      margin-bottom: +emCalc(15px)
-      font-size: 109%
-    &:hover
-      background: $box-hover-background-color
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.30)
 
 #embed-panel
   min-width: +emCalc(730px)

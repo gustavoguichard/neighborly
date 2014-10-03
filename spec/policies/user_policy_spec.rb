@@ -112,53 +112,5 @@ describe UserPolicy do
       attrs = { organization_attributes: [ :id, :name, :image ] }
       expect(policy.permitted?(attrs)).to be_true
     end
-
-    context 'when user type is a channel' do
-      let(:user) { User.new profile_type: 'channel' }
-
-      it 'permit channel fields' do
-        attrs = {channel_attributes:
-                  Channel.attribute_names.map(&:to_sym) - [
-                    :user_id,
-                    :state,
-                    :created_at,
-                    :updated_at,
-                    :video_embed_url,
-                    :accepts_projects,
-                    :how_it_works_html,
-                    :submit_your_project_text,
-                    :submit_your_project_text_html,
-                    :start_content,
-                    :start_hero_image,
-                    :success_content
-                    ]
-                }
-        expect(policy.permitted?(attrs)).to be_true
-      end
-    end
-
-    context 'when user type is not a channel' do
-      let(:user) { User.new profile_type: 'organization' }
-
-      it 'does not permit channel fields' do
-        attrs = {channel_attributes:
-                  Channel.attribute_names.map(&:to_sym) - [
-                    :user_id,
-                    :state,
-                    :created_at,
-                    :updated_at,
-                    :video_embed_url,
-                    :accepts_projects,
-                    :how_it_works_html,
-                    :submit_your_project_text,
-                    :submit_your_project_text_html,
-                    :start_content,
-                    :start_hero_image,
-                    :success_content
-                    ]
-                }
-        expect(policy.permitted?(attrs)).not_to be_true
-      end
-    end
   end
 end
