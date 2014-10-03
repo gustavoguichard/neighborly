@@ -6,6 +6,10 @@ Neighborly.Projects.Index =
       $('.features .list a').on 'mouseover', this.changeScreen
       $('.features .list a').on 'click', this.changeScreen
 
+      $(window).on 'scroll', ->
+        if $('.built-by-people').isOnScreen(0.85, 0.85)
+          $('.built-by-people .wrapper-images').removeClass('problem').addClass('solution')
+
     changeScreen: (event)->
       event.preventDefault()
       $('.features .list a').removeClass('active')

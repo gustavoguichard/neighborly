@@ -56,7 +56,24 @@
       .large-9.columns.large-centered
         h3 Built by people, for people
 
-        = image_tag 'bonds-problem.png'
+        - if browser.mobile? || browser.ie? || browser.safari?
+          = image_tag 'bonds-solution.png', class: 'solution-image'
+        - else
+          .wrapper-images.problem
+            .icon.problem.solution.start._1
+              = image_tag 'built-by-people/issuing-community.png', size: '112x151'
+            .icon.problem._2
+              = image_tag 'built-by-people/underwriting-bank.png', size: '112x151'
+            .icon.problem._3
+              = image_tag 'built-by-people/mutual-fund.png', size: '112x151'
+            .icon.problem._4
+              = image_tag 'built-by-people/investment-advisor.png', size: '112x151'
+            .icon.problem.end._5
+              = image_tag 'built-by-people/individual-investor-sad.png', size: '112x151'
+            .icon.solution.final-state._6
+              = image_tag 'built-by-people/neighborly.png', size: '112x151'
+            .icon.solution.final-state.end._7
+              = image_tag 'built-by-people/individual-investor-happy.png', size: '112x151'
 
         p
           | We realized issuers have become out of touch with the retail market - individuals with the first right to buy municipal securites. 
