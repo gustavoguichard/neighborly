@@ -1,8 +1,14 @@
 require 'spec_helper'
 
 describe BrokerageAccountsController do
+  include Rails.application.routes.url_helpers
+
   let(:params)         { { brokerage_account: attributes_for(:brokerage_account) } }
   let(:invalid_params) { { brokerage_account: {} } }
+  let!(:contribution)  { create(:contribution) }
+  let(:contribution_url) do
+    project_contribution_path(project_id: contribution.project_id, id: contribution.id)
+  end
 
   context 'signed in' do
     before { sign_in current_user }
@@ -24,9 +30,9 @@ describe BrokerageAccountsController do
 
     describe 'POST create' do
       describe 'with valid params' do
-        context 'with after_brokerage_url value stored' do
+        context 'with contribution_id value stored' do
           before do
-            session[:after_brokerage_url] = 'http://example.com/'
+            session[:contribution_id] = contribution.id
           end
 
           it 'creates user\'s brokerage account ' do
@@ -34,13 +40,18 @@ describe BrokerageAccountsController do
             expect(current_user.reload.brokerage_account).to_not be_nil
           end
 
-          it 'redirects to after_brokerage_url' do
+          it 'redirects to contribution url' do
             post :create, params
-            expect(response).to redirect_to('http://example.com/')
+            expect(response).to redirect_to(contribution_url)
+          end
+
+          it 'sets the payable resource as waiting broker' do
+            expect_any_instance_of(Contribution).to receive(:wait_broker)
+            post :create, params
           end
         end
 
-        context 'without after_brokerage_path value stored' do
+        context 'without contribution_id value stored' do
           it 'creates user\'s brokerage account ' do
             post :create, params
             expect(current_user.reload.brokerage_account).to_not be_nil
@@ -80,9 +91,9 @@ describe BrokerageAccountsController do
       let(:current_user) { create(:user, :with_brokerage_account) }
 
       describe 'with valid params' do
-        context 'with after_brokerage_url value stored' do
+        context 'with contribution_id value stored' do
           before do
-            session[:after_brokerage_url] = 'http://example.com/'
+            session[:contribution_id] = contribution.id
           end
           let(:params) do
             p = super()
@@ -98,13 +109,13 @@ describe BrokerageAccountsController do
             ).to eql('New name')
           end
 
-          it 'redirects to after_brokerage_url' do
+          it 'redirects to contribution url' do
             put :update, params
-            expect(response).to redirect_to('http://example.com/')
+            expect(response).to redirect_to(contribution_url)
           end
         end
 
-        context 'without after_brokerage_path value stored' do
+        context 'without contribution url value stored' do
           it 'creates user\'s brokerage account ' do
             put :update, params
             expect(current_user.reload.brokerage_account).to_not be_nil

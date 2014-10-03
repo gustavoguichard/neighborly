@@ -1,5 +1,6 @@
 class BrokerageAccountsController < ApplicationController
-  before_action :store_after_save_url, only: %i(new edit)
+  before_action :store_contribution_id, only: %i(new edit)
+  after_action :alert_broker, only: %i(create update)
 
   def new
     @brokerage_account = current_user.build_brokerage_account
@@ -51,17 +52,33 @@ class BrokerageAccountsController < ApplicationController
   end
 
   def after_save_url
-    @after_save_url ||= session.delete(:after_brokerage_url) || root_path
+    @after_save_url ||= if session[:contribution_id]
+      route_params = {
+        project_id: contribution.project_id,
+        id:         session[:contribution_id]
+      }
+      main_app.project_contribution_url(route_params)
+    else
+      root_path
+    end
   end
 
   # Tries to store the referrer, checking if the user comes from a contribution action.
   # No implementation intended from others.
-  def store_after_save_url
+  def store_contribution_id
     begin
-      referer_params =
-        Rails.application.routes.recognize_path(request.referer).slice(:project_id, :id)
-      session[:after_brokerage_url] =
-        main_app.project_contribution_url(referer_params)
+      session[:contribution_id] =
+        Rails.application.routes.recognize_path(request.referer)[:id]
     rescue ActionController::RoutingError; end
+  end
+
+  def alert_broker
+    if session[:contribution_id] && @brokerage_account.valid?
+      contribution.wait_broker
+    end
+  end
+
+  def contribution
+    @contribution ||= Contribution.find(session[:contribution_id])
   end
 end
