@@ -35,3 +35,6 @@ config/database.yml
 
 # Secrets
 .env
+
+#Redis
+dump.rdb
