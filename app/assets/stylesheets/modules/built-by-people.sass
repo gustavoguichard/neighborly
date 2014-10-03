@@ -1,3 +1,23 @@
+=keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+
+  @-moz-keyframes #{$animation-name}
+    @content
+
+  @-o-keyframes #{$animation-name}
+    @content
+
+  @keyframes #{$animation-name}
+    @content
+
+=icon-animation($animation-name)
+  -webkit-animation: $animation-name 2s linear forwards
+  -moz-animation: $animation-name 2s linear forwards
+  -ms-animation: $animation-name 2s linear forwards
+  -o-animation: $animation-name 2s linear forwards
+  animation: $animation-name 2s linear forwards
+
 .home-page
   section.built-by-people
     background: image-url('courthouse.jpg')
@@ -65,45 +85,21 @@
           opacity: 1
 
         .icon._1
-          -webkit-animation: icon-move-right 2s linear forwards
-          -moz-animation: icon-move-right 2s linear forwards
-          -ms-animation: icon-move-right 2s linear forwards
-          -o-animation: icon-move-right 2s linear forwards
-          animation: icon-move-right 2s linear forwards
+          +icon-animation(icon-move-right)
 
         .icon._2
-          -webkit-animation: icon-move-right-and-disappear 2s linear forwards
-          -moz-animation: icon-move-right-and-disappear 2s linear forwards
-          -ms-animation: icon-move-right-and-disappear 2s linear forwards
-          -o-animation: icon-move-right-and-disappear2s linear forwards
-          animation: icon-move-right-and-disappear 2s linear forwards
+          +icon-animation(icon-move-right-and-disappear)
 
         .icon._3
-          -webkit-animation: icon-disappear 2s linear forwards
-          -moz-animation: icon-disappear 2s linear forwards
-          -ms-animation: icon-disappear 2s linear forwards
-          -o-animation: icon-disappear 2s linear forwards
-          animation: icon-disappear 2s linear forwards
+          +icon-animation(icon-disappear )
 
         .icon._4, .icon._5
-          -webkit-animation: icon-move-left-and-disappear 2s linear forwards
-          -moz-animation: icon-move-left-and-disappear 2s linear forwards
-          -ms-animation: icon-move-left-and-disappear 2s linear forwards
-          -o-animation: icon-move-left-and-disappear 2s linear forwards
-          animation: icon-move-left-and-disappear 2s linear forwards
+          +icon-animation(icon-move-left-and-disappear)
 
         .icon._6, .icon._7
-          -webkit-animation: icon-appear 2s linear forwards
-          -moz-animation: icon-appear 2s linear forwards
-          -ms-animation: icon-appear 2s linear forwards
-          -o-animation: icon-appear 2s linear forwards
-          animation: icon-appear 2s linear forwards
+          +icon-animation(icon-appear)
 
-@-webkit-keyframes icon-move-right,
-@-moz-keyframes icon-move-right,
-@-ms-keyframes icon-move-right,
-@-o-keyframes icon-move-right,
-@keyframes icon-move-right
++keyframes(icon-move-right)
   50%
     -webkit-transform: translate(152px, 0)
     -moz-transform: translate(152px, 0)
@@ -117,11 +113,9 @@
     -o-transform: translate(152px, 0)
     transform: translate(152px, 0)
 
-@-webkit-keyframes icon-move-right-and-disappear,
-@-moz-keyframes icon-move-right-and-disappear,
-@-ms-keyframes icon-move-right-and-disappear,
-@-o-keyframes icon-move-right-and-disappear,
-@keyframes icon-move-right-and-disappear
+
+
++keyframes(icon-move-right-and-disappear)
   0%
     opacity: 1
   50%
@@ -139,11 +133,7 @@
     -o-transform: translate(152px, 0)
     transform: translate(152px, 0)
 
-@-webkit-keyframes icon-disappear,
-@-moz-keyframes icon-disappear,
-@-ms-keyframes icon-disappear,
-@-o-keyframes icon-disappear,
-@keyframes icon-disappear
++keyframes(icon-disappear)
   0%
     opacity: 1
   20%
@@ -151,11 +141,7 @@
   60%
     opacity: 0
 
-@-webkit-keyframes icon-move-left-and-disappear,
-@-moz-keyframes icon-move-left-and-disappear,
-@-ms-keyframes icon-move-left-and-disappear,
-@-o-keyframes icon-move-left-and-disappear,
-@keyframes icon-move-left-and-disappear
++keyframes(icon-move-left-and-disappear)
   0%
     opacity: 1
   50%
@@ -172,11 +158,7 @@
     -o-transform: translate(-152px, 0)
     transform: translate(-152px, 0)
 
-@-webkit-keyframes icon-appear,
-@-moz-keyframes icon-appear,
-@-ms-keyframes icon-appear,
-@-o-keyframes icon-appear,
-@keyframes icon-appear
++keyframes(icon-appear)
   0%
     opacity: 0
   30%
