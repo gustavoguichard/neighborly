@@ -46,7 +46,6 @@ gem 'browser'
 # Authentication and Authorization
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2', '0.2.1'
 gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.5.1'
 gem 'devise', '~> 3.1.2'

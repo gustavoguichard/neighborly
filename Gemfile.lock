@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: e1b309ba946b9e0f21b1234e2ac429ecbb6983d4
+  revision: f5958ec5ac0d2864f19fcfec4fc634d675f37657
   branch: master
   specs:
     neighborly-balanced-bankaccount (2.0.0)
@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: 47de0d64ea0255a872f0dde3dd3eda6d59cb7d38
+  revision: af4f1d1eeccd6e5de4a9e5eee56d882ae54ccfda
   branch: master
   specs:
     neighborly-balanced (2.0.1)
@@ -310,9 +310,6 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
-    omniauth-google-oauth2 (0.2.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2
     omniauth-linkedin (0.1.0)
       omniauth-oauth (~> 1.0)
     omniauth-oauth (1.0.1)
@@ -553,7 +550,6 @@ DEPENDENCIES
   numeraljs-rails (~> 1.4.5.0)
   omniauth
   omniauth-facebook (= 1.5.1)
-  omniauth-google-oauth2 (= 0.2.1)
   omniauth-linkedin
   omniauth-twitter
   pg
