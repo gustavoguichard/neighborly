@@ -21,15 +21,7 @@
                     = link_to 'Check your spot', my_spot_path, class: 'button'
 
           - else
-            = simple_form_for(User.new, as: :user, url: sign_up_path) do |f|
-              = f.input :bonds_early_adopter, as: :hidden, input_html: { value: '1' }
-
-              .row.collapse
-                .medium-7.columns
-                  = f.input :email, as: :email, required: true, label_html: { class: 'hidden-label' }
-
-                .medium-5.columns
-                  = f.submit 'Sign Up for early access', class: 'button'
+            = render 'shared/sign_up'
 
   section.investors
     .row
