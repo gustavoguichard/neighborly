@@ -26,84 +26,20 @@
       @media #{$medium}
         padding: +emCalc(0, 20px)
 
-      i
-        color: $topbar-icon-color
-        padding-right: +emCalc(8px)
-        font-size: 120%
-
     li
       a
         text-transform: uppercase
-      i
-        display: none
-        @media #{$medium}
-          display: inline-block
 
-      &.search-box
-        i
-          display: inline-block
-
-      &.user-action, &.search-box
+      &.user-action
         img.profile-picture
           width: 13px
           height: 13px
           border-radius: 50%
 
-      &.search-box
-        +clearfix
-        margin: +emCalc(5px, 20px, 20px, 20px)
-        padding: 8px 9px 8px 13px
-        border-radius: +emCalc(20px)
-        background: $topbar-bg-highlight
-
-        a
-          padding: 0
-          background: none
-          display: block
-          float: right
-
-        i
-          color: $primary-color
-
-        form
-          display: inline
-
-          input
-            display: inline-block
-            float: left
-            width: 93%
-            top: 0
-            padding: 0
-            padding-top: +emCalc(5px)
-            border: none
-            background: none
-            color: white
-            box-shadow: none
-            height: auto
-            font-size: 85%
-
-            &.show
-              display: inline
-
-            &:focus
-              box-shadow: none
-
-            &[type=submit]
-              display: none
-
       @media #{$topbar-media-query}
-        &.search-box
-          margin-left: +emCalc(10px)
-          margin-right: 0
-
-          form input
-            width: +emCalc(100px)
-            display: none
-            padding-top: 0
-            line-height: +emCalc(14px)
-
-        &.user-action, &.search-box
+        &.user-action
           margin-top: +emCalc(30px)
+          margin-left: +emCalc(10px)
           font-size: 90%
           background: $topbar-bg-highlight
 
@@ -140,14 +76,25 @@
               &:hover
                 color: darken(white, 10%)
 
-            &.sign-up, &.sign-out
-              color: $primary-color
-
             &.user-profile
               text-transform: none
 
         &.user-action
           padding: +emCalc(10px)
+
+    @media #{$topbar-media-query}
+      .sign-up, .sign-in
+        margin-left: +emCalc(15px)
+
+        a
+          padding: +emCalc(10px)
+          margin-top: +emCalc(35px)
+          line-height: normal
+          border: 1px solid $primary-color
+          border-radius: $global-radius
+      .sign-up
+        a
+          background: $primary-color
 
   #user-dropdown
     background: darken(desaturate($primary-color, 30%), 10%)
