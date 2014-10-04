@@ -17,3 +17,5 @@ deploy:
   run:
     - rake db:migrate
     - restart
+notifications:
+  webhooks: http://neighborly-ci.herokuapp.com/projects/61a5a79f-941a-4dd3-ae01-ca8ce6f370eb/status
