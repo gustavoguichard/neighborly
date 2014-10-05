@@ -44,7 +44,7 @@ class Discover
   end
 
   def category(value, projects)
-    category = Category.where('name_en ILIKE ?', value).first
+    category = Category.where('name ILIKE ?', value).first
     if category.present?
       filters[:category] = category.to_s
       projects.where(category_id: category.id)

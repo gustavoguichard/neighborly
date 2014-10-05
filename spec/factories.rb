@@ -44,12 +44,7 @@ FactoryGirl.define do
   end
 
   factory :category do
-    ignore do
-      name { "Category ##{rand}" }
-    end
-
-    name_en { name }
-    name_pt { name }
+    name { "Category ##{rand}" }
   end
 
   factory :project do

@@ -76,7 +76,7 @@ puts 'Creating Category entries...'
 
   categories = %w{Transit Bicycling Technology Entertainment Sports Recreation Schools Streetscapes Environment Restoration Event Mobility}
   categories.each do |c|
-    Category.create! name_pt: c, name_en: c
+    Category.create! name: c
   end
 
 puts '---------------------------------------------'
