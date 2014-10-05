@@ -1,10 +1,6 @@
 class Projects::TermsController < ApplicationController
   after_filter :verify_authorized, except: :index
-  inherit_resources
-  defaults resource_class: ProjectDocument, collection_name: :project_documents
-
-  actions :create, :destroy
-  belongs_to :project, finder: :find_by_permalink!
+  respond_to :html
 
   def index
     @project = parent
@@ -12,19 +8,27 @@ class Projects::TermsController < ApplicationController
   end
 
   def create
-    @project_document = ProjectDocument.new(permitted_params[:project_document].
+    @document = ProjectDocument.new(permitted_params[:project_document].
                                             merge(project: parent))
-    authorize @project_document
-    create! { project_terms_path(parent) }
+    authorize @document
+    @document.save
+    respond_with @document, location: project_terms_path(parent)
   end
 
   def destroy
-    authorize resource
-    destroy! { project_terms_path(parent) }
+    document = parent.project_documents.find(params[:id])
+    authorize document
+    document.delete
+    respond_with document, location: project_terms_path(parent)
   end
 
   private
+
+  def parent
+    @project = Project.find_by_permalink!(params[:project_id])
+  end
+
   def permitted_params
-    params.permit(policy(@project_document || ProjectDocument).permitted_attributes)
+    params.permit(policy(@document || ProjectDocument).permitted_attributes)
   end
 end
