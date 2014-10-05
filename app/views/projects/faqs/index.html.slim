@@ -4,9 +4,9 @@
       = render template: 'projects/faqs/new'
 
     .list
-      - if collection.any?
-        - for faq in collection
-          = render 'projects/faqs/faq', resource: faq
+      - if @faqs.any?
+        - for faq in @faqs
+          = render 'projects/faqs/faq', faq: faq
 
       - else
         p = t('.empty')
