@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe ImagesController do
-
-  describe 'GET \'new\'' do
+  describe '#new' do
     context 'when I am not logged in' do
       it 'requires login' do
         get :new
@@ -20,7 +19,7 @@ describe ImagesController do
     end
   end
 
-  describe 'POST \'create\'' do
+  describe '#create' do
     context 'when I am not logged in' do
       it 'requires login' do
         post :create
@@ -73,5 +72,4 @@ describe ImagesController do
       end
     end
   end
-
 end
