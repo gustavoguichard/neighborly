@@ -19,7 +19,6 @@ gem 'state_machine', require: 'state_machine/core', github: 'josemarluedke/state
 
 # Database and data related
 gem 'pg'
-gem 'postgres-copy'
 gem 'pg_search'
 gem 'schema_plus'
 
