@@ -1,14 +1,12 @@
 class Users::ProjectsController < ApplicationController
-  inherit_resources
-  actions :index
-  belongs_to :user
-
   def index
     authorize parent, :update?
-    index!
+    @projects = parent.projects
   end
 
-  def collection
-    @projects ||= end_of_association_chain
+  private
+
+  def parent
+    @user ||= User.find(params[:user_id])
   end
 end

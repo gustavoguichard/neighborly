@@ -2,7 +2,7 @@
   = initjs_tag app_name: 'Neighborly', partial: true
   #user-profile-content.row
     .large-8.columns
-      = simple_form_for resource do |f|
+      = simple_form_for @user do |f|
         = render 'users/profile_types/personal_organization', f: f
         = render 'authorizations'
         = render 'address', f: f

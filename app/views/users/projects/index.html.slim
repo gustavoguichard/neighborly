@@ -1,5 +1,5 @@
 - content_for :page_content do
-  - if collection.any?
+  - if @projects.any?
     .my-campaigns
       table
         thead
@@ -12,7 +12,7 @@
             th= 'total of contributions'
             th.text-right= 'actions'
         tbody
-          - collection.each do |project|
+          - @projects.each do |project|
             tr
               td= link_to project.id, project_path(project)
               td title=project.name

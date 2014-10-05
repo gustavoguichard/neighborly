@@ -12,7 +12,7 @@ describe Users::ProjectsController do
 
   describe "GET index" do
     before do
-      get :index, { locale: :pt, user_id: project.user_id }
+      get :index, { user_id: project.user_id }
     end
     its(:status){ should eq 200 }
   end
