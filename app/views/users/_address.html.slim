@@ -9,7 +9,7 @@
     = f.input :address_street, as: :string
 .row
   .large-8.medium-8.columns
-    .location.location-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude data-image-url=image_url('pin.png')]
+    .location.location-coordinates.pin-img data-longitude=@user.longitude data-latitude=@user.latitude data-image-url=image_url('pin.png')
     = f.input :location, input_html: { class: 'search-cities-with-google', autocomplete: :off }
   .large-4.medium-4.columns
     = f.input :address_zip_code, as: :string

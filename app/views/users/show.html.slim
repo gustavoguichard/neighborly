@@ -15,7 +15,7 @@
 
   - if @user.location.present?
     header.map
-      .location.location-coordinates.pin-img[data-longitude=resource.longitude data-latitude=resource.latitude]
+      .location.location-coordinates.pin-img data-longitude=@user.longitude data-latitude=@user.latitude
       .map-canvas
       = yield :user_image
   - else
