@@ -69,7 +69,6 @@ gem 'dropzonejs-rails', '~> 0.4.14'
 # Other Tools
 gem 'has_permalink'
 gem 'ranked-model'
-gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
 gem 'video_info', '~> 2.0.2'
 gem 'geocoder'
