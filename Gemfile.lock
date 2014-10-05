@@ -6,14 +6,6 @@ GIT
     as_csv (1.0.2)
 
 GIT
-  remote: git://github.com/bernat/best_in_place.git
-  revision: 0307038d99e0ab7ed19069903a18fe311b18a4b4
-  specs:
-    best_in_place (3.0.0.alpha)
-      actionpack (>= 3.2)
-      railties (>= 3.2)
-
-GIT
   remote: git://github.com/josemarluedke/font-icons-rails.git
   revision: e9e43dd325e4e6fe552b362bb8b42a64775833ea
   branch: fix-svgz
@@ -29,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: e1b309ba946b9e0f21b1234e2ac429ecbb6983d4
+  revision: f5958ec5ac0d2864f19fcfec4fc634d675f37657
   branch: master
   specs:
     neighborly-balanced-bankaccount (2.0.0)
@@ -40,7 +32,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced.git
-  revision: 47de0d64ea0255a872f0dde3dd3eda6d59cb7d38
+  revision: af4f1d1eeccd6e5de4a9e5eee56d882ae54ccfda
   branch: master
   specs:
     neighborly-balanced (2.0.1)
@@ -507,7 +499,6 @@ DEPENDENCIES
   asset_sync
   auto_html (~> 1.6.1)
   awesome_print
-  best_in_place!
   better_errors
   binding_of_caller
   browser
