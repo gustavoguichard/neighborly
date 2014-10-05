@@ -1,12 +1,16 @@
 class Users::AuthorizationsController < ApplicationController
-  inherit_resources
-  belongs_to :user
-  actions :destroy
+  respond_to :html
 
   def destroy
-    authorize resource
-    destroy! do |format|
-      format.html { redirect_to edit_user_path(parent) }
-    end
+    authorization = parent.authorizations.find(params[:id])
+    authorize authorization
+    authorization.delete
+    respond_with authorization, location: edit_user_path(parent)
+  end
+
+  private
+
+  def parent
+    @user ||= User.find(params[:user_id])
   end
 end
