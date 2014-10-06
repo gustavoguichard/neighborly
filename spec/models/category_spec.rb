@@ -6,10 +6,10 @@ describe Category do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :name_pt }
+    it { should validate_presence_of :name }
     it do
       create(:category)
-      should validate_uniqueness_of :name_pt
+      should validate_uniqueness_of :name
     end
   end
 
@@ -35,7 +35,7 @@ describe Category do
     it 'returns an array with categories' do
       category = create(:category)
       expect(described_class.array).to eq [['Select an option', ''],
-                                           [category.name_en, category.id]]
+                                           [category.name, category.id]]
     end
   end
 end

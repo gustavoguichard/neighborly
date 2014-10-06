@@ -60,7 +60,7 @@ class Project < ActiveRecord::Base
     ],
     associated_against: {
       user: %i(name email address_city),
-      category: %i(name_en name_pt)
+      category: %i(name)
     },
     using: {
       tsearch: {
