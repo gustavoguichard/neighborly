@@ -3,7 +3,7 @@ class BrokerageAccountsController < ApplicationController
   after_action :alert_broker, only: %i(create update)
 
   def new
-    @project ||= contribution.try(:project)
+    @project           = project
     @brokerage_account = current_user.build_brokerage_account
     authorize @brokerage_account
     @brokerage_account.name    = current_user.name
@@ -20,12 +20,13 @@ class BrokerageAccountsController < ApplicationController
     if @brokerage_account.save
       redirect_to after_save_url
     else
+      @project = project
       render 'new'
     end
   end
 
   def edit
-    @project ||= contribution.try(:project)
+    @project           = project
     @brokerage_account = current_user.brokerage_account
     authorize @brokerage_account
 
@@ -39,6 +40,7 @@ class BrokerageAccountsController < ApplicationController
     if @brokerage_account.update_attributes(permitted_params[:brokerage_account])
       redirect_to after_save_url
     else
+      @project = project
       render 'new'
     end
   end
@@ -82,5 +84,9 @@ class BrokerageAccountsController < ApplicationController
 
   def contribution
     @contribution ||= Contribution.find(session[:contribution_id])
+  end
+
+  def project
+    @project ||= contribution.project
   end
 end

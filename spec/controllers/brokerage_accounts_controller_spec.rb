@@ -3,6 +3,12 @@ require 'spec_helper'
 describe BrokerageAccountsController do
   include Rails.application.routes.url_helpers
 
+  before do
+    request.env['HTTP_REFERER'] = edit_project_contribution_url(
+      project_id: contribution.project.permalink,
+      id:         contribution.id
+    )
+  end
   let(:params)         { { brokerage_account: attributes_for(:brokerage_account) } }
   let(:invalid_params) { { brokerage_account: {} } }
   let!(:contribution)  { create(:contribution) }
@@ -29,38 +35,24 @@ describe BrokerageAccountsController do
     end
 
     describe 'POST create' do
+      before do
+        session[:contribution_id] = contribution.id
+      end
+
       describe 'with valid params' do
-        context 'with contribution_id value stored' do
-          before do
-            session[:contribution_id] = contribution.id
-          end
-
-          it 'creates user\'s brokerage account ' do
-            post :create, params
-            expect(current_user.reload.brokerage_account).to_not be_nil
-          end
-
-          it 'redirects to contribution url' do
-            post :create, params
-            expect(response).to redirect_to(contribution_url)
-          end
-
-          it 'sets the payable resource as waiting broker' do
-            expect_any_instance_of(Contribution).to receive(:wait_broker)
-            post :create, params
-          end
+        it 'creates user\'s brokerage account ' do
+          post :create, params
+          expect(current_user.reload.brokerage_account).to_not be_nil
         end
 
-        context 'without contribution_id value stored' do
-          it 'creates user\'s brokerage account ' do
-            post :create, params
-            expect(current_user.reload.brokerage_account).to_not be_nil
-          end
+        it 'redirects to contribution url' do
+          post :create, params
+          expect(response).to redirect_to(contribution_url)
+        end
 
-          it 'redirects to root_path' do
-            post :create, params
-            expect(response).to redirect_to(root_path)
-          end
+        it 'sets the payable resource as waiting broker' do
+          expect_any_instance_of(Contribution).to receive(:wait_broker)
+          post :create, params
         end
       end
 
@@ -88,43 +80,29 @@ describe BrokerageAccountsController do
     end
 
     describe 'PUT update' do
+      before do
+        session[:contribution_id] = contribution.id
+      end
       let(:current_user) { create(:user, :with_brokerage_account) }
 
       describe 'with valid params' do
-        context 'with contribution_id value stored' do
-          before do
-            session[:contribution_id] = contribution.id
-          end
-          let(:params) do
-            p = super()
-            p[:brokerage_account][:name] = 'New name'
-            p
-          end
-
-          it 'changes user\'s brokerage account ' do
-            allow(controller).to receive(:current_user).and_return(current_user)
-            put :update, params
-            expect(
-              current_user.brokerage_account.reload.name
-            ).to eql('New name')
-          end
-
-          it 'redirects to contribution url' do
-            put :update, params
-            expect(response).to redirect_to(contribution_url)
-          end
+        let(:params) do
+          p = super()
+          p[:brokerage_account][:name] = 'New name'
+          p
         end
 
-        context 'without contribution url value stored' do
-          it 'creates user\'s brokerage account ' do
-            put :update, params
-            expect(current_user.reload.brokerage_account).to_not be_nil
-          end
+        it 'changes user\'s brokerage account ' do
+          allow(controller).to receive(:current_user).and_return(current_user)
+          put :update, params
+          expect(
+            current_user.brokerage_account.reload.name
+          ).to eql('New name')
+        end
 
-          it 'redirects to root_path' do
-            put :update, params
-            expect(response).to redirect_to(root_path)
-          end
+        it 'redirects to contribution url' do
+          put :update, params
+          expect(response).to redirect_to(contribution_url)
         end
       end
 
