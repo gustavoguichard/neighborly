@@ -1,11 +1,16 @@
 class ContactsController < ApplicationController
-  inherit_resources
-  actions :new, :create
+  def new
+    @contact = Contact.new
+  end
 
   def create
-    create! do
+    @contact = Contact.new(permitted_params[:contact])
+
+    if @contact.save
       flash.notice = { message: t('controllers.contacts.create.success'), dismissible: false }
       return redirect_to contact_path
+    else
+      render 'new'
     end
   end
 

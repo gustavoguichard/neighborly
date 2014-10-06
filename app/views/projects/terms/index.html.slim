@@ -20,7 +20,7 @@
                   i.icon-et-download.icon-white
                 | &nbsp;
                 - if policy(@project).update?
-                  = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', confirm: 'Are you sure?' do 
+                  = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', data: { confirm: 'Are you sure?' } do 
                     i.icon-et-trash.icon-white
 
 - if request.xhr?

@@ -1,6 +1,6 @@
 .faq
-  h2 = resource.title
-  p = resource.answer
+  h2 = faq.title
+  p = faq.answer
 
   - if policy(@project).update?
-    = link_to 'Delete FAQ', project_faq_path(@project, resource), confirm: 'You are sure?', method: :delete, class: 'button secondary small'
+    = link_to 'Delete FAQ', project_faq_path(@project, faq), data: { confirm: 'You are sure?' }, method: :delete, class: 'button secondary small'

@@ -1,29 +1,34 @@
 class Projects::FaqsController < ApplicationController
   after_filter :verify_authorized, except: :index
-  inherit_resources
-  defaults resource_class: ProjectFaq, collection_name: :project_faqs
-
-  actions :index, :create, :destroy
-  belongs_to :project, finder: :find_by_permalink!
+  respond_to :html
 
   def index
     @project = parent
+    @faqs = parent.project_faqs.to_a
   end
 
   def create
-    @project_faq = ProjectFaq.new(permitted_params[:project_faq].merge(project: parent))
-    authorize @project_faq
-    create! { project_faqs_path(parent) }
+    @faq = ProjectFaq.new(permitted_params[:project_faq].merge(project: parent))
+    authorize @faq
+    @faq.save
+    respond_with @faq, location: project_faqs_path(parent)
   end
 
   def destroy
-    authorize resource
-    destroy! { project_faqs_path(parent) }
+    @faq = parent.project_faqs.find(params[:id])
+    authorize @faq
+    @faq.delete
+    respond_with @faq, location: project_faqs_path(parent)
   end
 
   private
+
+  def parent
+    @project ||= Project.find_by_permalink!(params[:project_id])
+  end
+
   def permitted_params
-    params.permit(policy(@project_faq || ProjectFaq).permitted_attributes)
+    params.permit(policy(@faq || ProjectFaq).permitted_attributes)
   end
 
   def collection

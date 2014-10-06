@@ -2,17 +2,12 @@
 class UsersController < ApplicationController
   after_filter :verify_authorized, except: :show
 
-  inherit_resources
-  actions :show, :edit, :update
-  respond_to :html, :json
-
   def show
-    show!{
-      @projects = Project.contributed_by(@user).
-        includes(:contributions, :project_total)
-      set_facebook_url_admin(@user)
-      @title = "#{@user.display_name}"
-    }
+    @user = resource
+    @projects = Project.contributed_by(@user).
+      includes(:contributions, :project_total)
+    set_facebook_url_admin(@user)
+    @title = "#{@user.display_name}"
   end
 
   def edit
@@ -38,42 +33,54 @@ class UsersController < ApplicationController
 
   def update_email
     authorize resource
-    update! do |success, failure|
-      success.html do
-        flash.notice = t('devise.confirmations.send_instructions')
-        sign_out current_user
-        redirect_to root_path
-      end
-      failure.html do
-        flash.notice = @user.errors[:email].to_sentence if @user.errors[:email].present?
-        return render :set_email, layout: 'devise'
+    resource.update(permitted_params[:user])
+
+    respond_to do |format|
+      if resource.save
+        format.html do
+          flash.notice = t('devise.confirmations.send_instructions')
+          sign_out current_user
+          redirect_to root_path
+        end
+      else
+        format.html do
+          flash.notice = @user.errors[:email].to_sentence if @user.errors[:email].present?
+          return render :set_email, layout: 'devise'
+        end
       end
     end
   end
 
   def update
     authorize resource
-    update! do |success, failure|
-      success.html do
-        flash.notice = update_success_flash_message unless params[:investment_prospect]
-        return redirect_to settings_user_path(@user) if params[:settings]
-        if params[:investment_prospect]
-          flash.delete(:notice)
-          return redirect_to root_path
+    resource.update(permitted_params[:user])
+
+    respond_to do |format|
+      if resource.save
+        format.html do
+          flash.notice = update_success_flash_message unless params[:investment_prospect]
+          return redirect_to settings_user_path(@user) if params[:settings]
+          if params[:investment_prospect]
+            flash.delete(:notice)
+            return redirect_to root_path
+          end
+          return redirect_to edit_user_path(@user)
         end
-        return redirect_to edit_user_path(@user)
-      end
-      failure.html do
-        flash.alert = @user.errors.full_messages.to_sentence
-        return redirect_to settings_user_path(@user) if params[:settings]
-        @user.build_organization unless @user.organization
-        return render 'edit'
-      end
-      success.json do
-        return render json: { status: :success, uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
-      end
-      failure.json do
-        return render json: { status: :error }
+
+        format.json do
+          return render json: { status: :success, uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
+        end
+      else
+        format.html do
+          flash.alert = @user.errors.full_messages.to_sentence
+          return redirect_to settings_user_path(@user) if params[:settings]
+          @user.build_organization unless @user.organization
+          return render 'edit'
+        end
+
+        format.json do
+          return render json: { status: :error }
+        end
       end
     end
   end
@@ -88,7 +95,11 @@ class UsersController < ApplicationController
     return redirect_to settings_user_path(@user)
   end
 
-  protected
+  private
+
+  def resource
+    @user ||= User.find(params[:id])
+  end
 
   def update_success_flash_message
     if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
