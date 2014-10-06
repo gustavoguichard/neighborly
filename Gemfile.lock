@@ -320,11 +320,6 @@ GEM
       jquery-rails
       railties (>= 3.2, < 5.0)
     polyglot (0.3.5)
-    postgres-copy (0.8.0)
-      activerecord (~> 4.0)
-      pg
-      rails (~> 4.0)
-      responders
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -539,7 +534,6 @@ DEPENDENCIES
   pg
   pg_search
   pjax_rails
-  postgres-copy
   pry
   pundit (~> 0.2.3)
   quiet_assets
