@@ -3,6 +3,7 @@ class BrokerageAccountsController < ApplicationController
   after_action :alert_broker, only: %i(create update)
 
   def new
+    @project ||= contribution.try(:project)
     @brokerage_account = current_user.build_brokerage_account
     authorize @brokerage_account
     @brokerage_account.name    = current_user.name
@@ -24,6 +25,7 @@ class BrokerageAccountsController < ApplicationController
   end
 
   def edit
+    @project ||= contribution.try(:project)
     @brokerage_account = current_user.brokerage_account
     authorize @brokerage_account
 

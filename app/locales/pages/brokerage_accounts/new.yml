@@ -4,3 +4,5 @@ en:
       titles:
         site: 'Brokerage account'
         header: 'Brokerage account'
+        subtitle: 'Please fill out the following information to submit your order.'
+      submit: 'Submit your order'
