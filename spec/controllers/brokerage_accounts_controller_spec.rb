@@ -7,7 +7,7 @@ describe BrokerageAccountsController do
   let(:invalid_params) { { brokerage_account: {} } }
   let!(:contribution)  { create(:contribution) }
   let(:contribution_url) do
-    project_contribution_path(project_id: contribution.project_id, id: contribution.id)
+    project_contribution_path(project_id: contribution.project.permalink, id: contribution.id)
   end
 
   context 'signed in' do

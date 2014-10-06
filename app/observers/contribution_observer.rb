@@ -7,6 +7,17 @@ class ContributionObserver < ActiveRecord::Observer
     update_project_total(contribution.project)
   end
 
+  def after_wait_broker(contribution, transition)
+    user = User.find_by!(email: Configuration[:email_new_order])
+    Notification.notify_once(
+      :new_order,
+      user,
+      { contribution_id: contribution.id },
+      contribution_id: contribution.id,
+      project_id: contribution.project_id,
+    )
+  end
+
   private
 
   def update_project_total(project)

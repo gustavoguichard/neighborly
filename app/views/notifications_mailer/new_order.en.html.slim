@@ -1,0 +1,15 @@
+- if @notification.contribution.user.name.present?
+  p Howdy, #{@notification.contribution.user.name}!
+- else
+  p Howdy!
+
+p This confirms your order has been placed for #{@notification.project.name}. You will be contacted within the next 1 - 2 business days by a qualified broker dealer to confirm your order and collect a few pieces of additional information from you. After which, you will be charged the amount detailed below.
+p
+  | Order Amount: #{number_to_currency @notification.contribution.gross_value('balanced-bankaccount')}
+  br
+  | Maturity Selected: #{l @notification.contribution.reward.happens_at, format: :long}
+  br
+  | Contribution Created at: #{l @notification.contribution.created_at, format: :long}
+p If you would like to contact a member of our team, send an email to patrick@neighbor.ly.
+p If you have any other questions, please access our FAQ.
+p The #{Configuration[:company_name]} Team

@@ -54,7 +54,7 @@ class BrokerageAccountsController < ApplicationController
   def after_save_url
     @after_save_url ||= if session[:contribution_id]
       route_params = {
-        project_id: contribution.project_id,
+        project_id: contribution.project.permalink,
         id:         session[:contribution_id]
       }
       main_app.project_contribution_url(route_params)

@@ -3,12 +3,7 @@ class RewardDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def to_s
-    interest = if source.try(:interest_rate)
-      ' - ' + sprintf('%.4g%', source.interest_rate)
-    else
-      ''
-    end
-    source.happens_at.to_s + interest
+    source.happens_at.to_s
   end
 
   def display_remaining
