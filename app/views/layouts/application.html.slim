@@ -46,6 +46,8 @@ body
     = render 'layouts/header', fixed: true
   = flash_messages
   = yield
+  - if !(controller.controller_name == 'projects' && controller.action_name == 'index') && !current_user.present?
+    = render 'layouts/sign_up_footer'
   = render 'layouts/footer'
   = yield :modals
 
