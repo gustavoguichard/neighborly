@@ -70,9 +70,6 @@ gem 'geocoder'
 gem 'as_csv', require: 'as_csv', github: 'Irio/as_csv', branch: 'localization-of-headers'
 gem 'gctools', '~> 0.2.3'
 
-# Payment
-gem 'httpclient', '>= 2.2.5'
-
 # Caching
 gem 'dalli'
 
