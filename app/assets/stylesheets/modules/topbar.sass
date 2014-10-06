@@ -26,109 +26,31 @@
       @media #{$medium}
         padding: +emCalc(0, 20px)
 
-      i
-        color: $topbar-icon-color
-        padding-right: +emCalc(8px)
-        font-size: 120%
-
     li
       a
         text-transform: uppercase
-      i
-        display: none
-        @media #{$medium}
-          display: inline-block
 
-      &.search-box
-        i
-          display: inline-block
+      &.user-action
+        .user-profile
+          i
+            display: none
 
-      &.user-action, &.search-box
-        img.profile-picture
-          width: 13px
-          height: 13px
+        .profile-picture
+          width: 25px
+          height: 25px
           border-radius: 50%
-
-      &.search-box
-        +clearfix
-        margin: +emCalc(5px, 20px, 20px, 20px)
-        padding: 8px 9px 8px 13px
-        border-radius: +emCalc(20px)
-        background: $topbar-bg-highlight
-
-        a
-          padding: 0
-          background: none
-          display: block
-          float: right
-
-        i
-          color: $primary-color
-
-        form
-          display: inline
-
-          input
-            display: inline-block
-            float: left
-            width: 93%
-            top: 0
-            padding: 0
-            padding-top: +emCalc(5px)
-            border: none
-            background: none
-            color: white
-            box-shadow: none
-            height: auto
-            font-size: 85%
-
-            &.show
-              display: inline
-
-            &:focus
-              box-shadow: none
-
-            &[type=submit]
-              display: none
+          border: 1px solid #fff
+          margin-top: -2px
+          margin-right: 5px
 
       @media #{$topbar-media-query}
-        &.search-box
+        &.user-action
+          margin-top: +emCalc(40px)
           margin-left: +emCalc(10px)
-          margin-right: 0
-
-          form input
-            width: +emCalc(100px)
-            display: none
-            padding-top: 0
-            line-height: +emCalc(14px)
-
-        &.user-action, &.search-box
-          margin-top: +emCalc(30px)
           font-size: 90%
-          background: $topbar-bg-highlight
 
           &.sign-out
             display: none
-
-          &.radius-left
-            border-top-left-radius: +emCalc(20px)
-            border-bottom-left-radius: +emCalc(20px)
-            padding-right: 0
-            padding-left: +emCalc(15px)
-
-          &.radius-right
-            border-top-right-radius: +emCalc(20px)
-            border-bottom-right-radius: +emCalc(20px)
-            padding-left: 0
-            padding-right: +emCalc(15px)
-          &.radius-left.radius-right
-            padding-right: +emCalc(15px)
-            padding-left: +emCalc(15px)
-          &.with-divider
-            a:after
-              content: '|'
-              color: white
-              margin: +emCalc(0, 7px)
 
           a
             line-height: normal !important
@@ -139,15 +61,29 @@
               color: white
               &:hover
                 color: darken(white, 10%)
-
-            &.sign-up, &.sign-out
-              color: $primary-color
+              i
+                display: inline-block
+                position: relative
+                top: -3px
+                margin-left: 5px
 
             &.user-profile
               text-transform: none
 
-        &.user-action
+    @media #{$topbar-media-query}
+      .sign-up, .sign-in
+        margin-left: +emCalc(15px)
+
+        a
           padding: +emCalc(10px)
+          margin-top: +emCalc(35px)
+          line-height: normal
+          border: 1px solid $primary-color
+          border-radius: $global-radius
+
+      .sign-up
+        a
+          background: $primary-color
 
   #user-dropdown
     background: darken(desaturate($primary-color, 30%), 10%)
@@ -155,6 +91,7 @@
     border-radius: $global-radius
     font-size: 120%
     margin-top: +emCalc(8px)
+    min-width: +emCalc(120px)
     &.f-dropdown:before
       border-bottom-color: $primary-color
     &.f-dropdown:after

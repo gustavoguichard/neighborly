@@ -20,7 +20,7 @@
         color: white
         font-weight: 300
 
-    .sign-up
+    .sign-up-section
       margin-top: +emCalc(100px)
 
       a.button
@@ -103,7 +103,7 @@
           .user-action
             background: none
 
-        .main-menu, .search-box
+        .main-menu
           display: none
 
         .name
@@ -184,17 +184,15 @@
   .home-page
     .contain-to-grid
       .top-bar
-        .sign-up
-          background: $primary-color
-          margin-top: +emCalc(-10px)
-          padding: +emCalc(10px)
-          border-radius: $global-radius
-
-        .sign-up, .sign-in
-          color: #fff !important
-
         .sign-in
-          margin-left: +emCalc(15px)
+          a
+            background: transparent
+            border: none
+        .sign-up
+          a
+            border: none
+            &:hover
+              background: darken($primary-color, 10%)
 
         .user-profile
           padding: +emCalc(0, 15px)

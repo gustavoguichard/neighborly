@@ -3,12 +3,7 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
     .row
       ul.title-area
         li.name
-          h1
-            - if Rails.env.production?
-              - url = main_app.root_url(host: Configuration[:base_domain] || request.domain, protocol: 'http')
-            - else
-              - url = main_app.root_url
-            = link_to Configuration[:company_name], url
+          h1 = link_to Configuration[:company_name], main_app.root_url
 
         / Mobile thing
         li.toggle-topbar.menu-icon
@@ -16,26 +11,18 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
             span
 
       .top-bar-section
-        ul.left.main-menu
-          li
-            = link_to main_app.about_path do
-              i.icon-et-info-circled
-              = t('.about')
-          li
-            = link_to main_app.discover_path do
-              i.icon-et-map
-              = t('.discover')
-          /li
-            /= link_to main_app.start_path do
-              /i.icon-et-rocket
-              /= t('.start_campaign')
-
         ul.right
+          li.main-menu
+            = link_to t('.about'), main_app.about_path
+          li.main-menu
+            = link_to t('.discover'), main_app.discover_path
+              
           - if user_signed_in?
-            li.user-action.radius-left.radius-right
+            li.user-action
               = link_to main_app.edit_user_path(current_user), class: 'user-profile', data: { dropdown: 'user-dropdown' } do
-                = image_tag current_user.display_image, size: "18x18", class: 'profile-picture', alt: ''
-                |  Howdy, #{ current_user.first_name }!
+                = image_tag current_user.display_image, size: "25x25", class: 'profile-picture', alt: ''
+                = current_user.first_name
+                i.icon-fa-sort-down
 
               ul#user-dropdown.f-dropdown.hide-for-medium-down[data-dropdown-content]
                 li = link_to current_user.display_name, main_app.user_path(current_user)
@@ -69,16 +56,8 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
                     i.icon-et-cancel-squared
                     = t('.sign-out')
 
-            li.user-action.radius-right.sign-out = link_to t('.sign-out'), main_app.destroy_user_session_url(base_domain_with_https_url_params)
+            li.user-action.sign-out = link_to t('.sign-out'), main_app.destroy_user_session_url(base_domain_with_https_url_params)
 
           - else
-            li.user-action.radius-left.with-divider = link_to t('.sign-up'), main_app.new_user_registration_url(base_domain_with_https_url_params), class: 'sign-up'
-            li.user-action.radius-right = link_to t('.sign-in'), main_app.new_user_session_url(base_domain_with_https_url_params), class: 'sign-in'
-
-          li.search-box
-            = form_tag main_app.discover_path, method: 'GET', class: 'discover-form' do
-              = text_field_tag :search, nil, autocomplete: "off", value: params[:search], class: "discover-form-input #{'show' if params[:search].present?}", placeholder: 'Search...'
-              = submit_tag
-              = link_to '#search', class: 'search-button' do
-                i.icon-et-search
-                | &nbsp;
+            li.sign-up = link_to t('.sign-up'), main_app.new_user_registration_url(base_domain_with_https_url_params)
+            li.sign-in = link_to t('.sign-in'), main_app.new_user_session_url(base_domain_with_https_url_params)
