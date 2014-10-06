@@ -16,4 +16,3 @@
 //= require nprogress-pjax
 //= require nprogress-ajax
 //= require neighborly-balanced-bankaccount
-//= require neighborly-admin

@@ -40,8 +40,6 @@ Neighborly::Application.routes.draw do
     resources :emails, only: [ :index, :show ]
   end
 
-  mount Neighborly::Admin::Engine => '/admin/', as: :neighborly_admin
-
   root to: 'projects#index'
 
   # Static Pages
