@@ -31,40 +31,26 @@
         text-transform: uppercase
 
       &.user-action
-        img.profile-picture
-          width: 13px
-          height: 13px
+        .user-profile
+          i
+            display: none
+
+        .profile-picture
+          width: 25px
+          height: 25px
           border-radius: 50%
+          border: 1px solid #fff
+          margin-top: -2px
+          margin-right: 5px
 
       @media #{$topbar-media-query}
         &.user-action
-          margin-top: +emCalc(30px)
+          margin-top: +emCalc(40px)
           margin-left: +emCalc(10px)
           font-size: 90%
-          background: $topbar-bg-highlight
 
           &.sign-out
             display: none
-
-          &.radius-left
-            border-top-left-radius: +emCalc(20px)
-            border-bottom-left-radius: +emCalc(20px)
-            padding-right: 0
-            padding-left: +emCalc(15px)
-
-          &.radius-right
-            border-top-right-radius: +emCalc(20px)
-            border-bottom-right-radius: +emCalc(20px)
-            padding-left: 0
-            padding-right: +emCalc(15px)
-          &.radius-left.radius-right
-            padding-right: +emCalc(15px)
-            padding-left: +emCalc(15px)
-          &.with-divider
-            a:after
-              content: '|'
-              color: white
-              margin: +emCalc(0, 7px)
 
           a
             line-height: normal !important
@@ -75,12 +61,14 @@
               color: white
               &:hover
                 color: darken(white, 10%)
+              i
+                display: inline-block
+                position: relative
+                top: -3px
+                margin-left: 5px
 
             &.user-profile
               text-transform: none
-
-        &.user-action
-          padding: +emCalc(10px)
 
     @media #{$topbar-media-query}
       .sign-up, .sign-in
@@ -92,6 +80,7 @@
           line-height: normal
           border: 1px solid $primary-color
           border-radius: $global-radius
+
       .sign-up
         a
           background: $primary-color
@@ -102,6 +91,7 @@
     border-radius: $global-radius
     font-size: 120%
     margin-top: +emCalc(8px)
+    min-width: +emCalc(120px)
     &.f-dropdown:before
       border-bottom-color: $primary-color
     &.f-dropdown:after

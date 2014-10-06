@@ -18,10 +18,11 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
             = link_to t('.discover'), main_app.discover_path
               
           - if user_signed_in?
-            li.user-action.radius-left.radius-right
+            li.user-action
               = link_to main_app.edit_user_path(current_user), class: 'user-profile', data: { dropdown: 'user-dropdown' } do
-                = image_tag current_user.display_image, size: "18x18", class: 'profile-picture', alt: ''
-                |  Howdy, #{ current_user.first_name }!
+                = image_tag current_user.display_image, size: "25x25", class: 'profile-picture', alt: ''
+                = current_user.first_name
+                i.icon-fa-sort-down
 
               ul#user-dropdown.f-dropdown.hide-for-medium-down[data-dropdown-content]
                 li = link_to current_user.display_name, main_app.user_path(current_user)
@@ -55,7 +56,7 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
                     i.icon-et-cancel-squared
                     = t('.sign-out')
 
-            li.user-action.radius-right.sign-out = link_to t('.sign-out'), main_app.destroy_user_session_url(base_domain_with_https_url_params)
+            li.user-action.sign-out = link_to t('.sign-out'), main_app.destroy_user_session_url(base_domain_with_https_url_params)
 
           - else
             li.sign-up = link_to t('.sign-up'), main_app.new_user_registration_url(base_domain_with_https_url_params)
