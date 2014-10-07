@@ -55,7 +55,7 @@ puts 'Creating State entries...'
   [name: 'Wisconsin', acronym: 'WI'],
   [name: 'Wyoming', acronym: 'WY'],
   [name: 'Washington', acronym: 'DC']].each do |item|
-    State.create! item
+    State.create item
   end
 
 puts '---------------------------------------------'
@@ -65,7 +65,7 @@ puts 'Creating OauthProvider entries...'
 
   categories = %w{facebook twitter linkedin}
   categories.each do |name|
-    OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
+    OauthProvider.create name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
   end
 
 puts '---------------------------------------------'
@@ -76,7 +76,7 @@ puts 'Creating Category entries...'
 
   categories = %w{Transit Bicycling Technology Entertainment Sports Recreation Schools Streetscapes Environment Restoration Event Mobility}
   categories.each do |c|
-    Category.create! name: c
+    Category.create name: c
   end
 
 puts '---------------------------------------------'
