@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Webhook::EventSenderWorker do
   let(:event) do
     Webhook::Event.create(serialized_record: { testing: true },
-                          kind: 'created')
+                          kind: 'user.created')
   end
 
   before do
@@ -14,7 +14,7 @@ describe Webhook::EventSenderWorker do
 
   it 'satisfies expectations' do
     expect(Webhook::EventSender).to receive(:new).with(event.id).and_call_original
-    expect_any_instance_of(Webhook::EventSender).to receive(:send)
+    expect_any_instance_of(Webhook::EventSender).to receive(:send_request)
     perform_async
   end
 end

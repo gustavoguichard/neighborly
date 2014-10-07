@@ -4,7 +4,7 @@ module Webhook
     sidekiq_options retry: 2
 
     def perform(event_id)
-      EventSender.new(event_id).send
+      EventSender.new(event_id).send_request
     end
   end
 end
