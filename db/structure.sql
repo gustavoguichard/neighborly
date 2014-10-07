@@ -380,11 +380,9 @@ ALTER SEQUENCE brokerage_accounts_id_seq OWNED BY brokerage_accounts.id;
 
 CREATE TABLE categories (
     id integer NOT NULL,
-    name_pt text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name_en character varying(255),
-    CONSTRAINT categories_name_not_blank CHECK ((length(btrim(name_pt)) > 0))
+    name character varying(255) NOT NULL
 );
 
 
@@ -1589,118 +1587,6 @@ ALTER SEQUENCE states_id_seq OWNED BY states.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    email text,
-    name text,
-    nickname text,
-    bio text,
-    image_url text,
-    newsletter boolean DEFAULT false,
-    project_updates boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    admin boolean DEFAULT false,
-    full_name text,
-    address_street text,
-    address_number text,
-    address_complement text,
-    address_neighborhood text,
-    address_city text,
-    address_state text,
-    address_zip_code text,
-    phone_number text,
-    locale text DEFAULT 'pt'::text NOT NULL,
-    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    twitter_url character varying(255),
-    facebook_url character varying(255),
-    other_url character varying(255),
-    uploaded_image text,
-    state_inscription character varying(255),
-    profile_type character varying(255),
-    linkedin_url character varying(255),
-    confirmation_token character varying(255),
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying(255),
-    new_project boolean DEFAULT false,
-    latitude double precision,
-    longitude double precision,
-    completeness_progress integer DEFAULT 0,
-    bonds_early_adopter boolean DEFAULT false NOT NULL,
-    referrer_id integer,
-    referral_code character varying(255),
-    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
-);
-
-
---
--- Name: statistics; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW statistics AS
- SELECT ( SELECT count(*) AS count
-           FROM users) AS total_users,
-    ( SELECT count(*) AS count
-           FROM users
-          WHERE ((users.profile_type)::text = 'organization'::text)) AS total_organization_users,
-    ( SELECT count(*) AS count
-           FROM users
-          WHERE ((users.profile_type)::text = 'personal'::text)) AS total_personal_users,
-    ( SELECT count(*) AS count
-           FROM ( SELECT DISTINCT projects.address_city,
-                    projects.address_state
-                   FROM projects) count) AS total_communities,
-    contributions_totals.total_contributions,
-    contributions_totals.total_contributors,
-    contributions_totals.total_contributed,
-    projects_totals.total_projects,
-    projects_totals.total_projects_success,
-    projects_totals.total_projects_online,
-    projects_totals.total_projects_draft,
-    projects_totals.total_projects_soon
-   FROM ( SELECT count(*) AS total_contributions,
-            count(DISTINCT contributions.user_id) AS total_contributors,
-            sum(contributions.value) AS total_contributed
-           FROM contributions
-          WHERE ((contributions.state)::text <> ALL (ARRAY[('waiting_confirmation'::character varying)::text, ('pending'::character varying)::text, ('canceled'::character varying)::text, 'deleted'::text]))) contributions_totals,
-    ( SELECT count(*) AS total_projects,
-            count(
-                CASE
-                    WHEN ((projects.state)::text = 'draft'::text) THEN 1
-                    ELSE NULL::integer
-                END) AS total_projects_draft,
-            count(
-                CASE
-                    WHEN ((projects.state)::text = 'soon'::text) THEN 1
-                    ELSE NULL::integer
-                END) AS total_projects_soon,
-            count(
-                CASE
-                    WHEN ((projects.state)::text = 'successful'::text) THEN 1
-                    ELSE NULL::integer
-                END) AS total_projects_success,
-            count(
-                CASE
-                    WHEN ((projects.state)::text = 'online'::text) THEN 1
-                    ELSE NULL::integer
-                END) AS total_projects_online
-           FROM projects
-          WHERE ((projects.state)::text <> ALL (ARRAY[('deleted'::character varying)::text, ('rejected'::character varying)::text]))) projects_totals;
-
-
---
 -- Name: taggings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1772,6 +1658,63 @@ CREATE TABLE total_backed_ranges (
     name text NOT NULL,
     lower numeric,
     upper numeric
+);
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email text,
+    name text,
+    nickname text,
+    bio text,
+    image_url text,
+    newsletter boolean DEFAULT false,
+    project_updates boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    admin boolean DEFAULT false,
+    full_name text,
+    address_street text,
+    address_number text,
+    address_complement text,
+    address_neighborhood text,
+    address_city text,
+    address_state text,
+    address_zip_code text,
+    phone_number text,
+    locale text DEFAULT 'pt'::text NOT NULL,
+    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    twitter_url character varying(255),
+    facebook_url character varying(255),
+    other_url character varying(255),
+    uploaded_image text,
+    state_inscription character varying(255),
+    profile_type character varying(255),
+    linkedin_url character varying(255),
+    confirmation_token character varying(255),
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying(255),
+    new_project boolean DEFAULT false,
+    latitude double precision,
+    longitude double precision,
+    completeness_progress integer DEFAULT 0,
+    bonds_early_adopter boolean DEFAULT false NOT NULL,
+    referrer_id integer,
+    referral_code character varying(255),
+    CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
 );
 
 
@@ -2022,14 +1965,6 @@ ALTER TABLE ONLY balanced_contributors
 
 ALTER TABLE ONLY brokerage_accounts
     ADD CONSTRAINT brokerage_accounts_pkey PRIMARY KEY (id);
-
-
---
--- Name: categories_name_unique; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY categories
-    ADD CONSTRAINT categories_name_unique UNIQUE (name_pt);
 
 
 --
@@ -2396,13 +2331,6 @@ CREATE INDEX index_balanced_contributors_on_user_id ON balanced_contributors USI
 --
 
 CREATE INDEX index_brokerage_accounts_on_user_id ON brokerage_accounts USING btree (user_id);
-
-
---
--- Name: index_categories_on_name_pt; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_categories_on_name_pt ON categories USING btree (name_pt);
 
 
 --
@@ -3372,4 +3300,10 @@ INSERT INTO schema_migrations (version) VALUES ('20141002145006');
 INSERT INTO schema_migrations (version) VALUES ('20141002194215');
 
 INSERT INTO schema_migrations (version) VALUES ('20141002211059');
+
+INSERT INTO schema_migrations (version) VALUES ('20141005171546');
+
+INSERT INTO schema_migrations (version) VALUES ('20141005185320');
+
+INSERT INTO schema_migrations (version) VALUES ('20141005191635');
 
