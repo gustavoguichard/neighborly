@@ -19,6 +19,8 @@ en:
         linkedin_url: 'http://linkedin.com/in/'
         twitter_url: 'http://twitter.com/'
     labels:
+      brokerage_account:
+        tax_id: 'Tax ID'
       contact:
         first_name: 'First Name'
         last_name: 'Last Name'

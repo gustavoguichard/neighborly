@@ -1,0 +1,31 @@
+h1 Order ##{@notification.contribution_id}
+
+h2 #{@notification.project.name} (##{@notification.project_id})
+p
+  | Amount: #{@notification.contribution.value}
+p
+  h3 Maturity
+  = l @notification.contribution.reward.happens_at
+  br
+  = number_to_currency @notification.contribution.reward.principal_amount
+  br
+  | #{@notification.contribution.reward.maturity.interest_rate}%
+  br
+  | #{@notification.contribution.reward.maturity.yield}%
+  br
+  = number_to_currency @notification.contribution.reward.price
+  br
+  = @notification.contribution.reward.cusip_number
+
+h2 User ##{@notification.contribution.user.id}
+p
+  | Name: #{@notification.contribution.user.brokerage_account.name}
+  br
+  | Address: #{@notification.contribution.user.brokerage_account.address}
+  br
+  | Tax ID:#{@notification.contribution.user.brokerage_account.tax_id}
+  br
+  | E-mail: #{@notification.contribution.user.brokerage_account.email}
+  br
+  | Phone: #{@notification.contribution.user.brokerage_account.phone}
+

@@ -108,5 +108,11 @@ puts 'Creating system users...'
   u.confirm!
   u.save
 
+  # User to receive order notifications
+  u = User.new email: Configuration[:email_new_order].dup, password: SecureRandom.hex(4), locale: :en
+  u.skip_confirmation!
+  u.confirm!
+  u.save
+
 puts '---------------------------------------------'
 puts 'Done!'

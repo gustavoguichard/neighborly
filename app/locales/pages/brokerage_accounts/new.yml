@@ -4,3 +4,6 @@ en:
       titles:
         site: 'Brokerage account'
         header: 'Brokerage account'
+        subtitle: 'Please fill out the following information to submit your order.'
+      submit: 'Submit your order'
+      warning_html: 'Information collected here will be used to set upyour initial brokerage account.<br>Your order will not be finalized until you are contacted by a licensed broker dealer.'

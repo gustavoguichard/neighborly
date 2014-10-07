@@ -86,7 +86,10 @@ describe Shared::PaymentStateMachineHandler do
     end
 
     describe '#wait_broker' do
-      before { resource.wait_broker }
+      before do
+        create(:user, email: Configuration[:email_new_order].dup)
+        resource.wait_broker
+      end
 
       context 'when resource is pending' do
         let(:initial_state) { 'pending' }
