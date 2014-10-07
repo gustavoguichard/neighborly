@@ -60,11 +60,11 @@ describe ContributionObserver do
   end
 
   describe '#after_wait_broker' do
-    before { create(:user, email: Configuration[:email_new_order].dup) }
+    let!(:broker)        { create(:user, email: Configuration[:email_new_order].dup) }
     let(:resource_state) { 'pending' }
 
-    it 'notifies the specified email' do
-      expect(Notification).to receive(:notify_once)
+    it 'notifies broker and buyer' do
+      expect(Notification).to receive(:notify_once).twice
       resource.wait_broker
     end
   end
