@@ -25,19 +25,19 @@ describe Webhook::EventRegister do
     end
 
     it 'serializes the record' do
-      expect_any_instance_of(Webhook::EventRegister).to receive(:serialized_record)
+      expect_any_instance_of(Webhook::EventRegister).to receive(:serialized_record).and_call_original
       described_class.new(record)
     end
 
     it 'calls the type method' do
-      expect_any_instance_of(Webhook::EventRegister).to receive(:type)
+      expect_any_instance_of(Webhook::EventRegister).to receive(:type).and_call_original
       described_class.new(record)
     end
   end
 
   describe '#serialized_record' do
     it 'uses EventRecordSerializer' do
-      expect(Webhook::EventRecordSerializer).to receive(:new).with(record, root: false)
+      expect(Webhook::EventRecordSerializer).to receive(:new).with(record, root: false).and_call_original
       described_class.new(record)
     end
   end
