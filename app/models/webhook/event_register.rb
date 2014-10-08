@@ -6,7 +6,8 @@ module Webhook
   class EventRegister
     def initialize(record, created: false)
       @record, @created = record, created
-      Event.create(serialized_record: serialized_record, kind: type)
+      event = Event.create(serialized_record: serialized_record, kind: type)
+      EventSenderWorker.perform_async(event.id)
     end
 
     def serialized_record

@@ -15,7 +15,12 @@ describe Webhook::EventRegister do
 
   describe '.initialize' do
     it 'creates a Event record' do
-      expect(Webhook::Event).to receive(:create)
+      expect(Webhook::Event).to receive(:create).and_call_original
+      described_class.new(record)
+    end
+
+    it 'calls the worker' do
+      expect(Webhook::EventSenderWorker).to receive(:perform_async)
       described_class.new(record)
     end
 
