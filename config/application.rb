@@ -51,6 +51,7 @@ module Neighborly
       payment_observer
       project_observer
       user_observer
+      neighborly/balanced/contributor_observer
     )
 
     # Enable the asset pipeline
