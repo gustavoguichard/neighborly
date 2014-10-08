@@ -9,6 +9,8 @@ class UserObserver < ActiveRecord::Observer
     if just_created?(user)
       welcome_user(user)
     end
+
+    Webhook::EventRegister.new(user, created: just_created?(user))
   end
 
   def before_create(user)
