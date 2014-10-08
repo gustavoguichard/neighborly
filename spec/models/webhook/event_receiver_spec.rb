@@ -4,11 +4,13 @@ describe Webhook::EventReceiver do
   let(:user)           { FactoryGirl.create(:user) }
   let(:record_source)  { user }
   let(:event)          { Webhook::EventRegister.new(record_source).event }
-  subject              { described_class.new(params) }
+  subject              { described_class.new(request_params) }
+  let(:params)         { subject.params }
 
-  let!(:params) do
-    Webhook::EventSender.new(event.id).request_params.with_indifferent_access
+  let!(:request_params) do
+    Webhook::EventSender.new(event.id).request_params
   end
+
 
   describe '#process_request' do
     it 'raises error when request is invalid' do

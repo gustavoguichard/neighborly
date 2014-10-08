@@ -38,7 +38,7 @@ describe Webhook::EventSender do
         and_return('1234')
 
       expect(subject.request_params).to eq({
-        record: event.serialized_record,
+        record: event.serialized_record.to_json,
         type: event.kind,
         authentication_key: '1234'
       })

@@ -12,7 +12,7 @@ module Webhook
 
     def request_params
       {
-        record: event.serialized_record,
+        record: event.serialized_record.to_json,
         type: event.kind,
         authentication_key: generate_authentication_key
       }

@@ -8,6 +8,9 @@ module Webhook
 
     def initialize(params)
       @params = params
+      if params[:record].present?
+        @params[:record] = ActiveSupport::JSON.decode(params[:record].to_s).with_indifferent_access
+      end
     end
 
     def process_request
