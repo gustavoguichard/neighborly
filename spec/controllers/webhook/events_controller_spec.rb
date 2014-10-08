@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Webhook::EventsController do
-
   describe '#create' do
     it 'instantiates a new EventReceiver object' do
       allow_any_instance_of(Webhook::EventReceiver).to receive(:process_request)

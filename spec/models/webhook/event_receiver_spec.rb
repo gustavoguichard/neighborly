@@ -11,7 +11,6 @@ describe Webhook::EventReceiver do
     Webhook::EventSender.new(event.id).request_params
   end
 
-
   describe '#process_request' do
     it 'raises error when request is invalid' do
       params[:record].merge!({ a: 1 })
