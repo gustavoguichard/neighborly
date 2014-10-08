@@ -34,7 +34,7 @@ describe Webhook::EventSender do
 
   describe '#request_params' do
     it 'returns a hash with the record, type and authentication key' do
-      allow_any_instance_of(Webhook::EventSender).to receive(:authentication_key).
+      allow_any_instance_of(Webhook::EventSender).to receive(:generate_authentication_key).
         and_return('1234')
 
       expect(subject.request_params).to eq({
@@ -45,8 +45,19 @@ describe Webhook::EventSender do
     end
   end
 
-  describe '#authentication_key' do
-    # to be implemented
+  describe '#generate_authentication_key' do
+    it 'generates a key using OpenSSL' do
+      expect(OpenSSL::HMAC).to receive(:hexdigest).with(
+        OpenSSL::Digest::SHA256.new,
+        Configuration[:webhook_secret_key],
+        event.serialized_record.to_s
+      )
+      subject.generate_authentication_key
+    end
+
+    it 'returns a key' do
+      expect(subject.generate_authentication_key).not_to be_nil
+    end
   end
 
   describe '#webhook_url' do

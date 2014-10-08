@@ -14,12 +14,14 @@ module Webhook
       {
         record: event.serialized_record,
         type: event.kind,
-        authentication_key: authentication_key
+        authentication_key: generate_authentication_key
       }
     end
 
-    def authentication_key
-      # to be implemented
+    def generate_authentication_key
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new,
+                              Configuration[:webhook_secret_key],
+                              event.serialized_record.to_s)
     end
 
     def webhook_url
