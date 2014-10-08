@@ -19,7 +19,7 @@ module Webhook
     def type
       action = @created ? 'created' : 'updated'
 
-      [@record.class.model_name.i18n_key, action].join('.')
+      [@record.class.model_name.param_key, action].join('.')
     end
   end
 end
