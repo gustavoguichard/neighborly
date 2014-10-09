@@ -1,22 +1,9 @@
-=keyframes($animation-name)
-  @-webkit-keyframes #{$animation-name}
-    @content
-
-  @-moz-keyframes #{$animation-name}
-    @content
-
-  @-o-keyframes #{$animation-name}
-    @content
-
-  @keyframes #{$animation-name}
-    @content
-
-=icon-animation($animation-name)
-  -webkit-animation: $animation-name 2s linear forwards
-  -moz-animation: $animation-name 2s linear forwards
-  -ms-animation: $animation-name 2s linear forwards
-  -o-animation: $animation-name 2s linear forwards
-  animation: $animation-name 2s linear forwards
+= vendor-prefix($name, $argument)
+  -webkit-#{$name}: #{$argument}
+  -ms-#{$name}: #{$argument}
+  -moz-#{$name}: #{$argument}
+  -o-#{$name}: #{$argument}
+  #{$name}: #{$argument}
 
 .home-page
   section.built-by-people
@@ -49,6 +36,7 @@
         position: relative
         display: inline-block
         margin: +emCalc(0, 20px)
+        +vendor-prefix(transition, all 1.8s cubic-bezier(0.190, 1.000, 0.220, 1.000))
 
         &.start
           margin-left: 0
@@ -85,83 +73,18 @@
           opacity: 1
 
         .icon._1
-          +icon-animation(icon-move-right)
+          +vendor-prefix(transform, translate(152px, 0))
 
         .icon._2
-          +icon-animation(icon-move-right-and-disappear)
+          +vendor-prefix(transform, translate(152px, 0))
+          opacity: 0
 
         .icon._3
-          +icon-animation(icon-disappear )
+          opacity: 0
 
         .icon._4, .icon._5
-          +icon-animation(icon-move-left-and-disappear)
+          +vendor-prefix(transform, translate(-152px, 0))
+          opacity: 0
 
         .icon._6, .icon._7
-          +icon-animation(icon-appear)
-
-+keyframes(icon-move-right)
-  50%
-    -webkit-transform: translate(152px, 0)
-    -moz-transform: translate(152px, 0)
-    -ms-transform: translate(152px, 0)
-    -o-transform: translate(152px, 0)
-    transform: translate(152px, 0)
-  100%
-    -webkit-transform: translate(152px, 0)
-    -moz-transform: translate(152px, 0)
-    -ms-transform: translate(152px, 0)
-    -o-transform: translate(152px, 0)
-    transform: translate(152px, 0)
-
-
-
-+keyframes(icon-move-right-and-disappear)
-  0%
-    opacity: 1
-  50%
-    -webkit-transform: translate(152px, 0)
-    -moz-transform: translate(152px, 0)
-    -ms-transform: translate(152px, 0)
-    -o-transform: translate(152px, 0)
-    transform: translate(152px, 0)
-    opacity: 1
-  100%
-    opacity: 0
-    -webkit-transform: translate(152px, 0)
-    -moz-transform: translate(152px, 0)
-    -ms-transform: translate(152px, 0)
-    -o-transform: translate(152px, 0)
-    transform: translate(152px, 0)
-
-+keyframes(icon-disappear)
-  0%
-    opacity: 1
-  20%
-    opacity: 1
-  60%
-    opacity: 0
-
-+keyframes(icon-move-left-and-disappear)
-  0%
-    opacity: 1
-  50%
-    -webkit-transform: translate(-152px, 0)
-    -moz-transform: translate(-152px, 0)
-    -ms-transform: translate(-152px, 0)
-    -o-transform: translate(-152px, 0)
-    transform: translate(-152px, 0)
-  100%
-    opacity: 0
-    -webkit-transform: translate(-152px, 0)
-    -moz-transform: translate(-152px, 0)
-    -ms-transform: translate(-152px, 0)
-    -o-transform: translate(-152px, 0)
-    transform: translate(-152px, 0)
-
-+keyframes(icon-appear)
-  0%
-    opacity: 0
-  30%
-    opacity: 0
-  80%
-    opacity: 1
+          opacity: 1
