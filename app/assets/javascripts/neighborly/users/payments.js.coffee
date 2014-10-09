@@ -14,3 +14,6 @@ Neighborly.Users.Payments =
           $.get($account.data('path')).success (data) =>
             $account.html data
             Initjs.initializePartial()
+
+            $('.use-existing-item input:not(#payment_show_bank_existing)')
+              .attr('disabled', '1')
