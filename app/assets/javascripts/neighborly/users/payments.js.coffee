@@ -17,3 +17,5 @@ Neighborly.Users.Payments =
 
             $('.use-existing-item input:not(#payment_show_bank_existing)')
               .attr('disabled', '1')
+
+            $('#payment_show_bank_existing').click()
