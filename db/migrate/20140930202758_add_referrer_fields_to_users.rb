@@ -10,7 +10,7 @@ class AddReferrerFieldsToUsers < ActiveRecord::Migration
         users = User.where(referral_code: nil) +
           User.where(referral_code: '')
         users.each do |user|
-          user.update_attributes(referral_code: SecureRandom.urlsafe_base64)
+          user.update_attribute(:referral_code, SecureRandom.urlsafe_base64)
         end
       end
     end
