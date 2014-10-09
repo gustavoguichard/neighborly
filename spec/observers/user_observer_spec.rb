@@ -43,6 +43,12 @@ describe UserObserver do
       #end
     #end
 
+    it 'calls Webhook::EventRegister' do
+      subject = create(:user)
+      expect(Webhook::EventRegister).to receive(:new).with(subject, created: true)
+      subject.run_callbacks(:commit)
+    end
+
     context 'when the user is with temporary email' do
       it 'does not send to worker' do
         subject = create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly")

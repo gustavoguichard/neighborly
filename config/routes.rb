@@ -2,6 +2,8 @@ require 'sidekiq/web'
 
 Neighborly::Application.routes.draw do
 
+  post :hooks, to: 'webhook/events#create'
+
   devise_for :users, path: '',
     path_names:  {
       sign_in:  :login,
