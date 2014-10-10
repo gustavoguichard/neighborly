@@ -72,10 +72,7 @@ class Project < ActiveRecord::Base
   # Used to simplify a has_scope
   scope :active, ->{ with_state('online') }
   scope :successful, ->{ with_state('successful') }
-  scope :by_id, ->(id) { where(id: id) }
   scope :find_by_permalink!, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p).first! }
-  scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
-  scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
   scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
   scope :visible, -> { without_states(['draft', 'rejected', 'deleted']) }
   scope :recommended, -> { where(recommended: true) }
@@ -113,11 +110,6 @@ class Project < ActiveRecord::Base
     if self.site.present?
       self.site = "http://#{self.site}" if not self.site[0..6] == 'http://' and not self.site[0..7] == 'https://'
     end
-  end
-
-  def self.between_created_at(start_at, ends_at)
-    return all unless start_at.present? && ends_at.present?
-    where("created_at between to_date(?, 'dd/mm/yyyy') and to_date(?, 'dd/mm/yyyy')", start_at, ends_at)
   end
 
   def subscribed_users
