@@ -2,7 +2,8 @@
   .row
     .large-12.columns
       .name
-        h3 = @project.name
+        h3
+          strong = @project.name
         p
           | Issued by 
           = @project.user.display_name
