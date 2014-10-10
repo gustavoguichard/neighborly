@@ -27,7 +27,7 @@ Neighborly.Payment = Backbone.View.extend
           offset: {
             top: '-100px'
             bottom: ->
-              return (this.bottom = $('footer').outerHeight(true) + 65)
+              return (this.bottom = $('footer').outerHeight(true) + 40)
           }
         })
 
