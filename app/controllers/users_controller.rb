@@ -1,6 +1,6 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  after_filter :verify_authorized, except: :show
+  after_filter :verify_authorized, except: [:show, :my_spot]
 
   def show
     @user = resource
@@ -94,6 +94,8 @@ class UsersController < ApplicationController
     end
     return redirect_to settings_user_path(@user)
   end
+
+  def my_spot; end
 
   private
 

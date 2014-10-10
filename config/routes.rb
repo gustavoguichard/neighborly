@@ -23,8 +23,6 @@ Neighborly::Application.routes.draw do
     post  '/sign_up', to: 'registrations#create', as: :sign_up
   end
 
-  get '/my-spot' => "static#my_spot", as: :my_spot
-
   check_user_admin = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.admin }
 
   # Mountable engines
@@ -107,6 +105,8 @@ Neighborly::Application.routes.draw do
   end
 
   resources :users, path: 'neighbors' do
+    get '/my-spot' => "users#my_spot", as: :my_spot
+
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
     resources :contributions, controller: 'users/contributions', only: [:index]
