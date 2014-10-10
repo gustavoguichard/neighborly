@@ -202,6 +202,38 @@ CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
 
 
 --
+-- Name: access_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_codes (
+    id integer NOT NULL,
+    code character varying(255),
+    max_users integer DEFAULT 1,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: access_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_codes_id_seq OWNED BY access_codes.id;
+
+
+--
 -- Name: activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1714,6 +1746,8 @@ CREATE TABLE users (
     bonds_early_adopter boolean DEFAULT false NOT NULL,
     referrer_id integer,
     referral_code character varying(255),
+    beta boolean DEFAULT false,
+    access_code_id integer,
     CONSTRAINT users_bio_length_within CHECK (((length(bio) >= 0) AND (length(bio) <= 140)))
 );
 
@@ -1735,6 +1769,45 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: webhook_events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE webhook_events (
+    id integer NOT NULL,
+    serialized_record hstore,
+    kind character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: webhook_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE webhook_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: webhook_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE webhook_events_id_seq OWNED BY webhook_events.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_codes ALTER COLUMN id SET DEFAULT nextval('access_codes_id_seq'::regclass);
 
 
 --
@@ -1917,6 +1990,21 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY webhook_events ALTER COLUMN id SET DEFAULT nextval('webhook_events_id_seq'::regclass);
+
+
+--
+-- Name: access_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_codes
+    ADD CONSTRAINT access_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -2152,6 +2240,14 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: webhook_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY webhook_events
+    ADD CONSTRAINT webhook_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fk__activities_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2268,6 +2364,13 @@ CREATE INDEX fk__taggings_project_id ON taggings USING btree (project_id);
 --
 
 CREATE INDEX fk__taggings_tag_id ON taggings USING btree (tag_id);
+
+
+--
+-- Name: fk__users_access_code_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk__users_access_code_id ON users USING btree (access_code_id);
 
 
 --
@@ -2697,6 +2800,14 @@ ALTER TABLE ONLY taggings
 
 ALTER TABLE ONLY taggings
     ADD CONSTRAINT fk_taggings_tag_id FOREIGN KEY (tag_id) REFERENCES tags(id);
+
+
+--
+-- Name: fk_users_access_code_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_users_access_code_id FOREIGN KEY (access_code_id) REFERENCES access_codes(id);
 
 
 --
@@ -3306,4 +3417,12 @@ INSERT INTO schema_migrations (version) VALUES ('20141005171546');
 INSERT INTO schema_migrations (version) VALUES ('20141005185320');
 
 INSERT INTO schema_migrations (version) VALUES ('20141005191635');
+
+INSERT INTO schema_migrations (version) VALUES ('20141007210436');
+
+INSERT INTO schema_migrations (version) VALUES ('20141009230817');
+
+INSERT INTO schema_migrations (version) VALUES ('20141009231956');
+
+INSERT INTO schema_migrations (version) VALUES ('20141009232040');
 
