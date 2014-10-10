@@ -1,6 +1,7 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  after_filter :verify_authorized, except: :show
+  after_filter :verify_authorized, except: [:show, :my_spot]
+  before_action :authenticate_user!, only: :my_spot
 
   def show
     @user = resource
@@ -93,6 +94,27 @@ class UsersController < ApplicationController
       flash.alert  = @user.errors.full_messages.to_sentence
     end
     return redirect_to settings_user_path(@user)
+  end
+
+  def my_spot; end
+
+  def validate_access_code
+    user = User.find(params[:user_id])
+    authorize user
+    access_code = AccessCode.find_by(code: params[:code])
+    if access_code
+      if access_code.still_valid?
+        user.update_attributes(beta: true, access_code: access_code)
+        flash.notice = 'Access Code Accepted. Welcome to the beta!'
+        redirect_to root_path
+      else
+        flash.alert = 'This access code is not valid anymore.'
+      redirect_to user_my_spot_path(user)
+      end
+    else
+      flash.alert = 'Access Code Not Found'
+      redirect_to user_my_spot_path(user)
+    end
   end
 
   private

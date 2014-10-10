@@ -1,0 +1,37 @@
+.my-spot
+  padding-top: +emCalc(50px)
+  text-align: center
+  background: image-url('rosette.png') center top no-repeat
+  h2
+    text-transform: uppercase
+  h3
+    border: 1px solid $border-color
+    border-left: none
+    border-right: none
+    padding: +emCalc(15px, 0)
+    margin: +emCalc(25px, 0)
+  .share
+    .button
+      width: 100%
+
+  p
+    font-size: 120%
+    span
+      color: $primary-color
+
+.access-code
+  .code
+    height: 45px
+  .button
+    width: 100%
+    border: none
+    height: 45px
+
+@media #{$medium}
+  .access-code
+    .code
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+    .button
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
