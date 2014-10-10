@@ -191,4 +191,8 @@ FactoryGirl.define do
     tax_id  '123-45-6789'
     user
   end
+
+  factory :access_code do
+    code 'asdf'
+  end
 end

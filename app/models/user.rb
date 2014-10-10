@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
   has_one :investment_prospect, dependent: :destroy
   has_one :brokerage_account, dependent: :destroy
+  belongs_to :access_code
 
   accepts_nested_attributes_for :authorizations
   accepts_nested_attributes_for :organization
