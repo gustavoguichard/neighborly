@@ -51,6 +51,7 @@ module Neighborly
       payment_observer
       project_observer
       user_observer
+      organization_observer
       neighborly/balanced/contributor_observer
     )
 

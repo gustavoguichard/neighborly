@@ -10,4 +10,11 @@ describe AuthorizationObserver do
     user.reload
     expect(user.facebook_url).to be_nil
   end
+
+  describe '#after_commit' do
+    it 'calls Webhook::EventRegister' do
+      expect(Webhook::EventRegister).to receive(:new).with(authorization, created: true)
+      authorization.run_callbacks(:commit)
+    end
+  end
 end

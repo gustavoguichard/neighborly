@@ -2,7 +2,16 @@ module Webhook
   class UnauthenticatedRequest < RuntimeError; end
 
   class EventReceiver
-    EVENTS = ['user.created', 'user.updated', 'contributor.created', 'contributor.updated']
+    EVENTS = [
+      'authorization.created',
+      'contributor.created',
+      'organization.created',
+      'user.created',
+      'authorization.updated',
+      'contributor.updated',
+      'organization.updated',
+      'user.updated'
+    ]
 
     attr_accessor :params
 
@@ -16,51 +25,11 @@ module Webhook
     def process_request
       if valid_request?
         if EVENTS.include?(params[:type])
-          send(params[:type].sub('.', '_'), params[:record])
+          EventProcessor.new(params[:record]).send(params[:type].sub('.', '_'))
         end
       else
         raise UnauthenticatedRequest
       end
-    end
-
-    private
-
-    def user_updated(record)
-      user = User.find(record.delete(:id))
-
-      user.update_columns(user_attributes(record)) if user
-    end
-
-    def user_created(record)
-      User.observers.disable :all do
-        user = User.new(user_attributes(record))
-        user.referral_code = SecureRandom.urlsafe_base64
-
-        user.save(validate: false)
-      end
-    end
-
-    def contributor_updated(record)
-      contributor = Neighborly::Balanced::Contributor.find(record.delete(:id))
-
-      contributor.update_columns(contributor_attributes(record)) if contributor
-    end
-
-    def contributor_created(record)
-      Neighborly::Balanced::Contributor.observers.disable :all do
-        contributor = Neighborly::Balanced::Contributor.new(contributor_attributes(record))
-        contributor.save(validate: false)
-      end
-    end
-
-    def user_attributes(raw_parameters)
-      parameters = ActionController::Parameters.new(raw_parameters)
-      parameters.permit(User.attribute_names.map(&:to_sym))
-    end
-
-    def contributor_attributes(raw_parameters)
-      parameters = ActionController::Parameters.new(raw_parameters)
-      parameters.permit(Neighborly::Balanced::Contributor.attribute_names.map(&:to_sym))
     end
 
     def valid_request?
