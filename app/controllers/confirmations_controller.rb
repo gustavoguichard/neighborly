@@ -15,7 +15,8 @@ class ConfirmationsController < Devise::ConfirmationsController
     if resource.valid?
       resource.confirm!
       set_flash_message :notice, :confirmed
-      sign_in_and_redirect resource_name, resource
+      sign_in resource, bypass: true
+      redirect_to after_sign_in_path_for(:user)
     else
       render 'show'
     end
