@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   private
 
   def initialize_analytics
-    user_level = if current_user
+    user_level = if user_signed_in?
       if current_user.admin
         'Administrator'
       elsif current_user.beta
