@@ -89,14 +89,6 @@ class User < ActiveRecord::Base
     contributions.with_state('confirmed').not_anonymous.count
   end
 
-  def projects_led
-    projects.visible.not_soon
-  end
-
-  def total_led
-    projects_led.count
-  end
-
   def password_required?
     if bonds_early_adopter?
       persisted?
