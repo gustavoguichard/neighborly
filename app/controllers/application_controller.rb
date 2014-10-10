@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_action :store_referral_code
+  before_action :initialize_analytics, :store_referral_code
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
@@ -20,6 +20,24 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def initialize_analytics
+    user_level = if current_user
+      if current_user.admin
+        'Administrator'
+      elsif current_user.beta
+        'MVP Beta User'
+      else
+        'Normal user'
+      end
+    else
+      'Anonymous'
+    end
+
+    @analytics = {
+      user_level: user_level
+    }
+  end
 
   def store_referral_code
     session[:referral_code] ||= params[:ref]
