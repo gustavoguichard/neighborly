@@ -16,7 +16,6 @@
       .large-8.columns
         h3= t('.communication_preferences')
         = f.input :newsletter
-        = f.input :new_project
         p = f.button :submit, t('.update_communication_preferences'), data: { disable_with: t('words.sending') }
 
 - if request.xhr?
