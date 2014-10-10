@@ -113,7 +113,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'weekdays'
   gem 'fakeweb', require: false
   gem 'launchy'
   gem 'database_cleaner'

@@ -15,8 +15,3 @@ desc 'Move to deleted state all contributions that are in pending for one hour'
 task :move_pending_contributions_to_trash => [:environment] do
   Contribution.where("state in('pending') and created_at + interval '1 hour' <  ?", Time.current).update_all({state: 'deleted'})
 end
-
-desc 'Cancel all waiting_confirmation contributions that is passed 4 weekdays'
-task :cancel_expired_waiting_confirmation_contributions => :environment do
-  Contribution.can_cancel.update_all(state: 'canceled')
-end

@@ -73,25 +73,6 @@ describe Contribution do
     end
   end
 
-  describe '.can_cancel' do
-    subject { Contribution.can_cancel}
-
-    context 'when contribution is in time to wait the confirmation' do
-      before do
-        create(:contribution, state: 'waiting_confirmation', created_at: 3.weekdays_ago)
-      end
-      it { should have(0).item }
-    end
-
-    context 'when we have contributions that is passed the confirmation time' do
-      before do
-        create(:contribution, state: 'waiting_confirmation', created_at: 3.weekdays_ago)
-        create(:contribution, state: 'waiting_confirmation', created_at: 7.weekdays_ago)
-      end
-      it { should have(1).itens }
-    end
-  end
-
   describe '#display_value' do
     context 'when the value has decimal places' do
       subject{ build(:contribution, value: 99.99).display_value }
