@@ -97,10 +97,6 @@ class Project < ActiveRecord::Base
     where("id IN (SELECT project_id FROM contributions b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
   }
 
-  scope :with_contributions_confirmed_today, -> {
-    joins(:contributions).merge(Contribution.confirmed_today).uniq
-  }
-
   scope :order_by, ->(sort_field) do
     order(sort_field) if sort_field =~ /^\w+(\.\w+)?\s(desc|asc)$/i
   end

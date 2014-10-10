@@ -73,21 +73,6 @@ describe Contribution do
     end
   end
 
-  pending '.confirmed_today' do
-    before do
-      3.times { create(:contribution, state: 'confirmed', confirmed_at: 2.days.ago) }
-      4.times { create(:contribution, state: 'confirmed', confirmed_at: 6.days.ago) }
-
-      #TODO: need to investigate this timestamp issue when
-      # use DateTime.now or Time.now
-      7.times { create(:contribution, state: 'confirmed', confirmed_at: 5.hours.from_now) }
-    end
-
-    subject { Contribution.confirmed_today }
-
-    it { should have(7).items }
-  end
-
   describe '.can_cancel' do
     subject { Contribution.can_cancel}
 
