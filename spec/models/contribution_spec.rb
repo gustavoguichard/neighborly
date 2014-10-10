@@ -107,31 +107,6 @@ describe Contribution do
     end
   end
 
-  describe '#recommended_projects' do
-    subject{ contribution.recommended_projects }
-    let(:contribution){ create(:contribution) }
-
-    context 'when we have another projects in the same category' do
-      before do
-        @recommended = create(:project, category: contribution.project.category)
-        # add a project successful that should not apear as recommended
-        create(:project, category: contribution.project.category, state: 'successful')
-      end
-      it{ should eq [@recommended] }
-    end
-
-    context 'when another user has contributed the same project' do
-      before do
-        @another_contribution = create(:contribution, project: contribution.project)
-        @recommended = create(:contribution, user: @another_contribution.user).project
-        # add a project successful that should not apear as recommended
-        create(:contribution, user: @another_contribution.user, project: successful_project)
-        successful_project.update_attributes state: 'successful'
-      end
-      it{ should eq [@recommended] }
-    end
-  end
-
   describe '#display_value' do
     context 'when the value has decimal places' do
       subject{ build(:contribution, value: 99.99).display_value }

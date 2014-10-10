@@ -44,10 +44,6 @@ class Contribution < ActiveRecord::Base
     PayableResourceSerializer.new(self).to_json
   end
 
-  def recommended_projects
-    user.recommended_projects.where("projects.id <> ?", project.id).order("count DESC")
-  end
-
   def refund_deadline
     created_at + 180.days
   end
