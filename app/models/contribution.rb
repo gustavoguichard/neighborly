@@ -18,7 +18,6 @@ class Contribution < ActiveRecord::Base
   scope :available_to_display, -> { available_to_count }
   scope :anonymous,            -> { where(anonymous: true) }
   scope :not_anonymous,        -> { where(anonymous: false) }
-  scope :confirmed_today,      -> { with_state('confirmed').where("contributions.confirmed_at::date = current_timestamp::date ") }
   scope :can_cancel,           -> { where("contributions.can_cancel") }
 
   pg_search_scope :pg_search, against: [
