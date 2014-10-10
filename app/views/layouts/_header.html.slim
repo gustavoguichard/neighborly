@@ -13,9 +13,9 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
       .top-bar-section
         ul.right
           li.main-menu
-            = link_to t('.about'), main_app.about_path
-          li.main-menu
             = link_to t('.discover'), main_app.discover_path
+          li.main-menu
+            = link_to t('.about'), main_app.about_path
               
           - if user_signed_in?
             li.user-action
