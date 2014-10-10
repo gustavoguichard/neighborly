@@ -105,6 +105,7 @@ Neighborly::Application.routes.draw do
   end
 
   resources :users, path: 'neighbors' do
+    post :validate_access_code
     get '/my-spot' => "users#my_spot", as: :my_spot
 
     resources :questions, controller: 'users/questions', only: [:new, :create]

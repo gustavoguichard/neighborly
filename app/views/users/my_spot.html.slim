@@ -7,6 +7,16 @@
       h2 Thanks For Signing Up
 
       h3 You position in line: #{current_user.ahead_me}
+      .row
+        .large-9.columns.large-centered
+          .access-code
+              = form_tag user_validate_access_code_path(current_user) do
+                p Have an early access code? Enter it below to skip the line and get started.
+                .row.collapse
+                  .medium-8.columns
+                    = text_field_tag 'code', nil, { class: 'code', placeholder: 'Access Code' }
+                  .medium-4.columns
+                    = submit_tag 'Validate', class: 'button'
 
       p Get your early access code and be among the first to invest with Neighbor.ly by referring your friends.
       .row

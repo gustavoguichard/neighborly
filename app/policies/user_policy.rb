@@ -23,6 +23,10 @@ class UserPolicy < ApplicationPolicy
     update?
   end
 
+  def validate_access_code?
+    done_by_owner_or_admin?
+  end
+
   def permitted_attributes
     {
       user: record.attribute_names.map(&:to_sym) -
