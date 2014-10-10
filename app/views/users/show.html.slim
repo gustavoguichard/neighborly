@@ -49,7 +49,6 @@
             li
               = link_to @user.other_url, target: 'blank', class: "social-link" do
                 i.icon-et-globe
-      
 
   section.content.projects
     - if @user.total_contributions > 0
@@ -58,9 +57,9 @@
           h3.subtle-title.ive_contributed= t('.ive_contributed', number: @user.total_contributions)
           .row
             = render @projects, columns: "large-4"
-    - if @user.total_led > 0
+    - if @user.projects.visible.size > 0
       .row
         .large-12.columns
-          h3.subtle-title.ive_led= t('.ive_led', number: @user.total_led)
+          h3.subtle-title.ive_led= t('.ive_led', number: @user.projects.visible.size)
           .row
-            = render @user.projects_led, columns: "large-4"
+            = render @user.projects.visible, columns: "large-4"
