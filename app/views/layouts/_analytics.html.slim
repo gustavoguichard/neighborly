@@ -9,5 +9,5 @@
       mixpanel.people.set_once({
         '$created': '#{current_user.created_at.to_datetime.utc.rfc3339}',
         '$email': '#{current_user.email}',
-        'user_level': '#{@analytics.user_level}'
+        'user_level': '#{@analytics[:user_level]}'
       });
