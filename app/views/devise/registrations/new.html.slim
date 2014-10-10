@@ -13,20 +13,9 @@
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: sign_up_path) do |f|
-          = f.fields_for :investment_prospect do |fa|
-            = fa.hidden_field :value
-
+          = f.input :bonds_early_adopter, as: :hidden, input_html: { value: '1' }
           = render 'devise/shared/alert'
-          = f.input :name,     as: :string, required: true, label_html: { class: 'hidden-label' }
           = f.input :email,    as: :email,  required: true, label_html: { class: 'hidden-label' }
-          = f.input :password,              required: true, label_html: { class: 'hidden-label' }
-          i.right.text-right.inline-hint.password-hint
-            = t('.form.hint.password_length')
-
-          .text-left
-            = check_box_tag :show_password
-          .show-password-label.text-right
-            = label_tag :show_password, t('.form.labels.show_password')
 
           .large-centered
             = f.submit t('.form.inputs.submit'), class: [:button, 'small-12 large-12', 'large-centered']
