@@ -10,9 +10,8 @@ class StaticController < ApplicationController
   def start_terms; end
   def start; end
   def faq; end
-
   def about
-    @presenter = AboutPagePresenter.new
+    @team_members = YAML.load(File.read(File.expand_path('app/views/static/team.yml', Rails.root)))
   end
 
   def thank_you
