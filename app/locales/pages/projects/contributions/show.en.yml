@@ -6,3 +6,5 @@ en:
         thank_you: 'You’ve successfully placed an order indication for  %{project_name}'
         share: 'Meanwhile, share your love of with your friends and neighbors.'
         twitter-text: 'I just invested %{value} to %{name} on @Neighborly: %{project_url}'
+        facebook: 'Share'
+        twitter: 'Tweet'
