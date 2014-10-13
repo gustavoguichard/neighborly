@@ -1,26 +1,15 @@
 - content_for :title, t('.title')
-- is_waiting_confirmation = @contribution.payment_method == 'balanced-bankaccount' && @contribution.waiting_confirmation?
 
-.contribution-page[class="#{'waiting-bankaccount' if is_waiting_confirmation}"]
+.contribution-page
   = hero_header_tag @project do
     .row
       .large-10.columns.large-centered
-        - if is_waiting_confirmation
-          h3 = t('.one_more_step')
-        - else
-          h3 = t('.thank_you', project_name: @project.name)
-          = render 'shared/payments/success/status'
+        h3 = t('.thank_you', project_name: @project.name)
 
-  - if is_waiting_confirmation
-    section.bankaccount
-      .row
-        .large-12.columns
-          h3 = t('.bankaccount.title')
-          ol
-            li = t('.bankaccount.steps.first')
-            li = t('.bankaccount.steps.second')
-            li = t('.bankaccount.steps.third')
+  .disclaimer
+    .row
+      .large-10.columns.large-centered
+        p = t('.disclaimer_html')
 
   = render 'shared/payments/success/share', i18n_scope: 'projects.contributions.show', tweet_text: t('.twitter-text', value: @contribution.display_value, name: @project.name, project_url: project_url(@project))
-
-= render 'shared/payments/success/recommended_projects', user: @contribution.user
+  = render 'shared/payments/success/recommended_projects', recommended_projects: @contribution.user.recommended_projects.limit(4)
