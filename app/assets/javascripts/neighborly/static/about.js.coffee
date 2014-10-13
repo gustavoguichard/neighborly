@@ -1,7 +1,7 @@
 Neighborly.Static ?= {}
 
 Neighborly.Static.About =
-  init:
+  init: ->
     $.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=Neighborly.AboutPageMapInitialize')
 
 Neighborly.AboutPageMapInitialize = ->
