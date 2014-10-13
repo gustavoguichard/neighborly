@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Create Investment' do
   background do
     @project = create(:project, :with_rewards)
-    @user = create(:user, password: 'test123')
+    @user = create(:user, :beta, password: 'test123')
     login
   end
 

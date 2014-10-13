@@ -26,7 +26,7 @@ end
 
 feature 'Submit project' do
   background do
-    @user = create(:user, password: 'test123')
+    @user = create(:user, :beta, password: 'test123')
     login
   end
 
@@ -44,7 +44,7 @@ feature 'Submit project' do
 
     Project.all.map(&:approve)
 
-    visit '/'
+    login
     click_on 'Discover'
     expect(page).to have_content('Three Points Beautification')
   end

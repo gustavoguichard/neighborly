@@ -3,10 +3,10 @@ require 'spec_helper'
 feature 'User sign up' do
   scenario 'redirect to the last page after login', js: true do
     @project = create(:project)
-    visit project_path(@project)
+    visit user_my_spot_path(current_user)
     login
 
-    expect(current_path).to eql(project_path(@project))
+    expect(current_path).to eql(user_my_spot_path(current_user))
   end
 
   scenario 'via home page and without providing password' do

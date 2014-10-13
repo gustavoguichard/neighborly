@@ -5,7 +5,7 @@ feature 'Project\'s ending' do
 
   background do
     @project = create(:project, state: 'online', sale_date: -1.seconds.from_now)
-    @user = create(:user, password: 'test123')
+    @user = create(:user, :beta, password: 'test123')
     login
   end
 

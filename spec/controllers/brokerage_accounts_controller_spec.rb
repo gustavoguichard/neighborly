@@ -16,9 +16,9 @@ describe BrokerageAccountsController do
     project_contribution_path(project_id: contribution.project.permalink, id: contribution.id)
   end
 
-  context 'signed in' do
+  context 'signed in as mvp beta user' do
     before { sign_in current_user }
-    let(:current_user) { create(:user) }
+    let(:current_user) { create(:user, :beta) }
 
     describe 'GET new' do
       it 'assigns a new brokerage_account' do
@@ -71,7 +71,7 @@ describe BrokerageAccountsController do
     end
 
     describe 'GET edit' do
-      let(:current_user) { create(:user, :with_brokerage_account) }
+      let(:current_user) { create(:user, :beta, :with_brokerage_account) }
 
       it 'renders new view' do
         get :edit
@@ -83,7 +83,7 @@ describe BrokerageAccountsController do
       before do
         session[:contribution_id] = contribution.id
       end
-      let(:current_user) { create(:user, :with_brokerage_account) }
+      let(:current_user) { create(:user, :beta, :with_brokerage_account) }
 
       describe 'with valid params' do
         let(:params) do

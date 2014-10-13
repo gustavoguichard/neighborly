@@ -7,11 +7,11 @@ class ApplicationPolicy
   end
 
   def index?
-    true
+    show?
   end
 
   def show?
-    true
+    is_admin? || is_mvp_beta_user?
   end
 
   def create?
@@ -47,8 +47,13 @@ class ApplicationPolicy
   end
 
   protected
+
   def is_admin?
     user.try(:admin?) || false
+  end
+
+  def is_mvp_beta_user?
+    !!user.try(:beta)
   end
 
   def done_by_owner_or_admin?

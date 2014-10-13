@@ -5,10 +5,14 @@ describe ContributionPolicy do
 
   let(:project)       { create(:project) }
   let(:initial_state) { 'confirmed' }
-  let(:contribution)  { create(:contribution, state: initial_state) }
-  let(:user)          { contribution.user }
+  let(:contribution) do
+    create(:contribution, state: initial_state, user: user)
+  end
+  let(:user) { create(:user) }
 
   shared_examples_for 'update permissions' do
+    let(:user) { create(:user, :beta) }
+
     it 'denies access if user is nil' do
       expect(subject).not_to permit(nil, contribution)
     end
@@ -28,12 +32,14 @@ describe ContributionPolicy do
   end
 
   shared_examples_for 'create permissions' do
-    it_should_behave_like 'update permissions'
+    context 'with mvp beta user' do
+      it_should_behave_like 'update permissions'
 
-    ['draft', 'deleted', 'rejected', 'successful', 'waiting_funds'].each do |state|
-      it "denies access if project is on #{state}" do
-        contribution.project.update_attributes state: state
-        expect(subject).not_to permit(user, contribution)
+      ['draft', 'deleted', 'rejected', 'successful', 'waiting_funds'].each do |state|
+        it "denies access if project is on #{state}" do
+          contribution.project.update_attributes state: state
+          expect(subject).not_to permit(user, contribution)
+        end
       end
     end
   end

@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe DiscoverController do
-  before { create(:project, recommended: true) }
+  before do
+    sign_in create(:user, :beta)
+    create(:project, recommended: true)
+  end
 
   describe 'GET index' do
     before { get :index }

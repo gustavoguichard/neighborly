@@ -1,6 +1,6 @@
 class BrokerageAccountPolicy < ApplicationPolicy
   def new?
-    !!user
+    is_admin? || is_mvp_beta_user?
   end
 
   def create?

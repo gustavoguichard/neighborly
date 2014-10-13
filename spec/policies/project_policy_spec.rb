@@ -15,8 +15,13 @@ describe ProjectPolicy do
                                               user: User.new))
     end
 
+    it 'should deny access if user is not allowed in mvp beta' do
+      should_not permit(User.new, Project.new(state: project_state,
+                                              user: User.new))
+    end
+
     it 'should permit access if user is project owner' do
-      new_user = User.new
+      new_user = User.new(beta: true)
       should permit(new_user, Project.new(state: project_state,
                                           user: new_user))
     end
@@ -121,13 +126,17 @@ describe ProjectPolicy do
     context 'when project is online' do
       let(:project_state) { 'online' }
 
-      it 'should permit access if user is nil' do
-        should permit(nil, Project.new(state: project_state))
+      it 'should not permit access if user is nil' do
+        should_not permit(nil, Project.new(state: project_state))
       end
 
-      it 'should permit access if user is not project owner' do
-        should permit(User.new, Project.new(state: project_state,
+      it 'should not permit access if user is not project owner' do
+        should_not permit(User.new, Project.new(state: project_state,
                                              user: User.new))
+      end
+
+      it 'should permit access if user is mvp beta acessor' do
+        should permit(build(:user, :beta), Project.new(state: project_state))
       end
     end
   end
@@ -140,7 +149,7 @@ describe ProjectPolicy do
     end
 
     context 'when user is project owner and I want to update summary' do
-      let(:project){ create(:project) }
+      let(:project){ create(:project, user: create(:user, :beta)) }
       let(:policy){ described_class.new(project.user, project) }
       subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_true }
@@ -155,7 +164,7 @@ describe ProjectPolicy do
     end
 
     context 'when user is project owner and I want to update summary' do
-      let(:project){ create(:project) }
+      let(:project){ create(:project, user: create(:user, :beta)) }
       let(:policy){ described_class.new(project.user, project) }
       subject{ policy.permitted_for?(:summary, :update) }
       it{ should be_true }

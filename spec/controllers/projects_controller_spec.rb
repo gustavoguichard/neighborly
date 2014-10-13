@@ -249,8 +249,9 @@ describe ProjectsController do
   end
 
   describe "GET show" do
+    let(:current_user){ create(:user, :beta, admin: false) }
+
     context 'when the project is on draft' do
-      let(:current_user){ create(:user, admin: false) }
       before do
         get :show, id: project
       end
