@@ -197,4 +197,12 @@ describe User do
       end
     end
   end
+
+  describe 'turn beta' do
+    it 'does send beta welcome email' do
+      subject = create(:user, :beta)
+      expect(Notification).to receive(:notify_once).with(:welcome_to_beta, anything, anything)
+      subject.turn_beta
+    end
+  end
 end

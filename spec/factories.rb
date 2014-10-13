@@ -32,6 +32,11 @@ FactoryGirl.define do
     email        { "sherlock.holmes#{rand}@example.com" }
     password     '123123123'
 
+    trait :beta do
+      beta true
+      access_code
+    end
+
     trait :with_brokerage_account do
       after(:create) do |instance|
         create :brokerage_account, user: instance

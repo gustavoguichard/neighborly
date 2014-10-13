@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     access_code = AccessCode.find_by(code: params[:code])
     if access_code
       if access_code.still_valid?
-        user.update_attributes(beta: true, access_code: access_code)
+        user.turn_beta(access_code)
         flash.notice = 'Access Code Accepted. Welcome to the beta!'
         redirect_to root_path
       else
