@@ -1,0 +1,12 @@
+#join-beta-modal.reveal-modal.small.fixed.neighborly-design
+  a.close-reveal-modal ×
+  header
+    h4 Join the Beta
+  p This function is currently limited to our beta users. You can get access sooner by sharing Neighbor.ly with your friends.
+  - share_text = "Earn tax-exempt income by investing in your favorite places with @Neighborly. Reserve your spot today at #{root_url(ref: current_user.referral_code)}"
+  - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=#{root_url(ref: current_user.referral_code)}"
+  = link_to 'Share', "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank
+  = link_to 'Tweet', "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
+  p
+    | Or, copy & paste your personal referral link: 
+    span = link_to root_url(ref: current_user.referral_code), root_url(ref: current_user.referral_code)
