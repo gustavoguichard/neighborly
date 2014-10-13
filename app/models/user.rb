@@ -113,4 +113,16 @@ class User < ActiveRecord::Base
   def behind_me
     User.where('created_at > ?', created_at).count
   end
+
+  def turn_beta(new_access_code = nil)
+    self.beta = true
+    self.access_code = new_access_code if new_access_code
+    save
+
+    Notification.notify_once(
+      :welcome_to_beta,
+      self,
+      { user_id: id }
+    )
+  end
 end

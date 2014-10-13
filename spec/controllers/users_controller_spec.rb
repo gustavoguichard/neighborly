@@ -252,4 +252,24 @@ describe UsersController do
       it { should render_template(:set_email) }
     end
   end
+
+  describe 'POST validate_access_code' do
+    context 'with valid access code' do
+      let(:access_code) { create(:access_code) }
+
+      it 'turns user beta' do
+        expect_any_instance_of(User).to receive(:turn_beta)
+        post :validate_access_code, user_id: current_user.id, code: access_code.code
+      end
+    end
+
+    context 'with invalid access code' do
+      let(:access_code) { build(:access_code) }
+
+      it 'does not turn user beta' do
+        expect_any_instance_of(User).to_not receive(:turn_beta)
+        post :validate_access_code, user_id: current_user.id, code: access_code.code
+      end
+    end
+  end
 end
