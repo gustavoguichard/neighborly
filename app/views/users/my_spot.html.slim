@@ -6,7 +6,7 @@
     .large-6.columns.large-centered
       h2 Thanks For Signing Up
 
-      h3 You position in line: #{current_user.ahead_me}
+      h3 Your position in line: #{current_user.ahead_me}
       .row
         .large-9.columns.large-centered
           .access-code
@@ -16,18 +16,21 @@
                   .medium-8.columns
                     = text_field_tag 'code', nil, { class: 'code', placeholder: 'Access Code' }
                   .medium-4.columns
-                    = submit_tag 'Validate', class: 'button'
+                    = submit_tag 'Submit', class: 'button'
 
-      p Get your early access code and be among the first to invest with Neighbor.ly by referring your friends.
-      .row
-        .medium-10.small-12.columns.large-centered.small-centered
-          .row.share
-            .medium-6.small-12.columns
-              - share_text = "Earn tax-exempt income by investing in your favorite places with @Neighborly. Reserve your spot today at #{root_url(ref: current_user.referral_code)}"
-              - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=#{root_url(ref: current_user.referral_code)}"
-              = link_to 'Share', "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank
-            .medium-6.small-12.columns
-              = link_to 'Tweet', "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
-      p
-        | Or, copy & paste your personal referral link: 
-        span = link_to root_url(ref: current_user.referral_code), root_url(ref: current_user.referral_code)
+  .share
+    .row
+      .large-6.columns.large-centered
+        p Get your early access code and be among the first to invest with Neighbor.ly by referring your friends.
+        .row
+          .medium-10.small-12.columns.large-centered.small-centered
+            .row
+              .medium-6.small-12.columns
+                - share_text = "Earn tax-exempt income by investing in your favorite places with @Neighborly. Reserve your spot today at #{root_url(ref: current_user.referral_code)}"
+                - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=#{root_url(ref: current_user.referral_code)}"
+                = link_to 'Share', "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank
+              .medium-6.small-12.columns
+                = link_to 'Tweet', "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
+        p
+          | Or, copy & paste your personal referral link: 
+          span = link_to root_url(ref: current_user.referral_code), root_url(ref: current_user.referral_code)
