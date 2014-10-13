@@ -4,8 +4,8 @@ en:
       show:
         title: 'Thank you'
         one_more_step: 'One more step, neighbor! Please verify your account to complete your investment.'
-        thank_you: 'thank you, neighbor! %{project_name} is only possible with the support of people like you.'
-        share: 'You can still help %{project_owner_name} by telling others about your investment!'
+        thank_you: 'You’ve successfully placed an order indication for  %{project_name}'
+        share: 'Meanwhile, share your love of with your friends and neighbors.'
         twitter-text: 'I just invested %{value} to %{name} on @Neighborly: %{project_url}'
         bankaccount:
           title: 'You invested using a new bank account. Please verify your account to complete your investment.'
