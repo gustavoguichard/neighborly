@@ -8,3 +8,4 @@ en:
         twitter-text: 'I just invested %{value} to %{name} on @Neighborly: %{project_url}'
         facebook: 'Share'
         twitter: 'Tweet'
+        disclaimer_html: 'This confirms your order indication has been placed. You will be contacted by a broker dealer before the sale date to confirm your order indication and collect a few pieces of <a href="http://www.finra.org/Industry/Issues/AML/P123857" target="blank">additional information</a>. For additional disclosures, <a href="#full-disclaimer">click here</a>.'
