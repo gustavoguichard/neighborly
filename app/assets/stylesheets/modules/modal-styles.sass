@@ -1,0 +1,41 @@
+.neighborly-design
+  text-align: center
+
+  a.close-reveal-modal
+    color: $body-bg
+    font-size: 200%
+    right: +emCalc(-10px)
+    top: +emCalc(-15px)
+
+  header
+    background: $border-color
+    border-bottom-left-radius: $global-radius
+    border-bottom-right-radius: $global-radius
+    margin-bottom: +emCalc(50px)
+    margin-left: +emCalc(-20px)
+    margin-right: +emCalc(-20px)
+    margin-top: +emCalc(-20px)
+    padding: +emCalc(15px)
+
+    h4
+      text-transform: uppercase
+      margin: 0
+
+@media #{$small}
+  .neighborly-design
+    header
+      margin-left: +emCalc(-30px)
+      margin-right: +emCalc(-30px)
+      margin-top: +emCalc(-30px)
+
+#sign-up-modal
+  .sign-up-partial
+    .columns
+      width: 100%
+    .email
+      input
+        border-top-right-radius: $global-radius
+        border-bottom-right-radius: $global-radius
+    .button
+      border-top-left-radius: $global-radius
+      border-bottom-left-radius: $global-radius
