@@ -13,8 +13,6 @@ en:
       share:
         title: 'Get your friends involved'
       no-neighbors: "No neighbors yet. Be the first!"
-      author:
-        about: 'About %{name}'
       in_partnership_with: 'In Partnership With'
     video_embed:
       a_project_by_html: "A project by %{link} on"
@@ -62,3 +60,5 @@ en:
       credit_type_definition_revenue: 'A municipal bond supported by the revenue from a specific project, such as a toll bridge, highway or local stadium. Revenue bonds are municipal bonds that finance income-producing projects and are secured by a specified revenue source.'
       maturities: '<b>MATURITY DATES:</b>'
       maturities_definition: 'The date on which the principal amount of a note, draft, acceptance <br />bond or other debt instrument becomes due and is repaid to the investor and interest <br />payments stop. The maturity date tells you when you will get your principal back and for<br />how long you will receive interest payments.'
+    author:
+      about: 'About %{name}'
