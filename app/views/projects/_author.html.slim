@@ -8,7 +8,7 @@ section.author
         = link_to @project.user.display_image_html(width: 150, height: 150, class: 'large'), @project.user
 
     .columns[class="large-#{ @project.user.organization? ? 7 : 9}"]
-      h4 = t('.author.about', name: link_to(@project.user.display_name, @project.user)).html_safe
+      h4 = t('.about', name: link_to(@project.user.display_name, @project.user)).html_safe
       p = @project.user.bio
 
       .social
