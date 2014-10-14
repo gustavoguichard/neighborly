@@ -5,7 +5,7 @@ en:
         title: 'Thank you'
         thank_you: 'You’ve successfully placed an order indication for  %{project_name}'
         share: 'Meanwhile, share your love of with your friends and neighbors.'
-        twitter-text: 'I just invested %{value} to %{name} on @Neighborly: %{project_url}'
+        twitter-text: 'I just invested in %{name} on @Neighborly. Want to do well by doing good too? %{project_url}'
         facebook: 'Share'
         twitter: 'Tweet'
         disclaimer_html: 'This confirms your order indication has been placed. You will be contacted by a broker dealer before the sale date to confirm your order indication and collect a few pieces of <a href="http://www.finra.org/Industry/Issues/AML/P123857" target="blank">additional information</a>. For additional disclosures, <a href="#full-disclaimer">click here</a>.'
