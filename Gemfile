@@ -27,7 +27,7 @@ gem 'neighborly-balanced-bankaccount', github: 'neighborly/neighborly-balanced-b
 gem 'neighborly-balanced', github: 'neighborly/neighborly-balanced', branch: 'master'
 
 # Neigbhor.ly Engines
-gem 'neighborly-api', '~> 1.0.1'
+gem 'neighborly-api', github: 'neighborly/neighborly-api', branch: 'master'
 gem 'neighborly-dashboard', '~> 1.0.1'
 
 # Decorators
