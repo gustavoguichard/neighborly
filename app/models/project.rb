@@ -153,10 +153,6 @@ class Project < ActiveRecord::Base
     User.where(email: email).first
   end
 
-  def notification_type type
-    type
-  end
-
   def self.locations
     visible.select('DISTINCT address_city, address_state').order('address_city, address_state').map(&:location)
   end

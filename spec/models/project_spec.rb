@@ -300,16 +300,11 @@ describe Project do
   end
 
   describe "#new_draft_recipient" do
-  subject { project.new_draft_recipient }
+    subject { project.new_draft_recipient }
     before do
       @user = create(:user, email: Configuration[:email_projects].dup)
     end
     it{ should == @user }
-  end
-
-  describe "#notification_type" do
-    subject { project.notification_type(:foo) }
-    it { should eq(:foo) }
   end
 
   describe 'Taggable' do
