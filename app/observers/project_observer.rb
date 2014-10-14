@@ -38,7 +38,7 @@ class ProjectObserver < ActiveRecord::Observer
   def notify_new_draft_project(project)
     if (user = project.new_draft_recipient)
       Notification.notify_once(
-        project.notification_type(:new_draft_project),
+        :new_draft_project,
         user,
         {project_id: project.id},
         {
@@ -52,7 +52,7 @@ class ProjectObserver < ActiveRecord::Observer
 
   def deliver_default_notification_for(project, notification_type)
     project.notify_owner(
-      project.notification_type(notification_type),
+      notification_type,
       { },
       {
         origin_email: Configuration[:email_contact],
