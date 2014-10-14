@@ -11,5 +11,5 @@
       .large-10.columns.large-centered
         p = t('.disclaimer_html')
 
-  = render 'shared/payments/success/share', i18n_scope: 'projects.contributions.show', tweet_text: t('.twitter-text', value: @contribution.display_value, name: @project.name, project_url: project_url(@project))
+  = render 'shared/payments/success/share', i18n_scope: 'projects.contributions.show', tweet_text: t('.twitter-text', name: @project.name, project_url: project_url(@project))
   = render 'shared/payments/success/recommended_projects', recommended_projects: @contribution.user.recommended_projects.limit(4)
