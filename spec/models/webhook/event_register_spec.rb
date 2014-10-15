@@ -19,19 +19,36 @@ describe Webhook::EventRegister do
       described_class.new(record)
     end
 
-    it 'calls the worker' do
-      expect(Webhook::EventSenderWorker).to receive(:perform_async)
-      described_class.new(record)
+    context 'when disable_webhook configuration is not set with "1"' do
+      before do
+        ENV['DISABLE_WEBHOOK'] = '0'
+      end
+
+      it 'calls the worker' do
+        expect(Webhook::EventSenderWorker).to receive(:perform_async)
+        described_class.new(record)
+      end
+
+      it 'serializes the record' do
+        expect_any_instance_of(Webhook::EventRegister).to receive(:serialized_record).and_call_original
+        described_class.new(record)
+      end
+
+      it 'calls the type method' do
+        expect_any_instance_of(Webhook::EventRegister).to receive(:type).and_call_original
+        described_class.new(record)
+      end
     end
 
-    it 'serializes the record' do
-      expect_any_instance_of(Webhook::EventRegister).to receive(:serialized_record).and_call_original
-      described_class.new(record)
-    end
+    context 'when disable_webhook configuration is set with "1"' do
+      before do
+        ENV['DISABLE_WEBHOOK'] = '1'
+      end
 
-    it 'calls the type method' do
-      expect_any_instance_of(Webhook::EventRegister).to receive(:type).and_call_original
-      described_class.new(record)
+      it 'does not call the worker' do
+        expect(Webhook::EventSenderWorker).to_not receive(:perform_async)
+        described_class.new(record)
+      end
     end
   end
 

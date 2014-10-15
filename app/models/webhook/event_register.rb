@@ -9,7 +9,10 @@ module Webhook
     def initialize(record, created: false)
       @record, @created = record, created
       @event = Event.create(serialized_record: serialized_record, kind: type)
-      EventSenderWorker.perform_async(@event.id)
+
+      unless Configuration[:disable_webhook] == '1'
+        EventSenderWorker.perform_async(@event.id)
+      end
     end
 
     def serialized_record
