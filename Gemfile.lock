@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-api.git
-  revision: 0f96b5d0cb19e5106c5cc9db0832d9b86f751249
+  revision: d9567d67a9a98ce1139e18de6bf560bf5095723b
   branch: master
   specs:
     neighborly-api (1.0.1)
