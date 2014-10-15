@@ -34,7 +34,7 @@
 
         p.tags
           - @project.tags.each do |tag|
-            = link_to tag.display_name, discover_path(tags: tag.name)
+            = link_to tag.display_name, discover_path(tags: tag.name), permissions_discover_attrs
 
         p.disclosure
           | *All informations presented is subject to change.

@@ -9,7 +9,7 @@ window.Neighborly =
       'Create': 'New'
       'Update': 'Edit'
 
-  modules: -> [Neighborly.Analytics]
+  modules: -> [Neighborly.Analytics, Neighborly.Permissions]
 
   initPage: ->
     unless NProgress is undefined
