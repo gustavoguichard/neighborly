@@ -5,6 +5,11 @@ class SessionsController < Devise::SessionsController
     only: :create,
     if: -> { session.has_key?(:new_user_attrs) }
 
+  def new
+    response.headers['X-Csrf-Token'] = form_authenticity_token
+    super
+  end
+
   def set_new_user_email
     @form_submition = {
       url:         confirm_new_user_email_path,
