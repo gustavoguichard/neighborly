@@ -13,8 +13,10 @@ feature 'User sign up' do
     visit '/'
     expect(page).to have_link('Log in')
 
-    fill_in 'Email', with: 'mr.watson@example.com'
-    click_on 'Sign Up for early access'
+    within '.home-page' do
+      fill_in 'Email', with: 'mr.watson@example.com'
+      click_on 'Sign Up for early access'
+    end
 
     visit '/'
     expect(page).to_not have_link('Log in')
