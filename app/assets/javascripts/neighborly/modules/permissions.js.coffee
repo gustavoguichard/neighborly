@@ -20,6 +20,6 @@ Neighborly.Permissions = ->
   track_click = (element) ->
     event_name = $(element).data('name')
     if event_name?
-      console.log "tracked #{event_name}!"
+      mixpanel.track(event_name)
 
   listen_for_unauthorized_accesses()
