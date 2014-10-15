@@ -130,9 +130,8 @@ describe ProjectPolicy do
         should_not permit(nil, Project.new(state: project_state))
       end
 
-      it 'should not permit access if user is not project owner' do
-        should_not permit(User.new, Project.new(state: project_state,
-                                             user: User.new))
+      it 'should permit access if user is not mvp beta acessor' do
+        should permit(User.new, Project.new(state: project_state))
       end
 
       it 'should permit access if user is mvp beta acessor' do

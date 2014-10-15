@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DiscoverController do
   before do
-    sign_in create(:user, :beta)
+    sign_in create(:user)
     create(:project, recommended: true)
   end
 

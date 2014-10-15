@@ -11,7 +11,7 @@ class ProjectPolicy < ApplicationPolicy
     if record.draft? || record.soon?
       create?
     else
-      is_mvp_beta_user?
+      !!user
     end
   end
 
@@ -24,7 +24,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def discover?
-    is_admin? || is_mvp_beta_user?
+    !!user
   end
 
   def success?
