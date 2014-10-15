@@ -67,7 +67,6 @@ module Concerns::AuthenticationHandler
     def black_list_domains
      %w(
         cfg.neighbor.ly
-        invest.neighbor.ly
         kaboom.neighbor.ly
         makeitright.neighbor.ly
         neighborly-staging.herokuapp.com
