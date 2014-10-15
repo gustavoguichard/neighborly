@@ -11,7 +11,7 @@ Neighborly.Permissions = ->
       track_click(this)
 
   open_modal = ->
-    $('#sign-up-modal')
+    $('.not-authorized-modal')
       .foundation('reveal', opened: ->
         $(this).find('#user_email').focus()
       )
