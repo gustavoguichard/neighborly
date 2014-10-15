@@ -104,8 +104,8 @@ describe Project do
 
     describe ".expiring" do
       before do
-        @p = create(:project, sale_date: Time.now, online_days: 13)
-        create(:project, sale_date: Time.now, online_days: -1)
+        @p = create(:project, online_date: Time.now, online_days: 13)
+        create(:project, online_date: Time.now, online_days: -1)
       end
       subject{ Project.expiring }
       it{ should == [@p] }
@@ -122,8 +122,8 @@ describe Project do
 
     describe ".recent" do
       before do
-        @p = create(:project, sale_date: (Time.now - 4.days))
-        create(:project, sale_date: (Time.now - 15.days))
+        @p = create(:project, online_date: (Time.now - 4.days))
+        create(:project, online_date: (Time.now - 15.days))
       end
       subject{ Project.recent }
       it{ should == [@p] }
@@ -236,30 +236,30 @@ describe Project do
   describe "#expired?" do
     subject{ project.expired? }
 
-    context "when sale_date is nil" do
-      let(:project){ Project.new sale_date: nil, online_days: 0 }
+    context "when online_date is nil" do
+      let(:project){ Project.new online_date: nil, online_days: 0 }
       it{ should be_false }
     end
 
     context "when expires_at is in the future" do
-      let(:project){ Project.new sale_date: 2.days.from_now, online_days: 0 }
+      let(:project){ Project.new online_date: 2.days.from_now, online_days: 0 }
       it{ should be_false }
     end
 
     context "when expires_at is in the past" do
-      let(:project){ Project.new sale_date: 2.days.ago, online_days: 0 }
+      let(:project){ Project.new online_date: 2.days.ago, online_days: 0 }
       it{ should be_true }
     end
   end
 
   describe "#expires_at" do
     subject{ project.expires_at }
-    context "when we do not have an sale_date" do
-      let(:project){ build(:project, sale_date: nil, online_days: 0) }
+    context "when we do not have an online_date" do
+      let(:project){ build(:project, online_date: nil, online_days: 0) }
       it{ should be_nil }
     end
-    context "when we have an sale_date" do
-      let(:project){ build(:project, sale_date: Time.now, online_days: 0) }
+    context "when we have an online_date" do
+      let(:project){ build(:project, online_date: Time.now, online_days: 0) }
       it{ should == Time.zone.now.end_of_day }
     end
   end

@@ -190,7 +190,7 @@ describe ProjectPolicy do
       let(:policy){ described_class.new(user, project) }
 
       not_permited_params = [
-                              :sale_date, :created_at, :updated_at, :summary_html,
+                              :online_date, :created_at, :updated_at, :summary_html,
                               :budget_html, :terms_html, :sent_to_analysis_at
                              ]
 

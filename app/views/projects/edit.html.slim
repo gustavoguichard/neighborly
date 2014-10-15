@@ -96,6 +96,9 @@
       - if policy(@project).permitted_for?(:online_days, :update)
         = form.input :online_days, as: :integer
 
+      - if policy(@project).permitted_for?(:sale_date, :update)
+        = form.input :sale_date
+
       - if policy(@project).permitted_for?(:budget, :update)
         = form.input :budget
 

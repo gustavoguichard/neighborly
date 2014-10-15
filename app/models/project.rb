@@ -80,7 +80,7 @@ class Project < ActiveRecord::Base
   scope :not_expired, -> { where("projects.expires_at >= current_timestamp") }
   scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
   scope :not_expiring, -> { not_expired.where("NOT (projects.expires_at <= (current_timestamp + interval '2 weeks'))") }
-  scope :recent, -> { where("(current_timestamp - projects.sale_date) <= '5 days'::interval") }
+  scope :recent, -> { where("(current_timestamp - projects.online_date) <= '5 days'::interval") }
   scope :soon, -> { with_state('soon').where('uploaded_image IS NOT NULL') }
   scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
@@ -88,7 +88,7 @@ class Project < ActiveRecord::Base
                                      WHEN 'online' THEN 1
                                      WHEN 'waiting_funds' THEN 2
                                      WHEN 'successful' THEN 3
-                                     END ASC, projects.sale_date DESC, projects.created_at DESC") }
+                                     END ASC, projects.online_date DESC, projects.created_at DESC") }
 
   scope :contributed_by, ->(user_id){
     where("id IN (SELECT project_id FROM contributions b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
@@ -117,7 +117,7 @@ class Project < ActiveRecord::Base
   end
 
   def expires_at
-    sale_date && (sale_date + online_days.days).end_of_day
+    online_date && (online_date + online_days.days).end_of_day
   end
 
   def selected_rewards

@@ -35,13 +35,13 @@ describe ProjectDecorator do
   describe "#display_expires_at" do
     subject{ project.display_expires_at }
 
-    context "when sale_date is nil" do
-      let(:project){ create(:project, sale_date: nil) }
+    context "when online_date is nil" do
+      let(:project){ create(:project, online_date: nil) }
       it{ should == '' }
     end
 
-    context "when we have an sale_date" do
-      let(:project){ create(:project, sale_date: Time.now) }
+    context "when we have an online_date" do
+      let(:project){ create(:project, online_date: Time.now) }
       before do
         I18n.should_receive(:l).with(project.expires_at.to_date)
       end

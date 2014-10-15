@@ -4,7 +4,7 @@ describe Project::StateMachineHandler do
   let(:user){ create(:user) }
 
   describe "state machine" do
-    let(:project) { create(:project, state: 'draft', sale_date: nil) }
+    let(:project) { create(:project, state: 'draft', online_date: nil) }
 
     describe '#draft?' do
       subject { project.draft? }
@@ -82,9 +82,9 @@ describe Project::StateMachineHandler do
 
       its(:online?){ should be_true }
       it('should call after transition method to notify the project owner'){ subject }
-      it 'should persist the sale_date' do
+      it 'should persist the online_date' do
         project.launch
-        expect(project.sale_date).to_not be_nil
+        expect(project.online_date).to_not be_nil
       end
     end
 
@@ -122,7 +122,7 @@ describe Project::StateMachineHandler do
           main_project.update_attributes state: 'waiting_funds'
           subject.stub(:pending_contributions_reached_the_goal?).and_return(true)
           subject.stub(:reached_goal?).and_return(true)
-          subject.sale_date = 2.weeks.ago
+          subject.online_date = 2.weeks.ago
           subject.online_days = 0
         end
       end
