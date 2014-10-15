@@ -17,7 +17,7 @@
         - if @project.online? && !@project.expired?
           = render 'projects/noscript'
 
-          = link_to t('.invest'), new_project_contribution_url(@project), class: "button invest"
+          = link_to t('.invest'), new_project_contribution_url(@project), permissions_new_project_contribution_attrs.merge(class: "button invest")
 
         p
           strong Sale Date: 

@@ -65,6 +65,26 @@ describe RewardPolicy do
     it_should_behave_like 'destroy permissions'
   end
 
+  permissions :index? do
+    context 'when project is online' do
+      before do
+        reward.project.state = 'online'
+      end
+
+      it 'should not permit access if user is nil' do
+        should_not permit(nil, reward)
+      end
+
+      it 'should not permit access if user is not mvp beta acessor' do
+        should_not permit(User.new, reward)
+      end
+
+      it 'should permit access if user is mvp beta acessor' do
+        should permit(build(:user, :beta), reward)
+      end
+    end
+  end
+
   describe '#permitted_for?' do
     let(:user) { reward.project.user }
     subject { policy.permitted_for?(field, :update) }

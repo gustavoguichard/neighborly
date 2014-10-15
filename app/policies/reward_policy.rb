@@ -1,6 +1,14 @@
 class RewardPolicy < ApplicationPolicy
   include ProjectInheritedPolicyHelpers
 
+  def index?
+    if record.project.draft? || record.project.soon?
+      create?
+    else
+      is_mvp_beta_user?
+    end
+  end
+
   def update?
     create?
   end

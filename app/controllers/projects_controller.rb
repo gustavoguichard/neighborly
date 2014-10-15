@@ -64,6 +64,7 @@ class ProjectsController < ApplicationController
 
   def statement
     @project = resource
+    authorize @project
   end
 
   def budget

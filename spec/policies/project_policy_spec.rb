@@ -140,6 +140,34 @@ describe ProjectPolicy do
     end
   end
 
+  permissions :statement? do
+    context 'when project is in draft' do
+      let(:project_state) { 'draft' }
+      it_should_behave_like 'create permissions'
+    end
+
+    context 'when project is in soon' do
+      let(:project_state) { 'soon' }
+      it_should_behave_like 'create permissions'
+    end
+
+    context 'when project is online' do
+      let(:project_state) { 'online' }
+
+      it 'should not permit access if user is nil' do
+        should_not permit(nil, Project.new(state: project_state))
+      end
+
+      it 'should not permit access if user is not mvp beta acessor' do
+        should_not permit(User.new, Project.new(state: project_state))
+      end
+
+      it 'should permit access if user is mvp beta acessor' do
+        should permit(build(:user, :beta), Project.new(state: project_state))
+      end
+    end
+  end
+
   describe '#permitted_for?' do
     context 'when user is nil and I want to update summary' do
       let(:policy){ described_class.new(nil, Project.new) }

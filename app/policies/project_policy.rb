@@ -15,11 +15,11 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
 
-  def partial_show?
+  def statement?
     if record.draft? || record.soon?
       create?
     else
-      !!user
+      is_mvp_beta_user?
     end
   end
 

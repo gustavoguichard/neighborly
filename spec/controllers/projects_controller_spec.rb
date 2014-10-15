@@ -105,6 +105,7 @@ describe ProjectsController do
       get :statement, id: project
     end
     let(:current_user) { create(:user, :beta) }
+    let(:project)      { create(:project) }
 
     it { expect(response).to be_success }
     it { expect(assigns(:project)).to eq project }
