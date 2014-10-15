@@ -86,7 +86,7 @@ describe ProjectsForHome do
              recommended: false,
              state: 'online',
              online_days: 50,
-             sale_date: 2.days.ago)
+             online_date: 2.days.ago)
     end
 
     let(:not_home_page) do
@@ -94,7 +94,7 @@ describe ProjectsForHome do
              recommended: false,
              state: 'online',
              online_days: 10,
-             sale_date: 6.days.ago,
+             online_date: 6.days.ago,
              home_page: false)
     end
 
@@ -104,7 +104,7 @@ describe ProjectsForHome do
                recommended: false,
                state: 'online',
                online_days: 10,
-               sale_date: 6.days.ago,
+               online_date: 6.days.ago,
                home_page: true)
       end
       expect(subject.size).to eq 4
@@ -115,7 +115,7 @@ describe ProjectsForHome do
              recommended: false,
              state: 'online',
              online_days: 10,
-             sale_date: 6.days.ago,
+             online_date: 6.days.ago,
              home_page: true)
 
       expect(subject.first).to be_instance_of(Project)

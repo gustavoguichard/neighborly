@@ -11,7 +11,7 @@ describe "Projects" do
 
   describe "home" do
     before do
-      4.times { create(:project, state: 'online', recommended: true, online_days: 30, sale_date: Time.now, home_page: true) }
+      4.times { create(:project, state: 'online', recommended: true, online_days: 30, online_date: Time.now, home_page: true) }
       visit root_path
     end
 

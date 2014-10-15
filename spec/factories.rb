@@ -65,7 +65,7 @@ FactoryGirl.define do
     online_days        30
     permalink          { "#{name.parameterize}-#{SecureRandom.hex}" }
     statement_file_url 'http://example.com/statement.pdf'
-    sale_date          { -1.day.from_now }
+    online_date        { -1.day.from_now }
     state              'online'
     summary            'Foo bar'
     video_url          'http://vimeo.com/17298435'

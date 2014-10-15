@@ -26,7 +26,7 @@ def generate_project(fields = {})
                      summary: Faker::Lorem.paragraph(10),
                      headline: Faker::Lorem.sentence,
                      goal: [40000, 73000, 1000, 50000, 100000].shuffle.first,
-                     sale_date: Time.now,
+                     online_date: Time.now,
                      online_days: [50, 90, 43, 87, 34].shuffle.first,
                      how_know: Faker::Lorem.sentence,
                      video_url: 'http://vimeo.com/79833901',
@@ -90,7 +90,7 @@ puts 'Creating successfull projects...... It can take a while...'
   6.times do
     p = generate_project(state: 'online', goal: 1000, online_days: [30, 45, 12].shuffle.first)
     [4, 7, 15, 30].shuffle.first.times { generate_contribution(p) }
-    p.update_attributes( { state: :successful, sale_date: (Time.now - 50.days) })
+    p.update_attributes( { state: :successful, online_date: (Time.now - 50.days) })
   end
 
 puts '---------------------------------------------'
@@ -122,7 +122,7 @@ puts 'Creating ending soon projects ...... It can take a while...'
 
   2.times do
     p = generate_project(state: 'online', online_days: 14)
-    p.update_column(:sale_date, Time.now - 10.days)
+    p.update_column(:online_date, Time.now - 10.days)
   end
 
 puts '---------------------------------------------'
