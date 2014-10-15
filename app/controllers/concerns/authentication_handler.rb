@@ -56,18 +56,23 @@ module Concerns::AuthenticationHandler
     def require_basic_auth
       if request.url.match Regexp.new(black_list_domains.join("|"))
         authenticate_or_request_with_http_basic do |username, password|
-          username == 'admin' && password == 'Streetcar4321'
+          [username, password] == [
+            Configuration[:authentication_username],
+            Configuration[:authentication_password],
+          ]
         end
       end
     end
 
     def black_list_domains
-      ['neighborly-staging.herokuapp.com',
-       'invest.neighbor.ly',
-       'staging.neighbor.ly',
-       'kaboom.neighbor.ly',
-       'cfg.neighbor.ly',
-       'makeitright.neighbor.ly']
+     %w(
+        cfg.neighbor.ly
+        invest.neighbor.ly
+        kaboom.neighbor.ly
+        makeitright.neighbor.ly
+        neighborly-staging.herokuapp.com
+        staging.neighbor.ly
+      )
     end
   end
 end
