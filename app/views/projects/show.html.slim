@@ -19,9 +19,10 @@
 
           = link_to t('.invest'), new_project_contribution_url(@project), class: "button invest"
 
-        p
-          strong Sale Date: 
-          = l @project.online_date
+        - if @project.sale_date.present?
+          p
+            strong Sale Date: 
+            = l @project.sale_date, format: :long
         p
           strong Minimum Investment: 
           = number_to_currency @project.minimum_investment
