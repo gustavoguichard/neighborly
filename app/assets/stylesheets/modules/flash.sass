@@ -36,10 +36,28 @@
     top: +emCalc(90px)
 
 #devise-flash-message
-  margin: +emCalc(15px)
-  font-size: 1.2rem
+  p
+    margin: +emCalc(15px)
+    font-size: 1.2rem
 
-#devise
+  .alert-box
+    padding-top: 0
+    background: none
+    p
+      margin-bottom: 0
+      color: $success-color
+
+    &.notice
+      p
+        color: $success-color
+    &.alert
+      p
+        color: $alert-color
+    &.secondary
+      p
+        color: secondary-color
+
+#devise, .project-index
   .flash
     background: none
     .fixed

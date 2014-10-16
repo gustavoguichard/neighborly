@@ -1,12 +1,13 @@
-- if flash.alert.present?
-  .alert-box.alert.animated.shake.large-12.columns.large-centered
-    p#devise-flash-message.text-center = flash.alert
-- elsif @user.errors.present?
-  .alert-box.alert.animated.shake.large-12.columns.large-centered
-    .large-12.large-centered.columns
-      - if @user.errors.messages.has_key? :reset_password_token
-        p#devise-flash-message Please click the password reset link in the most recent email.
-      - elsif @user.errors.messages.has_key? :confirmation_token
-        p#devise-flash-message Invalid token. Please resend confirmation instructions.
-      - else
-        p#devise-flash-message = @user.errors.full_messages.to_sentence
+#devise-flash-message
+  - if flash.alert.present?
+    .alert-box.alert.animated.shake.large-12.columns.large-centered
+      p.text-center = flash.alert
+  - elsif @user.errors.present?
+    .alert-box.alert.animated.shake.large-12.columns.large-centered
+      .large-12.large-centered.columns
+        - if @user.errors.messages.has_key? :reset_password_token
+          p Please click the password reset link in the most recent email.
+        - elsif @user.errors.messages.has_key? :confirmation_token
+          p Invalid token. Please resend confirmation instructions.
+        - else
+          p = @user.errors.full_messages.to_sentence
