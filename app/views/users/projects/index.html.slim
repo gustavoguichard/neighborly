@@ -5,12 +5,12 @@
         thead
           tr
             th= t('.id')
-            th= 'cover'
-            th= 'name'
-            th= 'pleged'
-            th= 'deadline'
-            th= 'total of contributions'
-            th.text-right= 'actions'
+            th Cover
+            th Name
+            th Amount Sold
+            th Deadline
+            th Sales
+            th.text-right Actions
         tbody
           - @projects.each do |project|
             tr
