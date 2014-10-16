@@ -105,14 +105,14 @@ class UsersController < ApplicationController
     if access_code
       if access_code.still_valid?
         user.turn_beta(access_code)
-        flash.notice = 'Access Code Accepted. Welcome to the beta!'
+        flash.notice = 'Welcome to the beta!'
         redirect_to root_path
       else
-        flash.alert = 'This access code is not valid anymore.'
+        flash.alert = 'This access code is no longer valid.'
       redirect_to user_my_spot_path(user)
       end
     else
-      flash.alert = 'Access Code Not Found'
+      flash.alert = 'Please enter a valid access code.'
       redirect_to user_my_spot_path(user)
     end
   end
