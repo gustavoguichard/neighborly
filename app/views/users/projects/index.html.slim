@@ -14,7 +14,7 @@
         tbody
           - @projects.each do |project|
             tr
-              td= link_to project.id, project_path(project), permissions_project_attrs
+              td= link_to project.id, project_path(project), permissions_project_attrs(project)
               td title=project.name
                 = link_to edit_project_path(project) do
                   = image_tag project.display_image, size: '50', class: 'project-imgage'
