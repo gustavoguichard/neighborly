@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git://github.com/neighborly/neighborly-balanced-bankaccount.git
-  revision: ed7ea32274336272fca19f0412d9f5f7367e3460
+  revision: e040df00a117fc43df68960997f1e3854d5c1642
   branch: master
   specs:
     neighborly-balanced-bankaccount (2.0.2)
@@ -176,7 +176,7 @@ GEM
       request_store (~> 1.0)
     dropzonejs-rails (0.4.14)
       rails (> 3.1)
-    ember-data-source (1.0.0.beta.9)
+    ember-data-source (1.0.0.beta.11)
       ember-source
     ember-rails (0.15.0)
       active_model_serializers
@@ -196,7 +196,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.32.1)
-    execjs (2.2.1)
+    execjs (2.2.2)
     ezcrypto (0.7.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -226,7 +226,7 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
-    font-awesome-sass (4.2.0)
+    font-awesome-sass (4.2.1)
       sass (~> 3.2)
     formatador (0.2.4)
     gctools (0.2.3)
@@ -416,8 +416,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    slim (2.0.3)
-      temple (~> 0.6.6)
+    slim (2.1.0)
+      temple (~> 0.6.9)
       tilt (>= 1.3.3, < 2.1)
     slim-rails (2.1.4)
       actionpack (>= 3.0, < 4.2)
@@ -435,7 +435,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    temple (0.6.8)
+    temple (0.6.9)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
     therubyracer (0.12.1)
