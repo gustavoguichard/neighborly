@@ -15,14 +15,14 @@
               h4 Thank you for joining our beta!
               .row
                 .medium-6.columns.large-centered
-                  = link_to 'Discover Issuances', discover_path, class: 'button'
+                  = link_to 'Discover Issuances', discover_path, permissions_discover_attrs.merge(class: 'button')
             - else
               h4 Thanks for signing up, your spot has been saved!
               .row
                 .large-10.columns.large-centered
                   .row
                     .medium-6.columns
-                      = link_to 'Discover Issuances', discover_path, class: 'button'
+                      = link_to 'Discover Issuances', discover_path, permissions_discover_attrs.merge(class: 'button')
                     .medium-6.columns
                       = link_to 'Check your spot', user_my_spot_path(current_user), class: 'button'
           - else
@@ -109,13 +109,13 @@
       section.recommended
         .small-12.columns
           h3
-            = link_to discover_path(filter: 'recommended') do
+            = link_to discover_path(filter: 'recommended'), permissions_discover_attrs do
               | Investment Opportunities
 
         = render @recommended
 
         .text-right.text-right.small-12.columns
-          = link_to discover_path, class: 'see-more' do
+          = link_to discover_path, permissions_discover_attrs.merge(class: 'see-more') do
             = t('words.see_more')
             i.icon-et-right-circled
 

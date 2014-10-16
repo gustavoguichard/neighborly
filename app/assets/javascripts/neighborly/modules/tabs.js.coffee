@@ -5,7 +5,9 @@ Neighborly.Tabs = Backbone.View.extend
     'click a': 'toggleSelected'
 
   initialize: (options)->
-    return if this.$el.length is 0
+    if this.$el.length is 0 || this.$el.find('[data-hyperlink-permission="false"]').length
+      return
+
     options = _.extend({ enable_pjax: true }, options)
 
     this.$target_container = $(this.el).data('target-container')

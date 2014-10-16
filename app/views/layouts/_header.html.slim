@@ -13,10 +13,10 @@ header.contain-to-grid[ class="#{' fixed' if defined?(fixed) }" ]
       .top-bar-section
         ul.right
           li.main-menu
-            = link_to t('.discover'), main_app.discover_path
+            = link_to t('.discover'), main_app.discover_path, permissions_discover_attrs
           li.main-menu
             = link_to t('.about'), main_app.about_path
-              
+
           - if user_signed_in?
             li.user-action
               = link_to main_app.edit_user_path(current_user), class: 'user-profile', data: { dropdown: 'user-dropdown' } do

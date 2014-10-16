@@ -11,8 +11,24 @@ class ProjectPolicy < ApplicationPolicy
     if record.draft? || record.soon?
       create?
     else
-      true
+      !!user
     end
+  end
+
+  def statement?
+    if record.draft? || record.soon?
+      create?
+    else
+      is_mvp_beta_user?
+    end
+  end
+
+  def budget?
+    statement?
+  end
+
+  def discover?
+    !!user
   end
 
   def success?

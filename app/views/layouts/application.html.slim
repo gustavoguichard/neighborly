@@ -56,4 +56,9 @@ body
   = javascript_include_tag 'vendor/custom.modernizr', 'data-turbolinks-eval' => false
   = javascript_include_tag :application, 'data-turbolinks-eval' => false
   = render 'layouts/uservoice'
+  - unless current_user.try(:beta?)
+    - if user_signed_in?
+      = render 'shared/join_beta'
+    - else
+      = render 'shared/sign_up_modal'
 |</html>

@@ -104,6 +104,8 @@ describe ProjectsController do
     before do
       get :statement, id: project
     end
+    let(:current_user) { create(:user, :beta) }
+    let(:project)      { create(:project) }
 
     it { expect(response).to be_success }
     it { expect(assigns(:project)).to eq project }
@@ -249,8 +251,9 @@ describe ProjectsController do
   end
 
   describe "GET show" do
+    let(:current_user) { create(:user) }
+
     context 'when the project is on draft' do
-      let(:current_user){ create(:user, admin: false) }
       before do
         get :show, id: project
       end

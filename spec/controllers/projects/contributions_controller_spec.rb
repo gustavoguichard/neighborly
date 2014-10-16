@@ -55,12 +55,12 @@ describe Projects::ContributionsController do
     end
 
     context "when user is logged in" do
-      let(:user){ create(:user) }
+      let(:user){ create(:user, :beta) }
       it{ should redirect_to edit_project_contribution_path(project_id: project, id: Contribution.last.id) }
     end
 
     context "without value" do
-      let(:user){ create(:user) }
+      let(:user){ create(:user, :beta) }
       let(:value){ '' }
 
       it{ should redirect_to new_project_contribution_path(project) }
@@ -77,7 +77,7 @@ describe Projects::ContributionsController do
   end
 
   describe "GET new" do
-    let(:user){ create(:user) }
+    let(:user){ create(:user, :beta) }
     let(:online){ true }
     let(:browser){ double("browser", ie9?: false, modern?: true) }
 

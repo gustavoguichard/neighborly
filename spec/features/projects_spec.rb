@@ -8,6 +8,9 @@ describe "Projects" do
   before {
     ProjectsController.any_instance.stub(:last_tweets).and_return([])
   }
+  let(:current_user) do
+    create(:user, :beta, password: 'test123', password_confirmation: 'test123')
+  end
 
   describe "home" do
     before do
