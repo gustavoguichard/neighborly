@@ -1,4 +1,12 @@
 module ProjectInheritedPolicyHelpers
+  def index?
+    if record.project.draft? || record.project.soon?
+      create?
+    else
+      is_mvp_beta_user?
+    end
+  end
+
   def create?
     done_by_owner_or_admin?
   end

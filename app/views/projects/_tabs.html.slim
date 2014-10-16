@@ -9,8 +9,11 @@ nav.tabs[data-target-container=".project-page section.content"]
         = t('.contributions')
         span.count=" #{@project.total_contributions}"
 
-    li = tab_link_to t('.faqs'), project_faqs_path(@project) if @project.project_faqs.any? || policy(@project).update?
-    li = tab_link_to t('.budget'), budget_project_path(@project) if @project.budget.present?
-    li = tab_link_to t('.terms'), project_terms_path(@project) if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
+    - if @project.project_faqs.any? || policy(@project).update?
+      li = tab_link_to t('.faqs'), project_faqs_path(@project), nil, permissions_project_faqs_attrs
+    - if @project.budget.present?
+      li = tab_link_to t('.budget'), budget_project_path(@project), nil, permissions_project_budget_attrs
+    - if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
+      li = tab_link_to t('.terms'), project_terms_path(@project), nil, permissions_project_terms_attrs
     - if policy(@project).update?
       li = tab_link_to t('.reports'), reports_project_path(@project), 'private'

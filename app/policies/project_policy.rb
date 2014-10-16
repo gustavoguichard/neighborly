@@ -23,6 +23,10 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
 
+  def budget?
+    statement?
+  end
+
   def discover?
     !!user
   end

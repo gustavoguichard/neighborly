@@ -140,7 +140,7 @@ describe ProjectPolicy do
     end
   end
 
-  permissions :statement? do
+  permissions :statement?, :budget? do
     context 'when project is in draft' do
       let(:project_state) { 'draft' }
       it_should_behave_like 'create permissions'

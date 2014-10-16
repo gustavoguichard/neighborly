@@ -27,6 +27,26 @@ describe ProjectDocumentPolicy do
     end
   end
 
+  permissions :index? do
+    context 'when project is online' do
+      before do
+        project_document.project.state = 'online'
+      end
+
+      it 'should not permit access if user is nil' do
+        should_not permit(nil, project_document)
+      end
+
+      it 'should not permit access if user is not mvp beta acessor' do
+        should_not permit(User.new, project_document)
+      end
+
+      it 'should permit access if user is mvp beta acessor' do
+        should permit(build(:user, :beta), project_document)
+      end
+    end
+  end
+
   permissions :create? do
     it_should_behave_like 'create permissions'
   end

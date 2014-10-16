@@ -18,4 +18,16 @@ module PermissionsHelper
   def permissions_project_maturities_attrs(project = @project)
     { 'data-hyperlink-permission' => policy(project.rewards.new).index?, 'data-name' => 'Wanted to view maturities' }
   end
+
+  def permissions_project_faqs_attrs(project = @project)
+    { 'data-hyperlink-permission' => policy(project.project_faqs.new).index?, 'data-name' => 'Wanted to view FAQ' }
+  end
+
+  def permissions_project_budget_attrs(project = @project)
+    { 'data-hyperlink-permission' => policy(project).budget?, 'data-name' => 'Wanted to view budget' }
+  end
+
+  def permissions_project_terms_attrs(project = @project)
+    { 'data-hyperlink-permission' => policy(project.project_documents.new).index?, 'data-name' => 'Wanted to view terms' }
+  end
 end
