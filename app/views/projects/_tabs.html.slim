@@ -1,8 +1,8 @@
 nav.tabs[data-target-container=".project-page section.content"]
   ul
-    li = tab_link_to t('.summary'), project_path(@project), nil, permissions_project_attrs
-    li = tab_link_to t('.statement'), statement_project_path(@project), nil, permissions_project_statement_attrs
-    li = tab_link_to t('.maturities'), project_maturities_path(@project), nil, permissions_project_maturities_attrs
+    li = tab_link_to t('.summary'), project_path(@project), permissions_project_attrs
+    li = tab_link_to t('.statement'), statement_project_path(@project), permissions_project_statement_attrs
+    li = tab_link_to t('.maturities'), project_maturities_path(@project), permissions_project_maturities_attrs
 
     - if @project.total_contributions > 0
       li = tab_link_to project_contributions_path(@project) do
@@ -10,10 +10,10 @@ nav.tabs[data-target-container=".project-page section.content"]
         span.count=" #{@project.total_contributions}"
 
     - if @project.project_faqs.any? || policy(@project).update?
-      li = tab_link_to t('.faqs'), project_faqs_path(@project), nil, permissions_project_faqs_attrs
+      li = tab_link_to t('.faqs'), project_faqs_path(@project), permissions_project_faqs_attrs
     - if @project.budget.present?
-      li = tab_link_to t('.budget'), budget_project_path(@project), nil, permissions_project_budget_attrs
+      li = tab_link_to t('.budget'), budget_project_path(@project), permissions_project_budget_attrs
     - if @project.terms.present? || @project.project_documents.any? || policy(@project).update?
-      li = tab_link_to t('.terms'), project_terms_path(@project), nil, permissions_project_terms_attrs
+      li = tab_link_to t('.terms'), project_terms_path(@project), permissions_project_terms_attrs
     - if policy(@project).update?
-      li = tab_link_to t('.reports'), reports_project_path(@project), 'private'
+      li = tab_link_to t('.reports'), reports_project_path(@project), class: 'private'
