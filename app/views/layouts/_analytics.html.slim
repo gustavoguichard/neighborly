@@ -2,15 +2,18 @@
   = analytics_init if Configuration[:google_analytics_id].present?
 
   - if user_signed_in?
-    javascript:
-      window.addEventListener('page:load', function() {
-        if (typeof mixpanel !== 'undefined') {
-          console.log('identifying him')
-          mixpanel.identify(#{current_user.id});
-          mixpanel.people.set_once({
-            '$created': '#{current_user.created_at.to_datetime.utc.rfc3339}',
-            '$email': '#{current_user.email}',
-            'user_level': '#{@analytics[:user_level]}'
-          });
-        }
-      });
+      javascript:
+        var identifyMixpanelUser = function() {
+          if (typeof mixpanel !== 'undefined') {
+            mixpanel.identify(#{current_user.id});
+            mixpanel.people.set_once({
+              '$created': '#{current_user.created_at.to_datetime.utc.rfc3339}',
+              '$email': '#{current_user.email}',
+              'user_level': '#{@analytics[:user_level]}'
+            });
+          }
+          window.removeEventListener('DOMContentLoaded', identifyMixpanelUser);
+          window.removeEventListener('page:load', identifyMixpanelUser);
+        };
+        window.addEventListener('DOMContentLoaded', identifyMixpanelUser);
+        window.addEventListener('page:load', identifyMixpanelUser);

@@ -1,6 +1,5 @@
 var mixpanelToken = document.getElementsByTagName('meta')['mixpanel_token'].getAttribute('content');
 if ([null, ''].indexOf(mixpanelToken) === -1) {
-  console.log('with mixpanel');
   (function(f, b) {
     if (!b.__SV) {
       var a, e, i, g;
