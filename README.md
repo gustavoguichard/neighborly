@@ -1,4 +1,4 @@
-# Neighbor.ly [![Build Status](https://secure.travis-ci.org/neighborly/neighborly.png?branch=master)](https://travis-ci.org/neighborly/neighborly) [![Coverage Status](https://coveralls.io/repos/neighborly/neighborly/badge.png?branch=master)](https://coveralls.io/r/neighborly/neighborly) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly.png)](https://codeclimate.com/github/neighborly/neighborly) [![Dependency Status](https://gemnasium.com/neighborly/neighborly.png)](https://gemnasium.com/neighborly/neighborly) 
+# Neighbor.ly [![Build Status](https://secure.travis-ci.org/neighborly/neighborly.png?branch=master)](https://travis-ci.org/neighborly/neighborly) [![Coverage Status](https://coveralls.io/repos/neighborly/neighborly/badge.png?branch=master)](https://coveralls.io/r/neighborly/neighborly) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly.png)](https://codeclimate.com/github/neighborly/neighborly) [![Dependency Status](https://gemnasium.com/neighborly/neighborly.png)](https://gemnasium.com/neighborly/neighborly)
 
 ## Pivoting time :rocket: :rocket: :rocket:
 
@@ -36,7 +36,7 @@ $ ./bin/bootstrap
 $ foreman start
 ```
 
-You are now running Neighborly on http://localhost:3000 with sample configuration. If you plan to use it more than just get it running, you should change configuration (check `db/seeds.rb` for examples) and maybe run development seeds:
+You are now running Neighbor.ly on http://localhost:3000 with sample configuration. If you plan to use it more than just get it running, you should change configuration (check `db/seeds.rb` for examples) and maybe run development seeds:
 
 ```bash
 $ rails runner db/development_seeds.rb
