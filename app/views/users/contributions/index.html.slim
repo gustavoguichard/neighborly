@@ -2,7 +2,7 @@
   table.contributions
     thead
       tr
-        td Project
+        td Deal
         td Investment Amount
         td Neighbor.ly Fee
         td Bank Fee
@@ -16,7 +16,7 @@
           td = number_to_currency contribution.platform_fee, precision: 0
           td = number_to_currency Neighborly::Balanced::Bankaccount::Interface.new.fee_calculator(contribution.value, contribution.platform_fee).processor_fee, precision: 0
           td = l contribution.created_at, format: :long
-          td = contribution.state
+          td = contribution.state.humanize
 
 - if request.xhr?
   = yield :page_content
