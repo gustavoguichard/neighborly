@@ -1,14 +1,15 @@
 module TabLinkToHelper
-  def tab_link_to(name = nil, url = nil, klass = nil, attrs = nil, &block)
-    if block_given?
-      url = name
-      classes = if current_page?(url)
-        klass.to_a.push('selected')
-      else
-      end
-      link_to(url, attrs.to_h.merge(class: classes), &block)
+  def tab_link_to(name = nil, url = nil, attrs = nil, &block)
+    html_options = if current_page?(url)
+      attrs.to_h.merge(class: 'selected')
     else
-      link_to(name, url, attrs.to_h.merge(class: classes))
+      attrs.to_h
+    end
+
+    if block_given?
+      link_to(name, html_options, &block)
+    else
+      link_to(name, url, html_options)
     end
   end
 end
