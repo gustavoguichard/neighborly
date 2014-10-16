@@ -12,11 +12,8 @@
   .order-warning
     .row
       .large-12.columns.small-centered
-        strong = t('.warning_html')
+        p = t('.warning_html')
   .row
-    .large-9.columns.large-centered
-      h4.subtitle = t('.titles.subtitle')
-
     .maturity-option.large-6.medium-7.columns.large-centered
       = simple_form_for @brokerage_account, url: brokerage_account_path, class: 'row' do |f|
         = f.input :name, wrapper_html: { class: 'column large-11 large-centered' }
