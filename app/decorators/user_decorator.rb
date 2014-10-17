@@ -9,9 +9,9 @@ class UserDecorator < Draper::Decorator
 
   def display_name
     if source.organization? && source.organization.present?
-      source.organization.name || I18n.t('words.no_name')
+      source.organization.name || source.email
     else
-      source.name || I18n.t('words.no_name')
+      source.name || source.email
     end
   end
 

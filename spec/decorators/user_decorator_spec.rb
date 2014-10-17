@@ -2,29 +2,29 @@ require 'spec_helper'
 
 describe UserDecorator do
   describe "#display_name" do
-    subject{ user.display_name }
+    subject { user.display_name }
 
     context 'when profile_type is personal' do
       context "when we have only a name" do
-        let(:user){ create(:user, name: nil, name: 'name') }
-        it{ should == 'name' }
+        let(:user) { create(:user, name: nil, name: 'name') }
+        it { should == 'name' }
       end
 
       context "when we have no name" do
-        let(:user){ create(:user, name: nil, nickname: nil) }
-        it{ should == I18n.t('words.no_name') }
+        let(:user) { create(:user, name: nil, nickname: nil) }
+        it { should == user.email }
       end
     end
 
     context 'when profile_type is organization' do
       context "when we the organization name" do
         let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: 'Neighbor.ly' }) }
-        it{ should == 'Neighbor.ly' }
+        it { should == 'Neighbor.ly' }
       end
 
       context "when we have no organization name" do
         let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: nil }) }
-        it{ should == I18n.t('words.no_name') }
+        it { should == user.email }
       end
     end
   end
