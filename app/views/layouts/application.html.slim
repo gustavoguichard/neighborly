@@ -9,9 +9,9 @@ doctype html
 
 head
   title= t('site.meta_title', title: (@title || yield(:title)), company_name: ::Configuration[:company_name])
-  meta[charset="utf-8"]
+  meta charset="utf-8"
   meta name="robots" content="index, follow"
-  meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+  meta name="viewport" content="width=device-width, initial-scale=1.0"
   meta name='mixpanel_token' content=Configuration[:mixpanel_token]
 
   -# Stylesheets & Favicon
