@@ -14,7 +14,7 @@ module FlashMessagesHelper
 
     content = message.is_a?(Hash) ? message[:message] : message
 
-    content_tag(:div, class: persistent ? 'row' : 'fixed') do
+    content_tag(:div, class: 'fixed') do
       concat(content_tag(:div,
                          class: html_classes_for_msg(name, persistent),
                          data: { alert: :true }) do
@@ -28,7 +28,7 @@ module FlashMessagesHelper
   def html_classes_for_msg(name, persistent)
     html_classes = "#{name} alert-box animated fadeIn text-center"
     if persistent
-      html_classes << ' persistent large-10 columns large-centered'
+      html_classes << ' persistent'
     else
       html_classes << ' dismissible'
     end
