@@ -1,5 +1,4 @@
 .flash
-  background: image-url('default-flash-bg.jpg')
   padding: 0
   margin: 0
 
@@ -8,6 +7,7 @@
     font-size: 100%
     font-weight: normal
     background: rgba($success-color, 0.80)
+    margin: 0
 
     a:not(.close)
       color: lighten($secondary-color, 30%)
@@ -20,17 +20,8 @@
     &.secondary
       background: rgba($secondary-color, 0.75)
 
-    &.dismissible
-      margin: 0
-
-    &.persistent
-      margin-top: +emCalc(20px)
-      margin-bottom: +emCalc(20px)
-      border-radius: $global-radius
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
-
-      .close
-        font-size: 200%
+    &.persistent .close
+      display: none
 
   .fixed
     top: +emCalc(90px)
