@@ -5,24 +5,24 @@ Neighborly.Tabs = Backbone.View.extend
     'click a': 'toggleSelected'
 
   initialize: (options)->
-    if this.$el.length is 0 || this.$el.find('[data-hyperlink-permission="false"]').length
+    unless this.$el.find('[data-hyperlink-permission="true"]').length
       return
 
     options = _.extend({ enable_pjax: true }, options)
 
     this.$target_container = $(this.el).data('target-container')
 
-    if options.enable_pjax is true
+    if options.enable_pjax
       this.initPjax()
 
   toggleSelected: (event)->
     $target = $(event.currentTarget)
-    unless $target.hasClass('selected')
+    unless $target.hasClass('selected') || ($target.attr('data-hyperlink-permission') == 'false')
       this.$('.selected').removeClass('selected')
       $target.addClass('selected')
 
   initPjax: ->
-    $(this.el).pjax('a', this.$target_container)
+    $(this.el).pjax('a[data-hyperlink-permission="true"]', this.$target_container)
     this.bindPjaxLoading()
 
   bindPjaxLoading: ->
