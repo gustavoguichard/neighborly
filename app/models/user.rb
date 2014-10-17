@@ -92,14 +92,14 @@ class User < ActiveRecord::Base
 
   def password_required?
     if bonds_early_adopter?
-      persisted?
+      confirmed_at_changed?
     else
-      new_record? || password.present? || password_confirmation.present?
+      new_record?
     end
   end
 
   def password_confirmation_required?
-    persisted?
+    password_required? && bonds_early_adopter?
   end
 
   def confirmation_required?
