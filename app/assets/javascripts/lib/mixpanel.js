@@ -1,4 +1,4 @@
-var mixpanelToken = document.getElementsByTagName('meta')['mixpanel_token'].getAttribute('content');
+var mixpanelToken = $('meta[name="mixpanel_token"]').attr('content');
 if ([null, ''].indexOf(mixpanelToken) === -1) {
   (function(f, b) {
     if (!b.__SV) {
