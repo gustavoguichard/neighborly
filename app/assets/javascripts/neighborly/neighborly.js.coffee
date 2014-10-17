@@ -92,4 +92,4 @@ window.Neighborly =
       has_image = -> $(header).data('image-url')?
       for header in $('header.hero:not(.no-image)') when has_image() then do (header) =>
         header = $(header)
-        header.backstretch(header.data('image-url'), {fade: 'normal'})
+        header.backstretch(header.data('image-url'), {fade: 'normal', centeredY: header.data('centered-y')})
