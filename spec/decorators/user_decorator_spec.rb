@@ -5,18 +5,8 @@ describe UserDecorator do
     subject{ user.display_name }
 
     context 'when profile_type is personal' do
-      context "when we only have a full name" do
-        let(:user){ create(:user, name: nil, full_name: "Full Name") }
-        it{ should == 'Full Name' }
-      end
-
       context "when we have only a name" do
         let(:user){ create(:user, name: nil, name: 'name') }
-        it{ should == 'name' }
-      end
-
-      context "when we have a name and a full name" do
-        let(:user){ create(:user, name: 'name', full_name: 'full name') }
         it{ should == 'name' }
       end
 
