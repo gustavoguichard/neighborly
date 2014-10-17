@@ -55,7 +55,8 @@ class ProjectsController < ApplicationController
   def show
     authorize resource
     set_facebook_url_admin(resource.user)
-    render :about if request.xhr?
+
+    render :summary if request.xhr?
   end
 
   def reports

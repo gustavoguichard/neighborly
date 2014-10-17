@@ -266,7 +266,13 @@ describe ProjectsController do
         project.reload
         get :show, id: project
       end
+
       it { expect(response).to be_success }
+
+      it 'renders partial for xhr requests' do
+        xhr :get, :show, id: project
+        expect(response).to render_template('summary')
+      end
     end
   end
 end
