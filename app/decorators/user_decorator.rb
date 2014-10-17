@@ -11,7 +11,7 @@ class UserDecorator < Draper::Decorator
     if source.organization? && source.organization.present?
       source.organization.name || I18n.t('words.no_name')
     else
-      source.name || source.full_name || I18n.t('words.no_name')
+      source.name || I18n.t('words.no_name')
     end
   end
 
