@@ -1,5 +1,4 @@
 - user = @notification.user
-- recommended = Project.visible.with_state('online').recommended.limit(3)
 
 | Hey
 - if user.name
@@ -7,29 +6,15 @@
 
 br/
 br/
-| Thanks for joining Neighbor.ly, the fundraising toolkit for communities.
+| Thanks for joining Neighbor.ly! You've been added to the waitlist and are currently #{user.ahead_me.ordinalize} in line.
+br
+br/
+| Get your early access code and be among the first to invest with Neighbor.ly by referring your friends. The more you refer, the sooner you'll get access! Your personal referral link: #{link_to root_url(ref: user.referral_code), root_url(ref: user.referral_code)}
 br
 br
-
-- if recommended.any?
-  | To get started, check out some of these recommended projects:
-  br
-  br
-  table border="0" cellpadding="3" cellspacing="0" width="520" align="center"
-    tr
-      - recommended.each do |project| 
-        td width="160" valign="top"
-          = link_to project_url(project), style: 'text-decoration: none; color: #333;' do
-            = image_tag(project.display_image, size: '160x100')
-            br/
-            p style='font-size: 13px; padding: 5px'= project.name
-
-br
-center
- = link_to 'Explore more projects', discover_url, target: 'blank', class: 'button'
+| Already have an early access code? Enter it #{link_to 'here', user_my_spot_url(user)} to skip the line and get started!
 br
 br
 | High fives,
 br
 | The #{Configuration[:company_name]} Team
-
