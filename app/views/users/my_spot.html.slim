@@ -11,7 +11,10 @@
         .large-9.columns.large-centered
           .access-code
               = form_tag user_validate_access_code_path(current_user) do
-                p Have an early access code? Enter it below to skip the line and get started.
+                p
+                  | Have an early access code?
+                  br
+                  | Skip the line to get started:
                 .row.collapse
                   .medium-8.columns
                     = text_field_tag 'code', nil, { class: 'code', placeholder: 'Access Code' }
@@ -21,7 +24,10 @@
   .share
     .row
       .large-6.columns.large-centered
-        p Get your early access code and be among the first to invest with Neighbor.ly by referring your friends.
+        p
+          | Be among the first to invest with Neighbor.ly.
+          br
+          | Get your early access code by referring friends:
         .row
           .medium-10.small-12.columns.large-centered.small-centered
             .row
@@ -31,6 +37,6 @@
                 = link_to 'Share', "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank
               .medium-6.small-12.columns
                 = link_to 'Tweet', "https://twitter.com/intent/tweet?text=#{URI::encode(share_text)}", class: 'button with-icon twitter', target: :blank
-        p
-          | Or, copy & paste your personal referral link: 
-          span = link_to root_url(ref: current_user.referral_code), root_url(ref: current_user.referral_code)
+            p
+              | Or, copy & paste your personal referral link:
+              input type="text" value=root_url(ref: current_user.referral_code) readonly="1"

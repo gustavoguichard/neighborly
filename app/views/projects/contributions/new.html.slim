@@ -39,7 +39,7 @@
                 = form.input :value, as: :hidden, input_html: { value: @project.minimum_investment, class: 'value-input' }
 
                 fieldset.purchase-amount
-                  legend Purchase amount
+                  legend Investment Amount:
                   span.amount = number_to_currency @project.minimum_investment, precision: 0
 
                 = form.input :anonymous, as: :boolean
