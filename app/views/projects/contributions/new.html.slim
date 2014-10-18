@@ -42,4 +42,5 @@
                   legend Purchase amount
                   span.amount = number_to_currency @project.minimum_investment, precision: 0
 
+                = form.input :anonymous, as: :boolean
                 = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }

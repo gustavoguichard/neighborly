@@ -19,6 +19,8 @@ en:
         linkedin_url: 'http://linkedin.com/in/'
         twitter_url: 'http://twitter.com/'
     labels:
+      contribution:
+        anonymous: 'Make my investment anonymous.'
       brokerage_account:
         tax_id: 'Tax ID'
       contact:
