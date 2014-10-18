@@ -2,11 +2,6 @@ class UserDecorator < Draper::Decorator
   decorates :user
   include Draper::LazyHelpers
 
-  def gravatar_url
-    return unless source.email
-    "https://gravatar.com/avatar/#{Digest::MD5.new.update(source.email)}.jpg?size=150&default=#{::Configuration[:base_url]}/assets/default-avatars/#{[*1..11].sample}.png"
-  end
-
   def display_name
     if source.organization? && source.organization.present?
       source.organization.name || source.email
@@ -19,11 +14,11 @@ class UserDecorator < Draper::Decorator
     if source.organization? && source.organization.present?
       source.organization.image.large.url || '/assets/logo-blank.jpg'
     else
-      source.uploaded_image.thumb_avatar.url || source.image_url || source.gravatar_url || "/assets/default-avatars/#{[*1..11].sample}.png"
+      source.uploaded_image.thumb_avatar.url || source.image_url || "/assets/default-avatars/#{[*1..11].sample}.png"
     end
   end
 
-  def display_image_html options={width: 150, height: 150}
+  def display_image_html(options = { width: 150, height: 150 })
     h.content_tag(:figure, h.image_tag(display_image, alt: source.display_name, style: "width: #{options[:width]}px; height: #{options[:height]}px", class: "avatar"), class: "profile-image #{source.profile_type}#{" #{options[:class]}" if options[:class].present?}").html_safe
   end
 
