@@ -3,7 +3,11 @@ module Project::StateMachineHandler
 
   included do
     state_machine :state, initial: :draft do
-      state :draft, :soon, :rejected, :online, :successful, :waiting_funds, :deleted
+      state :draft, :rejected, :successful, :waiting_funds, :deleted
+
+      state :soon, :online do
+        validates :credit_type, presence: true
+      end
 
       event :push_to_draft do
         transition all => :draft #NOTE: when use 'all' we can't use new hash style ;(
