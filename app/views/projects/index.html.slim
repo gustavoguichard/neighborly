@@ -5,7 +5,7 @@
     = render 'layouts/header'
 
     .row
-      .small-12.medium-8.medium-centered.columns.text-center
+      .small-12.large-8.medium-10.large-centered.columns.text-center
         h2 = t('.hero.title').html_safe
         h3.subtitle = t('.hero.subtitle_html')
 
@@ -101,7 +101,8 @@
       .medium-8.columns.large-centered
         blockquote “The market has been waiting for Neighbor.ly. Until now, individuals paid stiff broker fees and a high spread to get bonds – if they're lucky. Neighbor.ly gives investors and issuers direct access to each other. Win-win.”
         .author
-          = image_tag 'robert-testimonial.jpg', size: '40x40', class: 'profile-picture'
+          .profile-picture
+            = image_tag 'robert-testimonial.jpg', size: '40x40'
           | – Robert Litan, Former Head of Research, Bloomberg Government
 
   section.projects
@@ -110,7 +111,7 @@
         .small-12.columns
           h3
             = link_to discover_path(filter: 'recommended'), permissions_discover_attrs do
-              | Investment Opportunities
+              | Explore Opportunities
 
         = render @recommended
 
