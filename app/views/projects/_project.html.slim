@@ -8,7 +8,7 @@
     - else
       - project_link = project_path(project)
 
-    = link_to project_link, permissions_project_attrs(project).merge(target: (defined?(embed_link) ? :blank : '')) do
+    = link_to project_link, permissions_project_attrs(project) do
       - if project.soon?
         .status-image
           = image_tag "coming_soon.#{I18n.locale}.png"

@@ -17,8 +17,6 @@ en:
         facebook: 'Share'
       no-neighbors: "No neighbors yet. Be the first!"
       in_partnership_with: 'In Partnership With'
-    video_embed:
-      a_project_by_html: "A project by %{link} on"
     tabs:
       summary: 'Summary'
       statement: 'Statement'

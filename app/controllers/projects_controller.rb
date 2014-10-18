@@ -1,7 +1,6 @@
 # coding: utf-8
 class ProjectsController < ApplicationController
-  after_filter :verify_authorized, except: [:index, :video, :video_embed, :embed,
-                                            :embed_panel, :budget,
+  after_filter :verify_authorized, except: [:index, :video, :budget,
                                             :reward_contact, :send_reward_email,
                                             :start, :statement]
 
@@ -70,18 +69,6 @@ class ProjectsController < ApplicationController
 
   def budget
     @project = resource
-  end
-
-  %w(embed video_embed).each do |method_name|
-    define_method method_name do
-      @title = resource.name
-      render layout: 'embed'
-    end
-  end
-
-  def embed_panel
-    @project = resource
-    render layout: !request.xhr?
   end
 
   def start
