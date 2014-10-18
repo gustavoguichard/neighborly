@@ -165,7 +165,7 @@
     a
       display: block
       padding: +emCalc(5px)
-      padding-left: 10px
+      padding-left: +emCalc(25px)
 
       h5
         text-transform: uppercase
@@ -173,8 +173,12 @@
       p
         color: $secondary-color
 
-      h5, p
+      h5
+        font-weight: 400
         margin: 0
+
+      p
+        margin: +emCalc(10px, 0)
 
       &.active
         background-color: $primary-color
@@ -224,9 +228,15 @@
   .home-page
     section.features
       .list
-        margin-left: -29%
+        margin-left: 0%
 
     section.testimonial
       .profile-picture
         display: inline-block
         margin-bottom: 0
+
+@media #{$medium}
+  .home-page
+    section.features
+      .list
+        margin-left: -29%
