@@ -17,6 +17,7 @@
 
     .boxes
       .box
+        display: block
         margin-bottom: +emCalc(10px)
         font-size: 110%
         border: 1px solid rgba(#FFF, .6)
@@ -25,8 +26,10 @@
         background: rgba(#FFF, .2)
         strong
           display: block
-        .has-tip
-          color: #FFF
+        color: #FFF
+
+        &:hover
+          background: rgba(#FFF, .6)
 
   .header
     margin-top: +emCalc(30px)

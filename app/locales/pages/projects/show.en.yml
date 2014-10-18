@@ -54,11 +54,11 @@ en:
         - "An obligor is MORE VULNERABLE than the obligors rated 'BB', but the obligor currently has the capacity to meet its financial commitments. Adverse business, financial, or economic conditions will likely impair the obligor's capacity or willingness to meet its financial commitments."
         - "An obligor is MORE VULNERABLE than the obligors rated 'BB', but the obligor currently has the capacity to meet its financial commitments. Adverse business, financial, or economic conditions will likely impair the obligor's capacity or willingness to meet its financial commitments."
       yield: '<b>TAX EXEMPT YIELD:</b>'
-      yield_definition: 'Yields made on these bonds are <br /> exempt from federal tax and most state taxes.'
+      yield_definition: 'Yields made on these bonds are exempt from federal tax and most state taxes.'
       credit_type: '<b>CREDIT TYPE:</b>'
-      credit_type_definition_general_obligation: 'A municipal bond backed by the credit and "taxing power"<br />of the issuing jurisdiction rather than the revenue from a given project.'
+      credit_type_definition_general_obligation: 'A municipal bond backed by the credit and "taxing power" of the issuing jurisdiction rather than the revenue from a given project.'
       credit_type_definition_revenue: 'A municipal bond supported by the revenue from a specific project, such as a toll bridge, highway or local stadium. Revenue bonds are municipal bonds that finance income-producing projects and are secured by a specified revenue source.'
       maturities: '<b>MATURITY DATES:</b>'
-      maturities_definition: 'The date on which the principal amount of a note, draft, acceptance <br />bond or other debt instrument becomes due and is repaid to the investor and interest <br />payments stop. The maturity date tells you when you will get your principal back and for<br />how long you will receive interest payments.'
+      maturities_definition: 'The date on which the principal amount of a note, draft, acceptance bond or other debt instrument becomes due and is repaid to the investor and interest payments stop. The maturity date tells you when you will get your principal back and for how long you will receive interest payments.'
     author:
       about: 'About %{name}'
