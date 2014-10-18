@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => Devise.email_regexp, :allow_blank => true, :if => :email_changed?
 
   validates_presence_of :password, if: :password_required?
-  validates_confirmation_of :password, if: :password_confirmation_required?
   validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
   belongs_to :referrer, class_name: 'User', foreign_key: 'referrer_id'
@@ -90,15 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    if bonds_early_adopter?
-      confirmed_at_changed?
-    else
-      new_record?
-    end
-  end
-
-  def password_confirmation_required?
-    password_required? && bonds_early_adopter?
+    !bonds_early_adopter? && new_record?
   end
 
   def confirmation_required?
