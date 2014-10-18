@@ -11,7 +11,6 @@ class ConfirmationsController < Devise::ConfirmationsController
   def confirm
     self.resource = resource_class.find_by(confirmation_token: token_param)
     resource.assign_attributes(permitted_params)
-    resource.confirmed_at = Time.now.utc
 
     if resource.valid?
       resource.confirm!

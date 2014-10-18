@@ -13,7 +13,6 @@
           = devise_error_messages!
           = f.input :confirmation_token, as: :hidden
           - if resource.bonds_early_adopter?
-            = f.input :password, placeholder: false, input_html: { autofocus: true }
-            = f.input :password_confirmation, placeholder: false
+            = f.input :password, required: true, placeholder: false, input_html: { autofocus: true }
           = f.input :name, as: :string, placeholder: false, label: t('.form.labels.name')
           = f.submit t('.form.inputs.submit'), class: [:button, 'large-12', 'columns']
