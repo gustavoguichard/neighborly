@@ -6,15 +6,19 @@ section.custom.activities.hide-for-medium-down
       p
         = link_to 'New Activity', new_project_activity_path(@project), class: 'button tiny'
 
-    - @project.activities.order('happened_at DESC').each do |activity|
-      .activity
-        h5 = activity.title
-        span.datetime = l activity.happened_at, format: :long
-        - if activity.summary.present?
-          p = activity.summary
+    - activities = @project.activities.order('happened_at DESC')
+    - if activities.any?
+      - activities.each do |activity|
+        .activity
+          h5 = activity.title
+          span.datetime = l activity.happened_at, format: :long
+          - if activity.summary.present?
+            p = activity.summary
 
-        - if policy(activity).update?
-          p
-            = link_to 'Edit', edit_project_activity_path(@project, activity), class: 'button tiny'
-            | &nbsp;
-            = link_to 'Destroy', [@project, activity], data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'button tiny'
+          - if policy(activity).update?
+            p
+              = link_to 'Edit', edit_project_activity_path(@project, activity), class: 'button tiny'
+              | &nbsp;
+              = link_to 'Destroy', [@project, activity], data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'button tiny'
+    - else
+      p No Activity Yet
