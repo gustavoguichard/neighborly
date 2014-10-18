@@ -1,7 +1,7 @@
 #join-beta-modal.not-authorized-modal.reveal-modal.small.fixed.neighborly-design
   a.close-reveal-modal ×
   header
-    h4 Join the Beta
+    h4 Beta Users only
   p This function is currently limited to our beta users. You can get access sooner by sharing Neighbor.ly with your friends.
   - share_text = "Earn tax-exempt income by investing in your favorite places with @Neighborly. Reserve your spot today at #{root_url(ref: current_user.referral_code)}"
   - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=#{root_url(ref: current_user.referral_code)}"
