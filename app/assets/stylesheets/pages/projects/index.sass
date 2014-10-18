@@ -64,9 +64,11 @@
       font-style: italic
 
     .profile-picture
-      border-radius: 50%
-      margin-right: +emCalc(10px)
-      border: 1px solid #fff
+      margin-bottom: +emCalc(15px)
+      img
+        border-radius: 50%
+        margin-right: +emCalc(10px)
+        border: 1px solid #fff
 
   section.projects
     padding: +emCalc(25px) 0
@@ -219,6 +221,12 @@
             margin: 0
 
 @media #{$small}
-  section.features
-    .list
-      margin-left: -29%
+  .home-page
+    section.features
+      .list
+        margin-left: -29%
+
+    section.testimonial
+      .profile-picture
+        display: inline-block
+        margin-bottom: 0
