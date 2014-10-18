@@ -1691,7 +1691,6 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     admin boolean DEFAULT false,
-    full_name text,
     address_street text,
     address_number text,
     address_complement text,
@@ -3413,4 +3412,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141010020350');
 INSERT INTO schema_migrations (version) VALUES ('20141015002044');
 
 INSERT INTO schema_migrations (version) VALUES ('20141015003808');
+
+INSERT INTO schema_migrations (version) VALUES ('20141017233122');
 
