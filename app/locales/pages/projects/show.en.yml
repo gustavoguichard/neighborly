@@ -11,17 +11,14 @@ en:
       invest: 'Invest'
       edit: 'Edit campaign'
       share:
-        title: 'Get your friends involved'
+        title: 'Share:'
+        twitter-text: "Check out the project %{name} on @Neighborly: %{project_url}"
+        twitter: 'Tweet'
+        facebook: 'Share'
       no-neighbors: "No neighbors yet. Be the first!"
       in_partnership_with: 'In Partnership With'
     video_embed:
       a_project_by_html: "A project by %{link} on"
-    share:
-      twitter-text: "Check out the project %{name} #%{hash_tag} on @Neighborly: %{project_url}"
-      twitter: 'Tweet'
-      facebook: 'Share'
-      email: 'Email'
-      embed: 'Embed'
     tabs:
       summary: 'Summary'
       statement: 'Statement'
