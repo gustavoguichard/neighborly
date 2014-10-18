@@ -3,7 +3,7 @@ var uservoiceSSO = $('meta[name="uservoice_sso"]').attr('content');
 var hasUservoiceKey = [null, ''].indexOf(uservoiceKey) === -1
 var hasUservoiceSSO = [null, ''].indexOf(uservoiceSSO) === -1
 
-if (hasUservoiceKey) {
+if (hasUservoiceKey && !$.browser.mobile) {
   (function(){
     var uv=document.createElement('script');
     uv.type='text/javascript';
