@@ -7,13 +7,22 @@ class ProjectPolicy < ApplicationPolicy
     create?
   end
 
-  def show?
+  def partially_show?
     if record.draft? || record.soon?
       create?
     else
       !!user
     end
   end
+
+  def show?
+    if record.draft? || record.soon?
+      create?
+    else
+      true
+    end
+  end
+
 
   def statement?
     if record.draft? || record.soon?

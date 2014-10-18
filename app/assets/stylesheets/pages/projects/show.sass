@@ -188,6 +188,9 @@
       &:after
         font-size: 130%
 
+  .reveal-modal-bg
+    background: rgba(0, 0, 0, .9)
+
 #embed-panel
   min-width: +emCalc(730px)
   max-width: +emCalc(730px)
@@ -229,3 +232,11 @@
       padding-bottom: +emCalc(15px)
     header.hero .status .pledged
       font-size: 140%
+
+.opened-modal
+  display: block
+  opacity: 1
+  visibility: visible
+  top: 100px
+  .close-reveal-modal
+    display: none

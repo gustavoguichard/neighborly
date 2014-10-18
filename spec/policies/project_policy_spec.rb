@@ -112,7 +112,7 @@ describe ProjectPolicy do
     end
   end
 
-  permissions :show? do
+  permissions :partially_show? do
     context 'when project is in draft' do
       let(:project_state) { 'draft' }
       it_should_behave_like 'create permissions'
@@ -128,6 +128,34 @@ describe ProjectPolicy do
 
       it 'should not permit access if user is nil' do
         should_not permit(nil, Project.new(state: project_state))
+      end
+
+      it 'should permit access if user is not mvp beta acessor' do
+        should permit(User.new, Project.new(state: project_state))
+      end
+
+      it 'should permit access if user is mvp beta acessor' do
+        should permit(build(:user, :beta), Project.new(state: project_state))
+      end
+    end
+  end
+
+  permissions :show? do
+    context 'when project is in draft' do
+      let(:project_state) { 'draft' }
+      it_should_behave_like 'create permissions'
+    end
+
+    context 'when project is in soon' do
+      let(:project_state) { 'soon' }
+      it_should_behave_like 'create permissions'
+    end
+
+    context 'when project is online' do
+      let(:project_state) { 'online' }
+
+      it 'should permit access if user is nil' do
+        should permit(nil, Project.new(state: project_state))
       end
 
       it 'should permit access if user is not mvp beta acessor' do
