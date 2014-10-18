@@ -14,7 +14,7 @@ class UserDecorator < Draper::Decorator
     if source.organization? && source.organization.present?
       source.organization.image.large.url || '/assets/logo-blank.jpg'
     else
-      source.uploaded_image.thumb_avatar.url || source.image_url || "/assets/default-avatars/#{[*1..11].sample}.png"
+      source.uploaded_image.thumb_avatar.url || source.image_url || image_url("default-avatars/#{[*1..11].sample}.png")
     end
   end
 
