@@ -77,3 +77,7 @@
       = render template: 'activities/index'
 
       = render 'projects/author' if browser.mobile?
+
+  - unless policy(@project).partially_show?
+    = render 'shared/sign_up_modal', opened: true
+    .reveal-modal-bg style="display: block;"

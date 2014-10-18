@@ -4,7 +4,7 @@ module PermissionsHelper
   end
 
   def permissions_project_attrs(project = @project)
-    { 'data-hyperlink-permission' => policy(project).show?, 'data-name' => 'Wanted to view issuance' }
+    { 'data-hyperlink-permission' => policy(project).partially_show?, 'data-name' => 'Wanted to view issuance' }
   end
 
   def permissions_new_project_contribution_attrs(project = @project)
