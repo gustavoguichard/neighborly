@@ -38,8 +38,8 @@
 
         .status
           .row.collapse
-            .pledged.large-6.columns = number_to_currency project.goal, precision: 0
-            .time.project.large-6.columns
+            .pledged.small-6.columns = number_to_currency project.goal, precision: 0
+            .time.project.small-6.columns
               i.icon-et-clock
               - if project.soon?
                 = t('.soon')
