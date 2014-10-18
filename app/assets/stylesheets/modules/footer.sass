@@ -1,7 +1,7 @@
 footer
   background: $footer-bg
   color: $footer-color
-  padding: 25px 0
+  padding: 45px 0 25px
 
   a
     color: $footer-color-link
@@ -11,19 +11,18 @@ footer
     font-size: 90%
     font-weight: 400
     margin: 0
+    margin-bottom: +emCalc(10px)
     text-transform: uppercase
-    margin-left: +emCalc(-40px)
 
     [class^="icon-"], [class*=" icon-"]
       color: $footer-icon-color
       font-size: 150%
-      padding-right: +emCalc(10px)
+      margin-right: +emCalc(8px)
       vertical-align: middle
 
-  .disclaimer, .quick-links, .stay-in-touch, .newsletter
-    padding-left: +emCalc(60px)
-
   .disclaimer
+    padding-left: 0
+    padding-right: +emCalc(30px)
     p
       color: darken($footer-color, 20%)
       font-size: 90%
@@ -84,7 +83,11 @@ footer
 
 @media #{$medium}
   footer
-    .disclaimer, .quick-links, .stay-in-touch, .newsletter
+    h6
+      margin-bottom: 0
+      margin-left: +emCalc(-32px)
+
+    .quick-links, .stay-in-touch, .newsletter
       padding-left: +emCalc(45px)
 
     .subfooter
