@@ -70,7 +70,7 @@
               - if contribution.anonymous
                 = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_contribution'), class: 'has-tip', data: { tooltip: '' }
               - else
-                = link_to image_tag(contribution.user.display_image), user_path(contribution.user), title: contribution.user.display_name, class: 'has-tip', data: { tooltip: '' }
+                = link_to image_tag(contribution.user.display_image), '#'
           .more
             = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
 

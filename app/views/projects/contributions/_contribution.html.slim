@@ -6,7 +6,7 @@
           figure.profile-image.personal
             = image_tag 'anonymous-user.png', class: 'avatar', size: '85x85'
         - else
-          = link_to user_path(contribution.user) do
+          = link_to '#' do
             - if contribution.user.organization?
               = contribution.user.display_image_html width: 181, height: 85
             - else
@@ -16,7 +16,7 @@
           - if contribution.anonymous
             = " #{t('.anonymous_contribution')}"
           - else
-            = link_to contribution.user.display_name, user_path(contribution.user)
+            = link_to contribution.user.display_name, '#'
         .infos
           - if !browser.mobile? && current_user && (current_user == @project.user || current_user.admin)
             .custom-tooltip
