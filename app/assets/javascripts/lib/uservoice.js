@@ -1,19 +1,22 @@
-- if current_user
-  .uservoice_sso data-token="#{display_uservoice_sso}"
-javascript:
+var uservoiceKey = $('meta[name="uservoice_key"]').attr('content');
+var uservoiceSSO = $('meta[name="uservoice_sso"]').attr('content');
+var hasUservoiceKey = [null, ''].indexOf(uservoiceKey) === -1
+var hasUservoiceSSO = [null, ''].indexOf(uservoiceSSO) === -1
+
+if (hasUservoiceKey && !$.browser.mobile) {
   (function(){
     var uv=document.createElement('script');
     uv.type='text/javascript';
     uv.async=true;
-    uv.src='//widget.uservoice.com/#{::Configuration[:uservoice_key]}.js';
+    uv.src='//widget.uservoice.com/' + uservoiceKey + '.js';
     var s=document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(uv,s)
   })()
 
   UserVoice = window.UserVoice || [];
 
-  if($('.uservoice_sso').length > 0) {
-    UserVoice.push(['setSSO', $('.uservoice_sso').data('token')]);
+  if(hasUservoiceSSO) {
+    UserVoice.push(['setSSO', uservoiceSSO]);
   }
 
   // Set colors
@@ -35,3 +38,4 @@ javascript:
 
   // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
   UserVoice.push(['autoprompt', {}]);
+}
