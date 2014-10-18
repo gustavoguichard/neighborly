@@ -1,22 +1,25 @@
 - content_for :page_content do
-  table.contributions
-    thead
-      tr
-        td Deal
-        td Investment Amount
-        td Neighbor.ly Fee
-        td Bank Fee
-        td Created At
-        td Status
-    tbody
-      - @contributions.each do |contribution|
+  - if @contributions.any?
+    table.contributions
+      thead
         tr
-          td = link_to contribution.project.name, contribution.project
-          td = number_to_currency contribution.value, precision: 0
-          td = number_to_currency contribution.platform_fee, precision: 0
-          td = number_to_currency Neighborly::Balanced::Bankaccount::Interface.new.fee_calculator(contribution.value, contribution.platform_fee).processor_fee, precision: 0
-          td = l contribution.created_at, format: :long
-          td = contribution.state.humanize
+          td Deal
+          td Investment Amount
+          td Neighbor.ly Fee
+          td Bank Fee
+          td Created At
+          td Status
+      tbody
+        - @contributions.each do |contribution|
+          tr
+            td = link_to contribution.project.name, contribution.project
+            td = number_to_currency contribution.value, precision: 0
+            td = number_to_currency contribution.platform_fee, precision: 0
+            td = number_to_currency Neighborly::Balanced::Bankaccount::Interface.new.fee_calculator(contribution.value, contribution.platform_fee).processor_fee, precision: 0
+            td = l contribution.created_at, format: :long
+            td = contribution.state.humanize
+  - else
+    p You don't have any investments yet.
 
 - if request.xhr?
   = yield :page_content
