@@ -6,6 +6,7 @@
     @media #{$medium}
       padding-top: +emCalc(25px)
       padding-bottom: +emCalc(25px)
+
     .name
       text-align: center
       h3
@@ -33,6 +34,7 @@
 
   .header
     margin-top: +emCalc(30px)
+
     .disclosure
       font-size: 80%
 
@@ -49,28 +51,22 @@
 
   .button
     &.invest
+      margin-top: +emCalc(25px)
       width: 100%
       font-size: 125%
 
     &.edit
       background: $special-highlighted-color
       border-color: darken($special-highlighted-color, $button-border-color-darken)
+
   .call-to-action
     margin-top: +emCalc(15px)
     @media #{$medium}
       margin-top: 0
+
     .button
       font-size: 80%
       width: 100%
-      margin-bottom: +emCalc(10px)
-      &.invest
-        font-size: 125%
-      &.edit
-        background: $special-highlighted-color
-        border-color: darken($special-highlighted-color, $button-border-color-darken)
-    .status-description
-      p
-        margin-bottom: 0
 
   .neighbors-behind-this
     .title
@@ -113,6 +109,7 @@
       right: +emCalc(-15px)
       bottom: +emCalc(20px)
     padding: +emCalc(25px)
+
     &:before
       margin-top: +emCalc(-25px)
       margin-left: +emCalc(25px)
@@ -135,14 +132,18 @@
     p
       color: white
       margin-bottom: +emCalc(5px)
+
     .row
       margin: +emCalc(10px, 0)
+
     figure.profile-image
       margin-top: +emCalc(15px)
+
       &.organization
         max-width: 100%
         img
           height: auto !important
+
     .social
       ul
         margin: 0
@@ -156,37 +157,40 @@
         font-size: 150%
         &:hover
           color: $primary-color
+
     .ask-a-question-button
       margin-top: +emCalc(7px)
       margin-bottom: 0
       font-size: 65%
 
-  .share-small, .share-white
-    .button
-      width: 100%
-      &.embed:after
-        @extend .icon-et-code:before
+  .share
+    font-size: 110%
+    margin-bottom: +emCalc(15px)
+    text-align: center
 
-  .share-white
-    .button
-      background: white
-      color: $primary-color
-      border-bottom-color: darken($border-color, 10%)
-      &:after
-        border-left-color: darken($border-color, 10%)
+    span
+      padding-right: +emCalc(10px)
+      text-transform: uppercase
 
-  .share-small
-    margin-top: +emCalc(10px)
-    .columns
-      padding-right: 0
-    .button
-      padding-left: 0
-      margin-bottom: 0
-      @extend .small
-      font-size: 70%
-      padding-right: +emCalc(37px)
-      &:after
-        font-size: 130%
+    .facebook, .twitter
+      border-radius: $global-radius
+      border: 1px solid $body-font-color
+      color: $body-font-color
+      display: inline-block
+      margin: +emCalc(0, 5px)
+      padding: +emCalc(5px)
+      text-align: center
+      width: +emCalc(30px)
+
+    .facebook:hover
+      background: $facebook-color
+      border-color:  $facebook-color
+      color: #fff
+
+    .twitter:hover
+      background: $twitter-color
+      border-color:  $twitter-color
+      color: #fff
 
   .reveal-modal-bg
     background: rgba(0, 0, 0, .9)
@@ -228,15 +232,18 @@
 
 @media #{$medium}
   .project-page
+    header.hero
+      padding-top: +emCalc(25px)
+      padding-bottom: +emCalc(25px)
+
     .headline
       padding-bottom: +emCalc(15px)
+
     header.hero .status .pledged
       font-size: 140%
 
-.opened-modal
-  display: block
-  opacity: 1
-  visibility: visible
-  top: 100px
-  .close-reveal-modal
-    display: none
+@media #{$small}
+  .project-page
+    .button
+      &.invest
+        margin-top: 0

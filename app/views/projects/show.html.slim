@@ -46,7 +46,6 @@
     section.large-9.medium-8.columns.main
       = render 'projects/draft_warning' if @project.draft?
       = render 'projects/rejected_warning' if @project.rejected?
-      = link_to t('.edit'), edit_project_path(@project), class: 'button edit show-for-small' if policy(@project).update?
       = render 'projects/tabs'
 
       section.content
@@ -58,9 +57,18 @@
       = render 'projects/author' unless browser.mobile?
 
     aside.large-3.medium-4.columns.sidebar
+
+      .share
+        span = t('.share.title')
+        = link_to "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('large')}", class: 'facebook', target: :blank, title: t('.share.facebook') do
+          i.icon-fa-facebook
+
+        = link_to "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: @project.name, hash_tag: @project.hash_tag, project_url: project_url(@project)))}", class: 'twitter', target: :blank, title: t('.share.twitter') do
+          i.icon-fa-twitter
+
       .call-to-action
         - if policy(@project).update?
-          = link_to t('.edit'), edit_project_path(@project), class: 'button edit hide-for-small'
+          = link_to t('.edit'), edit_project_path(@project), class: 'button edit'
 
       - if @project.total_contributions > 0
         section.custom.neighbors-behind-this.hide-for-medium-down
