@@ -24,7 +24,7 @@ describe Notification do
       it 'creates a new notification' do
         expect(Notification).to receive(:create!).with(
           locale:        notification.user.locale,
-          origin_email:  Configuration[:email_contact],
+          origin_email:  Configuration[:email_no_reply],
           origin_name:   Configuration[:company_name],
           template_name: notification.template_name,
           user:          notification.user
