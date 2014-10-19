@@ -1,4 +1,6 @@
 .brokerage-page
+  form, .button
+    margin-bottom: 0
   .order-warning
     border-bottom: 1px solid $border-color
     background: #fff
@@ -6,7 +8,15 @@
     text-align: center
     p
       margin: 0
-  .maturity-option
+  .box
+    background: white
+    border: 1px solid $border-color
+    border-radius: $global-radius
     padding-bottom: +emCalc(75px)
     padding-top: +emCalc(40px)
-    margin-top: +emCalc(25px)
+    margin: +emCalc(25px) auto
+
+  .button
+    width: 100%
+    &.with-icon:after
+      @extend .fa-lock:before

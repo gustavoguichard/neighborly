@@ -22,7 +22,7 @@ en:
       contribution:
         anonymous: 'Make my investment anonymous.'
       brokerage_account:
-        tax_id: 'Tax ID'
+        tax_id: 'SSN or Tax ID'
       contact:
         first_name: 'First Name'
         last_name: 'Last Name'

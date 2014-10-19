@@ -14,7 +14,7 @@
       .large-12.columns.small-centered
         p = t('.warning_html')
   .row
-    .maturity-option.large-6.medium-7.columns.large-centered
+    .box.large-6.medium-7.columns.large-centered
       = simple_form_for @brokerage_account, url: brokerage_account_path, class: 'row' do |f|
         = f.input :name, wrapper_html: { class: 'column large-11 large-centered' }
         = f.input :address, wrapper_html: { class: 'column large-11 large-centered' }
@@ -23,4 +23,5 @@
         = f.input :phone, wrapper_html: { class: 'column large-11 large-centered' }
 
         .column.large-11.large-centered
-          = f.button :submit, t('.submit'), class: 'column large-12'
+          button.button.with-icon type='submit'
+            = t('.submit')
