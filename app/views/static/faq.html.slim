@@ -1,57 +1,49 @@
 = content_for :title, t('.title')
 .faqs-page.static-page
+  header.white
+    .row
+      .large-12.columns
+        h2 = t('.title')
+
   .row
     .large-12.columns
-      .title
-        h2 Frequently Answered Questions
-        h4 
-          | Here's a collection of answers to the questions we receive most frequently. This page is updated often. If you don't see your question, please reach out to us on 
-          a href='http://twitter.com/neighborly' Twitter 
-          | or by 
-          a href='mailto:howdy@neighbor.ly' email
-          |. 
-      .text
-        h3 Questions About Projects
-        dl
-          dt I think my city / neighborhood should use Neighbor.ly to fund XYZ. Can I create a project on Neighbor.ly?
-          dd Awesome! We encourage you to start a project application. However, only governmental entities, neighborhood groups, and certain qualified nonprofits are allowed to fundraise on Neighbor.ly. If you are an individual proposing a project, you will need to team up with your city, neighborhood, or a civic-natured nonprofit in the project area. 
-        dl
-          dt Who can list projects on Neighbor.ly?
-          dd 
-            | Neighbor.ly provides a unique opportunity for local governments, neighborhood organizations, and certain types of nonprofits to obtain funding for community projects. The following types of entity are almost certain to qualify:
-            ul 
-              li Constitutionally chartered municipalities
-              li County and metro-conglomerate government entities
-              li Public / private partnerships
-              li Institutions and other non-profit organizations whose mission caters primarily to civic infrastructure (e.g. bicycle advocacy groups)
-        dl
-          dt Campaign XYZ shows $100,000 raised, but contributions in the sidebar do not add up to this amount. Shenanigans!
-          dd 
-            | Some things to keep in mind about the stated campaign total:
-            ul
-              li When contributing to a project, contributors have the option to receive no "perk" in return. In this case, their contribution adds to the total, but they don't show up in the perks sidebar. 
-              li In some cases, projects have pre-existing contributions that were attained before the Neighbor.ly campaign. Part of Neighbor.ly's mission is to help illustrate the entire financial picture of projects, so external amounts obtained prior to the launch are in some cases included.
-              li The perk levels are based on minimums. For instance, a perk that lists for $10 can be selected whether the contribution contributes $10 or $1,000.
+      .alert-box.secondary
+        | This section is under active development. If you have a specific question please #{link_to 'contact us', contact_path}.
+  .row
+    .medium-3.columns
+      .sidebar.bs-affix
+        strong Other section
+        ul.side-nav
+          li
+            a[href='#link1'] Link 1
+          li
+            a[href='#link2'] Link 2
+          li.divider
+          li
+            a[href='#link3'] Link 3
+          li
+            a[href='#link4'] Link 4
+        strong Other section
+        ul.side-nav
+          li
+            a[href='#link1'] Link 1
+          li
+            a[href='#link2'] Link 2
 
-        h3 Financial Questions
-        dl
-          dt What are the transaction fees?
-          dd 
-            |For contributions made by debit or credit card, the fee equals: <strong>2.9% + 30&cent;</strong>. For instance, a $100 payment will cost $3.20. A $1,000 payment will cost $32.00. 
-            br
-            | For contributions made by bank account (ACH), the fee equals: <strong>1% + 30&cent;</strong>, but the percentage fee is capped at $5. For instance, a $100 payment will cost $1.30. A $1,000 will only cost $5.30.
-        dl
-          dt Who pays the transaction fees?
-          dd Since the purpose of Neighbor.ly is to help local governments raise money for civic improvements, contributors are invited to cover transaction fees. If the contributor opts not to pay the transaction fees, then the fees are deducted from the final amount given to the project.
-        dl
-          dt I changed my mind about which perk I'd like to receive. How do I update my choice?
-          dd Please contact the campaign owner to let them know. There is a contact button at the bottom of the campaign's page.
-        dl
-          dt Does Neighbor.ly retain any of my contribution?
-          dd In order to keep the servers on and to help civic projects get funded, we retain between 1% and 3% of contributions made on the platform. The fee retained depends on whether or not the project is being listed through a Partner.
-        dl
-          dt How do I know the project owner will spend my contribution on the project as described?
-          dd Answering this question was a big part of why we built Neighbor.ly in the first place. Unlike other crowdfunding platforms, which simply facilitate transactions, Neighbor.ly takes a proactive role in the campaigns you see on this site. As a pre-condition of listing projects, we require authorized project owners to guarantee that proceeds will be utilized as indicated in the project's language. This way, contributors can rest assured that proceeds will be used for the project designated on this site. Though we do what we can to ensure your funds are used as described, adhering to the expenditure plan is ultimately the responsibility of the campaign owner. 
-        dl
-          dt Are my contributions tax-deductible?
-          dd Unless explicitly stated in the perk description, contributions cannot be guaranteed as tax-deductible. Please consult your CPA. We will make special note of known tax-deductible perks.
+    .medium-9.columns.text
+      h3 I'm a citizen and think my city should use Neighbor.ly to fund XYZ. Can I create a project on Neighbor.ly?
+      a[name='link1']
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      h3 But I have / know of a civic project in need of funding. What should I do?
+      a[name='link2']
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      h3 So who CAN list projects on Neighbor.ly?
+      a[name='link3']
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      h3 Who pays the bank fees?
+      a[name='link4']
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore mag
