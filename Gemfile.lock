@@ -329,7 +329,7 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pundit (0.2.3)
+    pundit (0.3.0)
       activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -536,7 +536,7 @@ DEPENDENCIES
   pg_search
   pjax_rails
   pry
-  pundit (~> 0.2.3)
+  pundit (~> 0.3.0)
   quiet_assets
   rails (= 4.1.5)
   rails-observers (~> 0.1.2)

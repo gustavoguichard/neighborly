@@ -45,7 +45,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-facebook', '1.5.1'
 gem 'devise', '~> 3.1.2'
 gem 'ezcrypto'
-gem 'pundit', '~> 0.2.3'
+gem 'pundit', '~> 0.3.0'
 
 # Email marketing
 gem 'catarse_monkeymail', '~> 0.1.6'
