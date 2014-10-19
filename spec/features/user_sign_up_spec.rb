@@ -18,7 +18,6 @@ feature 'User sign up' do
       click_on 'Sign Up for early access'
     end
 
-    visit '/'
-    expect(page).to_not have_link('Log in')
+    expect(page).to have_content('open the link to activate your account')
   end
 end
