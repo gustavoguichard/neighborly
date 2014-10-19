@@ -20,7 +20,7 @@ describe Project do
   end
 
   describe "validations" do
-    %w[name user category summary headline goal permalink statement_file_url minimum_investment].each do |field|
+    %w[name user category summary headline goal permalink minimum_investment].each do |field|
       it{ should validate_presence_of field }
     end
     it{ should ensure_length_of(:headline).is_at_most(140) }
