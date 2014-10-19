@@ -65,7 +65,7 @@
                 display: inline-block
                 position: relative
                 top: -3px
-                margin-left: 5px
+                margin-left: +emCalc(5px)
 
             &.user-profile
               text-transform: none
@@ -86,12 +86,12 @@
           background: $primary-color
 
   #user-dropdown
-    background: darken(desaturate($primary-color, 30%), 10%)
+    background: darken($border-color, 50%)
     border-width: 0
     border-radius: $global-radius
     font-size: 120%
     margin-top: +emCalc(8px)
-    min-width: +emCalc(120px)
+    min-width: +emCalc(130px)
     &.f-dropdown:before
       border-bottom-color: $primary-color
     &.f-dropdown:after
@@ -109,10 +109,10 @@
         padding: +emCalc(15px)
         text-transform: none
         i
-          padding-right: +emCalc(5px)
+          padding-right: +emCalc(10px)
       &.divider
         border-top: none
-        border-bottom: 1px solid darken($primary-color, 20%)
+        border-bottom: 1px solid darken($border-color, 40%)
 
 .f-topbar-fixed
   padding-top: 0 !important
