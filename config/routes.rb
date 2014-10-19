@@ -17,7 +17,6 @@ Neighborly::Application.routes.draw do
       sessions:           :sessions
     }
 
-
   devise_scope :user do
     patch '/confirm', to: 'confirmations#confirm'
     post  '/sign_up', to: 'registrations#create', as: :sign_up
@@ -49,11 +48,6 @@ Neighborly::Application.routes.draw do
   get "/privacy",               to: "static#privacy",             as: :privacy
   get "/start",                 to: "projects#start",             as: :start
   get '/about',                 to: 'static#about',               as: :about
-
-  # Only accessible on development
-  if Rails.env.development?
-    get "/base",                to: "static#base",              as: :base
-  end
 
   get "/discover/(:state)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
