@@ -30,4 +30,8 @@ module PermissionsHelper
   def permissions_project_terms_attrs(project = @project)
     { 'data-hyperlink-permission' => policy(project.project_documents.new).index?, 'data-name' => 'Wanted to view terms' }
   end
+
+  def permissions_faq_attrs
+    { 'data-hyperlink-permission' => policy(:static).faq?, 'data-name' => 'Wanted to view F.A.Q/Help' }
+  end
 end
