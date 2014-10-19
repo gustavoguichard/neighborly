@@ -118,8 +118,15 @@
         background: none
         margin-bottom: +emCalc(50px)
 
-        .top-bar-section ul
-          background: none
+        .top-bar-section
+          ul
+            background: none
+
+          li
+            a
+              border-color: $border-color
+              &:last-child
+                border-bottom: 1px solid
 
           .user-action
             background: none
@@ -222,6 +229,10 @@
           a:after
             content: ''
             margin: 0
+
+        .top-bar-section li
+          a
+            border: none !important
 
 @media #{$small}
   .home-page

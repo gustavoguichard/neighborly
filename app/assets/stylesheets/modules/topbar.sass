@@ -5,9 +5,6 @@
     padding-left: +emCalc(25px)
     margin-right: +emCalc(15px)
 
-    @media #{$medium}
-      padding-left: 0
-
     h1
       padding-top: +emCalc(30px)
 
@@ -22,12 +19,9 @@
         padding-left: 0
 
   .top-bar-section
-    .main-menu a:not(.button)
-      @media #{$medium}
-        padding: +emCalc(0, 20px)
-
     li
       a
+        border-top: 1px solid lighten($topbar-bg, 20%)
         text-transform: uppercase
 
       &.user-action
@@ -43,89 +37,115 @@
           margin-top: -2px
           margin-right: 5px
 
-      @media #{$topbar-media-query}
+  #user-dropdown
+    background: darken($border-color, 50%)
+    border-radius: $global-radius
+    border-width: 0
+    font-size: 120%
+    margin-top: +emCalc(8px)
+    min-width: +emCalc(130px)
+
+    &.f-dropdown:before
+      border-bottom-color: $primary-color
+
+    &.f-dropdown:after
+      border-bottom-color: transparent
+
+    li
+      float: none
+
+      &:first-child
+        background: $primary-color
+        border-radius: $global-radius $global-radius 0 0
+
+      &:last-child
+        border-radius: 0 0 $global-radius $global-radius
+
+      &:hover
+        background: $primary-color
+
+      a
+        padding: +emCalc(15px)
+        text-transform: none
+
+        i
+          padding-right: +emCalc(10px)
+
+      &.divider
+        border-bottom: 1px solid darken($border-color, 40%)
+        border-top: none
+
+.f-topbar-fixed
+  padding-top: 0 !important
+
+header.fixed
+  position: relative
+
+.projects-index
+  &.f-topbar-fixed
+    padding-top: 0 !important
+
+  header.fixed
+    position: relative
+
+@media #{$topbar-media-query}
+  .top-bar
+    .top-bar-section
+      li
+        a
+          border: none
+
         &.user-action
-          margin-top: +emCalc(40px)
-          margin-left: +emCalc(10px)
           font-size: 90%
+          margin-left: +emCalc(10px)
+          margin-top: +emCalc(40px)
 
           &.sign-out
             display: none
 
           a
+            background: none
             line-height: normal !important
             padding: 0
-            background: none
 
             &.user-profile, &.sign-in
               color: white
+
               &:hover
                 color: darken(white, 10%)
+
               i
                 display: inline-block
+                margin-left: +emCalc(5px)
                 position: relative
                 top: -3px
-                margin-left: +emCalc(5px)
 
             &.user-profile
               text-transform: none
 
-    @media #{$topbar-media-query}
+      .main-menu a:not(.button)
+        padding: +emCalc(0, 20px)
+
       .sign-up, .sign-in
         margin-left: +emCalc(15px)
 
         a
-          padding: +emCalc(10px)
-          margin-top: +emCalc(35px)
-          line-height: normal
-          border: 1px solid $primary-color
           border-radius: $global-radius
+          border: 1px solid $primary-color
+          line-height: normal
+          margin-top: +emCalc(35px)
+          padding: +emCalc(10px)
 
       .sign-up
         a
           background: $primary-color
 
-  #user-dropdown
-    background: darken($border-color, 50%)
-    border-width: 0
-    border-radius: $global-radius
-    font-size: 120%
-    margin-top: +emCalc(8px)
-    min-width: +emCalc(130px)
-    &.f-dropdown:before
-      border-bottom-color: $primary-color
-    &.f-dropdown:after
-      border-bottom-color: transparent
-    li
-      float: none
-      &:first-child
-        background: $primary-color
-        border-radius: $global-radius $global-radius 0 0
-      &:last-child
-        border-radius: 0 0 $global-radius $global-radius
-      &:hover
-        background: $primary-color
-      a
-        padding: +emCalc(15px)
-        text-transform: none
-        i
-          padding-right: +emCalc(10px)
-      &.divider
-        border-top: none
-        border-bottom: 1px solid darken($border-color, 40%)
+    .name
+      padding-left: 0
 
-.f-topbar-fixed
-  padding-top: 0 !important
-  @media #{$medium}
-    padding-top: $topbar-height !important
 
-header.fixed
-  position: relative
-  @media #{$medium}
+  header.fixed
     position: fixed
 
-.projects-index
-  &.f-topbar-fixed
-    padding-top: 0 !important
-  header.fixed
-    position: relative
+  .f-topbar-fixed
+    padding-top: $topbar-height !important
