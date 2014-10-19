@@ -6,16 +6,5 @@ script:
 before_script:
   - 'sh -e /etc/init.d/xvfb start'
   - './bin/bootstrap'
-deploy:
-  provider: heroku
-  strategy: git
-  api_key:
-    secure: tWSfGLGVFh1VPJxIlHzA+iVM8qjDsqmw+eQx0t3//pNJXCpSatS98Dzr8u/W8JXQlMH4mauKfFEVdIKmOQHLfi/yIFIxgjM4CrHOXgDZ7ZtXpzY5NiwUt7eXiCKdWalLmmkdt4vBL9GYTCuGk47HD9cRL8L6jySGxxgjV5zIYTg=
-  app: neighborly-staging
-  on:
-    repo: neighborly/neighborly
-  run:
-    - rake db:migrate
-    - restart
 notifications:
   webhooks: http://neighborly-ci.herokuapp.com/projects/61a5a79f-941a-4dd3-ae01-ca8ce6f370eb/status
