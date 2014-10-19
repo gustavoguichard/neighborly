@@ -1,7 +1,10 @@
 - contact = @notification.contact
-|A new product demo request has been made by #{contact.first_name} #{contact.last_name}.
+|A new contact has been made by #{contact.first_name} #{contact.last_name}.
 br/
 h3 Informations:
+strong Subject:
+|  #{contact.subject}
+br/
 strong First Name:
 |  #{contact.first_name}
 br/
@@ -15,14 +18,6 @@ br/
   strong Phone:
   |  #{contact.phone}
 br/
-strong Company Name:
-|  #{contact.company_name}
-br/
-- if contact.company_website.present?
-  strong Company Website:
-  |  #{contact.company_website}
-  br/
-
 - if contact.message.present?
   strong Message:
   p #{contact.message}

@@ -5,7 +5,6 @@
     .row
       .large-12.columns.text-center
         h2 = t('.title')
-        h4 = t('.summary')
 
   section.form
     = simple_form_for @contact, url: contacts_path do |f|
@@ -14,18 +13,17 @@
           = f.input :first_name
         .large-6.columns
           = f.input :last_name
-      .row
+
         .large-6.columns
           = f.input :email
         .large-6.columns
           = f.input :phone
-      .row
-        .large-6.columns
-          = f.input :organization_name
-        .large-6.columns
-          = f.input :organization_website
-      .row
+
+        .large-12.columns
+          = f.input :subject
+
         .large-12.columns
           = f.input :message
+
         .large-12.columns
           = f.button :submit
