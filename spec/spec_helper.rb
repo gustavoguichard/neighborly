@@ -1,6 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"]      ||= 'test'
-ENV['EMAIL_PAYMENTS'] ||= 'finan@c.me'
+ENV["RAILS_ENV"]         ||= 'test'
+ENV['DEVISE_SECRET_KEY'] ||= '32c845d68d11'
+ENV['EMAIL_PAYMENTS']    ||= 'finan@c.me'
 
 if ENV['CI']
   require 'coveralls'
