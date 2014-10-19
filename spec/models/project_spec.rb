@@ -131,11 +131,10 @@ describe Project do
   end
 
   describe '.state_names' do
-    let(:states) { [:draft, :soon, :rejected, :online, :successful, :waiting_funds] }
-
-    subject { Project.state_names }
-
-    it { should == states }
+    it 'has all expected states' do
+      states = %i(draft soon rejected online successful waiting_funds)
+      expect(described_class.state_names).to include(*states)
+    end
   end
 
   describe '.locations' do
