@@ -25,13 +25,13 @@
             = l @project.sale_date, format: :long
         p
           strong Minimum Investment: 
-          = number_to_currency @project.minimum_investment
+          = number_to_currency @project.minimum_investment, precision: 0
         p
           strong Issue Size: 
           = number_to_currency @project.goal, precision: 0
         p
           strong Category: 
-          = @project.category.name
+          = link_to @project.category.name, discover_path(category: @project.category.name.downcase), permissions_discover_attrs
 
         p.tags
           - @project.tags.each do |tag|
@@ -40,7 +40,7 @@
         p.disclosure
           | *All informations presented is subject to change.
           br/
-          | See official preliminary statement for more details.
+          | See #{link_to 'Preliminary Official Statement', statement_project_path(@project), permissions_project_statement_attrs} for more details.
 
   .row.page-main-content
     section.large-9.medium-8.columns.main
