@@ -13,6 +13,21 @@
     padding: +emCalc(50px, 0)
     text-align: center
 
+    .section-title, .section-text
+      position: relative
+      min-height: 3em
+      *
+        +vendor-prefix(transition, all .8s cubic-bezier(0.190, 1.000, 0.220, 1.000))
+
+    .section-text
+      min-height: 4em
+
+    .solution-title, .solution-text
+      position: absolute
+      width: 100%
+      opacity: 0
+      top: -5px
+    
     h3
       font-weight: 400
       text-align: center
@@ -60,31 +75,31 @@
           top: -151px
           right: -66px
 
-      &.problem
-        .icon.solution
-          opacity: 0
-        .icon.problem
-          opacity: 1
+    &.problem
+      .icon.solution, .solution-text, .solution-title
+        opacity: 0
+      .icon.problem, .problem-text, .problem-title
+        opacity: 1
 
-      &.solution
-        .icon.problem
-          opacity: 0
-        .icon.solution
-          opacity: 1
+    &.solution
+      .icon.problem, .problem-text, .problem-title
+        opacity: 0
+      .icon.solution, .solution-text, .solution-title
+        opacity: 1
 
-        .icon._1
-          +vendor-prefix(transform, translate(152px, 0))
+      .icon._1
+        +vendor-prefix(transform, translate(152px, 0))
 
-        .icon._2
-          +vendor-prefix(transform, translate(152px, 0))
-          opacity: 0
+      .icon._2
+        +vendor-prefix(transform, translate(152px, 0))
+        opacity: 0
 
-        .icon._3
-          opacity: 0
+      .icon._3
+        opacity: 0
 
-        .icon._4, .icon._5
-          +vendor-prefix(transform, translate(-152px, 0))
-          opacity: 0
+      .icon._4, .icon._5
+        +vendor-prefix(transform, translate(-152px, 0))
+        opacity: 0
 
-        .icon._6, .icon._7
-          opacity: 1
+      .icon._6, .icon._7
+        opacity: 1
