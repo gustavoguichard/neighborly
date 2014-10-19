@@ -16,8 +16,8 @@
           .tooltip-content.hide
             p 
         .small-6.medium-3.columns
-          span.box[data-tooltip class="has-tip" title="#{t('.yield')} #{@project.display_tax_exempt_yield} <br />#{t('.definition')} #{t('.yield_definition')}"]
-            strong Tax Free
+          span.box[data-tooltip class="has-tip" title="#{t('.yield')} #{strip_tags(@project.display_yield)} <br />#{t('.definition')} #{t('.yield_definition')}"]
+            strong = @project.display_yield
             small Return
         .small-6.medium-3.columns
           span.box[data-tooltip class="has-tip" title="#{t('.credit_type')} #{t("project.credit_type.#{@project.credit_type}.name")} <br />#{t('.definition')} #{t(".credit_type_definition_#{@project.credit_type}")}"]

@@ -194,5 +194,23 @@ describe ProjectDecorator do
       expect(project.maturity_period).to be_empty
     end
   end
+
+  describe 'yield' do
+    it 'returns yields of both ends of rewards' do
+      project.rewards << build(:reward, yield: 2.24)
+      project.rewards << build(:reward, yield: 3)
+      expect(project.display_yield).to eql('2.24% - 3%')
+    end
+
+    it 'returns yield of rewards if everything is in the same' do
+      project.rewards << build(:reward, yield: 2.24)
+      project.rewards << build(:reward, yield: 2.24)
+      expect(project.display_yield).to eql('2.24%')
+    end
+
+    it 'returns TBD when does not have rewards' do
+      expect(project.display_yield).to match('TBD')
+    end
+  end
 end
 
