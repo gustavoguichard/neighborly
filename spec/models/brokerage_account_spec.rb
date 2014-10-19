@@ -6,7 +6,7 @@ describe BrokerageAccount do
   end
 
   describe 'validations' do
-    %i(address email name phone tax_id user).each do |attribute|
+    %i(address email name tax_id user).each do |attribute|
       it { should validate_presence_of(attribute) }
     end
   end
