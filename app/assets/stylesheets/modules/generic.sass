@@ -63,10 +63,14 @@ ul, ol
       display: inline
 
 .affix
-  position: fixed
+  position: relative
 
-.affix-bottom
-  position: absolute
+@media #{$small}
+  .affix
+    position: fixed
+
+  .affix-bottom
+    position: absolute
 
 .joyride-content-wrapper
   h5
