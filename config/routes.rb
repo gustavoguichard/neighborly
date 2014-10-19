@@ -77,9 +77,6 @@ Neighborly::Application.routes.draw do
     end
 
     member do
-      get 'embed'
-      get 'video_embed'
-      get 'embed_panel'
       get 'reports'
       get 'statement'
       get 'budget'

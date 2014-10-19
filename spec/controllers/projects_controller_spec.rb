@@ -236,20 +236,6 @@ describe ProjectsController do
     end
   end
 
-  describe "GET embed" do
-    before do
-      get :embed, id: project
-    end
-    it { expect(response).to be_success }
-  end
-
-  describe "GET embed_panel" do
-    before do
-      get :embed_panel, id: project
-    end
-    it { expect(response).to be_success }
-  end
-
   describe "GET show" do
     let(:current_user) { create(:user) }
 
