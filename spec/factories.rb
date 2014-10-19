@@ -184,7 +184,7 @@ FactoryGirl.define do
     first_name 'First'
     last_name 'Last'
     email 'some@email.com'
-    organization_name 'Test'
+    subject 'Test'
   end
 
   factory :image do |f|
