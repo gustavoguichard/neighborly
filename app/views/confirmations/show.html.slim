@@ -10,7 +10,6 @@
 
       .large-11.large-centered.columns
         = simple_form_for(resource, as: resource_name, url: confirm_path) do |f|
-          = devise_error_messages!
           = f.input :confirmation_token, as: :hidden
           - if resource.bonds_early_adopter?
             = f.input :password, required: true, placeholder: false, input_html: { autofocus: true }
