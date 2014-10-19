@@ -48,15 +48,17 @@
       .medium-4.columns
         = image_tag 'bonds.png'
 
-  section.built-by-people
+  section.built-by-people.problem
     .row
       .large-9.columns.large-centered
-        h3 A solution for people, by people
+        .section-title
+          h3.solution-title A solution for people, by people
+          h3.problem-title Too Many Middlemen
 
         - if browser.mobile? || browser.ie?
           = image_tag 'bonds-solution.png', class: 'solution-image'
         - else
-          .wrapper-images.problem
+          .wrapper-images
             .icon.problem.solution.start._1
               = image_tag 'built-by-people/issuing-community.png', size: '112x151'
             .icon.problem._2
@@ -71,9 +73,12 @@
               = image_tag 'built-by-people/neighborly.png', size: '112x151'
             .icon.solution.final-state.end._7
               = image_tag 'built-by-people/individual-investor-happy.png', size: '112x151'
-
-        p
-          | Neighbor.ly cuts out the middlemen, giving you a greater return on your investment when supporting projects you care about.
+        
+        .section-text
+          p.solution-text
+            | Neighbor.ly cuts out the middlemen, giving you a greater return on your investment when supporting projects you care about.
+          p.problem-text
+            | (Waiting for text).
 
   section.features
     .row
