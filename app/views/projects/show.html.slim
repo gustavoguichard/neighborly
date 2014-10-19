@@ -22,7 +22,7 @@
         - if @project.sale_date.present?
           p
             strong Sale Date: 
-            = l @project.sale_date, format: :long
+            = l @project.sale_date
         p
           strong Minimum Investment: 
           = number_to_currency @project.minimum_investment, precision: 0
