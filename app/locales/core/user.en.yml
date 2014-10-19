@@ -9,5 +9,5 @@ en:
               taken: "Email has already been taken. Try logging in instead."
               invalid: "Invalid email"
             password:
-              too_short: "Your password is too short"
+              too_short: "Password must be 6 or more characters"
               confirmation: "Password doesn't match confirmation"
