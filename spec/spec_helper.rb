@@ -89,7 +89,7 @@ RSpec.configure do |config|
 
   [:controller, :feature].each do |spec_type|
     config.before(:each, type: spec_type) do
-      [:render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso].each do |method|
+      [:render_facebook_sdk, :render_facebook_like, :render_twitter].each do |method|
         ApplicationController.any_instance.stub(method)
       end
     end
