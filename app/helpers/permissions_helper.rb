@@ -11,6 +11,10 @@ module PermissionsHelper
     { 'data-hyperlink-permission' => policy(project.contributions.new(user: current_user)).create?, 'data-name' => 'Wanted to invest' }
   end
 
+  def permissions_project_contributions_attrs(project = @project)
+    { 'data-hyperlink-permission' => policy(project.contributions.new).summary?, 'data-name' => 'Wanted to view investors' }
+  end
+
   def permissions_project_statement_attrs(project = @project)
     { 'data-hyperlink-permission' => policy(project).statement?, 'data-name' => 'Wanted to view statement' }
   end

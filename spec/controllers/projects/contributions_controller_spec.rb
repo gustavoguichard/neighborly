@@ -148,6 +148,7 @@ describe Projects::ContributionsController do
               project: project,
               user: create(:user, name: 'Foo Bar'))
     end
+    let(:user) { create(:user, :beta) }
 
     it 'responds with 200 HTTP status' do
       get :index, locale: :pt, project_id: project

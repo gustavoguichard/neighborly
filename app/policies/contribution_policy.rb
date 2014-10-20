@@ -10,6 +10,10 @@ class ContributionPolicy < ApplicationPolicy
     end
   end
 
+  def summary?
+    is_mvp_beta_user?
+  end
+
   def create?
     (is_admin? || is_mvp_beta_user?) && record.project.online?
   end

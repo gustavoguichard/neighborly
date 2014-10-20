@@ -5,7 +5,7 @@ nav.tabs[data-target-container=".project-page section.content"]
     li = tab_link_to t('.maturities'), project_maturities_path(@project), permissions_project_maturities_attrs
 
     - if @project.total_contributions > 0
-      li = tab_link_to project_contributions_path(@project) do
+      li = tab_link_to project_contributions_path(@project), nil, permissions_project_contributions_attrs do
         = t('.contributions')
         span.count=" #{@project.total_contributions}"
 

@@ -84,6 +84,20 @@ describe ContributionPolicy do
 
   permissions(:destroy?) { it_should_behave_like 'change state permissions' }
 
+  permissions :summary? do
+   it 'should not permit access if user is nil' do
+      should_not permit(nil, Contribution.new)
+    end
+
+    it 'should not permit access if user is not mvp beta acessor' do
+      should_not permit(User.new, Contribution.new)
+    end
+
+    it 'should permit access if user is mvp beta acessor' do
+      should permit(build(:user, :beta), Contribution.new)
+    end
+  end
+
   describe 'UserScope' do
     describe '.resolve' do
       let(:current_user) { create(:user, admin: false) }

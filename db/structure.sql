@@ -390,11 +390,10 @@ CREATE TABLE contacts (
     last_name character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
     phone character varying(255),
-    organization_name character varying(255) NOT NULL,
-    organization_website character varying(255),
     message text,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    subject character varying(255)
 );
 
 
@@ -3415,4 +3414,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141015003808');
 INSERT INTO schema_migrations (version) VALUES ('20141017233122');
 
 INSERT INTO schema_migrations (version) VALUES ('20141019175915');
+
+INSERT INTO schema_migrations (version) VALUES ('20141019192913');
 
