@@ -48,22 +48,24 @@ $content-top-transition: -100px
 
   .name
     margin: 0
-    padding: +emCalc(0, 20px, 7px, 20px)
-    margin-top: -10px
+    padding: +emCalc(15px, 20px, 7px, 20px)
     font-size: 90%
     text-transform: uppercase
     font-weight: 500
     max-height: +emCalc(130px)
 
   .rating
+    position: absolute
     text-align: center
-    margin: auto
-    margin-top: +emCalc(-30px)
     padding: +emCalc(10px)
     width: +emCalc(55px)
     height: +emCalc(55px)
     background: #fff
-    +radius(50%)
+    border-radius: 50%
+    margin-left: -22.5px
+    left: 50%
+    top: -30px
+    z-index: -1
 
   .location
     padding: +emCalc(20px)
@@ -140,7 +142,7 @@ body.embed
       .content
         height: 100%
     .cover
-      height: +emCalc(140px)
+      height: +emCalc(150px)
       overflow: hidden
 
 @media #{$medium}
@@ -150,10 +152,10 @@ body.embed
       width: 100%
     &:hover:not(.large)
       .description *
-        +single-transition(all, 1s)
+        +vendor-prefix(transition, all 1s cubic-bezier(0.190, 1.000, 0.220, 1.000))
         opacity: 1
       .content
-        +single-transition(all, 0.4s, ease-out)
+        +vendor-prefix(transition, all .4s ease-out)
         height: +emCalc($content-height - $content-top-transition)
         margin-top: +emCalc($content-top-transition)
     &.large
