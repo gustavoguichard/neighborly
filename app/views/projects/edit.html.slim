@@ -10,6 +10,7 @@
           = form.input :id, disabled: true
           = form.input :user_id, required: true
           = form.input :permalink, as: :string
+          = form.input :external_id, as: :string
 
       .section-header #1. Project Overview
 
@@ -79,7 +80,7 @@
       - if policy(@project).permitted_for?(:rating, :update)
           = form.label :rating
           = form.select :rating, Project.ratings.map { |k, _| [k.humanize, k] }
-          
+
       - if policy(@project).permitted_for?(:rating_agency, :update)
         = form.input :rating_agency
 

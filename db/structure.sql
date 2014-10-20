@@ -127,6 +127,7 @@ CREATE TABLE projects (
     rating_agency character varying(255),
     statement_file_url character varying(255),
     sale_date timestamp without time zone,
+    external_id character varying(255),
     CONSTRAINT projects_about_not_blank CHECK ((length(btrim(summary)) > 0)),
     CONSTRAINT projects_headline_length_within CHECK (((length(headline) >= 1) AND (length(headline) <= 140))),
     CONSTRAINT projects_headline_not_blank CHECK ((length(btrim(headline)) > 0))
@@ -3422,4 +3423,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141018224742');
 INSERT INTO schema_migrations (version) VALUES ('20141019175915');
 
 INSERT INTO schema_migrations (version) VALUES ('20141019192913');
+
+INSERT INTO schema_migrations (version) VALUES ('20141020003550');
 

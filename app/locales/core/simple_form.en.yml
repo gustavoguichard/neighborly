@@ -67,6 +67,7 @@ en:
         street_address: 'Street Address'
         statement_file_url: 'Statement file URL'
         minimum_investment: 'Minimum investment'
+        external_id: 'External ID'
         new:
           category_id: 'Project Category'
     hints:
