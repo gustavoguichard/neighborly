@@ -7,7 +7,7 @@ en:
           site: 'Sign up'
           header: 'Join the Neighborhood'
         links:
-          login: "Log in <i class='icon-et-right-circled'></i>"
+          login: "Log in <i class='fa fa-arrow-circle-o-right'></i>"
         form:
           labels:
             show_password: 'Show password'

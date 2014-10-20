@@ -36,19 +36,19 @@
           - if @user.facebook_url.present?
             li
               = link_to @user.facebook_url, target: 'blank', class: "social-link" do
-                i.icon-et-facebook
+                i.fa.fa-facebook
           - if @user.twitter_url.present?
             li
               = link_to @user.twitter_url, target: 'blank', class: "social-link" do
-                i.icon-et-twitter
+                i.fa.fa-twitter
           - if @user.linkedin_url.present?
             li
               = link_to @user.linkedin_url, target: 'blank', class: "social-link" do
-                i.icon-et-linkedin
+                i.fa.fa-linkedin
           - if @user.other_url.present?
             li
               = link_to @user.other_url, target: 'blank', class: "social-link" do
-                i.icon-et-globe
+                i.fa.fa-globe
 
   section.content.projects
     - if @user.total_contributions > 0

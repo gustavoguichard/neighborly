@@ -21,7 +21,7 @@
           - if !browser.mobile? && current_user && (current_user == @project.user || current_user.admin)
             .custom-tooltip
               = link_to '#' do
-                i.icon-et-info-circled
+                i.fa.fa-info-circle
               .tooltip-content.hide
                 .reward
                   .value = contribution.display_value

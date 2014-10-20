@@ -27,12 +27,12 @@
           h4.name = project.name
 
         .location
-          i.icon-et-location
+          i.fa.fa-map-marker
           | &nbsp;
           = project.location
 
         - if (large || !browser.ie8? && !browser.mobile?)
-          .description.hide-for-small[itemprop='description']
+          .description.hidefor-small[itemprop='description']
             span = truncate(project.headline, length: 140, separator: ' ')
             a
 
@@ -40,7 +40,7 @@
           .row.collapse
             .pledged.small-6.columns = number_to_currency project.goal, precision: 0
             .time.project.small-6.columns
-              i.icon-et-clock
+              i.fa.fa-clock-o
               - if project.soon?
                 = t('.soon')
               - elsif project.expired?

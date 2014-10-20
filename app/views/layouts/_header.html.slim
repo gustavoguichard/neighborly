@@ -22,38 +22,38 @@ header.contain-to-grid.fixed
               = link_to main_app.edit_user_path(current_user), class: 'user-profile', data: { dropdown: 'user-dropdown' } do
                 = image_tag current_user.display_image, size: "25x25", class: 'profile-picture', alt: ''
                 = current_user.first_name
-                i.icon-fa-sort-down
+                i.fa.fa-sort-down
 
               ul#user-dropdown.f-dropdown.hide-for-medium-down[data-dropdown-content]
                 li = link_to current_user.display_name, main_app.user_path(current_user)
                 li = link_to main_app.edit_user_path(current_user)
-                  i.icon-et-user
+                  i.fa.fa-user
                   = t('.my_profile')
 
                 li = link_to main_app.settings_user_path(current_user) do
-                  i.icon-et-cog
+                  i.fa.fa-cog
                   = t('.settings')
 
                 - if current_user.admin?
                   li.divider
                   li = link_to main_app.neighborly_dashboard_path, data: { no_turbolink: true } do
-                    i.icon-et-sweden
+                    i.fa.fa-dashboard
                     = t('.dashboard')
 
                 li.divider
                 li = link_to main_app.user_contributions_path(current_user) do
-                    i.icon-fa-money
+                    i.fa.fa-money
                     = t('.my_contributions')
 
                 - if current_user.projects.any?
                   li = link_to user_projects_path(current_user) do
-                    i.icon-et-list
+                    i.fa.fa-list
                     = t('.my_projects')
 
                 li.divider
                 li
                   = link_to main_app.destroy_user_session_url(base_domain_with_https_url_params), method: :delete do
-                    i.icon-et-cancel-squared
+                    i.fa.fa-sign-out
                     = t('.sign-out')
 
             li.user-action.sign-out = link_to t('.sign-out'), main_app.destroy_user_session_url(base_domain_with_https_url_params)

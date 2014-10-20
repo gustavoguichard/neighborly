@@ -6,14 +6,6 @@ GIT
     as_csv (1.0.2)
 
 GIT
-  remote: git://github.com/josemarluedke/font-icons-rails.git
-  revision: e9e43dd325e4e6fe552b362bb8b42a64775833ea
-  branch: fix-svgz
-  specs:
-    font-icons-rails (0.0.5)
-      sass-rails (>= 3.1.1)
-
-GIT
   remote: git://github.com/josemarluedke/state_machine.git
   revision: 6dde2b81d046ea92de6d066d26a2bcfb0ba6b608
   specs:
@@ -508,7 +500,7 @@ DEPENDENCIES
   fakeweb
   ffaker
   fog (>= 1.20.0)
-  font-icons-rails!
+  font-awesome-sass (~> 4.2.0)
   gctools (~> 0.2.3)
   geocoder
   google-analytics-rails

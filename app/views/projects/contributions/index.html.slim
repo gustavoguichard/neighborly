@@ -1,6 +1,6 @@
 - content_for :page_content do
   = initjs_tag app_name: 'Neighborly', partial: true
-  .contributions-page[data-path=project_contributions_path(@project)]
+  .contributions-page data-path=project_contributions_path(@project)
     .row
       .list
         - if @contributions.any?
@@ -12,7 +12,7 @@
     .text-center
       = link_to '#', class: 'load-more js-load-more' do
         = t('.load_more')
-        i.icon-et-down-circled
+        i.fa.fa-arrow-circle-down
 
 - if request.xhr?
   = yield :page_content

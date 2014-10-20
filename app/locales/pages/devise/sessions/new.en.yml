@@ -7,7 +7,7 @@ en:
           site: 'Log in'
           header: 'Log in'
         links:
-          register: "Go join <i class='icon-et-right-circled'></i>"
+          register: "Go join <i class='fa fa-arrow-circle-o-right'></i>"
           forgot_password: "Did you forget your password?"
           new_user_confirmation: "Didn't receive confirmation instructions?"
         form:

@@ -61,10 +61,10 @@
       .share
         span = t('.share.title')
         = link_to "http://www.facebook.com/sharer.php?s=100&p[title]=#{@project.name}&p[summary]=#{@project.headline}&p[url]=#{project_url(@project)}&p[images[0]=#{@project.display_image('large')}", class: 'facebook', target: :blank, title: t('.share.facebook') do
-          i.icon-fa-facebook
+          i.fa.fa-facebook
 
         = link_to "https://twitter.com/intent/tweet?text=#{URI::encode(t('.share.twitter-text', name: @project.name, hash_tag: @project.hash_tag, project_url: project_url(@project)))}", class: 'twitter', target: :blank, title: t('.share.twitter') do
-          i.icon-fa-twitter
+          i.fa.fa-twitter
 
       .call-to-action
         - if policy(@project).update?

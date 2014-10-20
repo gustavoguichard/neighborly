@@ -15,13 +15,13 @@ section.author
         ul
           - if @project.user.facebook_url.present?
             li = link_to @project.user.facebook_url, target: :blank, class: 'facebook' do
-             i.icon-et-facebook-circled
+             i.fa.fa-facebook-square
           - if @project.user.twitter_url.present?
             li = link_to @project.user.twitter_url, target: :blank, class: 'twitter' do
-             i.icon-et-twitter-circled
+             i.fa.fa-twitter-square
           - if @project.user.other_url.present?
             li = link_to @project.user.other_url, target: :blank, class: 'other' do
-             i.icon-et-globe
+             i.fa.fa-globe
 
       - if current_user.present?
         = link_to t('.ask_a_question'), new_user_question_path(@project.user, project_id: @project.id), data: { 'reveal-id' => 'ask-a-question', 'reveal-ajax' => true }, class: 'button ask-a-question-button'

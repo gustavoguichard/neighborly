@@ -25,7 +25,7 @@
               td= project.total_contributions
               td.text-right
                 = link_to edit_project_path(project), class: 'button tiny' do
-                  i.icon-et-pencil
+                  i.fa.fa-pencil
 
 - if request.xhr?
   = yield :page_content

@@ -9,7 +9,7 @@
     .text-right
       = link_to url_for(show_all_projects: 1), class: 'see-more' do
         = t('words.see_more')
-        i.icon-et-right-circled
+        i.fa.fa-arrow-circle-o-right
 
 - if request.xhr?
   = yield :page_content
@@ -29,7 +29,7 @@
             .search.large-3.small-6.columns
               = text_field_tag :search, nil, value: params[:search], placeholder: 'Search...', class: 'search-input'
               = link_to '#search', class: 'search-button' do
-                i.icon-et-search
+                i.fa.fa-search
 
           .tags.hide-for-small
             strong = t('.tags')

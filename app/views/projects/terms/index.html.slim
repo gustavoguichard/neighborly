@@ -17,11 +17,11 @@
                 = pd.name
               td.actions.large-2.small-2.columns
                 = link_to  pd.document.url, class: 'button secondary small', target: 'blank' do
-                  i.icon-et-download.icon-white
+                  i.fa.fa-download.icon-white
                 | &nbsp;
                 - if policy(@project).update?
                   = link_to project_term_path(@project, pd), method: :delete, class: 'button secondary small', data: { confirm: 'Are you sure?' } do 
-                    i.icon-et-trash.icon-white
+                    i.fa.fa-trash.icon-white
 
 - if request.xhr?
   = yield :page_content

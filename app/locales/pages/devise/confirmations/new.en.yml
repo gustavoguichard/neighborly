@@ -7,7 +7,7 @@ en:
           site: 'Resend confirmation instructions'
           header: 'Resend Instructions'
         links:
-          register: "Sign up <i class='icon-et-right-circled'></i>"
+          register: "Sign up <i class='fa fa-arrow-circle-o-right'></i>"
         form:
           labels:
             email: 'Your email address'
