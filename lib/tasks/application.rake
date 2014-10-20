@@ -13,7 +13,6 @@ end
 
 desc 'Import data from YAML file for new users/projects/rewards'
 task :import_projects, [:file_url] => :environment do |t, args|
-  require 'open-uri'
   file_url  = args.file_url
   file      = open(file_url).read
   raw_data  = Psych.load(file)
