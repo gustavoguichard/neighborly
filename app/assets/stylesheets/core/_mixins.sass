@@ -9,6 +9,13 @@
   #{$selector} &
     @content
 
+= vendor-prefix($name, $argument)
+  -webkit-#{$name}: #{$argument}
+  -ms-#{$name}: #{$argument}
+  -moz-#{$name}: #{$argument}
+  -o-#{$name}: #{$argument}
+  #{$name}: #{$argument}
+
 // Call this mixin to place a decorative content around an element, e.g a tape holding a post it.
 // When using the default configurations, you just need to set the dimensions, position and a background
 = decorative-content($position: after, $absolute: true)
