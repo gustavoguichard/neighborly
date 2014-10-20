@@ -23,12 +23,13 @@ Neighborly.Payment = Backbone.View.extend
         this.$('.payment-method').removeClass('loading-section')
         this.$('.container .loading').removeClass('show')
 
-        $('.order-summary').affix({
-          offset: {
-            top: '-100px'
-            bottom: ->
-              return (this.bottom = $('footer').outerHeight(true) + 40)
-          }
-        })
+        unless jQuery.browser.mobile
+          $('.order-summary').affix({
+            offset: {
+              top: '-100px'
+              bottom: ->
+                return (this.bottom = $('footer').outerHeight(true) + 40)
+            }
+          })
 
-        $('.order-summary').trigger('scroll')
+          $('.order-summary').trigger('scroll')

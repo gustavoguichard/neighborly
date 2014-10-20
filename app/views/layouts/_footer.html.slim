@@ -19,7 +19,7 @@ footer
           li = link_to t('.faq'), main_app.faq_path
           li = link_to t('.legal'), main_app.privacy_path
           li = link_to t('.terms'), main_app.terms_path
-          li = mail_to Configuration[:email_contact], t('.contact')
+          li = link_to t('.contact'), main_app.contact_path
 
       .stay-in-touch
         h6

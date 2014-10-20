@@ -86,7 +86,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming his account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
-  config.allow_unconfirmed_access_for = 3.days
+  config.allow_unconfirmed_access_for = 0.seconds
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -250,17 +250,5 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  if Rails.env.test?
-    config.secret_key = '32c845d68d11'
-  else
-    def find_devise_secret_key
-      ::Configuration[:devise_secret_key] = SecureRandom.hex(64) unless ::Configuration[:devise_secret_key]
-      ::Configuration[:devise_secret_key]
-    rescue
-      # Just to ensure that we can run migrations and create the configurations table
-      SecureRandom.hex(64)
-    end
-
-    config.secret_key = find_devise_secret_key
-  end
+  config.secret_key = Configuration[:devise_secret_key]
 end

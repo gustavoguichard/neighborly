@@ -11,6 +11,7 @@ class Reward < ActiveRecord::Base
   default_scope { order(:happens_at) }
   scope :remaining, -> { where("maximum_contributions IS NULL OR (maximum_contributions IS NOT NULL AND (SELECT COUNT(*) FROM contributions WHERE state IN ('confirmed', 'waiting_confirmation') AND reward_id = rewards.id) < maximum_contributions)") }
   scope :sort_asc, -> { order('id ASC') }
+  scope :by_yield, -> { where.not(yield: nil).order(:yield) }
 
   delegate :display_remaining, :to_s, to: :decorator
 

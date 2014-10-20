@@ -14,7 +14,7 @@ module FlashMessagesHelper
 
     content = message.is_a?(Hash) ? message[:message] : message
 
-    content_tag(:div, class: 'fixed') do
+    content_tag(:div) do
       concat(content_tag(:div,
                          class: html_classes_for_msg(name, persistent),
                          data: { alert: :true }) do

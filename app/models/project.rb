@@ -26,7 +26,7 @@ class Project < ActiveRecord::Base
            :progress_bar,
            :display_address_formated,
            :display_organization_type,
-           :display_tax_exempt_yield,
+           :display_yield,
            :rating_description,
            :maturity_period,
            to: :decorator

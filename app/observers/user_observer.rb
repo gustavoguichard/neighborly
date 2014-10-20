@@ -6,7 +6,7 @@ class UserObserver < ActiveRecord::Observer
   def after_commit(user)
     #calculate_completeness(user)
 
-    if just_created?(user)
+    if just_confirmed_account?(user)
       welcome_user(user)
     end
 
@@ -33,5 +33,9 @@ class UserObserver < ActiveRecord::Observer
 
   def just_created?(user)
     !!user.send(:transaction_record_state, :new_record)
+  end
+
+  def just_confirmed_account?(user)
+    user.confirmed_at_changed?
   end
 end

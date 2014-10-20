@@ -42,6 +42,10 @@ FactoryGirl.define do
         create :brokerage_account, user: instance
       end
     end
+
+    trait :unconfirmed do
+      confirmed_at nil
+    end
   end
 
   factory :user_with_uploaded_image, parent: :user do |f|
@@ -180,7 +184,7 @@ FactoryGirl.define do
     first_name 'First'
     last_name 'Last'
     email 'some@email.com'
-    organization_name 'Test'
+    subject 'Test'
   end
 
   factory :image do |f|

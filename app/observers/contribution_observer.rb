@@ -19,6 +19,7 @@ class ContributionObserver < ActiveRecord::Observer
         { contribution_id: contribution.id },
         contribution_id: contribution.id,
         project_id:      contribution.project_id,
+        origin_email:    Configuration[:email_new_order]
       )
     end
   end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Concerns::SocialHelpersHandler do
   render_views
   before do
-    [:render_facebook_sdk, :render_facebook_like, :render_twitter, :display_uservoice_sso].each do |method|
+    [:render_facebook_sdk, :render_facebook_like, :render_twitter].each do |method|
       ApplicationController.any_instance.unstub(method)
     end
     @controller = ApplicationController.new
@@ -34,16 +34,5 @@ describe Concerns::SocialHelpersHandler do
   describe '#render_facebook_like' do
     let(:options) { { width: 300, href: 'http://test.local' } }
     it { expect(@controller.render_facebook_like(options)).to render_template(partial: 'layouts/_facebook_like') }
-  end
-
-  describe '#display_uservoice_sso' do
-    before do
-      request = ActionDispatch::Request.new('HTTP_HOST' => 'neighborly.local')
-      allow(@controller).to receive(:request).and_return(request)
-      controller.stub(:current_user).and_return(current_user)
-    end
-    let(:current_user) { create(:user) }
-
-    it { expect(@controller.display_uservoice_sso).to_not be_nil }
   end
 end

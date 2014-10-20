@@ -13,8 +13,6 @@ head
   meta name="robots" content="index, follow"
   meta name="viewport" content="width=device-width, initial-scale=1.0"
   meta name='mixpanel_token' content=Configuration[:mixpanel_token]
-  meta name='uservoice_key' content=Configuration[:uservoice_key]
-  meta name='uservoice_sso' content=display_uservoice_sso
 
   -# Stylesheets & Favicon
   = favicon_link_tag 'favicon.ico'
@@ -40,13 +38,13 @@ head
     meta property="og:site_name"    content=::Configuration[:company_name]
     meta property="fb:app_id"       content=::Configuration[:facebook_app_id]
     meta property="og:description"  content=t('site.ograph.description')
-body class="#{ 'projects-index' if controller.controller_name == 'projects' && controller.action_name == 'index' }"
+body.f-topbar-fixed class="#{ 'projects-index' if controller.controller_name == 'projects' && controller.action_name == 'index' }"
   = render 'layouts/analytics'
   = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
   = render 'layouts/loader'
   - unless controller.controller_name == 'projects' && controller.action_name == 'index'
-    = render 'layouts/header', fixed: true
+    = render 'layouts/header'
   = flash_messages
   = yield
   - if !(controller.controller_name == 'projects' && controller.action_name == 'index') && !current_user.present?

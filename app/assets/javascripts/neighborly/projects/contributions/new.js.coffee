@@ -6,7 +6,7 @@ Neighborly.Projects.Contributions.New =
   init: ->(
     initialize: ->
       $('.maturity-option .header').click this.boxClicked
-      $('.order-size-input').on 'keyup', this.orderSizeChanged
+      $('.order-size-input').on 'keyup input', this.orderSizeChanged
 
     boxClicked: (event) ->
       $('.maturity-option').removeClass('selected')

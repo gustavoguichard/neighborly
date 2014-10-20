@@ -80,8 +80,8 @@ class User < ActiveRecord::Base
   end
 
   def to_param
-    return "#{self.id}" unless self.display_name
-    "#{self.id}-#{self.display_name.parameterize}"
+    return "#{self.id}" unless self.name
+    "#{self.id}-#{self.name.parameterize}"
   end
 
   def total_contributions

@@ -1,4 +1,3 @@
-require 'uservoice_sso'
 module Concerns
   module SocialHelpersHandler
     extend ActiveSupport::Concern
@@ -9,8 +8,7 @@ module Concerns
       helper_method :facebook_url_admin,
                     :render_facebook_sdk,
                     :render_facebook_like,
-                    :render_twitter,
-                    :display_uservoice_sso
+                    :render_twitter
     end
 
     def facebook_url_admin
@@ -32,15 +30,5 @@ module Concerns
     def render_facebook_like options={}
       render_to_string(partial: 'layouts/facebook_like', locals: options).html_safe
     end
-
-    def display_uservoice_sso
-      if current_user && ::Configuration[:uservoice_subdomain] && ::Configuration[:uservoice_sso_key]
-        Uservoice::Token.generate({
-          guid: current_user.id, email: current_user.email, display_name: current_user.display_name,
-          url: main_app.user_url(current_user), avatar_url: current_user.display_image
-        })
-      end
-    end
-
   end
 end

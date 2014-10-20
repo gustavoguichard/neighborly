@@ -19,7 +19,7 @@ class Notification < ActiveRecord::Base
   def self.notify(template_name, user, params = {})
     notification_params = {
       locale:        user.locale || I18n.locale,
-      origin_email:  Configuration[:email_contact],
+      origin_email:  Configuration[:email_no_reply],
       origin_name:   Configuration[:company_name],
       template_name: template_name,
       user:          user

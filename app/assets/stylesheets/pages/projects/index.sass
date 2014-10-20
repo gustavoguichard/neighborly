@@ -118,8 +118,15 @@
         background: none
         margin-bottom: +emCalc(50px)
 
-        .top-bar-section ul
-          background: none
+        .top-bar-section
+          ul
+            background: none
+
+          li
+            a
+              border-color: $border-color
+              &:last-child
+                border-bottom: 1px solid
 
           .user-action
             background: none
@@ -143,7 +150,6 @@
 
   section.municipal-securities
     padding: +emCalc(50px, 0)
-    background: image-url('rosette.png') center center no-repeat
 
     h3
       font-weight: 400
@@ -224,6 +230,10 @@
             content: ''
             margin: 0
 
+        .top-bar-section li
+          a
+            border: none !important
+
 @media #{$small}
   .home-page
     section.features
@@ -238,6 +248,9 @@
     header.hero
       .sign-up-section
         margin-top: +emCalc(100px)
+
+    section.municipal-securities
+      background: image-url('rosette.png') center center no-repeat
 
 @media #{$medium}
   .home-page

@@ -2,7 +2,12 @@
   a.close-reveal-modal ×
   header
     h4 Beta Users only
-  p This function is currently limited to our beta users. You can get access sooner by sharing Neighbor.ly with your friends.
+  p
+    | This function is currently limited to our beta users.
+    br
+    | #{link_to 'Check your spot or enter your invite code', user_my_spot_path(current_user)}.
+  p
+    | You can get access sooner by sharing Neighbor.ly with your friends.
   - share_text = "Earn tax-exempt income by investing in your favorite places with @Neighborly. Reserve your spot today at #{root_url(ref: current_user.referral_code)}"
   - facebook_params = "s=100&p[title]=Neighbor.ly&p[summary]=#{URI::encode(share_text)}&p[url]=#{root_url(ref: current_user.referral_code)}"
   = link_to 'Share', "http://www.facebook.com/sharer.php?#{facebook_params}", class: 'button with-icon facebook', target: :blank

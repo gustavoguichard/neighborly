@@ -126,7 +126,6 @@ CREATE TABLE projects (
     rating integer,
     rating_agency character varying(255),
     statement_file_url character varying(255) NOT NULL,
-    tax_exempt_yield numeric DEFAULT 0 NOT NULL,
     sale_date timestamp without time zone,
     CONSTRAINT projects_about_not_blank CHECK ((length(btrim(summary)) > 0)),
     CONSTRAINT projects_headline_length_within CHECK (((length(headline) >= 1) AND (length(headline) <= 140))),
@@ -141,8 +140,8 @@ CREATE TABLE projects (
 CREATE FUNCTION expires_at(projects) RETURNS timestamp with time zone
     LANGUAGE sql
     AS $_$
-                   SELECT ((($1.online_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
-                  $_$;
+               SELECT ((($1.online_date AT TIME ZONE 'America/Chicago' + ($1.online_days || ' days')::interval)::date::text || ' 23:59:59')::timestamp AT TIME ZONE 'America/Chicago')
+              $_$;
 
 
 --
@@ -922,7 +921,7 @@ CREATE VIEW projects_for_home AS
             featureds.rating,
             featureds.rating_agency,
             featureds.statement_file_url,
-            featureds.tax_exempt_yield
+            featureds.sale_date
            FROM projects featureds
           WHERE (featureds.featured AND ((featureds.state)::text = 'online'::text))
          LIMIT 1
@@ -978,7 +977,7 @@ CREATE VIEW projects_for_home AS
             recommends.rating,
             recommends.rating_agency,
             recommends.statement_file_url,
-            recommends.tax_exempt_yield
+            recommends.sale_date
            FROM projects recommends
           WHERE (((recommends.recommended AND ((recommends.state)::text = 'online'::text)) AND recommends.home_page) AND (NOT (recommends.id IN ( SELECT featureds.id
                    FROM featured_projects featureds))))
@@ -1036,7 +1035,7 @@ CREATE VIEW projects_for_home AS
             expiring.rating,
             expiring.rating_agency,
             expiring.statement_file_url,
-            expiring.tax_exempt_yield
+            expiring.sale_date
            FROM projects expiring
           WHERE (((((expiring.state)::text = 'online'::text) AND (expires_at(expiring.*) <= (now() + '14 days'::interval))) AND expiring.home_page) AND (NOT (expiring.id IN ( SELECT recommends.id
                    FROM recommended_projects recommends
@@ -1097,7 +1096,7 @@ CREATE VIEW projects_for_home AS
             soon.rating,
             soon.rating_agency,
             soon.statement_file_url,
-            soon.tax_exempt_yield
+            soon.sale_date
            FROM projects soon
           WHERE ((((soon.state)::text = 'soon'::text) AND soon.home_page) AND (soon.uploaded_image IS NOT NULL))
           ORDER BY random()
@@ -1154,7 +1153,7 @@ CREATE VIEW projects_for_home AS
             successful.rating,
             successful.rating_agency,
             successful.statement_file_url,
-            successful.tax_exempt_yield
+            successful.sale_date
            FROM projects successful
           WHERE (((successful.state)::text = 'successful'::text) AND successful.home_page)
           ORDER BY random()
@@ -1211,7 +1210,7 @@ CREATE VIEW projects_for_home AS
     featured_projects.rating,
     featured_projects.rating_agency,
     featured_projects.statement_file_url,
-    featured_projects.tax_exempt_yield
+    featured_projects.sale_date
    FROM featured_projects
 UNION
  SELECT recommended_projects.origin,
@@ -1265,7 +1264,7 @@ UNION
     recommended_projects.rating,
     recommended_projects.rating_agency,
     recommended_projects.statement_file_url,
-    recommended_projects.tax_exempt_yield
+    recommended_projects.sale_date
    FROM recommended_projects
 UNION
  SELECT expiring_projects.origin,
@@ -1319,7 +1318,7 @@ UNION
     expiring_projects.rating,
     expiring_projects.rating_agency,
     expiring_projects.statement_file_url,
-    expiring_projects.tax_exempt_yield
+    expiring_projects.sale_date
    FROM expiring_projects
 UNION
  SELECT soon_projects.origin,
@@ -1373,7 +1372,7 @@ UNION
     soon_projects.rating,
     soon_projects.rating_agency,
     soon_projects.statement_file_url,
-    soon_projects.tax_exempt_yield
+    soon_projects.sale_date
    FROM soon_projects
 UNION
  SELECT successful_projects.origin,
@@ -1427,7 +1426,7 @@ UNION
     successful_projects.rating,
     successful_projects.rating_agency,
     successful_projects.statement_file_url,
-    successful_projects.tax_exempt_yield
+    successful_projects.sale_date
    FROM successful_projects;
 
 
@@ -3414,4 +3413,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141015002044');
 INSERT INTO schema_migrations (version) VALUES ('20141015003808');
 
 INSERT INTO schema_migrations (version) VALUES ('20141017233122');
+
+INSERT INTO schema_migrations (version) VALUES ('20141019175915');
 

@@ -62,8 +62,16 @@ class ProjectDecorator < Draper::Decorator
     I18n.t("project.organization_type.#{source.organization_type}")
   end
 
-  def display_tax_exempt_yield
-    source.tax_exempt_yield.to_s + '%'
+  def display_yield
+    rewards = source.rewards.by_yield
+    if rewards.first.try(:yield).present?
+      [
+        number_to_percentage(rewards.first.yield, precision: 2, strip_insignificant_zeros: true),
+        number_to_percentage(rewards.last.yield, precision: 2, strip_insignificant_zeros: true),
+      ].uniq.join(' - ')
+    else
+      content_tag :abbr, 'TBD', title: 'To be determined'
+    end
   end
 
   def rating_description

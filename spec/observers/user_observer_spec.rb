@@ -59,7 +59,8 @@ describe UserObserver do
 
     context 'when the user is not with temporary email' do
       it 'sends to worker' do
-        subject = create(:user)
+        subject = create(:user, :unconfirmed)
+        subject.skip_confirmation!
         expect(WelcomeWorker).to receive(:perform_async)
         subject.run_callbacks(:commit)
       end

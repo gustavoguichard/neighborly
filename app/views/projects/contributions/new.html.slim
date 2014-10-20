@@ -35,12 +35,15 @@
             .row.details
               .large-12.columns
                 p Enter the number of bonds you wish to purchase.
-                = form.input :bonds, label: false, input_html: { value: 1, class: 'order-size-input', data: { minimum_investment: @project.minimum_investment } }
-                = form.input :value, as: :hidden, input_html: { value: @project.minimum_investment, class: 'value-input' }
+                .row
+                  .medium-3.small-7.columns.small-centered
+                    = form.input :bonds, label: false, input_html: { value: 1, class: 'order-size-input', data: { minimum_investment: @project.minimum_investment } }
+                    = form.input :value, as: :hidden, input_html: { value: @project.minimum_investment, class: 'value-input' }
 
-                fieldset.purchase-amount
-                  legend Investment Amount:
-                  span.amount = number_to_currency @project.minimum_investment, precision: 0
+                  .medium-8.columns.medium-centered
+                    fieldset.purchase-amount
+                      legend Investment Amount:
+                      span.amount = number_to_currency @project.minimum_investment, precision: 0
 
-                = form.input :anonymous, as: :boolean
-                = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }
+                    = form.input :anonymous, as: :boolean
+                    = form.button :submit, t('.submit'), data: { disable_with: t('words.sending') }

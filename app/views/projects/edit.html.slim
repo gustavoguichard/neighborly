@@ -82,9 +82,6 @@
       - if policy(@project).permitted_for?(:rating_agency, :update)
         = form.input :rating_agency
 
-      - if policy(@project).permitted_for?(:tax_exempt_yield, :update)
-        = form.input :tax_exempt_yield, as: :integer
-
       .section-header #5. Budget & Timeline
 
       - if policy(@project).permitted_for?(:minimum_investment, :update)
