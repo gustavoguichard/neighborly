@@ -70,17 +70,22 @@
         - if policy(@project).update?
           = link_to t('.edit'), edit_project_path(@project), class: 'button edit'
 
-      - if @project.total_contributions > 0
+      - if policy(@project.contributions.new).summary?
+        - unless @project.total_contributions.zero?
+          section.custom.neighbors-behind-this.hide-for-medium-down
+            .title = t('.neighbors_behind_this')
+            .list
+              - for contribution in @project.contributions.available_to_display.includes(:user).order("RANDOM()").limit(15)
+                - if contribution.anonymous
+                  = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_contribution'), class: 'has-tip', data: { tooltip: '' }
+                - else
+                  = link_to image_tag(contribution.user.display_image), '#'
+            .more
+              = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
+      - else
         section.custom.neighbors-behind-this.hide-for-medium-down
           .title = t('.neighbors_behind_this')
-          .list
-            - for contribution in @project.contributions.available_to_display.includes(:user).order("RANDOM()").limit(15)
-              - if contribution.anonymous
-                = link_to image_tag('anonymous-user.png'), '#', title: t('.anonymous_contribution'), class: 'has-tip', data: { tooltip: '' }
-              - else
-                = link_to image_tag(contribution.user.display_image), '#'
-          .more
-            = link_to pluralize(@project.total_contributions, t('words.neighbor_singular'), t('words.neighbor_plural')), project_contributions_path(@project)
+          .list = image_tag 'neighbors.jpg', alt: 'Blurred picture of users', title: 'Beta Users only'
 
       = render template: 'activities/index'
 
